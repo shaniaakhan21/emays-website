@@ -29,6 +29,8 @@ This repository consists of a React UI and its Immediate Backend.
 
 # Dev guide
 - make sure your Node version is >=14
-- fix all ES-Lint issue before commit the code (auto check has been enabled)
+- fix all ES-Lint issue before commit the code (auto check has been enabled with git hooks)
+- implement new unit tests for BFF functions and check unit test issues before commit (auto check will be enabled soon) 
+- integrate Jest Snapshot unit test cases for finalized UI components
 - focus about proper error handling for business logic in frontend and backend
-- follow design patterns
+- follow design patterns at first place
