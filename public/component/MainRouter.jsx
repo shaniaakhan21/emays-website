@@ -4,6 +4,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Container from './Container';
 import ErrorBoundary from './ErrorBoundary';
 
+// Carbon Components
+import { Button } from '@carbon/react';
+
+// SCSS
+import '../scss/main.scss';
+
 class MainRouter extends React.Component {
 
     componentDidMount () {
@@ -17,6 +23,7 @@ class MainRouter extends React.Component {
                 <Router>
                     <div>
                         <header>Header App</header>
+                        <Button>Button</Button>
                     </div>
                     <Switch>
                         <Route path='/' component={() => <Container/>}></Route>
