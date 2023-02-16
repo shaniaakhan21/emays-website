@@ -4,9 +4,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Container from './Container';
 import ErrorBoundary from './ErrorBoundary';
 
-// Carbon Components
-import { Button } from '@carbon/react';
-
 // SCSS
 import '../scss/main.scss';
 import Launcher from './Launcher';

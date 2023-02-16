@@ -24,7 +24,7 @@ This repository consists of a React UI and its Immediate Backend.
 | ----- |:--------------------------------------------|:--------------------------------------------------------------------------------------------------------- |
 | 1     | > yarn install | This command will install the dependencies. |
 | 2     | > yarn dev-build | This command will build the complete module. Once it completed you will find a new folder called app-dist in your folder hierarchy |
-| 3     | > yarn watch | This command will run the build and re-start the server automatically with help of nodemon. |
+| 3     | > yarn watch-ui OR yarn watch-server | These commands will run the build and re-start. |
 | 4     | > yarn dev-start | This command will run the development server. |
 | 5     | run application launcher | Hit localhost:8080/api-dev/devLaunch on the browser. |
 

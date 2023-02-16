@@ -1,2 +1,8 @@
-// @use '@carbon/react';
+@use '@carbon/react';
+@use '@carbon/type';
+@use '@carbon/colors';
 
+@font-face {
+    font-family: 'SkolaSans';
+    src: url('../fonts/SkolaSans400.otf') format("opentype");
+}
