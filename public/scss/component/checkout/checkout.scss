@@ -1,0 +1,53 @@
+.landing-page {
+    background-color: white;
+    padding-top: 40px;
+    font-family: initial;
+
+    p {
+        font-size: 22px;
+        font-family: 'SkolaSans';
+    }
+
+    .logo {
+        img {
+            height: 78px;
+            width: 130px;
+        }
+    }
+
+    .book-appointment {
+        padding-top: 20px;
+
+        .next-date-picker {
+            padding-top: 20px;
+        }
+
+        .date-time-pick {
+            padding-top: 20px;
+            p {
+                font-size: 18px;
+            }
+
+            .items {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+
+                .date {
+                    padding-top: 5px;
+                    p {
+                        font-size: 16px;
+                        color: #525252;
+                    }
+                }
+
+                .time-window {
+                    padding-top: 5px;
+                    p {
+                        font-size: 16px;
+                        color: #525252;
+                    }
+                }
+            }
+        }
+    }
+}
