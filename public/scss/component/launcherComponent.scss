@@ -1,0 +1,57 @@
+
+.launchContainer {
+    display: grid;
+    width: auto;
+    height: fit-content;
+    background-color: #323232;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
+    .grid-itm-logo {
+        grid-column: 1 / 1 span;
+        grid-row: 1 / 2;
+
+        font-size: 30px;
+        color: #FFFFFF;
+        img {
+            margin-top: 9px;
+            margin-left: 9px;   
+        }
+    }
+
+    .grid-itm-text {
+        grid-column: 2 / 2 span ;
+        grid-row: 1 / 2;
+
+        font-family: 'SkolaSans';
+        color: #FFFFFF;
+        font-size: 17px;
+        padding-top: 20px;
+
+        a:link {
+            color: #FFFFFF;
+        }
+        a:hover {
+            color: #FFFFFF;
+        }
+        a:visited {
+            color: #FFFFFF;
+        }
+        a:active {
+            color: #FFFFFF;
+        }
+    }
+
+    .grid-itm-postal-code {
+        grid-column: 1 / 2 span;
+        grid-row: 2 / 3;
+    }
+
+    .grid-itm-button {
+        grid-column: 3 / 1 span;
+        grid-row: 2 / 3;
+    }
+
+    
+
+}   

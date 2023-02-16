@@ -30,12 +30,12 @@ class ErrorBoundary extends React.Component {
 
     catchThrownErrors () {
         window.onunhandledrejection = function (event) {
-            const errorDetails = event.reason;
+            const errorDetails = event?.reason;
             this.setState({
                 hasError: true,
-                errorCode: errorDetails.code, 
-                errorMessage: errorDetails.message,
-                errorDescription: errorDetails.description
+                errorCode: errorDetails?.code, 
+                errorMessage: errorDetails?.message,
+                errorDescription: errorDetails?.description
             });
 
         }.bind(this);
@@ -46,7 +46,7 @@ class ErrorBoundary extends React.Component {
         if (this.state.hasError) {
             return (
                 // TODO: Display nice alert
-                console.error('Error message.', errorDetails)
+                console.error('Error message.', this.state.errorDescription)
             );
         }
         return this.props.children; 
