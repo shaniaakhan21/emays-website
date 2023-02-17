@@ -61,7 +61,7 @@ const Checkout = ({}) => {
                     <div className='items'>
                         <div className='date'>
                             <p>Choose Date</p>
-                            <DatePickerCustom />
+                            <DatePickerCustom customStyle={{ backgroundColor: 'white' }} />
                         </div>
                         <div className='time-window'>
                             <p>Choose Time Window</p>
@@ -94,16 +94,16 @@ const Checkout = ({}) => {
                     </div>
                     <div className='address-info'>
                         <div>
-                            <TextBoxCustom />
+                            <TextBoxCustom customStyle={{ backgroundColor: 'white' }}/>
                         </div>
                         <div>
-                            <TextBoxCustom />
+                            <TextBoxCustom customStyle={{ backgroundColor: 'white' }}/>
                         </div>
                         <div>
-                            <TextBoxCustom />
+                            <TextBoxCustom customStyle={{ backgroundColor: 'white' }}/>
                         </div>
                         <div>
-                            <TextBoxCustom />
+                            <TextBoxCustom customStyle={{ backgroundColor: 'white' }}/>
                         </div>
                     </div>
                 </div>
@@ -113,32 +113,32 @@ const Checkout = ({}) => {
                 </div>
             </Column>
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                <div className='shopping-bag'>
+                <div className='shopping-bag-container'>
                     <div className='header'>
                         <p>SHOPPING BAG</p>
                     </div>
-                </div>
-                <div className='items'>
-                    {
-                        productList.map((item) => <ShoppingItem
-                            itemName={item.name}
-                            image={item.image}
-                            color={item.color}
-                            size={item.size}
-                            quantity={item.quantity}
-                            price={item.price} />)
-                    }
-                </div>
-                <div className='service-fee'>
-                    <div className='text'><p>SERVICE FEE</p></div>
-                    <div className='cost'><p>{serviceFee}</p></div>
-                </div>
-                <div className='instruction'>
-                    <ListBox style={{ fontSize: '15px', fontFamily: 'SkolaSans' }} items = {instruction}/>
-                </div>
-                <div className='book'>
-                    <ButtonCustom text={'BOOK US NOW: € 1,499.00'} action={() => {}} type={'secondary'} 
-                        customStyle={{ minWidth: '100%', marginTop: '25px', marginBottom: '15px', justifyContent: 'center' }} />
+                    <div className='items'>
+                        {
+                            productList.map((item) => <ShoppingItem
+                                itemName={item.name}
+                                image={item.image}
+                                color={item.color}
+                                size={item.size}
+                                quantity={item.quantity}
+                                price={item.price} />)
+                        }
+                    </div>
+                    <div className='service-fee'>
+                        <div className='text'><p>SERVICE FEE</p></div>
+                        <div className='cost'><p>{serviceFee}</p></div>
+                    </div>
+                    <div className='instruction'>
+                        <ListBox style={{ fontSize: '15px', fontFamily: 'SkolaSans' }} items = {instruction}/>
+                    </div>
+                    <div className='book'>
+                        <ButtonCustom text={'BOOK US NOW: € 1,499.00'} action={() => {}} type={'secondary'} 
+                            customStyle={{ minWidth: '100%', marginTop: '25px', marginBottom: '15px', justifyContent: 'center' }} />
+                    </div>
                 </div>
             </Column>
         </Grid>

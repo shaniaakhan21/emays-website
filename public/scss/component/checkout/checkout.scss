@@ -1,3 +1,4 @@
+
 .landing-page {
     background-color: white;
     padding-top: 40px;
@@ -42,6 +43,10 @@
 
                 .time-window {
                     padding-top: 5px;
+                    .cds--dropdown .cds--list-box__field {
+                        background-color: white;
+                        border-bottom: 1px solid #8d8d8d;
+                    }
                     p {
                         font-size: 16px;
                         color: #525252;
@@ -101,40 +106,52 @@
     }
 
     .shopping-bag {
-        max-width: 450px;
-        .header {
-            font-size: 22px;
-            font-family: 'SkolaSans';
+        display: flex;
+        justify-content: right;
+        .shopping-bag-container {
+            max-width: 450px;
             padding-top: 30px;
+            .header {
+                font-size: 22px;
+                font-family: 'SkolaSans';
+            }
+            
+            .items {
+                padding-top: 15px;
+            }
+    
+            .service-fee {
+                display: flex;
+                padding-top: 10px;
+                justify-content: space-between;
+                .text {
+                    p {
+                        font-size: 15px;
+                        font-weight: bold;
+                    }
+                }
+    
+                .cost {
+                    p {
+                        font-size: 15px;
+                        font-weight: bold;
+                    }
+                    padding-left: 305px;
+                }
+            }
+    
+            .instruction {
+             padding-top: 10px;
+             padding-left: 20px;
+            }
         }
         
-        .items {
-            padding-top: 15px;
-        }
+    }
 
-        .service-fee {
-            display: flex;
-            padding-top: 10px;
-            justify-content: space-between;
-            .text {
-                p {
-                    font-size: 15px;
-                    font-weight: bold;
-                }
-            }
+}
 
-            .cost {
-                p {
-                    font-size: 15px;
-                    font-weight: bold;
-                }
-                padding-left: 305px;
-            }
-        }
-
-        .instruction {
-         padding-top: 10px;
-         padding-left: 20px;
-        }
+@media only screen and (max-width: 1056px) {
+    .shopping-bag {
+        justify-content: left !important;
     }
 }
