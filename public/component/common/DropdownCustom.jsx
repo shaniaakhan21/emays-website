@@ -7,7 +7,7 @@ const DropDownCustom = ({ items }) => {
             label='Choose an option'
             items={items}
             itemToString={(item) => (item ? item.text : '')}
-            style={{backGroundColor: 'white'}}
+            style={{ backGroundColor: 'white' }}
             onChange={() => {
 
             }} />
