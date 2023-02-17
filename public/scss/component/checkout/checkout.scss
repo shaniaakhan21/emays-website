@@ -16,7 +16,7 @@
     }
 
     .book-appointment {
-        padding-top: 20px;
+        padding-top: 25px;
 
         .next-date-picker {
             padding-top: 20px;
@@ -48,6 +48,93 @@
                     }
                 }
             }
+        }
+    }
+
+    .customize-experience {
+        .header {
+            font-size: 22px;
+            font-family: 'SkolaSans';
+            padding-top: 30px;
+        }
+
+        .checkbox-wait {
+            padding-top:10px;
+            padding-bottom: 3px;
+            font-family: 'SkolaSans';
+        }
+
+        .checkbox-assist {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            font-family: 'SkolaSans';
+        }
+
+        .checkbox-basic {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            font-family: 'SkolaSans';
+        }
+    }
+
+    .delivery-address {
+        .header {
+            font-size: 22px;
+            font-family: 'SkolaSans';
+            padding-top: 30px;
+        }
+
+        .address {
+            padding-top: 5px;
+            p {
+                font-size: 16px;
+                color: #525252;
+            }
+        }
+
+        .address-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 10px 20px;
+        }
+    }
+
+    .shopping-bag {
+        max-width: 450px;
+        .header {
+            font-size: 22px;
+            font-family: 'SkolaSans';
+            padding-top: 30px;
+        }
+        
+        .items {
+            padding-top: 15px;
+        }
+
+        .service-fee {
+            display: flex;
+            padding-top: 10px;
+            justify-content: space-between;
+            .text {
+                p {
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+            }
+
+            .cost {
+                p {
+                    font-size: 15px;
+                    font-weight: bold;
+                }
+                padding-left: 305px;
+            }
+        }
+
+        .instruction {
+         padding-top: 10px;
+         padding-left: 20px;
         }
     }
 }

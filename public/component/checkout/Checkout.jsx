@@ -1,9 +1,20 @@
+/* eslint-disable max-len */
 import { Grid, Column } from '@carbon/react';
 import Emays from '../../logo/emays-logo-white.png';
 import '../../scss/component/checkout/checkout.scss';
 import ContentSwitcherCustom from '../common/ContentSwitcherCustom';
 import DatePickerCustom from '../common/DatePicker';
 import DropDownCustom from '../common/DropdownCustom';
+import CheckBoxCustom from '../common/CheckBoxCustom';
+import TextBoxCustom from '../common/TextBoxCustom';
+import ButtonCustom from '../common/ButtonCustom';
+import ShoppingItem from '../common/ShoppingItem';
+import ListBox from '../common/ListBox';
+
+// TODO: Remove mock data and map to proper state when data binding
+
+import Blazer from '../../temp/coat.png';
+import Watch from '../../temp/watch.png';
 
 const items = [
     { id: 'option-0', text: 'Option 0' },
@@ -11,9 +22,30 @@ const items = [
     { id: 'option-2', text: 'Option 2' }
 ];
 
+const productList = [{
+    name: 'GANCINI WATCH',
+    color: 'IP yellow Gold',
+    quantity: 1,
+    price: '€ 1,100.00',
+    image: Watch },
+{
+    name: 'BLAZER',
+    size: 40,
+    color: 'Red',
+    quantity: 1,
+    price: '€ 1,100.00',
+    image: Blazer
+}
+];
+
+const instruction = ['This fee help us run our operations, all services included.',
+    'Amount will be blocked on your card until the day of the delivery.', 'Cancellations available before 24h appointment.'];
+
+const serviceFee = '€ 1499.00';
+
 const Checkout = ({}) => {
     return (
-        <Grid className='landing-page' fullWidth>
+        <Grid className='landing-page'>
             <Column lg={16} md={16} sm={16} className='logo'>
                 <img src={Emays} alt='The Emays logo' />
             </Column>
@@ -37,9 +69,77 @@ const Checkout = ({}) => {
                         </div>
                     </div>
                 </div>
+                <div className='customize-experience'>
+                    <div className='header'>
+                        <p>CUSTOMIZE YOUR EXPERIENCE FOR FREE</p>
+                    </div>
+                    <div className='options'>
+                        <div className='checkbox-wait'>
+                            <CheckBoxCustom labelText={'We wait while you try - someWe wait while you try -  Contactless Delivery - We drop the items to your door  and the stylist will wait for your returns outside.'} id = {'op1'} action={() => {}}/>
+                        </div>
+                        <div className='checkbox-assist'>
+                            <CheckBoxCustom labelText={'Assist me -  I would like to be assisted during the whole appointment by the stylist.'} id = {'op2'} action={() => {}}/>
+                        </div>
+                        <div className='checkbox-basic'>
+                            <CheckBoxCustom labelText={'Basic Tailoring - I require Pinning and fitting.'} id = {'op3'} action={() => {}}/>
+                        </div>
+                    </div>
+                </div>
+                <div className='delivery-address'>
+                    <div className='header'>
+                        <p>DELIVERY ADDRESS</p>
+                    </div>
+                    <div className='address'>
+                        <p>Address</p>
+                    </div>
+                    <div className='address-info'>
+                        <div>
+                            <TextBoxCustom />
+                        </div>
+                        <div>
+                            <TextBoxCustom />
+                        </div>
+                        <div>
+                            <TextBoxCustom />
+                        </div>
+                        <div>
+                            <TextBoxCustom />
+                        </div>
+                    </div>
+                </div>
+                <div className='submit-button'>
+                    <ButtonCustom text={'CONTINUE'} action={() => {}} type={'secondary'} 
+                        customStyle={{ minWidth: '100%', marginTop: '25px', marginBottom: '15px', alignContent: 'center', justifyContent: 'center' }} />
+                </div>
             </Column>
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                1
+                <div className='shopping-bag'>
+                    <div className='header'>
+                        <p>SHOPPING BAG</p>
+                    </div>
+                </div>
+                <div className='items'>
+                    {
+                        productList.map((item) => <ShoppingItem
+                            itemName={item.name}
+                            image={item.image}
+                            color={item.color}
+                            size={item.size}
+                            quantity={item.quantity}
+                            price={item.price} />)
+                    }
+                </div>
+                <div className='service-fee'>
+                    <div className='text'><p>SERVICE FEE</p></div>
+                    <div className='cost'><p>{serviceFee}</p></div>
+                </div>
+                <div className='instruction'>
+                    <ListBox style={{ fontSize: '15px', fontFamily: 'SkolaSans' }} items = {instruction}/>
+                </div>
+                <div className='book'>
+                    <ButtonCustom text={'BOOK US NOW: € 1,499.00'} action={() => {}} type={'secondary'} 
+                        customStyle={{ minWidth: '100%', marginTop: '25px', marginBottom: '15px', justifyContent: 'center' }} />
+                </div>
             </Column>
         </Grid>
     );
