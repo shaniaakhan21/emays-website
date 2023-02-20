@@ -1,12 +1,14 @@
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Container from './Container';
-import ErrorBoundary from './ErrorBoundary';
 
 // SCSS
 import '../scss/main.scss';
-import Launcher from './Launcher';
+
+// Components
+import ErrorBoundary from './ErrorBoundary';
+import Checkout from './checkout/Checkout';
+import Confirm from './checkout/Confirm';
 
 class MainRouter extends React.Component {
 
@@ -18,11 +20,12 @@ class MainRouter extends React.Component {
     render () {
         return <main className='main-container' role='main'>
             <ErrorBoundary>
-                <Launcher/>
                 <Router>
                     <Switch>
-                        <Route path='/' component={() => <Container/>}></Route>
+                        <Route path='/confirm' component={() => <Confirm/>}></Route>
+                        <Route path='/' component={() => <Checkout/>}></Route>
                     </Switch>
+
                 </Router>
             </ErrorBoundary>
         </main>;

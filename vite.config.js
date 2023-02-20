@@ -6,6 +6,7 @@ export default defineConfig({
     plugins: [react()],
     root: resolve(__dirname, 'public'),
     build: {
+        chunkSizeWarningLimit: 2000,
         rollupOptions: {
             input: {
                 index: resolve(__dirname, 'public/index.html'),

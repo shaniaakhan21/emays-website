@@ -1,6 +1,6 @@
-import '../scss/component/launcherComponent.scss';
-import Emays from '../logo/emays-logo-black.png';
-import PopoverCustom from './PopoverCustom';
+import '../../scss/component/launcher/launcherComponent.scss';
+import Emays from '../../logo/emays-logo-black.png';
+import PopoverCustom from '../common/PopoverCustom';
 import styled from 'styled-components';
 
 const PopoverText = () => {
