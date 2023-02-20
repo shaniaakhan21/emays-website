@@ -6,9 +6,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import '../scss/main.scss';
 
 // Components
-import Container from './Container';
 import ErrorBoundary from './ErrorBoundary';
 import Checkout from './checkout/Checkout';
+import Confirm from './checkout/Confirm';
 
 class MainRouter extends React.Component {
 
@@ -22,7 +22,7 @@ class MainRouter extends React.Component {
             <ErrorBoundary>
                 <Router>
                     <Switch>
-                        <Route path='/checkout' component={() => <Checkout/>}></Route>
+                        <Route path='/confirm' component={() => <Confirm/>}></Route>
                         <Route path='/' component={() => <Checkout/>}></Route>
                     </Switch>
 

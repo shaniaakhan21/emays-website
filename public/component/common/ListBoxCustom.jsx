@@ -1,7 +1,7 @@
 import ListItem from '@carbon/react/lib/components/ListItem/ListItem';
 import UnorderedList from '@carbon/react/lib/components/UnorderedList/UnorderedList';
 
-const ListBox = ({ items, style }) => {
+const ListBoxCustom = ({ items, style }) => {
     return (
         <UnorderedList>
             {
@@ -11,4 +11,4 @@ const ListBox = ({ items, style }) => {
     );
 };
 
-export default ListBox;
+export default ListBoxCustom;

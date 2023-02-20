@@ -1,0 +1,119 @@
+.landing-page {
+    background-color: white;
+    padding-top: 40px;
+    font-family: initial;
+
+    p {
+        font-family: 'SkolaSans';
+    }
+
+    .your-appointment {
+        padding-top: 25px;
+        .edit-appointment {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .text {
+                p {
+                    font-size: 22px;
+                }
+            }
+
+            .edit-button {
+                display: flex;
+                flex-direction: row;
+                a {
+                    font-weight: bold;
+                    font-size: 12px;
+                    padding-left: 10px;
+                    color: black;
+                }
+
+                a:hover {
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+
+                img {
+                    height: 20x;
+                    width: 20px;
+                }
+            }
+        }
+
+        .user-appointment-info {
+            display: flex;
+            flex-direction: column;
+
+            .date-time {
+                padding-top: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 210px;
+
+                .date, .hour {
+                    p {
+                        font-size: 18px;
+                    }
+
+                    .value {
+                        padding-top: 10px;
+                        p {
+                            font-size: 16px;
+                        }
+                    }
+                }
+
+            }
+
+            .selected-experience, .delivery-address {
+                padding-top: 20px;
+                p {
+                    font-size: 18px;
+                }
+                .value {
+                    padding-top: 10px;
+                    p {
+                        font-size: 16px;
+                    }
+                }
+            }
+
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .text {
+                padding-top: 40px;
+                p {
+                    font-size: 22px;
+                }
+            }
+
+            .info-text {
+                padding-top: 10px;
+                p {
+                    font-size: 16px;
+                }
+            }
+
+            .user-contact-name, .user-contact-email-number {
+                padding-top: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                p {
+                    font-size: 16px;
+                    color: #525252;
+                }
+
+            }
+
+        }
+        
+    }
+}

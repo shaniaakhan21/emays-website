@@ -1,15 +1,21 @@
 /* eslint-disable max-len */
 import { Grid, Column } from '@carbon/react';
-import Emays from '../../logo/emays-logo-white.png';
-import '../../scss/component/checkout/checkout.scss';
+import { useHistory } from 'react-router-dom';
+
+// Components
 import ContentSwitcherCustom from '../common/ContentSwitcherCustom';
-import DatePickerCustom from '../common/DatePicker';
+import DatePickerCustom from '../common/DatePickerCustom';
 import DropDownCustom from '../common/DropdownCustom';
 import CheckBoxCustom from '../common/CheckBoxCustom';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ButtonCustom from '../common/ButtonCustom';
-import ShoppingItem from '../common/ShoppingItem';
-import ListBox from '../common/ListBox';
+import ShoppingBag from './ShoppingBag';
+
+// SCSS
+import '../../scss/component/checkout/checkout.scss';
+
+// Images
+import Emays from '../../logo/emays-logo-white.png';
 
 // TODO: Remove mock data and map to proper state when data binding
 
@@ -38,12 +44,10 @@ const productList = [{
 }
 ];
 
-const instruction = ['This fee help us run our operations, all services included.',
-    'Amount will be blocked on your card until the day of the delivery.', 'Cancellations available before 24h appointment.'];
-
-const serviceFee = '€ 1499.00';
-
 const Checkout = ({}) => {
+
+    const history = useHistory();
+
     return (
         <Grid className='landing-page'>
             <Column lg={16} md={16} sm={16} className='logo'>
@@ -108,38 +112,12 @@ const Checkout = ({}) => {
                     </div>
                 </div>
                 <div className='submit-button'>
-                    <ButtonCustom text={'CONTINUE'} action={() => {}} type={'secondary'} 
+                    <ButtonCustom text={'CONTINUE'} action={() => { history.push('/confirm'); }} type={'secondary'} 
                         customStyle={{ minWidth: '100%', marginTop: '25px', marginBottom: '15px', alignContent: 'center', justifyContent: 'center' }} />
                 </div>
             </Column>
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                <div className='shopping-bag-container'>
-                    <div className='header'>
-                        <p>SHOPPING BAG</p>
-                    </div>
-                    <div className='items'>
-                        {
-                            productList.map((item) => <ShoppingItem
-                                itemName={item.name}
-                                image={item.image}
-                                color={item.color}
-                                size={item.size}
-                                quantity={item.quantity}
-                                price={item.price} />)
-                        }
-                    </div>
-                    <div className='service-fee'>
-                        <div className='text'><p>SERVICE FEE</p></div>
-                        <div className='cost'><p>{serviceFee}</p></div>
-                    </div>
-                    <div className='instruction'>
-                        <ListBox style={{ fontSize: '15px', fontFamily: 'SkolaSans' }} items = {instruction}/>
-                    </div>
-                    <div className='book'>
-                        <ButtonCustom text={'BOOK US NOW: € 1,499.00'} action={() => {}} type={'secondary'} 
-                            customStyle={{ minWidth: '100%', marginTop: '25px', marginBottom: '15px', justifyContent: 'center' }} />
-                    </div>
-                </div>
+                <ShoppingBag productList={productList}/>
             </Column>
         </Grid>
     );
