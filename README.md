@@ -35,3 +35,6 @@ This repository consists of a React UI and its Immediate Backend.
 - integrate Jest Snapshot unit test cases for finalized UI components
 - focus about proper error handling for business logic in frontend and backend
 - follow design patterns at first place
+
+# Architecture
+
