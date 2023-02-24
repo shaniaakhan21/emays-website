@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import { Grid, Column } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 // Components
 import ContentSwitcherCustom from '../common/ContentSwitcherCustom';
@@ -16,11 +17,13 @@ import '../../scss/component/checkout/checkout.scss';
 
 // Images
 import Emays from '../../logo/emays-logo-white.png';
-
-// TODO: Remove mock data and map to proper state when data binding
-
 import Blazer from '../../temp/coat.png';
 import Watch from '../../temp/watch.png';
+
+// Util
+import { getProductList } from '../../js/util/SessionStorageUtil';
+
+// TODO: Remove mock data and map to proper state when data binding
 
 const items = [
     { id: 'option-0', text: 'Option 0' },
@@ -45,6 +48,13 @@ const productList = [{
 ];
 
 const Checkout = ({}) => {
+
+    const [productData, setProductData] = useState([]);
+
+    useEffect(() => {
+        const productData = getProductList();
+        setProductData(productData);
+    }, []);
 
     const history = useHistory();
 
@@ -117,7 +127,7 @@ const Checkout = ({}) => {
                 </div>
             </Column>
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                <ShoppingBag productList={productList}/>
+                <ShoppingBag productList={productData}/>
             </Column>
         </Grid>
     );
