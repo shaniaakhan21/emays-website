@@ -11,6 +11,7 @@ import { config } from './app/config/config';
 // Routes
 import healthRoute from './app/route/healthRoute';
 import launchRoute from './app/route/launchRoute';
+import orderRoute from './app/route/orderRoute';
 import { buildErrorResponseAndSend } from './app/middleware/errorResponseBuilderMiddleware';
 import { AppConfigKey } from './app/const/appConfigKey';
 import Logger from './app/logger';
@@ -29,13 +30,14 @@ app.engine(AppConfigKey.HTML, require('ejs').renderFile);
 // Define Routes
 app.use(config.ROUTE_PATH, healthRoute);
 app.use(config.ROUTE_PATH, launchRoute);
+app.use(config.ROUTE_PATH, orderRoute);
 
 /*
  * Error handling middleware
  */
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
     // Get sessionID that has been passed with request headers
-    Logger.error(`Application error builder is being called with the error : ${err.stack as string}.`);
+    Logger.error(`Application error builder is being called with the error : ${err.message}.`);
     buildErrorResponseAndSend(err, res);
 });
 
