@@ -33,21 +33,31 @@ router.get(RoutePath.DEV_LAUNCH, (req: express.Request, res: express.Response): 
 router.post(RoutePath.LAUNCH, authorizeLaunchRoute, (req: express.Request,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
+        // TODO make it an array when we integrate this with shopping cart
         const requestBody: LaunchRequestBody = req.body as LaunchRequestBody;
-        Logger.info(`Requesting UI for the user ${requestBody.userFirstName}.`);
-        const launchTemplateData: LaunchUIContext = {
-            userAddress: requestBody.userAddress,
-            userFirstName: requestBody.userFirstName,
+        // TODO: Think  about a way to map the user from shopping cart to our site
+
+        // TODO: For the moment, I manually create an array. Later we remove this.
+        Logger.info('Requesting UI for a user.');
+        const launchTemplateData: Array<LaunchUIContext> = [{
+            productName: requestBody.productName,
+            productColor: requestBody.productColor,
+            productSize: requestBody.productSize,
             productQuantity: requestBody.productQuantity,
-            productName: requestBody.productName
-        };
+            productCost: requestBody.productCost,
+            productImage: requestBody.productImage,
+            productDeliveryInformation: requestBody.productDeliveryInformation
+        }];
         const applicationPath: string = await buildAppLaunchPath(config.UI_APP_ENTRY_POINT);
-        return res.render(applicationPath, launchTemplateData);
+        const stringify = JSON.stringify(launchTemplateData);
+        const cleaned = stringify.replace(/\\/g, '');
+
+        const productData = { 'productList': cleaned };
+        return res.render(applicationPath, productData);
 
     })().catch((error) => {
         const errorObject: Error = error as Error;
-        const requestBody: LaunchRequestBody = req.body as LaunchRequestBody;
-        Logger.error(`Failed to launch the UI for the User ${requestBody.userFirstName}.
+        Logger.error(`Failed to launch the UI for the order item.
         Error stack: ${errorObject.stack as string}.`);
         next(error);
         /*

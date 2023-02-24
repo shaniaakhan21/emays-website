@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import { useEffect, useState } from 'react';
 import { Grid, Column } from '@carbon/react';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
@@ -13,6 +14,10 @@ import EditIcon from '../../icons/edit.svg';
 import Blazer from '../../temp/coat.png';
 import Watch from '../../temp/watch.png';
 
+// Util
+import { getProductList } from '../../js/util/SessionStorageUtil';
+
+// TODO: get these items from the session storage. These items should be written to the SS by prev component.
 const productList = [{
     name: 'GANCINI WATCH',
     color: 'IP yellow Gold',
@@ -29,7 +34,14 @@ const productList = [{
 }
 ];
 
-const Confirm = ({ date, hour, selectedExperience, deliveryAddress }) => {
+const Confirm = () => {
+
+    const [productData, setProductData] = useState([]);
+
+    useEffect(() => {
+        const productData = getProductList();
+        setProductData(productData);
+    }, []);
 
     return (
         <Grid className='landing-page'>
@@ -112,7 +124,7 @@ const Confirm = ({ date, hour, selectedExperience, deliveryAddress }) => {
                 </div>
             </Column>
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                <ShoppingBag productList={productList}/>
+                <ShoppingBag productList={productData}/>
             </Column>
         </Grid>
     );

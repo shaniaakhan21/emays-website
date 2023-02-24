@@ -6,12 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="./js/index.jsx" type="module"></script>
+    <script src="./index.jsx" type="module"></script>
     <script>
-        const productName = "<%= productName %>";
-        if (productName) {
-            sessionStorage.setItem('productName', productName);
-        }
+
+        // Store in the session storage
+        const result = "<%= productList %>";
+        sessionStorage.setItem('productList', result);
+
+        // Consume product list
+        const jsonData = sessionStorage.getItem('productList');
+        const removed = result.replace(/&#34;/g, '"');
+        const json = JSON.parse(removed);
+
     </script>
     <title>Emays UI App</title>
 </head>
