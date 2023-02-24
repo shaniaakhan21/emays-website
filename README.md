@@ -38,3 +38,4 @@ This repository consists of a React UI and its Immediate Backend.
 
 # Architecture
 
+![plot](./architecture/Design%202.png)
