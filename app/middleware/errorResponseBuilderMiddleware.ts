@@ -1,7 +1,9 @@
 'use strict';
 
 import * as express from 'express';
-import { ErrorInfo } from '../const/error';
+import { HTTPServerError } from '../const/httpCode';
+import OrderError from '../error/OrderError';
+import ErrorType from '../error/type/errorType';
 import Logger from '../logger';
 
 /**
@@ -10,13 +12,18 @@ import Logger from '../logger';
  * @param res express.Response
  * @returns res express.Response
  */
-export const buildErrorResponseAndSend = (err: Error, res: express.Response) => {
-    switch (err.name) {
-        case ErrorInfo.APP_ERROR:
-            Logger.error('Application general error observed.');
+export const buildErrorResponseAndSend = (error: Error, res: express.Response) => {
+    const errorTransformed = error as OrderError;
+    const errorData = {
+        error: error.message
+    };
+    switch (error.name) {
+        case ErrorType.ORDER_INVALID_REQUEST:
+            return res.status(errorTransformed.code).json(errorData);
             // TODO; send the error with res.send
         default:
-            Logger.error('Application error observed.');
-            // TODO; send the error with res.send
+            Logger.error(`Application error observed. Error Stack: ${errorTransformed.stack}`);
+            return res.status(HTTPServerError.INTERNAL_SERVER_ERROR_CODE).
+                json(HTTPServerError.INTERNAL_SERVER_ERROR_MESSAGE);
     }
 };
