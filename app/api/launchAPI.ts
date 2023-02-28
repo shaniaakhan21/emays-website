@@ -4,6 +4,10 @@ import * as path from 'path';
 import * as express from 'express';
 import { config } from '../config/config';
 import Logger from '../logger';
+import { v4 as uuidv4 } from 'uuid';
+import { Roles } from '../const/roles';
+import { IJWTBuildData } from '../type/IJWTClaims';
+import { generateJWT } from '../util/jwtUtil';
 
 /**
  * Build the UI entry point path
@@ -43,6 +47,32 @@ export const authorizeLaunchRoute = (req: express.Request, res: express.Response
     } catch (error) {
         const errorObject: Error = error as Error;
         Logger.error(`Authorization failed.
+        Error stack: ${errorObject.stack as string}.`);
+        throw error;
+    }
+};
+
+/**
+ * Generate JQT for session 
+ * @param req: express.Request
+ * @param res: express.Response
+ * @param next: express.NextFunction
+ * @returns token: string
+ */
+export const getJWTForSession = (): string => {
+    try {
+        Logger.info('JWT is being built.');
+        const uuid: string = uuidv4();
+        const role: Roles = Roles.CLIENT;
+        const tokenBuildData: IJWTBuildData = {
+            id: uuid,
+            roles: role
+        };
+        const token: string = generateJWT(tokenBuildData);
+        return token;
+    } catch (error) {
+        const errorObject: Error = error as Error;
+        Logger.error(`JWT token build failure.
         Error stack: ${errorObject.stack as string}.`);
         throw error;
     }

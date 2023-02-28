@@ -1,6 +1,6 @@
 'use strict';
 
-import { PRODUCT_LIST } from '../const/SessionStorageConst';
+import { AUTH_TOKEN, PRODUCT_LIST } from '../const/SessionStorageConst';
 
 export const getProductList = () => {
     const itemsAsString = sessionStorage.getItem(PRODUCT_LIST);
@@ -11,5 +11,9 @@ export const getProductList = () => {
 
 export const setProductList = (list) => {
     return sessionStorage.setItem(PRODUCT_LIST, list);
+};
+
+export const getAuthToken = () => {
+    return sessionStorage.getItem(AUTH_TOKEN);
 };
 

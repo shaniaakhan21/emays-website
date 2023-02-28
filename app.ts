@@ -15,6 +15,7 @@ import orderRoute from './app/route/orderRoute';
 import { buildErrorResponseAndSend } from './app/middleware/errorResponseBuilderMiddleware';
 import { AppConfigKey } from './app/const/appConfigKey';
 import Logger from './app/logger';
+import validateJWT from './app/middleware/jwtTokenValidationMiddleware';
 
 // Parses incoming requests with JSON payloads (body-parser)
 app.use(express.json());
@@ -26,6 +27,11 @@ app.use(config.STATIC_FILES_LOCATION, express.static(__dirname + config.UI_VERSI
 // Set Template Engine
 app.set(AppConfigKey.VIEWS, config.STATIC_FILES_LOCATION);
 app.engine(AppConfigKey.HTML, require('ejs').renderFile);
+
+// Auth token validation
+app.use((req, res, next) => {
+    validateJWT(req, res, next);
+});
 
 // Define Routes
 app.use(config.ROUTE_PATH, healthRoute);

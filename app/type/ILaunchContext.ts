@@ -23,3 +23,8 @@ export interface LaunchUIContext {
     productImage: string,
     productDeliveryInformation: string
 }
+
+export interface DataToRender {
+    'productList': string,
+    token: string
+}

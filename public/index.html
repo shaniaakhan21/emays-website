@@ -18,6 +18,10 @@
         const removed = result.replace(/&#34;/g, '"');
         const json = JSON.parse(removed);
 
+        // Store session token
+        const token = "<%= token %>";
+        sessionStorage.setItem('authToken', token);
+
     </script>
     <title>Emays UI App</title>
 </head>
