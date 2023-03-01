@@ -18,7 +18,7 @@ export const generateJWT: GenerateTokenFunc = (claimData) => {
         const role = claimData.roles as Roles;
         const claims: IJWTClaims = {
             time: new Date(),
-            exp: (Math.floor(Date.now() / 1000) + (60 + 60)) * +config.JSON_WEB_TOKEN_EXP_HOURS,
+            exp: (Math.floor(Date.now() / 1000) + (60 * 60 * +config.JSON_WEB_TOKEN_EXP_HOURS)),
             roles: [role],
             id: claimData.id
         };

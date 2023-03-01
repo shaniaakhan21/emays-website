@@ -69,6 +69,7 @@ export const getJWTForSession = (): string => {
             roles: role
         };
         const token: string = generateJWT(tokenBuildData);
+        Logger.info(`Token: ${token} was built for the user ${uuid}`);
         return token;
     } catch (error) {
         const errorObject: Error = error as Error;

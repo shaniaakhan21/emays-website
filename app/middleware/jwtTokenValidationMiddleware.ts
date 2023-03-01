@@ -12,9 +12,11 @@ import OrderError from '../error/OrderError';
 import { IJWTClaims } from '../type/IJWTClaims';
 
 const validateJWT = (req: Request, res: Response, next: NextFunction) => {
+    // TODO: add service-worker implementation to add the token with the UI files requests.
     if (req.path !== `${config.ROUTE_PATH}${RoutePath.HEALTH}` &&
-        (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) && (req.method !== 'POST') && 
-        (req.path !== `${config.ROUTE_PATH}${RoutePath.LAUNCH}`)) {
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&  
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.LAUNCH}`) && !req.path.includes('app-dist') && 
+        req.path !== '/favicon.ico') {
         const authHeader = req?.headers?.authorization as string;
         const [authType, authToken] = authHeader ? authHeader?.split(' ') : [null, null];
         if (authType && authType === 'Bearer' && authToken) {
@@ -29,8 +31,7 @@ const validateJWT = (req: Request, res: Response, next: NextFunction) => {
                 const claims = decode as IJWTClaims;
                 const userId = claims.id;
                 // Add claims to the request object
-                
-                Logger.info(`Auth validation succeed ${userId}.`);
+                Logger.info(`Auth validation succeed for the use ${userId}.`);
             });
         } else {
             throw new OrderError(ErrorType.
