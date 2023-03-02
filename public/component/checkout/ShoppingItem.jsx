@@ -61,19 +61,19 @@ const ShoppingItem = ({
                 </div>
                 <div className='size'>
                     { 
-                        size && <p>{`Size: ${size}`}</p>
+                        size && <p>{`${t('shopping-bag-container.item.size')}: ${size}`}</p>
                     }
                 </div>
                 <div className='color'>
                     { 
-                        color && <p>{`Color: ${color}`}</p>
+                        color && <p>{`${t('shopping-bag-container.item.color')}: ${color}`}</p>
                     }   
                 </div>
                 <div className='quantity'>
                     { 
                         quantity && price && 
                         <div>
-                            <p>{`Quantity: ${quantity}`}</p>
+                            <p>{`${t('shopping-bag-container.item.quantity')}: ${quantity}`}</p>
                         </div>
                     }
                     {

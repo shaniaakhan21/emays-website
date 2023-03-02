@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { Grid, Column } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -92,22 +91,34 @@ const Checkout = ({}) => {
                     </div>
                     <div className='options'>
                         <div className='checkbox-wait'>
-                            <CheckBoxCustom labelText={'We wait while you try - someWe wait while you try -  Contactless Delivery - We drop the items to your door  and the stylist will wait for your returns outside.'} id = {'op1'} action={() => {}}/>
+                            <CheckBoxCustom
+                                labelText={t('checkout.customize-experience.checkbox-wait-label')}
+                                id={'op1'}
+                                action={() => {}}
+                            />
                         </div>
                         <div className='checkbox-assist'>
-                            <CheckBoxCustom labelText={'Assist me -  I would like to be assisted during the whole appointment by the stylist.'} id = {'op2'} action={() => {}}/>
+                            <CheckBoxCustom
+                                labelText={t('checkout.customize-experience.checkbox-assist-label')}
+                                id={'op2'}
+                                action={() => {}}
+                            />
                         </div>
                         <div className='checkbox-basic'>
-                            <CheckBoxCustom labelText={'Basic Tailoring - I require Pinning and fitting.'} id = {'op3'} action={() => {}}/>
+                            <CheckBoxCustom
+                                labelText={t('checkout.customize-experience.checkbox-basic-label')}
+                                id={'op3'}
+                                action={() => {}}
+                            />
                         </div>
                     </div>
                 </div>
                 <div className='delivery-address'>
                     <div className='header'>
-                        <p>DELIVERY ADDRESS</p>
+                        <p>{t('checkout.delivery-address.header')}</p>
                     </div>
                     <div className='address'>
-                        <p>Address</p>
+                        <p>{t('checkout.delivery-address.address')}</p>
                     </div>
                     <div className='address-info'>
                         <div>
@@ -125,8 +136,18 @@ const Checkout = ({}) => {
                     </div>
                 </div>
                 <div className='submit-button'>
-                    <ButtonCustom text={'CONTINUE'} action={() => { history.push('/confirm'); }} type={'secondary'} 
-                        customStyle={{ minWidth: '100%', marginTop: '25px', marginBottom: '15px', alignContent: 'center', justifyContent: 'center' }} />
+                    <ButtonCustom
+                        text={t('checkout.submit-button')}
+                        action={() => { history.push('/confirm'); }}
+                        type={'secondary'}
+                        customStyle={{
+                            minWidth: '100%',
+                            marginTop: '25px',
+                            marginBottom: '15px',
+                            alignContent: 'center',
+                            justifyContent: 'center'
+                        }}
+                    />
                 </div>
             </Column>
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
@@ -134,7 +155,7 @@ const Checkout = ({}) => {
             </Column>
         </Grid>
     );
-      
+
 };
 
 export default Checkout;
