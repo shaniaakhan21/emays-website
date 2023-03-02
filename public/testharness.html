@@ -4,10 +4,11 @@
 <body>
 
     <h2>Emays UI Launch Simulation</h2>
-    <label for="simulaation type">Select Simulation Type</label>
+    <label for="launchType">Select Simulation Type</label>
     <select name="launchType" id="launchType">
         <option value="none" selected disabled hidden>Select an Option</option>
         <option value="product">Product Launch Simulation</option>
+        <option value="email">Email Launch Simulation</option>
     </select><br><br>
     <div id="container">
     </div>
@@ -17,8 +18,9 @@
         let form = null;
         selectBox.addEventListener('change', (event) => {
             const selectedLaunchType = event?.target?.value;
-            if (selectedLaunchType && selectedLaunchType === 'product') {
-                form = `
+            switch (selectedLaunchType) {
+                case 'product':
+                    form = `
                     <form method="post" action="${environment === 'development' ? '' : '/emays'}/api-dev/launch">
 
                     <label for="token">Auth Token</label><br>
@@ -48,14 +50,31 @@
                     <input type="submit" value="Submit">
                     </form>
                     `;
-            } else if (selectedLaunchType && selectedLaunchType === 'another') {
-                form = `
+                    break;
+                case 'email':
+                    form = `
+                    <form method="get" action="${environment === 'development' ? '' : '/emays'}/api-dev/launchMail">
+                        <select name="launchType" id="launchType">
+                            <option value="booked">Appointment Booked E-Mail</option>
+                            <option value="reminder">Reminder E-mail</option>
+                            <option value="today">Same Day E-mail</option>
+                            <option value="invoice">Invoice E-mail</option>
+                        </select><br><br>
+                        <label for="uuid">UUID</label><br>
+                        <input type="text" id="uuid" name="uuid" value="d24e3a05-1b45-4251-821f-38f7e915ad20" required><br><br>
+                        <input type="submit" value="Submit">
+                    </form>`;
+                    break;
+                case 'another':
+                    form = `
                     <form method="post" action="${environment === 'development'?'':'/emays'}/api/launch">
                         // Other product type info
                     </form>
                     `;
-            } else {
-                form = "";
+                    break;
+                default:
+                    form = "";
+                    break;
             }
             document.getElementById('container').innerHTML = form;
         });
