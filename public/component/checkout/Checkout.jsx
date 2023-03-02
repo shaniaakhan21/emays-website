@@ -2,6 +2,7 @@
 import { Grid, Column } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 // Components
 import ContentSwitcherCustom from '../common/ContentSwitcherCustom';
@@ -49,6 +50,8 @@ const productList = [{
 
 const Checkout = ({}) => {
 
+    const [t] = useTranslation();
+
     const [productData, setProductData] = useState([]);
 
     useEffect(() => {
@@ -64,7 +67,7 @@ const Checkout = ({}) => {
                 <img src={Emays} alt='The Emays logo' />
             </Column>
             <Column lg={8} md={8} sm={16} className='book-appointment'>
-                <p>BOOK YOUR APPOINTMENT</p>
+                <p>{t('checkout.book-appointment.header')}</p>
                 <div className='next-date-picker'>
                     <ContentSwitcherCustom nextDateOne='Today Sat, Nov 2nd'
                         nextDateTwo='Sat, Nov 2nd'
@@ -74,18 +77,18 @@ const Checkout = ({}) => {
                     <p>Custom Date</p>
                     <div className='items'>
                         <div className='date'>
-                            <p>Choose Date</p>
+                            <p>{t('checkout.book-appointment.choose-date')}</p>
                             <DatePickerCustom customStyle={{ backgroundColor: 'white' }} />
                         </div>
                         <div className='time-window'>
-                            <p>Choose Time Window</p>
+                            <p>{t('checkout.book-appointment.choose-time')}</p>
                             <DropDownCustom items={items}/>
                         </div>
                     </div>
                 </div>
                 <div className='customize-experience'>
                     <div className='header'>
-                        <p>CUSTOMIZE YOUR EXPERIENCE FOR FREE</p>
+                        <p>{t('checkout.customize-experience.header')}</p>
                     </div>
                     <div className='options'>
                         <div className='checkbox-wait'>

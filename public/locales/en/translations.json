@@ -1,0 +1,14 @@
+{
+  "test": "TTTT",
+  "checkout": {
+    "book-appointment": {
+      "header": "BOOK YOUR APPOINTMENT",
+      "choose-date": "Choose Date",
+      "choose-time": "Choose Time Window"
+    },
+    "customize-experience": {
+      "header": "CUSTOMIZE YOUR EXPERIENCE FOR FREE",
+      "checkbox-wait-label": "We wait while you try - someWe wait while you try -  Contactless Delivery - We drop the items to your door  and the stylist will wait for your returns outside."
+    }
+  }
+}
