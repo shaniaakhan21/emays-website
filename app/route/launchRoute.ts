@@ -23,11 +23,11 @@ router.get(RoutePath.LAUNCH_MAIL, (
         // TODO: Validate if the user uuid is valid
 
         // TODO: Get the product details from the database
-        const launchTemplateData = [{
+        const launchTemplateData: Array<LaunchUIContext> = [{
             productName: 'Nike Air Max 270',
             productColor: 'Black',
-            productSize: 'UK 8',
-            productQuantity: '1',
+            productSize: 8,
+            productQuantity: 1,
             productCost: '£120',
             productImage: 'https://static.nike.com/a/images/t_PDP_864_v1/' +
                 'f_auto,b_rgb:f5f5f5/8b1b3b1a-1b1a-4b1a-9b1a-1b1a4b1a9b1a/air-max-270-react-shoe-1JZxJx.jpg',
@@ -35,8 +35,8 @@ router.get(RoutePath.LAUNCH_MAIL, (
         }, {
             productName: 'Nike Air Max 270',
             productColor: 'White',
-            productSize: 'UK 8',
-            productQuantity: '1',
+            productSize: 8,
+            productQuantity: 1,
             productCost: '£120',
             productImage: 'https://static.nike.com/a/images/t_PDP_864_v1/' +
                 'f_auto,b_rgb:f5f5f5/8b1b3b1a-1b1a-4b1a-9b1a-1b1a4b1a9b1a/air-max-270-react-shoe-1JZxJx.jpg',
@@ -47,8 +47,9 @@ router.get(RoutePath.LAUNCH_MAIL, (
         const stringify = JSON.stringify(launchTemplateData);
         const cleaned = stringify.replace(/\\/g, '');
 
-        const productData = { 'productList': cleaned };
-        return res.render(applicationPath, productData);
+        const cleanedLaunchType = JSON.stringify(launchType).replace(/[\\"]/g, '');
+
+        return res.render(applicationPath, { 'productList': cleaned, 'emailLaunchType': cleanedLaunchType });
 
     })().catch((error) => {
         const errorObject: Error = error as Error;
