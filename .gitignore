@@ -6,3 +6,6 @@
 
 # cache
 /.parcel-cache
+
+# Webstorm
+.idea
