@@ -1,6 +1,6 @@
 'use strict';
 
-import { PRODUCT_LIST, EMAIL_LAUNCH_TYPE } from '../const/SessionStorageConst';
+import { PRODUCT_LIST, LAUNCH_TYPE } from '../const/SessionStorageConst';
 
 const getItem = (key) => {
     const itemsAsString = sessionStorage.getItem(key);
@@ -17,10 +17,10 @@ export const setProductList = (list) => {
     return sessionStorage.setItem(PRODUCT_LIST, list);
 };
 
-export const getEmailLaunchType = () => {
-    return getItem(EMAIL_LAUNCH_TYPE);
+export const getLaunchType = () => {
+    return sessionStorage.getItem(LAUNCH_TYPE);
 };
 
-export const setEmailLaunchType = (launchType) => {
-    return sessionStorage.setItem(EMAIL_LAUNCH_TYPE, launchType);
+export const setLaunchType = (launchType) => {
+    return sessionStorage.setItem(LAUNCH_TYPE, launchType);
 };

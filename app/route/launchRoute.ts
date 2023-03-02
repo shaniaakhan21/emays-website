@@ -49,7 +49,7 @@ router.get(RoutePath.LAUNCH_MAIL, (
 
         const cleanedLaunchType = JSON.stringify(launchType).replace(/[\\"]/g, '');
 
-        return res.render(applicationPath, { 'productList': cleaned, 'emailLaunchType': cleanedLaunchType });
+        return res.render(applicationPath, { 'productList': cleaned, 'launchType': 'emailLaunch' });
 
     })().catch((error) => {
         const errorObject: Error = error as Error;
@@ -106,7 +106,7 @@ router.post(RoutePath.LAUNCH, authorizeLaunchRoute, (req: express.Request,
         const stringify = JSON.stringify(launchTemplateData);
         const cleaned = stringify.replace(/\\/g, '');
 
-        const productData = { 'productList': cleaned };
+        const productData = { 'productList': cleaned, 'launchType': 'productLaunch' };
         return res.render(applicationPath, productData);
 
     })().catch((error) => {
