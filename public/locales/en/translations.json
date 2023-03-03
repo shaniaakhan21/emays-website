@@ -1,0 +1,55 @@
+{
+  "checkout": {
+    "book-appointment": {
+      "header": "BOOK YOUR APPOINTMENT",
+      "choose-date": "Choose Date",
+      "choose-time": "Choose Time Window"
+    },
+    "customize-experience": {
+      "header": "CUSTOMIZE YOUR EXPERIENCE FOR FREE",
+      "checkbox-wait-label": "We wait while you try - someWe wait while you try -  Contactless Delivery - We drop the items to your door  and the stylist will wait for your returns outside.",
+      "checkbox-assist-label": "Assist me -  I would like to be assisted during the whole appointment by the stylist.",
+      "checkbox-basic-label": "Basic Tailoring - I require Pinning and fitting."
+    },
+    "delivery-address": {
+        "header": "DELIVERY ADDRESS",
+        "address": "Address"
+    },
+    "submit-button": "CONTINUE"
+  },
+  "confirm": {
+    "edit-appointment": {
+        "header": "YOUR APPOINTMENT",
+        "edit-button": "EDIT"
+    },
+    "user-appointment-info": {
+      "date": "Date",
+      "hour": "Hour",
+      "selected-experience": "Experience Selected",
+      "delivery-address": "Delivery Address"
+    },
+    "contact-details": {
+      "header": "CONTACT DETAILS",
+      "info-text-important": "Important:",
+      "info-text": "We will call or message you the day before, as well at the moment we’re arriving to ensure the quality of experience.",
+      "first-name": "First Name",
+      "last-name": "Last Name",
+      "phone-number": "Phone Number",
+      "email": "Email"
+    },
+    "submit-button": "CONFIRM APPOINTMENT"
+  },
+  "shopping-bag-container": {
+    "header": "SHOPPING BAG",
+    "service-fee": "SERVICE FEE",
+    "instruction-1": "This fee help us run our operations, all services included.",
+    "instruction-2": "Amount will be blocked on your card until the day of the delivery.",
+    "instruction-3": "Cancellations available before 24h appointment.",
+    "button": "BOOK US NOW",
+    "item": {
+      "size": "Size",
+      "quantity": "Quantity",
+      "color": "Color"
+    }
+  }
+}

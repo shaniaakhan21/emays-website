@@ -5,11 +5,8 @@ import ListBoxCustom from '../common/ListBoxCustom';
 import '../../scss/component/checkout/shoppingBag.scss';
 
 import FallBack from '../../icons/fallback.png';
-import { useEffect, useState } from 'react';
-
-const instruction = ['This fee help us run our operations, all services included.',
-    'Amount will be blocked on your card until the day of the delivery.',
-    'Cancellations available before 24h appointment.'];
+import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const serviceFee = 1499.00;
 
@@ -25,6 +22,8 @@ const getFinalCost = (serviceCharge = 0.00, itemsPrices = []) => {
 
 const ShoppingBag = ({ productList = [] }) => {
 
+    const [t] = useTranslation();
+
     const [finalCost, setFinalCost] = useState(0.00);
 
     useEffect(() => {
@@ -33,10 +32,17 @@ const ShoppingBag = ({ productList = [] }) => {
         setFinalCost(finalCost);
 
     }, [productList]);
+
+    const instruction = useMemo(() => [
+        t('shopping-bag-container.instruction-1'),
+        t('shopping-bag-container.instruction-2'),
+        t('shopping-bag-container.instruction-3')
+    ], [t]);
+
     return (
         <div className='shopping-bag-container'>
             <div className='header'>
-                <p>SHOPPING BAG</p>
+                <p>{t('shopping-bag-container.header')}</p>
             </div>
             <div className='items'>
                 {
@@ -50,14 +56,17 @@ const ShoppingBag = ({ productList = [] }) => {
                 }
             </div>
             <div className='service-fee'>
-                <div className='text'><p>SERVICE FEE</p></div>
+                <div className='text'><p>{t('shopping-bag-container.service-fee')}</p></div>
                 <div className='cost'><p>{`€ ${serviceFee}`}</p></div>
             </div>
             <div className='instruction'>
-                <ListBoxCustom style={{ fontSize: '15px', fontFamily: 'SkolaSans' }} items = {instruction}/>
+                <ListBoxCustom style={{ fontSize: '15px', fontFamily: 'SkolaSans' }} items={instruction}/>
             </div>
             <div className='book'>
-                <ButtonCustom text={`BOOK US NOW: € ${finalCost}`} action={() => {}} type={'secondary'} 
+                <ButtonCustom
+                    text={`${t('shopping-bag-container.button')}: € ${finalCost}`}
+                    action={() => {}}
+                    type={'secondary'}
                     customStyle={
                         { minWidth: '100%', marginTop: '25px', marginBottom: '15px', justifyContent: 'center' }} />
             </div>
