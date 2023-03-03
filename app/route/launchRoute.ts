@@ -17,6 +17,9 @@ router.get(RoutePath.LAUNCH_MAIL, (
     req: express.Request<core.ParamsDictionary, any, any, { uuid: string, launchType: string }>,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
+        // Get token for the session
+        const sessionToken: string = getJWTForSession();
+
         const uuid = req.query.uuid;
         const launchType = req.query.launchType;
         Logger.log('info', `Requesting UI for a user with uuid: ${uuid} and launchType: ${launchType}.`);
@@ -49,7 +52,10 @@ router.get(RoutePath.LAUNCH_MAIL, (
 
         const cleanedLaunchType = JSON.stringify(launchType).replace(/[\\"]/g, '');
 
-        return res.render(applicationPath, { 'productList': cleaned, 'launchType': 'emailLaunch' });
+        return res.render(applicationPath, {
+            productList: cleaned,
+            launchType: cleanedLaunchType,
+            token: sessionToken });
 
     })().catch((error) => {
         const errorObject: Error = error as Error;

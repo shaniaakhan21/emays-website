@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const Container = styled.div`
     display: flex;
@@ -48,6 +49,8 @@ const ShoppingItem = ({
     image,
     imageAlt = 'product picture'
 }) => {
+
+    const [t] = useTranslation();
 
     return (
         <Container>

@@ -1,0 +1,145 @@
+
+.appointment-page {
+    font-family: 'SkolaSans', sans-serif;
+    padding: 70px 40px;
+
+    .logo {
+        display: flex;
+        justify-content: center;
+
+        img {
+            height: 78px;
+            width: 130px;
+        }
+    }
+
+    .header {
+        display: flex;
+        margin-top: 10px;
+        margin-bottom: 15px;
+
+        p {
+            flex: 1;
+            font-size: 24px;
+            font-weight: bold;
+
+            &:first-child {
+                text-align: left;
+            }
+
+            &:last-child {
+                text-align: right;
+            }
+        }
+    }
+
+    .text-info {
+        margin-bottom: 20px;
+        margin-top: 20px;
+
+        .highlighted {
+            font-weight: 700;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+    }
+
+    .time-box {
+        background: #323232;
+        display: flex;
+        padding: 10px 20px;
+
+        .date, .hour {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            color: #FFFFFF;
+
+            & span:first-child {
+                font-size: 18px;
+                margin-bottom: 15px;
+                font-weight: 600;
+            }
+
+            & span:last-child {
+                font-size: 12px;
+                font-weight: 400;
+            }
+        }
+
+        .hour span {
+            padding-left: 30%;
+        }
+
+        .separator {
+            margin: 5px 0px;
+            width: 1px;
+            background: #FFFFFF;
+        }
+    }
+
+    .dl {
+        margin: 20px 0px;
+
+        .label {
+            font-size: 18px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .value {
+            font-size: 13px;
+            font-weight: 400;
+        }
+    }
+
+    .header {
+        font-size: 24px;
+    }
+
+    .item {
+        display: flex;
+
+        > img {
+            height: 103px;
+            width: 77px;
+            object-fit: contain;
+        }
+
+        .info {
+            margin-left: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+
+            .name {
+                font-size: 14px;
+                font-weight: 600;
+                text-transform: uppercase;
+                margin-bottom: 6px;
+            }
+
+            .value {
+                font-size: 12px;
+                font-weight: 400;
+
+                &.end {
+                    justify-self: flex-end;
+                }
+            }
+        }
+    }
+
+    .button-set {
+        display: flex;
+        margin-top: 20px;
+        margin-bottom: 10px;
+
+        .btn {
+            background: #323232;
+            color: #FFFFFF;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    }
+}
