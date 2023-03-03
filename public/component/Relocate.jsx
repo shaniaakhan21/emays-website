@@ -1,6 +1,12 @@
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { EMAIL_LAUNCH, PRODUCT_LAUNCH } from '../js/const/SessionStorageConst';
+import {
+    EMAIL_BOOKED,
+    EMAIL_INVOICE,
+    EMAIL_REMINDER,
+    EMAIL_TODAY,
+    PRODUCT_LAUNCH
+} from '../js/const/SessionStorageConst';
 import { getLaunchType, setLaunchType } from '../js/util/SessionStorageUtil';
 
 // Based on launch type this will load the relevant component
@@ -15,9 +21,15 @@ const Relocate = () => {
                 setLaunchType('');
                 history.push('/checkout');
                 break;
-            case EMAIL_LAUNCH:
+            case EMAIL_BOOKED:
+            case EMAIL_REMINDER:
+            case EMAIL_TODAY:
+            case EMAIL_INVOICE:
                 setLaunchType('');
-                history.push('/appointment');
+                const params = new URLSearchParams({
+                    launchType: launchType
+                });
+                history.push(`/appointment?${params.toString()}`);
                 break;
             default:
                 break;

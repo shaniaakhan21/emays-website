@@ -32,8 +32,8 @@ router.get(RoutePath.LAUNCH_MAIL, (
             productSize: 8,
             productQuantity: 1,
             productCost: '£120',
-            productImage: 'https://static.nike.com/a/images/t_PDP_864_v1/' +
-                'f_auto,b_rgb:f5f5f5/8b1b3b1a-1b1a-4b1a-9b1a-1b1a4b1a9b1a/air-max-270-react-shoe-1JZxJx.jpg',
+            productImage: 'https://cdn.ferragamo.com/wcsstore/FerragamoCatalo' +
+                'gAssetStore/images/products/756608/756608_00_r20.jpg',
             productDeliveryInformation: 'Free delivery'
         }, {
             productName: 'Nike Air Max 270',
@@ -41,8 +41,8 @@ router.get(RoutePath.LAUNCH_MAIL, (
             productSize: 8,
             productQuantity: 1,
             productCost: '£120',
-            productImage: 'https://static.nike.com/a/images/t_PDP_864_v1/' +
-                'f_auto,b_rgb:f5f5f5/8b1b3b1a-1b1a-4b1a-9b1a-1b1a4b1a9b1a/air-max-270-react-shoe-1JZxJx.jpg',
+            productImage: 'https://cdn.ferragamo.com/wcsstore/FerragamoCatalo' +
+                'gAssetStore/images/products/756608/756608_00_r20.jpg',
             productDeliveryInformation: 'Free delivery'
         }];
 
