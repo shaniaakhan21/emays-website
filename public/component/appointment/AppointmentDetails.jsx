@@ -17,9 +17,6 @@ import ShoppingItem from '../checkout/ShoppingItem';
 import FallBack from '../../icons/fallback.png';
 import Emays from '../../logo/emays-logo-white.png';
 
-// eslint-disable-next-line max-len
-const url = 'http://localhost:8080/emays/api-dev/launchMail?authToken=tempToken&launchType=emailBooked&uuid=d24e3a05-1b45-4251-821f-38f7e915ad20';
-
 const Appointment = () => {
 
     const [t] = useTranslation();
@@ -32,12 +29,6 @@ const Appointment = () => {
     }, []);
 
     return (<div className='appointment-page'>
-        
-        <a
-            style={{ position: 'fixed', top: 10, right: 10 }}
-            href={url}>
-            <button>RELOAD</button>
-        </a>
         
         <div className='logo'>
             <img src={Emays} alt='The Emays logo' />
