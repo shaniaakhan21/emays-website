@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { useEffect, useState } from 'react';
 import { Grid, Column } from '@carbon/react';
 import TextBoxCustom from '../common/TextBoxCustom';
@@ -16,6 +15,7 @@ import Watch from '../../temp/watch.png';
 
 // Util
 import { getProductList } from '../../js/util/SessionStorageUtil';
+import { useTranslation } from 'react-i18next';
 
 // TODO: get these items from the session storage. These items should be written to the SS by prev component.
 const productList = [{
@@ -36,6 +36,8 @@ const productList = [{
 
 const Confirm = () => {
 
+    const [t] = useTranslation();
+
     const [productData, setProductData] = useState([]);
 
     useEffect(() => {
@@ -51,40 +53,40 @@ const Confirm = () => {
             <Column lg={8} md={8} sm={16} className='your-appointment'>
                 <div className='edit-appointment'>
                     <div className='text'>
-                        <p>YOUR APPOINTMENT</p>
+                        <p>{t('confirm.edit-appointment.header')}</p>
                     </div>
                     <div className='edit-button'>
                         <div>
                             <img src={EditIcon} alt='edit icon' />
                         </div>
                         <div>
-                            <a onClick={() => {}}>EDIT</a>
+                            <a onClick={() => {}}>{t('confirm.edit-appointment.edit-button')}</a>
                         </div>
                     </div>
                 </div>
                 <div className='user-appointment-info'>
                     <div className='date-time'>
                         <div className='date'>
-                            <p><strong>Date</strong></p>
+                            <p><strong>{t('confirm.user-appointment-info.date')}</strong></p>
                             <div className='value'>
                                 <p>12/12/23</p>
                             </div>
                         </div>
                         <div className='hour'>
-                            <p><strong>Hour</strong></p>
+                            <p><strong>{t('confirm.user-appointment-info.hour')}</strong></p>
                             <div className='value'>
                                 <p>14:00 to 15:00</p>
                             </div>
                         </div>
                     </div>
                     <div className='selected-experience'>
-                        <p><strong>Experience Selected</strong></p>
+                        <p><strong>{t('confirm.user-appointment-info.selected-experience')}</strong></p>
                         <div className='value'>
                             <p>Asist me, Tailoring, Inspire me.</p>
                         </div>
                     </div>
                     <div className='delivery-address'>
-                        <p><strong>Delivery Address</strong></p>
+                        <p><strong>{t('confirm.user-appointment-info.delivery-address')}</strong></p>
                         <div className='value'>
                             <p>Sample Address, Milano, Italia 06830</p>
                         </div>
@@ -92,35 +94,48 @@ const Confirm = () => {
                 </div>
                 <div className='contact-details'>
                     <div className='text'>
-                        <p>CONTACT DETAILS</p>
+                        <p>{t('confirm.contact-details.header')}</p>
                     </div>
                     <div className='info-text'>
-                        <p><u><strong>Important:</strong></u> We will call or message you the day before, as well at the moment we’re arriving to ensure the quality of experience.</p>
+                        <p>
+                            <u><strong>{t('confirm.contact-details.info-text-important')}</strong></u>
+                            {t('confirm.contact-details.info-text')}
+                        </p>
                     </div>
                     <div className='user-contact-name'>
                         <div>
-                            <p>First Name</p>
+                            <p>{t('confirm.contact-details.first-name')}</p>
                             <TextBoxCustom customStyle={{ backgroundColor: 'white' }}/>
                         </div>
                         <div>
-                            <p>Last Name</p>
+                            <p>{t('confirm.contact-details.last-name')}</p>
                             <TextBoxCustom customStyle={{ backgroundColor: 'white' }}/>
                         </div>
                     </div>
                     <div className='user-contact-email-number'>
                         <div>
-                            <p>Phone Number</p>
+                            <p>{t('confirm.contact-details.phone-number')}</p>
                             <TextBoxCustom customStyle={{ backgroundColor: 'white' }}/>
                         </div>
                         <div>
-                            <p>Email</p>
+                            <p>{t('confirm.contact-details.email')}</p>
                             <TextBoxCustom customStyle={{ backgroundColor: 'white' }}/>
                         </div>
                     </div>
                 </div>
                 <div className='submit-button'>
-                    <ButtonCustom text={'CONFIRM APPOINTMENT'} action={() => { history.push('/confirm'); }} type={'secondary'} 
-                        customStyle={{ minWidth: '100%', marginTop: '25px', marginBottom: '15px', alignContent: 'center', justifyContent: 'center' }} />
+                    <ButtonCustom
+                        text={t('confirm.contact-details.submit-button')}
+                        action={() => { history.push('/confirm'); }}
+                        type={'secondary'}
+                        customStyle={{
+                            minWidth: '100%',
+                            marginTop: '25px',
+                            marginBottom: '15px',
+                            alignContent: 'center',
+                            justifyContent: 'center'
+                        }}
+                    />
                 </div>
             </Column>
             <Column lg={8} md={8} sm={16} className='shopping-bag'>

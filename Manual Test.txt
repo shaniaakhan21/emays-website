@@ -12,6 +12,7 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0wMVQxNzoxNDoyMS42MDNaIiwiZXhwIjoxNjc3NzI2ODYxLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJkNGFjYWVjNS02NTIwLTRhOTUtYjQwNS1jOTlmMTA5NTgwMDQiLCJpYXQiOjE2Nzc2OTA4NjF9.wpsXgRs4tWg4m09ZURIP6AbTo6dKf6SapilQygVP0yI
 
 {
     "userEmail": "mana.hara@gmail.com",

@@ -5,3 +5,5 @@ export const LAUNCH_TYPE = 'launchType';
 
 export const PRODUCT_LAUNCH = 'productLaunch';
 export const EMAIL_LAUNCH = 'emailLaunch';
+
+export const AUTH_TOKEN = 'authToken';

@@ -1,6 +1,6 @@
 'use strict';
 
-import { PRODUCT_LIST, LAUNCH_TYPE } from '../const/SessionStorageConst';
+import { AUTH_TOKEN, PRODUCT_LIST, LAUNCH_TYPE } from '../const/SessionStorageConst';
 
 const getItem = (key) => {
     const itemsAsString = sessionStorage.getItem(key);
@@ -23,4 +23,8 @@ export const getLaunchType = () => {
 
 export const setLaunchType = (launchType) => {
     return sessionStorage.setItem(LAUNCH_TYPE, launchType);
+};
+
+export const getAuthToken = () => {
+    return sessionStorage.getItem(AUTH_TOKEN);
 };
