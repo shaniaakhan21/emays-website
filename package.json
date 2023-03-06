@@ -78,7 +78,9 @@
     "sass": "1.51.0",
     "styled-components": "^5.3.3",
     "uuid": "^9.0.0",
-    "winston": "^3.7.2"
+    "winston": "^3.7.2",
+    "axios": "^0.21.4",
+    "mongoose": "^6.5.4"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",

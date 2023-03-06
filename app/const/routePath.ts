@@ -5,5 +5,10 @@ export enum RoutePath {
     LAUNCH = '/launch',
     LAUNCH_MAIL = '/launchMail',
     DEV_LAUNCH = '/devLaunch',
-    ORDERS= '/orders'
+    ORDERS= '/orders',
+    USERS = '/users',
+}
+
+export enum PathParam {
+    USER_ID = '/:userId'
 }

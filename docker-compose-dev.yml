@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  mongodb:
+    container_name: emays-web-db
+    image: mongo:4.4.6
+    restart: unless-stopped
+    env_file: ./.env.dev
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGODB_USER
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGODB_PASSWORD
+    ports:
+      - $MONGO_LOCAL_PORT:$MONGO_DOCKER_PORT
+    networks:
+      - emays-network
+    volumes:
+      - db:/data/db
+  app-emays-web:
+    depends_on:
+      - mongodb
+    container_name: emays-web-app
+    build:
+      context: .
+      dockerfile: DockerFileDev
+    restart: unless-stopped
+    env_file: ./.env.dev
+    image: emays-web-app
+    stdin_open: true
+    ports:
+      - $USER_API_LOCAL_PORT:$USER_API_DOCKER_PORT
+    networks:
+      - emays-network
+networks:
+  emays-network:
+    driver: bridge
+volumes:
+  db:

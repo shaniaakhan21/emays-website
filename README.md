@@ -37,5 +37,4 @@ This repository consists of a React UI and its Immediate Backend.
 - follow design patterns at first place
 
 # Architecture
-
-![plot](./architecture/Design%203.svg)
+- Monolithic

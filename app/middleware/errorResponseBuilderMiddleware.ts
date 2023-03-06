@@ -1,29 +1,41 @@
 'use strict';
 
-import * as express from 'express';
+import ErrorType from '../const/errorType';
 import { HTTPServerError } from '../const/httpCode';
-import OrderError from '../error/OrderError';
-import ErrorType from '../error/type/errorType';
-import Logger from '../logger';
+import LogType from '../const/logType';
+import { Logger } from '../log/logger';
+import { SendErrorResponseFunc } from '../type/errorBuilderMiddlewareType';
+import { ErrorResponseBuilderResponse } from '../type/responseBuilderType';
+import { buildErrorMessage } from '../util/logMessageBuilder';
+import { errorResponseBuilder } from '../util/responseBuilder';
+
+const Logging = Logger(__filename);
 
 /**
- * Build the error response in a meaningful way and send it to the UI based on different Error Types
- * @param err Error 
- * @param res express.Response
- * @returns res express.Response
+ * Build error response and send
+ * @param {OrderServiceError} error OrderService error object
+ * @param {Response} res Response object
+ * @returns {void}
  */
-export const buildErrorResponseAndSend = (error: Error, res: express.Response) => {
-    const errorTransformed = error as OrderError;
-    const errorData = {
-        error: error.message
-    };
+const sendErrorResponse: SendErrorResponseFunc = (error, res) => {
+    const finalErrorObject: ErrorResponseBuilderResponse = 
+        errorResponseBuilder(error);
     switch (error.name) {
-        case ErrorType.ORDER_INVALID_REQUEST:
-            return res.status(errorTransformed.code).json(errorData);
-            // TODO; send the error with res.send
+        case ErrorType.DATABASE_ERROR:
+        case ErrorType.ORDER_SERVICE_ERROR:
+        case ErrorType.ORDER_INSERTION_ERROR:
+        case ErrorType.ORDER_UPDATE_ERROR:
+        case ErrorType.ORDER_RETRIEVAL_ERROR:
+        case ErrorType.ORDER_DATA_CONFLICT:
+        case ErrorType.INVALID_REQUEST:
+        case ErrorType.UNAUTHORIZED:
+        case ErrorType.FOUND_AT_THIS_URL:
+            return res.status(error.code).json(finalErrorObject);
         default:
-            Logger.error(`Application error observed. Error Stack: ${errorTransformed.stack}`);
+            Logging.log(buildErrorMessage(error, ''), LogType.ERROR);
             return res.status(HTTPServerError.INTERNAL_SERVER_ERROR_CODE).
                 json(HTTPServerError.INTERNAL_SERVER_ERROR_MESSAGE);
     }
 };
+
+export default sendErrorResponse;
