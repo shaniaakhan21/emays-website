@@ -16,6 +16,7 @@ const Relocate = () => {
     const history = useHistory();
     useEffect(() => {
         // IMPORTANT: make sure you set the launch type to empty within each launch.
+        console.log('launchType', launchType);
         switch (launchType) {
             case PRODUCT_LAUNCH:
                 setLaunchType('');
@@ -32,6 +33,7 @@ const Relocate = () => {
                 history.push(`/appointment?${params.toString()}`);
                 break;
             case UI_RETAILER:
+                setLaunchType('');
                 history.push('/retailer');
                 break;
             default:

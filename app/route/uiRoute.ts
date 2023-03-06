@@ -10,18 +10,19 @@ import { config } from '../config/config';
 import buildRenderData from '../util/buildRenderData';
 import { UI_RETAILER } from '../../public/js/const/SessionStorageConst';
 
-router.get(RoutePath.RETAILER_UI, (req: express.Request, res: express.Response): void => {
-    (async () => {
-        Logger.info('Requesting dev launch HTML form.');
-        const applicationPath: string = await buildAppLaunchPath(config?.UI_APP_ENTRY_POINT);
+router.get(
+    [RoutePath.RETAILER_UI, `${RoutePath.RETAILER_UI}*`], (req: express.Request, res: express.Response): void => {
+        (async () => {
+            Logger.info('Requesting dev launch HTML form.');
+            const applicationPath: string = await buildAppLaunchPath(config?.UI_APP_ENTRY_POINT);
 
-        Logger.info('App is going to deliver the HTML form from the default UI version.');
-        return res.render(applicationPath, buildRenderData('', '[]').custom(UI_RETAILER));
-    })().catch((error) => {
-        const errorObject: Error = error as Error;
-        Logger.error(`Failed to deliver the HTML form for the dev launch.
+            Logger.info('App is going to deliver the HTML form from the default UI version.');
+            return res.render(applicationPath, buildRenderData('', '[]').custom(UI_RETAILER));
+        })().catch((error) => {
+            const errorObject: Error = error as Error;
+            Logger.error(`Failed to deliver the HTML form for the dev launch.
         Error stack: ${errorObject.stack as string}.`);
+        });
     });
-});
 
 export default router;
