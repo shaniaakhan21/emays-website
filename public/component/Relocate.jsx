@@ -5,7 +5,7 @@ import {
     EMAIL_INVOICE,
     EMAIL_REMINDER,
     EMAIL_TODAY,
-    PRODUCT_LAUNCH
+    PRODUCT_LAUNCH, UI_RETAILER
 } from '../js/const/SessionStorageConst';
 import { getLaunchType, setLaunchType } from '../js/util/SessionStorageUtil';
 
@@ -30,6 +30,9 @@ const Relocate = () => {
                     launchType: launchType
                 });
                 history.push(`/appointment?${params.toString()}`);
+                break;
+            case UI_RETAILER:
+                history.push('/retailer');
                 break;
             default:
                 break;

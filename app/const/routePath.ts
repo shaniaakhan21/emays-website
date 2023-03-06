@@ -5,5 +5,6 @@ export enum RoutePath {
     LAUNCH = '/launch',
     LAUNCH_MAIL = '/launchMail',
     DEV_LAUNCH = '/devLaunch',
-    ORDERS= '/orders'
+    ORDERS= '/orders',
+    RETAILER_UI= '/retailer'
 }

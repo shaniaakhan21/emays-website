@@ -11,6 +11,7 @@ import Checkout from './checkout/Checkout';
 import Confirm from './checkout/Confirm';
 import Appointment from './appointment/AppointmentDetails';
 import Relocate from './Relocate';
+import RetailerHome from './retailer/home';
 
 // Util
 
@@ -25,6 +26,9 @@ const MainRouter = () => {
                     <Route path='/appointment' component={() => <Appointment/>}></Route>
                     {/* This component will act as a relocate router based on the initial launch type */}
                     <Route path='/' component={() => <Relocate/>}></Route>
+                    <Route path='/retailer'>
+                        <Route path='/' exact component={() => <RetailerHome />}></Route>
+                    </Route>
                 </Switch>
 
             </Router>
