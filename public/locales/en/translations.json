@@ -3,8 +3,7 @@
     "book-appointment": {
       "header": "BOOK YOUR APPOINTMENT",
       "choose-date": "Choose Date",
-      "choose-time": "Choose Time Window",
-      "custom-date": "Custom Date"
+      "choose-time": "Choose Time Window"
     },
     "customize-experience": {
       "header": "CUSTOMIZE YOUR EXPERIENCE FOR FREE",

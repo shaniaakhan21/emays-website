@@ -1,5 +1,4 @@
 import { Popover, PopoverContent } from '@carbon/react';
-import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 const PopoverCustom = ({ children, toggleText, toggleTextStyle }) => {
@@ -23,12 +22,6 @@ const PopoverCustom = ({ children, toggleText, toggleTextStyle }) => {
         </Popover>
     );
 
-};
-
-PopoverCustom.propTypes = {
-    children: PropTypes.node.isRequired,
-    toggleText: PropTypes.string.isRequired,
-    toggleTextStyle: PropTypes.object
 };
 
 export default PopoverCustom;

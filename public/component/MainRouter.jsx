@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // SCSS
@@ -9,28 +9,27 @@ import '../scss/main.scss';
 import ErrorBoundary from './ErrorBoundary';
 import Checkout from './checkout/Checkout';
 import Confirm from './checkout/Confirm';
+import Appointment from './appointment/AppointmentDetails';
+import Relocate from './Relocate';
 
-class MainRouter extends React.Component {
+// Util
 
-    componentDidMount () {
-        // TODO call initial data route
-        console.log('Data fetched');
-    }
+const MainRouter = () => {
 
-    render () {
-        return <main className='main-container' role='main'>
-            <ErrorBoundary>
-                <Router>
-                    <Switch>
-                        <Route path='/confirm' component={() => <Confirm/>}></Route>
-                        <Route path='/' component={() => <Checkout />}></Route>
-                    </Switch>
+    return (<main className='main-container' role='main'>
+        <ErrorBoundary>
+            <Router>
+                <Switch>
+                    <Route path='/confirm' component={() => <Confirm/>}></Route>
+                    <Route path='/checkout' component={() => <Checkout />}></Route>
+                    <Route path='/appointment' component={() => <Appointment/>}></Route>
+                    {/* This component will act as a relocate router based on the initial launch type */}
+                    <Route path='/' component={() => <Relocate/>}></Route>
+                </Switch>
 
-                </Router>
-            </ErrorBoundary>
-        </main>;
-    }
-
-}
+            </Router>
+        </ErrorBoundary>
+    </main>);
+};
 
 export default MainRouter;

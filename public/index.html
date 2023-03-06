@@ -13,6 +13,9 @@
         const result = "<%= productList %>";
         sessionStorage.setItem('productList', result);
 
+        const launchType= "<%= launchType %>";
+        sessionStorage.setItem('launchType', launchType);
+
         // Consume product list
         const jsonData = sessionStorage.getItem('productList');
         const removed = result.replace(/&#34;/g, '"');

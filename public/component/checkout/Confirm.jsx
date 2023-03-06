@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Grid, Column } from '@carbon/react';
-import { useHistory } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
@@ -12,36 +10,36 @@ import '../../scss/component/checkout/confirm.scss';
 // Images
 import Emays from '../../logo/emays-logo-white.png';
 import EditIcon from '../../icons/edit.svg';
+import Blazer from '../../temp/coat.png';
+import Watch from '../../temp/watch.png';
 
 // Util
-import { getAddress, getProductList, getSelectedOptions } from '../../js/util/SessionStorageUtil';
+import { getProductList } from '../../js/util/SessionStorageUtil';
 import { useTranslation } from 'react-i18next';
+
+// TODO: get these items from the session storage. These items should be written to the SS by prev component.
+const productList = [{
+    name: 'GANCINI WATCH',
+    color: 'IP yellow Gold',
+    quantity: 1,
+    price: '€ 1,100.00',
+    image: Watch },
+{
+    name: 'BLAZER',
+    size: 40,
+    color: 'Red',
+    quantity: 1,
+    price: '€ 1,100.00',
+    image: Blazer
+}
+];
 
 const Confirm = () => {
 
     const [t] = useTranslation();
 
-    // Retrieve selectedDate from location state
-    const location = useLocation();
-    const selectedDate = location.state.selectedDate;
-
-    // Initialize state variables
-    const [address, setAddress] = useState({});
-
-    const history = useHistory();
-
-    const selectedOptions = getSelectedOptions();
     const [productData, setProductData] = useState([]);
-    console.log(selectedOptions);
-    // Fetch  address data from session storage
-    useEffect(() => {
-        const storedAddress = getAddress();
-        if (storedAddress) {
-            setAddress(storedAddress);
-        }
-    }, []);
 
-    // Fetch product data from session storage
     useEffect(() => {
         const productData = getProductList();
         setProductData(productData);
@@ -71,7 +69,7 @@ const Confirm = () => {
                         <div className='date'>
                             <p><strong>{t('confirm.user-appointment-info.date')}</strong></p>
                             <div className='value'>
-                                <p>{selectedDate?.toLocaleDateString()}</p>
+                                <p>12/12/23</p>
                             </div>
                         </div>
                         <div className='hour'>
@@ -84,21 +82,13 @@ const Confirm = () => {
                     <div className='selected-experience'>
                         <p><strong>{t('confirm.user-appointment-info.selected-experience')}</strong></p>
                         <div className='value'>
-                            {Object.entries(selectedOptions).map(([key, value]) => {
-                                if (value) {
-                                    return <span key={key}>{key.replace(/^\w/, c => c.toUpperCase())}, </span>;
-                                }
-                                return null;
-                            })}
+                            <p>Asist me, Tailoring, Inspire me.</p>
                         </div>
                     </div>
                     <div className='delivery-address'>
                         <p><strong>{t('confirm.user-appointment-info.delivery-address')}</strong></p>
                         <div className='value'>
-                            <p>{`${address.street ? address.street + ', ' : ''}
-                            ${address.city ? address.city + ', ' : ''}
-                            ${address.postalCode ? address.postalCode + ', ' : ''}
-                            ${address.country ? address.country : ''}`}</p>
+                            <p>Sample Address, Milano, Italia 06830</p>
                         </div>
                     </div>
                 </div>
@@ -146,7 +136,6 @@ const Confirm = () => {
                             justifyContent: 'center'
                         }}
                     />
-
                 </div>
             </Column>
             <Column lg={8} md={8} sm={16} className='shopping-bag'>

@@ -1,7 +1,7 @@
 import { Grid, Column } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { PropTypes } from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 // Components
 import ContentSwitcherCustom from '../common/ContentSwitcherCustom';
@@ -17,11 +17,11 @@ import '../../scss/component/checkout/checkout.scss';
 
 // Images
 import Emays from '../../logo/emays-logo-white.png';
+import Blazer from '../../temp/coat.png';
+import Watch from '../../temp/watch.png';
 
 // Util
-import { getProductList, saveSelectedOptions } from '../../js/util/SessionStorageUtil';
-import { ADDRESS } from '../../js/const/SessionStorageConst';
-import { useTranslation } from 'react-i18next';
+import { getProductList } from '../../js/util/SessionStorageUtil';
 
 // TODO: Remove mock data and map to proper state when data binding
 
@@ -31,66 +31,28 @@ const items = [
     { id: 'option-2', text: 'Option 2' }
 ];
 
-const Checkout = () => {
+const productList = [{
+    name: 'GANCINI WATCH',
+    color: 'IP yellow Gold',
+    quantity: 1,
+    price: '€ 1,100.00',
+    image: Watch },
+{
+    name: 'BLAZER',
+    size: 40,
+    color: 'Red',
+    quantity: 1,
+    price: '€ 1,100.00',
+    image: Blazer
+}
+];
+
+const Checkout = ({}) => {
 
     const [t] = useTranslation();
 
-    // State for selected date
-    const [selectedDate, setSelectedDate] = useState(null);
-
-    // Handler function for date change
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
-
-    // State for delivery address
-    const [address, setAddress] = useState({});
-
-    // Remove address from session storage and reset address state
-    useEffect(() => {
-        sessionStorage.removeItem(ADDRESS);
-        setAddress({});
-    }, []);
-
-    // Get address from session storage and update address state
-    useEffect(() => {
-        const storedAddress = JSON.parse(sessionStorage.getItem(ADDRESS));
-        if (storedAddress) {
-            setAddress(storedAddress || {} );
-        }
-    }, []);
-
-    // Save address to session storage on address state change
-    useEffect(() => {
-        sessionStorage.setItem(ADDRESS, JSON.stringify(address));
-    }, [address]);
-    
-    const handleAddressChange = (event, field) => {
-        const { value } = event.target;
-        setAddress({ ...address, [field]: value });
-    };
-
-    // State for selected options
-    const [selectedOptions, setSelectedOptions] = useState({
-        assist: false,
-        tailoring: false,
-        inspire: false
-    });
-
-    // Handler function for option change
-    const handleOptionChange = (option) => {
-        setSelectedOptions({ ...selectedOptions, [option]: !selectedOptions[option] });
-    };
-
-    // Get selected options from session storage and update selected options state
-    useEffect(() => {
-        saveSelectedOptions(selectedOptions);
-    }, [selectedOptions]);
-
-    // State for product data
     const [productData, setProductData] = useState([]);
 
-    // Get product data from session storage and update product data state
     useEffect(() => {
         const productData = getProductList();
         setProductData(productData);
@@ -111,11 +73,11 @@ const Checkout = () => {
                         nextDateThree='Sat, Nov 2nd'/>
                 </div>
                 <div className='date-time-pick'>
-                    <p>{t('checkout.book-appointment.custom-date')}</p>
+                    <p>Custom Date</p>
                     <div className='items'>
                         <div className='date'>
                             <p>{t('checkout.book-appointment.choose-date')}</p>
-                            <DatePickerCustom handleDateChange={handleDateChange} selectedDate={selectedDate} />
+                            <DatePickerCustom customStyle={{ backgroundColor: 'white' }} />
                         </div>
                         <div className='time-window'>
                             <p>{t('checkout.book-appointment.choose-time')}</p>
@@ -132,24 +94,21 @@ const Checkout = () => {
                             <CheckBoxCustom
                                 labelText={t('checkout.customize-experience.checkbox-wait-label')}
                                 id={'op1'}
-                                action={() => handleOptionChange('inspire')}
-                                checked={selectedOptions.inspire}
+                                action={() => {}}
                             />
                         </div>
                         <div className='checkbox-assist'>
                             <CheckBoxCustom
                                 labelText={t('checkout.customize-experience.checkbox-assist-label')}
                                 id={'op2'}
-                                action={() => handleOptionChange('assist')}
-                                checked={selectedOptions.assist}
+                                action={() => {}}
                             />
                         </div>
                         <div className='checkbox-basic'>
                             <CheckBoxCustom
                                 labelText={t('checkout.customize-experience.checkbox-basic-label')}
                                 id={'op3'}
-                                action={() => handleOptionChange('tailoring')}
-                                checked={selectedOptions.tailoring}
+                                action={() => {}}
                             />
                         </div>
                     </div>
@@ -163,39 +122,23 @@ const Checkout = () => {
                     </div>
                     <div className='address-info'>
                         <div>
-                            <TextBoxCustom
-                                customStyle={{ backgroundColor: 'white' }}
-                                value={address.street}
-                                onChange={(e) => handleAddressChange(e, 'street')}
-                                required />
+                            <TextBoxCustom customStyle={{ backgroundColor: 'white' }}/>
                         </div>
                         <div>
-                            <TextBoxCustom
-                                customStyle={{ backgroundColor: 'white' }}
-                                value={address.city}
-                                onChange={(e) => handleAddressChange(e, 'city')}
-                                required />
+                            <TextBoxCustom customStyle={{ backgroundColor: 'white' }}/>
                         </div>
                         <div>
-                            <TextBoxCustom
-                                customStyle={{ backgroundColor: 'white' }}
-                                value={address.postalCode}
-                                onChange={(e) => handleAddressChange(e, 'postalCode')}
-                                required />
+                            <TextBoxCustom customStyle={{ backgroundColor: 'white' }}/>
                         </div>
                         <div>
-                            <TextBoxCustom
-                                customStyle={{ backgroundColor: 'white' }}
-                                value={address.country}
-                                onChange={(e) => handleAddressChange(e, 'country')}
-                                required />
+                            <TextBoxCustom customStyle={{ backgroundColor: 'white' }}/>
                         </div>
                     </div>
                 </div>
                 <div className='submit-button'>
                     <ButtonCustom
                         text={t('checkout.submit-button')}
-                        action={() => { history.push('/confirm', { selectedDate }); }}
+                        action={() => { history.push('/confirm'); }}
                         type={'secondary'}
                         customStyle={{
                             minWidth: '100%',
@@ -213,19 +156,6 @@ const Checkout = () => {
         </Grid>
     );
 
-};
-
-Checkout.propTypes = {
-    address: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    selectedDate: PropTypes.instanceOf(Date).isRequired,
-    selectedOptions: PropTypes.shape({
-        assist: PropTypes.bool.isRequired,
-        tailoring: PropTypes.bool.isRequired,
-        inspire: PropTypes.bool.isRequired
-    }).isRequired,
-    handleDateChange: PropTypes.func.isRequired,
-    handleAddressChange: PropTypes.func.isRequired,
-    handleOptionChange: PropTypes.func.isRequired
 };
 
 export default Checkout;

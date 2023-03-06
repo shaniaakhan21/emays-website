@@ -36,7 +36,7 @@ TextBoxCustom.propTypes = {
     playgroundWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onChange: PropTypes.func,
     onClick: PropTypes.func,
-    customStyle: PropTypes.object,
+    customStyle: PropTypes.object
 };
 
 export default TextBoxCustom;

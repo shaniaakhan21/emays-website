@@ -1,7 +1,6 @@
 import ShoppingItem from './ShoppingItem';
 import ButtonCustom from '../common/ButtonCustom';
 import ListBoxCustom from '../common/ListBoxCustom';
-import PropTypes from 'prop-types';
 
 import '../../scss/component/checkout/shoppingBag.scss';
 
@@ -12,7 +11,8 @@ import { useTranslation } from 'react-i18next';
 const serviceFee = 1499.00;
 
 const getPriceList = (productList = []) => {
-    return productList?.map((item) => (item.productCost));
+    const priceList = productList?.map((item) => (item.productCost));
+    return priceList;
 };
 
 const getFinalCost = (serviceCharge = 0.00, itemsPrices = []) => {
@@ -74,18 +74,4 @@ const ShoppingBag = ({ productList = [] }) => {
     );
 };
 
-ShoppingBag.propTypes = {
-    productList: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.number.isRequired,
-            productName: PropTypes.string.isRequired,
-            productImage: PropTypes.string,
-            productColor: PropTypes.string.isRequired,
-            productSize: PropTypes.string.isRequired,
-            productQuantity: PropTypes.number.isRequired,
-            productCost: PropTypes.number.isRequired
-        })
-    ).isRequired
-};
-  
 export default ShoppingBag;

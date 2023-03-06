@@ -1,5 +1,4 @@
 import Dropdown from '@carbon/react/lib/components/Dropdown/Dropdown';
-import PropTypes from 'prop-types';
 
 const DropDownCustom = ({ items, customStyle }) => {
     return (
@@ -13,16 +12,6 @@ const DropDownCustom = ({ items, customStyle }) => {
 
             }} />
     );
-};
-
-DropDownCustom.propTypes = {
-    items: PropTypes.arrayOf(
-        PropTypes.shape({
-            text: PropTypes.string.isRequired,
-            value: PropTypes.string.isRequired
-        })
-    ).isRequired,
-    customStyle: PropTypes.object
 };
 
 export default DropDownCustom;
