@@ -9,6 +9,7 @@ import { DataToRender, DevLaunchTemplateData, LaunchRequestBody, LaunchUIContext
 import { authorizeLaunchRoute, buildAppLaunchPath, getJWTForSession } from '../api/launchAPI';
 import { config } from '../config/config';
 import * as core from 'express-serve-static-core';
+import buildRenderData from '../util/buildRenderData';
 
 /**
  * To accept the launch request from email and render the UI
@@ -52,10 +53,7 @@ router.get(RoutePath.LAUNCH_MAIL, (
 
         const cleanedLaunchType = JSON.stringify(launchType).replace(/[\\"]/g, '');
 
-        return res.render(applicationPath, {
-            productList: cleaned,
-            launchType: cleanedLaunchType,
-            token: sessionToken });
+        return res.render(applicationPath, buildRenderData(sessionToken, cleaned).email(cleanedLaunchType));
 
     })().catch((error) => {
         const errorObject: Error = error as Error;
@@ -115,8 +113,7 @@ router.post(RoutePath.LAUNCH, authorizeLaunchRoute, (req: express.Request,
         const stringify = JSON.stringify(launchTemplateData);
         const cleaned = stringify.replace(/\\/g, '');
 
-        const productData = { 'productList': cleaned, 'launchType': 'productLaunch', token: sessionToken };
-        return res.render(applicationPath, productData);
+        return res.render(applicationPath, buildRenderData(sessionToken, cleaned).default());
 
     })().catch((error) => {
         const errorObject: Error = error as Error;
