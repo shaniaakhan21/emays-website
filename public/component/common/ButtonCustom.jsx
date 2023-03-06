@@ -1,8 +1,8 @@
 import Button from '@carbon/react/lib/components/Button/Button';
 
-const ButtonCustom = ({ type, text, action, customStyle }) => {
+const ButtonCustom = ({ type, text, action, customStyle, ...props }) => {
     return (
-        <Button style={customStyle} onClick={() => { action(); }} kind={type}>{text}</Button>
+        <Button {...props} style={customStyle} onClick={() => { action(); }} kind={type}>{text}</Button>
     );
 };
 

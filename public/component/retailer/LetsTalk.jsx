@@ -8,7 +8,7 @@ const RetailerLetsTalk = () => {
     return (
         <RetailerLayout>
             <Column lg={16}>
-                <LetsTalkForm onSubmit={() => {}} />
+                <LetsTalkForm onSubmit={(d) => console.log('dddd', d)} />
             </Column>
         </RetailerLayout>
     );

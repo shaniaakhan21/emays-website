@@ -1,4 +1,22 @@
 {
+  "common": {
+    "lets-talk-form": {
+      "header": "Are you curious about something? Let’s talk",
+      "name": "Name",
+      "name-placeholder": "Name here",
+      "email": "Email",
+      "phone": "Phone Number",
+      "phone-placeholder": "+ 39 0000 000",
+      "message": "Message",
+      "message-placeholder": "Hi, I would like to know about...",
+      "privacy-policy": "I’ve read and, agree  the privacy policy",
+      "email-2": "Email",
+      "phone-2": "Phone",
+      "email-2-value": "emays@emays.com",
+      "phone-2-value": "+ 39 000 000 000",
+      "submit": "SUBMIT"
+    }
+  },
   "checkout": {
     "book-appointment": {
       "header": "BOOK YOUR APPOINTMENT",
@@ -51,5 +69,12 @@
       "quantity": "Quantity",
       "color": "Color"
     }
+  },
+  "retailer": {
+    "header": "RETAILER",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "website": "Website"
   }
 }

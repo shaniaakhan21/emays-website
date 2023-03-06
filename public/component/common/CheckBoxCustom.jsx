@@ -3,10 +3,11 @@ import Checkbox from '@carbon/react/lib/components/Checkbox/Checkbox';
 const CheckBoxCustom = ({
     labelText,
     id,
-    action
+    action,
+    ...props
 }) => {
     return (
-        <Checkbox onChange={() => { action(); }} labelText={labelText} id={id} />
+        <Checkbox {...props} onChange={() => { action(); }} labelText={labelText} id={id} />
     );
 };
 
