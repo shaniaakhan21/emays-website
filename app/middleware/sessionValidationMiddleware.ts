@@ -1,8 +1,11 @@
 'use strict';
 
 import { Request, Response, NextFunction } from 'express';
-import Logger from '../logger';
+import LogType from '../const/logType';
+import { Logger } from '../log/logger';
 import { IOrderContext } from '../type/IOrderContext';
+import { buildErrorMessage, buildInfoMessageMethodCall } from '../util/logMessageBuilder';
+const Logging = Logger(__filename);
 
 /**
  * Check the user session validity
@@ -13,15 +16,14 @@ import { IOrderContext } from '../type/IOrderContext';
 export const validateSession = (req: Request, res: Response, next: NextFunction) => {
 
     const requestBody: IOrderContext = req.body as IOrderContext;
-    const userEmail: string = requestBody?.userEmail;
     try {
         // TODO: validation logic
-        Logger.info(`Session validation is being called for the user Email ${userEmail}.`);
+        Logging.log(buildInfoMessageMethodCall(
+            'Validate session', `User: ${requestBody.uid} ${requestBody.email}`), LogType.INFO);
         next();
     } catch (error) {
         const errorObject: Error = error as Error;
-        Logger.error(`Failed validate the session for user Email ${userEmail}.
-        Error stack: ${errorObject.stack as string}.`);
+        Logging.log(buildErrorMessage(errorObject, 'Validate session'), LogType.ERROR);
         next(error);
     }
 };

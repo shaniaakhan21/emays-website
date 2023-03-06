@@ -11,16 +11,24 @@ import { config } from './app/config/config';
 // Routes
 import healthRoute from './app/route/healthRoute';
 import launchRoute from './app/route/launchRoute';
-import orderRoute from './app/route/orderRoute';
-import { buildErrorResponseAndSend } from './app/middleware/errorResponseBuilderMiddleware';
+import orderRoute from './app/route/userOrderRoute';
+import sendErrorResponse from './app/middleware/errorResponseBuilderMiddleware';
 import { AppConfigKey } from './app/const/appConfigKey';
-import Logger from './app/logger';
 import validateJWT from './app/middleware/jwtTokenValidationMiddleware';
+import ServiceError from './app/type/error/ServiceError';
+import { connectToMongoDB } from './app/data/db/connector';
 
 // Parses incoming requests with JSON payloads (body-parser)
 app.use(express.json());
 // Parses incoming requests with HTML Form (body-parser) 
 app.use(express.urlencoded({ extended: true }));
+
+// Connect to the database
+(async () => {
+    await connectToMongoDB();
+})().catch(error => {
+    process.exit(1);
+});
 
 // Static Files through /dist path since we have multiple versions
 app.use(config.STATIC_FILES_LOCATION, express.static(__dirname + config.UI_VERSIONS_LOCATION));
@@ -41,10 +49,8 @@ app.use(config.ROUTE_PATH, orderRoute);
 /*
  * Error handling middleware
  */
-app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    // Get sessionID that has been passed with request headers
-    Logger.error(`Application error builder is being called with the error : ${err.message}.`);
-    buildErrorResponseAndSend(err, res);
+app.use((err: ServiceError, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    sendErrorResponse(err, res);
 });
 
 export const App = app;

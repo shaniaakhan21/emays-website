@@ -5,7 +5,11 @@ import { config } from '../config/config';
 import { Roles } from '../const/roles';
 import { IJWTClaims } from '../type/IJWTClaims';
 import { GenerateTokenFunc } from '../type/ItokenGenerator';
-import Logger from '../logger';
+import { Logger } from '../log/logger';
+import { buildErrorMessage } from './logMessageBuilder';
+import LogType from '../const/logType';
+
+const Logging = Logger(__filename);
 
 /**
  * Generate JWT token
@@ -26,8 +30,7 @@ export const generateJWT: GenerateTokenFunc = (claimData) => {
         return token;
     } catch (error) {
         const errorObject: Error = error as Error;
-        Logger.error(`Failed to build the auth token.
-        Error stack: ${errorObject.stack as string}.`);
+        Logging.log(buildErrorMessage(errorObject, 'Build JWT'), LogType.ERROR);
         throw error;
     }
 };
