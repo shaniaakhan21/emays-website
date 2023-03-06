@@ -2,7 +2,6 @@
     display: flex;
     justify-content: right;
     .shopping-bag-container {
-        max-width: 450px;
         padding-top: 30px;
         .header {
             font-size: 22px;
@@ -29,7 +28,6 @@
                     font-size: 15px;
                     font-weight: bold;
                 }
-                padding-left: 305px;
             }
         }
 
@@ -37,6 +35,30 @@
          padding-top: 10px;
          padding-left: 20px;
         }
+    }
+    
+}
+
+.cds--list--unordered *{
+    text-align: justify;
+}
+
+@media only screen and (max-width: 480px) {
+    .shopping-bag {
+        .shopping-bag-container{
+            .service-fee{
+                .cost{
+                    padding-left: 0;
+                    p{
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .cds--list__item{
+        font-size: 12px!important;
     }
     
 }
