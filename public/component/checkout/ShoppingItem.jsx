@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
     display: flex;
@@ -13,7 +14,7 @@ const Container = styled.div`
         padding-left: 10px;
         width: 100%;
         .header {
-            padding-top: 0px;
+            padding-top: 0;
             p {
                 font-size: 14px;
                 font-weight: bold;
@@ -41,6 +42,7 @@ const Container = styled.div`
 `;
 
 const ShoppingItem = ({
+
     itemName,
     color,
     quantity,
@@ -90,6 +92,16 @@ const ShoppingItem = ({
         </Container>
     );
 
+};
+
+ShoppingItem.propTypes = {
+    itemName: PropTypes.string.isRequired,
+    color: PropTypes.string,
+    quantity: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
+    size: PropTypes.string,
+    image: PropTypes.string,
+    imageAlt: PropTypes.string
 };
 
 export default ShoppingItem;
