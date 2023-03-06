@@ -23,7 +23,7 @@ class MainRouter extends React.Component {
                 <Router>
                     <Switch>
                         <Route path='/confirm' component={() => <Confirm/>}></Route>
-                        <Route path='/' component={() => <Checkout/>}></Route>
+                        <Route path='/' component={() => <Checkout />}></Route>
                     </Switch>
 
                 </Router>
