@@ -12,5 +12,7 @@ export const EMAIL_INVOICE = 'emailInvoice';
 export const AUTH_TOKEN = 'authToken';
 
 export const ADDRESS = 'address';
-
 export const SELECTED_OPTIONS_KEY = 'selectedOptions';
+
+// CUSTOMER UI
+export const CUSTOMER_UI = 'customerUI';
