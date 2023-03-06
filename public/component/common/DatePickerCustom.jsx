@@ -1,14 +1,22 @@
-import DatePicker from '@carbon/react/lib/components/DatePicker';
-import DatePickerInput from '@carbon/react/lib/components/DatePickerInput';
+import React, { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { PropTypes } from 'prop-types';
 
-const DatePickerCustom = ({ customStyle }) => {
+const DatePickerCustom = ({ handleDateChange, selectedDate }) => {
     return (
         <DatePicker
-            maxDate='09/01/2050'
-            datePickerType='single'>
-            <DatePickerInput style={customStyle} placeholder='mm/dd/yyyy' />
-        </DatePicker>
+        
+            selected={selectedDate}
+            onChange={handleDateChange}
+            dateFormat='yyyy-MM-dd'
+            minDate={new Date()}
+        />
     );
+};
+
+DatePickerCustom.propTypes = {
+    handleDateChange: PropTypes.func.isRequired
 };
 
 export default DatePickerCustom;
