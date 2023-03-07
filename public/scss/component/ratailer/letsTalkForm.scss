@@ -1,5 +1,6 @@
 .letsTalk {
   margin-top: 120px;
+  margin-bottom: 20px;
 
   label {
     color: #FFFFFF;
@@ -7,6 +8,10 @@
 
   .left {
     padding: 20px 60px 20px 80px;
+
+    @media (max-width: 950px) {
+      padding: 10px 20px 10px 20px;
+    }
 
     .form {
       .title {
@@ -37,6 +42,10 @@
   }
   .right {
     padding-top: 200px;
+
+    @media (max-width: 671px) {
+      padding-top: 20px;
+    }
 
     .logo {
       width: 120px;

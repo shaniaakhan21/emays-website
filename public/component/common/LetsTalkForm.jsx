@@ -35,12 +35,12 @@ const LetsTalkForm = ({ onSubmit }) => {
     
     return (
         <Grid fullWidth className='letsTalk'>
-            <Col lg={10} className='left'>
+            <Col lg={10} md={5} sm={4} xs={4} className='left'>
                 <Grid fullWidth className='form'>
-                    <Col lg={8} md={8} sm={16}>
+                    <Col lg={8} md={8} sm={4} xs={4}>
                         <h1 className='title'>{t('header')}</h1>
                     </Col>
-                    <Col lg={16}>
+                    <Col lg={16} md={8} sm={4} xs={4}>
                         <TextBoxCustom
                             labelText={t('name')}
                             placeholderText={t('name-placeholder')}
@@ -49,7 +49,7 @@ const LetsTalkForm = ({ onSubmit }) => {
                             onChange={setValue}
                         />
                     </Col>
-                    <Col lg={16}>
+                    <Col lg={16} md={8} sm={4} xs={4}>
                         <TextBoxCustom
                             labelText={t('email')}
                             autocomplete='email'
@@ -57,7 +57,7 @@ const LetsTalkForm = ({ onSubmit }) => {
                             onChange={setValue}
                         />
                     </Col>
-                    <Col lg={16}>
+                    <Col lg={16} md={8} sm={4} xs={4}>
                         <TextBoxCustom
                             labelText={t('phone')}
                             placeholderText={t('phone-placeholder')}
@@ -66,7 +66,7 @@ const LetsTalkForm = ({ onSubmit }) => {
                             onChange={setValue}
                         />
                     </Col>
-                    <Col lg={16}>
+                    <Col lg={16} md={8} sm={4} xs={4}>
                         <TextAreaCustom
                             className='message'
                             labelText={t('message')}
@@ -77,7 +77,7 @@ const LetsTalkForm = ({ onSubmit }) => {
                             onChange={setValue}
                         />
                     </Col>
-                    <Col lg={16}>
+                    <Col lg={16} md={8} sm={4} xs={4}>
                         <CheckBoxCustom
                             className='privacy'
                             labelText={t('privacy-policy')}
@@ -85,12 +85,12 @@ const LetsTalkForm = ({ onSubmit }) => {
                             action={setValue}
                         />
                     </Col>
-                    <Col lg={16}>
+                    <Col lg={16} md={8} sm={4} xs={4}>
                         <ButtonCustom action={() => onSubmit(data)} className='submit' text={t('submit')} />
                     </Col>
                 </Grid>
             </Col>
-            <Col lg={6} className='right'>
+            <Col lg={6} md={3} sm={4} xs={4} className='right'>
                 <img className='logo' src={Logo} alt='Emays Logo' />
                 <div className='email'>
                     <img src={EmailIcon} alt='E-Mail' />
