@@ -1,122 +1,57 @@
-import { Grid, Row, Column as Col } from '@carbon/react';
+import { Grid, Column as Col, Search, Tag, Accordion, AccordionItem } from '@carbon/react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 // SCSS
-import './../../scss/component/ratailer/letsTalkForm.scss';
+import './../../scss/component/ratailer/faq.scss';
 // Components
-import TextAreaCustom from './TextAreaCustom';
-import CheckBoxCustom from './CheckBoxCustom';
-import ButtonCustom from './ButtonCustom';
-import TextBoxCustom from './TextBoxCustom';
+
 // Images
-import Logo from '../../logo/emays-logo-black.png';
-import EmailIcon from '../../images/mail.svg';
-import PhoneIcon from '../../images/phone.svg';
-import InstagramIcon from '../../images/insta.svg';
-import FacebookIcon from '../../images/fb.svg';
-import LinkedInIcon from '../../images/linkedin.svg';
-import { useState } from 'react';
+
+// Constants
+const text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt' +
+    ' ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco ' +
+    'laboris nisi ut aliquip ex ea commodo consequat.';
 
 const FAQForm = () => {
     const [translate] = useTranslation();
-
-    const [data, setData] = useState({});
-
-    const setValue = (e) => {
-        if (e.target.name === 'privacy-policy') {
-            setData(cd => ({ ...cd, [e.target.name]: e.target.checked }));
-            return;
-        }
-        setData(cd => ({ ...cd, [e.target.name]: e.target.value }));
-    };
     
-    const t = (key) => translate(`common.lets-talk-form.${key}`);
+    const t = (key) => translate(`common.faq.${key}`);
     
     return (
-        <Grid fullWidth className='letsTalk'>
-            <Col lg={10} className='left'>
-                <Grid fullWidth className='form'>
-                    <Col lg={8} md={8} sm={16}>
-                        <h1 className='title'>{t('header')}</h1>
-                    </Col>
-                    <Col lg={16}>
-                        <TextBoxCustom
-                            labelText={t('name')}
-                            placeholderText={t('name-placeholder')}
-                            autocomplete='given-name'
-                            name='name'
-                            onChange={setValue}
-                        />
-                    </Col>
-                    <Col lg={16}>
-                        <TextBoxCustom
-                            labelText={t('email')}
-                            autocomplete='email'
-                            name='email'
-                            onChange={setValue}
-                        />
-                    </Col>
-                    <Col lg={16}>
-                        <TextBoxCustom
-                            labelText={t('phone')}
-                            placeholderText={t('phone-placeholder')}
-                            autocomplete='tel'
-                            name='phone'
-                            onChange={setValue}
-                        />
-                    </Col>
-                    <Col lg={16}>
-                        <TextAreaCustom
-                            className='message'
-                            labelText={t('message')}
-                            placeholder={t('message-placeholder')}
-                            enableCounter
-                            maxCount={100}
-                            name='message'
-                            onChange={setValue}
-                        />
-                    </Col>
-                    <Col lg={16}>
-                        <CheckBoxCustom
-                            className='privacy'
-                            labelText={t('privacy-policy')}
-                            name='privacy-policy'
-                            action={setValue}
-                        />
-                    </Col>
-                    <Col lg={16}>
-                        <ButtonCustom action={() => onSubmit(data)} className='submit' text={t('submit')} />
-                    </Col>
-                </Grid>
+        <Grid fullWidth className='faq'>
+            <Col lg={16} md={8} sm={4} xs={4}>
+                <h1 className='header'>Frequently Asked Questions</h1>
             </Col>
-            <Col lg={6} className='right'>
-                <img className='logo' src={Logo} alt='Emays Logo' />
-                <div className='email'>
-                    <img src={EmailIcon} alt='E-Mail' />
-                    <div>
-                        <span className='title'>{t('email-2')}</span>
-                        <span>{t('email-2-value')}</span>
-                    </div>
-                </div>
-                <div className='phone'>
-                    <img src={PhoneIcon} alt='Phone Number' />
-                    <div>
-                        <span className='title'>{t('phone-2')}</span>
-                        <span>{t('phone-2-value')}</span>
-                    </div>
-                </div>
-                <div className='social'>
-                    <a href=''>
-                        <img src={InstagramIcon} alt='Instagram' />
-                    </a>
-                    <a href=''>
-                        <img src={LinkedInIcon} alt='LinkedIn' />
-                    </a>
-                    <a href=''>
-                        <img src={FacebookIcon} alt='Facebook' />
-                    </a>
-                </div>
+            <Col lg={16} md={8} sm={4} xs={4}>
+                <Search className='search' />
+            </Col>
+            <Col lg={16} md={8} sm={4} xs={4} className='tags'>
+                <Tag className='tag' filter onClose={() => {}}>Payment</Tag>
+                <Tag className='tag' filter onClose={() => {}}>Payment</Tag>
+                <Tag className='tag' filter onClose={() => {}}>Payment</Tag>
+                <Tag className='tag' filter onClose={() => {}}>Payment</Tag>
+                <Tag className='tag' filter onClose={() => {}}>Payment</Tag>
+            </Col>
+            <Col lg={8} md={8} sm={4} xs={4} className='list'>
+                <Accordion>
+                    <AccordionItem title='Where is this service available?'>{text}</AccordionItem>
+                    <AccordionItem title='How do I place my order'>{text}</AccordionItem>
+                    <AccordionItem title='When can I book my appontment?'>{text}</AccordionItem>
+                    <AccordionItem title='Who Brings the pieces I want to try on?'>{text}</AccordionItem>
+                    <AccordionItem title='How do I pay'>{text}</AccordionItem>
+                    <AccordionItem title='What if I don’t want to keep the pieces'>{text}</AccordionItem>
+                </Accordion>
+            </Col>
+            <Col lg={8} md={8} sm={4} xs={4} className='list list-2'>
+                <Accordion>
+                    <AccordionItem title='Where is this service available?'>{text}</AccordionItem>
+                    <AccordionItem title='How do I place my order'>{text}</AccordionItem>
+                    <AccordionItem title='When can I book my appontment?'>{text}</AccordionItem>
+                    <AccordionItem title='Who Brings the pieces I want to try on?'>{text}</AccordionItem>
+                    <AccordionItem title='How do I pay'>{text}</AccordionItem>
+                    <AccordionItem title='What if I don’t want to keep the pieces'>{text}</AccordionItem>
+                </Accordion>
             </Col>
         </Grid>
     );
