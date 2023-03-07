@@ -8,6 +8,7 @@ import { buildErrorMessage, buildInfoMessageUserProcessCompleted } from '../util
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
 import { saveOrder, retrieveOrderByUserId } from '../data/model/OrderModel';
+import { sendEmail } from './emailService';
 
 const Logging = Logger(__filename);
 
@@ -32,6 +33,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
         const data = await saveOrder(orderExtracted);
         Logging.log(buildInfoMessageUserProcessCompleted('Order insertion', `Order Data:
             ${JSON.stringify(data)}` ), LogType.INFO);
+        await sendEmail(['thathsararaviraj@gmail.com']);
         return data;
     } catch (error) {
         const err = error as Error;

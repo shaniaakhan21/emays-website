@@ -60,6 +60,8 @@
     "@emotion/styled": "^11.8.1",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "12.1.2",
+    "aws-sdk": "^2.1329.0",
+    "axios": "^0.21.4",
     "babel-jest": "^27.5.1",
     "babel-plugin-styled-components": "^2.0.6",
     "ejs": "^3.1.6",
@@ -69,6 +71,7 @@
     "joi": "^17.8.3",
     "json-web-token": "^3.2.0",
     "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.5.4",
     "react": "^18.2.0",
     "react-datepicker": "^4.10.0",
     "react-dom": "^18.2.0",
@@ -78,9 +81,7 @@
     "sass": "1.51.0",
     "styled-components": "^5.3.3",
     "uuid": "^9.0.0",
-    "winston": "^3.7.2",
-    "axios": "^0.21.4",
-    "mongoose": "^6.5.4"
+    "winston": "^3.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",

@@ -11,7 +11,11 @@ const {
     MONGODB_PASSWORD,
     MONGODB_HOST,
     MONGODB_DOCKER_PORT,
-    MONGODB_DATABASE
+    MONGODB_DATABASE,
+    AWS_SES_ACCESS_KEY,
+    AWS_SES_SECRET_KEY,
+    AWS_REGION,
+    AWS_SOURCE_EMAIL
 } = process.env;
 
 export const config = {
@@ -34,5 +38,11 @@ export const config = {
         MONGODB_HOST: MONGODB_HOST || 'mongodb',
         MONGODB_DOCKER_PORT: MONGODB_DOCKER_PORT || 27017,
         MONGODB_DATABASE: MONGODB_DATABASE || 'emays_service_db'
+    },
+    AWS_SES: {
+        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
+        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '',
+        AWS_REGION: AWS_REGION || '',
+        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || ''
     }
 };
