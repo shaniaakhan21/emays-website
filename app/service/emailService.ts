@@ -33,7 +33,7 @@ export const sendEmail: SendEmailFunc = async (emails) => {
                 }
             }
         };
-        await emailClientInstance.sendEmail(params);
+        await emailClientInstance.sendEmail(params).promise();
     } catch (error) {
         const err = error as Error;
         serviceErrorBuilder(err.message);
