@@ -28,6 +28,13 @@ This repository consists of a React UI and its Immediate Backend.
 | 4     | > yarn dev-start | This command will run the development server. |
 | 5     | run application launcher | Hit localhost:8080/api-dev/devLaunch on the browser. |
 
+# Steps to run with Docker-Compose
+| Step  | Instructions                                | Description                                                                                               |
+| ----- |:--------------------------------------------|:--------------------------------------------------------------------------------------------------------- |
+| 1     | docker compose --env-file .env.dev -f docker-compose-dev.yml up --build | Access the project folder with the terminal and run the command. This command will build the Docker image of the application and will start the application container. Besides that, it will initiate a MongoDB container in the local Docker.|
+| 2     | check console | Check the console to get the health route. Also you can check the API spec for more details on routs. |
+| 3     | connect MongoDB | You can use a tool like Mongo Compass to connect the docker Mongo container. |
+
 # Dev guide
 - make sure your Node version is >=14
 - fix all ES-Lint issue before commit the code (auto check has been enabled with git hooks)
@@ -37,5 +44,4 @@ This repository consists of a React UI and its Immediate Backend.
 - follow design patterns at first place
 
 # Architecture
-
-![plot](./architecture/Design%203.svg)
+- Monolithic

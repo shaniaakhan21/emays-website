@@ -6,16 +6,18 @@
 
 ----- Check health -----
 
-GET http://localhost:8080/api-dev/health
+GET http://172.19.0.3:8080/api-dev/health
 
 ----- Make order -----
 
-POST http://localhost:8080/api-dev/orders
+POST http://172.19.0.3:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0wMVQxNzoxNDoyMS42MDNaIiwiZXhwIjoxNjc3NzI2ODYxLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJkNGFjYWVjNS02NTIwLTRhOTUtYjQwNS1jOTlmMTA5NTgwMDQiLCJpYXQiOjE2Nzc2OTA4NjF9.wpsXgRs4tWg4m09ZURIP6AbTo6dKf6SapilQygVP0yI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0wNlQxNjo1Mjo1Ny45NzVaIiwiZXhwIjoxNjc4MTU3NTc3LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhZDllMzBjNy1lOTBhLTQ4OGUtOTljMC0wM2NjMzJjNDY0YjMiLCJpYXQiOjE2NzgxMjE1Nzd9.T3hDhLm0I5ogihyaBsntcLwbWDcB8jSGkm6OeoulTT8
 
 {
-    "userEmail": "mana.hara@gmail.com",
+    "email": "mana.hara@gmail.com",
+    "retailerEmail": "thath.sara@gmail.com",
+    "uid": "123456788",
     "date": "2023-02-23",
     "startTime": "18:00",
     "endTime": "19:00",
@@ -25,5 +27,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wM
         "addTwo": "Subway",
         "addThree": "Khalifa",
         "addFour": "Dubai"
-    }
+    },
+    "orderItems": [{"productName": "Denim shirt", "productColor": "blue", "productSize": "Large", "productQuantity": 2, "productCost": "10$", "productImage": "url", "productDeliveryInformation": "extra information"}]
 }
+
+----- Get Order ----
+
+GET http://172.19.0.3:8080/api-dev/orders/users/123456788
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0wNlQxNjo1Mjo1Ny45NzVaIiwiZXhwIjoxNjc4MTU3NTc3LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhZDllMzBjNy1lOTBhLTQ4OGUtOTljMC0wM2NjMzJjNDY0YjMiLCJpYXQiOjE2NzgxMjE1Nzd9.T3hDhLm0I5ogihyaBsntcLwbWDcB8jSGkm6OeoulTT8
+content-type: application/json
