@@ -1,13 +1,8 @@
-import { Column } from '@carbon/react';
-
-// Components
-import { Link } from 'react-router-dom';
+import MainPage from './MainPage';
 
 const CustomerHome = () => {
     return (
-        <Column lg={16}>
-            <h1>Hy</h1>
-        </Column>
+        <MainPage/>
     );
 };
 

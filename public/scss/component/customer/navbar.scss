@@ -1,0 +1,41 @@
+.cds--header {
+  background-color: #231F20;
+  padding: 0 15rem;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  height: 4rem;
+  border-bottom: 4px solid #161616;
+
+  .cds--header__menu-button {
+    color: white;
+  }
+
+  .cds--header__name {
+    color: white;
+  }
+
+  .cds--header__menu-item{
+    background-color: #231F20;
+    color: white;
+    font-family: 'SkolaSans';
+  }
+
+  .cds--header__navigation {
+    .cds--header__menu-item {
+      
+      &:hover {
+        background-color: #525252;
+        color: white;
+      }
+    }
+  }
+  a.cds--header__menu-item:hover {
+    background-color: var(--cds-background-hover, rgba(141, 141, 141, .12));
+    color: #ffffff;
+}
+}
+
+.cds--header__nav:before{
+  display: none;
+}
