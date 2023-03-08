@@ -6,6 +6,9 @@ import { IOrder } from '../../type/orderType';
 const OrderSchema = new Schema<IOrder>({
     email: { type: String, required: true },
     retailerEmail: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
+    phoneNumber: { type: String, required: true },
     uid: { type: String, required: true, unique: true },
     date: { type: Date, required: true },
     startTime: { type: String, required: true },

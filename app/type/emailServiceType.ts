@@ -1,3 +1,5 @@
 'use strict';
 
-export type SendEmailFunc = (email: Array<string>) => Promise<void>;
+import { ISendEmailInfo } from './IEmailContext';
+
+export type SendEmailFunc = (data: ISendEmailInfo) => Promise<void>;

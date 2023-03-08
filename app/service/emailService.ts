@@ -1,5 +1,6 @@
 'use strict';
 
+import { buildAppLaunchPath } from '../api/launchAPI';
 import LogType from '../const/logType';
 import { Logger } from '../log/logger';
 import { SendEmailFunc } from '../type/emailServiceType';
@@ -9,22 +10,26 @@ import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
 
 const Logging = Logger(__filename);
 
-export const sendEmail: SendEmailFunc = async (emails) => {
+export const sendEmail: SendEmailFunc = async (emailInfo) => {
     try {
         const emailClientInstance = new EmailClient().getInstance();
-
+        const applicationPath: string = await buildAppLaunchPath('/template/temp.html');
+        // eslint-disable-next-line max-len
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-call
+        const data = await require('ejs').renderFile(applicationPath, { 'firstName': emailInfo.firstName }) as string;
+        console.log('DATA: -------', data);
         const params = {
             Source: 'thathsararaviraj@gmail.com',
             Destination: {
                 ToAddresses: [
-                    ...emails
+                    emailInfo.email
                 ]
             },
             Message: {
                 Body: {
                     Html: {
                         Charset: 'UTF-8',
-                        Data: 'This is the body of my email!'
+                        Data: data
                     }
                 },
                 Subject: {

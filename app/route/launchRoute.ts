@@ -132,4 +132,25 @@ router.post(RoutePath.LAUNCH, authorizeLaunchRoute, (req: express.Request,
     });
 });
 
+/**
+ * To accept the launch request and render the UI
+ */
+router.get('/test', (req: express.Request,
+    res: express.Response, next: express.NextFunction): void => {
+    (async () => {
+        const items = ['name', 'address'];
+
+        const applicationPath: string = await buildAppLaunchPath('/template/temp.html');
+        return res.render(applicationPath, { 'firstName': 'Thathsara' });
+    })().catch((error) => {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'launch ui app'), LogType.ERROR);
+        next(error);
+        /*
+         * Need to display error template in the app.ts since
+         * there is no UI to cater the error message at this stage (due to form submit)
+         */
+    });
+});
+
 export default router;

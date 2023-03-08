@@ -24,6 +24,15 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
             email: Joi.string().email().max(50).required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, EMAIL_REQUIRED); }),
+            firstName: Joi.string().max(50).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EMAIL_REQUIRED); }),
+            lastName: Joi.string().max(50).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EMAIL_REQUIRED); }),
+            phoneNumber: Joi.string().max(15).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EMAIL_REQUIRED); }),
             retailerEmail: Joi.string().email().max(50).required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, EMAIL_REQUIRED); }),

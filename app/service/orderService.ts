@@ -22,6 +22,9 @@ export const createOrder: CreateOrderFunc = async (order) => {
         const orderExtracted: IOrder = {
             email: order.email,
             retailerEmail: order.retailerEmail,
+            firstName: order.firstName,
+            lastName: order.lastName,
+            phoneNumber: order.phoneNumber, 
             uid: order.uid,
             date: order.date,
             startTime: order.startTime,
@@ -33,7 +36,15 @@ export const createOrder: CreateOrderFunc = async (order) => {
         const data = await saveOrder(orderExtracted);
         Logging.log(buildInfoMessageUserProcessCompleted('Order insertion', `Order Data:
             ${JSON.stringify(data)}` ), LogType.INFO);
-        await sendEmail(['thathsararaviraj@gmail.com']);
+        await sendEmail(
+            { email: orderExtracted.email,
+                firstName: orderExtracted.firstName,
+                lastName: orderExtracted.lastName,
+                phoneNumber: orderExtracted.phoneNumber,
+                uid: orderExtracted.uid, date: orderExtracted.date,
+                startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
+                experience: orderExtracted.experience, address: orderExtracted.address,
+                orderItems: orderExtracted.orderItems });
         return data;
     } catch (error) {
         const err = error as Error;
