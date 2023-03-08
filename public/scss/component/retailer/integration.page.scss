@@ -1,0 +1,23 @@
+.integration {
+  font-family: 'SkolaSans', serif;
+  color: #FFFFFF;
+
+  .title {
+    margin-top: 150px;
+    font-size: 62px;
+    font-weight: 700;
+  }
+
+  .description {
+    margin-top: 30px;
+    font-size: 24px;
+    font-weight: 400;
+    max-width: 650px;
+  }
+
+  button {
+    margin-top: 40px;
+    background-color: #FFFFFF;
+    color: #393939;
+  }
+}

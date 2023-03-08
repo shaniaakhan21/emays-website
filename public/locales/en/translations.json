@@ -81,6 +81,11 @@
       "description": "Highly personal in-store shopping experience delivered to your client’s home to give luxury fashion a sustainable turn.",
       "button": "See what we can do for you",
       "button-api": "API Connection"
+    },
+    "integration": {
+      "title": "EASY INTEGRATION",
+      "description": "Seamless integrations with any API enabled platform",
+      "button": "Request a DEMO"
     }
   }
 }
