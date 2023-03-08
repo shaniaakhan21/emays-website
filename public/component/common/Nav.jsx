@@ -13,7 +13,7 @@ const Nav = () => {
                 <img src={LOGO} alt='EMAYS' style={{ marginRight: '1rem' }} />
             </HeaderName>
             <HeaderNavigation aria-label='Your Company'>
-                <HeaderMenuItem href='#' style={{ marginLeft: '1rem' }}>SERVICES</HeaderMenuItem>
+                <HeaderMenuItem href='#' style={{ marginLeft: '1rem' }}>INTEGRATION</HeaderMenuItem>
                 <HeaderMenuItem href='#'>FAQS</HeaderMenuItem>
                 <HeaderMenuItem href='#'>SUSTAINABILITY</HeaderMenuItem>
                 <HeaderMenuItem href='#'>PARTNERSHIP</HeaderMenuItem>

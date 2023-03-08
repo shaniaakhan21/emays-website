@@ -1,6 +1,6 @@
 .cds--header {
   background-color: #231F20;
-  padding: 0 15rem;
+  padding: 0 14rem;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -19,6 +19,8 @@
     background-color: #231F20;
     color: white;
     font-family: 'SkolaSans';
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
   }
 
   .cds--header__navigation {
