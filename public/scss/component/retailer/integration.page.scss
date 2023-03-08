@@ -15,9 +15,229 @@
     max-width: 650px;
   }
 
+  .see-more, .req-demo {
+    display: flex;
+
+    button {
+      @media (max-width: 500px) {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  .req-demo {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+  }
+
   button {
     margin-top: 40px;
+    margin-bottom: 150px;
     background-color: #FFFFFF;
     color: #393939;
+    flex: 1;
+    max-width: 440px;
+  }
+
+  .info-box {
+    display: flex;
+    flex-direction: column-reverse;
+
+    @media (min-width: 42rem) {
+
+      &:nth-child(odd) {
+        flex-direction: row-reverse;
+      }
+
+      &:nth-child(even) {
+        flex-direction: row;
+      }
+    }
+
+    .image {
+      flex: 1;
+      max-width: 100%;
+
+      @media (min-width: 42rem) {
+        max-width: 50%;
+      }
+
+      .image-container {
+        padding: 15px;
+        margin: 15px;
+        overflow: hidden;
+        background-color: #FFFFFF;
+        border-radius: 30px;
+
+        @media (min-width: 42rem) {
+          border-radius: 50px;
+        }
+
+        @media (min-width: 66rem) {
+          border-radius: 80px;
+        }
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    .details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding-left: 20px;
+      margin-bottom: 20px;
+
+      @media (min-width: 42rem) {
+        padding-left: 85px;
+        margin-bottom: 0;
+      }
+
+      h2 {
+        font-size: 26px;
+        font-weight: 700;
+      }
+
+      p {
+        margin-top: 16px;
+        font-size: 20px;
+        font-weight: 400;
+        max-width: 380px;
+      }
+    }
+  }
+
+  .logos {
+    margin-bottom: 40px;
+
+    @media (min-width: 66rem) {
+      .marquee {
+        display: flex;
+        flex: 1;
+
+        .marquee__group {
+          display: flex;
+          justify-content: space-around;
+          flex: 1;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+// Logo marquee sample from https://codepen.io/hexagoncircle/pen/wvmjomb
+
+@media (max-width: 66rem) {
+  :root {
+    --color-text: navy;
+    --color-bg: rgba(0, 0, 0, 0);
+    --color-bg-accent: rgba(0, 0, 0, 0);
+    --size: clamp(10rem, 1rem + 40vmin, 30rem);
+    --gap: calc(var(--size) / 14);
+    --duration: 60s;
+    --scroll-start: 0;
+    --scroll-end: calc(-100% - var(--gap));
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .marquee {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: var(--gap);
+    mask-image: linear-gradient(
+                    var(--mask-direction, to right),
+                    hsl(0 0% 0% / 0),
+                    hsl(0 0% 0% / 1) 20%,
+                    hsl(0 0% 0% / 1) 80%,
+                    hsl(0 0% 0% / 0)
+    );
+  }
+
+  .marquee__group {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--gap);
+    min-width: 100%;
+    animation: scroll-x var(--duration) linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee__group {
+      animation-play-state: paused;
+    }
+  }
+
+  .marquee--vertical {
+    --mask-direction: to bottom;
+  }
+
+  .marquee--vertical,
+  .marquee--vertical .marquee__group {
+    flex-direction: column;
+  }
+
+  .marquee--vertical .marquee__group {
+    animation-name: scroll-y;
+  }
+
+  .marquee--reverse .marquee__group {
+    animation-direction: reverse;
+    animation-delay: -3s;
+  }
+
+  @keyframes scroll-x {
+    from {
+      transform: translateX(var(--scroll-start));
+    }
+    to {
+      transform: translateX(var(--scroll-end));
+    }
+  }
+
+  @keyframes scroll-y {
+    from {
+      transform: translateY(var(--scroll-start));
+    }
+    to {
+      transform: translateY(var(--scroll-end));
+    }
+  }
+
+  /* Element styles */
+  .marquee img {
+    display: grid;
+    place-items: center;
+    width: var(--size);
+    fill: var(--color-text);
+    background: var(--color-bg-accent);
+    aspect-ratio: 16/9;
+    padding: calc(var(--size) / 10);
+    border-radius: 0.5rem;
+  }
+
+  .marquee--vertical img {
+    aspect-ratio: 1;
+    width: calc(var(--size) / 1.5);
+    padding: calc(var(--size) / 6);
+  }
+
+  @keyframes fade {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
   }
 }

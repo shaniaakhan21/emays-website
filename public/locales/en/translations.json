@@ -85,7 +85,17 @@
     "integration": {
       "title": "EASY INTEGRATION",
       "description": "Seamless integrations with any API enabled platform",
-      "button": "Request a DEMO"
+      "button": "Request a DEMO",
+      "info-box": [
+        {
+          "title": "Ecommerce",
+          "description": "EMAYS booking modal automatically appears at checkout inside the brand website - for customers in our coverage areas."
+        },
+        {
+          "title": "Ecommerce",
+          "description": "EMAYS booking modal automatically appears at checkout inside the brand website - for customers in our coverage areas."
+        }
+      ]
     }
   }
 }
