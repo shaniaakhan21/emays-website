@@ -1,7 +1,8 @@
+import EnvironmentHeader from '../common/environment/EnvironmentHeader';
 
 const Environment = () => {
     return (
-        <h1>hy</h1>
+        <EnvironmentHeader/>
     );
 };
 
