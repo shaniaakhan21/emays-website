@@ -8,8 +8,9 @@ const RetailerHome = () => {
     return (
         <RetailerLayout>
             <Column lg={16}>
-                <Link to='/retailer/letsTalk'>Lets Talk</Link>
-                <Link to='/retailer/faq'>FAQ</Link>
+                <Link to='/retailer/letsTalk'>Lets Talk</Link><br />
+                <Link to='/retailer/faq'>FAQ</Link><br />
+                <Link to='/retailer/landing'>Landing</Link>
             </Column>
         </RetailerLayout>
     );

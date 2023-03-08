@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 // SCSS
-import './../../scss/component/ratailer/faq.scss';
+import './../../scss/component/retailer/faq.scss';
 // Components
 
 // Images
@@ -21,7 +21,7 @@ const FAQForm = () => {
     return (
         <Grid fullWidth className='faq'>
             <Col lg={16} md={8} sm={4} xs={4}>
-                <h1 className='header'>Frequently Asked Questions</h1>
+                <h1 className='header'>{t('title')}</h1>
             </Col>
             <Col lg={16} md={8} sm={4} xs={4}>
                 <Search className='search' />

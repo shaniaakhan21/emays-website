@@ -4,7 +4,7 @@ import { Column } from '@carbon/react';
 import RetailerLayout from '../common/RetailerLayout';
 import FAQForm from '../common/FAQForm';
 
-const RetailerFAQ = () => {
+const RetailerFAQs = () => {
     return (
         <RetailerLayout>
             <Column lg={16} md={8} sm={4} xs={4}>
@@ -14,4 +14,4 @@ const RetailerFAQ = () => {
     );
 };
 
-export default RetailerFAQ;
+export default RetailerFAQs;

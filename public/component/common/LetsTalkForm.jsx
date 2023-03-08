@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
 // SCSS
-import './../../scss/component/ratailer/letsTalkForm.scss';
+import './../../scss/component/retailer/letsTalkForm.scss';
 // Components
 import TextAreaCustom from './TextAreaCustom';
 import CheckBoxCustom from './CheckBoxCustom';

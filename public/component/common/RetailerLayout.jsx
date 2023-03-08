@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import '../../scss/component/ratailer/common.scss';
+import '../../scss/component/retailer/common.scss';
 import { Grid } from '@carbon/react';
 
 const RetailerLayout = ({
