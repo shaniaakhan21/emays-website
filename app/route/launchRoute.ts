@@ -140,8 +140,13 @@ router.get('/test', (req: express.Request,
     (async () => {
         const items = ['name', 'address'];
 
-        const applicationPath: string = await buildAppLaunchPath('/template/temp.html');
-        return res.render(applicationPath, { 'firstName': 'Thathsara' });
+        const applicationPath: string = await buildAppLaunchPath(config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
+        return res.render(applicationPath, { 'firstName': 'Thathsara', 'date': 'Wed 27, February 2023'
+            , 'time': '14:00 to 15:00', 'fullName': 'Sample Name Coll iabichino'
+            , 'experience': 'Assist me, Tailoring, Inspire me.', 'address': 'Sample Address, Milano, Italia 06830'
+            , 'items': [{ 'productName': 'Denim shirt', 'productColor': 'blue', 'productSize': 'Large'
+                , 'productQuantity': 2, 'productCost': '10$', 'productImage': 'url',
+                'productDeliveryInformation': 'extra information' }] });
     })().catch((error) => {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'launch ui app'), LogType.ERROR);

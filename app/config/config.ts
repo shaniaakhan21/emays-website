@@ -15,7 +15,8 @@ const {
     AWS_SES_ACCESS_KEY,
     AWS_SES_SECRET_KEY,
     AWS_REGION,
-    AWS_SOURCE_EMAIL
+    AWS_SOURCE_EMAIL,
+    CUSTOMER_EMAIL_TEMPLATE
 } = process.env;
 
 export const config = {
@@ -35,7 +36,7 @@ export const config = {
     DB: {
         MONGODB_USER: MONGODB_USER || 'root',
         MONGODB_PASSWORD: MONGODB_PASSWORD || '123456',
-        MONGODB_HOST: MONGODB_HOST || 'mongodb',
+        MONGODB_HOST: MONGODB_HOST || '172.17.0.2',
         MONGODB_DOCKER_PORT: MONGODB_DOCKER_PORT || 27017,
         MONGODB_DATABASE: MONGODB_DATABASE || 'emays_service_db'
     },
@@ -44,5 +45,8 @@ export const config = {
         AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '',
         AWS_REGION: AWS_REGION || '',
         AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || ''
+    },
+    EMAIL_TEMPLATE: {
+        CUSTOMER_EMAIL_TEMPLATE: CUSTOMER_EMAIL_TEMPLATE || '/template/temp-customer-email.html'
     }
 };
