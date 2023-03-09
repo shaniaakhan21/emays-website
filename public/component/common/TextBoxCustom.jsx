@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 
 const TextBoxCustom = ({ labelText, helperText,
     placeholderText, warnText,
-    size, invalidText, id, className, type, playgroundWidth, onChange, onClick, customStyle }) => {
+    size, invalidText, id, className, type, playgroundWidth, onChange, onClick, customStyle, ...props }) => {
     return (
         <TextInput
+            {...props}
             className={className}
             helperText={helperText}
             id={id}

@@ -7,6 +7,7 @@ export enum RoutePath {
     DEV_LAUNCH = '/devLaunch',
     ORDERS= '/orders',
     USERS = '/users',
+    RETAILER_UI= '/retailer'
 }
 
 export enum PathParam {

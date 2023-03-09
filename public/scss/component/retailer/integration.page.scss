@@ -1,0 +1,135 @@
+.integration {
+  font-family: 'SkolaSans', serif;
+  color: #FFFFFF;
+
+  .title {
+    margin-top: 150px;
+    font-size: 62px;
+    font-weight: 700;
+  }
+
+  .description {
+    margin-top: 30px;
+    font-size: 24px;
+    font-weight: 400;
+    max-width: 650px;
+  }
+
+  .see-more, .req-demo {
+    display: flex;
+
+    button {
+      @media (max-width: 500px) {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  .req-demo {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+  }
+
+  button {
+    margin-top: 40px;
+    margin-bottom: 150px;
+    background-color: #FFFFFF;
+    color: #393939;
+    flex: 1;
+    max-width: 440px;
+  }
+
+  .info-box {
+    display: flex;
+    flex-direction: column-reverse;
+
+    @media (min-width: 42rem) {
+
+      &:nth-child(odd) {
+        flex-direction: row-reverse;
+      }
+
+      &:nth-child(even) {
+        flex-direction: row;
+      }
+    }
+
+    .image {
+      flex: 1;
+      max-width: 100%;
+
+      @media (min-width: 42rem) {
+        max-width: 50%;
+      }
+
+      .image-container {
+        padding: 15px;
+        margin: 15px;
+        overflow: hidden;
+        background-color: #FFFFFF;
+        border-radius: 30px;
+
+        @media (min-width: 42rem) {
+          border-radius: 50px;
+        }
+
+        @media (min-width: 66rem) {
+          border-radius: 80px;
+        }
+
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+    .details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding-left: 20px;
+      margin-bottom: 20px;
+
+      @media (min-width: 42rem) {
+        padding-left: 85px;
+        margin-bottom: 0;
+      }
+
+      h2 {
+        font-size: 26px;
+        font-weight: 700;
+      }
+
+      p {
+        margin-top: 16px;
+        font-size: 20px;
+        font-weight: 400;
+        max-width: 380px;
+      }
+    }
+  }
+
+  .logos {
+    margin-bottom: 40px;
+
+    @media (min-width: 66rem) {
+      .marquee {
+        display: flex;
+        flex: 1;
+
+        .marquee__group {
+          display: flex;
+          justify-content: space-around;
+          flex: 1;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+@import 'marquee.fragment';

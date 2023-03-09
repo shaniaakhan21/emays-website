@@ -9,8 +9,8 @@ export const EMAIL_BOOKED = 'emailBooked';
 export const EMAIL_REMINDER = 'emailReminder';
 export const EMAIL_TODAY = 'emailToday';
 export const EMAIL_INVOICE = 'emailInvoice';
+// UI Launch Types
+export const UI_RETAILER = 'uiRetailer';
 export const AUTH_TOKEN = 'authToken';
-
 export const ADDRESS = 'address';
-
 export const SELECTED_OPTIONS_KEY = 'selectedOptions';

@@ -17,7 +17,8 @@ const Logging = Logger(__filename);
 const validateJWT = (req: Request, res: Response, next: NextFunction) => {
     // TODO: add service-worker implementation to add the token with the UI files requests.
     if (req.path !== `${config.ROUTE_PATH}${RoutePath.HEALTH}` &&
-        (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&  
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&
+        (!req.path.startsWith(RoutePath.RETAILER_UI)) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LAUNCH_MAIL}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LAUNCH}`) && !req.path.includes('app-dist') &&
         req.path !== '/favicon.ico') {
