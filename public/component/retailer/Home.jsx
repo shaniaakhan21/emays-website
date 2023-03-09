@@ -11,7 +11,8 @@ const RetailerHome = () => {
                 <Link to='/retailer/letsTalk'>Lets Talk</Link><br />
                 <Link to='/retailer/faq'>FAQ</Link><br />
                 <Link to='/retailer/landing'>Landing</Link><br />
-                <Link to='/retailer/integration'>Integration</Link>
+                <Link to='/retailer/integration'>Integration</Link><br />
+                <Link to='/retailer/partnership'>Partnership</Link>
             </Column>
         </RetailerLayout>
     );

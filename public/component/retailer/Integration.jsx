@@ -15,8 +15,9 @@ import ShopifyLogo from '../../images/logo-shopify.svg';
 import SalesForceLogo from '../../images/logo-salesforce.svg';
 import BigcommerceLogo from '../../images/logo-bigcommerce.svg';
 import CommercetoolsLogo from '../../images/logo-commercetools.svg';
+import AdobeLogo from '../../images/logo-adobe.svg';
 
-const RetailerLanding = () => {
+const RetailerIntegration = () => {
     const [translate] = useTranslation();
 
     const t = (key) => translate(`retailer.integration.${key}`);
@@ -54,6 +55,7 @@ const RetailerLanding = () => {
                         <img src={SalesForceLogo} alt='Salesforce Logo' />
                         <img src={BigcommerceLogo} alt='Commercetools Logo' />
                         <img src={CommercetoolsLogo} alt='Bigcommerce Logo' />
+                        <img src={AdobeLogo} alt='Adobe Logo' />
                     </div>
                 </div>
             </Column>
@@ -61,4 +63,4 @@ const RetailerLanding = () => {
     );
 };
 
-export default RetailerLanding;
+export default RetailerIntegration;

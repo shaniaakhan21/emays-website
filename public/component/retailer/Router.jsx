@@ -6,6 +6,7 @@ import RetailerLetsTalk from './LetsTalk';
 import RetailerFAQs from './FAQs';
 import RetailerLanding from './Landing';
 import RetailerIntegration from './Integration';
+import RetailerPartnership from './Partnership';
 
 const RetailerRouter = () => {
     return (
@@ -15,6 +16,7 @@ const RetailerRouter = () => {
             <Route path='/retailer/faq' component={() => <RetailerFAQs />} />
             <Route path='/retailer/landing' component={() => <RetailerLanding />} />
             <Route path='/retailer/integration' component={() => <RetailerIntegration />} />
+            <Route path='/retailer/partnership' component={() => <RetailerPartnership />} />
         </Switch>
     );
 };

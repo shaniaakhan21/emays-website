@@ -96,6 +96,62 @@
           "description": "EMAYS booking modal automatically appears at checkout inside the brand website - for customers in our coverage areas."
         }
       ]
+    },
+    "partnership": {
+      "title": "Be our Partner",
+      "infos": [
+        {
+          "title": "Higher sales conversion",
+          "description": "Returning customers, Accurate customer data, Fast and easy retention."
+        },
+        {
+          "title": "Full inventory control.",
+          "description": "If unsold, the product will return and be available in your store within 24 hours"
+        },
+        {
+          "title": "No time consuming.",
+          "description": "We guarantee that the product will be delivered within 24 hours to the customer"
+        },
+        {
+          "title": "Highly personalised luxury experience for customers",
+          "description": "Assisted at every touch-point of the shopping process by expert advisors"
+        },
+        {
+          "title": "Avoid paying higher fee to other competitors.",
+          "description": "Security provided. We protect the product with an insurance Time saving to prepare orders online"
+        },
+        {
+          "title": "Time saving to return",
+          "description": "online orders No shipping fees Eco friendly, we deliver without harming the environment with our zero emission cars and green energy scooters."
+        }
+      ],
+      "chart-title": "From proven data studies:",
+      "chart-info": "A global consumer survey conducted by Content Square (leader in digital experience analytics) indicates that only 15% of respondents are satisfied with their online shopping experience. In the last 6 months of 2022, data show increasing customers problems with their packaging:",
+      "chart": {
+        "40": "Packages Successfully delivered",
+        "15": "Damaged Packages",
+        "16": "Stolen Packages",
+        "29": "Packages Not delivered"
+      },
+      "data": [
+        {
+          "title": "ATV",
+          "value": "+45%"
+        },
+        {
+          "title": "UPT",
+          "value": "3"
+        },
+        {
+          "title": "Returning reduction",
+          "value": "+45%"
+        },
+        {
+          "title": "Data Captured",
+          "value": "100%"
+        }
+      ],
+      "button": "Ecommerce Integration"
     }
   }
 }
