@@ -7,15 +7,14 @@ import { SendEmailFunc } from '../type/emailServiceType';
 import EmailClient from '../util/awsSESBuilder';
 import { buildErrorMessage } from '../util/logMessageBuilder';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
-import { config } from '../config/config';
 import * as moment from 'moment';
 
 const Logging = Logger(__filename);
 
-export const sendEmail: SendEmailFunc = async (emailInfo) => {
+export const sendEmailForOrderingItems: SendEmailFunc = async (emailInfo, template) => {
     try {
         const emailClientInstance = new EmailClient().getInstance();
-        const applicationPath: string = await buildAppLaunchPath(config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
+        const templatePath: string = await buildAppLaunchPath(template);
         const [completeDate, completeTime]: Array<string> = 
             prepareDateTime(emailInfo.date, emailInfo.startTime, emailInfo.endTime);
         const fullName: string = prepareFullName(emailInfo.firstName, emailInfo.lastName);
@@ -23,11 +22,13 @@ export const sendEmail: SendEmailFunc = async (emailInfo) => {
         const { addOne, addTwo, addThree, addFour } = emailInfo.address;
         const address: string = prepareAddress(addOne, addTwo, addThree, addFour);
         const items: Array<object> = emailInfo.orderItems;
+        const uid: string = emailInfo.uid;
+        const finalCost: number | undefined = emailInfo?.finalCost;
         // eslint-disable-next-line max-len
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-call
-        const data = await require('ejs').renderFile(applicationPath, { 'firstName': emailInfo.firstName
+        const data = await require('ejs').renderFile(templatePath, { 'firstName': emailInfo.firstName
             , 'date': completeDate, 'time': completeTime, 'fullName': fullName, 'experience': experience
-            , 'address': address, 'items': items }) as string;
+            , 'address': address, 'items': items, 'uid': uid, 'finalCost': finalCost }) as string;
         
         const params = {
             Source: 'thathsararaviraj@gmail.com',
@@ -45,7 +46,7 @@ export const sendEmail: SendEmailFunc = async (emailInfo) => {
                 },
                 Subject: {
                     Charset: 'UTF-8',
-                    Data: 'Hello, Thathsara!'
+                    Data: `EMAYS Order Confirmation For - ${emailInfo.firstName}`
                 }
             }
         };

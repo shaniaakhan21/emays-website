@@ -133,29 +133,36 @@ router.post(RoutePath.LAUNCH, authorizeLaunchRoute, (req: express.Request,
 });
 
 /**
- * To accept the launch request and render the UI
+ * This is a test route test email templates
+ * ATTENTION: DO NOT CHANGE THE EMAILS TEMPLATES DESIGNS BY LOOKING HOW THEY APPEAR 
+ * WHEN YOU CALL THIS ROUTE BECAUSE IN THE EMAIL IT IS TOTALLY DIFFERENT.
  */
-router.get('/test', (req: express.Request,
-    res: express.Response, next: express.NextFunction): void => {
-    (async () => {
-        const items = ['name', 'address'];
 
-        const applicationPath: string = await buildAppLaunchPath(config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
-        return res.render(applicationPath, { 'firstName': 'Thathsara', 'date': 'Wed 27, February 2023'
-            , 'time': '14:00 to 15:00', 'fullName': 'Sample Name Coll iabichino'
-            , 'experience': 'Assist me, Tailoring, Inspire me.', 'address': 'Sample Address, Milano, Italia 06830'
-            , 'items': [{ 'productName': 'Denim shirt', 'productColor': 'blue', 'productSize': 'Large'
-                , 'productQuantity': 2, 'productCost': '10$', 'productImage': 'url',
-                'productDeliveryInformation': 'extra information' }] });
-    })().catch((error) => {
-        const errorObject: Error = error as Error;
-        Logging.log(buildErrorMessage(errorObject, 'launch ui app'), LogType.ERROR);
-        next(error);
-        /*
-         * Need to display error template in the app.ts since
-         * there is no UI to cater the error message at this stage (due to form submit)
-         */
-    });
-});
+/*
+ * Router.get('/test', (req: express.Request,
+ *     res: express.Response, next: express.NextFunction): void => {
+ *     (async () => {
+ *         const items = ['name', 'address'];
+ */
+
+//         Const applicationPath: string = await buildAppLaunchPath(config.EMAIL_TEMPLATE.RETAILER_EMAIL_TEMPLATE);
+//         Return res.render(applicationPath, { 'firstName': 'Thathsara', 'date': 'Wed 27, February 2023'
+//             , 'finalCost': 1260.00
+//             , 'time': '14:00 to 15:00', 'fullName': 'Sample Name Coll iabichino'
+//             , 'experience': 'Assist me, Tailoring, Inspire me.', 'address': 'Sample Address, Milano, Italia 06830'
+//             , 'items': [{ 'productName': 'Denim shirt', 'productColor': 'blue', 'productSize': 'Large'
+//                 , 'productQuantity': 2, 'productCost': '10$', 'productImage': 'url',
+//                 'productDeliveryInformation': 'extra information' }]
+//             , 'uid': '0001147583' });
+//     })().catch((error) => {
+//         Const errorObject: Error = error as Error;
+//         Logging.log(buildErrorMessage(errorObject, 'launch ui app'), LogType.ERROR);
+//         Next(error);
+//         /*
+//          * Need to display error template in the app.ts since
+//          * There is no UI to cater the error message at this stage (due to form submit)
+//          */
+//     });
+// });
 
 export default router;

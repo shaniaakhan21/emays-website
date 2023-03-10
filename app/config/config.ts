@@ -16,7 +16,10 @@ const {
     AWS_SES_SECRET_KEY,
     AWS_REGION,
     AWS_SOURCE_EMAIL,
-    CUSTOMER_EMAIL_TEMPLATE
+    CUSTOMER_EMAIL_TEMPLATE,
+    RETAILER_EMAIL_TEMPLATE,
+    AWS_SES_SOURCE_EMAIL_ADDRESS,
+    SERVICE_CHARGE
 } = process.env;
 
 export const config = {
@@ -44,9 +47,12 @@ export const config = {
         AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
         AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '',
         AWS_REGION: AWS_REGION || '',
-        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || ''
+        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || '',
+        AWS_SES_SOURCE_EMAIL_ADDRESS: AWS_SES_SOURCE_EMAIL_ADDRESS || ''
     },
     EMAIL_TEMPLATE: {
-        CUSTOMER_EMAIL_TEMPLATE: CUSTOMER_EMAIL_TEMPLATE || '/template/temp-customer-email.html'
-    }
+        CUSTOMER_EMAIL_TEMPLATE: CUSTOMER_EMAIL_TEMPLATE || '/template/temp-customer-email.html',
+        RETAILER_EMAIL_TEMPLATE: RETAILER_EMAIL_TEMPLATE || '/template/temp-retailer-email.html'
+    },
+    SERVICE_CHARGE: SERVICE_CHARGE || 1200.00
 };

@@ -12,15 +12,15 @@ GET http://172.18.0.3:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0wOFQxNjoxNToyNS40MzdaIiwiZXhwIjoxNjc4MzI4MTI1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJiOTIxYjQzYy1iMmJhLTQzYWItOTYwMS05YTRiMDg2NGFiYjMiLCJpYXQiOjE2NzgyOTIxMjV9.KxzsPsQB2bfQ8_TMCR0DvkGtg1aTvLc8DBRWKuez7XU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xMFQwNTo1Mjo0My45NjVaIiwiZXhwIjoxNjc4NDYzNTYzLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiI4YzhjMGRlOC1lMmQxLTQ4MzktOWQ5ZC02NTg1ZWIwY2FkMTYiLCJpYXQiOjE2Nzg0Mjc1NjN9.CAYK0TNM--nLSrP6Ru3cKotr6MfhZ_-jNJCdDCzvzEg
 
 {
     "email": "thathsararaviraj@gmail.com",
-    "retailerEmail": "thath.sara@gmail.com",
+    "retailerEmail": "thathsararaviraj@gmail.com",
     "firstName": "Thathsara",
     "lastName": "Raviraj",
-    "phoneNumber": "0712265896",
-    "uid": "1234567317",
+    "phoneNumber": "0712265897",
+    "uid": "12345673450",
     "date": "2023-02-23",
     "startTime": "18:00",
     "endTime": "19:00",
@@ -31,7 +31,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wM
         "addThree": "Khalifa",
         "addFour": "Dubai"
     },
-    "orderItems": [{"productName": "Denim shirt", "productColor": "blue", "productSize": "Large", "productQuantity": 2, "productCost": "10$", "productImage": "url", "productDeliveryInformation": "extra information"}]
+    "orderItems": [{"productName": "Denim shirt", "productColor": "blue", "productSize": "Large", "productQuantity": 2, "productCost": "10", "productImage": "url", "productDeliveryInformation": "extra information"}]
 }
 
 ----- Get Order ----

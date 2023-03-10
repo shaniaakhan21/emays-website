@@ -8,7 +8,9 @@ import { buildErrorMessage, buildInfoMessageUserProcessCompleted } from '../util
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
 import { saveOrder, retrieveOrderByUserId } from '../data/model/OrderModel';
-import { sendEmail } from './emailService';
+import { sendEmailForOrderingItems } from './emailService';
+import { config } from '../config/config';
+import { Order } from '../type/orderType';
 
 const Logging = Logger(__filename);
 
@@ -36,7 +38,8 @@ export const createOrder: CreateOrderFunc = async (order) => {
         const data = await saveOrder(orderExtracted);
         Logging.log(buildInfoMessageUserProcessCompleted('Order insertion', `Order Data:
             ${JSON.stringify(data)}` ), LogType.INFO);
-        await sendEmail(
+        // Send customer email
+        await sendEmailForOrderingItems(
             { email: orderExtracted.email,
                 firstName: orderExtracted.firstName,
                 lastName: orderExtracted.lastName,
@@ -44,7 +47,20 @@ export const createOrder: CreateOrderFunc = async (order) => {
                 uid: orderExtracted.uid, date: orderExtracted.date,
                 startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
                 experience: orderExtracted.experience, address: orderExtracted.address,
-                orderItems: orderExtracted.orderItems });
+                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
+        // Send retailer email
+        const priceList = getPriceList(orderExtracted.orderItems);
+        const finalCost = getFinalCost(config.SERVICE_CHARGE as number, priceList);
+        await sendEmailForOrderingItems(
+            { email: orderExtracted.retailerEmail,
+                firstName: orderExtracted.firstName,
+                lastName: orderExtracted.lastName,
+                phoneNumber: orderExtracted.phoneNumber,
+                finalCost: finalCost,
+                uid: orderExtracted.uid, date: orderExtracted.date,
+                startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
+                experience: orderExtracted.experience, address: orderExtracted.address,
+                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.RETAILER_EMAIL_TEMPLATE);
         return data;
     } catch (error) {
         const err = error as Error;
@@ -71,4 +87,13 @@ export const retrieveOrderDetailsByUserId: RetrieveOrderByUserIdFunc = async (us
         Logging.log(buildErrorMessage(err, 'Retrieve Order'), LogType.ERROR);
         throw error;
     }
+};
+
+const getPriceList = (productList: Array<Order>) => {
+    return productList?.map((item) => (item.productCost));
+};
+
+const getFinalCost = (serviceCharge = 0.00, itemsPrices: Array<string> = []): number => {
+    const itemsTotal = itemsPrices?.reduce((acc, next) => { return +acc + +next; }, 0.00);
+    return +serviceCharge + +itemsTotal;
 };

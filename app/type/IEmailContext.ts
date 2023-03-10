@@ -13,6 +13,7 @@ export interface ISendEmailInfo {
     startTime: string,
     endTime: string,
     experience: string,
+    finalCost?: number,
     address: {
         addOne: string,
         addTwo: string,

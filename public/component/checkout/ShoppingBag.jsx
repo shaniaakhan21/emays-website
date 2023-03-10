@@ -17,7 +17,7 @@ const getPriceList = (productList = []) => {
 
 const getFinalCost = (serviceCharge = 0.00, itemsPrices = []) => {
     const itemsTotal = itemsPrices?.reduce((acc, next) => { return +acc + +next; }, 0.00);
-    return +serviceCharge + +itemsPrices;
+    return +serviceCharge + +itemsTotal;
 };
 
 const ShoppingBag = ({ productList = [] }) => {
