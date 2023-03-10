@@ -1,4 +1,25 @@
 {
+  "common": {
+    "lets-talk-form": {
+      "header": "Are you curious about something? Let’s talk",
+      "name": "Name",
+      "name-placeholder": "Name here",
+      "email": "Email",
+      "phone": "Phone Number",
+      "phone-placeholder": "+ 39 0000 000",
+      "message": "Message",
+      "message-placeholder": "Hi, I would like to know about...",
+      "privacy-policy": "I’ve read and, agree  the privacy policy",
+      "email-2": "Email",
+      "phone-2": "Phone",
+      "email-2-value": "emays@emays.com",
+      "phone-2-value": "+ 39 000 000 000",
+      "submit": "SUBMIT"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions"
+    }
+  },
   "checkout": {
     "book-appointment": {
       "header": "BOOK YOUR APPOINTMENT",
@@ -51,6 +72,86 @@
       "size": "Size",
       "quantity": "Quantity",
       "color": "Color"
+    }
+  },
+  "retailer": {
+    "landing": {
+      "title": "WE SHIP THE SHOP",
+      "sub-header": "Bring the Luxury shopping experience to your clients",
+      "description": "Highly personal in-store shopping experience delivered to your client’s home to give luxury fashion a sustainable turn.",
+      "button": "See what we can do for you",
+      "button-api": "API Connection"
+    },
+    "integration": {
+      "title": "EASY INTEGRATION",
+      "description": "Seamless integrations with any API enabled platform",
+      "button": "Request a DEMO",
+      "info-box": [
+        {
+          "title": "Ecommerce",
+          "description": "EMAYS booking modal automatically appears at checkout inside the brand website - for customers in our coverage areas."
+        },
+        {
+          "title": "Ecommerce",
+          "description": "EMAYS booking modal automatically appears at checkout inside the brand website - for customers in our coverage areas."
+        }
+      ]
+    },
+    "partnership": {
+      "title": "Be our Partner",
+      "infos": [
+        {
+          "title": "Higher sales conversion",
+          "description": "Returning customers, Accurate customer data, Fast and easy retention."
+        },
+        {
+          "title": "Full inventory control.",
+          "description": "If unsold, the product will return and be available in your store within 24 hours"
+        },
+        {
+          "title": "No time consuming.",
+          "description": "We guarantee that the product will be delivered within 24 hours to the customer"
+        },
+        {
+          "title": "Highly personalised luxury experience for customers",
+          "description": "Assisted at every touch-point of the shopping process by expert advisors"
+        },
+        {
+          "title": "Avoid paying higher fee to other competitors.",
+          "description": "Security provided. We protect the product with an insurance Time saving to prepare orders online"
+        },
+        {
+          "title": "Time saving to return",
+          "description": "online orders No shipping fees Eco friendly, we deliver without harming the environment with our zero emission cars and green energy scooters."
+        }
+      ],
+      "chart-title": "From proven data studies:",
+      "chart-info": "A global consumer survey conducted by Content Square (leader in digital experience analytics) indicates that only 15% of respondents are satisfied with their online shopping experience. In the last 6 months of 2022, data show increasing customers problems with their packaging:",
+      "chart": {
+        "40": "Packages Successfully delivered",
+        "15": "Damaged Packages",
+        "16": "Stolen Packages",
+        "29": "Packages Not delivered"
+      },
+      "data": [
+        {
+          "title": "ATV",
+          "value": "+45%"
+        },
+        {
+          "title": "UPT",
+          "value": "3"
+        },
+        {
+          "title": "Returning reduction",
+          "value": "+45%"
+        },
+        {
+          "title": "Data Captured",
+          "value": "100%"
+        }
+      ],
+      "button": "Ecommerce Integration"
     }
   }
 }

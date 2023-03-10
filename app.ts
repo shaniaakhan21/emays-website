@@ -12,6 +12,7 @@ import { config } from './app/config/config';
 import healthRoute from './app/route/healthRoute';
 import launchRoute from './app/route/launchRoute';
 import orderRoute from './app/route/userOrderRoute';
+import uiRoutes from './app/route/uiRoute';
 import sendErrorResponse from './app/middleware/errorResponseBuilderMiddleware';
 import { AppConfigKey } from './app/const/appConfigKey';
 import validateJWT from './app/middleware/jwtTokenValidationMiddleware';
@@ -42,6 +43,7 @@ app.use((req, res, next) => {
 });
 
 // Define Routes
+app.use(uiRoutes);
 app.use(config.ROUTE_PATH, healthRoute);
 app.use(config.ROUTE_PATH, launchRoute);
 app.use(config.ROUTE_PATH, orderRoute);

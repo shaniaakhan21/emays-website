@@ -5,7 +5,7 @@ import {
     EMAIL_INVOICE,
     EMAIL_REMINDER,
     EMAIL_TODAY,
-    PRODUCT_LAUNCH
+    PRODUCT_LAUNCH, UI_RETAILER
 } from '../js/const/SessionStorageConst';
 import { getLaunchType, setLaunchType } from '../js/util/SessionStorageUtil';
 
@@ -16,6 +16,7 @@ const Relocate = () => {
     const history = useHistory();
     useEffect(() => {
         // IMPORTANT: make sure you set the launch type to empty within each launch.
+        console.log('launchType', launchType);
         switch (launchType) {
             case PRODUCT_LAUNCH:
                 setLaunchType('');
@@ -30,6 +31,10 @@ const Relocate = () => {
                     launchType: launchType
                 });
                 history.push(`/appointment?${params.toString()}`);
+                break;
+            case UI_RETAILER:
+                setLaunchType('');
+                history.push('/retailer');
                 break;
             default:
                 break;
