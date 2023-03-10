@@ -11,7 +11,6 @@ import Checkout from './checkout/Checkout';
 import Confirm from './checkout/Confirm';
 import Appointment from './appointment/AppointmentDetails';
 import Relocate from './Relocate';
-import RetailerHome from './retailer/home';
 import RetailerRouter from './retailer/Router';
 
 // Util

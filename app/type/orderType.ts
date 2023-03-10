@@ -5,6 +5,9 @@ import { ObjectId } from 'mongoose';
 export interface IOrder {
     _id?: ObjectId,
     email: string,
+    firstName: string,
+    lastName: string,
+    phoneNumber: string, 
     retailerEmail: string,
     date: Date,
     uid: string,
@@ -22,6 +25,9 @@ export interface IOrder {
 export interface IOrderDTO {
     _id?: ObjectId,
     email?: string,
+    firstName?: string,
+    lastName?: string,
+    phoneNumber?: string,
     retailerEmail: string,
     date?: Date,
     uid?:string,
