@@ -5,7 +5,8 @@ const {
     NODE_DOCKER_PORT,
     NODE_LOCAL_PORT,
     ROUTE_PATH,
-    JSON_WEB_TOKEN_EXP_HOURS,
+    JSON_WEB_TOKEN_EXP_HOURS_SHORT,
+    JSON_WEB_TOKEN_EXP_HOURS_LONG,
     JSON_WEB_TOKEN_SECRET,
     MONGODB_USER,
     MONGODB_PASSWORD,
@@ -18,7 +19,6 @@ const {
     AWS_SOURCE_EMAIL,
     CUSTOMER_EMAIL_TEMPLATE,
     RETAILER_EMAIL_TEMPLATE,
-    AWS_SES_SOURCE_EMAIL_ADDRESS,
     SERVICE_CHARGE
 } = process.env;
 
@@ -34,7 +34,8 @@ export const config = {
         NODE_LOCAL_PORT: NODE_LOCAL_PORT ?? 8080
     },
     UI_VERSIONS_LOCATION: '/dist',
-    JSON_WEB_TOKEN_EXP_HOURS: JSON_WEB_TOKEN_EXP_HOURS || 10,
+    JSON_WEB_TOKEN_EXP_HOURS_SHORT: JSON_WEB_TOKEN_EXP_HOURS_SHORT || 10,
+    JSON_WEB_TOKEN_EXP_HOURS_LONG: JSON_WEB_TOKEN_EXP_HOURS_LONG || 240,
     JSON_WEB_TOKEN_SECRET: JSON_WEB_TOKEN_SECRET || 'secret123',
     DB: {
         MONGODB_USER: MONGODB_USER || 'root',
@@ -47,12 +48,25 @@ export const config = {
         AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
         AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '',
         AWS_REGION: AWS_REGION || '',
-        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || '',
-        AWS_SES_SOURCE_EMAIL_ADDRESS: AWS_SES_SOURCE_EMAIL_ADDRESS || ''
+        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || ''
     },
     EMAIL_TEMPLATE: {
         CUSTOMER_EMAIL_TEMPLATE: CUSTOMER_EMAIL_TEMPLATE || '/template/temp-customer-email.html',
-        RETAILER_EMAIL_TEMPLATE: RETAILER_EMAIL_TEMPLATE || '/template/temp-retailer-email.html'
+        RETAILER_EMAIL_TEMPLATE: RETAILER_EMAIL_TEMPLATE || '/template/temp-retailer-email.html',
+        URLS: {
+            URL_LOGO: 'https://drive.google.com/uc?export=view&id=11X4cJtuABLOYE95IqbjdJO0ve5L9sbWP',
+            PRODUCT_FALL_BACK: 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN',
+            ORDER_STATUS_PLACED: 'https://drive.google.com/uc?export=view&id=1PSHv1KnzXRxLLdnzKB-L8DpAyWC0qtBE',
+            EXCLAMATION: 'https://drive.google.com/uc?export=view&id=1C2agRu6adMVXXizmQtTpTp7M2-tzUx6S',
+            FACEBOOK_IMAGE: 'https://drive.google.com/uc?export=view&id=1-BonISa9pSVgaD4WdboBdoWPDssYPBUC',
+            TWITTER_IMAGE: 'https://drive.google.com/uc?export=view&id=1qrmr-LtUB9LWbaygzWR65JYDUkGeV6Nl',
+            INSTAGRAM_IMAGE: 'https://drive.google.com/uc?export=view&id=1kAxcTeHuY6Z4CaZdUfURiJKgXGVUTL1l',
+            FACEBOOK_LINK: 'https://facebook.com',
+            TWITTER_LINK: 'https://twitter.com',
+            INSTAGRAM_LINK: 'https://instagram.com',
+            EMAYS_CONTACT_US: 'https://emays.com/contact-us',
+            EMAIL_REDIRECTION_PATH: 'http://localhost:8080/api-dev/launchMail' 
+        }
     },
     SERVICE_CHARGE: SERVICE_CHARGE || 1200.00
 };

@@ -15,7 +15,7 @@ import orderRoute from './app/route/userOrderRoute';
 import uiRoutes from './app/route/uiRoute';
 import sendErrorResponse from './app/middleware/errorResponseBuilderMiddleware';
 import { AppConfigKey } from './app/const/appConfigKey';
-import validateJWT from './app/middleware/jwtTokenValidationMiddleware';
+import { validateJWT } from './app/middleware/jwtTokenValidationMiddleware';
 import ServiceError from './app/type/error/ServiceError';
 import { connectToMongoDB } from './app/data/db/connector';
 

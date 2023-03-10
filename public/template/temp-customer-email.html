@@ -12,7 +12,7 @@
     <tr>
       <td style="padding-left: 30%;" style="padding-top: 20px;">
         <!-- TODO: Add the relevant logo from the server adjust css for image-->
-        <img width="150" height="75" src="https://drive.google.com/uc?export=view&id=11X4cJtuABLOYE95IqbjdJO0ve5L9sbWP" alt="Emays logo">
+        <img width="150" height="75" src="<%= urlLogo %>" alt="Emays logo">
       </td>
     </tr>
     <tr>
@@ -27,7 +27,7 @@
         <p><%= firstName %></p>
         <p style="margin-top: -20px;">Thank you for booking your channel appointment.</p>
         <p><strong>(Your 40 minute appointment will begin when your Emays Stylist arrives).</strong></p>
-        <p>We’re looking forward to seeing you on:</p>
+        <p>We're looking forward to seeing you on:</p>
       </td>
     </tr>
     <tr>
@@ -73,7 +73,7 @@
           <div style="width: 100%;">
             <div style="float: left; padding-right: 20px;">
               <!-- TODO: replace the product url adjust css for image -->
-              <img width="70" height="100" src="https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN" alt="Product Image">
+              <img width="70" height="100" src="<%= items[i].productImage %>" alt="Product Image">
             </div>
             <div>
               <h4><%= items[i].productName %></h4>
@@ -97,7 +97,7 @@
       <td>
         <div style="width: 505px;">
           <!-- TODO: change the image path adjust css for image -->
-          <img style="margin-left: 20px;" width="400" height="75" src="https://drive.google.com/uc?export=view&id=1PSHv1KnzXRxLLdnzKB-L8DpAyWC0qtBE" alt="Status Image">
+          <img style="margin-left: 20px;" width="400" height="75" src="<%= statusImage %>" alt="Status Image">
         </div>
       </td>
     </tr>
@@ -106,7 +106,7 @@
         <div style="width: 450px; height: 95px; background-color: #323232; margin-top: 20px;">
           <div style="display: flex; padding-left: 20px;">
             <!-- TODO: change the image path and adjust css for image -->
-            <img style="margin-left: 15px; margin-top: 25px; height: 50px; width: 25px;" width="400" height="75" src="https://drive.google.com/uc?export=view&id=1C2agRu6adMVXXizmQtTpTp7M2-tzUx6S" alt="Exclamation Image">
+            <img style="margin-left: 15px; margin-top: 25px; height: 50px; width: 25px;" width="400" height="75" src="<%= exclamation%>" alt="Exclamation Image">
             <div style="width: 350px; color: white; display: inline-block; margin-top: 15px;">
               <p><u>Please remember</u>, we will contact you the day before your appointment, as well as a reminder on the day</p>
             </div>
@@ -119,18 +119,21 @@
         <div style="width: 455px;">
           <p>We look forward to seeing you, but should you be unable to attend then please note our cancellation policy below.We require at least 48 hours notice should you wish to make any changes or amendments to your scheduled appointment. Should you not inform us of any change within 48 notice you will be charged the service fee.</p>
         </div>
+        <div style="width: 455px;">
+          <a style="color: black;" href="<%= redirectionURL %> target="_blank" rel="noopener noreferrer">View order details.</a>
+        </div>
         <div style="padding-left: 150px; margin-top: -30px;">
           <!-- TODO: change the image path and adjust css for image -->
-          <a href="http://facebook.com" target="_blank" rel="noopener noreferrer"><img style="margin-left: 15px; margin-top: 25px; height: 40px; width: 25px;" width="400" height="75" src="https://drive.google.com/uc?export=view&id=1-BonISa9pSVgaD4WdboBdoWPDssYPBUC" alt="Facebook Image"></a>
-          <a href="http://instagram.com" target="_blank" rel="noopener noreferrer"><img style="margin-left: 15px; margin-top: 25px; height: 40px; width: 25px;" width="400" height="75" src="https://drive.google.com/uc?export=view&id=1kAxcTeHuY6Z4CaZdUfURiJKgXGVUTL1l" alt="Instagram Image"></a>
-          <a href="http://twitter.com" target="_blank" rel="noopener noreferrer"><img style="margin-left: 15px; margin-top: 25px; height: 40px; width: 25px;" width="400" height="75" src="https://drive.google.com/uc?export=view&id=1qrmr-LtUB9LWbaygzWR65JYDUkGeV6Nl" alt="Twitter Image"></a>
+          <a href="<%= facebookLink %>" target="_blank" rel="noopener noreferrer"><img style="margin-left: 15px; margin-top: 25px; height: 40px; width: 25px;" width="400" height="75" src="<%= facebookImage %>" alt="Facebook Image"></a>
+          <a href="<%= instagramLink %>" target="_blank" rel="noopener noreferrer"><img style="margin-left: 15px; margin-top: 25px; height: 40px; width: 25px;" width="400" height="75" src="<%= instagramImage %>" alt="Instagram Image"></a>
+          <a href="<%= twitterLink %>" target="_blank" rel="noopener noreferrer"><img style="margin-left: 15px; margin-top: 25px; height: 40px; width: 25px;" width="400" height="75" src="<%= twitterImage %>" alt="Twitter Image"></a>
         </div>
       </td>
     </tr>
     <tr>
       <td>
         <!-- TODO: change the link to original site -->
-        <p style="padding-left: 155px;">Need Help? <b><a style="color: black;" href="https://emays/comtact-us">Contact us</a></b></p>
+        <p style="padding-left: 155px;">Need Help? <b><a style="color: black;" href="<%= emaysContactUsLink %>">Contact us</a></b></p>
       </td>
     </tr>
     <tr>

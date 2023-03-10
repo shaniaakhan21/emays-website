@@ -4,13 +4,17 @@ import { CreateOrderFunc, RetrieveOrderByUserIdFunc } from '../type/orderService
 import { IOrder } from '../type/orderType';
 import { } from '../const/errorMessage';
 import { Logger } from '../log/logger';
-import { buildErrorMessage, buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
+import { buildErrorMessage, buildInfoMessageMethodCall,
+    buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
 import { saveOrder, retrieveOrderByUserId } from '../data/model/OrderModel';
 import { sendEmailForOrderingItems } from './emailService';
 import { config } from '../config/config';
 import { Order } from '../type/orderType';
+import { generateJWT } from '../util/jwtUtil';
+import { Roles } from '../const/roles';
+import { IJWTBuildData, JWT_TYPE } from '../type/IJWTClaims';
 
 const Logging = Logger(__filename);
 
@@ -38,9 +42,22 @@ export const createOrder: CreateOrderFunc = async (order) => {
         const data = await saveOrder(orderExtracted);
         Logging.log(buildInfoMessageUserProcessCompleted('Order insertion', `Order Data:
             ${JSON.stringify(data)}` ), LogType.INFO);
+        const redirectionURL = buildRedirectionURL(orderExtracted.uid);
+
         // Send customer email
         await sendEmailForOrderingItems(
             { email: orderExtracted.email,
+                urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
+                statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_PLACED,
+                exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
+                facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
+                facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
+                instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
+                instagramLink: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK,
+                twitterImage: config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE,
+                twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
+                emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
+                redirectionURL: redirectionURL,
                 firstName: orderExtracted.firstName,
                 lastName: orderExtracted.lastName,
                 phoneNumber: orderExtracted.phoneNumber,
@@ -49,10 +66,20 @@ export const createOrder: CreateOrderFunc = async (order) => {
                 experience: orderExtracted.experience, address: orderExtracted.address,
                 orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
         // Send retailer email
-        const priceList = getPriceList(orderExtracted.orderItems);
-        const finalCost = getFinalCost(config.SERVICE_CHARGE as number, priceList);
+        const finalCost = getFinalCost(config.SERVICE_CHARGE as number, orderExtracted.orderItems);
         await sendEmailForOrderingItems(
             { email: orderExtracted.retailerEmail,
+                urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
+                statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_PLACED,
+                exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
+                facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
+                facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
+                instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
+                instagramLink: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK,
+                twitterImage: config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE,
+                twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
+                emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
+                redirectionURL: redirectionURL,
                 firstName: orderExtracted.firstName,
                 lastName: orderExtracted.lastName,
                 phoneNumber: orderExtracted.phoneNumber,
@@ -89,11 +116,45 @@ export const retrieveOrderDetailsByUserId: RetrieveOrderByUserIdFunc = async (us
     }
 };
 
-const getPriceList = (productList: Array<Order>) => {
-    return productList?.map((item) => (item.productCost));
+const getFinalCost = (serviceCharge = 0.00, itemList: Array<Order>): number => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Get final cost of product list', ''), LogType.INFO);
+        let finalTotal = 0.00;
+        for (const item of itemList) {
+            const itemCount: number = +item.productQuantity;
+            const itemPrice: number = +item.productCost;
+            const itemsTotal = itemCount * itemPrice;
+            finalTotal += itemsTotal;
+        }
+        return +serviceCharge + +finalTotal;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Get product list final bill'), LogType.ERROR);
+        throw error;
+    }
 };
 
-const getFinalCost = (serviceCharge = 0.00, itemsPrices: Array<string> = []): number => {
-    const itemsTotal = itemsPrices?.reduce((acc, next) => { return +acc + +next; }, 0.00);
-    return +serviceCharge + +itemsTotal;
+const buildRedirectionURL = (uuid: string): string => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Build email redirection URL', `UUID: ${uuid}`), LogType.INFO);
+        const role: Roles = Roles.CLIENT;
+        const tokenBuildData: IJWTBuildData = {
+            id: uuid,
+            roles: role
+        };
+        const token: string = generateJWT(tokenBuildData, JWT_TYPE.LONG_LIVE);
+        const URL = 
+        `${config.EMAIL_TEMPLATE.URLS.EMAIL_REDIRECTION_PATH}?launchType=emailBooked&uuid=${uuid}&authToken=${token}`;
+        Logging.log(buildInfoMessageUserProcessCompleted('Email redirection URL created', `UUID:
+                ${uuid} and URL: ${URL}` ), LogType.INFO);
+        return URL;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, `Build email redirect URL for uuid ${uuid}`), LogType.ERROR);
+        throw error;
+    } 
 };
