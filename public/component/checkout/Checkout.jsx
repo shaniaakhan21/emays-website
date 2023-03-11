@@ -20,8 +20,9 @@ import Emays from '../../logo/emays-logo-white.png';
 
 // Util
 import { getProductList, saveSelectedOptions } from '../../js/util/SessionStorageUtil';
-import { ADDRESS } from '../../js/const/SessionStorageConst';
+import { ADDRESS, CHECKOUT_INFO } from '../../js/const/SessionStorageConst';
 import { useTranslation } from 'react-i18next';
+import useSessionState from '../../js/util/useSessionState';
 
 // TODO: Remove mock data and map to proper state when data binding
 
@@ -35,57 +36,12 @@ const Checkout = () => {
 
     const [t] = useTranslation();
 
-    // State for selected date
-    const [selectedDate, setSelectedDate] = useState(null);
-
-    // Handler function for date change
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
-
-    // State for delivery address
-    const [address, setAddress] = useState({});
-
-    // Remove address from session storage and reset address state
-    useEffect(() => {
-        sessionStorage.removeItem(ADDRESS);
-        setAddress({});
-    }, []);
-
-    // Get address from session storage and update address state
-    useEffect(() => {
-        const storedAddress = JSON.parse(sessionStorage.getItem(ADDRESS));
-        if (storedAddress) {
-            setAddress(storedAddress || {} );
-        }
-    }, []);
-
-    // Save address to session storage on address state change
-    useEffect(() => {
-        sessionStorage.setItem(ADDRESS, JSON.stringify(address));
-    }, [address]);
-    
-    const handleAddressChange = (event, field) => {
-        const { value } = event.target;
-        setAddress({ ...address, [field]: value });
-    };
-
-    // State for selected options
-    const [selectedOptions, setSelectedOptions] = useState({
-        assist: false,
-        tailoring: false,
-        inspire: false
-    });
+    const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {} });
 
     // Handler function for option change
     const handleOptionChange = (option) => {
-        setSelectedOptions({ ...selectedOptions, [option]: !selectedOptions[option] });
+        setState(cs => ({ ...cs, options: { ...cs.options, [option]: !cs.options[option] } }));
     };
-
-    // Get selected options from session storage and update selected options state
-    useEffect(() => {
-        saveSelectedOptions(selectedOptions);
-    }, [selectedOptions]);
 
     // State for product data
     const [productData, setProductData] = useState([]);
@@ -98,6 +54,11 @@ const Checkout = () => {
 
     const history = useHistory();
 
+    const submit = () => {
+        setState(cs => ({ ...cs, locked: true }));
+        history.push('/confirm');
+    };
+
     return (
         <Grid className='landing-page'>
             <Column lg={16} md={16} sm={16} xs={16} className='logo'>
@@ -106,7 +67,9 @@ const Checkout = () => {
             <Column lg={8} md={8} sm={4} xs={4} className='book-appointment'>
                 <p>{t('checkout.book-appointment.header')}</p>
                 <div className='next-date-picker'>
-                    <ContentSwitcherCustom nextDateOne='Today Sat, Nov 2nd'
+                    <ContentSwitcherCustom
+                        disabled={state?.locked}
+                        nextDateOne='Today Sat, Nov 2nd'
                         nextDateTwo='Sat, Nov 2nd'
                         nextDateThree='Sat, Nov 2nd'/>
                 </div>
@@ -115,7 +78,11 @@ const Checkout = () => {
                     <div className='items'>
                         <div className='date'>
                             <p>{t('checkout.book-appointment.choose-date')}</p>
-                            <DatePickerCustom handleDateChange={handleDateChange} selectedDate={selectedDate} />
+                            <DatePickerCustom
+                                disabled={state?.locked}
+                                handleDateChange={date => setState(cs => ({ ...cs, date }))}
+                                selectedDate={state?.date ? new Date(state?.date) : undefined}
+                            />
                         </div>
                         <div className='time-window'>
                             <p>{t('checkout.book-appointment.choose-time')}</p>
@@ -133,7 +100,7 @@ const Checkout = () => {
                                 labelText={t('checkout.customize-experience.checkbox-wait-label')}
                                 id={'op1'}
                                 action={() => handleOptionChange('inspire')}
-                                checked={selectedOptions.inspire}
+                                checked={state?.options?.inspire}
                             />
                         </div>
                         <div className='checkbox-assist'>
@@ -141,7 +108,7 @@ const Checkout = () => {
                                 labelText={t('checkout.customize-experience.checkbox-assist-label')}
                                 id={'op2'}
                                 action={() => handleOptionChange('assist')}
-                                checked={selectedOptions.assist}
+                                checked={state?.options?.assist}
                             />
                         </div>
                         <div className='checkbox-basic'>
@@ -149,7 +116,7 @@ const Checkout = () => {
                                 labelText={t('checkout.customize-experience.checkbox-basic-label')}
                                 id={'op3'}
                                 action={() => handleOptionChange('tailoring')}
-                                checked={selectedOptions.tailoring}
+                                checked={state?.options?.tailoring}
                             />
                         </div>
                     </div>
@@ -165,29 +132,45 @@ const Checkout = () => {
                         <div>
                             <TextBoxCustom
                                 customStyle={{ backgroundColor: 'white' }}
-                                value={address.street}
-                                onChange={(e) => handleAddressChange(e, 'street')}
+                                value={state?.address?.street ?? ''}
+                                onChange={
+                                    (e) => setState(
+                                        cs => ({ ...cs, address: { ...cs.address, street: e.target.value } })
+                                    )
+                                }
                                 required />
                         </div>
                         <div>
                             <TextBoxCustom
                                 customStyle={{ backgroundColor: 'white' }}
-                                value={address.city}
-                                onChange={(e) => handleAddressChange(e, 'city')}
+                                value={state?.address?.city}
+                                onChange={
+                                    (e) => setState(
+                                        cs => ({ ...cs, address: { ...cs.address, city: e.target.value } })
+                                    )
+                                }
                                 required />
                         </div>
                         <div>
                             <TextBoxCustom
                                 customStyle={{ backgroundColor: 'white' }}
-                                value={address.postalCode}
-                                onChange={(e) => handleAddressChange(e, 'postalCode')}
+                                value={state?.address?.postalCode}
+                                onChange={
+                                    (e) => setState(
+                                        cs => ({ ...cs, address: { ...cs.address, postalCode: e.target.value } })
+                                    )
+                                }
                                 required />
                         </div>
                         <div>
                             <TextBoxCustom
                                 customStyle={{ backgroundColor: 'white' }}
-                                value={address.country}
-                                onChange={(e) => handleAddressChange(e, 'country')}
+                                value={state?.address?.country}
+                                onChange={
+                                    (e) => setState(
+                                        cs => ({ ...cs, address: { ...cs.address, country: e.target.value } })
+                                    )
+                                }
                                 required />
                         </div>
                     </div>
@@ -195,7 +178,7 @@ const Checkout = () => {
                 <div className='submit-button'>
                     <ButtonCustom
                         text={t('checkout.submit-button')}
-                        action={() => { history.push('/confirm', { selectedDate }); }}
+                        action={submit}
                         type={'secondary'}
                         customStyle={{
                             minWidth: '100%',

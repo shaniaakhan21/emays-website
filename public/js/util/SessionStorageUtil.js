@@ -9,6 +9,38 @@ const getItem = (key) => {
     return json;
 };
 
+export const loadLocalStorage = (path, setStateFn) => {
+    const data = sessionStorage.getItem(path);
+    if (data) {
+        setStateFn?.(JSON.parse(data));
+        return JSON.parse(data);
+    }
+    return null;
+};
+
+export const handleStorage = async (path, u, noRemove) => {
+    if (u) {
+        sessionStorage.setItem(path, JSON.stringify(u));
+    } else if (!noRemove) {
+        sessionStorage.removeItem(path);
+    }
+};
+
+export const createCustomSetStateFn = (path, origFn, noRemove) => {
+    return (u) => {
+        if (u instanceof Function) {
+            origFn((cu) => {
+                const r = u(cu);
+                handleStorage(path, r, noRemove);
+                return r;
+            });
+        } else {
+            origFn(u);
+            handleStorage(path, u, noRemove);
+        }
+    };
+};
+
 export const getProductList = () => {
     return getItem(PRODUCT_LIST);
 };
