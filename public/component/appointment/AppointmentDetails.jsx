@@ -12,21 +12,49 @@ import Email3 from '../../images/email-3.png';
 // Components
 
 // Util
-import { getProductList } from '../../js/util/SessionStorageUtil';
+import { getProductList, getUserData } from '../../js/util/SessionStorageUtil';
 import ShoppingItem from '../checkout/ShoppingItem';
 import FallBack from '../../icons/fallback.png';
 import Emays from '../../logo/emays-logo-white.png';
+import moment from 'moment';
 
 const Appointment = () => {
 
     const [t] = useTranslation();
 
-    const [productData, setProductData] = useState([]);
+    const [data, setProductData] = useState({ orderData: {}, userData: {}, selectedDate: '', selectedTime: '' });
 
     useEffect(() => {
+
         const productData = getProductList();
-        setProductData(productData);
+        const userData = getUserData();
+
+        setProductData({ ...data, orderData: productData });
+        
+        setProductData({ ...data, userData: userData });
+
+        const selectedDate = prepareDate(userData.date);
+        setProductData({ ...data, selectedDate: selectedDate });
+
+        const selectedTime = prepareTime(userData.startTime, userData.endTime);
+        setProductData({ ...data, selectedTime: selectedTime });
+        console.log('State', data);
     }, []);
+
+    const prepareDate = (date) => {
+        // Prepare full date
+        const dayExt = moment(date, 'YYYY-MM-DD').format('ddd');
+        const monthExt = moment(date, 'YYYY-MM-DD').format('MMMM');
+        const dateExt = moment(date, 'YYYY-MM-DD').format('D');
+        const yearExt = moment(date, 'YYYY-MM-DD').format('YYYY');
+        const fullDate = `${dayExt} ${dateExt}, ${monthExt} ${yearExt}`;
+        return fullDate;
+    };
+
+    const prepareTime = (startTime, endTime) => {
+        const hour = `${startTime} to ${endTime}`;
+        return hour;
+    };
 
     return (<div className='appointment-page'>
         
@@ -39,7 +67,7 @@ const Appointment = () => {
         </div>
         
         <div className='text-info'>
-            <p>[[FirstName]]</p>
+            <p>{data?.userData?.firstName}</p>
             <p>Thank you for booking your <strong>Chanel</strong> appointment.</p>
 
             <p className='highlighted'>(Your 40 minute appointment will begin when your Emays Stylist arrives).</p>
@@ -50,12 +78,12 @@ const Appointment = () => {
         <div className='time-box'>
             <div className='date'>
                 <span>Date</span>
-                <span>Wed 27, February 2023</span>
+                <span>{data?.selectedDate}</span>
             </div>
             <div className='separator' />
             <div className='hour'>
                 <span>Hour</span>
-                <span>14:00 to 15:00</span>
+                <span>{data?.selectedTime}</span>
             </div>
         </div>
 
@@ -70,7 +98,7 @@ const Appointment = () => {
 
         <h6 className='header'>ITEMS TO BE DELIVERED</h6>
 
-        {productData?.map(({ productName, productImage, productColor, productSize, productQuantity }) => (
+        {data.productData?.map(({ productName, productImage, productColor, productSize, productQuantity }) => (
             <div className='item'>
                 <img src={productImage || FallBack} alt='product' />
                 <div className='info'>

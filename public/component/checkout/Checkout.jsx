@@ -39,8 +39,8 @@ const Checkout = () => {
     const [selectedDate, setSelectedDate] = useState(null);
 
     // Handler function for date change
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
+    const handleDateChange = (event) => {
+        setSelectedDate(event.target.value);
     };
 
     // State for delivery address
@@ -218,7 +218,6 @@ const Checkout = () => {
 
 Checkout.propTypes = {
     address: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    selectedDate: PropTypes.instanceOf(Date).isRequired,
     selectedOptions: PropTypes.shape({
         assist: PropTypes.bool.isRequired,
         tailoring: PropTypes.bool.isRequired,

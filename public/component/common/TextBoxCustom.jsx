@@ -25,7 +25,7 @@ const TextBoxCustom = ({ labelText, helperText,
 };
 
 TextBoxCustom.propTypes = {
-    labelText: PropTypes.string.isRequired,
+    labelText: PropTypes.string,
     helperText: PropTypes.string,
     placeholderText: PropTypes.string,
     warnText: PropTypes.string,

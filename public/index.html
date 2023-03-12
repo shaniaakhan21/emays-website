@@ -13,8 +13,11 @@
         const result = "<%= productList %>";
         sessionStorage.setItem('productList', result);
 
-        const launchType= "<%= launchType %>";
+        const launchType = "<%= launchType %>";
         sessionStorage.setItem('launchType', launchType);
+
+        const userData = "<%= userData %>";
+        sessionStorage.setItem('userData', userData);
 
         // Consume product list
         const jsonData = sessionStorage.getItem('productList');

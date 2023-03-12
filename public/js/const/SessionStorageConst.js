@@ -14,3 +14,5 @@ export const UI_RETAILER = 'uiRetailer';
 export const AUTH_TOKEN = 'authToken';
 export const ADDRESS = 'address';
 export const SELECTED_OPTIONS_KEY = 'selectedOptions';
+
+export const USER_DATA = 'userData';

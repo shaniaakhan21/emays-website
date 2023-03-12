@@ -16,6 +16,7 @@ import LogType from '../const/logType';
 import { validateJWTToken } from '../middleware/jwtTokenValidationMiddleware';
 import { retrieveOrderDetailsByUserId } from '../service/orderService';
 import { Order } from '../type/orderType';
+import { IUser } from '../type/IUserType';
 
 const Logging = Logger(__filename);
 
@@ -34,15 +35,42 @@ router.get(RoutePath.LAUNCH_MAIL, (
         const launchType = req.query.launchType;
         Logging.log(buildInfoMessageRouteHit(req.path, `launching email for user ${uuid}`), LogType.INFO);
 
-        const launchTemplateData: Array<Order> = (await retrieveOrderDetailsByUserId(uuid)).orderItems;
+        // Get all order data
+        const order = await retrieveOrderDetailsByUserId(uuid);
+
+        // Prepare product data
+        const launchTemplateDataOrder: Array<Order> = order.orderItems;
+        const stringifyOrder = JSON.stringify(launchTemplateDataOrder);
+        const cleanedOrder = stringifyOrder.replace(/\\/g, '');
+
+        // Prepare user data
+        const launchTemplateDataUser: IUser = {
+            email: order.email as string,
+            firstName: order.firstName as string,
+            lastName: order.lastName as string,
+            phoneNumber: order.phoneNumber as string, 
+            retailerEmail: order.email as string,
+            date: order.date as Date,
+            uid: order.uid as string,
+            startTime: order.startTime as string,
+            endTime: order.endTime as string,
+            experience: order.experience as string,
+            address: order.address as {
+                addOne: string,
+                addTwo: string,
+                addThree: string,
+                addFour: string
+            }
+        };
+        const stringifyUser = JSON.stringify(launchTemplateDataUser);
+        const cleanedUser = stringifyUser.replace(/\\/g, '');
 
         const applicationPath: string = await buildAppLaunchPath(config.UI_APP_ENTRY_POINT);
-        const stringify = JSON.stringify(launchTemplateData);
-        const cleaned = stringify.replace(/\\/g, '');
 
         const cleanedLaunchType = JSON.stringify(launchType).replace(/[\\"]/g, '');
 
-        return res.render(applicationPath, buildRenderData(sessionToken, cleaned).email(cleanedLaunchType));
+        return res.render(applicationPath, buildRenderData(sessionToken, cleanedOrder, cleanedUser)
+            .email(cleanedLaunchType));
 
     })().catch((error) => {
         const errorObject: Error = error as Error;
@@ -103,7 +131,7 @@ router.post(RoutePath.LAUNCH, authorizeLaunchRoute, (req: express.Request,
         const productData: DataToRender = { 'productList': cleaned, token: sessionToken };
         Logging.log(buildInfoMessageUserProcessCompleted('Launch UI app', `order: 
             ${JSON.stringify(productData)}` ), LogType.INFO);
-        return res.render(applicationPath, buildRenderData(sessionToken, cleaned).default());
+        return res.render(applicationPath, buildRenderData(sessionToken, cleaned, '').default());
 
     })().catch((error) => {
         const errorObject: Error = error as Error;
