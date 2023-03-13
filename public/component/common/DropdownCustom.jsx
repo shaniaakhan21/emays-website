@@ -1,21 +1,21 @@
-import Dropdown from '@carbon/react/lib/components/Dropdown/Dropdown';
 import PropTypes from 'prop-types';
+import { Dropdown } from '@carbon/react';
 
-const DropDownCustom = ({ items, customStyle }) => {
+const DropDownCustom = ({ items, customStyle, ...props }) => {
     return (
         <Dropdown
+            {...props}
             id='default'
             label='Choose an option'
             items={items}
             style={customStyle}
             itemToString={(item) => (item ? item.text : '')}
-            onChange={() => {
-
-            }} />
+        />
     );
 };
 
 DropDownCustom.propTypes = {
+    ...Dropdown.propTypes,
     items: PropTypes.arrayOf(
         PropTypes.shape({
             text: PropTypes.string.isRequired,
