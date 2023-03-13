@@ -61,7 +61,7 @@ ShoppingItem.propTypes = {
     itemName: PropTypes.string.isRequired,
     color: PropTypes.string,
     quantity: PropTypes.number.isRequired,
-    price: PropTypes.string.isRequired,
+    price: PropTypes.string,
     size: PropTypes.string,
     image: PropTypes.string,
     imageAlt: PropTypes.string

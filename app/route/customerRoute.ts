@@ -20,7 +20,7 @@ router.get(
             const applicationPath: string = await buildAppLaunchPath(config?.UI_APP_ENTRY_POINT);
     
             Logging.log('App is going to deliver the HTML form from the default UI version.', LogType.INFO);
-            return res.render(applicationPath, buildRenderData('', '[]').custom(CUSTOMER_UI as string));
+            return res.render(applicationPath, buildRenderData('', '[]', '').custom(CUSTOMER_UI as string));
         })().catch((error) => {
             const errorObject: Error = error as Error;
             Logging.log(`Failed to deliver the HTML form for the dev launch.

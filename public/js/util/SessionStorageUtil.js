@@ -1,6 +1,6 @@
 'use strict';
 
-import { AUTH_TOKEN, PRODUCT_LIST, ADDRESS, LAUNCH_TYPE } from '../const/SessionStorageConst';
+import { AUTH_TOKEN, PRODUCT_LIST, ADDRESS, LAUNCH_TYPE, USER_DATA } from '../const/SessionStorageConst';
 
 const getItem = (key) => {
     const itemsAsString = sessionStorage.getItem(key);
@@ -78,4 +78,11 @@ export const saveSelectedOptions = (selectedOptions) => {
 
 export const getSelectedOptions = () => {
     return JSON.parse(sessionStorage.getItem('selectedOptions')) || {};
+};
+
+export const getUserData = () => {
+    const userDataString = sessionStorage.getItem(USER_DATA);
+    const cleaned = userDataString.replace(/&#34;/g, '"');
+    const json = JSON.parse(cleaned);
+    return json;
 };

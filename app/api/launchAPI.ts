@@ -6,7 +6,7 @@ import { config } from '../config/config';
 import LogType from '../const/logType';
 import { v4 as uuidv4 } from 'uuid';
 import { Roles } from '../const/roles';
-import { IJWTBuildData } from '../type/IJWTClaims';
+import { IJWTBuildData, JWT_TYPE } from '../type/IJWTClaims';
 import { generateJWT } from '../util/jwtUtil';
 import { Logger } from '../log/logger';
 import { buildErrorMessage,
@@ -75,7 +75,7 @@ export const getJWTForSession = (): string => {
             id: uuid,
             roles: role
         };
-        const token: string = generateJWT(tokenBuildData);
+        const token: string = generateJWT(tokenBuildData, JWT_TYPE.SHORT_LIVE);
         Logging.log(buildInfoMessageUserProcessCompleted(
             'JWT token get', `User Id: ${uuid}`), LogType.INFO);
         return token;

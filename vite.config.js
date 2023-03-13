@@ -4,6 +4,11 @@ import { resolve } from 'path';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
+    resolve: {
+        alias: {
+            '~@ibm/plex': resolve(__dirname, 'node_modules/@ibm/plex')
+        }
+    },
     plugins: [react(),
         viteStaticCopy({
             targets: [

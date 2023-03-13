@@ -39,6 +39,44 @@
     },
     "submit-button": "CONTINUE"
   },
+  "email-launch": {
+      "header-one": {
+        "left": "CHANEL",
+        "right": "APPOINTMENT BOOKED"
+      },
+      "thank": "Thank you for booking your <strong>Chanel</strong> appointment.",
+      "info": "(Your 40 minute appointment will begin when your Emays Stylist arrives).",
+      "time-info": {
+        "message": "We’re looking forward to seeing you on:",
+        "date": "Date",
+        "hour": "Hour"
+      },
+      "full-name": "Full Name",
+      "exp-selected": "Experience Selected",
+      "del-address": "Delivery Address ",
+      "items-to--be-deliver": "ITEMS TO BE DELIVERED",
+      "order-placed": "ORDER PLACED",
+      "in-progress": "DELIVERY IN PROGRESS",
+      "delivered": "DELIVERED",
+      "remember": "Please remember,",
+      "contact-message": "we will contact you the day before your appointment, as well as a reminder on the day",
+      "special-info": {
+        "line-one": "We look forward to seeing you, but should you be unable to attend then please note our cancellation policy below.",
+        "line-two": "We require at least 48 hours notice should you wish to make any changes or amendments to your scheduled appointment. Should you not inform us of any change within 48 notice you will be charged the service fee."
+      },
+      "need-help": "Need Help?",
+      "mail": {
+        "part-one": "We are unable to receive responses to this email. If you need assistance, go to",
+        "link-text": "support@emays.com",
+        "part-two": "sent you this email. By using our services, you agree to our customer agreement."
+      },
+      "contact-us": "Contact Us",
+      "button": {
+        "edit-appointment": "EDIT APPOINTMENT",
+        "add-to-calendar": "ADD TO CALENDAR"
+      },
+      "copy-right": "© Emays 2023. All rights reserved."
+  },
   "confirm": {
     "edit-appointment": {
         "header": "YOUR APPOINTMENT",

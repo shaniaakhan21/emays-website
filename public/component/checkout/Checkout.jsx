@@ -36,6 +36,47 @@ const Checkout = () => {
 
     const [t] = useTranslation();
 
+    // State for selected date
+    const [selectedDate, setSelectedDate] = useState(null);
+
+    // Handler function for date change
+    const handleDateChange = (event) => {
+        setSelectedDate(event.target.value);
+    };
+
+    // State for delivery address
+    const [address, setAddress] = useState({});
+
+    // Remove address from session storage and reset address state
+    useEffect(() => {
+        sessionStorage.removeItem(ADDRESS);
+        setAddress({});
+    }, []);
+
+    // Get address from session storage and update address state
+    useEffect(() => {
+        const storedAddress = JSON.parse(sessionStorage.getItem(ADDRESS));
+        if (storedAddress) {
+            setAddress(storedAddress || {} );
+        }
+    }, []);
+
+    // Save address to session storage on address state change
+    useEffect(() => {
+        sessionStorage.setItem(ADDRESS, JSON.stringify(address));
+    }, [address]);
+    
+    const handleAddressChange = (event, field) => {
+        const { value } = event.target;
+        setAddress({ ...address, [field]: value });
+    };
+
+    // State for selected options
+    const [selectedOptions, setSelectedOptions] = useState({
+        assist: false,
+        tailoring: false,
+        inspire: false
+    });
     const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {} });
 
     // Handler function for option change
@@ -201,7 +242,6 @@ const Checkout = () => {
 
 Checkout.propTypes = {
     address: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    selectedDate: PropTypes.instanceOf(Date).isRequired,
     selectedOptions: PropTypes.shape({
         assist: PropTypes.bool.isRequired,
         tailoring: PropTypes.bool.isRequired,

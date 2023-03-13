@@ -8,6 +8,7 @@ import EmailClient from '../util/awsSESBuilder';
 import { buildErrorMessage } from '../util/logMessageBuilder';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
 import * as moment from 'moment';
+import { config } from '../config/config';
 
 const Logging = Logger(__filename);
 
@@ -24,14 +25,36 @@ export const sendEmailForOrderingItems: SendEmailFunc = async (emailInfo, templa
         const items: Array<object> = emailInfo.orderItems;
         const uid: string = emailInfo.uid;
         const finalCost: number | undefined = emailInfo?.finalCost;
+        const urlLogo: string = emailInfo?.urlLogo;
+        const orderStatusImage = emailInfo.statusImage;
+        const exclamationImage = emailInfo.exclamationImage;
+        const facebookImage = emailInfo.facebookImage;
+        const facebookLink = emailInfo.facebookLink;
+        const instagramImage = emailInfo.instagramImage;
+        const instagramLink = emailInfo.instagramLink;
+        const twitterImage = emailInfo.twitterImage;
+        const twitterLink = emailInfo.twitterLink;
+        const emaysContactUsLink = emailInfo.emaysContactUsLink;
+        const emailRedirectionURL = emailInfo.redirectionURL;
+
         // eslint-disable-next-line max-len
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-call
         const data = await require('ejs').renderFile(templatePath, { 'firstName': emailInfo.firstName
             , 'date': completeDate, 'time': completeTime, 'fullName': fullName, 'experience': experience
-            , 'address': address, 'items': items, 'uid': uid, 'finalCost': finalCost }) as string;
+            , 'address': address, 'items': items, 'uid': uid, 'finalCost': finalCost
+            , 'urlLogo': urlLogo, 'statusImage': orderStatusImage, 'exclamation': exclamationImage
+            , 'facebookLink': facebookLink
+            , 'instagramLink': instagramLink
+            , 'twitterLink': twitterLink
+            , 'facebookImage': facebookImage
+            , 'instagramImage': instagramImage
+            , 'twitterImage': twitterImage
+            , 'emaysContactUsLink': emaysContactUsLink
+            , 'redirectionURL': emailRedirectionURL
+        }) as string;
         
         const params = {
-            Source: 'thathsararaviraj@gmail.com',
+            Source: config.AWS_SES.AWS_SOURCE_EMAIL,
             Destination: {
                 ToAddresses: [
                     emailInfo.email
@@ -60,17 +83,23 @@ export const sendEmailForOrderingItems: SendEmailFunc = async (emailInfo, templa
 };
 
 const prepareDateTime = (date: Date, startTime: string, endTime: string): Array<string> => {
+    try {
+        // Prepare full date
+        const dayExt: string = moment(date, 'YYYY-MM-DD').format('ddd');
+        const monthExt: string = moment(date, 'YYYY-MM-DD').format('MMMM');
+        const dateExt: string = moment(date, 'YYYY-MM-DD').format('D');
+        const yearExt: string = moment(date, 'YYYY-MM-DD').format('YYYY');
+        const fullDate = `${dayExt} ${dateExt}, ${monthExt} ${yearExt}`;
 
-    // Prepare full date
-    const dayExt: string = moment(date, 'YYYY-MM-DD').format('ddd');
-    const monthExt: string = moment(date, 'YYYY-MM-DD').format('MMMM');
-    const dateExt: string = moment(date, 'YYYY-MM-DD').format('D');
-    const yearExt: string = moment(date, 'YYYY-MM-DD').format('YYYY');
-    const fullDate = `${dayExt} ${dateExt}, ${monthExt} ${yearExt}`;
-
-    // Prepare full time
-    const hour = `${startTime} to ${endTime}`;
-    return [fullDate, hour];
+        // Prepare full time
+        const hour = `${startTime} to ${endTime}`;
+        return [fullDate, hour];
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Prepare Date Time'), LogType.ERROR);
+        throw error;
+    }
 };
 
 const prepareFullName = (firstName: string, lastName: string): string => {

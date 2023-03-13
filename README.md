@@ -19,6 +19,8 @@ This repository consists of a React UI and its Immediate Backend.
 - Env-CMD
 - Yarn
 - AWS SDK SES
+- Mongoose (ODM)
+- Joi (Request Parameter validation)
 
 # Steps to run manually
 | Step  | Instructions                                | Description                                                                                               |
