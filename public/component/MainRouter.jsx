@@ -25,11 +25,8 @@ const MainRouter = () => {
                     <Route path='/confirm' component={() => <Confirm/>}></Route>
                     <Route path='/checkout' component={() => <Checkout />}></Route>
                     <Route path='/appointment' component={() => <Appointment/>}></Route>
-<<<<<<< public/component/MainRouter.jsx
                     <Route path='/customer' component={() => <CustomerRouter />} />
-=======
                     <Route path='/retailer' component={() => <RetailerRouter />} />
->>>>>>> public/component/MainRouter.jsx
                     {/* This component will act as a relocate router based on the initial launch type */}
                     <Route path='/' component={() => <Relocate/>}></Route>
                 </Switch>
