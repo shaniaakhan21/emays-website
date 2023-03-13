@@ -1,8 +1,13 @@
-import MainPage from './MainPage';
+import Nav from '../common/Nav';
+import HomeSection from './HomeSection';
 
 const CustomerHome = () => {
     return (
-        <MainPage/>
+        <>
+            <Nav />
+            <HomeSection />
+        
+        </>
     );
 };
 

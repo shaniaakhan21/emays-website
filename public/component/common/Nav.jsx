@@ -1,32 +1,48 @@
-import React from 'react';
-// eslint-disable-next-line max-len
-import { Header, HeaderMenuButton, HeaderName, HeaderNavigation, HeaderGlobalAction, HeaderMenuItem } from '@carbon/react';
+import React, { useState } from 'react';
+import { Header, HeaderName, HeaderNavigation, HeaderMenuItem, Toggle } from '@carbon/react';
 import '../../scss/component/customer/navbar.scss';
 import LOGO from '../../logo/EMAYS.svg'; 
 import ICON from '../../icons/NAVICON.svg';
+import { useTranslation } from 'react-i18next';
 
 const Nav = () => {
+    const [t] = useTranslation();
+    const [isRetailer, setIsRetailer] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
+
+    const handleToggleChange = () => {
+        setIsRetailer(!isRetailer);
+    };
+
+    const handleMenuClick = () => {
+        setShowMenu(!showMenu);
+    };
+
     return (
         <Header aria-label='EMAY'>
-            <HeaderMenuButton aria-label='Open menu' />
-            <HeaderName prefix='' className='header-name'>
+            <HeaderName href='/customer' prefix='' className='header-name'>
                 <img src={LOGO} alt='EMAYS' style={{ marginRight: '1rem' }} />
             </HeaderName>
-            <HeaderNavigation aria-label='Your Company'>
-                <HeaderMenuItem href='#' style={{ marginLeft: '1rem' }}>INTEGRATION</HeaderMenuItem>
-                <HeaderMenuItem href='#'>FAQS</HeaderMenuItem>
-                <HeaderMenuItem href='#'>SUSTAINABILITY</HeaderMenuItem>
-                <HeaderMenuItem href='#'>PARTNERSHIP</HeaderMenuItem>
-                <HeaderMenuItem href='#'>Let's Talk</HeaderMenuItem>
-                <HeaderMenuItem href='#'>
-                    <div className='icon-box'>
-                        <img src={ICON}/>
-                    </div>
+            <Toggle
+                aria-label='Retailer toggle'
+                id='retailer-toggle'
+                labelText={isRetailer ? t('nav.toggle-label.retailer') : t('nav.toggle-label.customer')}
+                defaultToggled={!isRetailer}
+                onToggle={handleToggleChange}
+                className='retailer-toggle'
+            />
+            <img src={ICON} alt='Nav icon' className='nav-icon' onClick={handleMenuClick}/>
+            <HeaderNavigation aria-label='Your Company' className={showMenu ? 'show-menu' : ''}>
+                <HeaderMenuItem href='/customer/services' style={{ marginLeft: '1rem' }}>
+                    {t('nav.menu.services')}
                 </HeaderMenuItem>
+                <HeaderMenuItem href='/customer/environment'>{t('nav.menu.sustainability')}</HeaderMenuItem>
+                <HeaderMenuItem href='/customer/shop-with-us'>{t('nav.menu.shop-with-us')}</HeaderMenuItem>
+                <HeaderMenuItem href='#'>{t('nav.menu.lets-talk')}</HeaderMenuItem>
+                <HeaderMenuItem href='#'>{t('nav.menu.faqs')}</HeaderMenuItem>
             </HeaderNavigation>
         </Header>
     );
 };
 
 export default Nav;
-
