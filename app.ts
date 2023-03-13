@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
@@ -11,9 +12,7 @@ import { config } from './app/config/config';
 // Routes
 import healthRoute from './app/route/healthRoute';
 import launchRoute from './app/route/launchRoute';
-import orderRoute from './app/route/orderRoute';
 import customerRoutes from './app/route/customerRoute';
-import { buildErrorResponseAndSend } from './app/middleware/errorResponseBuilderMiddleware';
 import orderRoute from './app/route/userOrderRoute';
 import uiRoutes from './app/route/uiRoute';
 import sendErrorResponse from './app/middleware/errorResponseBuilderMiddleware';
@@ -55,7 +54,9 @@ app.use(config.ROUTE_PATH, orderRoute);
 /*
  * Error handling middleware
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: ServiceError, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     sendErrorResponse(err, res);
 });
 
