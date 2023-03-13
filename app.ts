@@ -11,6 +11,9 @@ import { config } from './app/config/config';
 // Routes
 import healthRoute from './app/route/healthRoute';
 import launchRoute from './app/route/launchRoute';
+import orderRoute from './app/route/orderRoute';
+import customerRoutes from './app/route/customerRoute';
+import { buildErrorResponseAndSend } from './app/middleware/errorResponseBuilderMiddleware';
 import orderRoute from './app/route/userOrderRoute';
 import uiRoutes from './app/route/uiRoute';
 import sendErrorResponse from './app/middleware/errorResponseBuilderMiddleware';
@@ -43,6 +46,7 @@ app.use((req, res, next) => {
 });
 
 // Define Routes
+app.use(customerRoutes);
 app.use(uiRoutes);
 app.use(config.ROUTE_PATH, healthRoute);
 app.use(config.ROUTE_PATH, launchRoute);
