@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 // SCSS
 import '../scss/main.scss';
@@ -25,10 +25,10 @@ const MainRouter = () => {
                     <Route path='/confirm' component={() => <Confirm/>}></Route>
                     <Route path='/checkout' component={() => <Checkout />}></Route>
                     <Route path='/appointment' component={() => <Appointment/>}></Route>
-                    <Route path='/customer' component={() => <CustomerRouter />} />
                     <Route path='/retailer' component={() => <RetailerRouter />} />
+                    <Route path='/' component={() => <CustomerRouter />} />
                     {/* This component will act as a relocate router based on the initial launch type */}
-                    <Route path='/' component={() => <Relocate/>}></Route>
+                    {/* <Route path='/' component={() => <Relocate/>}></Route> */}
                 </Switch>
 
             </Router>

@@ -14,7 +14,7 @@ import { Logger } from '../log/logger';
 const Logging = Logger(__filename);
 
 router.get(
-    [RoutePath.CUSTOMER_UI, `${RoutePath.CUSTOMER_UI}*`], (req: express.Request, res: express.Response): void => {
+    RoutePath.CUSTOMER_UI, (req: express.Request, res: express.Response): void => {
         (async () => {
             Logging.log('Requesting dev launch HTML form.', LogType.INFO);
             const applicationPath: string = await buildAppLaunchPath(config?.UI_APP_ENTRY_POINT);
