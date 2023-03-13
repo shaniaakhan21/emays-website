@@ -14,7 +14,7 @@ export enum HTTPServerError {
     NOT_IMPLEMENTED_MESSAGE = 'Not Implemented',
 }
 
-export enum HTTPOrderError {
+export enum HTTPUserError {
     BAD_REQUEST_CODE = 400,
     BAD_REQUEST_MESSAGE = 'Bad Request',
 

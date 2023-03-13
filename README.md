@@ -18,6 +18,7 @@ This repository consists of a React UI and its Immediate Backend.
 - SASS
 - Env-CMD
 - Yarn
+- AWS SDK SES
 
 # Steps to run manually
 | Step  | Instructions                                | Description                                                                                               |
@@ -26,7 +27,15 @@ This repository consists of a React UI and its Immediate Backend.
 | 2     | > yarn dev-build | This command will build the complete module. Once it completed you will find a new folder called app-dist in your folder hierarchy |
 | 3     | > yarn watch-ui OR yarn watch-server | These commands will run the build and re-start. |
 | 4     | > yarn dev-start | This command will run the development server. |
+| 5     | > docker run --name mongodb -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 mongo:4.4.6 | This command can be used to spin up a mongo container in your local docker. Then change the config value MONGODB_HOST to container_ip. |
 | 5     | run application launcher | Hit localhost:8080/api-dev/devLaunch on the browser. |
+
+# Steps to run with Docker-Compose
+| Step  | Instructions                                | Description                                                                                               |
+| ----- |:--------------------------------------------|:--------------------------------------------------------------------------------------------------------- |
+| 1     | docker compose --env-file .env.dev -f docker-compose-dev.yml up --build | Access the project folder with the terminal and run the command. This command will build the Docker image of the application and will start the application container. Besides that, it will initiate a MongoDB container in the local Docker.|
+| 2     | check console | Check the console to get the health route. Also you can check the API spec for more details on routs. |
+| 3     | connect MongoDB | You can use a tool like Mongo Compass to connect the docker Mongo container. |
 
 # Dev guide
 - make sure your Node version is >=14
@@ -37,5 +46,4 @@ This repository consists of a React UI and its Immediate Backend.
 - follow design patterns at first place
 
 # Architecture
-
-![plot](./architecture/Design%203.svg)
+- Monolithic

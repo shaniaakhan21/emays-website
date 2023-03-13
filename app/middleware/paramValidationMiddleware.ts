@@ -1,13 +1,16 @@
 'use strict';
 
 import { Request, Response, NextFunction } from 'express';
-import Logger from '../logger';
-
 import * as Joi from 'joi';
-import OrderError from '../error/OrderError';
-import ErrorType from '../error/type/errorType';
-import { ErrorInfo } from '../const/error';
-import { HTTPOrderError } from '../const/httpCode';
+import { validatorErrorBuilder } from '../util/serviceErrorBuilder';
+import { ADDRESS_REQUIRED, CONTENT_TYPE_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED, ORDER_DATE_REQUIRED
+    , ORDER_ID_REQUIRED_IN_PATH, ORDER_LIST_REQUIRED, ORDER_TIME_END_REQUIRED,
+    ORDER_TIME_START_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH } from '../const/errorMessage';
+import { Logger } from '../log/logger';
+import { buildErrorMessage } from '../util/logMessageBuilder';
+import LogType from '../const/logType';
+
+const Logging = Logger(__filename);
 
 /**
  * Check the request body params for create order
@@ -18,33 +21,53 @@ import { HTTPOrderError } from '../const/httpCode';
 export const validateCreateOrder = (req: Request, res: Response, next: NextFunction) => {
     const checkOrderParams = Joi.object({
         body: {
-            email: Joi.string().email().max(50).error((error) => {
-                return new OrderError(ErrorType.
-                    ORDER_INVALID_REQUEST, ErrorInfo.
-                    USER_EMAIL_REQUIRED, error as unknown as Error, HTTPOrderError.BAD_REQUEST_CODE); }),
+            email: Joi.string().email().max(50).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EMAIL_REQUIRED); }),
+            firstName: Joi.string().max(50).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EMAIL_REQUIRED); }),
+            lastName: Joi.string().max(50).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EMAIL_REQUIRED); }),
+            phoneNumber: Joi.string().max(15).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EMAIL_REQUIRED); }),
+            retailerEmail: Joi.string().email().max(50).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EMAIL_REQUIRED); }),
+            uid: Joi.string().max(36).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_ID_REQUIRED); }),
             date: Joi.date().iso().required().error((error) => {
-                return new OrderError(ErrorType.
-                    ORDER_INVALID_REQUEST, ErrorInfo.
-                    ORDER_DATE_REQUIRED, error as unknown as Error, HTTPOrderError.BAD_REQUEST_CODE); }),
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ORDER_DATE_REQUIRED); }),
             startTime: Joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required().error((error) => {
-                return new OrderError(ErrorType.
-                    ORDER_INVALID_REQUEST, ErrorInfo.
-                    ORDER_TIME_START_REQUIRED, error as unknown as Error, HTTPOrderError.BAD_REQUEST_CODE); }),
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ORDER_TIME_START_REQUIRED); }),
             endTime: Joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required().error((error) => {
-                return new OrderError(ErrorType.
-                    ORDER_INVALID_REQUEST, ErrorInfo.
-                    ORDER_TIME_END_REQUIRED, error as unknown as Error, HTTPOrderError.BAD_REQUEST_CODE); }),
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ORDER_TIME_END_REQUIRED); }),
             experience: Joi.number().required().error((error) => {
-                return new OrderError(ErrorType.
-                    ORDER_INVALID_REQUEST, ErrorInfo.
-                    EXPERIENCE_REQUIRED, error as unknown as Error, HTTPOrderError.BAD_REQUEST_CODE); }),
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EXPERIENCE_REQUIRED); }),
             address: Joi.object().keys({ addOne: Joi.string().required(),
                 addTwo: Joi.string().required(), addThree: Joi.string().required(),
                 addFour: Joi.string().required() }).required().error((error) => {
-                return new OrderError(ErrorType.
-                    ORDER_INVALID_REQUEST, ErrorInfo.
-                    ADDRESS_REQUIRED, error as unknown as Error, HTTPOrderError.BAD_REQUEST_CODE); })
-                            
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADDRESS_REQUIRED); }),
+            orderItems: Joi.array().items({
+                productName: Joi.string().required(),
+                productColor: Joi.string().required(),
+                productSize: Joi.string().required(),
+                productQuantity: Joi.number().required(),
+                productCost: Joi.string().required(),
+                productImage: Joi.string().required(),
+                productDeliveryInformation: Joi.string().required()
+            }).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ORDER_LIST_REQUIRED);
+            })         
         }   
     });
     validateRequest(req, next, checkOrderParams);
@@ -60,9 +83,32 @@ export const validateHeader = (req: Request, res: Response, next: NextFunction) 
     const validationCriteria = Joi.object({
         headers: {
             'content-type': Joi.string().valid('application/json').required().error((error) => { 
-                return new OrderError(ErrorType.
-                    ORDER_INVALID_REQUEST, ErrorInfo.
-                    CONTENT_TYPE_REQUIRED, error as unknown as Error, HTTPOrderError.BAD_REQUEST_CODE); })        
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, CONTENT_TYPE_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// OrderId as parameter validation middleware 
+export const validateParamOrderId = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        params: {
+            orderId: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ORDER_ID_REQUIRED_IN_PATH); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// UserId as parameter validation middleware 
+export const validateParamUserId = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        params: {
+            userId: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_ID_REQUIRED_IN_PATH); })
         }
     });
     validateRequest(req, next, validationCriteria);
@@ -90,7 +136,8 @@ export const validator = (data: object, validationCriteria: Joi.Schema) => {
     const { error } = validationCriteria.validate(data, options);
     if (error) {
         const err = error as Error;
-        Logger.error(`Failed to validate data ${err.stack as string}`);
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'Save Order'), LogType.ERROR);
         throw err;
     }
 };

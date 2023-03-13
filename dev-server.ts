@@ -10,6 +10,7 @@ const env: string = config.NODE_ENV;
 if (runningPortDev) {
     App.listen(runningPortDev, () => {
         console.log(`App Environment:  ${env.toString().toUpperCase()}`);
+        console.log(`Route path: ${config.ROUTE_PATH}`);
         console.log(`App is running on port: ${runningPortDev}`);
         console.log(`Container is exposed : ${exposedPortDev}`);
     }).on('error', (err) => {

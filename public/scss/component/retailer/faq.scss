@@ -1,0 +1,69 @@
+.faq {
+  font-family: 'SkolaSans', serif;
+  margin-top: 60px;
+  color: #FFFFFF;
+
+  .search {
+    margin-top: 60px;
+
+    input {
+      background: transparent;
+      color: #d0d0d0;
+    }
+
+    button {
+      background: rgb(255 255 255 / 15%);
+
+      &:before {
+        display: none;
+      }
+    }
+  }
+
+  .tags {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    > div {
+      margin-right: 10px;
+    }
+  }
+
+  .header {
+    font-size: 42px;
+    font-weight: 400;
+    text-align: center;
+
+    @media (max-width: 950px) {
+      text-align: left;
+    }
+  }
+
+  .list {
+    margin-top: 50px;
+
+    &.list-2 {
+      @media (max-width: 950px) {
+        margin-top: 0;
+      }
+    }
+
+    .cds--accordion__item {
+      margin-top: 10px;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      .cds--accordion__heading {
+        color: #8d8d8d;
+
+        svg {
+          fill: #8d8d8d;
+        }
+      }
+    }
+  }
+}

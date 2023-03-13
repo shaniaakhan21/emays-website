@@ -13,7 +13,7 @@ export default function buildRenderData (token: string, productList: string): { 
         custom: (launchType: string) => ({
             token,
             productList,
-            launchType  
+            launchType
         }),
         default: () => ({
             token,

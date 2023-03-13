@@ -3,11 +3,16 @@
 import * as path from 'path';
 import * as express from 'express';
 import { config } from '../config/config';
-import Logger from '../logger';
+import LogType from '../const/logType';
 import { v4 as uuidv4 } from 'uuid';
 import { Roles } from '../const/roles';
 import { IJWTBuildData } from '../type/IJWTClaims';
 import { generateJWT } from '../util/jwtUtil';
+import { Logger } from '../log/logger';
+import { buildErrorMessage,
+    buildInfoMessageMethodCall, buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
+
+const Logging = Logger(__filename);
 
 /**
  * Build the UI entry point path
@@ -16,20 +21,21 @@ import { generateJWT } from '../util/jwtUtil';
  */
 export const buildAppLaunchPath = async (file: string): Promise<string> => {
     try {
-        Logger.info('Application launch path is being built.');
+        Logging.log(buildInfoMessageMethodCall(
+            'Build launch path', `File: ${file}`), LogType.INFO);
         const pathToUI: string = await new Promise((resolve) => {
             const serverJsPath: unknown = require.main?.filename;
             const pathToUI = `${path.
                 dirname(
                     serverJsPath as string)}${config?.UI_VERSIONS_LOCATION}/${file}`;
-            Logger.info(`Application launch path has been built successfully. Path: ${pathToUI}`);
+            Logging.log(buildInfoMessageUserProcessCompleted(
+                'Build launch path', `File: ${file}`), LogType.INFO);
             return resolve(pathToUI);
         });
         return pathToUI;
     } catch (error) {
         const errorObject: Error = error as Error;
-        Logger.error(`Failed to build the application launch path.
-        Error stack: ${errorObject.stack as string}.`);
+        Logging.log(buildErrorMessage(errorObject, 'Build launch path'), LogType.ERROR);
         throw error;
     }
 };
@@ -42,12 +48,12 @@ export const buildAppLaunchPath = async (file: string): Promise<string> => {
  */
 export const authorizeLaunchRoute = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-        Logger.info('Authorization is being done.');
+        Logging.log(buildInfoMessageMethodCall(
+            'Authorize launch', ''), LogType.INFO);
         next();
     } catch (error) {
         const errorObject: Error = error as Error;
-        Logger.error(`Authorization failed.
-        Error stack: ${errorObject.stack as string}.`);
+        Logging.log(buildErrorMessage(errorObject, 'Authorize launch'), LogType.ERROR);
         throw error;
     }
 };
@@ -61,20 +67,21 @@ export const authorizeLaunchRoute = (req: express.Request, res: express.Response
  */
 export const getJWTForSession = (): string => {
     try {
-        Logger.info('JWT is being built.');
         const uuid: string = uuidv4();
         const role: Roles = Roles.CLIENT;
+        Logging.log(buildInfoMessageMethodCall(
+            'JWT token get', `User Id: ${uuid}`), LogType.INFO);
         const tokenBuildData: IJWTBuildData = {
             id: uuid,
             roles: role
         };
         const token: string = generateJWT(tokenBuildData);
-        Logger.info(`Token: ${token} was built for the user ${uuid}`);
+        Logging.log(buildInfoMessageUserProcessCompleted(
+            'JWT token get', `User Id: ${uuid}`), LogType.INFO);
         return token;
     } catch (error) {
         const errorObject: Error = error as Error;
-        Logger.error(`JWT token build failure.
-        Error stack: ${errorObject.stack as string}.`);
+        Logging.log(buildErrorMessage(errorObject, 'JWT token get'), LogType.ERROR);
         throw error;
     }
 };
