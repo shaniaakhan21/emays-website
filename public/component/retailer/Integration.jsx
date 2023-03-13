@@ -55,7 +55,7 @@ const RetailerIntegration = () => {
                         <img src={SalesForceLogo} alt='Salesforce Logo' />
                         <img src={BigcommerceLogo} alt='Commercetools Logo' />
                         <img src={CommercetoolsLogo} alt='Bigcommerce Logo' />
-                        <img src={AdobeLogo} alt='Adobe Logo' />
+                        <img src={AdobeLogo} alt='Adobe Logo' style='width: 140px;' />
                     </div>
                 </div>
             </Column>
