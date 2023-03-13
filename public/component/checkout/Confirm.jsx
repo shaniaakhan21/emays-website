@@ -16,30 +16,18 @@ import EditIcon from '../../icons/edit.svg';
 // Util
 import { getAddress, getProductList, getSelectedOptions } from '../../js/util/SessionStorageUtil';
 import { useTranslation } from 'react-i18next';
+import useSessionState from '../../js/util/useSessionState';
+import { CHECKOUT_INFO } from '../../js/const/SessionStorageConst';
 
 const Confirm = () => {
 
     const [t] = useTranslation();
 
-    // Retrieve selectedDate from location state
-    const location = useLocation();
-    const selectedDate = location.state.selectedDate;
-
-    // Initialize state variables
-    const [address, setAddress] = useState({});
-
     const history = useHistory();
 
-    const selectedOptions = getSelectedOptions();
     const [productData, setProductData] = useState([]);
-    console.log(selectedOptions);
-    // Fetch  address data from session storage
-    useEffect(() => {
-        const storedAddress = getAddress();
-        if (storedAddress) {
-            setAddress(storedAddress);
-        }
-    }, []);
+
+    const [state, setState] = useSessionState(CHECKOUT_INFO);
 
     // Fetch product data from session storage
     useEffect(() => {
@@ -62,7 +50,7 @@ const Confirm = () => {
                             <img src={EditIcon} alt='edit icon' />
                         </div>
                         <div>
-                            <a onClick={() => {}}>{t('confirm.edit-appointment.edit-button')}</a>
+                            <a onClick={() => history.go(-1)}>{t('confirm.edit-appointment.edit-button')}</a>
                         </div>
                     </div>
                 </div>
@@ -71,7 +59,7 @@ const Confirm = () => {
                         <div className='date'>
                             <p><strong>{t('confirm.user-appointment-info.date')}</strong></p>
                             <div className='value'>
-                                <p>{selectedDate?.toLocaleDateString()}</p>
+                                <p>{new Date(state?.date)?.toLocaleDateString()}</p>
                             </div>
                         </div>
                         <div className='hour'>
@@ -84,7 +72,7 @@ const Confirm = () => {
                     <div className='selected-experience'>
                         <p><strong>{t('confirm.user-appointment-info.selected-experience')}</strong></p>
                         <div className='value'>
-                            {Object.entries(selectedOptions).map(([key, value]) => {
+                            {Object.entries(state?.options ?? {}).map(([key, value]) => {
                                 if (value) {
                                     return <span key={key}>{key.replace(/^\w/, c => c.toUpperCase())}, </span>;
                                 }
@@ -95,10 +83,12 @@ const Confirm = () => {
                     <div className='delivery-address'>
                         <p><strong>{t('confirm.user-appointment-info.delivery-address')}</strong></p>
                         <div className='value'>
-                            <p>{`${address.street ? address.street + ', ' : ''}
-                            ${address.city ? address.city + ', ' : ''}
-                            ${address.postalCode ? address.postalCode + ', ' : ''}
-                            ${address.country ? address.country : ''}`}</p>
+                            <p>{[
+                                state?.address?.street,
+                                state?.address?.city,
+                                state?.address?.postalCode,
+                                state?.address?.country
+                            ]?.filter(e => !!e).join(', ')}</p>
                         </div>
                     </div>
                 </div>
