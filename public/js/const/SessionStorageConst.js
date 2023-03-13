@@ -13,6 +13,9 @@ export const EMAIL_INVOICE = 'emailInvoice';
 export const UI_RETAILER = 'uiRetailer';
 export const AUTH_TOKEN = 'authToken';
 export const ADDRESS = 'address';
+export const CHECKOUT_INFO = 'checkoutInfo';
 export const SELECTED_OPTIONS_KEY = 'selectedOptions';
 
 export const USER_DATA = 'userData';
+// CUSTOMER UI
+export const CUSTOMER_UI = 'customerUI';

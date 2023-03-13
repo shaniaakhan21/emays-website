@@ -1,0 +1,25 @@
+.binding-row{
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    width: 22%;
+    justify-content: space-between;
+    margin: 1%;
+
+    img{
+        width: 46px;
+        height: 47px;
+        padding: 4%;
+        background: white;
+    }
+
+    .cds--btn--primary:hover {
+        background-color: var(--cds-button-primary-hover, #efefef);
+    }
+
+    .cds--btn--primary{
+        background-color: white;
+        color: black;
+        padding: 4%;
+    }
+}

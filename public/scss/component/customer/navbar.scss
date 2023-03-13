@@ -1,0 +1,148 @@
+.cds--header {
+  background-color: #231F20;
+  padding: 0 5%;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 4rem;
+  border-bottom: 4px solid #161616;
+  
+  .cds--header__menu-button {
+    color: white;
+  }
+
+  .cds--header__name {
+    color: white;
+  }
+
+  .cds--header__menu-item{
+    background-color: #231F20;
+    color: white;
+    font-family: 'SkolaSans';
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
+  }
+
+  .cds--header__navigation {
+    .cds--header__menu-item {
+      
+      &:hover {
+        background-color: #525252;
+        color: white;
+      }
+    }
+  }
+  a.cds--header__menu-item:hover {
+    background-color: var(--cds-background-hover, rgba(141, 141, 141, .12));
+    color: #ffffff;
+  }
+
+  .cds--header__navigation {
+    display: flex;
+    flex-direction: row;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      .menu-items-desktop {
+        display: none;
+      }
+
+      .nav-icon-mobile {
+        display: block;
+        margin-left: auto;
+      }
+
+      .cds--header__menu-item {
+        border-bottom: none;
+      }
+
+      .nav-icon {
+        display: block;
+        margin-left: auto;
+      }
+
+      .cds--header__name,
+      .cds--toggle {
+        display: none;
+      }
+
+      .show-menu {
+        padding: 2rem 0;
+      }
+    }
+  }
+
+  .show-menu {
+    display: flex;
+    flex-direction: column;
+    background-color: #231F20;
+    position: absolute;
+    top: 4rem;
+    width: 104%;
+    padding: 1rem 0;
+    z-index: 1;
+    left: 0;
+  }
+
+  .cds--header__menu-item{
+      background-color: #231F20;
+      color: white;
+      font-family: 'SkolaSans';
+      margin-left: 1.2rem;
+      margin-right: 1.2rem;
+      white-space: nowrap;
+      text-align:center;
+      padding: 0.5rem 1rem;
+      border-bottom: 0;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #2e2b2b!important;
+        color: white;
+      }
+    }
+    .cds--header a.cds--header__menu-item:hover {
+      background-color: #2e2b2b!important;
+      color: #fff;
+    }
+
+
+    .cds--header__menu-bar {
+      @media (max-width: 1060px) {
+        flex-direction: column;
+      }
+  }
+}
+
+.nav-icon{
+  @media (min-width: 1060px) {
+    display: none;
+  }
+}
+
+.cds--header__nav:before{
+  display: none;
+}
+
+.cds--toggle__label-text {
+  font-size: .875rem;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.125rem;
+  color: #fff;
+  margin: 0;
+  font-family: SkolaSans;
+}
+
+.cds--toggle__label{
+  display: flex;
+  flex-direction: row-reverse;
+}

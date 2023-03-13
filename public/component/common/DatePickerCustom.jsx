@@ -19,6 +19,7 @@ const DatePickerCustom = ({ handleDateChange, customStyle }) => {
 };
 
 DatePickerCustom.propTypes = {
+    ...DatePicker.propTypes,
     handleDateChange: PropTypes.func.isRequired
 };
 

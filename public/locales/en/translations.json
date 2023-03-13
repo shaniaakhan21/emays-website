@@ -112,6 +112,83 @@
       "color": "Color"
     }
   },
+
+  "nav": {
+    "logo-alt": "EMAYS",
+    "toggle-label": {
+      "retailer": "RETAILER",
+      "customer": "CUSTOMER"
+    },
+    "menu": {
+      "services": "SERVICES",
+      "sustainability": "SUSTAINABILITY",
+      "shop-with-us": "SHOP WITH US",
+      "lets-talk": "Let's Talk",
+      "faqs": "FAQS"
+    }
+  },
+  "environment-header": {
+    "env-header-h1": "FASHION SHOULDN’T COST THE EARTH",
+    "env-header-h5": "CO2 Neutral",
+    "env-header-h5-subhead": "Carbon footprint is considered with every step of our service."
+  },
+  "icon-img-text": {
+    "text-h1": "ERASE THE RETURN JOURNEY",
+    "text-h5": "Over one-third of online fashion orders ends with a return, with two journeys for each: one to deliver and another to collect. This doubles the miles driven for each shop. With Emays, these delivery and return trips are combined, we cuts those miles in half by combining the delivery and return journey."
+  },
+  "icon-text-img": {
+    "text-h5": "Emays delivery service is designed with the environment in mind  providing the best shopping experience for modern customers. We always strive for excellent customer service experience and take an intentional approach by reducing our environmental impact by delivering an all-inclusive store experience to your door with our zero-emission cars to make style more sustainable, for people and planet. "
+  },
+  "img-text-icon": {
+    "text-h1": "ADVANCED PACKAGING FREE DELIVERY",
+    "text-h5": "Emays delivers using packaging-free, hanging garments bags. This service aim to avoid the use of plastic and erase the disposable packaging."
+  },
+  "text-img": {
+    "text-h1-01": "ONE",
+    "text-h1-02": "TREE",
+    "text-h1-03": "PLANTED",
+    "text-h5": "We partner with OneTreePlanted, and we support their projects. We plant one tree for every order that we complete, helping to clean the air that we breath, restore forests, create habitat for biodiversity, and make a positive social impact around the world.",
+    "btn-text":"Learn more about this initiative"
+  },
+  "home-section":{
+    "col-1":{
+      "title":"WE SHIP THE SHOP",
+      "subtitle-h2":"Take the luxury Shopping to experience your house",
+      "subtitle-h3":"Try What you want, pay only what you keep.",
+      "btn-text":"See what we can do for you"
+    }   
+  },
+  "services":{
+    "text-h1":"Our Services are available on selected brands websites"
+  },
+
+  "shop-with-us":{
+    "first-block":{
+      "head-text":"STORE AT HOME",
+      "subhead-text":"No upfront Payment",
+      "body-text":"Choose all the pieces you’d like to try, we’d bring them to you with no upfront payment."
+    },
+    "second-block":{
+      "head-text":"Save time in returns",
+      "subhead-text":"Hassle-free returns",
+      "body-text":"Skip the process, we send back the pieces dont want."
+    },
+    "third-block":{
+      "head-text":"Schedule as needed",
+      "subhead-text":"1-hour windows",
+      "body-text":"Shop on your schedule with times available from 9am to 9pm, 7 days a week."
+    },
+    "fourth-block":{
+      "head-text":"Climate Conscious",
+      "subhead-text":"C02 Neutral",
+      "body-text":"Carbon footprint is considered with every step of our service."
+    },
+    "fifth-block":{
+      "btn-text":"Read more about this",
+      "email-text":"Shop With Our Brands"
+    }   
+  },
+
   "retailer": {
     "landing": {
       "title": "WE SHIP THE SHOP",
