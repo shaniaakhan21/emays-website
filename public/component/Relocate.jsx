@@ -37,6 +37,7 @@ const Relocate = () => {
             case CUSTOMER_UI:
                 setLaunchType('');
                 history.push('/customer');
+                break;
             case UI_RETAILER:
                 setLaunchType('');
                 history.push('/retailer');
