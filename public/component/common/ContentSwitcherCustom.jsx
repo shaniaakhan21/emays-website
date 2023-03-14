@@ -7,9 +7,9 @@ const ContentSwitcherCustom = ({ nextDateOne, nextDateTwo, nextDateThree }) => {
         <ContentSwitcher selectedIndex={2} onChange={(event) => {
             console.log(event.target);
         }}>
-            <Switch name='one' text={nextDateOne} />
-            <Switch name='two' text={nextDateTwo} />
-            <Switch name='three' text={nextDateThree} />
+            <Switch disabled name='one' text={nextDateOne} />
+            <Switch disabled name='two' text={nextDateTwo} />
+            <Switch disabled name='three' text={nextDateThree} />
         </ContentSwitcher>
     );
 };

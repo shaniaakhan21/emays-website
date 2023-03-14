@@ -22,6 +22,7 @@ class ErrorBoundary extends React.Component {
         // Call error reporting service and render error message
         console.error('errorboundryError: ', errorInfo);
 
+        return false;
     }
     
     componentDidMount () {
@@ -44,10 +45,9 @@ class ErrorBoundary extends React.Component {
     render () {
         // TODO: Display different error message based on the returned Error Type
         if (this.state.hasError) {
-            return (
-                // TODO: Display nice alert
-                console.error('Error message.', this.state.errorDescription)
-            );
+            console.error('Error message.', this.state.errorDescription);
+            // TODO: Display nice alert
+            return <h1>{this.state.errorDescription}</h1>;
         }
         return this.props.children; 
     }
