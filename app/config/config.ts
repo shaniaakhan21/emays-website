@@ -17,6 +17,12 @@ const {
     AWS_SES_SECRET_KEY,
     AWS_REGION,
     AWS_SOURCE_EMAIL,
+    GOOGLE_AUTH_CLIENT_ID,
+    GOOGLE_AUTH_CLIENT_SECRET,
+    GOOGLE_AUTH_REDIRECTION_URL,
+    GOOGLE_AUTH_SCOPE,
+    GOOGLE_CALENDER_TASK_SUMMERY,
+    GOOGLE_CALENDER_TASK_DESCRIPTION,
     CUSTOMER_EMAIL_TEMPLATE,
     RETAILER_EMAIL_TEMPLATE,
     SERVICE_CHARGE
@@ -66,6 +72,23 @@ export const config = {
             INSTAGRAM_LINK: 'https://instagram.com',
             EMAYS_CONTACT_US: 'https://emays.com/contact-us',
             EMAIL_REDIRECTION_PATH: 'http://localhost:8080/api-dev/launchMail' 
+        }
+    },
+    GOOGLE: {
+        OAUTH2: {
+            CLIENT: {
+                CLIENT_ID: GOOGLE_AUTH_CLIENT_ID || 
+                    '',
+                CLIENT_SECRET: GOOGLE_AUTH_CLIENT_SECRET || '',
+                REDIRECTION_URL: GOOGLE_AUTH_REDIRECTION_URL || 'http://localhost:8080/api-dev/redirectGoogleAccess'
+            },
+            SCOPE: GOOGLE_AUTH_SCOPE || 'https://www.googleapis.com/auth/calendar'
+        },
+        CALENDER: {
+            SUMMERY: GOOGLE_CALENDER_TASK_SUMMERY || 'Emays Order Arrival',
+            DESCRIPTION: GOOGLE_CALENDER_TASK_DESCRIPTION || 
+                'This event has been created by Emays System to remind you about your order arrival',
+            BOOK_CALENDER_REDIRECTION_PATH: 'http://localhost:8080/api-dev/googleCalender' 
         }
     },
     SERVICE_CHARGE: SERVICE_CHARGE || 1200.00

@@ -81,21 +81,6 @@ export const createEvent: SendCalenderEvent = async (uid, scope, accessToken, ex
         const timeZone = orderData?.timeZone;
         oAuthClient.setCredentials(credentials);
         const calendar = google.calendar({ version: 'v3', auth: oAuthClient });
-        /*
-         * Const event: calendar_v3.Schema$Event = {
-         *     summary: config.GOOGLE.CALENDER.SUMMERY,
-         *     location: address,
-         *     description: config.GOOGLE.CALENDER.DESCRIPTION,
-         *     start: {
-         *         dateTime: '2023-03-16T09:00:00-07:00',
-         *         timeZone: 'America/Los_Angeles'
-         *     },
-         *     end: {
-         *         dateTime: '2023-03-16T10:00:00-07:00',
-         *         timeZone: 'America/Los_Angeles'
-         *     }
-         * };
-         */
         const event: calendar_v3.Schema$Event = {
             summary: config.GOOGLE.CALENDER.SUMMERY,
             location: address,

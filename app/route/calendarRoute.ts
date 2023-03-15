@@ -47,6 +47,7 @@ router.get(RoutePath.CALENDER_REDIRECTION, (req: express.Request, res: express.R
         await createEvent(state as string, scope as string, access_token as 
             string, expiry_date as 
             number, token_type as string);
+        res.send('<h3>Calender Booked Successfully !<h3/>');
     })().catch((error) => {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'launch ui app'), LogType.ERROR);
