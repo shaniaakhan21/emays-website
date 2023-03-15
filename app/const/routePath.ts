@@ -8,7 +8,7 @@ export enum RoutePath {
     LAUNCH_MAIL = '/launchMail',
     DEV_LAUNCH = '/devLaunch',
     ORDERS= '/orders',
-    CUSTOMER_UI = '/customer',
+    CUSTOMER_UI = '/',
     USERS = '/users',
     RETAILER_UI= '/retailer'
 }

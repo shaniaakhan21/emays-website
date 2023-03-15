@@ -116,6 +116,10 @@
   .logos {
     margin-bottom: 40px;
 
+    .adobe {
+      width: 140px;
+    }
+
     @media (min-width: 66rem) {
       .marquee {
         display: flex;

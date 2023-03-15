@@ -1,6 +1,6 @@
 import { Grid, Column } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { PropTypes } from 'prop-types';
 
 // Components
@@ -23,14 +23,7 @@ import { getProductList, saveSelectedOptions } from '../../js/util/SessionStorag
 import { ADDRESS, CHECKOUT_INFO } from '../../js/const/SessionStorageConst';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
-
-// TODO: Remove mock data and map to proper state when data binding
-
-const items = [
-    { id: 'option-0', text: 'Option 0' },
-    { id: 'option-1', text: 'Option 1' },
-    { id: 'option-2', text: 'Option 2' }
-];
+import timeframes from '../../../app/const/timeframes';
 
 const Checkout = () => {
 
@@ -99,6 +92,15 @@ const Checkout = () => {
         setState(cs => ({ ...cs, locked: true }));
         history.push('/confirm');
     };
+    
+    const selectedTimeframe = useMemo(() => {
+        if (!state?.startTime) {
+            return undefined;
+        }
+        const id = timeframes.findIndex(tf => tf.start === state?.startTime);
+        const text = timeframes[id];
+        return { id, text };
+    }, [state?.startTime]);
 
     return (
         <Grid className='landing-page'>
@@ -127,7 +129,13 @@ const Checkout = () => {
                         </div>
                         <div className='time-window'>
                             <p>{t('checkout.book-appointment.choose-time')}</p>
-                            <DropDownCustom items={items}/>
+                            <DropDownCustom
+                                onChange={(e) => {
+                                    const tf = timeframes[e.selectedItem?.id];
+                                    setState(cs => ({ ...cs, startTime: tf.start, endTime: tf.end }));
+                                }}
+                                items={timeframes.map((tf, k) => ({ id: k, text: `${tf.start} to ${tf.end}` }))}
+                            />
                         </div>
                     </div>
                 </div>
@@ -173,10 +181,10 @@ const Checkout = () => {
                         <div>
                             <TextBoxCustom
                                 customStyle={{ backgroundColor: 'white' }}
-                                value={state?.address?.street ?? ''}
+                                value={state?.address?.addOne ?? ''}
                                 onChange={
                                     (e) => setState(
-                                        cs => ({ ...cs, address: { ...cs.address, street: e.target.value } })
+                                        cs => ({ ...cs, address: { ...cs.address, addOne: e.target.value } })
                                     )
                                 }
                                 required />
@@ -184,10 +192,10 @@ const Checkout = () => {
                         <div>
                             <TextBoxCustom
                                 customStyle={{ backgroundColor: 'white' }}
-                                value={state?.address?.city}
+                                value={state?.address?.addTwo}
                                 onChange={
                                     (e) => setState(
-                                        cs => ({ ...cs, address: { ...cs.address, city: e.target.value } })
+                                        cs => ({ ...cs, address: { ...cs.address, addTwo: e.target.value } })
                                     )
                                 }
                                 required />
@@ -195,10 +203,10 @@ const Checkout = () => {
                         <div>
                             <TextBoxCustom
                                 customStyle={{ backgroundColor: 'white' }}
-                                value={state?.address?.postalCode}
+                                value={state?.address?.addThree}
                                 onChange={
                                     (e) => setState(
-                                        cs => ({ ...cs, address: { ...cs.address, postalCode: e.target.value } })
+                                        cs => ({ ...cs, address: { ...cs.address, addThree: e.target.value } })
                                     )
                                 }
                                 required />
@@ -206,10 +214,10 @@ const Checkout = () => {
                         <div>
                             <TextBoxCustom
                                 customStyle={{ backgroundColor: 'white' }}
-                                value={state?.address?.country}
+                                value={state?.address?.addFour}
                                 onChange={
                                     (e) => setState(
-                                        cs => ({ ...cs, address: { ...cs.address, country: e.target.value } })
+                                        cs => ({ ...cs, address: { ...cs.address, addFour: e.target.value } })
                                     )
                                 }
                                 required />

@@ -4,6 +4,8 @@
 import { getAuthToken } from './SessionStorageUtil';
 import ResponseValidator from './responseValidator';
 
+export const apiBase = '/emays/api-dev';
+
 export class HTTPHelper {
     static async get (uri, headers) {
         const response = await fetch(uri, {
@@ -22,6 +24,7 @@ export class HTTPHelper {
         const response = await fetch(uri, {
             method: 'POST',
             credentials: 'same-origin',
+            mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getAuthToken()}`,

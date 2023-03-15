@@ -46,7 +46,6 @@ app.use((req, res, next) => {
 
 // Define Routes
 app.use(customerRoutes);
-app.use(uiRoutes);
 app.use(config.ROUTE_PATH, healthRoute);
 app.use(config.ROUTE_PATH, launchRoute);
 app.use(config.ROUTE_PATH, orderRoute);
