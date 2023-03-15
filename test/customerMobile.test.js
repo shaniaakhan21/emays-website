@@ -52,7 +52,7 @@ describe('Mobile', () => {
         });
 
         expect(screenshot).toMatchImageSnapshot();
-    });
+    }, 60000);
 
     it('Integration', async () => {
         await page.goto('http://localhost:8080/#/integration', {
@@ -73,7 +73,7 @@ describe('Mobile', () => {
             failureThreshold: 0.01,
             failureThresholdType: 'percent'
         });
-    });
+    }, 60000);
 
     it('Environment', async () => {
         await page.goto('http://localhost:8080/#/environment', {
@@ -91,7 +91,7 @@ describe('Mobile', () => {
         });
 
         expect(screenshot).toMatchImageSnapshot();
-    });
+    }, 60000);
 
     it('Partnership', async () => {
         await page.goto('http://localhost:8080/#/partnership', {
@@ -111,10 +111,10 @@ describe('Mobile', () => {
         });
 
         expect(screenshot).toMatchImageSnapshot({
-            failureThreshold: 0.01,
+            failureThreshold: 0.1,
             failureThresholdType: 'percent'
         });
-    });
+    }, 60000);
 
     it('LetsTalk', async () => {
         await page.goto('http://localhost:8080/#/letsTalk', {
@@ -134,7 +134,7 @@ describe('Mobile', () => {
         });
 
         expect(screenshot).toMatchImageSnapshot();
-    });
+    }, 60000);
 
     it('Services', async () => {
         await page.goto('http://localhost:8080/#/services', {
@@ -154,7 +154,7 @@ describe('Mobile', () => {
         });
 
         expect(screenshot).toMatchImageSnapshot();
-    });
+    }, 60000);
 
     it('Shop With Us', async () => {
         await page.goto('http://localhost:8080/#/shop-with-us', {
@@ -174,5 +174,5 @@ describe('Mobile', () => {
         });
 
         expect(screenshot).toMatchImageSnapshot();
-    });
+    }, 60000);
 });

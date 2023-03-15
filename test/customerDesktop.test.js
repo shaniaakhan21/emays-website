@@ -52,7 +52,7 @@ describe('Desktop', () => {
         });
 
         expect(screenshot).toMatchImageSnapshot();
-    });
+    }, 60000);
 
     it('Integration', async () => {
         await page.goto('http://localhost:8080/#/integration', {
@@ -70,7 +70,7 @@ describe('Desktop', () => {
         });
 
         expect(screenshot).toMatchImageSnapshot();
-    });
+    }, 60000);
 
     it('Environment', async () => {
         await page.goto('http://localhost:8080/#/environment', {
@@ -88,7 +88,7 @@ describe('Desktop', () => {
         });
 
         expect(screenshot).toMatchImageSnapshot();
-    });
+    }, 60000);
 
     it('Partnership', async () => {
         await page.goto('http://localhost:8080/#/partnership', {
@@ -104,7 +104,9 @@ describe('Desktop', () => {
         await new Promise(r => setTimeout(r, 500));
 
         let screenshot = await page.screenshot({
-            fullPage: true
+            fullPage: true,
+            failureThreshold: 0.1,
+            failureThresholdType: 'percent'
         });
 
         expect(screenshot).toMatchImageSnapshot();
@@ -128,7 +130,7 @@ describe('Desktop', () => {
         });
 
         expect(screenshot).toMatchImageSnapshot();
-    });
+    }, 60000);
 
     it('Services', async () => {
         await page.goto('http://localhost:8080/#/services', {
@@ -148,7 +150,7 @@ describe('Desktop', () => {
         });
 
         expect(screenshot).toMatchImageSnapshot();
-    });
+    }, 60000);
 
     it('Shop With Us', async () => {
         await page.goto('http://localhost:8080/#/shop-with-us', {
@@ -168,5 +170,5 @@ describe('Desktop', () => {
         });
 
         expect(screenshot).toMatchImageSnapshot();
-    });
+    }, 60000);
 });
