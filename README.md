@@ -14,6 +14,7 @@ This repository consists of a React UI and its Immediate Backend.
 - TypeScript
 - EJS
 - Jest
+- Puppeteer
 - Husky (Git Hook)
 - SASS
 - Env-CMD
@@ -21,6 +22,8 @@ This repository consists of a React UI and its Immediate Backend.
 - AWS SDK SES
 - Mongoose (ODM)
 - Joi (Request Parameter validation)
+- react-reveal (Animation)
+- react-countup (Animation)
 - GOOGLE API
 - Moment
 

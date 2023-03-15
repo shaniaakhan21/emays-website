@@ -123,8 +123,8 @@ const Checkout = () => {
                             <p>{t('checkout.book-appointment.choose-date')}</p>
                             <DatePickerCustom
                                 disabled={state?.locked}
-                                handleDateChange={date => setState(cs => ({ ...cs, date }))}
-                                selectedDate={state?.date ? new Date(state?.date) : undefined}
+                                handleDateChange={e => setState(cs => ({ ...cs, date: e.target.value }))}
+                                selectedDate={state?.date}
                             />
                         </div>
                         <div className='time-window'>

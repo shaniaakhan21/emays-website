@@ -17,6 +17,7 @@ import Line3 from '../../images/line-29.svg';
 import Line4 from '../../images/line-40.svg';
 import ChartXS from '../../images/chart-xs.svg';
 import PropTypes from 'prop-types';
+import CountUp from 'react-countup';
 
 // Constants
 
@@ -52,16 +53,16 @@ const Chart = ({ xs }) => {
             </div>
             <div className='text-wrapper'>
                 <Fade left>
-                    <p><strong>40%</strong>{t('40')}</p>
+                    <p><strong><CountUp end={40} enableScrollSpy scrollSpyDelay={500} />%</strong>{t('40')}</p>
                 </Fade>
                 <Fade right>
-                    <p><strong>15%</strong>{t('15')}</p>
+                    <p><strong><CountUp end={15} enableScrollSpy scrollSpyDelay={500} />%</strong>{t('15')}</p>
                 </Fade>
                 <Fade left>
-                    <p><strong>16%</strong>{t('16')}</p>
+                    <p><strong><CountUp end={16} enableScrollSpy scrollSpyDelay={500} />%</strong>{t('16')}</p>
                 </Fade>
                 <Fade right>
-                    <p><strong>29%</strong>{t('29')}</p>
+                    <p><strong><CountUp end={29} enableScrollSpy scrollSpyDelay={500} />%</strong>{t('29')}</p>
                 </Fade>
             </div>
         </div>
