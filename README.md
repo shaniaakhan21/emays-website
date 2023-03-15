@@ -21,6 +21,8 @@ This repository consists of a React UI and its Immediate Backend.
 - AWS SDK SES
 - Mongoose (ODM)
 - Joi (Request Parameter validation)
+- GOOGLE API
+- Moment
 
 # Steps to run manually
 | Step  | Instructions                                | Description                                                                                               |

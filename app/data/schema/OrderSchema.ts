@@ -13,6 +13,7 @@ const OrderSchema = new Schema<IOrder>({
     date: { type: Date, required: true },
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },
+    timeZone: { type: String, required: true },
     experience: { type: String, required: true },
     address: { type: Object, required: true },
     orderItems: [{

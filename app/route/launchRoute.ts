@@ -54,6 +54,7 @@ router.get(RoutePath.LAUNCH_MAIL, (
             uid: order.uid as string,
             startTime: order.startTime as string,
             endTime: order.endTime as string,
+            timeZone: order.timeZone as string,
             experience: order.experience as string,
             address: order.address as {
                 addOne: string,

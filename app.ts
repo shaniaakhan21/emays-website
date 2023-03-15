@@ -11,6 +11,7 @@ import { config } from './app/config/config';
 // Routes
 import healthRoute from './app/route/healthRoute';
 import launchRoute from './app/route/launchRoute';
+import calenderRoute from './app/route/calendarRoute';
 import orderRoute from './app/route/userOrderRoute';
 import customerRoutes from './app/route/customerRoute';
 import uiRoutes from './app/route/uiRoute';
@@ -49,6 +50,7 @@ app.use(uiRoutes);
 app.use(config.ROUTE_PATH, healthRoute);
 app.use(config.ROUTE_PATH, launchRoute);
 app.use(config.ROUTE_PATH, orderRoute);
+app.use(config.ROUTE_PATH, calenderRoute);
 
 /*
  * Error handling middleware

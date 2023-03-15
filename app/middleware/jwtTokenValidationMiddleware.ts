@@ -18,6 +18,8 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
     // TODO: add service-worker implementation to add the token with the UI files requests.
     if (req.path !== `${config.ROUTE_PATH}${RoutePath.HEALTH}` &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&  
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_ACCESS}`) &&  
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_REDIRECTION}`) &&  
         (!req.path.startsWith(RoutePath.CUSTOMER_UI)) &&
         (!req.path.startsWith(RoutePath.RETAILER_UI)) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LAUNCH_MAIL}`) &&
