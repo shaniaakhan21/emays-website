@@ -35,6 +35,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
             date: order.date,
             startTime: order.startTime,
             endTime: order.endTime,
+            timeZone: order.timeZone,
             experience: order.experience,
             address: order.address,
             orderItems: order.orderItems
@@ -43,6 +44,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
         Logging.log(buildInfoMessageUserProcessCompleted('Order insertion', `Order Data:
             ${JSON.stringify(data)}` ), LogType.INFO);
         const redirectionURL = buildRedirectionURL(orderExtracted.uid);
+        const bookCalendarURL = buildBookCalendar(orderExtracted.uid);
 
         // Send customer email
         await sendEmailForOrderingItems(
@@ -58,6 +60,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
                 twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
                 emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
                 redirectionURL: redirectionURL,
+                bookCalenderURL: bookCalendarURL,
                 firstName: orderExtracted.firstName,
                 lastName: orderExtracted.lastName,
                 phoneNumber: orderExtracted.phoneNumber,
@@ -80,6 +83,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
                 twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
                 emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
                 redirectionURL: redirectionURL,
+                bookCalenderURL: bookCalendarURL,
                 firstName: orderExtracted.firstName,
                 lastName: orderExtracted.lastName,
                 phoneNumber: orderExtracted.phoneNumber,
@@ -155,6 +159,30 @@ const buildRedirectionURL = (uuid: string): string => {
         const err = error as Error;
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, `Build email redirect URL for uuid ${uuid}`), LogType.ERROR);
+        throw error;
+    } 
+};
+
+const buildBookCalendar = (uuid: string): string => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Build book calendar URL', `UUID: ${uuid}`), LogType.INFO);
+        const role: Roles = Roles.CLIENT;
+        const tokenBuildData: IJWTBuildData = {
+            id: uuid,
+            roles: role
+        };
+        const token: string = generateJWT(tokenBuildData, JWT_TYPE.LONG_LIVE);
+        const URL = 
+        // eslint-disable-next-line max-len
+        `${config.GOOGLE.CALENDER.BOOK_CALENDER_REDIRECTION_PATH}?uuid=${uuid}&authToken=${token}`;
+        Logging.log(buildInfoMessageUserProcessCompleted('Build book calendar URL created', `UUID:
+                ${uuid} and URL: ${URL}` ), LogType.INFO);
+        return URL;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, `Build book calendar URL for uuid ${uuid}`), LogType.ERROR);
         throw error;
     } 
 };

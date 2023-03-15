@@ -20,6 +20,7 @@ export const prepareUserDetailsToSend: PrepareDetailsToSendFunc = (order) => {
         date: order?.date,
         startTime: order?.startTime,
         endTime: order?.endTime,
+        timeZone: order?.timeZone,
         experience: order?.experience,
         address: order?.address,
         orderItems: order?.orderItems

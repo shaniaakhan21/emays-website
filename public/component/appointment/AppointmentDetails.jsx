@@ -15,13 +15,16 @@ import Twitter from '../../images/twittericon.png';
 // Components
 
 // Util
-import { getProductList, getUserData } from '../../js/util/SessionStorageUtil';
+import { getAuthToken, getProductList, getUserData } from '../../js/util/SessionStorageUtil';
 import ShoppingItem from '../checkout/ShoppingItem';
 import FallBack from '../../icons/fallback.png';
 import Emays from '../../logo/emays-logo-white.png';
 
 import ButtonCustom from '../common/ButtonCustom';
 import moment from 'moment';
+
+// Const 
+import { EMAIL_LAUNCH } from '../../js/const/URLMapper';
 
 const Appointment = () => {
 
@@ -118,7 +121,7 @@ const Appointment = () => {
         <div className='button-set'>
             <ButtonCustom
                 text={t('email-launch.button.edit-appointment')}
-                action={() => { history.push('/confirm', { selectedDate }); }}
+                action={() => { console.log('Not built yet'); }}
                 type={'secondary'}
                 customStyle={{
                     minWidth: '24vw',
@@ -131,7 +134,10 @@ const Appointment = () => {
             />
             <ButtonCustom
                 text={t('email-launch.button.add-to-calendar')}
-                action={() => { history.push('/confirm', { selectedDate }); }}
+                action={() => { 
+                    // eslint-disable-next-line max-len
+                    window.open(`${EMAIL_LAUNCH}?uuid=${getUserData().uid}&authToken=${getAuthToken()}`);
+                }}
                 type={'secondary'}
                 customStyle={{
                     minWidth: '24vw',

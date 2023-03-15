@@ -24,6 +24,8 @@ This repository consists of a React UI and its Immediate Backend.
 - Joi (Request Parameter validation)
 - react-reveal (Animation)
 - react-countup (Animation)
+- GOOGLE API
+- Moment
 
 # Steps to run manually
 | Step  | Instructions                                | Description                                                                                               |

@@ -13,6 +13,7 @@ export interface IUser {
     uid: string,
     startTime: string,
     endTime: string,
+    timeZone: string,
     experience: string,
     address: {
         addOne: string,

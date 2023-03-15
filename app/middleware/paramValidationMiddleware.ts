@@ -5,7 +5,8 @@ import * as Joi from 'joi';
 import { validatorErrorBuilder } from '../util/serviceErrorBuilder';
 import { ADDRESS_REQUIRED, CONTENT_TYPE_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED, ORDER_DATE_REQUIRED
     , ORDER_ID_REQUIRED_IN_PATH, ORDER_LIST_REQUIRED, ORDER_TIME_END_REQUIRED,
-    ORDER_TIME_START_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH } from '../const/errorMessage';
+    ORDER_TIME_START_REQUIRED, TIME_ZONE_REQUIRED
+    , USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH } from '../const/errorMessage';
 import { Logger } from '../log/logger';
 import { buildErrorMessage } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
@@ -48,6 +49,9 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
             endTime: Joi.string().regex(/^([0-9]{2})\:([0-9]{2})$/).required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, ORDER_TIME_END_REQUIRED); }),
+            timeZone: Joi.string().max(20).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, TIME_ZONE_REQUIRED); }),
             experience: Joi.number().required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, EXPERIENCE_REQUIRED); }),

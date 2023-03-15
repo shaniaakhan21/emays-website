@@ -6,13 +6,13 @@
 
 ----- Check health -----
 
-GET http://172.18.0.3:8080/api-dev/health
+GET http://localhost:8080/api-dev/health
 
 ----- Make order -----
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xMlQxNzoxNjoxMS40NTZaIiwiZXhwIjoxNjc4Njc3MzcxLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhMDJiMjI5Yy1lYTY4LTRhODYtOTY4OS02NjQ5ODU5MTU1YTAiLCJpYXQiOjE2Nzg2NDEzNzF9.61_2aCkdTrP5yFOyfyxZ_y6HrwEg93Wzt9ZTjpXo3d4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNVQwNDo0NDowNS43NDVaIiwiZXhwIjoxNjc4ODkxNDQ1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJjMjdjOWYxMi04OWQ2LTRmMTUtYmJiMy0wYmZmZmY2MzMwMWIiLCJpYXQiOjE2Nzg4NTU0NDV9.zSa5uzJ7xYjJuZBe6wm8chDQMJ6TU7dy1UsWgDVtX7I
 
 {
     "email": "thathsararaviraj@gmail.com",
@@ -20,11 +20,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wM
     "firstName": "Thathsara",
     "lastName": "Raviraj",
     "phoneNumber": "0712265897",
-    "uid": "12345673479",
+    "uid": "12345673482",
     "date": "2023-02-23",
     "startTime": "18:00",
     "endTime": "19:00",
     "experience": "1",
+    "timeZone": "Asia/Dubai",
     "address": {
         "addOne": "No 1",
         "addTwo": "Subway",
@@ -36,11 +37,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wM
 
 ----- Get Order ----
 
-GET http://localhost:8080/api-dev/orders/users/12345673469
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xMFQwNTo1Mjo0My45NjVaIiwiZXhwIjoxNjc4NDYzNTYzLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiI4YzhjMGRlOC1lMmQxLTQ4MzktOWQ5ZC02NTg1ZWIwY2FkMTYiLCJpYXQiOjE2Nzg0Mjc1NjN9.CAYK0TNM--nLSrP6Ru3cKotr6MfhZ_-jNJCdDCzvzEg
+GET http://localhost:8080/api-dev/orders/users/12345673481
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNVQwNDo0NDowNS43NDVaIiwiZXhwIjoxNjc4ODkxNDQ1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJjMjdjOWYxMi04OWQ2LTRmMTUtYmJiMy0wYmZmZmY2MzMwMWIiLCJpYXQiOjE2Nzg4NTU0NDV9.zSa5uzJ7xYjJuZBe6wm8chDQMJ6TU7dy1UsWgDVtX7I
 content-type: application/json
 
 
 ------ Launc Email ---------
-http://localhost:8080/api-dev/launchMail?launchType=emailBooked&uuid=12345673479&authToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xMlQxNzoxNjoxMS40NTZaIiwiZXhwIjoxNjc4Njc3MzcxLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhMDJiMjI5Yy1lYTY4LTRhODYtOTY4OS02NjQ5ODU5MTU1YTAiLCJpYXQiOjE2Nzg2NDEzNzF9.61_2aCkdTrP5yFOyfyxZ_y6HrwEg93Wzt9ZTjpXo3d4
+http://localhost:8080/api-dev/launchMail?launchType=emailBooked&uuid=12345673481&authToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNVQwNDo0NDowNS43NDVaIiwiZXhwIjoxNjc4ODkxNDQ1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJjMjdjOWYxMi04OWQ2LTRmMTUtYmJiMy0wYmZmZmY2MzMwMWIiLCJpYXQiOjE2Nzg4NTU0NDV9.zSa5uzJ7xYjJuZBe6wm8chDQMJ6TU7dy1UsWgDVtX7I
 
+
+------ Google Calender --------
+http://localhost:8080/api-dev/googleCalender?uuid=12345673481&authToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNVQwNDo0NDowNS43NDVaIiwiZXhwIjoxNjc4ODkxNDQ1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJjMjdjOWYxMi04OWQ2LTRmMTUtYmJiMy0wYmZmZmY2MzMwMWIiLCJpYXQiOjE2Nzg4NTU0NDV9.zSa5uzJ7xYjJuZBe6wm8chDQMJ6TU7dy1UsWgDVtX7I
