@@ -13,6 +13,7 @@ export interface IOrder {
     uid: string,
     startTime: string,
     endTime: string,
+    timeZone: string,
     experience: string,
     address: {
         addOne: string,
@@ -33,6 +34,7 @@ export interface IOrderDTO {
     uid?:string,
     startTime?: string,
     endTime?: string,
+    timeZone?: string,
     experience?: string,
     address?: {
         addOne: string,

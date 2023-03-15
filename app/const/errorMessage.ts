@@ -21,6 +21,8 @@ export const EMAIL_REQUIRED = 'Email required';
 
 export const USER_ID_REQUIRED = 'User id required';
 
+export const TIME_ZONE_REQUIRED = 'Time zone required';
+
 export const ORDER_DATE_REQUIRED = 'Please provide a valid date';
 
 export const ORDER_TIME_START_REQUIRED = 'Please provide a valid start time';
