@@ -1,6 +1,6 @@
 'use strict';
 
-import { CreateOrderFunc, RetrieveOrderByUserIdFunc } from '../type/orderServiceType';
+import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc } from '../type/orderServiceType';
 import { IOrder } from '../type/orderType';
 import { } from '../const/errorMessage';
 import { Logger } from '../log/logger';
@@ -8,7 +8,7 @@ import { buildErrorMessage, buildInfoMessageMethodCall,
     buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
-import { saveOrder, retrieveOrderByUserId } from '../data/model/OrderModel';
+import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist } from '../data/model/OrderModel';
 import { sendEmailForOrderingItems } from './emailService';
 import { config } from '../config/config';
 import { Order } from '../type/orderType';
@@ -118,6 +118,27 @@ export const retrieveOrderDetailsByUserId: RetrieveOrderByUserIdFunc = async (us
         const err = error as Error;
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, 'Retrieve Order'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Patch order
+ * @param {string} userId User id
+ * @returns {Promise<IOrderDTO>} Promise with order data
+ */
+export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (userId, patchOrder) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Patch order basic data', `uid: ${userId}`), LogType.INFO);
+        const result = await findOneAndUpdateIfExist(userId, patchOrder);
+        Logging.log(buildInfoMessageUserProcessCompleted('Patch order basic data', `Order Data:
+            ${JSON.stringify(result)}` ), LogType.INFO);
+        return result;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Patch Order'), LogType.ERROR);
         throw error;
     }
 };
