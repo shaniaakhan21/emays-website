@@ -196,7 +196,7 @@ export const validateOrderPatchRequestBody = (req: Request, res: Response, next:
                 return validatorErrorBuilder(err as Error, EXPERIENCE_REQUIRED); }),
             address: Joi.object().keys({ addOne: Joi.string(),
                 addTwo: Joi.string(), addThree: Joi.string(),
-                addFour: Joi.string()}).error((error) => {
+                addFour: Joi.string() }).error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, ADDRESS_REQUIRED); })  
         }   
