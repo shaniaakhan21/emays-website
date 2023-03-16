@@ -1,5 +1,6 @@
 'use strict';
 
 export enum Roles {
-    CLIENT = 'client'
+    CLIENT = 'client',
+    EXTERNAL_SYSTEM = 'external_system',
 }

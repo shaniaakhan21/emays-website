@@ -6,11 +6,17 @@ import { config } from '../config/config';
 import LogType from '../const/logType';
 import { v4 as uuidv4 } from 'uuid';
 import { Roles } from '../const/roles';
-import { IJWTBuildData, JWT_TYPE } from '../type/IJWTClaims';
+import { IJWTBuildData, IJWTClaims, JWT_TYPE } from '../type/IJWTClaims';
 import { generateJWT } from '../util/jwtUtil';
 import { Logger } from '../log/logger';
 import { buildErrorMessage,
     buildInfoMessageMethodCall, buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
+import { validateJWTToken } from '../middleware/jwtTokenValidationMiddleware';
+import { getExternalSystemById } from '../service/externalSystemService';
+import ServiceError from '../type/error/ServiceError';
+import ErrorType from '../const/errorType';
+import { HTTPUserError } from '../const/httpCode';
+import { NOT_AUTHORIZED_TO_ACCESS_EMAYS_ERROR_MESSAGE } from '../const/errorMessage';
 
 const Logging = Logger(__filename);
 
@@ -41,7 +47,7 @@ export const buildAppLaunchPath = async (file: string): Promise<string> => {
 };
 
 /**
- * Middleware to authorize launch routes
+ * Middleware to authorize the main launch route
  * @param req: express.Request
  * @param res: express.Response
  * @param next: express.NextFunction
@@ -50,6 +56,18 @@ export const authorizeLaunchRoute = (req: express.Request, res: express.Response
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Authorize launch', ''), LogType.INFO);
+        const requestBody = req.body as {authToken: string};
+        const token = requestBody.authToken;
+        const claims = validateJWTToken(token) as unknown as IJWTClaims;
+        if (claims.roles.includes(Roles.EXTERNAL_SYSTEM)) {
+            (async () => {
+                await getExternalSystemById(claims.id);
+            })().catch(error => { throw error; });
+        } else {
+            throw new 
+            ServiceError(ErrorType.ORDER_SERVICE_ERROR, NOT_AUTHORIZED_TO_ACCESS_EMAYS_ERROR_MESSAGE, '', HTTPUserError.
+                UNAUTHORIZED_CODE);
+        }
         next();
     } catch (error) {
         const errorObject: Error = error as Error;
@@ -59,7 +77,7 @@ export const authorizeLaunchRoute = (req: express.Request, res: express.Response
 };
 
 /**
- * Generate JQT for session 
+ * Generate JWT for session 
  * @param req: express.Request
  * @param res: express.Response
  * @param next: express.NextFunction

@@ -8,7 +8,7 @@ import { buildErrorMessage, buildInfoMessageRouteHit, buildInfoMessageUserProces
 import { PathParam, RoutePath } from '../const/routePath';
 import { HTTPSuccess } from '../const/httpCode';
 import { IOrder, IOrderDTO } from '../type/orderType';
-import { successOrderResponseBuilder } from '../util/responseBuilder';
+import { successResponseBuilder } from '../util/responseBuilder';
 import { validateCreateOrder, validateHeader, validateParamUserId } from '../middleware/paramValidationMiddleware';
 import { createOrder, retrieveOrderDetailsByUserId } from '../service/orderService';
 
@@ -52,7 +52,7 @@ router.get(`${OrderRoutePath}${RoutePath.USERS}${PathParam.USER_ID}`, validateHe
     (async () => {
         const userId = req.params.userId;
         const orderDetail: IOrderDTO = await retrieveOrderDetailsByUserId(userId);
-        res.status(HTTPSuccess.OK_CODE).json(successOrderResponseBuilder(orderDetail));
+        res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(orderDetail));
     })().catch(error => {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, OrderRoutePath), LogType.ERROR);

@@ -10,8 +10,10 @@ export enum RoutePath {
     ORDERS= '/orders',
     CUSTOMER_UI = '/',
     USERS = '/users',
-    RETAILER_UI= '/retailer'
-}
+    RETAILER_UI = '/retailer',
+    EXTERNAL_SYSTEMS = '/externalSystems',
+    EXTERNAL_SYSTEM_TOKEN = '/systemToken'
+ }
 
 export enum PathParam {
     USER_ID = '/:userId'

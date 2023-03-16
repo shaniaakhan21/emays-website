@@ -48,3 +48,26 @@ http://localhost:8080/api-dev/launchMail?launchType=emailBooked&uuid=12345673481
 
 ------ Google Calender --------
 http://localhost:8080/api-dev/googleCalender?uuid=12345673481&authToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNVQwNDo0NDowNS43NDVaIiwiZXhwIjoxNjc4ODkxNDQ1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJjMjdjOWYxMi04OWQ2LTRmMTUtYmJiMy0wYmZmZmY2MzMwMWIiLCJpYXQiOjE2Nzg4NTU0NDV9.zSa5uzJ7xYjJuZBe6wm8chDQMJ6TU7dy1UsWgDVtX7I
+
+
+------ Create External System ----------
+
+POST http://localhost:8080/api-dev/externalSystems
+content-type: application/json
+
+{
+    "extSysName": "Store-X",
+    "extSysUsername": "storex",
+    "extSysPassword": "abCq2&!Ms",
+    "extSysEmail": "storeX@gmail.com"
+}
+
+----- Get Auth Token for external System ------
+
+POST http://localhost:8080/api-dev/externalSystems/systemToken
+content-type: application/json
+
+{
+    "extSysUsername": "storex",
+    "extSysPassword": "abCq2&!Ms"
+}

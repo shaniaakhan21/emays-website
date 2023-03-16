@@ -25,6 +25,8 @@ const Logging = Logger(__filename);
  */
 export const createOrder: CreateOrderFunc = async (order) => {
     try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Create order', `uid: ${order.uid}`), LogType.INFO);
         const orderExtracted: IOrder = {
             email: order.email,
             retailerEmail: order.retailerEmail,

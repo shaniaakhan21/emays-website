@@ -13,10 +13,11 @@ export const errorResponseBuilder: ErrorResponseBuilderFunc = (error) => {
 };
 
 /**
- * Generate success response for order data
+ * Generate success response data
  * @param {object} data Built response
  * @returns {SuccessResponseBuilderResponse} Success response
  */
-export const successOrderResponseBuilder: SuccessResponseBuilderFunc<IOrderDTO> = (data) => {
-    return { data: data };
-};
+export const successResponseBuilder: SuccessResponseBuilderFunc<IOrderDTO | 
+    {token: string} > = (data) => {
+        return { data: data };
+    };
