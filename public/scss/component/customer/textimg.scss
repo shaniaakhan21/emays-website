@@ -1,5 +1,8 @@
+@import '../../fonts';
+
 .text-img-section{
     padding-bottom: 7%!important;
+    font-family: 'Montserrat';
 
     @media (max-width: 1050px) {
         padding: 0!important;
@@ -34,7 +37,7 @@
             padding: 1%;
             border: 1px solid white;
             color: var(--cds-text-on-color, #ffffff);
-            font-family: 'IBM Plex Sans';
+            font-family: 'Montserrat';
             font-style: normal;
             font-weight: 400;
             font-size: 16px;

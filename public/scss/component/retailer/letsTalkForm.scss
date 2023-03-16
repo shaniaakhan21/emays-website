@@ -1,6 +1,9 @@
+@import '../../fonts';
+
 .letsTalk {
   margin-top: 120px;
   margin-bottom: 20px;
+  font-family: 'Montserrat';
 
   label {
     color: #FFFFFF;
@@ -17,6 +20,7 @@
       .title {
         color: #FFFFFF;
         font-weight: 400;
+        font-family: 'Montserrat';
         font-size: 42px;
         margin-bottom: 40px;
       }
@@ -63,6 +67,7 @@
 
         span {
           font-weight: 400;
+          font-family: 'Montserrat';
 
           &.title {
             font-weight: 700;

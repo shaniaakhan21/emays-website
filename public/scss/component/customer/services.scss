@@ -1,6 +1,9 @@
+@import '../../fonts';
+
 .grid-section{
     background-color: #231F20;
     padding:0;
+    font-family: 'Montserrat';
 
     .head-section{
         margin: 10% 29%;
@@ -23,18 +26,19 @@
         h1{
             color: white;
             text-align: center;
+            font-family: 'Montserrat';
             @media screen and (max-width: 575px) {
                 font-size: 2.5rem;
                 text-align: start;
             }
 
             @media screen and (max-width: 460px) {
-                font-size: 3.2rem;
+                font-size: 2rem;
                 text-align: start;
             }
 
             @media screen and (max-width: 375px) {
-                font-size: 3rem;
+                font-size: 1.6rem;
                 text-align: start;
             }
         }
@@ -80,6 +84,7 @@
         margin-right: 18%;
         > button:first-child {
           margin-right: 80px;
+          padding: 1% 2%;
         }
 
         @media screen and (max-width: 768px) {

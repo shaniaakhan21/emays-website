@@ -1,8 +1,10 @@
 $carbon-xs-max: 31.25em; // 500px
 $carbon-sm-max: 42.5em; // 680px
 $carbon-md-max: 64em;   // 1024px 
+@import '../../fonts';
 
 .container-shop{
+    font-family: 'Montserrat';
     .store-at-home{
         position: relative;
         left: 20%;
@@ -113,7 +115,8 @@ $carbon-md-max: 64em;   // 1024px
             bottom: -14pc;
         }
 
-        h2{            
+        h2{           
+            font-family: 'Montserrat'; 
             @media screen and (max-width: $carbon-sm-max) {
                 text-align: center;
             }
@@ -124,7 +127,7 @@ $carbon-md-max: 64em;   // 1024px
         }
 
         h3{
-
+            font-family: 'Montserrat';
             @media screen and (max-width: $carbon-sm-max) {
                 text-align: center;
             }
@@ -134,7 +137,7 @@ $carbon-md-max: 64em;   // 1024px
             }
         }
         p{
-
+            font-family: 'Montserrat';
             @media screen and (max-width: $carbon-sm-max) {
                 text-align: center;
             }
@@ -151,12 +154,14 @@ $carbon-md-max: 64em;   // 1024px
         padding: 1rem 2rem;
         border-radius: 4px;
         border: none;
+        font-family: 'Montserrat';
         border-radius: 0;
         font-weight: 500;
 
         @media screen and (max-width: $carbon-xs-max) {
             width: 100%;
         }
+
     }
 
     .shipping-section__right{
@@ -181,12 +186,15 @@ $carbon-md-max: 64em;   // 1024px
             bottom: -8pc;
             width: 100%;
         }
+
     }
 
     button {
         background-color: #FFFFFF;
         color: #393939;
         margin-right: 10px;
+        font-family: 'Montserrat';
+        font-weight: 500;
 
         @media screen and (max-width: $carbon-xs-max) {
             margin-left: 30px;

@@ -1,6 +1,8 @@
+@import '../../fonts';
 
 .launchContainer {
     display: grid;
+    font-family: 'Montserrat';
     width: auto;
     height: fit-content;
     background-color: #323232;
@@ -23,7 +25,7 @@
         grid-column: 2 / 2 span ;
         grid-row: 1 / 2;
 
-        font-family: 'SkolaSans';
+        font-family: 'Montserrat';
         color: #FFFFFF;
         font-size: 17px;
         padding-top: 20px;

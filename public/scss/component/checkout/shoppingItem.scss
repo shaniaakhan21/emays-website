@@ -1,6 +1,9 @@
+@import '../../fonts';
+
 .container{
     display: flex;
     flex-direction: row;
+    font-family: 'Montserrat';
     padding-bottom: 8px;
     img {
         width: 77px;
@@ -14,6 +17,7 @@
             p {
                 font-size: 14px;
                 font-weight: bold;
+                font-family: 'Montserrat';
             }
         }
 
@@ -21,7 +25,7 @@
             justify-content: space-between;
             p {
                 font-size: 15px;
-                font-family: 'SkolaSans';
+                font-family: 'Montserrat';
                 padding-top: 5px;
             }
         }
