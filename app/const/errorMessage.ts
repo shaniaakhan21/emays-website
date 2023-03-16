@@ -13,7 +13,7 @@ export const USER_ID_REQUIRED_IN_PATH = 'Please check user id in the request pat
 
 export const CONTENT_TYPE_REQUIRED = 'Please check content-type in the request heder';
 
-export const ORDER_DATA_CONFLICT_MESSAGE = 'Could not be processed due to a conflict';
+export const DATA_CONFLICT_MESSAGE = 'Could not be processed due to a conflict';
 
 export const RESOURCE_FOUND_AT_THIS_URL_MESSAGE = 'Resource found at the URL';
 
@@ -34,3 +34,23 @@ export const EXPERIENCE_REQUIRED = 'Please provide an experience';
 export const ADDRESS_REQUIRED = 'Please provide a valid address';
 
 export const ORDER_LIST_REQUIRED = 'Please provide a valid order list';
+
+export const EXTERNAL_SYSTEM_NAME_REQUIRED = 'Please provide a valid external system name';
+
+export const EXTERNAL_SYSTEM_USERNAME_REQUIRED = 'Please provide a valid external system username';
+
+export const EXTERNAL_SYSTEM_PASSWORD_REQUIRED = 'Please provide a valid external system password';
+
+export const EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED = 'Please provide a valid external system contact email';
+
+export const EXTERNAL_SYSTEM_CONTACT_NUMBER_REQUIRED = 'Please provide a valid external system contact number';
+
+export const EXT_SYSTEM_USERNAME_REQUIRED = 'please provide a valid username';
+
+export const EXT_SYSTEM_PASSWORD_REQUIRED = 'Please provide a valid password';
+
+export const INVALID_CREDENTIALS_ERROR_MESSAGE = 'Invalid credentials';
+
+export const SYSTEM_NOT_FOUND_ERROR_MESSAGE = 'Couldn\'t find system';
+
+export const NOT_AUTHORIZED_TO_ACCESS_EMAYS_ERROR_MESSAGE = 'You are not authorized to access the Emays system';

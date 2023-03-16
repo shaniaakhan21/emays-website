@@ -1,6 +1,6 @@
 'use strict';
 
-import { ORDER_DATA_CONFLICT_MESSAGE } from '../const/errorMessage';
+import { DATA_CONFLICT_MESSAGE } from '../const/errorMessage';
 import ErrorType from '../const/errorType';
 import { HTTPServerError, HTTPUserError } from '../const/httpCode';
 import ServiceError from '../type/error/ServiceError';
@@ -15,7 +15,7 @@ export const serviceErrorBuilder: ServiceErrorBuilderFunc = (claimData) => {
     if (claimData) {
         if (claimData.includes('E11000')) {
             throw new ServiceError(
-                ErrorType.ORDER_DATA_CONFLICT, ORDER_DATA_CONFLICT_MESSAGE, '', HTTPUserError.CONFLICT_ERROR_CODE);
+                ErrorType.DATA_CONFLICT, DATA_CONFLICT_MESSAGE, '', HTTPUserError.CONFLICT_ERROR_CODE);
         }
     }
 };

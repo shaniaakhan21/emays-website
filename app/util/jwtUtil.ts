@@ -23,6 +23,8 @@ export const generateJWT: GenerateTokenFunc = (claimData, type) => {
     try {
         if (type && type === JWT_TYPE.SHORT_LIVE) {
             expiration = +config.JSON_WEB_TOKEN_EXP_HOURS_SHORT;
+        } else if (type && type === JWT_TYPE.EXTERNAL_SYSTEM) {
+            expiration = +config.JSON_WEB_TOKEN_EXP_HOURS_EXTERNAL_SYSTEM;
         } else {
             expiration = +config.JSON_WEB_TOKEN_EXP_HOURS_LONG;
         }

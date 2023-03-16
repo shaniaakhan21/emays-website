@@ -1,9 +1,16 @@
 'use strict';
 
 import OrderServiceError from './error/ServiceError';
+import { IExternalSystem, IExternalSystemDTO } from './IExternalSystem';
 import { IOrder, IOrderDTO } from './orderType';
 
 export type CreateOrderFunc = (order: IOrder) => Promise<IOrderDTO>;
+
+export type CreateExternalSystemFunc = (externalSystem: IExternalSystem) => Promise<IExternalSystemDTO>;
+
+export type RequestExternalSystemTokenFunc = (extSysUsername: string, extSysPassword: string) => Promise<{token: string}>;
+
+export type GetExternalSystemByIdFunc = (id: string) => Promise<IExternalSystemDTO>;
 
 export type RetrieveOrderByUserIdFunc = (userId: string) => Promise<IOrderDTO>;
 
