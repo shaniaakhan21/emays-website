@@ -1,5 +1,6 @@
 {
   "common": {
+    "error": "Error",
     "lets-talk-form": {
       "header": "Are you curious about something? Let’s talk",
       "name": "Name",

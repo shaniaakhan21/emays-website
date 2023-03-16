@@ -29,47 +29,6 @@ const Checkout = () => {
 
     const [t] = useTranslation();
 
-    // State for selected date
-    const [selectedDate, setSelectedDate] = useState(null);
-
-    // Handler function for date change
-    const handleDateChange = (event) => {
-        setSelectedDate(event.target.value);
-    };
-
-    // State for delivery address
-    const [address, setAddress] = useState({});
-
-    // Remove address from session storage and reset address state
-    useEffect(() => {
-        sessionStorage.removeItem(ADDRESS);
-        setAddress({});
-    }, []);
-
-    // Get address from session storage and update address state
-    useEffect(() => {
-        const storedAddress = JSON.parse(sessionStorage.getItem(ADDRESS));
-        if (storedAddress) {
-            setAddress(storedAddress || {} );
-        }
-    }, []);
-
-    // Save address to session storage on address state change
-    useEffect(() => {
-        sessionStorage.setItem(ADDRESS, JSON.stringify(address));
-    }, [address]);
-    
-    const handleAddressChange = (event, field) => {
-        const { value } = event.target;
-        setAddress({ ...address, [field]: value });
-    };
-
-    // State for selected options
-    const [selectedOptions, setSelectedOptions] = useState({
-        assist: false,
-        tailoring: false,
-        inspire: false
-    });
     const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {} });
 
     // Handler function for option change
@@ -92,15 +51,6 @@ const Checkout = () => {
         setState(cs => ({ ...cs, locked: true }));
         history.push('/confirm');
     };
-    
-    const selectedTimeframe = useMemo(() => {
-        if (!state?.startTime) {
-            return undefined;
-        }
-        const id = timeframes.findIndex(tf => tf.start === state?.startTime);
-        const text = timeframes[id];
-        return { id, text };
-    }, [state?.startTime]);
 
     return (
         <Grid className='landing-page'>
@@ -121,20 +71,32 @@ const Checkout = () => {
                     <div className='items'>
                         <div className='date'>
                             <p>{t('checkout.book-appointment.choose-date')}</p>
-                            <DatePickerCustom
+                            {state?.date ? <DatePickerCustom
+                                key={1}
                                 disabled={state?.locked}
                                 handleDateChange={e => setState(cs => ({ ...cs, date: e.target.value }))}
                                 selectedDate={state?.date}
-                            />
+                            /> : <DatePickerCustom
+                                key={2}
+                                disabled={state?.locked}
+                                handleDateChange={e => setState(cs => ({ ...cs, date: e.target.value }))}
+                            />}
                         </div>
                         <div className='time-window'>
                             <p>{t('checkout.book-appointment.choose-time')}</p>
                             <DropDownCustom
+                                key={1}
                                 onChange={(e) => {
                                     const tf = timeframes[e.selectedItem?.id];
                                     setState(cs => ({ ...cs, startTime: tf.start, endTime: tf.end }));
                                 }}
-                                items={timeframes.map((tf, k) => ({ id: k, text: `${tf.start} to ${tf.end}` }))}
+                                items={timeframes?.map((tf, k) => ({ id: k, text: `${tf.start} to ${tf.end}` }))}
+                                selectedItem={
+                                    state?.startTime ? {
+                                        id: timeframes?.findIndex(tf => tf.start === state?.startTime),
+                                        text: `${state.startTime} to ${state.endTime}`
+                                    }
+                                        : undefined}
                             />
                         </div>
                     </div>

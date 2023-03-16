@@ -20,11 +20,12 @@ import useSessionState from '../../js/util/useSessionState';
 import { CHECKOUT_INFO } from '../../js/const/SessionStorageConst';
 import ErrorBoundary from '../ErrorBoundary';
 import { saveOrder } from '../../services/order';
+import { useMessage } from '../common/messageCtx';
 
 const Confirm = () => {
 
     const [t] = useTranslation();
-
+    const pushAlert = useMessage();
     const history = useHistory();
 
     const [productData, setProductData] = useState([]);
@@ -38,17 +39,22 @@ const Confirm = () => {
     }, []);
 
     const submit = useCallback(async () => {
-        const commonData = {
-            uid: '123456789',
-            retailerEmail: 'test@grr.la'
-        };
-        const { locked, options, ...rest } = state;
-        await saveOrder({ ...rest, ...commonData, experience: `${[
-            options?.assist ? 'Assist Me' : undefined,
-            options?.tailoring ? 'Tailoring' : undefined,
-            options?.inspire ? 'Inspire Me' : undefined 
-        ]?.filter(i => i).join(', ')}.` });
-        // Todo: Redirect to success page
+        try {
+            const commonData = {
+                uid: '123456789',
+                retailerEmail: 'test@grr.la',
+                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+            };
+            const { locked, options, ...rest } = state;
+            await saveOrder({ ...rest, ...commonData, experience: `${[
+                options?.assist ? 'Assist Me' : undefined,
+                options?.tailoring ? 'Tailoring' : undefined,
+                options?.inspire ? 'Inspire Me' : undefined
+            ]?.filter(i => i).join(', ')}.` });
+            // Todo: Redirect to success page
+        } catch (e) {
+            pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: e.message });
+        }
     }, [state]);
 
     return (
