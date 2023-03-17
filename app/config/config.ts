@@ -26,7 +26,10 @@ const {
     GOOGLE_CALENDER_TASK_DESCRIPTION,
     CUSTOMER_EMAIL_TEMPLATE,
     RETAILER_EMAIL_TEMPLATE,
-    SERVICE_CHARGE
+    SERVICE_CHARGE,
+    SUMUP_API_URL,
+    SUMUP_SECRET_KEY,
+    SUMUP_MERCHANT_CODE
 } = process.env;
 
 export const config = {
@@ -93,5 +96,10 @@ export const config = {
             BOOK_CALENDER_REDIRECTION_PATH: 'http://localhost:8080/api-dev/googleCalender' 
         }
     },
-    SERVICE_CHARGE: SERVICE_CHARGE || 1200.00
+    SERVICE_CHARGE: SERVICE_CHARGE || 1200.00,
+    SUMUP: {
+        MERCHANT_CODE: SUMUP_MERCHANT_CODE || '',
+        API_URL: SUMUP_API_URL || 'https://api.sumup.com/v0.1',
+        SECRET_KEY: SUMUP_SECRET_KEY || 'sup_pk_1wr7ZSGiow201CFgJhBtCfUVR3pefpayu'
+    }
 };
