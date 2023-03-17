@@ -1,10 +1,12 @@
+@import '../../fonts';
+
 .landing-page {
     background-color: white;
     padding-top: 40px;
-    font-family: initial;
+    font-family: 'Montserrat';
 
     p {
-        font-family: 'SkolaSans';
+        font-family: 'Montserrat';
     }
 
     .your-appointment {
@@ -26,6 +28,7 @@
                     font-weight: bold;
                     font-size: 12px;
                     padding-left: 10px;
+                    font-family: 'Montserrat';
                     color: black;
                 }
 
@@ -55,12 +58,14 @@
                 .date, .hour {
                     p {
                         font-size: 18px;
+                        font-family: 'Montserrat';
                     }
 
                     .value {
                         padding-top: 10px;
                         p {
                             font-size: 16px;
+                            font-family: 'Montserrat';
                         }
                     }
                 }
@@ -71,6 +76,7 @@
                 padding-top: 20px;
                 p {
                     font-size: 18px;
+                    font-family: 'Montserrat';
                 }
                 .value {
                     padding-top: 10px;
@@ -90,6 +96,7 @@
                 padding-top: 40px;
                 p {
                     font-size: 22px;
+                    font-family: 'Montserrat';
                 }
             }
 
@@ -97,6 +104,7 @@
                 padding-top: 10px;
                 p {
                     font-size: 16px;
+                    font-family: 'Montserrat';
                 }
             }
 
@@ -108,6 +116,7 @@
 
                 p {
                     font-size: 16px;
+                    font-family: 'Montserrat';
                     color: #525252;
                 }
 
@@ -120,6 +129,7 @@
 
 @media only screen and (max-width: 480px) {
     .landing-page {
+        font-family: 'Montserrat';
         p {
             font-size: 14px;
         }

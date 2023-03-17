@@ -1,6 +1,9 @@
+@import '../../fonts';
+
 .main-section{
     background-color: #231f20;
     padding: 7% 30% 0% 18%;
+    font-family: 'Montserrat';
     @media (max-width: 1050px) {
         padding: 0;
         padding-top: 11%;
@@ -37,7 +40,7 @@
 
         
         img{
-            
+            margin-top: 51%;
             @media screen and (max-width: 920px) {
                 width: 100%;
             }
@@ -61,7 +64,7 @@
         h5{
             color: #fff;
             text-align: end;
-            font-family: SkolaSans;
+            font-family: 'Montserrat';
             font-style: normal;
             font-weight: 400;
             font-size: 20px;

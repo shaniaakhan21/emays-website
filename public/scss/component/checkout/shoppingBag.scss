@@ -1,6 +1,9 @@
+@import '../../fonts';
+
 .shopping-bag {
     display: flex;
     justify-content: right;
+    font-family: 'Montserrat';
     .shopping-bag-container {
         padding-top: 30px;
         .header {
@@ -20,6 +23,7 @@
                 p {
                     font-size: 15px;
                     font-weight: bold;
+                    font-family: 'Montserrat';
                 }
             }
 
@@ -27,6 +31,7 @@
                 p {
                     font-size: 15px;
                     font-weight: bold;
+                    font-family: 'Montserrat';
                 }
             }
         }

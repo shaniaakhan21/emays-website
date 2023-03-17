@@ -1,7 +1,10 @@
+@import '../../fonts';
+
 .cds--header {
   background-color: #231F20;
   padding: 0 5%;
   flex-direction: row;
+  font-family: 'Montserrat';
   justify-content: space-between;
   height: 4rem;
   border-bottom: 4px solid #161616;
@@ -17,24 +20,19 @@
   .cds--header__menu-item{
     background-color: #231F20;
     color: white;
-    font-family: 'SkolaSans';
+    font-family: 'Montserrat';
     margin-left: 1.2rem;
     margin-right: 1.2rem;
   }
 
-  .cds--header__navigation {
     .cds--header__menu-item {
-      
-      &:hover {
-        background-color: #525252;
-        color: white;
-      }
+        
+        &:hover{
+          background-color: #393939;
+          color: white;
+        }
     }
-  }
-  a.cds--header__menu-item:hover {
-    background-color: var(--cds-background-hover, rgba(141, 141, 141, .12));
-    color: #ffffff;
-  }
+
 
   .cds--header__navigation {
     display: flex;
@@ -95,7 +93,7 @@
   .cds--header__menu-item{
       background-color: #231F20;
       color: white;
-      font-family: 'SkolaSans';
+      font-family: 'Montserrat';
       margin-left: 1.2rem;
       margin-right: 1.2rem;
       white-space: nowrap;
@@ -103,15 +101,11 @@
       padding: 0.5rem 1rem;
       border-bottom: 0;
       transition: all 0.2s ease-in-out;
-
-      &:hover {
-        background-color: #2e2b2b!important;
-        color: white;
-      }
     }
-    .cds--header a.cds--header__menu-item:hover {
-      background-color: #2e2b2b!important;
-      color: #fff;
+
+    a.cds--header__menu-item:focus {
+      border-color: #c0c0c0;
+      outline: none;
     }
 
 
@@ -120,6 +114,7 @@
         flex-direction: column;
       }
   }
+
 }
 
 .nav-icon{
@@ -139,10 +134,16 @@
   line-height: 1.125rem;
   color: #fff;
   margin: 0;
-  font-family: SkolaSans;
+  font-family: 'Montserrat';
 }
 
 .cds--toggle__label{
   display: flex;
   flex-direction: row-reverse;
+  align-items: center;
 }
+
+.cds--toggle__text{
+  display: none;
+}
+

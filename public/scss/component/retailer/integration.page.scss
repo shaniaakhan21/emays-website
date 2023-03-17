@@ -1,11 +1,13 @@
+@import '../../fonts';
+
 .integration {
-  font-family: 'SkolaSans', serif;
+  font-family: 'Montserrat';
   color: #FFFFFF;
 
   .title {
     margin-top: 150px;
     font-size: 62px;
-    font-weight: 700;
+    font-weight: 900;
   }
 
   .description {
@@ -39,6 +41,7 @@
     color: #393939;
     flex: 1;
     max-width: 440px;
+    font-weight: 500;
   }
 
   .info-box {

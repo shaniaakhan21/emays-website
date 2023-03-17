@@ -1,12 +1,13 @@
+@import '../../fonts';
 
 .landing-page {
     background-color: white;
     padding-top: 40px;
-    font-family: initial;
+    font-family: 'Montserrat';
 
     p {
         font-size: 22px;
-        font-family: 'SkolaSans';
+        font-family: 'Montserrat';
     }
 
     .logo {
@@ -27,6 +28,7 @@
             padding-top: 20px;
             p {
                 font-size: 18px;
+                font-family: 'Montserrat';
             }
 
             .items {
@@ -37,6 +39,7 @@
                     padding-top: 5px;
                     p {
                         font-size: 16px;
+                        font-family: 'Montserrat';
                         color: #525252;
                     }
                 }
@@ -59,33 +62,33 @@
     .customize-experience {
         .header {
             font-size: 22px;
-            font-family: 'SkolaSans';
+            font-family: 'Montserrat';
             padding-top: 30px;
         }
 
         .checkbox-wait {
             padding-top:10px;
             padding-bottom: 3px;
-            font-family: 'SkolaSans';
+            font-family: 'Montserrat';
         }
 
         .checkbox-assist {
             padding-top: 3px;
             padding-bottom: 3px;
-            font-family: 'SkolaSans';
+            font-family: 'Montserrat';
         }
 
         .checkbox-basic {
             padding-top: 3px;
             padding-bottom: 3px;
-            font-family: 'SkolaSans';
+            font-family: 'Montserrat';
         }
     }
 
     .delivery-address {
         .header {
             font-size: 22px;
-            font-family: 'SkolaSans';
+            font-family: 'Montserrat';
             padding-top: 30px;
         }
 

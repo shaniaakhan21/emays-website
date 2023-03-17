@@ -1,11 +1,17 @@
+@import '../../fonts';
+
 .env-section{
     position: relative;
     top: 63px;
     grid-template-columns: none;
+    font-family: 'Montserrat';
     padding: 0;
     background-image: url('../../../images/HomeCustomerSection/env-header.svg');
     background-repeat: no-repeat;
     background-size: cover;
+    margin-left: 0;
+    max-width: 100%;
+    margin-right: 0;
 
     .overlay-bg{
         padding: 7% 16%;
@@ -38,9 +44,10 @@
         text-align: center;
         h1{
             font-style: normal;
-            font-weight: 800;
+            font-weight: 900;
             font-size: 44px;
             line-height: 46px;
+            font-family: 'Montserrat';
             font-family: revert;
             color: #FFFFFF;
 
@@ -73,7 +80,7 @@
             }
 
             h5{
-                font-family: 'SkolaSans';
+                font-family: 'Montserrat';
                 font-style: normal;
                 font-weight: 700;
                 font-size: 26px;
@@ -88,10 +95,10 @@
         padding-right: 0;
 
         h5{
-            font-family: 'SkolaSans';
+            font-family: 'Montserrat';
             font-style: normal;
             font-weight: 400;
-            font-size: 20px;
+            font-size: 16px;
             color: #FFFFFF;
             line-height: 21px;
 

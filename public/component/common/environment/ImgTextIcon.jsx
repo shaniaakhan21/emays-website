@@ -15,7 +15,7 @@ const ImgTextIcon = () => {
             <Column lg={5} md={3} sm={4}className='Img-Position'>
                 <img src={MountainIMG}/>
             </Column>
-            <Column lg={8} md={3} sm={3} className='para-text-two margin-left-11'>
+            <Column lg={8} md={3} sm={3} className='para-text-two margin-left-8'>
                 <h1 className='margin-left-24' >{t('img-text-icon.text-h1')}</h1><br></br>
                 <h5>
                     {t('img-text-icon.text-h5')}

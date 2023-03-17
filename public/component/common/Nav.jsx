@@ -4,15 +4,12 @@ import '../../scss/component/customer/navbar.scss';
 import LOGO from '../../logo/EMAYS.svg'; 
 import ICON from '../../icons/NAVICON.svg';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
 import useSessionState from '../../js/util/useSessionState';
 
 const Nav = () => {
     const [t] = useTranslation();
     const [isRetailer, setIsRetailer] = useSessionState('uiState', false);
     const [showMenu, setShowMenu] = useState(false);
-    const history = useHistory();
-
     const handleToggleChange = () => {
         setIsRetailer(cs => !cs);
     };

@@ -30,6 +30,7 @@ const CustomerRouter = () => {
         switch (launchType) {
             case PRODUCT_LAUNCH:
                 setLaunchType('');
+                document.body.classList.remove('bg');
                 history.push('/checkout');
                 break;
             case EMAIL_BOOKED:
@@ -44,10 +45,12 @@ const CustomerRouter = () => {
                 break;
             case UI_RETAILER:
                 setLaunchType('');
+                document.body.classList.add('bg');
                 history.push('/retailer');
                 break;
             default:
                 setLaunchType('');
+                document.body.classList.add('bg');
                 break;
         }
     }, [launchType]);
