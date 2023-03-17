@@ -11,6 +11,7 @@ import { PrepareDetailsToSendArrayFunc, PrepareDetailsToSendFunc } from '../type
 export const prepareUserDetailsToSend: PrepareDetailsToSendFunc = (order) => {
     const filteredData = {
         _id: order._id,
+        payed: order.payed,
         uid: order?.uid,
         email: order?.email,
         firstName: order?.firstName,

@@ -2,7 +2,7 @@
 
 export enum HTTPRedirection {
     RESOURCE_FOUND_AT_THIS_URL_CODE = 303,
-    RESOURCE_FOUND_AT_THIS_URL_MESSAGE = '',
+    RESOURCE_FOUND_AT_THIS_URL_MESSAGE = 'Resource not found at this URL',
 }
 
 export enum HTTPServerError {
@@ -26,6 +26,9 @@ export enum HTTPUserError {
 
     NOT_FOUND_CODE = 404,
     NOT_FOUND_MESSAGE = 'Not Found',
+
+    UNPROCESSABLE_ENTITY_CODE = 422,
+    UNPROCESSABLE_ENTITY_MESSAGE = 'Unprocessable Entity',
 
     METHOD_NOT_ALLOWED_CODE = 405,
     METHOD_NOT_ALLOWED_MESSAGE = 'Method Not Allowed',

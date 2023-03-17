@@ -19,6 +19,12 @@ export const RESOURCE_FOUND_AT_THIS_URL_MESSAGE = 'Resource found at the URL';
 
 export const EMAIL_REQUIRED = 'Email required';
 
+export const USER_FIRST_NAME_REQUIRED = 'User first name required';
+
+export const USER_LAST_NAME_REQUIRED = 'User last name required';
+
+export const USER_PHONE_NUMBER_REQUIRED = 'User phone number required';
+
 export const USER_ID_REQUIRED = 'User id required';
 
 export const TIME_ZONE_REQUIRED = 'Time zone required';
@@ -29,7 +35,7 @@ export const ORDER_TIME_START_REQUIRED = 'Please provide a valid start time';
 
 export const ORDER_TIME_END_REQUIRED = 'Please provide a valid end time';
 
-export const EXPERIENCE_REQUIRED = 'Please provide an experience';
+export const EXPERIENCE_REQUIRED = 'Please provide an valid experience';
 
 export const ADDRESS_REQUIRED = 'Please provide a valid address';
 
