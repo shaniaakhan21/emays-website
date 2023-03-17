@@ -8,6 +8,11 @@
         padding: 0!important;
     }
     .img-position{
+        margin-left: -4%!important;
+        h1{
+            font-size: 35px;
+            text-align: start;
+        }
         @media (max-width: 920px) {
             margin: 7%!important;
         }

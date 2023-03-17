@@ -14,7 +14,7 @@ const TextImg = () => {
 
     return (
         <Grid className='section-main custom-padding text-img-section'>
-            <Column lg={8} md={4} sm={4} className='para-text-two margin-left-11 img-position'>
+            <Column lg={8} md={4} sm={4} className='para-text-two img-position'>
                 <img src={CO2SVG}/>
                 <h1 className='margin-left-21' >
                     {t('text-img.text-h1-01')}
