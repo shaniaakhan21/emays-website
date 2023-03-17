@@ -32,6 +32,15 @@ const Services = () => {
                     <img src={CHANEL}/>
                     <img src={PRADA}/>
                 </Column>
+                <Column className='marquee'>
+                    <img className='LV' src={LV}/>
+                    <img className='CASSANDRE' src={CASSANDRE}/>
+                    <img src={CHANEL}/>
+                    <img src={PRADA}/>
+                    <img className='LV' src={LV}/>
+                    <img className='CASSANDRE' src={CASSANDRE}/>
+                    <img src={CHANEL}/>
+                </Column>
                 <Column lg={16} md={8} sm={4} xs={4} className='buttons'>
                     <ButtonCustom action={() => {}} text={'Do you have a store? Work with us'} />
                     <ButtonCustom
