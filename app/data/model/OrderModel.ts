@@ -7,7 +7,7 @@ import { HTTPUserError } from '../../const/httpCode';
 import LogType from '../../const/logType';
 import { Logger } from '../../log/logger';
 import ServiceError from '../../type/error/ServiceError';
-import { CreateOrderFunc, RetrieveOrderByUserIdFunc } from '../../type/orderServiceType';
+import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc } from '../../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { prepareUserDetailsToSend } from '../../util/orderDetailBuilder';
@@ -48,6 +48,33 @@ export const retrieveOrderByUserId: RetrieveOrderByUserIdFunc = async (userId) =
         }
         throw new ServiceError(
             ErrorType.ORDER_RETRIEVAL_ERROR, ORDER_NOT_FOUND_ERROR_MESSAGE, '', HTTPUserError.NOT_FOUND_CODE);
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, `Retrieve Order Details by User Id ${userId}`), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get order object by user id and update it.
+ * @param {string} userId User Id
+ * @returns {IOrderDTO} Returns IOrderDTO object
+ */
+export const findOneAndUpdateIfExist: PatchOrderDetailsByUserIdFunc = async (userId, patchData) => {
+    try {
+        const currentOrderData = await OrderModel.findOne({ 'uid': userId }).exec();
+        if (currentOrderData) {
+            const filteredData = prepareUserDetailsToSend(currentOrderData);
+            const updatedOrder = { ...filteredData, ...patchData };
+            const filter = {
+                _id: currentOrderData._id
+            };
+            await OrderModel.updateOne(filter, updatedOrder);
+            return updatedOrder;
+        }
+        throw new ServiceError(
+            ErrorType.ORDER_UPDATE_ERROR, ORDER_NOT_FOUND_ERROR_MESSAGE, '', HTTPUserError
+                .UNPROCESSABLE_ENTITY_CODE);
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, `Retrieve Order Details by User Id ${userId}`), LogType.ERROR);

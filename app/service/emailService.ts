@@ -36,6 +36,7 @@ export const sendEmailForOrderingItems: SendEmailFunc = async (emailInfo, templa
         const twitterLink = emailInfo.twitterLink;
         const emaysContactUsLink = emailInfo.emaysContactUsLink;
         const emailRedirectionURL = emailInfo.redirectionURL;
+        const calendarRedirectionURL = emailInfo.bookCalenderURL;
 
         // eslint-disable-next-line max-len
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-call
@@ -51,6 +52,7 @@ export const sendEmailForOrderingItems: SendEmailFunc = async (emailInfo, templa
             , 'twitterImage': twitterImage
             , 'emaysContactUsLink': emaysContactUsLink
             , 'redirectionURL': emailRedirectionURL
+            , 'bookCalendarURL': calendarRedirectionURL
         }) as string;
         
         const params = {

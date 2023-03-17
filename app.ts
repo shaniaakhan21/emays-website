@@ -11,9 +11,10 @@ import { config } from './app/config/config';
 // Routes
 import healthRoute from './app/route/healthRoute';
 import launchRoute from './app/route/launchRoute';
+import calenderRoute from './app/route/calendarRoute';
 import orderRoute from './app/route/userOrderRoute';
 import customerRoutes from './app/route/customerRoute';
-import uiRoutes from './app/route/uiRoute';
+import externalSystemRoute from './app/route/systemRoute';
 import sendErrorResponse from './app/middleware/errorResponseBuilderMiddleware';
 import { AppConfigKey } from './app/const/appConfigKey';
 import { validateJWT } from './app/middleware/jwtTokenValidationMiddleware';
@@ -48,6 +49,8 @@ app.use(customerRoutes);
 app.use(config.ROUTE_PATH, healthRoute);
 app.use(config.ROUTE_PATH, launchRoute);
 app.use(config.ROUTE_PATH, orderRoute);
+app.use(config.ROUTE_PATH, calenderRoute);
+app.use(config.ROUTE_PATH, externalSystemRoute);
 
 /*
  * Error handling middleware

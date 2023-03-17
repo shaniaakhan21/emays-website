@@ -6,11 +6,12 @@ import { Logger } from '../log/logger';
 import { buildErrorMessage, buildInfoMessageRouteHit, buildInfoMessageUserProcessCompleted }
     from '../util/logMessageBuilder';
 import { PathParam, RoutePath } from '../const/routePath';
-import { HTTPSuccess } from '../const/httpCode';
-import { IOrder, IOrderDTO } from '../type/orderType';
-import { successOrderResponseBuilder } from '../util/responseBuilder';
-import { validateCreateOrder, validateHeader, validateParamUserId } from '../middleware/paramValidationMiddleware';
-import { createOrder, retrieveOrderDetailsByUserId } from '../service/orderService';
+import { HTTPSuccess, HTTPUserError } from '../const/httpCode';
+import { IOrder, IOrderDTO, IPatchOrder } from '../type/orderType';
+import { successResponseBuilder } from '../util/responseBuilder';
+import { validateCreateOrder, validateHeader
+    , validateOrderPatchRequestBody, validateParamUserId } from '../middleware/paramValidationMiddleware';
+import { createOrder, patchOrderDetailsByUserId, retrieveOrderDetailsByUserId } from '../service/orderService';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -46,16 +47,39 @@ router.post(OrderRoutePath, validateHeader, validateCreateOrder, (
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-router.get(`${OrderRoutePath}${RoutePath.USERS}${PathParam.USER_ID}`, validateHeader, validateParamUserId, (
+router.get(`${OrderRoutePath}${PathParam.USER_ID}`, validateHeader, validateParamUserId, (
     req: Request, res: Response, next: NextFunction
 ): void => {
     (async () => {
         const userId = req.params.userId;
         const orderDetail: IOrderDTO = await retrieveOrderDetailsByUserId(userId);
-        res.status(HTTPSuccess.OK_CODE).json(successOrderResponseBuilder(orderDetail));
+        res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(orderDetail));
     })().catch(error => {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, OrderRoutePath), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
+ * Order patch route
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+router.patch(RoutePath.ORDERS + PathParam.USER_ID, validateHeader, validateParamUserId, validateOrderPatchRequestBody, (
+    req: Request, res: Response, next: NextFunction): void => {
+    const pathParamUserId = req.params.userId;
+    const patchOrder = req.body as IPatchOrder;
+    (async () => {
+        Logging.log(buildInfoMessageRouteHit(req.path, `uid: ${pathParamUserId}`), LogType.INFO);
+        await patchOrderDetailsByUserId(pathParamUserId, patchOrder);
+        Logging.log(buildInfoMessageUserProcessCompleted('Patch', pathParamUserId), LogType.INFO);
+        return res.sendStatus(HTTPSuccess.NO_CONTENT_CODE);
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, `Patch order for uid: ${pathParamUserId}`), LogType.ERROR);
         next(error);
     });
 });
