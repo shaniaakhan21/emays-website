@@ -122,7 +122,7 @@ const Confirm = () => {
                         <div className='info-text'>
                             <p>
                                 <u><strong>{t('confirm.contact-details.info-text-important')}</strong></u>
-                                {t('confirm.contact-details.info-text')}
+                                &nbsp;{t('confirm.contact-details.info-text')}
                             </p>
                         </div>
                         <div className='user-contact-name'>
@@ -136,6 +136,7 @@ const Confirm = () => {
                                             firstName: e.target.value
                                         }));
                                     }}
+                                    value={state?.firstName}
                                     autoComplete='given-name'
                                 />
                             </div>
@@ -149,6 +150,7 @@ const Confirm = () => {
                                             lastName: e.target.value
                                         }));
                                     }}
+                                    value={state?.lastName}
                                     autoComplete='family-name'
                                 />
                             </div>
@@ -164,6 +166,7 @@ const Confirm = () => {
                                             phoneNumber: e.target.value
                                         }));
                                     }}
+                                    value={state?.phoneNumber}
                                     autoComplete='tel'
                                 />
                             </div>
@@ -177,6 +180,7 @@ const Confirm = () => {
                                             email: e.target.value
                                         }));
                                     }}
+                                    value={state?.email}
                                     autoComplete='email'
                                 />
                             </div>
