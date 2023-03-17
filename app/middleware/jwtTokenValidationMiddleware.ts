@@ -1,3 +1,4 @@
+
 'use strict';
 
 import { Request, Response, NextFunction } from 'express';
@@ -18,6 +19,9 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
     // TODO: add service-worker implementation to add the token with the UI files requests.
     if (req.path !== `${config.ROUTE_PATH}${RoutePath.HEALTH}` &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&  
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_ACCESS}`) && 
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_REDIRECTION}`) &&  
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}`) &&  
         (!req.path.startsWith(RoutePath.CUSTOMER_UI)) &&
         (!req.path.startsWith(RoutePath.RETAILER_UI)) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LAUNCH_MAIL}`) &&
@@ -37,17 +41,18 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
 };
 
 export const validateJWTToken = (token: string) => {
+    let claims;
     jwt.verify(token, config.JSON_WEB_TOKEN_SECRET, (
         error, decode) => {
         if (error) {
             throw new ServiceError(ErrorType.ORDER_SERVICE_ERROR, error.message, '', HTTPUserError.
                 UNAUTHORIZED_CODE);
         }
-        const claims = decode as IJWTClaims;
-        const userId = claims.id;
-        // Add claims to the request object
+        claims = decode as IJWTClaims;
+        const userId = claims?.id;
         Logging.log(buildInfoMessageUserProcessCompleted(
-            'JWT token validation', `User Id: ${userId}`), LogType.INFO);
+            'JWT token validation', `User Id: ${userId}, roles: ${claims.roles.toString()}`), LogType.INFO);
     });
+    return claims;
 };
 

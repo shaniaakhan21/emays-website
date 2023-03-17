@@ -26,7 +26,7 @@ const sendErrorResponse: SendErrorResponseFunc = (error, res) => {
         case ErrorType.ORDER_INSERTION_ERROR:
         case ErrorType.ORDER_UPDATE_ERROR:
         case ErrorType.ORDER_RETRIEVAL_ERROR:
-        case ErrorType.ORDER_DATA_CONFLICT:
+        case ErrorType.DATA_CONFLICT:
         case ErrorType.INVALID_REQUEST:
         case ErrorType.UNAUTHORIZED:
         case ErrorType.FOUND_AT_THIS_URL:

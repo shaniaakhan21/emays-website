@@ -13,6 +13,7 @@ import Appointment from './appointment/AppointmentDetails';
 import Relocate from './Relocate';
 import CustomerRouter from './customer/Router';
 import RetailerRouter from './retailer/Router';
+import { MessageProvider } from './common/messageCtx';
 
 // Util
 
@@ -20,18 +21,19 @@ const MainRouter = () => {
 
     return (<main className='main-container' role='main'>
         <ErrorBoundary>
-            <Router>
-                <Switch>
-                    <Route path='/confirm' component={() => <Confirm/>}></Route>
-                    <Route path='/checkout' component={() => <Checkout />}></Route>
-                    <Route path='/appointment' component={() => <Appointment/>}></Route>
-                    <Route path='/retailer' component={() => <RetailerRouter />} />
-                    <Route path='/' component={() => <CustomerRouter />} />
-                    {/* This component will act as a relocate router based on the initial launch type */}
-                    {/* <Route path='/' component={() => <Relocate/>}></Route> */}
-                </Switch>
-
-            </Router>
+            <MessageProvider>
+                <Router>
+                    <Switch>
+                        <Route path='/confirm' component={() => <Confirm/>}></Route>
+                        <Route path='/checkout' component={() => <Checkout />}></Route>
+                        <Route path='/appointment' component={() => <Appointment/>}></Route>
+                        <Route path='/retailer' component={() => <RetailerRouter />} />
+                        <Route path='/' component={() => <CustomerRouter />} />
+                        {/* This component will act as a relocate router based on the initial launch type */}
+                        {/* <Route path='/' component={() => <Relocate/>}></Route> */}
+                    </Switch>
+                </Router>
+            </MessageProvider>
         </ErrorBoundary>
     </main>);
 };

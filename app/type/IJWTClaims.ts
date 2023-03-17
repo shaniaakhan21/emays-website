@@ -17,4 +17,5 @@ export interface IJWTBuildData {
 export enum JWT_TYPE {
     LONG_LIVE = 'long live',
     SHORT_LIVE = 'short live',
+    EXTERNAL_SYSTEM = 'external system'
 }

@@ -19,6 +19,7 @@ export interface ISendEmailInfo {
     twitterImage: string,
     emaysContactUsLink: string,
     redirectionURL: string,
+    bookCalenderURL: string,
     date: Date,
     uid: string,
     startTime: string,
