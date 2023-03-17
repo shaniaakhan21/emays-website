@@ -1,10 +1,11 @@
 @import '../../fonts';
 
-body {
+.retailer-main {
+  max-width: 1280px;
   background: #231F20;
   font-family: 'Montserrat';
 }
 
-.retailer-main {
-  max-width: 1280px;
+.bg {
+  background: #231F20;
 }
