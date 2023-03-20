@@ -98,8 +98,8 @@ export const config = {
     },
     SERVICE_CHARGE: SERVICE_CHARGE || 1200.00,
     SUMUP: {
-        MERCHANT_CODE: SUMUP_MERCHANT_CODE || '',
+        MERCHANT_CODE: SUMUP_MERCHANT_CODE || 'MTCNFGH2',
         API_URL: SUMUP_API_URL || 'https://api.sumup.com/v0.1',
-        SECRET_KEY: SUMUP_SECRET_KEY || 'sup_pk_1wr7ZSGiow201CFgJhBtCfUVR3pefpayu'
+        SECRET_KEY: SUMUP_SECRET_KEY || 'sup_sk_2VWlJ5oob7wG9YU1S7G5jyfMOwd3MNaUJ'
     }
 };

@@ -46,13 +46,13 @@ app.use((req, res, next) => {
 });
 
 // Define Routes
-app.use(customerRoutes);
 app.use(config.ROUTE_PATH, healthRoute);
+app.use(config.ROUTE_PATH, sumUpRoute);
 app.use(config.ROUTE_PATH, launchRoute);
 app.use(config.ROUTE_PATH, orderRoute);
 app.use(config.ROUTE_PATH, calenderRoute);
 app.use(config.ROUTE_PATH, externalSystemRoute);
-app.use(config.ROUTE_PATH, sumUpRoute);
+app.use(customerRoutes);
 
 /*
  * Error handling middleware

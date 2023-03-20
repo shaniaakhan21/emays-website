@@ -12,7 +12,7 @@ import { google, calendar_v3 } from 'googleapis';
 import { OAuth2ClientOptions } from 'google-auth-library';
 import * as moment from 'moment';
 import { retrieveOrderDetailsByUserId } from './orderService';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 const Logging = Logger(__filename);
 
@@ -39,7 +39,7 @@ export type CheckoutRequest = {
     currency: 'BGN' | 'BRL' | 'CHF' | 'CLP' | 'CZK' | 'DKK'
         | 'EUR' | 'GBP' | 'HRK' | 'HUF' | 'NOK' | 'PLN' | 'RON' | 'SEK' | 'USD'
     merchant_code: string
-    pay_to_email?: string
+    pay_to_email: string
     description?: string
     return_url?: string
     customer_id?: string
@@ -71,13 +71,19 @@ export type CheckoutResponse = {
 }
 
 const instance = axios.create({
-    baseURL: config.SUMUP.API_URL
+    baseURL: config.SUMUP.API_URL,
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${config.SUMUP.SECRET_KEY}`
+    }
 });
 
 export const checkout = async (info: CheckoutRequest): Promise<CheckoutResponse> => {
     try {
         return (await instance.post<CheckoutResponse>('/checkouts', info))?.data;
     } catch (error) {
+        console.log('error?.response?.data', (error as AxiosError)?.response?.data);
         const err = error as Error;
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, 'SumUp Checkout Error'), LogType.ERROR);
@@ -168,10 +174,11 @@ export type ProcessCheckoutResponse202 = {
 
 export const processCheckout = async (checkoutId: string, data: ProcessCheckoutRequest): Promise<ProcessCheckoutResponse200 | ProcessCheckoutResponse202> => {
     try {
-        return (await instance.get<ProcessCheckoutResponse200 | ProcessCheckoutResponse202>(
+        return (await instance.put<ProcessCheckoutResponse200 | ProcessCheckoutResponse202>(
             `/checkouts/${checkoutId}`)
         )?.data;
     } catch (error) {
+        console.log('error?.response?.data', (error as AxiosError)?.response?.data);
         const err = error as Error;
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, 'SumUp Checkout Error'), LogType.ERROR);
