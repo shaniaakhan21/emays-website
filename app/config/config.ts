@@ -26,7 +26,8 @@ const {
     GOOGLE_CALENDER_TASK_DESCRIPTION,
     CUSTOMER_EMAIL_TEMPLATE,
     RETAILER_EMAIL_TEMPLATE,
-    SERVICE_CHARGE
+    SERVICE_CHARGE,
+    ERROR_TEMPLATE
 } = process.env;
 
 export const config = {
@@ -45,6 +46,7 @@ export const config = {
     JSON_WEB_TOKEN_EXP_HOURS_LONG: JSON_WEB_TOKEN_EXP_HOURS_LONG || 240,
     JSON_WEB_TOKEN_EXP_HOURS_EXTERNAL_SYSTEM: JSON_WEB_TOKEN_EXP_HOURS_EXTERNAL_SYSTEM || 3,
     JSON_WEB_TOKEN_SECRET: JSON_WEB_TOKEN_SECRET || 'secret123',
+    ERROR_TEMPLATE: ERROR_TEMPLATE || '/template/error-template.html',
     DB: {
         MONGODB_USER: MONGODB_USER || 'root',
         MONGODB_PASSWORD: MONGODB_PASSWORD || '123456',
@@ -53,8 +55,8 @@ export const config = {
         MONGODB_DATABASE: MONGODB_DATABASE || 'emays_service_db'
     },
     AWS_SES: {
-        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || 'AKIAUIFBMPO744WQUFXC',
-        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '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',
+        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
+        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '',
         AWS_REGION: AWS_REGION || 'us-east-2',
         AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || 'thathsararaviraj@gmail.com'
     },
@@ -80,8 +82,8 @@ export const config = {
         OAUTH2: {
             CLIENT: {
                 CLIENT_ID: GOOGLE_AUTH_CLIENT_ID || 
-                    '511265999052-6cljhl98gvp7s3v10rgs9avtb4g0v41q.apps.googleusercontent.com',
-                CLIENT_SECRET: GOOGLE_AUTH_CLIENT_SECRET || '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',
+                    '',
+                CLIENT_SECRET: GOOGLE_AUTH_CLIENT_SECRET || '',
                 REDIRECTION_URL: GOOGLE_AUTH_REDIRECTION_URL || 'http://localhost:8080/api-dev/redirectGoogleAccess'
             },
             SCOPE: GOOGLE_AUTH_SCOPE || 'https://www.googleapis.com/auth/calendar'

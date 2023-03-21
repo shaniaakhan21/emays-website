@@ -19,6 +19,7 @@ import { IUser } from '../type/IUserType';
 import { v4 as uuidv4 } from 'uuid';
 import LaunchParamBuilder from '../util/LaunchParamBuilder';
 import { LaunchType } from '../type/ILaunchPayload';
+import { ErrorTemplateMessage } from '../const/errorTemplateMessage';
 
 const Logging = Logger(__filename);
 
@@ -75,7 +76,10 @@ router.get(RoutePath.LAUNCH_MAIL, (
     })().catch((error) => {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'launch email'), LogType.ERROR);
-        next(error);
+        buildAppLaunchPath(config.ERROR_TEMPLATE).then((path) => {
+            return res.render(path, { errorTitle: ErrorTemplateMessage.LAUNCH_ERROR_EMAIL_HEADER,
+                errorDescription: ErrorTemplateMessage.LAUNCH_ERROR_EMAIL_MESSAGE });
+        }).catch(err => next(error));
     });
 });
 /**
@@ -94,19 +98,16 @@ router.get(RoutePath.DEV_LAUNCH, (req: express.Request, res: express.Response): 
     })().catch((error) => {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'launch dev app'), LogType.ERROR);
-        /*
-         * Need to display error template in the app.ts since
-         * there is no UI to cater the error message at this stage (due to form submit)
-         */
     });
 });
 
 /**
  * To accept the launch request and render the UI
  */
-router.post(RoutePath.LAUNCH, authorizeLaunchRoute, (req: express.Request,
+router.post(RoutePath.LAUNCH, (req: express.Request,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
+        authorizeLaunchRoute(req, res, next);
         Logging.log(buildInfoMessageRouteHit(req.path, 'launch ui'), LogType.INFO);
         const requestBody: LaunchRequestBody = req.body as LaunchRequestBody;
 
@@ -157,11 +158,10 @@ router.post(RoutePath.LAUNCH, authorizeLaunchRoute, (req: express.Request,
     })().catch((error) => {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'launch ui app'), LogType.ERROR);
-        next(error);
-        /*
-         * Need to display error template in the app.ts since
-         * there is no UI to cater the error message at this stage (due to form submit)
-         */
+        buildAppLaunchPath(config.ERROR_TEMPLATE).then((path) => {
+            return res.render(path, { errorTitle: ErrorTemplateMessage.LAUNCH_ERROR_HEADER,
+                errorDescription: ErrorTemplateMessage.LAUNCH_ERROR_MESSAGE });
+        }).catch(err => next(error));
     });
 });
 
