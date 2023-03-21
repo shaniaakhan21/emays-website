@@ -4,10 +4,10 @@ import * as express from 'express';
 import { RoutePath } from '../const/routePath';
 import { buildAppLaunchPath } from '../api/launchAPI';
 import { config } from '../config/config';
-import buildRenderData from '../util/buildRenderData';
-import { UI_RETAILER } from '../../public/js/const/SessionStorageConst';
 import { Logger } from '../log/logger';
 import LogType from '../const/logType';
+import LaunchParamBuilder from '../util/LaunchParamBuilder';
+import { LaunchType } from '../type/ILaunchPayload';
 
 const router = express.Router();
 
@@ -20,7 +20,8 @@ router.get(
             const applicationPath: string = await buildAppLaunchPath(config?.UI_APP_ENTRY_POINT);
 
             Logging.log('App is going to deliver the HTML form from the default UI version.', LogType.INFO);
-            return res.render(applicationPath, buildRenderData('', '[]', '').custom(UI_RETAILER));
+            const paramBuilder = new LaunchParamBuilder(LaunchType.RETAILER_UI);
+            return res.render(applicationPath, paramBuilder.build());
         })().catch((error) => {
             const errorObject: Error = error as Error;
             Logging.log(`Failed to deliver the HTML form for the dev launch.
