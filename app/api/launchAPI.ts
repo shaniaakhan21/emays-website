@@ -4,7 +4,6 @@ import * as path from 'path';
 import * as express from 'express';
 import { config } from '../config/config';
 import LogType from '../const/logType';
-import { v4 as uuidv4 } from 'uuid';
 import { Roles } from '../const/roles';
 import { IJWTBuildData, IJWTClaims, JWT_TYPE } from '../type/IJWTClaims';
 import { generateJWT } from '../util/jwtUtil';
@@ -83,9 +82,8 @@ export const authorizeLaunchRoute = (req: express.Request, res: express.Response
  * @param next: express.NextFunction
  * @returns token: string
  */
-export const getJWTForSession = (): string => {
+export const getJWTForSession = (uuid: string): string => {
     try {
-        const uuid: string = uuidv4();
         const role: Roles = Roles.CLIENT;
         Logging.log(buildInfoMessageMethodCall(
             'JWT token get', `User Id: ${uuid}`), LogType.INFO);

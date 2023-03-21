@@ -15,6 +15,7 @@ import { Order } from '../type/orderType';
 import { generateJWT } from '../util/jwtUtil';
 import { Roles } from '../const/roles';
 import { IJWTBuildData, JWT_TYPE } from '../type/IJWTClaims';
+import { EMAIL_BOOKED } from '../../public/js/const/SessionStorageConst';
 
 const Logging = Logger(__filename);
 
@@ -191,7 +192,7 @@ const buildRedirectionURL = (uuid: string): string => {
         };
         const token: string = generateJWT(tokenBuildData, JWT_TYPE.LONG_LIVE);
         const URL = 
-        `${config.EMAIL_TEMPLATE.URLS.EMAIL_REDIRECTION_PATH}?launchType=emailBooked&uuid=${uuid}&authToken=${token}`;
+    `${config.EMAIL_TEMPLATE.URLS.EMAIL_REDIRECTION_PATH}?launchType=${EMAIL_BOOKED}&uuid=${uuid}&authToken=${token}`;
         Logging.log(buildInfoMessageUserProcessCompleted('Email redirection URL created', `UUID:
                 ${uuid} and URL: ${URL}` ), LogType.INFO);
         return URL;

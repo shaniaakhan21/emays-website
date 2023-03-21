@@ -10,7 +10,6 @@ import ErrorBoundary from './ErrorBoundary';
 import Checkout from './checkout/Checkout';
 import Confirm from './checkout/Confirm';
 import Appointment from './appointment/AppointmentDetails';
-import Relocate from './Relocate';
 import CustomerRouter from './customer/Router';
 import RetailerRouter from './retailer/Router';
 import { MessageProvider } from './common/messageCtx';
@@ -28,9 +27,8 @@ const MainRouter = () => {
                         <Route path='/checkout' component={() => <Checkout />}></Route>
                         <Route path='/appointment' component={() => <Appointment/>}></Route>
                         <Route path='/retailer' component={() => <RetailerRouter />} />
-                        <Route path='/' component={() => <CustomerRouter />} />
                         {/* This component will act as a relocate router based on the initial launch type */}
-                        {/* <Route path='/' component={() => <Relocate/>}></Route> */}
+                        <Route path='/' component={() => <CustomerRouter />} />
                     </Switch>
                 </Router>
             </MessageProvider>
