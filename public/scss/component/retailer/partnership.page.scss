@@ -1,0 +1,193 @@
+.partnership {
+  font-family: 'Montserrat';
+  color: #FFFFFF;
+  margin-top: 85px;
+  overflow: hidden;
+
+  .header {
+    font-size: 42px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 25px;
+
+    @media (max-width: 950px) {
+      text-align: left;
+    }
+  }
+
+  .infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .item {
+      margin-top: 45px;
+      max-width: 450px;
+
+      h2 {
+        font-size: 34px;
+        font-weight: 800;
+      }
+      p {
+        font-size: 20px;
+        font-weight: 400;
+      }
+    }
+  }
+
+  .chart-title {
+    font-size: 34px;
+    font-weight: 800;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 30px;
+
+    @media (min-width: 66rem) {
+      margin-top: 150px;
+      margin-bottom: 120px;
+    }
+  }
+
+  .chart-row {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 66rem) {
+      flex-direction: row-reverse;
+    }
+
+    .chart-info {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      font-family: SkolaSans;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 22px;
+      text-align: left;
+      margin-bottom: 40px;
+
+      @media (min-width: 66rem) {
+        margin-bottom: 0;
+      }
+    }
+
+    .chart-xs {
+      display: block;
+
+      @media (min-width: 66rem) {
+        display: none;
+      }
+    }
+
+    .chart {
+      width: 700px;
+      display: none;
+
+      @media (min-width: 66rem) {
+        display: block;
+      }
+
+      .chart-main {
+        left: -100px;
+
+        @media (min-width: 66rem) {
+          left: -20px;
+        }
+      }
+    }
+  }
+
+  .data {
+    margin: 0 auto;
+    margin-top: 120px;
+
+    @media (min-width: 66rem) {
+      width: 600px;
+    }
+
+    .item {
+      flex: 1;
+      display: flex;
+      margin-bottom: 15px;
+
+      p {
+        font-size: 34px;
+        font-weight: 800;
+        line-height: 29px;
+
+        &:first-child {
+          text-transform: uppercase;
+          flex: 1;
+
+          @media (min-width: 66rem) {
+                min-width: 300px;
+          }
+        }
+
+        &:last-child {
+          text-align: right;
+          width: 100px;
+          @media (max-width: 66rem) {
+          }
+        }
+      }
+    }
+  }
+
+  button {
+    background-color: #FFFFFF;
+    color: #393939;
+  }
+
+  .buttons {
+    margin-top: 90px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: flex-end;
+
+    > button:first-child {
+      margin-right: 80px;
+    }
+
+    @media (max-width: 500px) {
+      margin-top: 40px;
+
+      > button:first-child {
+        margin-right: 10px;
+        max-width: 100%;
+        flex: 1;
+      }
+    }
+  }
+
+  .logos {
+    margin-bottom: 40px;
+
+    @media (min-width: 66rem) {
+      .marquee {
+        display: flex;
+        flex: 1;
+
+        .marquee__group {
+          display: flex;
+          justify-content: space-around;
+          flex: 1;
+          align-items: center;
+        }
+      }
+    }
+  }
+}
+
+.partners-footer {
+  object-fit: cover;
+  width: 100%;
+  display: none;
+
+  @media (min-width: 42rem) {
+    display: block;
+  }
+}
+
+@import 'marquee.fragment';

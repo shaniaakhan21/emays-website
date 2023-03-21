@@ -5,16 +5,26 @@ export interface DevLaunchTemplateData {
 }
 
 export interface LaunchRequestBody {
-    userFirstName: string,
-    userAddress: string,
-    productQuantity: number,
     productName: string,
-    authToken: string
+    productColor: string,
+    productSize: number,
+    productQuantity: number,
+    productCost: string,
+    productImage: string,
+    productDeliveryInformation: string
 }
 
 export interface LaunchUIContext {
-    userFirstName: string,
-    userAddress: string,
+    productName: string,
+    productColor: string,
+    productSize: number,
     productQuantity: number,
-    productName: string
+    productCost: string,
+    productImage: string,
+    productDeliveryInformation: string
+}
+
+export interface DataToRender {
+    'productList': string,
+    token: string
 }

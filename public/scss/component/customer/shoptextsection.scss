@@ -1,0 +1,112 @@
+$carbon-xs-max: 31.25em; // 500px
+$carbon-sm-max: 42.5em; // 680px
+$carbon-md-max: 64em;   // 1024px 
+@import '../../fonts';
+
+.custom-component{
+    color: white;
+    width: 40%;
+    position: relative;
+    font-family: 'Montserrat';
+
+    .head-text{
+        font-family: 'Montserrat';
+
+        h2{
+            text-align: end;
+            font-size: 33px;
+            font-weight: 900;
+            line-height: 36px;
+            text-transform: uppercase;
+            @media screen and (max-width: $carbon-md-max) {
+                text-align: start;
+            }
+
+            @media screen and (max-width: $carbon-sm-max) {
+                font-size: 37px;
+            }
+        }
+    }
+
+    .second-section{
+        .icon-container{
+            text-align: start;
+        }
+
+        .text-container{
+            text-align: start;
+            h3{
+                @media screen and (max-width: $carbon-sm-max) {
+                    font-size: 1.2rem;
+                }
+            }
+            p{
+                @media screen and (max-width: $carbon-sm-max) {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: $carbon-md-max) {
+        width: 88%;
+    }
+  
+
+
+}
+
+.position{
+    left: 15%;
+    bottom: 145px;
+    @media screen and (max-width: $carbon-md-max) {
+        width: 49%;
+        left: 15pc;
+        bottom: 6pc;
+    }
+
+    @media screen and (max-width: $carbon-sm-max) {
+        left: 10pc;
+        bottom: 8pc;
+    }
+
+    @media screen and (max-width: $carbon-xs-max) {
+        left: 0;
+        width: 100%;
+        bottom: -4pc;
+    }
+}
+
+.position-event{
+    left: -15%;
+    bottom: 119px;
+    @media screen and (max-width: $carbon-md-max) {
+        bottom: 225px;
+        width: 58%;
+    }
+
+    @media screen and (max-width: $carbon-xs-max) {
+        bottom: -9pc;
+        width: 100%;
+        left: 0pc;
+    }
+}
+
+
+.position-md{
+    @media screen and (max-width: $carbon-md-max) {
+        left: -16%;
+        bottom: -5px;
+        width: 53%;
+    }
+
+    @media screen and (max-width: $carbon-sm-max) {
+        width: 40%;
+        left: -21%;
+    }
+
+    @media screen and (max-width: $carbon-xs-max) {
+        width: 100%;
+        left: 0;
+    }
+}

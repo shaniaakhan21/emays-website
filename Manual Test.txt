@@ -1,0 +1,84 @@
+/**
+* Install REST Client VSCode extension
+* To execute the bellow => cntrl + shift + p
+* Search for rest and select the run command 
+*/
+
+----- Check health -----
+
+GET http://localhost:8080/api-dev/health
+
+----- Make order -----
+
+POST http://localhost:8080/api-dev/orders
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNlQxNTozMzoyNC4xMTBaIiwiZXhwIjoxNjc4OTkxNjA0LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NDEzMzZiZDM3NmVkZThkY2E0OTk0YmEiLCJpYXQiOjE2Nzg5ODA4MDR9.fIkiHbBix_ay3uOQcYRcVX5rg55jjvB6b9usBqzgHNI
+
+{
+    "email": "thathsararaviraj@gmail.com",
+    "retailerEmail": "thathsararaviraj@gmail.com",
+    "firstName": "Thathsara",
+    "lastName": "Raviraj",
+    "phoneNumber": "07122658978",
+    "uid": "12345673495",
+    "date": "2023-03-16",
+    "startTime": "19:00",
+    "endTime": "21:00",
+    "experience": "Assist me, Tailoring, Inspire me",
+    "timeZone": "Asia/Dubai",
+    "address": {
+        "addOne": "No 1",
+        "addTwo": "Subway",
+        "addThree": "Khalifa",
+        "addFour": "Dubai"
+    },
+    "orderItems": [{"productName": "Denim shirt", "productColor": "blue", "productSize": "Large", "productQuantity": 2, "productCost": "10", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}, {"productName": "Denim Trouser", "productColor": "blue", "productSize": "Large", "productQuantity": 5, "productCost": "20", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}]
+}
+
+----- Get order by user id----
+
+GET http://localhost:8080/api-dev/orders/12345673495
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNlQxNTozMzoyNC4xMTBaIiwiZXhwIjoxNjc4OTkxNjA0LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NDEzMzZiZDM3NmVkZThkY2E0OTk0YmEiLCJpYXQiOjE2Nzg5ODA4MDR9.fIkiHbBix_ay3uOQcYRcVX5rg55jjvB6b9usBqzgHNI
+content-type: application/json
+
+
+----- Patch order by user id --------
+
+PATCH http://localhost:8080/api-dev/orders/12345673495
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNlQxNTozMzoyNC4xMTBaIiwiZXhwIjoxNjc4OTkxNjA0LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NDEzMzZiZDM3NmVkZThkY2E0OTk0YmEiLCJpYXQiOjE2Nzg5ODA4MDR9.fIkiHbBix_ay3uOQcYRcVX5rg55jjvB6b9usBqzgHNI
+
+{
+    "firstName": "thathsara"
+}
+
+
+------ Launch email ---------
+http://localhost:8080/api-dev/launchMail?launchType=emailBooked&uuid=12345673481&authToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNVQwNDo0NDowNS43NDVaIiwiZXhwIjoxNjc4ODkxNDQ1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJjMjdjOWYxMi04OWQ2LTRmMTUtYmJiMy0wYmZmZmY2MzMwMWIiLCJpYXQiOjE2Nzg4NTU0NDV9.zSa5uzJ7xYjJuZBe6wm8chDQMJ6TU7dy1UsWgDVtX7I
+
+
+------ Google calendar --------
+http://localhost:8080/api-dev/googleCalender?uuid=12345673481&authToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNVQwNDo0NDowNS43NDVaIiwiZXhwIjoxNjc4ODkxNDQ1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJjMjdjOWYxMi04OWQ2LTRmMTUtYmJiMy0wYmZmZmY2MzMwMWIiLCJpYXQiOjE2Nzg4NTU0NDV9.zSa5uzJ7xYjJuZBe6wm8chDQMJ6TU7dy1UsWgDVtX7I
+
+
+------ Create external system ----------
+
+POST http://localhost:8080/api-dev/externalSystems
+content-type: application/json
+
+{
+    "extSysName": "Store-X",
+    "extSysUsername": "storex",
+    "extSysPassword": "abCq2&!Ms",
+    "extSysEmail": "storeX@gmail.com"
+}
+
+----- Get auth token for external system ------
+
+POST http://localhost:8080/api-dev/externalSystems/systemToken
+content-type: application/json
+
+{
+    "extSysUsername": "storex",
+    "extSysPassword": "abCq2&!Ms"
+}

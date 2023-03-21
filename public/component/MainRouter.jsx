@@ -1,39 +1,39 @@
 
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Container from './Container';
-import ErrorBoundary from './ErrorBoundary';
-
-// Carbon Components
-import { Button } from '@carbon/react';
+import React, { useEffect } from 'react';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 // SCSS
 import '../scss/main.scss';
 
-class MainRouter extends React.Component {
+// Components
+import ErrorBoundary from './ErrorBoundary';
+import Checkout from './checkout/Checkout';
+import Confirm from './checkout/Confirm';
+import Appointment from './appointment/AppointmentDetails';
+import CustomerRouter from './customer/Router';
+import RetailerRouter from './retailer/Router';
+import { MessageProvider } from './common/messageCtx';
 
-    componentDidMount () {
-        // TODO call initial data route
-        console.log('Data fetched');
-    }
+// Util
 
-    render () {
-        return <main className='main-container' role='main'>
-            <ErrorBoundary>
+const MainRouter = () => {
+
+    return (<main className='main-container' role='main'>
+        <ErrorBoundary>
+            <MessageProvider>
                 <Router>
-                    <div>
-                        <header>Header App</header>
-                        <Button>Button</Button>
-                    </div>
                     <Switch>
-                        <Route path='/' component={() => <Container/>}></Route>
+                        <Route path='/confirm' component={() => <Confirm/>}></Route>
+                        <Route path='/checkout' component={() => <Checkout />}></Route>
+                        <Route path='/appointment' component={() => <Appointment/>}></Route>
+                        <Route path='/retailer' component={() => <RetailerRouter />} />
+                        {/* This component will act as a relocate router based on the initial launch type */}
+                        <Route path='/' component={() => <CustomerRouter />} />
                     </Switch>
-                    <footer>Footer App</footer>
                 </Router>
-            </ErrorBoundary>
-        </main>;
-    }
-
-}
+            </MessageProvider>
+        </ErrorBoundary>
+    </main>);
+};
 
 export default MainRouter;

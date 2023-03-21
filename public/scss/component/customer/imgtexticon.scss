@@ -1,0 +1,29 @@
+@import '../../fonts';
+
+.custom-padding{
+    padding: 7% 18% 0%!important;
+    font-family: 'Montserrat';
+    @media (max-width: 1050px) {
+        padding: 0!important;
+    }
+
+    .margin-left-11{
+        margin-left: 11%!important;
+        @media screen and (max-width: 675px) {
+            margin-left: 5%!important;
+        }
+        .margin-left-8{
+            margin-left: 8%;
+            @media screen and (max-width: 675px) {
+                margin-left: 0;
+            }
+        }
+    }
+
+    
+    .Img-Position img{
+        @media screen and (max-width: 675px) {
+            width: 55%;
+        }
+    }
+}

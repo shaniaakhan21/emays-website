@@ -1,0 +1,275 @@
+{
+  "common": {
+    "error": "Error",
+    "lets-talk-form": {
+      "header": "Are you curious about something? Let’s talk",
+      "name": "Name",
+      "name-placeholder": "Name here",
+      "email": "Email",
+      "phone": "Phone Number",
+      "phone-placeholder": "+ 39 0000 000",
+      "message": "Message",
+      "message-placeholder": "Hi, I would like to know about...",
+      "privacy-policy": "I’ve read and, agree  the privacy policy",
+      "email-2": "Email",
+      "phone-2": "Phone",
+      "email-2-value": "emays@emays.com",
+      "phone-2-value": "+ 39 000 000 000",
+      "submit": "SUBMIT"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions"
+    }
+  },
+  "checkout": {
+    "book-appointment": {
+      "header": "BOOK YOUR APPOINTMENT",
+      "choose-date": "Choose Date",
+      "choose-time": "Choose Time Window",
+      "custom-date": "Custom Date"
+    },
+    "customize-experience": {
+      "header": "CUSTOMIZE YOUR EXPERIENCE FOR FREE",
+      "checkbox-wait-label": "We wait while you try - someWe wait while you try -  Contactless Delivery - We drop the items to your door  and the stylist will wait for your returns outside.",
+      "checkbox-assist-label": "Assist me -  I would like to be assisted during the whole appointment by the stylist.",
+      "checkbox-basic-label": "Basic Tailoring - I require Pinning and fitting."
+    },
+    "delivery-address": {
+        "header": "DELIVERY ADDRESS",
+        "address": "Address"
+    },
+    "submit-button": "CONTINUE"
+  },
+  "email-launch": {
+      "header-one": {
+        "left": "CHANEL",
+        "right": "APPOINTMENT BOOKED"
+      },
+      "thank": "Thank you for booking your <strong>Chanel</strong> appointment.",
+      "info": "(Your 40 minute appointment will begin when your Emays Stylist arrives).",
+      "time-info": {
+        "message": "We’re looking forward to seeing you on:",
+        "date": "Date",
+        "hour": "Hour"
+      },
+      "full-name": "Full Name",
+      "exp-selected": "Experience Selected",
+      "del-address": "Delivery Address ",
+      "items-to--be-deliver": "ITEMS TO BE DELIVERED",
+      "order-placed": "ORDER PLACED",
+      "in-progress": "DELIVERY IN PROGRESS",
+      "delivered": "DELIVERED",
+      "remember": "Please remember,",
+      "contact-message": "we will contact you the day before your appointment, as well as a reminder on the day",
+      "special-info": {
+        "line-one": "We look forward to seeing you, but should you be unable to attend then please note our cancellation policy below.",
+        "line-two": "We require at least 48 hours notice should you wish to make any changes or amendments to your scheduled appointment. Should you not inform us of any change within 48 notice you will be charged the service fee."
+      },
+      "need-help": "Need Help?",
+      "mail": {
+        "part-one": "We are unable to receive responses to this email. If you need assistance, go to",
+        "link-text": "support@emays.com",
+        "part-two": "sent you this email. By using our services, you agree to our customer agreement."
+      },
+      "contact-us": "Contact Us",
+      "button": {
+        "edit-appointment": "EDIT APPOINTMENT",
+        "add-to-calendar": "ADD TO CALENDAR"
+      },
+      "copy-right": "© Emays 2023. All rights reserved."
+  },
+  "confirm": {
+    "edit-appointment": {
+        "header": "YOUR APPOINTMENT",
+        "edit-button": "EDIT"
+    },
+    "user-appointment-info": {
+      "date": "Date",
+      "hour": "Hour",
+      "selected-experience": "Experience Selected",
+      "delivery-address": "Delivery Address"
+    },
+    "contact-details": {
+      "header": "CONTACT DETAILS",
+      "info-text-important": "Important:",
+      "info-text": "We will call or message you the day before, as well at the moment we’re arriving to ensure the quality of experience.",
+      "first-name": "First Name",
+      "last-name": "Last Name",
+      "phone-number": "Phone Number",
+      "email": "Email"
+    },
+    "submit-button": "CONFIRM APPOINTMENT"
+  },
+  "shopping-bag-container": {
+    "header": "SHOPPING BAG",
+    "service-fee": "SERVICE FEE",
+    "instruction-1": "This fee help us run our operations, all services included.",
+    "instruction-2": "Amount will be blocked on your card until the day of the delivery.",
+    "instruction-3": "Cancellations available before 24h appointment.",
+    "button": "BOOK US NOW",
+    "item": {
+      "size": "Size",
+      "quantity": "Quantity",
+      "color": "Color"
+    }
+  },
+
+  "nav": {
+    "logo-alt": "EMAYS",
+    "toggle-label": {
+      "retailer": "RETAILER",
+      "customer": "CUSTOMER"
+    },
+    "menu": {
+      "services": "SERVICES",
+      "sustainability": "SUSTAINABILITY",
+      "shop-with-us": "SHOP WITH US",
+      "lets-talk": "Let's Talk",
+      "faqs": "FAQS",
+      "integration": "INTEGRATION",
+      "partnership": "PARTNERSHIP"
+    }
+  },
+  "environment-header": {
+    "env-header-h1": "FASHION SHOULDN’T COST THE EARTH",
+    "env-header-h5": "CO2 Neutral",
+    "env-header-h5-subhead": "Carbon footprint is considered with every step of our service."
+  },
+  "icon-img-text": {
+    "text-h1": "ERASE THE RETURN JOURNEY",
+    "text-h5": "Over one-third of online fashion orders ends with a return, with two journeys for each: one to deliver and another to collect. This doubles the miles driven for each shop. With Emays, these delivery and return trips are combined, we cuts those miles in half by combining the delivery and return journey."
+  },
+  "icon-text-img": {
+    "text-h5": "Emays delivery service is designed with the environment in mind  providing the best shopping experience for modern customers. We always strive for excellent customer service experience and take an intentional approach by reducing our environmental impact by delivering an all-inclusive store experience to your door with our zero-emission cars to make style more sustainable, for people and planet. "
+  },
+  "img-text-icon": {
+    "text-h1": "ADVANCED PACKAGING FREE DELIVERY",
+    "text-h5": "Emays delivers using packaging-free, hanging garments bags. This service aim to avoid the use of plastic and erase the disposable packaging."
+  },
+  "text-img": {
+    "text-h1-01": "ONE",
+    "text-h1-02": "TREE",
+    "text-h1-03": "PLANTED",
+    "text-h5": "We partner with OneTreePlanted, and we support their projects. We plant one tree for every order that we complete, helping to clean the air that we breath, restore forests, create habitat for biodiversity, and make a positive social impact around the world.",
+    "btn-text":"Learn more about this initiative"
+  },
+  "home-section":{
+    "col-1":{
+      "title":"WE SHIP THE SHOP",
+      "subtitle-h2":"Take the luxury Shopping to experience your house",
+      "subtitle-h3":"Try What you want, pay only what you keep.",
+      "btn-text":"See what we can do for you"
+    }   
+  },
+  "services":{
+    "text-h1":"Our Services are available on selected brands websites"
+  },
+
+  "shop-with-us":{
+    "first-block":{
+      "head-text":"STORE AT HOME",
+      "subhead-text":"No upfront Payment",
+      "body-text":"Choose all the pieces you’d like to try, we’d bring them to you with no upfront payment."
+    },
+    "second-block":{
+      "head-text":"Save time in returns",
+      "subhead-text":"Hassle-free returns",
+      "body-text":"Skip the process, we send back the pieces dont want."
+    },
+    "third-block":{
+      "head-text":"Schedule as needed",
+      "subhead-text":"1-hour windows",
+      "body-text":"Shop on your schedule with times available from 9am to 9pm, 7 days a week."
+    },
+    "fourth-block":{
+      "head-text":"Climate Conscious",
+      "subhead-text":"C02 Neutral",
+      "body-text":"Carbon footprint is considered with every step of our service."
+    },
+    "fifth-block":{
+      "btn-text":"Read more about this",
+      "email-text":"Shop With Our Brands"
+    }   
+  },
+
+  "retailer": {
+    "landing": {
+      "title": "WE SHIP THE SHOP",
+      "sub-header": "Bring the Luxury shopping experience to your clients",
+      "description": "Highly personal in-store shopping experience delivered to your client’s home to give luxury fashion a sustainable turn.",
+      "button": "See what we can do for you",
+      "button-api": "API Connection"
+    },
+    "integration": {
+      "title": "EASY INTEGRATION",
+      "description": "Seamless integrations with any API enabled platform",
+      "button": "Request a DEMO",
+      "info-box": [
+        {
+          "title": "Ecommerce",
+          "description": "EMAYS booking modal automatically appears at checkout inside the brand website - for customers in our coverage areas."
+        },
+        {
+          "title": "Ecommerce",
+          "description": "EMAYS booking modal automatically appears at checkout inside the brand website - for customers in our coverage areas."
+        }
+      ]
+    },
+    "partnership": {
+      "title": "Be our Partner",
+      "infos": [
+        {
+          "title": "Higher sales conversion",
+          "description": "Returning customers, Accurate customer data, Fast and easy retention."
+        },
+        {
+          "title": "Full inventory control.",
+          "description": "If unsold, the product will return and be available in your store within 24 hours"
+        },
+        {
+          "title": "No time consuming.",
+          "description": "We guarantee that the product will be delivered within 24 hours to the customer"
+        },
+        {
+          "title": "Highly personalised luxury experience for customers",
+          "description": "Assisted at every touch-point of the shopping process by expert advisors"
+        },
+        {
+          "title": "Avoid paying higher fee to other competitors.",
+          "description": "Security provided. We protect the product with an insurance Time saving to prepare orders online"
+        },
+        {
+          "title": "Time saving to return",
+          "description": "online orders No shipping fees Eco friendly, we deliver without harming the environment with our zero emission cars and green energy scooters."
+        }
+      ],
+      "chart-title": "From proven data studies:",
+      "chart-info": "A global consumer survey conducted by Content Square (leader in digital experience analytics) indicates that only 15% of respondents are satisfied with their online shopping experience. In the last 6 months of 2022, data show increasing customers problems with their packaging:",
+      "chart": {
+        "40": "Packages Successfully delivered",
+        "15": "Damaged Packages",
+        "16": "Stolen Packages",
+        "29": "Packages Not delivered"
+      },
+      "data": [
+        {
+          "title": "ATV",
+          "value": "+45%"
+        },
+        {
+          "title": "UPT",
+          "value": "3"
+        },
+        {
+          "title": "Returning reduction",
+          "value": "+45%"
+        },
+        {
+          "title": "Data Captured",
+          "value": "100%"
+        }
+      ],
+      "button": "Ecommerce Integration"
+    }
+  }
+}

@@ -1,0 +1,124 @@
+@import '../../fonts';
+
+.env-section{
+    position: relative;
+    top: 63px;
+    grid-template-columns: none;
+    font-family: 'Montserrat';
+    padding: 0;
+    background-image: url('../../../images/HomeCustomerSection/env-header.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-left: 0;
+    max-width: 100%;
+    margin-right: 0;
+
+    .overlay-bg{
+        padding: 7% 16%;
+        background-color: #231f20b0;
+        display: flex;
+        flex-direction: column;
+        @media screen and (max-width: 448px) {
+            
+        }
+
+        .subhead-section{
+            padding: 2% 24%;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            
+            @media screen and (max-width: 1200px) {
+                padding: 2% 17%;
+            }
+
+            @media screen and (max-width: 475px) {
+                padding: 2% 0%;
+            }
+        }
+    }
+
+    .env-header {
+        text-align: center;
+        h1{
+            font-style: normal;
+            font-weight: 900;
+            font-size: 44px;
+            line-height: 46px;
+            font-family: 'Montserrat';
+            font-family: revert;
+            color: #FFFFFF;
+
+            @media screen and (max-width: 768px) {
+                font-size: 35px;
+                line-height: 35px;
+            }
+
+
+            @media screen and (max-width: 575px) {
+                font-size: 29px;
+                line-height: 30px;
+            }
+
+            @media screen and (max-width: 448px) {
+                font-size: 21px;
+                line-height: 22px;
+            }
+    
+
+        }
+    }
+
+    .env-icon{
+
+            img{                
+                @media screen and (max-width: 768px) {
+                    width: 39%;
+                }
+            }
+
+            h5{
+                font-family: 'Montserrat';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 26px;
+                color: #FFFFFF;
+                @media screen and (max-width: 768px) {
+                    font-size: 13px;
+                }
+            }
+    }
+
+    .env-sub-heading{
+        padding-right: 0;
+
+        h5{
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            color: #FFFFFF;
+            line-height: 21px;
+
+            @media screen and (max-width: 768px) {
+                font-size: 13px;
+                line-height: 15px;
+            }
+        }
+    }
+
+}
+
+.CO2-img{
+    margin:0;
+}
+
+.carbon{
+    margin: 0;
+    width: 48%;
+    @media screen and (max-width: 1200px) {
+        width: 50%;
+    }
+}

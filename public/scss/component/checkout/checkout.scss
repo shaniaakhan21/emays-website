@@ -1,0 +1,188 @@
+@import '../../fonts';
+
+.landing-page {
+    background-color: white;
+    padding-top: 40px;
+    font-family: 'Montserrat';
+
+    p {
+        font-size: 22px;
+        font-family: 'Montserrat';
+    }
+
+    .logo {
+        img {
+            height: 78px;
+            width: 130px;
+        }
+    }
+
+    .book-appointment {
+        padding-top: 25px;
+
+        .next-date-picker {
+            padding-top: 20px;
+        }
+
+        .date-time-pick {
+            padding-top: 20px;
+            p {
+                font-size: 18px;
+                font-family: 'Montserrat';
+            }
+
+            .items {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+
+                .date {
+                    padding-top: 5px;
+                    p {
+                        font-size: 16px;
+                        font-family: 'Montserrat';
+                        color: #525252;
+                    }
+                }
+
+                .time-window {
+                    padding-top: 5px;
+                    .cds--dropdown .cds--list-box__field {
+                        background-color: white;
+                        border-bottom: 1px solid #8d8d8d;
+                    }
+                    p {
+                        font-size: 16px;
+                        color: #525252;
+                    }
+                }
+            }
+        }
+    }
+
+    .customize-experience {
+        .header {
+            font-size: 22px;
+            font-family: 'Montserrat';
+            padding-top: 30px;
+        }
+
+        .checkbox-wait {
+            padding-top:10px;
+            padding-bottom: 3px;
+            font-family: 'Montserrat';
+        }
+
+        .checkbox-assist {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            font-family: 'Montserrat';
+        }
+
+        .checkbox-basic {
+            padding-top: 3px;
+            padding-bottom: 3px;
+            font-family: 'Montserrat';
+        }
+    }
+
+    .delivery-address {
+        .header {
+            font-size: 22px;
+            font-family: 'Montserrat';
+            padding-top: 30px;
+        }
+
+        .address {
+            padding-top: 5px;
+            p {
+                font-size: 16px;
+                color: #525252;
+            }
+        }
+
+        .address-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 10px 20px;
+        }
+    }
+
+}
+
+@media only screen and (max-width: 1056px) {
+    .shopping-bag {
+        justify-content: left !important;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .landing-page {
+        p {
+            font-size: 14px;
+        }
+        span {
+            font-size: 12px;
+            text-align: justify;
+        }
+    }
+
+    .landing-page { 
+        .book-appointment { 
+            .date-time-pick{
+                p {
+                font-size: 16px;
+                }
+                .items{
+                    grid-template-columns: 2fr;
+                    .date{
+                        p{
+                            font-size: 12px;
+                        }
+                    }
+                    .time-window{
+                        p{
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    } 
+
+}
+@media only screen and (max-width: 480px) {
+    .landing-page {
+        p {
+            font-size: 14px;
+        }
+        span {
+            font-size: 12px;
+            text-align: justify;
+        }
+    }
+
+    .landing-page { 
+        .book-appointment { 
+            .date-time-pick{
+                p {
+                font-size: 16px;
+                }
+                .items{
+                    grid-template-columns: 2fr;
+                    .date{
+                        p{
+                            font-size: 12px;
+                        }
+                    }
+                    .time-window{
+                        p{
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    } 
+
+}

@@ -1,0 +1,137 @@
+@import '../../fonts';
+
+.grid-section{
+    background-color: #231F20;
+    padding:0;
+    font-family: 'Montserrat';
+
+    .head-section{
+        margin: 10% 29%;
+
+        @media screen and (max-width: 1200px) {
+            margin: 10% 22%;
+        }
+
+        @media screen and (max-width: 890px) {
+            margin: 10% 16%;
+        }
+
+        @media screen and (max-width: 768px) {
+            margin: 17% 6% 6% 6%;
+        }
+        @media screen and (max-width: 460px) {
+            margin: 26% 6% 9% 6%;
+        }
+        
+        h1{
+            color: white;
+            text-align: center;
+            font-family: 'Montserrat';
+            @media screen and (max-width: 575px) {
+                font-size: 2.5rem;
+                text-align: start;
+            }
+
+            @media screen and (max-width: 460px) {
+                font-size: 2rem;
+                text-align: start;
+            }
+
+            @media screen and (max-width: 375px) {
+                font-size: 1.6rem;
+                text-align: start;
+            }
+        }
+    }
+
+    .brand-row{
+        display: flex;
+        justify-content: space-evenly;
+        margin-left: 20%;
+        flex-wrap: nowrap;
+        flex-direction: row;
+
+        @media screen and (max-width: 1200px) {
+            padding: 7%;
+            margin-left: 9%;
+        }
+
+        .LV{
+            @media screen and (max-width: 1200px) {
+                width: 40%;
+            }
+        }
+
+        .CASSANDRE{
+            @media screen and (max-width: 1200px) {
+                width: 28%;
+            }
+        }
+
+    }
+    
+    button {
+        background-color: #FFFFFF;
+        color: #393939;
+    }
+    
+    .buttons {
+        margin-top: 88px;
+        position: relative;
+        top: 17%;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 18%;
+        > button:first-child {
+          margin-right: 80px;
+          padding: 1% 2%;
+        }
+
+        @media screen and (max-width: 768px) {
+            justify-content: center;
+            margin-right: 0%;
+        }
+    
+        @media (max-width: 500px) {
+          margin-top: 40px;
+    
+          > button:first-child {
+            margin-right: 10px;
+            max-width: 100%;
+            flex: 1;
+            font-size: 13px;
+          }
+        }
+    }
+    
+
+    .brand-column{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-right: 3%;
+        margin-left: 13%;
+        @media screen and (max-width: 1200px) {
+            padding: 7%;
+            margin-right: 7%;
+        }
+
+        img{
+            width:60%;
+            @media screen and (max-width: 1200px) {
+                width: 70%;
+            }
+        }
+    }
+
+    .foot-col{
+        padding: 16%;
+        margin: 0;
+        background-image: url('../../../images/HomeCustomerSection/service-bg.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        @media screen and (max-width: 575px) {
+            padding: 27%;
+        }
+    }
+}

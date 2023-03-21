@@ -1,0 +1,66 @@
+@import '../../fonts';
+
+.landing {
+  font-family: 'Montserrat';
+  color: #FFFFFF;
+
+  .title {
+    margin-top: 150px;
+    font-size: 62px;
+    font-family: 'Montserrat';
+    font-weight: 700;
+  }
+
+  .sub-title {
+    margin-top: 30px;
+    font-size: 42px;
+    font-weight: 400;
+    font-family: 'Montserrat';
+    max-width: 650px;
+  }
+
+  .description {
+    margin-top: 30px;
+    font-size: 24px;
+    font-weight: 400;
+    font-family: 'Montserrat';
+    max-width: 650px;
+  }
+
+  button {
+    background-color: #FFFFFF;
+    color: #393939;
+  }
+
+  .see-more {
+    margin-top: 40px;
+
+    button {
+      @media (max-width: 500px) {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  }
+
+  .buttons {
+    margin-top: 90px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: flex-end;
+
+    > button:first-child {
+      margin-right: 80px;
+    }
+
+    @media (max-width: 500px) {
+      margin-top: 10px;
+
+      > button:first-child {
+        margin-right: 10px;
+        max-width: 100%;
+        flex: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700,800,900&display=swap');
+
+p, span, a, h1, h2, h3, h4, h5, h6, input, button, .cds--btn {
+    font-family: 'Montserrat';
+}
+
+.cds--btn--primary:hover {
+    background-color: #8D8D8D;
+    color: white;
+}
+
+.cds--toggle__switch--checked {
+    background-color: #8D8D8D;
+}
+
+.cds--toggle__button:focus+.cds--toggle__label .cds--toggle__switch, .cds--toggle__button:not(:disabled):active+.cds--toggle__label .cds--toggle__switch, .cds--toggle:active .cds--toggle__switch {
+    box-shadow: 0 0 0 1px var(--cds-focus-inset, #ffffff),0 0 0 3px var(--cds-focus, #d1d1d1);
+}
+

@@ -1,0 +1,69 @@
+@import '../../fonts';
+
+.shopping-bag {
+    display: flex;
+    justify-content: right;
+    font-family: 'Montserrat';
+    .shopping-bag-container {
+        padding-top: 30px;
+        .header {
+            font-size: 22px;
+            font-family: 'SkolaSans';
+        }
+        
+        .items {
+            padding-top: 15px;
+        }
+
+        .service-fee {
+            display: flex;
+            padding-top: 10px;
+            justify-content: space-between;
+            .text {
+                p {
+                    font-size: 15px;
+                    font-weight: bold;
+                    font-family: 'Montserrat';
+                }
+            }
+
+            .cost {
+                p {
+                    font-size: 15px;
+                    font-weight: bold;
+                    font-family: 'Montserrat';
+                }
+            }
+        }
+
+        .instruction {
+         padding-top: 10px;
+         padding-left: 20px;
+        }
+    }
+    
+}
+
+.cds--list--unordered *{
+    text-align: justify;
+}
+
+@media only screen and (max-width: 480px) {
+    .shopping-bag {
+        .shopping-bag-container{
+            .service-fee{
+                .cost{
+                    padding-left: 0;
+                    p{
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+
+    .cds--list__item{
+        font-size: 12px!important;
+    }
+    
+}

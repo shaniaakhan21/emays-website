@@ -1,0 +1,274 @@
+$carbon-xs-max: 31.25em; // 500px
+$carbon-sm-max: 42.5em; // 680px
+$carbon-md-max: 64em;   // 1024px 
+@import '../../fonts';
+
+.container-shop{
+    font-family: 'Montserrat';
+    .store-at-home{
+        position: relative;
+        left: 20%;
+        @media screen and (max-width: $carbon-md-max) {
+            bottom: 14pc;
+            left: 54%;
+        }
+
+        @media screen and (max-width: $carbon-sm-max) {
+            width: 37%;
+            bottom: 12pc;
+        }
+
+        @media screen and (max-width: $carbon-xs-max) {
+            display: none;
+        }
+    }
+
+    .store-at-home-xs{
+        display: none;
+
+        @media screen and (max-width: $carbon-sm-max) {
+            display: block;
+            width: 91%;
+            position: relative;
+            top: 2pc;
+            left: 1pc;
+        }
+
+    }
+
+    .save-time{
+        position: relative;
+        left: 38%;
+        bottom: 100px;
+        @media screen and (max-width: $carbon-md-max) {
+            bottom: 22pc;
+            left: 10%;
+        }
+        @media screen and (max-width: $carbon-sm-max) {
+            width: 37%;
+        }
+        @media screen and (max-width: $carbon-xs-max) {
+            display: none;
+        }
+    }
+
+    .save-time-xs{
+        display: none;
+        @media screen and (max-width: $carbon-sm-max) {
+            display: block;
+            position: relative;
+            width: 91%;
+            top: 6pc;
+            left: 1pc;
+        }
+    }
+
+    .schedule-event{
+        position: relative;
+        left: 10%;
+        bottom: 91px;
+        @media screen and (max-width: $carbon-md-max) {
+            bottom: 30pc;
+            left: 33pc;
+        }
+
+        @media screen and (max-width: $carbon-sm-max) {
+            width: 37%;
+            left: 24pc;
+            bottom: 27pc;
+        }
+
+        @media screen and (max-width: $carbon-xs-max) {
+            display: none;
+        }
+    }
+
+    .schedule-event-xs{
+        display: none;
+        @media screen and (max-width: $carbon-sm-max) {
+            display: block;
+            position: relative;
+            width: 91%;
+            top: 12pc;
+            left: 1pc;
+        }
+    }
+
+    .position-climate{
+        position: relative;
+        left: 9%;
+        bottom: 205px;
+        @media screen and (max-width: $carbon-md-max) {
+            width: 56%;
+            left: 13pc;
+            bottom: 23pc;
+        }
+        
+        @media screen and (max-width: $carbon-sm-max) {
+            left: 0pc;
+            width: 39%;
+            bottom: 25pc;
+        }
+
+        @media screen and (max-width: $carbon-xs-max) {
+            width: 100%;
+            bottom: -14pc;
+        }
+
+        h2{           
+            font-family: 'Montserrat'; 
+            @media screen and (max-width: $carbon-sm-max) {
+                text-align: center;
+            }
+
+            @media screen and (max-width: $carbon-xs-max) {
+                text-align: start;
+            }
+        }
+
+        h3{
+            font-family: 'Montserrat';
+            @media screen and (max-width: $carbon-sm-max) {
+                text-align: center;
+            }
+
+            @media screen and (max-width: $carbon-xs-max) {
+                text-align: start;
+            }
+        }
+        p{
+            font-family: 'Montserrat';
+            @media screen and (max-width: $carbon-sm-max) {
+                text-align: center;
+            }
+
+            @media screen and (max-width: $carbon-xs-max) {
+                text-align: start;
+            }
+        }
+    }
+
+    .shipping-section__button {
+        background-color: white;
+        color: #393939;
+        padding: 1rem 2rem;
+        border-radius: 4px;
+        border: none;
+        font-family: 'Montserrat';
+        border-radius: 0;
+        font-weight: 500;
+
+        @media screen and (max-width: $carbon-xs-max) {
+            width: 100%;
+        }
+
+    }
+
+    .shipping-section__right{
+        position: relative;
+        width: 35%;
+        left: 54%;
+        bottom: 8pc;
+        @media screen and (max-width: $carbon-md-max) {
+            bottom: 25pc;
+            left: 28.5pc;
+        }
+
+        @media screen and (max-width: $carbon-sm-max) {
+            width: 49%;
+            bottom: 21pc;
+            left: 20pc;
+        }
+
+        
+        @media screen and (max-width: $carbon-xs-max) {
+            left: -0.2pc;
+            bottom: -8pc;
+            width: 100%;
+        }
+
+    }
+
+    button {
+        background-color: #FFFFFF;
+        color: #393939;
+        margin-right: 10px;
+        font-family: 'Montserrat';
+        font-weight: 500;
+
+        @media screen and (max-width: $carbon-xs-max) {
+            margin-left: 30px;
+            margin-right: 19px;
+        }
+
+        .cds--icon-tooltip {
+            @media screen and (max-width: $carbon-xs-max) {
+                width: 12%;
+            } 
+        }
+    }
+
+    .grid-box{
+        position: relative;
+        bottom: 158px;
+        right: 5%;
+        @media screen and (max-width: $carbon-md-max) {
+            bottom: 24pc;
+        }
+
+        @media screen and (max-width: $carbon-xs-max) {
+            background-color: #231f20;
+            bottom: -14pc;
+            padding: 4% 5% 39% 4%;
+            left: 0;
+        }
+    }
+
+    .img-climate{
+        text-align: end;
+        @media screen and (max-width: $carbon-sm-max) {
+            text-align: center;
+            margin-left: 5pc;
+            margin-top: 1pc;
+        }
+
+        @media screen and (max-width: $carbon-xs-max) {
+            margin: 0;
+        }
+
+        
+        .climate{
+            @media screen and (max-width: $carbon-sm-max) {
+                width: 47%;
+            }
+
+            @media screen and (max-width: $carbon-xs-max) {
+                display: none;
+            }
+        }
+
+        .climate-xs{
+            display: none;
+            @media screen and (max-width: $carbon-xs-max) {
+                display: block;
+            }
+        }
+    }
+
+    .read-more{
+        position: relative;
+        top: 32px;
+
+        @media screen and (max-width: $carbon-sm-max) {
+            left: 3pc;
+            top: 6pc;
+        }
+
+        @media screen and (max-width: $carbon-xs-max) {
+            top: 2pc;
+            left: -34px;
+            width: 100%;
+        }
+    }
+
+}

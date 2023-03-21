@@ -1,0 +1,93 @@
+@import '../../fonts';
+
+.letsTalk {
+  margin-top: 120px;
+  margin-bottom: 20px;
+  font-family: 'Montserrat';
+
+  label {
+    color: #FFFFFF;
+  }
+
+  .left {
+    padding: 20px 60px 20px 80px;
+
+    @media (max-width: 950px) {
+      padding: 10px 20px 10px 20px;
+    }
+
+    .form {
+      .title {
+        color: #FFFFFF;
+        font-weight: 400;
+        font-family: 'Montserrat';
+        font-size: 42px;
+        margin-bottom: 40px;
+      }
+
+      .message textarea {
+        width: 100%;
+      }
+
+      .privacy .cds--checkbox-label:before {
+        border-color: #FFFFFF;
+      }
+
+      > div {
+        margin-top: 20px;
+      }
+
+      .submit {
+        background: #FFFFFF;
+        color: #231F20;
+        width: 50%;
+      }
+    }
+  }
+  .right {
+    padding-top: 200px;
+
+    @media (max-width: 671px) {
+      padding-top: 20px;
+    }
+
+    .logo {
+      width: 120px;
+    }
+
+    > div {
+      display: flex;
+      color: #FFFFFF;
+      margin-top: 15px;
+
+      > div {
+        display: flex;
+        flex-direction: column;
+        margin-left: 15px;
+
+        span {
+          font-weight: 400;
+          font-family: 'Montserrat';
+
+          &.title {
+            font-weight: 700;
+            font-size: 18px;
+          }
+        }
+      }
+    }
+
+    .social {
+      margin-top: 20px;
+
+      > a {
+        margin-right: 15px;
+
+        img {
+          height: 20px;
+          width: 20px;
+        }
+      }
+    }
+  }
+}

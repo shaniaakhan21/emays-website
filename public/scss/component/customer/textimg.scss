@@ -1,0 +1,78 @@
+@import '../../fonts';
+
+.text-img-section{
+    padding-bottom: 7%!important;
+    font-family: 'Montserrat';
+
+    @media (max-width: 1050px) {
+        padding: 0!important;
+    }
+    .img-position{
+        margin-left: -4%!important;
+        h1{
+            font-size: 35px;
+            text-align: start;
+        }
+        @media (max-width: 920px) {
+            margin: 7%!important;
+        }
+        img{
+            position: relative;
+            top: 70px;
+            @media (max-width: 920px) {
+                width: 27%;
+            }
+        }
+
+        .margin-left-21{
+            margin-left: 21%;
+            @media (max-width: 920px) {
+                font-size: 30px;
+                margin-left: 30%;
+            }
+        }
+
+        .margin-top-4{
+            margin-top: 4%;
+        }
+
+        .cds--btn--primary{
+            background-color: #231f20;
+            text-align: center;
+            padding: 1%;
+            border: 1px solid white;
+            color: var(--cds-text-on-color, #ffffff);
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            margin-top: 6%;
+        }
+
+        .cds--btn{
+            max-width: 100%;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    .Img-Position{
+        margin: 4%;
+
+        @media (max-width: 920px) {
+            margin: 10% 8% 0 8%;
+        }
+
+        @media screen and (max-width: 768px) {
+            margin: 10% 8% 8%;
+        }
+
+        img{
+
+            @media (max-width: 920px) {
+                width: 70%;
+            }
+        }
+    }
+}

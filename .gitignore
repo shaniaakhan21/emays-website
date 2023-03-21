@@ -6,3 +6,31 @@
 
 # cache
 /.parcel-cache
+
+# Webstorm
+.idea
+
+coverage
+lerna-debug.log
+npm-debug.log
+npm-debug.log*
+yarn-error.log*
+junit.xml
+package-lock.json
+
+*.tsbuildinfo
+api-extractor.json
+
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored but nested for e2e directories
+**/.yarn/*
+!**/.yarn/patches
+!**/.yarn/releases
+!**/.yarn/plugins
+!**/.yarn/sdks
+!**/.yarn/versions
+**/.pnp.*
+
+crowdin-cli.jar
+
+# We don't want these temp files
+packages/jest-worker/src/workers/__tests__/__temp__

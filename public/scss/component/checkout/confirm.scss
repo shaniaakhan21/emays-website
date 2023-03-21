@@ -1,0 +1,304 @@
+@import '../../fonts';
+
+.landing-page {
+    background-color: white;
+    padding-top: 40px;
+    font-family: 'Montserrat';
+
+    p {
+        font-family: 'Montserrat';
+    }
+
+    .your-appointment {
+        padding-top: 25px;
+        .edit-appointment {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .text {
+                p {
+                    font-size: 22px;
+                }
+            }
+
+            .edit-button {
+                display: flex;
+                flex-direction: row;
+                a {
+                    font-weight: bold;
+                    font-size: 12px;
+                    padding-left: 10px;
+                    font-family: 'Montserrat';
+                    color: black;
+                }
+
+                a:hover {
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+
+                img {
+                    height: 20px;
+                    width: 20px;
+                }
+            }
+        }
+
+        .user-appointment-info {
+            display: flex;
+            flex-direction: column;
+
+            .date-time {
+                padding-top: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                width: 210px;
+
+                .date, .hour {
+                    p {
+                        font-size: 18px;
+                        font-family: 'Montserrat';
+                    }
+
+                    .value {
+                        padding-top: 10px;
+                        p {
+                            font-size: 16px;
+                            font-family: 'Montserrat';
+                        }
+                    }
+                }
+
+            }
+
+            .selected-experience, .delivery-address {
+                padding-top: 20px;
+                p {
+                    font-size: 18px;
+                    font-family: 'Montserrat';
+                }
+                .value {
+                    padding-top: 10px;
+                    p {
+                        font-size: 16px;
+                    }
+                }
+            }
+
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            .text {
+                padding-top: 40px;
+                p {
+                    font-size: 22px;
+                    font-family: 'Montserrat';
+                }
+            }
+
+            .info-text {
+                padding-top: 10px;
+                p {
+                    font-size: 16px;
+                    font-family: 'Montserrat';
+                }
+            }
+
+            .user-contact-name, .user-contact-email-number {
+                padding-top: 20px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+
+                p {
+                    font-size: 16px;
+                    font-family: 'Montserrat';
+                    color: #525252;
+                }
+
+            }
+
+        }
+        
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .landing-page {
+        font-family: 'Montserrat';
+        p {
+            font-size: 14px;
+        }
+        span {
+            font-size: 12px;
+            text-align: justify;
+        }
+    }
+
+    .landing-page { 
+        .your-appointment { 
+            .edit-appointment{
+               .text{
+                p{
+                    font-size: 16px;
+                }
+               }
+            }
+
+            .user-appointment-info{
+                .date-time{
+                    .date{
+                        p{
+                            font-size: 14px;
+                        }
+                    }
+
+                    .hour{
+                        p{
+                            font-size: 14px!important;
+                        }
+
+                        .value{
+                            p{
+                                font-size: 12px!important;
+                            }
+                        }
+
+                    }
+                }
+
+                .selected-experience{
+                    p{
+                        font-size: 14px;
+                    }
+                }
+
+                .delivery-address{
+                    p{
+                        font-size: 14px;
+                    }
+                }
+
+            }
+            .contact-details{
+                .text{
+                    p{
+                        font-size: 16px;
+                    }
+                }
+    
+                .info-text{
+                    p{
+                        font-size: 14px;
+                    }
+                }
+    
+                .user-contact-name{
+                    p{
+                        font-size: 14px;
+                    }
+                }
+    
+                .user-contact-email-number{
+                    p{
+                        font-size: 14px;
+                    }
+                }
+            }
+    
+        }
+
+    } 
+
+}
+@media only screen and (max-width: 480px) {
+    .landing-page {
+        p {
+            font-size: 14px;
+        }
+        span {
+            font-size: 12px;
+            text-align: justify;
+        }
+    }
+
+    .landing-page { 
+        .your-appointment { 
+            .edit-appointment{
+               .text{
+                p{
+                    font-size: 16px;
+                }
+               }
+            }
+
+            .user-appointment-info{
+                .date-time{
+                    .date{
+                        p{
+                            font-size: 14px;
+                        }
+                    }
+
+                    .hour{
+                        p{
+                            font-size: 14px!important;
+                        }
+
+                        .value{
+                            p{
+                                font-size: 12px!important;
+                            }
+                        }
+
+                    }
+                }
+
+                .selected-experience{
+                    p{
+                        font-size: 14px;
+                    }
+                }
+
+                .delivery-address{
+                    p{
+                        font-size: 14px;
+                    }
+                }
+
+            }
+            .contact-details{
+                .text{
+                    p{
+                        font-size: 16px;
+                    }
+                }
+    
+                .info-text{
+                    p{
+                        font-size: 14px;
+                    }
+                }
+    
+                .user-contact-name{
+                    p{
+                        font-size: 14px;
+                    }
+                }
+    
+                .user-contact-email-number{
+                    p{
+                        font-size: 14px;
+                    }
+                }
+            }
+    
+        }
+
+    } 
+
+}

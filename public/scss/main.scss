@@ -1,1 +1,21 @@
+
 @use '@carbon/react';
+
+@font-face {
+    font-family: 'SkolaSans';
+    src: url('../fonts/SkolaSans400.otf') format("opentype");
+}
+
+.message-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    > div {
+        margin-top: 3px;
+    }
+}

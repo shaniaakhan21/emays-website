@@ -3,7 +3,21 @@
 import * as path from 'path';
 import * as express from 'express';
 import { config } from '../config/config';
-import Logger from '../logger';
+import LogType from '../const/logType';
+import { Roles } from '../const/roles';
+import { IJWTBuildData, IJWTClaims, JWT_TYPE } from '../type/IJWTClaims';
+import { generateJWT } from '../util/jwtUtil';
+import { Logger } from '../log/logger';
+import { buildErrorMessage,
+    buildInfoMessageMethodCall, buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
+import { validateJWTToken } from '../middleware/jwtTokenValidationMiddleware';
+import { getExternalSystemById } from '../service/externalSystemService';
+import ServiceError from '../type/error/ServiceError';
+import ErrorType from '../const/errorType';
+import { HTTPUserError } from '../const/httpCode';
+import { NOT_AUTHORIZED_TO_ACCESS_EMAYS_ERROR_MESSAGE } from '../const/errorMessage';
+
+const Logging = Logger(__filename);
 
 /**
  * Build the UI entry point path
@@ -12,38 +26,78 @@ import Logger from '../logger';
  */
 export const buildAppLaunchPath = async (file: string): Promise<string> => {
     try {
-        Logger.info('Application launch path is being built.');
+        Logging.log(buildInfoMessageMethodCall(
+            'Build launch path', `File: ${file}`), LogType.INFO);
         const pathToUI: string = await new Promise((resolve) => {
             const serverJsPath: unknown = require.main?.filename;
             const pathToUI = `${path.
                 dirname(
                     serverJsPath as string)}${config?.UI_VERSIONS_LOCATION}/${file}`;
-            Logger.info(`Application launch path has been built successfully. Path: ${pathToUI}`);
+            Logging.log(buildInfoMessageUserProcessCompleted(
+                'Build launch path', `File: ${file}`), LogType.INFO);
             return resolve(pathToUI);
         });
         return pathToUI;
     } catch (error) {
         const errorObject: Error = error as Error;
-        Logger.error(`Failed to build the application launch path.
-        Error stack: ${errorObject.stack as string}.`);
+        Logging.log(buildErrorMessage(errorObject, 'Build launch path'), LogType.ERROR);
         throw error;
     }
 };
 
 /**
- * Middleware to authorize launch routes
+ * Middleware to authorize the main launch route
  * @param req: express.Request
  * @param res: express.Response
  * @param next: express.NextFunction
  */
 export const authorizeLaunchRoute = (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-        Logger.info('Authorization is being done.');
+        Logging.log(buildInfoMessageMethodCall(
+            'Authorize launch', ''), LogType.INFO);
+        const requestBody = req.body as {authToken: string};
+        const token = requestBody.authToken;
+        const claims = validateJWTToken(token) as unknown as IJWTClaims;
+        if (claims.roles.includes(Roles.EXTERNAL_SYSTEM)) {
+            (async () => {
+                await getExternalSystemById(claims.id);
+            })().catch(error => { throw error; });
+        } else {
+            throw new 
+            ServiceError(ErrorType.ORDER_SERVICE_ERROR, NOT_AUTHORIZED_TO_ACCESS_EMAYS_ERROR_MESSAGE, '', HTTPUserError.
+                UNAUTHORIZED_CODE);
+        }
         next();
     } catch (error) {
         const errorObject: Error = error as Error;
-        Logger.error(`Authorization failed.
-        Error stack: ${errorObject.stack as string}.`);
+        Logging.log(buildErrorMessage(errorObject, 'Authorize launch'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Generate JWT for session 
+ * @param req: express.Request
+ * @param res: express.Response
+ * @param next: express.NextFunction
+ * @returns token: string
+ */
+export const getJWTForSession = (uuid: string): string => {
+    try {
+        const role: Roles = Roles.CLIENT;
+        Logging.log(buildInfoMessageMethodCall(
+            'JWT token get', `User Id: ${uuid}`), LogType.INFO);
+        const tokenBuildData: IJWTBuildData = {
+            id: uuid,
+            roles: role
+        };
+        const token: string = generateJWT(tokenBuildData, JWT_TYPE.SHORT_LIVE);
+        Logging.log(buildInfoMessageUserProcessCompleted(
+            'JWT token get', `User Id: ${uuid}`), LogType.INFO);
+        return token;
+    } catch (error) {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'JWT token get'), LogType.ERROR);
         throw error;
     }
 };
