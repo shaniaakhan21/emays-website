@@ -17,5 +17,6 @@ export const CHECKOUT_INFO = 'checkoutInfo';
 export const SELECTED_OPTIONS_KEY = 'selectedOptions';
 
 export const USER_DATA = 'userData';
+export const RETAILER_DATA = 'retailerData';
 // CUSTOMER UI
 export const CUSTOMER_UI = 'customerUI';

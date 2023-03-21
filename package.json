@@ -5,12 +5,12 @@
   "private": true,
   "scripts": {
     "dev-build": "tsc && env-cmd --no-override -e development vite build",
-    "build": "tsc && env-cmd --no-override -e qa node vite build",
+    "build": "tsc && env-cmd --no-override -e production vite build",
     "dev-start": "env-cmd --no-override -e development node ./app-dist/dev-server.js",
     "watch-script": "tsc && env-cmd --no-override -e development && yarn dev-start",
     "watch-ui": "vite build --watch",
     "watch-server": "nodemon --exec yarn watch-script",
-    "start": "env-cmd --no-override -e qa node ./app-dist/server.js",
+    "start": "env-cmd --no-override -e production node ./app-dist/server.js",
     "lint": "eslint . --ext .ts --ext .jsx --ext .js ./public --quiet",
     "test": "jest",
     "prepare": "husky install"
