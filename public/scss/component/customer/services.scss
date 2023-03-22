@@ -75,10 +75,6 @@
 
     }
     
-    button {
-        background-color: #FFFFFF;
-        color: #393939;
-    }
     
     .buttons {
         margin-top: 88px;
@@ -144,32 +140,28 @@
         }
     }
 
-    @keyframes MarqueeLeft {
-        0% {
-          right: -100%;
-        }
-        100% {
-          right: 820%;
-        }
+    .slick-initialized .slick-slide {
+        width: 100%;
     }
-    
-    .marquee { 
+
+    .carousel-on-phone{
         display: none;
         @media screen and (max-width: 575px) {
-            display: flex!important;
-            flex-direction: row-reverse!important;
-            flex-wrap: nowrap!important;
-            justify-content: space-evenly!important;
-            overflow: hidden!important;
-            position: relative!important;
-            animation: MarqueeLeft linear 20s infinite!important;
-            width: max-content!important;
-
-            img{
-                padding: 1%;
+            display: block;
+            position: relative;
+            left: 63%;
+            width: 200%;
+            margin: 0 17%;
+            top: 8%;
+            .grid-section button {
+                background-color: #231F20!important;
             }
         }
-
-  
     }
+
+    .slick-slide img {
+        width: 100%;
+    }
+
+
 }

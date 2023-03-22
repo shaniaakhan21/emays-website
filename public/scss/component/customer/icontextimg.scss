@@ -19,6 +19,11 @@
             margin-top: 3rem;
             position: relative;
         }
+
+        @media screen and (max-width: 575px) {
+            display: none;
+        }
+
         img{
            
             @media screen and (max-width: 920px) {
@@ -36,6 +41,10 @@
         @media screen and (max-width: 675px) {
             margin: 0% 14% 9% 14%;
             text-align:center;
+        }
+
+        @media screen and (max-width: 575px) {
+            display: none;
         }
 
         
@@ -69,7 +78,7 @@
             font-weight: 400;
             font-size: 20px;
             @media screen and (max-width: 768px) {
-                text-align: justify;
+                text-align: end;
                 font-size: 18px;
             }
         }
@@ -77,5 +86,16 @@
 
     img{
         border-radius: 80px;
+    }
+
+    .phone-mountain-img{
+        display: none;
+        @media screen and (max-width: 575px) {
+            display: block;
+            margin: 5% 2% 0% 2%;
+            img{
+                width: 100%!important;
+            }
+        }
     }
 }

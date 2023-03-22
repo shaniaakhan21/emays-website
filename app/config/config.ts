@@ -48,7 +48,7 @@ export const config = {
     DB: {
         MONGODB_USER: MONGODB_USER || 'root',
         MONGODB_PASSWORD: MONGODB_PASSWORD || '123456',
-        MONGODB_HOST: MONGODB_HOST || '172.17.0.2',
+        MONGODB_HOST: MONGODB_HOST || 'localhost',
         MONGODB_DOCKER_PORT: MONGODB_DOCKER_PORT || 27017,
         MONGODB_DATABASE: MONGODB_DATABASE || 'emays_service_db'
     },

@@ -10,9 +10,14 @@ const Nav = () => {
     const [t] = useTranslation();
     const [isRetailer, setIsRetailer] = useSessionState('uiState', false);
     const [showMenu, setShowMenu] = useState(false);
-    const handleToggleChange = () => {
-        setIsRetailer(cs => !cs);
-    };
+    const handleToggleChange = useCallback(() => {
+        setIsRetailer((prevIsRetailer) => !prevIsRetailer);
+        if (isRetailer) {
+            window.location.href = '#/';
+        } else {
+            window.location.href = '#/retailer';
+        }
+    }, [isRetailer]);
 
     const handleMenuClick = () => {
         setShowMenu(!showMenu);

@@ -1,5 +1,7 @@
 import { Grid, Column as Col, Search, Tag, Accordion, AccordionItem } from '@carbon/react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import { useTranslation } from 'react-i18next';
 
 // SCSS
@@ -17,23 +19,31 @@ const FAQForm = () => {
     const [translate] = useTranslation();
     
     const t = (key) => translate(`common.faq.${key}`);
+
+    useEffect(() => {
+        AOS.init();
+    }, []);
     
     return (
         <Grid fullWidth className='faq'>
-            <Col lg={16} md={8} sm={4} xs={4}>
+            <Col lg={16} md={8} sm={4} xs={4} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' >
                 <h1 className='header'>{t('title')}</h1>
             </Col>
-            <Col lg={16} md={8} sm={4} xs={4}>
+            <Col lg={16} md={8} sm={4} xs={4} data-aos='fade-in' data-aos-easing='linear' 
+                data-aos-duration='1000' data-aos-delay='300' >
                 <Search className='search' />
             </Col>
-            <Col lg={16} md={8} sm={4} xs={4} className='tags'>
+            <Col lg={16} md={8} sm={4} xs={4} className='tags' 
+                data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='500'>
                 <Tag className='tag' filter onClose={() => {}}>Payment</Tag>
                 <Tag className='tag' filter onClose={() => {}}>Payment</Tag>
                 <Tag className='tag' filter onClose={() => {}}>Payment</Tag>
                 <Tag className='tag' filter onClose={() => {}}>Payment</Tag>
                 <Tag className='tag' filter onClose={() => {}}>Payment</Tag>
             </Col>
-            <Col lg={8} md={8} sm={4} xs={4} className='list'>
+            <Col lg={8} md={8} sm={4} xs={4} className='list' data-aos='fade-in' 
+                data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='700' >
+
                 <Accordion>
                     <AccordionItem title='Where is this service available?'>{text}</AccordionItem>
                     <AccordionItem title='How do I place my order'>{text}</AccordionItem>
@@ -43,7 +53,8 @@ const FAQForm = () => {
                     <AccordionItem title='What if I don’t want to keep the pieces'>{text}</AccordionItem>
                 </Accordion>
             </Col>
-            <Col lg={8} md={8} sm={4} xs={4} className='list list-2'>
+            <Col lg={8} md={8} sm={4} xs={4} className='list list-2' data-aos='fade-in' 
+                data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='700' >
                 <Accordion>
                     <AccordionItem title='Where is this service available?'>{text}</AccordionItem>
                     <AccordionItem title='How do I place my order'>{text}</AccordionItem>
