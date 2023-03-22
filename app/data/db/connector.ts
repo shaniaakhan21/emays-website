@@ -50,11 +50,9 @@ export const disconnect = async () => {
 };
 
 export const prepareDBConnectionURL = (): string => {
-    const { MONGODB_USER, MONGODB_PASSWORD, MONGODB_HOST, MONGODB_DOCKER_PORT, MONGODB_DATABASE } = config.DB;
-    const databaseURL: string = 'mongodb://'.concat(`${MONGODB_USER}:${MONGODB_PASSWORD}`).
-        concat(`@${MONGODB_HOST}:${MONGODB_DOCKER_PORT}`).
-        concat(`/${MONGODB_DATABASE}?authSource=admin`);
-    Logging.log(buildInfoMessageMethodCall('Build db path', `Path: ${databaseURL}`), LogType.ERROR);
+    const { MONGO_URL } = config.DB;
+    Logging.log(buildInfoMessageMethodCall('Build db path', `Path: ${MONGO_URL}`), LogType.ERROR);
     // Return databaseURL;
-    return databaseURL;
+    return MONGO_URL;
 };
+
