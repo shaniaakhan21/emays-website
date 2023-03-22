@@ -22,7 +22,10 @@ export interface IOrder {
         addThree: string,
         addFour: string
     },
-    orderItems: Array<Order> 
+    orderItems: Array<Order>,
+    createdAt?: Date,
+    history?: Array<Date>,
+    paymentRef?: string
 }
 export interface IOrderDTO {
     _id?: ObjectId,
@@ -44,7 +47,10 @@ export interface IOrderDTO {
         addThree: string,
         addFour: string
     },
-    orderItems: Array<Order> 
+    orderItems: Array<Order>,
+    createdAt?: Date,
+    history?: Array<Date>,
+    paymentRef?: string
 }
 
 export interface Order {
@@ -73,4 +79,7 @@ export interface IPatchOrder {
         addThree: string,
         addFour: string
     },
+    createdAt?: Date,
+    history?: Array<Date>,
+    paymentRef?: string
 }
