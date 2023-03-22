@@ -51,11 +51,15 @@
     @media (min-width: 42rem) {
 
       &:nth-child(odd) {
-        flex-direction: row-reverse;
+        flex-direction: row;
       }
 
       &:nth-child(even) {
-        flex-direction: row;
+        flex-direction: row-reverse;
+        
+        .details{
+          padding-left: 0px;
+        }
       }
     }
 
@@ -75,11 +79,11 @@
         border-radius: 30px;
 
         @media (min-width: 42rem) {
-          border-radius: 50px;
+          border-radius: 38px;
         }
 
         @media (min-width: 66rem) {
-          border-radius: 80px;
+          border-radius: 38px;
         }
 
         img {
@@ -139,4 +143,3 @@
   }
 }
 
-@import 'marquee.fragment';

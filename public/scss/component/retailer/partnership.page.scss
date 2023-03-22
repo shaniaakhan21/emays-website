@@ -27,6 +27,7 @@
       h2 {
         font-size: 34px;
         font-weight: 800;
+        text-transform: uppercase;
       }
       p {
         font-size: 20px;
@@ -128,8 +129,6 @@
         &:last-child {
           text-align: right;
           width: 100px;
-          @media (max-width: 66rem) {
-          }
         }
       }
     }
@@ -163,31 +162,47 @@
 
   .logos {
     margin-bottom: 40px;
+    .marquee {
+      display: flex;
+      flex: 1;
 
-    @media (min-width: 66rem) {
-      .marquee {
+      .marquee__group {
         display: flex;
+        justify-content: space-around;
         flex: 1;
-
-        .marquee__group {
-          display: flex;
-          justify-content: space-around;
-          flex: 1;
-          align-items: center;
-        }
+        align-items: center;
       }
     }
+    .marquee{
+      @media screen and (max-width: 575px) {
+        display: none;
+      }
+    }
+
   }
 }
 
-.partners-footer {
-  object-fit: cover;
+.slick-initialized .slick-slide {
   width: 100%;
-  display: none;
+}
 
-  @media (min-width: 42rem) {
-    display: block;
+.carousel-on-phone{
+  display: none;
+  @media screen and (max-width: 575px) {
+      display: block;
+      position: relative;
+      left: 63%;
+      width: 200%;
+      margin: 0 17%;
+      top: 8%;
+      .grid-section button {
+          background-color: #231F20!important;
+      }
   }
 }
 
-@import 'marquee.fragment';
+.slick-slide img {
+  width: 100%;
+}
+
+

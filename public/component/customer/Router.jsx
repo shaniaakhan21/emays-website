@@ -63,7 +63,6 @@ const CustomerRouter = () => {
             <Route path='/shop-with-us' component={() => <ShopWithUs />}/>
             <Route path='/letsTalk' component={() => <RetailerLetsTalk />} />
             <Route path='/faq' component={() => <RetailerFAQs />} />
-            <Route path='/landing' component={() => <RetailerLanding />} />
             <Route path='/integration' component={() => <RetailerIntegration />} />
             <Route path='/partnership' component={() => <RetailerPartnership />} />
         </Switch>

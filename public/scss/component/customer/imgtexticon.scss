@@ -25,5 +25,26 @@
         @media screen and (max-width: 675px) {
             width: 55%;
         }
+
+        @media screen and (max-width: 575px) {
+            display: none;
+        }
+    }
+
+    .CO2-neutral-img{
+        @media screen and (max-width: 575px) {
+            display: none;
+        }
+    }
+
+    .phone-mountain-img{
+        display: none;
+        @media screen and (max-width: 575px) {
+            display: block;
+            margin: 5% 2% 0% 2%;
+            img{
+                width: 100%!important;
+            }
+        }
     }
 }

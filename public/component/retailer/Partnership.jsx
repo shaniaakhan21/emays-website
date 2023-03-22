@@ -1,10 +1,14 @@
-import { Column as Col, Column, Grid } from '@carbon/react';
+import { Column as Col, Column } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import Fade from 'react-reveal/Fade';
+import React, { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
 
 // Components
 import RetailerLayout from '../common/RetailerLayout';
-import { Link } from 'react-router-dom';
 
 // SCSS
 import '../../scss/component/retailer/partnership.page.scss';
@@ -14,25 +18,47 @@ import EmailIcon from '../../icons/email.svg';
 import LouisVuittonLogo from '../../images/logo-louisVuitton.svg';
 import YSLLogo from '../../images/logo-ysl.svg';
 import ChanelPradaLogo from '../../images/logo-chanel-prada.svg';
-import PartnersFooterImage from '../../images/partners_footer.png';
+import PRADA from '../../images/HomeCustomerSection/PRADA.svg';
+import CHANEL from '../../images/HomeCustomerSection/CHANEL.svg';
+import CASSANDRE from '../../images/HomeCustomerSection/CASSANDRE.svg';
 
 const RetailerPartnership = () => {
     const [translate] = useTranslation();
 
     const t = (key) => translate(`retailer.partnership.${key}`);
 
+    useEffect(() => {
+        AOS.init({ once: true });
+    }, []);
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000
+    };
+
     return (
         <>
             <RetailerLayout className='partnership'>
-                <Col lg={16} md={8} sm={4} xs={4}>
+                <Col lg={16} md={8} sm={4} xs={4} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
                     <h1 className='header'>{t('title')}</h1>
                 </Col>
                 <Col lg={8} md={5} sm={4} xs={4} className='infos'>
-                    {[0, 1, 2, 3, 4, 5].map((idx) => (<div className='item'>
-                        <Fade left>
-                            <h2>{t(`infos.${idx}.title`)}</h2>
-                            <p>{t(`infos.${idx}.description`)}</p>
-                        </Fade>
+                    {[0, 1, 2, 3, 4, 5].map((idx) => (<div 
+                        key={idx}
+                        data-aos='fade-right'
+                        data-aos-easing='linear'
+                        data-aos-duration='1000'
+                        data-aos-delay={idx * 300}
+                        className='item'>
+                        
+                        <h2>{t(`infos.${idx}.title`)}</h2>
+                        <p>{t(`infos.${idx}.description`)}</p>
+                        
                     </div>))}
                 </Col>
                 <Col lg={8} md={3} sm={4} xs={4} />
@@ -51,11 +77,17 @@ const RetailerPartnership = () => {
                     </div>
                 </Col>
                 <Col lg={16} md={8} sm={4} xs={4} className='data'>
-                    {[0, 1, 2, 3].map((idx) => (<div className='item'>
-                        <Fade top>
-                            <p>{t(`data.${idx}.title`)}</p>
-                            <p>{t(`data.${idx}.value`)}</p>
-                        </Fade>
+                    {[0, 1, 2, 3].map((idx) => (<div 
+                        key={idx}
+                        data-aos='fade-up'
+                        data-aos-easing='linear'
+                        data-aos-duration='1000'
+                        data-aos-delay={idx * 300}
+                        className='item'>
+                        
+                        <p>{t(`data.${idx}.title`)}</p>
+                        <p>{t(`data.${idx}.value`)}</p>
+                       
                     </div>))}
                 </Col>
                 <Column lg={16} md={8} sm={4} xs={4} className='buttons'>
@@ -67,7 +99,8 @@ const RetailerPartnership = () => {
                         renderIcon={() => <img src={EmailIcon} alt='E-Mail' />}
                     />
                 </Column>
-                <Column lg={16} md={8} sm={4} xs={4} className='logos'>
+                <Column lg={16} md={8} sm={4} xs={4} className='logos'  
+                    data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='300'>
                     <div className='marquee'>
                         <div className='marquee__group'>
                             <img src={LouisVuittonLogo} alt='Louis Vuitton Logo' />
@@ -79,8 +112,24 @@ const RetailerPartnership = () => {
                         </div>
                     </div>
                 </Column>
+                <Column className='carousel-on-phone'>
+                    <Slider {...settings}>
+                        <div>
+                            <img src={LouisVuittonLogo} alt='Image 1' />
+                        </div>
+                        <div>
+                            <img src={CASSANDRE} alt='Image 2' />
+                        </div>
+                        <div>
+                            <img src={CHANEL} alt='Image 3' />
+                        </div>
+                        <div>
+                            <img src={PRADA} alt='Image 4' />
+                        </div>
+                    </Slider>
+                </Column>
             </RetailerLayout>
-            <img src={PartnersFooterImage} alt='Partners Footer' className='partners-footer' />
+            {/* <img src={PartnersFooterImage} alt='Partners Footer' className='partners-footer' /> */}
         </>
     );
 };

@@ -1,3 +1,6 @@
+import React, { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import ShopTextBox from './shop-with-us/ShopTextBox';
 import LocationICON from '../../images/HomeCustomerSection/location--heart.svg';
 import ShopHeader from './shop-with-us/ShopHeader';
@@ -21,6 +24,11 @@ import { useTranslation } from 'react-i18next';
 
 const ShopWithUs = () => {
     const [t] = useTranslation();
+
+    useEffect(() => {
+        AOS.init();
+    }, []);
+
     return (
         <div className='container-shop' style={{ background: '#231F20' }}>  
             <Nav />
@@ -32,8 +40,10 @@ const ShopWithUs = () => {
                 bodyText={t('shop-with-us.first-block.body-text')}
                 customStyle={['position-md']}
             />
-            <img className='store-at-home' src={STOREATHOME} />
-            <img className='store-at-home-xs' src={STOREATHOMEXS} />
+            <img data-aos='zoom-in' data-aos-easing='linear' 
+                data-aos-duration='1000' data-aos-delay='600' className='store-at-home' src={STOREATHOME} />
+            <img data-aos='zoom-in' data-aos-easing='linear' 
+                data-aos-duration='1000' data-aos-delay='600' className='store-at-home-xs' src={STOREATHOMEXS} />
             <ShopTextBox
                 headingText={t('shop-with-us.second-block.head-text')}
                 icon={SAVETHETIME}
@@ -41,8 +51,10 @@ const ShopWithUs = () => {
                 bodyText={t('shop-with-us.second-block.body-text')}
                 customStyle={['position']}
             />
-            <img className='save-time' src={SAVETIMEIMG} />  
-            <img className='save-time-xs' src={SAVETIMEIMGXS} />
+            <img data-aos='zoom-in' data-aos-easing='linear' 
+                data-aos-duration='1000' data-aos-delay='600' className='save-time' src={SAVETIMEIMG} />  
+            <img data-aos='zoom-in' data-aos-easing='linear' 
+                data-aos-duration='1000' data-aos-delay='600' className='save-time-xs' src={SAVETIMEIMGXS} />
             <ShopTextBox
                 headingText={t('shop-with-us.third-block.head-text')}
                 icon={EVENTICON}
@@ -50,8 +62,10 @@ const ShopWithUs = () => {
                 bodyText={t('shop-with-us.third-block.body-text')}
                 customStyle={['position-event']}
             />
-            <img className='schedule-event' src={SCHEDULEIMG} />
-            <img className='schedule-event-xs' src={SCHEDULEIMGXS} />
+            <img data-aos='zoom-in' data-aos-easing='linear' 
+                data-aos-duration='1000' data-aos-delay='600' className='schedule-event' src={SCHEDULEIMG} />
+            <img data-aos='zoom-in' data-aos-easing='linear' 
+                data-aos-duration='1000' data-aos-delay='600' className='schedule-event-xs' src={SCHEDULEIMGXS} />
             <ShopTextBox
                 headingText={t('shop-with-us.fourth-block.head-text')}
                 icon={CO2Neutral}
@@ -61,16 +75,20 @@ const ShopWithUs = () => {
             />
             <Grid className='grid-box'>
                 <Column lg={10} md={4} sm={4} xs={4} className='img-climate'>
-                    <img className='climate' src={CLIMATE} />
-                    <img className='climate-xs' src={CLIMATEXS} />
+                    <img data-aos='zoom-in' data-aos-easing='linear' 
+                        data-aos-duration='1000' data-aos-delay='600' className='climate' src={CLIMATE} />
+                    <img data-aos='zoom-in' data-aos-easing='linear' 
+                        data-aos-duration='1000' data-aos-delay='600' className='climate-xs' src={CLIMATEXS} />
                 </Column>
-                <Column lg={6} md={4} sm={4} xs={4} className='read-more'>
+                <Column data-aos='fade-in' data-aos-easing='linear' 
+                    data-aos-duration='1000' lg={6} md={4} sm={4} xs={4} className='read-more'>
                     <Button className='shipping-section__button'>
                         {t('shop-with-us.fifth-block.btn-text')}
                     </Button>
                 </Column>
             </Grid>  
-            <div className='shipping-section__right buttons'>
+            <div data-aos='fade-in' data-aos-easing='linear' 
+                data-aos-duration='1000' className='shipping-section__right buttons'>
                 <ButtonCustom action={() => {}} text= {t('shop-with-us.fifth-block.email-text')} />
                 <ButtonCustom
                     action={() => {}}
