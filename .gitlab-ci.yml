@@ -1,0 +1,30 @@
+stages:
+  - build
+
+variables:
+  PROJECT_GIT: "git@gitlab.worldce.info/emays"
+  PROJECT_REGISTRY_AWS: "111018148131.dkr.ecr.eu-central-1.amazonaws.com"
+  PROJECT_URI: "emays-website"
+
+build:
+  stage: build
+  only:
+    refs:
+      - master
+  tags:
+    - emays-runner
+  script:
+    - cd /home/gitlab-runner
+    - git clone $PROJECT_GIT/$PROJECT_URI.git $PROJECT_URI-build-$CI_PIPELINE_IID
+    - cd /home/gitlab-runner/$PROJECT_URI-build-$CI_PIPELINE_IID
+    - git checkout $CI_COMMIT_SHA
+    - docker build -t $PROJECT_URI:$CI_PIPELINE_IID .
+  after_script:
+    - |
+      rm -rf /home/gitlab-runner/$PROJECT_URI-build-$CI_PIPELINE_IID
+      if [ "$CI_JOB_STATUS" = "failed" ]; then
+        echo "Cleaning..."
+        rm -rf $CI_PROJECT_DIR
+      else
+        echo "skipped"
+      fi    
