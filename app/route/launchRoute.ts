@@ -9,7 +9,6 @@ import { DataToRender, DevLaunchTemplateData, LaunchRequestBody, LaunchUIContext
 import { authorizeLaunchRoute, buildAppLaunchPath, getJWTForSession } from '../api/launchAPI';
 import { config } from '../config/config';
 import * as core from 'express-serve-static-core';
-import buildRenderData from '../util/buildRenderData';
 import { buildErrorMessage,
     buildInfoMessageRouteHit, buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
@@ -17,6 +16,10 @@ import { validateJWTToken } from '../middleware/jwtTokenValidationMiddleware';
 import { retrieveOrderDetailsByUserId } from '../service/orderService';
 import { Order } from '../type/orderType';
 import { IUser } from '../type/IUserType';
+import { v4 as uuidv4 } from 'uuid';
+import LaunchParamBuilder from '../util/LaunchParamBuilder';
+import { LaunchType } from '../type/ILaunchPayload';
+import { ErrorTemplateMessage } from '../const/errorTemplateMessage';
 
 const Logging = Logger(__filename);
 
@@ -29,10 +32,9 @@ router.get(RoutePath.LAUNCH_MAIL, (
     (async () => {
         validateJWTToken(req.query.authToken);
         // Get token for the session
-        const sessionToken: string = getJWTForSession();
-
         const uuid = req.query.uuid;
-        const launchType = req.query.launchType;
+        const launchType = req.query.launchType as LaunchType;
+        const sessionToken: string = getJWTForSession(uuid);
         Logging.log(buildInfoMessageRouteHit(req.path, `launching email for user ${uuid}`), LogType.INFO);
 
         // Get all order data
@@ -67,16 +69,17 @@ router.get(RoutePath.LAUNCH_MAIL, (
         const cleanedUser = stringifyUser.replace(/\\/g, '');
 
         const applicationPath: string = await buildAppLaunchPath(config.UI_APP_ENTRY_POINT);
-
-        const cleanedLaunchType = JSON.stringify(launchType).replace(/[\\"]/g, '');
-
-        return res.render(applicationPath, buildRenderData(sessionToken, cleanedOrder, cleanedUser)
-            .email(cleanedLaunchType));
+        const paramBuilder = new LaunchParamBuilder(launchType);
+        return res.render(applicationPath, paramBuilder.makeAuthentic(sessionToken)
+            .makeProductPayload(cleanedOrder).makeUserPayload(cleanedUser).build());
 
     })().catch((error) => {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'launch email'), LogType.ERROR);
-        next(error);
+        buildAppLaunchPath(config.ERROR_TEMPLATE).then((path) => {
+            return res.render(path, { errorTitle: ErrorTemplateMessage.LAUNCH_ERROR_EMAIL_HEADER,
+                errorDescription: ErrorTemplateMessage.LAUNCH_ERROR_EMAIL_MESSAGE });
+        }).catch(err => next(error));
     });
 });
 /**
@@ -95,27 +98,31 @@ router.get(RoutePath.DEV_LAUNCH, (req: express.Request, res: express.Response): 
     })().catch((error) => {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'launch dev app'), LogType.ERROR);
-        /*
-         * Need to display error template in the app.ts since
-         * there is no UI to cater the error message at this stage (due to form submit)
-         */
     });
 });
 
 /**
  * To accept the launch request and render the UI
  */
-router.post(RoutePath.LAUNCH, authorizeLaunchRoute, (req: express.Request,
+router.post(RoutePath.LAUNCH, (req: express.Request,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
+        authorizeLaunchRoute(req, res, next);
         Logging.log(buildInfoMessageRouteHit(req.path, 'launch ui'), LogType.INFO);
-        // TODO make it an array when we integrate this with shopping cart
         const requestBody: LaunchRequestBody = req.body as LaunchRequestBody;
 
         // Get token for the session
-        const sessionToken: string = getJWTForSession();
+        const uuid: string = uuidv4();
+        const sessionToken: string = getJWTForSession(uuid);
 
-        // TODO: For the moment, I manually create an array. Later we remove this.
+        // Build user UID
+        const onlyUidWithUserData = {
+            uid: uuid
+        };
+        const stringifyUserData = JSON.stringify(onlyUidWithUserData);
+        const cleanedUserData = stringifyUserData.replace(/\\/g, '');
+
+        // TODO: remove this and take product payload from the request directly using req.body.productList
         const launchTemplateData: Array<LaunchUIContext> = [{
             productName: requestBody.productName,
             productColor: requestBody.productColor,
@@ -125,66 +132,36 @@ router.post(RoutePath.LAUNCH, authorizeLaunchRoute, (req: express.Request,
             productImage: requestBody.productImage,
             productDeliveryInformation: requestBody.productDeliveryInformation
         }];
-        const applicationPath: string = await buildAppLaunchPath(config.UI_APP_ENTRY_POINT);
         const stringify = JSON.stringify(launchTemplateData);
-        const cleaned = stringify.replace(/\\/g, '');
+        const cleanedProduct = stringify.replace(/\\/g, '');
 
-        const productData: DataToRender = { 'productList': cleaned, token: sessionToken };
+        // TODO: remove this and take retailer payload from the request directly using req.body.retailer
+        const retailerData = {
+            // eslint-disable-next-line max-len
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+            retailerEmail: req.body?.retailerEmail
+        };
+        const stringifyRetailerData = JSON.stringify(retailerData);
+        const cleanedRetailerData = stringifyRetailerData.replace(/\\/g, '');
+        
+        const paramBuilder = new LaunchParamBuilder(LaunchType.PRODUCT_LAUNCH);
+
+        const productData: DataToRender = { 'productList': cleanedProduct, token: sessionToken };
         Logging.log(buildInfoMessageUserProcessCompleted('Launch UI app', `order: 
             ${JSON.stringify(productData)}` ), LogType.INFO);
-        return res.render(applicationPath, buildRenderData(sessionToken, cleaned, '').default());
+
+        const applicationPath: string = await buildAppLaunchPath(config.UI_APP_ENTRY_POINT);
+        return res.render(applicationPath, paramBuilder
+            .makeAuthentic(sessionToken).makeProductPayload(cleanedProduct)
+            .makeUserPayload(cleanedUserData).makeRetailerPayload(cleanedRetailerData).build());
 
     })().catch((error) => {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'launch ui app'), LogType.ERROR);
-        next(error);
-        /*
-         * Need to display error template in the app.ts since
-         * there is no UI to cater the error message at this stage (due to form submit)
-         */
-    });
-});
-
-/**
- * This is a test route test email templates
- * ATTENTION: DO NOT CHANGE THE EMAILS TEMPLATES DESIGNS BY LOOKING HOW THEY APPEAR 
- * WHEN YOU CALL THIS ROUTE BECAUSE IN THE EMAIL IT IS TOTALLY DIFFERENT.
- */
-
-router.get('/test', (req: express.Request,
-    res: express.Response, next: express.NextFunction): void => {
-    (async () => {
-        const items = ['name', 'address'];
-
-        const applicationPath: string = await buildAppLaunchPath(config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
-        return res.render(applicationPath, { 'firstName': 'Thathsara', 'date': 'Wed 27, February 2023'
-            , 'finalCost': 1260.00
-            , 'time': '14:00 to 15:00', 'fullName': 'Sample Name Coll iabichino'
-            , 'urlLogo': config.EMAIL_TEMPLATE.URLS.URL_LOGO
-            , 'productFallBackImage': config.EMAIL_TEMPLATE.URLS.PRODUCT_FALL_BACK
-            , 'statusImage': config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_PLACED
-            , 'exclamation': config.EMAIL_TEMPLATE.URLS.EXCLAMATION
-            , 'facebookLink': config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK
-            , 'instagramLink': config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK
-            , 'twitterLink': config.EMAIL_TEMPLATE.URLS.TWITTER_LINK
-            , 'facebookImage': config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE
-            , 'instagramImage': config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE
-            , 'twitterImage': config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE
-            , 'emaysContactUsLink': config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US
-            , 'experience': 'Assist me, Tailoring, Inspire me.', 'address': 'Sample Address, Milano, Italia 06830'
-            , 'items': [{ 'productName': 'Denim shirt', 'productColor': 'blue', 'productSize': 'Large'
-                , 'productQuantity': 2, 'productCost': '10$'
-                , 'productImage': 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN',
-                'productDeliveryInformation': 'extra information' }]
-            , 'uid': '0001147583' });
-    })().catch((error) => {
-        const errorObject: Error = error as Error;
-        Logging.log(buildErrorMessage(errorObject, 'launch ui app'), LogType.ERROR);
-        next(error);
-        /*
-         * Need to display error template in the app.ts since
-         * There is no UI to cater the error message at this stage (due to form submit)
-         */
+        buildAppLaunchPath(config.ERROR_TEMPLATE).then((path) => {
+            return res.render(path, { errorTitle: ErrorTemplateMessage.LAUNCH_ERROR_HEADER,
+                errorDescription: ErrorTemplateMessage.LAUNCH_ERROR_MESSAGE });
+        }).catch(err => next(error));
     });
 });
 

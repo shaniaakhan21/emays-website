@@ -21,6 +21,7 @@ import { CHECKOUT_INFO } from '../../js/const/SessionStorageConst';
 import ErrorBoundary from '../ErrorBoundary';
 import { saveOrder } from '../../services/order';
 import { useMessage } from '../common/messageCtx';
+import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
 
 const Confirm = () => {
 
@@ -41,9 +42,10 @@ const Confirm = () => {
     const submit = useCallback(async () => {
         try {
             const commonData = {
-                uid: '123456789',
-                retailerEmail: 'test@grr.la',
-                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+                uid: getUserData().uid,
+                retailerEmail: getRetailerData().retailerEmail,
+                timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                orderItems: productData
             };
             const { locked, options, ...rest } = state;
             await saveOrder({ ...rest, ...commonData, experience: `${[
@@ -55,7 +57,7 @@ const Confirm = () => {
         } catch (e) {
             pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: e.message });
         }
-    }, [state]);
+    }, [state, productData]);
 
     return (
         <ErrorBoundary>
