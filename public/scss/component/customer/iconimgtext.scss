@@ -14,6 +14,7 @@
         align-self: center;
         @media screen and (max-width: 575px) {
             margin: 0;
+            display: none;
         }
         img{
             @media screen and (max-width: 575px) {
@@ -40,14 +41,13 @@
             font-family: 'Montserrat';
             font-style: normal;
             font-weight: 400;
-            font-size: 42px;
+            font-size: 52px;
             @media screen and (max-width: 575px) {
-                text-align: center;
-                font-size: 30px;
+                text-align: end;
             }
 
             @media screen and (max-width: 640px) {
-                text-align: center;
+                text-align: end;
             }
         }
         h5{
@@ -59,15 +59,14 @@
             font-size: 20px;
 
             @media screen and (max-width: 575px) {
-                text-align: justify;
+                text-align: end;
                 margin-top: 3%;
             }
 
             @media screen and (max-width: 640px) {
-                text-align:justify;
+                text-align:end;
             }
         }
-
     }
 
     .Img-Position{
@@ -83,11 +82,26 @@
             @media screen and (max-width: 675px) {
                 width: 70%;
             }
+
+            @media screen and (max-width: 575px) {
+                display: none;
+            }
         }
     }
 
     img{
         border-radius: 80px;
+    }
+
+    .phone-mountain-img{
+        display: none;
+        @media screen and (max-width: 575px) {
+            display: block;
+            margin: 5% 2% 0% 2%;
+            img{
+                width: 100%!important;
+            }
+        }
     }
 
 }
