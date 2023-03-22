@@ -1,0 +1,11 @@
+.loading-indicator,
+.loading-indicator > div {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-indicator svg .cds--loading__stroke {
+  stroke: #393939;
+}

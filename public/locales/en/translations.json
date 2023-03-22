@@ -98,7 +98,8 @@
       "phone-number": "Phone Number",
       "email": "Email"
     },
-    "submit-button": "CONFIRM APPOINTMENT"
+    "submit-button": "CONFIRM APPOINTMENT",
+    "loading-description": "Booking appointment Searching Personal Assistant"
   },
   "shopping-bag-container": {
     "header": "SHOPPING BAG",
