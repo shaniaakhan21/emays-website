@@ -34,7 +34,7 @@ release:
   stage: release
   only:
     refs:
-      - stage
+      - master
   tags:
     - emays-runner
   script:
