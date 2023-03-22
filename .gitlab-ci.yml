@@ -1,5 +1,6 @@
 stages:
   - build
+  - release
 
 variables:
   PROJECT_GIT: "git@gitlab.worldce.info:emays"
@@ -28,3 +29,24 @@ build:
       else
         echo "skipped"
       fi    
+
+release:
+  stage: release
+  only:
+    refs:
+      - stage
+  tags:
+    - emays-runner
+  script:
+    - cd /home/gitlab-runner
+    - git clone $PROJECT_GIT/emays-helm-chart.git $PROJECT_URI-chart-$CI_PIPELINE_IID
+    - cd /home/gitlab-runner/$PROJECT_URI-chart-$CI_PIPELINE_IID
+    - docker tag $PROJECT_URI:$CI_PIPELINE_IID $PROJECT_REGISTRY_AWS/$PROJECT_URI:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_IID
+    - docker push $PROJECT_REGISTRY_AWS/$PROJECT_URI:$CI_COMMIT_REF_SLUG-$CI_PIPELINE_IID
+    - export RELEASE_VERSION=$CI_COMMIT_REF_SLUG-$CI_PIPELINE_IID
+    - yq -i eval ".tags.Emays = \"$RELEASE_VERSION\"" /home/gitlab-runner/$PROJECT_URI-chart-$CI_PIPELINE_IID/helm-chart/values.yaml
+    - git add helm-chart/values.yaml
+    - git commit -m "Bump Emays [$CI_COMMIT_REF_SLUG-$CI_PIPELINE_IID] [skip-ci]"
+    - git push
+  after_script:
+    - rm -rf /home/gitlab-runner/$PROJECT_URI-chart-$CI_PIPELINE_IID  
