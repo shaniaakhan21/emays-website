@@ -2,7 +2,7 @@ stages:
   - build
 
 variables:
-  PROJECT_GIT: "git@gitlab.worldce.info:emays/emays"
+  PROJECT_GIT: "git@gitlab.worldce.info:emays"
   PROJECT_REGISTRY_AWS: "111018148131.dkr.ecr.eu-central-1.amazonaws.com"
   PROJECT_URI: "emays-website"
 
