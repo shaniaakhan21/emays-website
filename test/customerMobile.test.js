@@ -40,7 +40,7 @@ describe('Mobile', () => {
         await page.goto('http://localhost:8080/#/', {
             waitUntil: 'networkidle0',
             timeout: 60000,
-            networkIdleTimeout: 1000 * 3
+            networkIdleTimeout: 1000 * 10
         });
 
         await new Promise(r => setTimeout(r, 500));
