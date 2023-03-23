@@ -31,13 +31,6 @@ const RetailerLanding = () => {
                 <ButtonCustom action={() => {}} text={t('button')} />
             </Column>
             <Column lg={16} md={8} sm={4} xs={4} className='buttons'>
-                <ButtonCustom action={() => {}} text={t('button-api')} />
-                <ButtonCustom
-                    action={() => {}}
-                    iconDescription='E-Mail'
-                    hasIconOnly
-                    renderIcon={() => <img src={EmailIcon} alt='E-Mail' />}
-                />
             </Column>
         </RetailerLayout>
     );

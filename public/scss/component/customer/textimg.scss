@@ -14,7 +14,7 @@
             text-align: start;
         }
         @media (max-width: 920px) {
-            margin: 7%!important;
+            margin: 0 7%!important;
         }
         img{
             position: relative;
@@ -72,6 +72,17 @@
 
             @media (max-width: 920px) {
                 width: 70%;
+            }
+        }
+    }
+
+    .phone-mountain-img{
+        display: none;
+        @media screen and (max-width: 575px) {
+            display: block;
+            margin: 5% 2% 0% 2%;
+            img{
+                width: 100%!important;
             }
         }
     }

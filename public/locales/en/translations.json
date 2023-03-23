@@ -19,6 +19,15 @@
     },
     "faq": {
       "title": "Frequently Asked Questions"
+    },
+    "payment-form": {
+      "title": "Payment Method",
+      "name": "Card Holder",
+      "number": "Credit/debit card number",
+      "exp-month": "Expiration month",
+      "exp-year": "Expiration year",
+      "cvv": "cvv",
+      "button": "Pay now"
     }
   },
   "checkout": {
@@ -92,22 +101,23 @@
     "contact-details": {
       "header": "CONTACT DETAILS",
       "info-text-important": "Important:",
-      "info-text": "We will call or message you the day before, as well at the moment we’re arriving to ensure the quality of experience.",
+      "info-text": "We will call or message you the day before, as well as at the moment of arriving to ensure the quality of experience.",
       "first-name": "First Name",
       "last-name": "Last Name",
       "phone-number": "Phone Number",
       "email": "Email"
     },
-    "submit-button": "CONFIRM APPOINTMENT",
+    "submit-button": "CONFIRM DETAILS",
     "loading-description": "Booking appointment Searching Personal Assistant"
   },
   "shopping-bag-container": {
     "header": "SHOPPING BAG",
     "service-fee": "SERVICE FEE",
-    "instruction-1": "This fee help us run our operations, all services included.",
+    "instruction-1": "This fee helps us run our operations, all services included.",
     "instruction-2": "Amount will be blocked on your card until the day of the delivery.",
     "instruction-3": "Cancellations available before 24h appointment.",
-    "button": "BOOK US NOW",
+    "instruction-4": "Luxury styling session at home.",
+    "button": "BOOK YOUR APPOINTMENT",
     "item": {
       "size": "Size",
       "quantity": "Quantity",
@@ -157,7 +167,7 @@
   "home-section":{
     "col-1":{
       "title":"WE SHIP THE SHOP",
-      "subtitle-h2":"Take the luxury Shopping to experience your house",
+      "subtitle-h2":"Take the luxury shopping experience to your home.",
       "subtitle-h3":"Try What you want, pay only what you keep.",
       "btn-text":"See what we can do for you"
     }   
@@ -168,14 +178,15 @@
 
   "shop-with-us":{
     "first-block":{
+      "main-heading": "Why shop with us?",
       "head-text":"STORE AT HOME",
       "subhead-text":"No upfront Payment",
-      "body-text":"Choose all the pieces you’d like to try, we’d bring them to you with no upfront payment."
+      "body-text":"Choose all the pieces you would like to try, we will bring them to you with no upfront payment."
     },
     "second-block":{
       "head-text":"Save time in returns",
       "subhead-text":"Hassle-free returns",
-      "body-text":"Skip the process, we send back the pieces dont want."
+      "body-text":"Skip the process, we send back the pieces you don't want."
     },
     "third-block":{
       "head-text":"Schedule as needed",
@@ -224,11 +235,11 @@
           "description": "Returning customers, Accurate customer data, Fast and easy retention."
         },
         {
-          "title": "Full inventory control.",
+          "title": "Full inventory control",
           "description": "If unsold, the product will return and be available in your store within 24 hours"
         },
         {
-          "title": "No time consuming.",
+          "title": "No time consuming",
           "description": "We guarantee that the product will be delivered within 24 hours to the customer"
         },
         {
@@ -236,7 +247,7 @@
           "description": "Assisted at every touch-point of the shopping process by expert advisors"
         },
         {
-          "title": "Avoid paying higher fee to other competitors.",
+          "title": "Avoid paying higher fee to other competitors",
           "description": "Security provided. We protect the product with an insurance Time saving to prepare orders online"
         },
         {
@@ -263,7 +274,7 @@
         },
         {
           "title": "Returning reduction",
-          "value": "+45%"
+          "value": "-45%"
         },
         {
           "title": "Data Captured",

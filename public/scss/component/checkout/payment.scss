@@ -1,0 +1,52 @@
+
+.payment-form {
+  .cds--modal-container--xs {
+    max-height: 90%;
+  }
+
+  .cds--modal-header {
+    padding: 20px;
+  }
+
+  .logo {
+    margin-bottom: 30px;
+
+    > img {
+      width: 100px;
+    }
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    > h1 {
+      margin-bottom: 30px;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 22px;
+      text-align: right;
+    }
+  }
+
+  .buttons > button {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .input {
+    margin-bottom: 30px;
+  }
+
+  .logos {
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 40px;
+    > img {
+      margin-right: 20px;
+    }
+  }
+}

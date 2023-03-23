@@ -13,7 +13,7 @@ import TextBoxCustom from './TextBoxCustom';
 import Logo from '../../logo/emays-logo-black.png';
 import EmailIcon from '../../images/mail.svg';
 import PhoneIcon from '../../images/phone.svg';
-import InstagramIcon from '../../images/insta.svg';
+import InstagramIcon from '../../images/logo--instagram.svg';
 import FacebookIcon from '../../images/fb.svg';
 import LinkedInIcon from '../../images/linkedin.svg';
 import { useState } from 'react';

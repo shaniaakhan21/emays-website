@@ -51,8 +51,6 @@ export const disconnect = async () => {
 
 export const prepareDBConnectionURL = (): string => {
     const { MONGO_URL } = config.DB;
-    Logging.log(buildInfoMessageMethodCall('Build db path', `Path: ${MONGO_URL}`), LogType.ERROR);
-    // Return databaseURL;
     return MONGO_URL;
 };
 
