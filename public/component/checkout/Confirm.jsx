@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
+import Payment from './Payment';
 
 // SCSS
 import '../../scss/component/checkout/confirm.scss';
@@ -32,6 +33,7 @@ const Confirm = () => {
     const [productData, setProductData] = useState([]);
 
     const [state, setState] = useSessionState(CHECKOUT_INFO);
+    const [open, setOpen] = useState();
 
     // Fetch product data from session storage
     useEffect(() => {
@@ -48,12 +50,12 @@ const Confirm = () => {
                 orderItems: productData
             };
             const { locked, options, ...rest } = state;
-            await saveOrder({ ...rest, ...commonData, experience: `${[
+            const resp = await saveOrder({ ...rest, ...commonData, experience: `${[
                 options?.assist ? 'Assist Me' : undefined,
                 options?.tailoring ? 'Tailoring' : undefined,
                 options?.inspire ? 'Inspire Me' : undefined
             ]?.filter(i => i).join(', ')}.` });
-            // Todo: Redirect to success page
+            setOpen({ uuid: commonData.uuid });
         } catch (e) {
             pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: e.message });
         }
@@ -61,6 +63,7 @@ const Confirm = () => {
 
     return (
         <ErrorBoundary>
+            <Payment open={open} setOpen={setOpen} />
             <Grid className='landing-page'>
                 <Column lg={16} md={16} sm={16} xs={16} className='logo'>
                     <img src={Emays} alt='The Emays logo' />

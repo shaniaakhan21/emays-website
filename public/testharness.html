@@ -16,6 +16,21 @@
         const environment = "<%= environment %>";
         const selectBox = document.getElementById('launchType');
         let form = null;
+        const loadToken = async () => {
+            const token = await fetch(`http://localhost:8080${environment === 'development' ? '' : '/emays'}/api-dev/externalSystems/systemToken`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    extSysUsername: "storex",
+                    extSysPassword: "abCq2&!Ms"
+                })
+            }).then(res => res.json()).then(res => res?.data?.token);
+            if (token) {
+                document.getElementById('authToken').value = token;
+            }
+        }
         selectBox.addEventListener('change', (event) => {
             const selectedLaunchType = event?.target?.value;
             switch (selectedLaunchType) {
@@ -24,7 +39,8 @@
                     <form method="post" action="${environment === 'development' ? '/api-dev' : '/api'}/launch">
 
                     <label for="token">Auth Token</label><br>
-                    <input type="text" id="authToken" name="authToken" value="tempToken"><br><br>
+                    <input type="text" id="authToken" name="authToken" value="tempToken">
+                    <button onclick="loadToken()" type="button">Load Token</button><br><br>
 
                     <label for="retailerEmail">Auth Token</label><br>
                     <input type="text" id="retailerEmail" name="retailerEmail" value="thathsararaviraj@gmail.com"><br><br>

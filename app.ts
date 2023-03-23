@@ -20,6 +20,7 @@ import { AppConfigKey } from './app/const/appConfigKey';
 import { validateJWT } from './app/middleware/jwtTokenValidationMiddleware';
 import ServiceError from './app/type/error/ServiceError';
 import { connectToMongoDB } from './app/data/db/connector';
+import sumUpRoute from './app/route/sumUpRoute';
 
 // Parses incoming requests with JSON payloads (body-parser)
 app.use(express.json());
@@ -45,12 +46,13 @@ app.use((req, res, next) => {
 });
 
 // Define Routes
-app.use(customerRoutes);
 app.use(config.ROUTE_PATH, healthRoute);
+app.use(config.ROUTE_PATH, sumUpRoute);
 app.use(config.ROUTE_PATH, launchRoute);
 app.use(config.ROUTE_PATH, orderRoute);
 app.use(config.ROUTE_PATH, calenderRoute);
 app.use(config.ROUTE_PATH, externalSystemRoute);
+app.use(customerRoutes);
 
 /*
  * Error handling middleware
