@@ -180,15 +180,14 @@
     }
 
   }
-}
 
-.slick-initialized .slick-slide {
-  width: 100%;
-}
+  .slick-initialized .slick-slide {
+    width: 100%;
+  }
 
-.carousel-on-phone{
-  display: none;
-  @media screen and (max-width: 575px) {
+  .carousel-on-phone{
+    display: none;
+    @media screen and (max-width: 575px) {
       display: block;
       position: relative;
       left: 63%;
@@ -196,13 +195,14 @@
       margin: 0 17%;
       top: 8%;
       .grid-section button {
-          background-color: #231F20!important;
+        background-color: #231F20!important;
       }
+    }
   }
-}
 
-.slick-slide img {
-  width: 100%;
+  .slick-slide img {
+    width: 100%;
+  }
 }
 
 

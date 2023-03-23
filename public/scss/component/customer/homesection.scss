@@ -139,6 +139,7 @@
     max-width: 92.5%;
     @media (max-width: 672px) {
       display: none;
+      width: 100%;
     }
   }
 
@@ -167,7 +168,7 @@
       .buttons>button:first-child {
         padding: 2% 7%;
         margin-left: 4%;
-        margin-right: 29px;
+        margin-right: 15px;
         font-size: 15px;
         width: 78%;
       }
