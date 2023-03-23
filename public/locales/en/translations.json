@@ -107,7 +107,8 @@
       "phone-number": "Phone Number",
       "email": "Email"
     },
-    "submit-button": "CONFIRM DETAILS"
+    "submit-button": "CONFIRM DETAILS",
+    "loading-description": "Booking appointment Searching Personal Assistant"
   },
   "shopping-bag-container": {
     "header": "SHOPPING BAG",

@@ -17,7 +17,7 @@
         const selectBox = document.getElementById('launchType');
         let form = null;
         const loadToken = async () => {
-            const token = await fetch(`http://localhost:8080${environment === 'development' ? '' : '/emays'}/api-dev/externalSystems/systemToken`, {
+            const token = await fetch(`http://localhost:8080${environment === 'development' ? '/api-dev' : '/api'}/externalSystems/systemToken`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -61,7 +61,7 @@
                     <input type="number" id="productSize" name="productSize" value="2" required><br><br>
 
                     <label for="productImage">Product Image</label><br>
-                    <input type="text" id="productImage" name="productImage" value="localhost:8080/app-dist/dist/assets/fallback-cd245010.png"><br><br>
+                    <input type="text" id="productImage" name="productImage" value="https://cdn.shopify.com/s/files/1/0597/8805/products/Luca_Faloni_Brushed_Cotton_Shirt_Made_In_Italy_Light_Blue_10476_911d191a-ec89-466b-a69c-ec9277bcc52f_1024x1024@2x.jpg?v=1625066324"><br><br>
 
                     <label for="productDeliveryInformation">Product Delivery Information</label><br>
                     <input type="text" id="productDeliveryInformation" name="productDeliveryInformation" value="need immediately" required><br><br>
