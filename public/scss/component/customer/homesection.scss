@@ -37,6 +37,7 @@
     line-height: 63px;
     margin-bottom: 2rem;
     font-family: 'Montserrat';
+    padding-right: 23%;
 
     
     @media screen and (max-width: 860px) {
@@ -134,7 +135,7 @@
     font-family: 'Montserrat';
     border-radius: 0;
     font-weight: 500;
-    width: 100%;
+    width: 44%;
     max-width: 92.5%;
     @media (max-width: 672px) {
       display: none;
@@ -142,7 +143,7 @@
   }
 
   .shipping-column__right {
-    background-image: url('../../../images/HomeCustomerSection/DELIVERYBAG.png');
+    background-image: url('../../../images/HomeCustomerSection/man-n-phone.jpg');
     background-size: cover;
 
     @media (max-width: 672px) {

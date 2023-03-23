@@ -9,11 +9,6 @@ const {
     JSON_WEB_TOKEN_EXP_HOURS_LONG,
     JSON_WEB_TOKEN_EXP_HOURS_EXTERNAL_SYSTEM,
     JSON_WEB_TOKEN_SECRET,
-    MONGODB_USER,
-    MONGODB_PASSWORD,
-    MONGODB_HOST,
-    MONGODB_DOCKER_PORT,
-    MONGODB_DATABASE,
     AWS_SES_ACCESS_KEY,
     AWS_SES_SECRET_KEY,
     AWS_REGION,
@@ -30,7 +25,8 @@ const {
     ERROR_TEMPLATE,
     SUMUP_API_URL,
     SUMUP_SECRET_KEY,
-    SUMUP_MERCHANT_CODE
+    SUMUP_MERCHANT_CODE,
+    MONGO_URL
 } = process.env;
 
 export const config = {
@@ -51,11 +47,7 @@ export const config = {
     JSON_WEB_TOKEN_SECRET: JSON_WEB_TOKEN_SECRET || 'secret123',
     ERROR_TEMPLATE: ERROR_TEMPLATE || '/template/error-template.html',
     DB: {
-        MONGODB_USER: MONGODB_USER || 'root',
-        MONGODB_PASSWORD: MONGODB_PASSWORD || '123456',
-        MONGODB_HOST: MONGODB_HOST || '172.17.0.2',
-        MONGODB_DOCKER_PORT: MONGODB_DOCKER_PORT || 27017,
-        MONGODB_DATABASE: MONGODB_DATABASE || 'emays_service_db'
+        MONGO_URL: MONGO_URL || 'mongodb://root:123456@172.17.0.2:27017/emays_service_db?authSource=admin'
     },
     AWS_SES: {
         AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',

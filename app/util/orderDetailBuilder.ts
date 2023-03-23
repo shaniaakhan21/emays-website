@@ -24,7 +24,10 @@ export const prepareUserDetailsToSend: PrepareDetailsToSendFunc = (order) => {
         timeZone: order?.timeZone,
         experience: order?.experience,
         address: order?.address,
-        orderItems: order?.orderItems
+        orderItems: order?.orderItems,
+        createdAt: order?.createdAt,
+        history: order?.history,
+        paymentRef: order?.paymentRef
     };
     return filteredData;
 };
