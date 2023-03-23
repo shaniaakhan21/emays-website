@@ -37,7 +37,13 @@ export const ORDER_TIME_END_REQUIRED = 'Please provide a valid end time';
 
 export const EXPERIENCE_REQUIRED = 'Please provide an valid experience';
 
+export const PAYMENT_REFERENCE_REQUIRED = 'Please provide an valid payment reference';
+
 export const ADDRESS_REQUIRED = 'Please provide a valid address';
+
+export const CREATED_TIME_CAN_NOT_MODIFY = 'You can not patch the created time';
+
+export const HISTORY_CAN_NOT_MODIFY = 'You can not patch the history records';
 
 export const ORDER_LIST_REQUIRED = 'Please provide a valid order list';
 

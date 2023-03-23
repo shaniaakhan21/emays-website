@@ -3,12 +3,12 @@
 import { Request, Response, NextFunction } from 'express';
 import * as Joi from 'joi';
 import { validatorErrorBuilder } from '../util/serviceErrorBuilder';
-import { ADDRESS_REQUIRED, CONTENT_TYPE_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
+import { ADDRESS_REQUIRED, CONTENT_TYPE_REQUIRED, CREATED_TIME_CAN_NOT_MODIFY, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
     , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
     EXTERNAL_SYSTEM_PASSWORD_REQUIRED, EXTERNAL_SYSTEM_USERNAME_REQUIRED,
-    EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, ORDER_DATE_REQUIRED
+    EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY, ORDER_DATE_REQUIRED
     , ORDER_ID_REQUIRED_IN_PATH, ORDER_LIST_REQUIRED, ORDER_TIME_END_REQUIRED,
-    ORDER_TIME_START_REQUIRED, TIME_ZONE_REQUIRED
+    ORDER_TIME_START_REQUIRED, PAYMENT_REFERENCE_REQUIRED, TIME_ZONE_REQUIRED
     , USER_FIRST_NAME_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH, USER_LAST_NAME_REQUIRED
     , USER_PHONE_NUMBER_REQUIRED } from '../const/errorMessage';
 import { Logger } from '../log/logger';
@@ -198,7 +198,16 @@ export const validateOrderPatchRequestBody = (req: Request, res: Response, next:
                 addTwo: Joi.string(), addThree: Joi.string(),
                 addFour: Joi.string() }).error((error) => {
                 const err = error as Error | unknown;
-                return validatorErrorBuilder(err as Error, ADDRESS_REQUIRED); })  
+                return validatorErrorBuilder(err as Error, ADDRESS_REQUIRED); }),
+            createdAt: Joi.string().forbidden().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, CREATED_TIME_CAN_NOT_MODIFY); }),
+            history: Joi.object().forbidden().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, HISTORY_CAN_NOT_MODIFY); }),
+            paymentRef: Joi.string().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, PAYMENT_REFERENCE_REQUIRED); })
         }   
     });
     validateRequest(req, next, checkOrderParams);
