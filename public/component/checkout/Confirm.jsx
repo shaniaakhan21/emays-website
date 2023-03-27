@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Grid, Column } from '@carbon/react';
+import { Grid, Column, InlineLoading } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
+import Payment from './Payment';
 
 // SCSS
 import '../../scss/component/checkout/confirm.scss';
@@ -22,6 +23,7 @@ import ErrorBoundary from '../ErrorBoundary';
 import { saveOrder } from '../../services/order';
 import { useMessage } from '../common/messageCtx';
 import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
+import LoadingIndicator from '../LoadingIndicator';
 
 const Confirm = () => {
 
@@ -30,8 +32,11 @@ const Confirm = () => {
     const history = useHistory();
 
     const [productData, setProductData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
 
     const [state, setState] = useSessionState(CHECKOUT_INFO);
+    const [open, setOpen] = useState();
 
     // Fetch product data from session storage
     useEffect(() => {
@@ -41,6 +46,7 @@ const Confirm = () => {
 
     const submit = useCallback(async () => {
         try {
+            setLoading(true);
             const commonData = {
                 uid: getUserData().uid,
                 retailerEmail: getRetailerData().retailerEmail,
@@ -48,24 +54,41 @@ const Confirm = () => {
                 orderItems: productData
             };
             const { locked, options, ...rest } = state;
+            const errors = [
+                { k: 'firstName', l: t('confirm.contact-details.first-name') },
+                { k: 'lastName', l: t('confirm.contact-details.last-name') },
+                { k: 'phoneNumber', l: t('confirm.contact-details.phone-number') },
+                { k: 'email', l: t('confirm.contact-details.email') }
+            ].reduce(
+                (acc, { k, l }) => (
+                    state?.[k] && state?.[k] !== '' ? acc : { ...acc, [k]: `${l} is Required` }
+                ), {}
+            );
+            if (Object.keys(errors).length > 0) {
+                setErrors(errors);
+                return;
+            }
             await saveOrder({ ...rest, ...commonData, experience: `${[
                 options?.assist ? 'Assist Me' : undefined,
                 options?.tailoring ? 'Tailoring' : undefined,
                 options?.inspire ? 'Inspire Me' : undefined
             ]?.filter(i => i).join(', ')}.` });
-            // Todo: Redirect to success page
+            setOpen({ uuid: commonData.uuid });
         } catch (e) {
             pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: e.message });
+        } finally {
+            setLoading(false);
         }
     }, [state, productData]);
 
     return (
         <ErrorBoundary>
+            <Payment open={open} setOpen={setOpen} />
             <Grid className='landing-page'>
                 <Column lg={16} md={16} sm={16} xs={16} className='logo'>
                     <img src={Emays} alt='The Emays logo' />
                 </Column>
-                <Column lg={8} md={8} sm={4} xs={4} className='your-appointment'>
+                {!loading ? (<Column lg={8} md={8} sm={4} xs={4} className='your-appointment'>
                     <div className='edit-appointment'>
                         <div className='text'>
                             <p>{t('confirm.edit-appointment.header')}</p>
@@ -140,6 +163,7 @@ const Confirm = () => {
                                     }}
                                     value={state?.firstName}
                                     autoComplete='given-name'
+                                    invalidText={errors?.firstName}
                                 />
                             </div>
                             <div>
@@ -154,6 +178,7 @@ const Confirm = () => {
                                     }}
                                     value={state?.lastName}
                                     autoComplete='family-name'
+                                    invalidText={errors?.lastName}
                                 />
                             </div>
                         </div>
@@ -170,6 +195,7 @@ const Confirm = () => {
                                     }}
                                     value={state?.phoneNumber}
                                     autoComplete='tel'
+                                    invalidText={errors?.phoneNumber}
                                 />
                             </div>
                             <div>
@@ -184,6 +210,7 @@ const Confirm = () => {
                                     }}
                                     value={state?.email}
                                     autoComplete='email'
+                                    invalidText={errors?.email}
                                 />
                             </div>
                         </div>
@@ -204,7 +231,9 @@ const Confirm = () => {
                         />
 
                     </div>
-                </Column>
+                </Column>) : (<Column lg={8} md={8} sm={4} xs={4} className='loading-indicator'>
+                    <LoadingIndicator description={t('confirm.loading-description')} />
+                </Column>)}
                 <Column lg={8} md={8} sm={16} className='shopping-bag'>
                     <ShoppingBag productList={productData}/>
                 </Column>

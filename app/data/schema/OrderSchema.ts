@@ -25,7 +25,15 @@ const OrderSchema = new Schema<IOrder>({
         productCost: { type: String, required: true },
         productImage: { type: String, required: true },
         productDeliveryInformation: { type: String }
-    }]
+    }],
+    createdAt: {
+        type: Date,
+        default: Date.now
+    },
+    history: [{
+        date: { type: Date, default: Date.now }
+    }],
+    paymentRef: { type: String, required: false }
 });
 
 export default OrderSchema;

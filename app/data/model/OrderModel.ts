@@ -64,6 +64,7 @@ export const findOneAndUpdateIfExist: PatchOrderDetailsByUserIdFunc = async (use
     try {
         const currentOrderData = await OrderModel.findOne({ 'uid': userId }).exec();
         if (currentOrderData) {
+            currentOrderData.history?.push( new Date());
             const filteredData = prepareUserDetailsToSend(currentOrderData);
             const updatedOrder = { ...filteredData, ...patchData };
             const filter = {

@@ -12,7 +12,8 @@ export enum RoutePath {
     USERS = '/users',
     RETAILER_UI = '/retailer',
     EXTERNAL_SYSTEMS = '/externalSystems',
-    EXTERNAL_SYSTEM_TOKEN = '/systemToken'
+    EXTERNAL_SYSTEM_TOKEN = '/systemToken',
+    SUMUP = '/sumUp'
  }
 
 export enum PathParam {

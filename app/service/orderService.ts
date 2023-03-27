@@ -1,7 +1,7 @@
 'use strict';
 
 import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc } from '../type/orderServiceType';
-import { IOrder } from '../type/orderType';
+import { IOrder, IOrderDTO } from '../type/orderType';
 import { } from '../const/errorMessage';
 import { Logger } from '../log/logger';
 import { buildErrorMessage, buildInfoMessageMethodCall,
@@ -100,6 +100,23 @@ export const createOrder: CreateOrderFunc = async (order) => {
         const err = error as Error;
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, 'Create Order'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Retrieve order
+ * @param {object} order Order object
+ * @returns {Promise<number>} Promise with order total
+ */
+export const calculateServiceFee = (order: IOrderDTO) => {
+    try {
+        // Todo: calculate service fee properly
+        return 14.99;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Order Service Fee calculate'), LogType.ERROR);
         throw error;
     }
 };
