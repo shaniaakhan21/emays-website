@@ -10,6 +10,15 @@ import './../../scss/component/retailer/landing.page.scss';
 
 // Images
 import EmailIcon from '../../icons/email.svg';
+import RetailerPartnership from './Partnership';
+import EnvironmentHeader from '../common/environment/EnvironmentHeader';
+import IconTextImg from '../common/environment/IconTextImg';
+import IconImgText from '../common/environment/IconImgText';
+import ImgTextIcon from '../common/environment/ImgTextIcon';
+import TextImg from '../common/environment/TextImg';
+import RetailerIntegration from './Integration';
+import RetailerFAQs from './FAQs';
+import RetailerLetsTalk from './LetsTalk';
 
 const RetailerLanding = () => {
     const [translate] = useTranslation();
@@ -32,6 +41,27 @@ const RetailerLanding = () => {
             </Column>
             <Column lg={16} md={8} sm={4} xs={4} className='buttons'>
             </Column>
+            <Column lg={16} md={8} sm={4} xs={4}>
+                <RetailerIntegration />
+            </Column>
+            <Column lg={16} md={8} sm={4} xs={4}>
+                <RetailerFAQs />
+            </Column>
+
+            <Column lg={16} md={8} sm={4} xs={4} style={{ padding: 0 }}>
+                <EnvironmentHeader />
+                <IconTextImg />
+                <IconImgText />
+                <ImgTextIcon/>
+                <TextImg/>
+            </Column>
+
+            <RetailerPartnership />
+
+            <Column lg={16} md={8} sm={4} xs={4}>
+                <RetailerLetsTalk />
+            </Column>
+
         </RetailerLayout>
     );
 };

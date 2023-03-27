@@ -5,11 +5,12 @@ import Nav from './Nav';
 
 const RetailerLayout = ({
     className,
-    children
+    children,
+    withoutNav
 }) => {
     return (
         <Grid className={`retailer-main${className ? ` ${className}` : ''}`} fullWidth>
-            <Nav retailer />
+            {!withoutNav && <Nav retailer/>}
             {children}
         </Grid>
     );

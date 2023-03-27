@@ -42,8 +42,8 @@ const RetailerPartnership = () => {
     };
 
     return (
-        <>
-            <RetailerLayout className='partnership'>
+        <Column lg={16} md={8} sm={4} xs={4}>
+            <RetailerLayout withoutNav className='partnership'>
                 <Col lg={16} md={8} sm={4} xs={4} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
                     <h1 className='header'>{t('title')}</h1>
                 </Col>
@@ -130,7 +130,7 @@ const RetailerPartnership = () => {
                 </Column>
             </RetailerLayout>
             {/* <img src={PartnersFooterImage} alt='Partners Footer' className='partners-footer' /> */}
-        </>
+        </Column>
     );
 };
 

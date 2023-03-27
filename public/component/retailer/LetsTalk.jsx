@@ -6,7 +6,7 @@ import LetsTalkForm from '../common/LetsTalkForm';
 
 const RetailerLetsTalk = () => {
     return (
-        <RetailerLayout>
+        <RetailerLayout withoutNav>
             <Column lg={16} md={8} sm={4} xs={4}>
                 <LetsTalkForm onSubmit={(d) => console.log('dddd', d)} />
             </Column>
