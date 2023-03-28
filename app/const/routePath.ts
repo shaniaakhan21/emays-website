@@ -13,9 +13,13 @@ export enum RoutePath {
     RETAILER_UI = '/retailer',
     EXTERNAL_SYSTEMS = '/externalSystems',
     EXTERNAL_SYSTEM_TOKEN = '/systemToken',
-    SUMUP = '/sumUp'
+    SUMUP = '/sumUp',
+    GEO = '/geo'
  }
 
 export enum PathParam {
-    USER_ID = '/:userId'
+    USER_ID = '/:userId',
+    AREA_NAME = '/:area',
+    AREA_LATITUDE = '/:lat',
+    AREA_LONGITUDE = '/:long'
 }

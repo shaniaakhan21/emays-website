@@ -2,7 +2,6 @@
 
 import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc } from '../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../type/orderType';
-import { } from '../const/errorMessage';
 import { Logger } from '../log/logger';
 import { buildErrorMessage, buildInfoMessageMethodCall,
     buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';

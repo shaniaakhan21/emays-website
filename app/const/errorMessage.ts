@@ -2,8 +2,10 @@
 
 export const ORDER_NOT_FOUND_ERROR_MESSAGE = 'Couldn\'t find order';
 
-export const ISSUE_FOUND_WHILE_CONNECTING_DB_MESSAGE = 'This is an internal server error. DB is not connected.';
-export const ISSUE_FOUND_WHILE_DISCONNECTING_DB_MESSAGE = 'This is an internal server error. DB is not connected.';
+export const USER_UNAUTHORIZED = 'Invalid auth token';
+
+export const ISSUE_FOUND_WHILE_CONNECTING_DB_MESSAGE = 'This is an internal server error and DB is not connected';
+export const ISSUE_FOUND_WHILE_DISCONNECTING_DB_MESSAGE = 'This is an internal server error and DB is not connected';
 
 export const ORDER_INVALID_REQUEST_MESSAGE = 'The request body and/or parameters have malformed element(s)';
 
@@ -66,3 +68,9 @@ export const INVALID_CREDENTIALS_ERROR_MESSAGE = 'Invalid credentials';
 export const SYSTEM_NOT_FOUND_ERROR_MESSAGE = 'Couldn\'t find system';
 
 export const NOT_AUTHORIZED_TO_ACCESS_EMAYS_ERROR_MESSAGE = 'You are not authorized to access the Emays system';
+
+export const AREA_REQUIRED = 'Please provide a valid area name or our service is not available in the requested area yet';
+
+export const LATITUDE_REQUIRED = 'Please provide a valid latitude';
+
+export const LONGITUDE_REQUIRED = 'Please provide a valid longitude';
