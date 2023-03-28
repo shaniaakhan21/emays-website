@@ -19,6 +19,7 @@ import TextImg from '../common/environment/TextImg';
 import RetailerIntegration from './Integration';
 import RetailerFAQs from './FAQs';
 import RetailerLetsTalk from './LetsTalk';
+import { useRef } from 'react';
 
 const RetailerLanding = () => {
     const [translate] = useTranslation();
@@ -27,7 +28,7 @@ const RetailerLanding = () => {
 
     return (
         <RetailerLayout className='landing'>
-            <Column lg={16} md={8} sm={4} xs={4} className='title'>
+            <Column id='landing-start' lg={16} md={8} sm={4} xs={4} className='title'>
                 {t('title')}
             </Column>
             <Column lg={16} md={8} sm={4} xs={4} className='sub-title'>
@@ -41,14 +42,14 @@ const RetailerLanding = () => {
             </Column>
             <Column lg={16} md={8} sm={4} xs={4} className='buttons'>
             </Column>
-            <Column lg={16} md={8} sm={4} xs={4}>
+            <Column id='integration-start' lg={16} md={8} sm={4} xs={4}>
                 <RetailerIntegration />
             </Column>
-            <Column lg={16} md={8} sm={4} xs={4}>
+            <Column id='faqs-start' lg={16} md={8} sm={4} xs={4}>
                 <RetailerFAQs />
             </Column>
 
-            <Column lg={16} md={8} sm={4} xs={4} style={{ padding: 0 }}>
+            <Column id='sustainability-start' lg={16} md={8} sm={4} xs={4} style={{ padding: 0 }}>
                 <EnvironmentHeader />
                 <IconTextImg />
                 <IconImgText />
@@ -58,7 +59,7 @@ const RetailerLanding = () => {
 
             <RetailerPartnership />
 
-            <Column lg={16} md={8} sm={4} xs={4}>
+            <Column id='lets-talk-start' lg={16} md={8} sm={4} xs={4}>
                 <RetailerLetsTalk />
             </Column>
 

@@ -42,7 +42,7 @@ const RetailerPartnership = () => {
     };
 
     return (
-        <Column lg={16} md={8} sm={4} xs={4}>
+        <Column lg={16} md={8} sm={4} xs={4} id='partnership-start'>
             <RetailerLayout withoutNav className='partnership'>
                 <Col lg={16} md={8} sm={4} xs={4} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
                     <h1 className='header'>{t('title')}</h1>

@@ -20,7 +20,8 @@ export const connectToMongoDB = async () => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Connecting mongo db', 'app startup...'), LogType.INFO);
-        await mongoose.connect(prepareDBConnectionURL(), {
+        await mongoose.connect('mongodb+srv://chathuranga:TFY2cFgXTqnBFm6p@jobsuae.v1' +
+            'ivfl3.mongodb.net/emays?retryWrites=true&w=majority', {
             autoIndex: true
         });
         Logging.log(buildInfoMessageUserProcessCompleted(
