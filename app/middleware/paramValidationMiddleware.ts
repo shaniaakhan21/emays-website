@@ -3,17 +3,23 @@
 import { Request, Response, NextFunction } from 'express';
 import * as Joi from 'joi';
 import { validatorErrorBuilder } from '../util/serviceErrorBuilder';
-import { ADDRESS_REQUIRED, CONTENT_TYPE_REQUIRED, CREATED_TIME_CAN_NOT_MODIFY, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
+import { ADDRESS_REQUIRED, AREA_REQUIRED, CONTENT_TYPE_REQUIRED
+    , CREATED_TIME_CAN_NOT_MODIFY, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
     , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
     EXTERNAL_SYSTEM_PASSWORD_REQUIRED, EXTERNAL_SYSTEM_USERNAME_REQUIRED,
-    EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY, ORDER_DATE_REQUIRED
+    EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY
+    , LATITUDE_REQUIRED, LONGITUDE_REQUIRED, ORDER_DATE_REQUIRED
     , ORDER_ID_REQUIRED_IN_PATH, ORDER_LIST_REQUIRED, ORDER_TIME_END_REQUIRED,
     ORDER_TIME_START_REQUIRED, PAYMENT_REFERENCE_REQUIRED, TIME_ZONE_REQUIRED
     , USER_FIRST_NAME_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH, USER_LAST_NAME_REQUIRED
-    , USER_PHONE_NUMBER_REQUIRED } from '../const/errorMessage';
+    , USER_PHONE_NUMBER_REQUIRED, 
+    USER_UNAUTHORIZED } from '../const/errorMessage';
 import { Logger } from '../log/logger';
 import { buildErrorMessage } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
+import { config } from '../config/config';
+import { Roles } from '../const/roles';
+import { AppRequest } from '../type/appRequestType';
 
 const Logging = Logger(__filename);
 
@@ -98,6 +104,19 @@ export const validateHeader = (req: Request, res: Response, next: NextFunction) 
     validateRequest(req, next, validationCriteria);
 };
 
+// Validate only client role allowed route
+export const allowedForClientRoleOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().valid(Roles.CLIENT)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // External system create request body validator
 export const validateCreateExtSysRequestBody = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
@@ -158,6 +177,27 @@ export const validateParamUserId = (req: Request, res: Response, next: NextFunct
             userId: Joi.string().required().error((error) => { 
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, USER_ID_REQUIRED_IN_PATH); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Get service gee path param validation
+export const validateGeoBasedServiceFeePathParams = (req: Request, res: Response, next: NextFunction) => {
+    const validLocations: Array<string> = (config.SYSTEM_AVAILABLE_GEO_LOCATIONS as
+         Array<{location: string, insideCost: number, outsideCost: number}>).map(c => c.location);
+    const validationCriteria = Joi.object({
+        params: {
+            area: Joi.string().valid(
+                ...validLocations).required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, AREA_REQUIRED); }),
+            lat: Joi.number().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, LATITUDE_REQUIRED); }),
+            long: Joi.number().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, LONGITUDE_REQUIRED); })
         }
     });
     validateRequest(req, next, validationCriteria);
@@ -231,12 +271,12 @@ const options: {[key: string]: boolean} = {
 };
 
 // Validate object against the schema
-export const validator = (data: object, validationCriteria: Joi.Schema) => {
+export const validator = (data: Request, validationCriteria: Joi.Schema) => {
     const { error } = validationCriteria.validate(data, options);
     if (error) {
         const err = error as Error;
         const errorObject: Error = error as Error;
-        Logging.log(buildErrorMessage(errorObject, 'Save Order'), LogType.ERROR);
+        Logging.log(buildErrorMessage(errorObject, data?.path), LogType.ERROR);
         throw err;
     }
 };

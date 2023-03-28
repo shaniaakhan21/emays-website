@@ -26,7 +26,9 @@ const {
     SUMUP_API_URL,
     SUMUP_SECRET_KEY,
     SUMUP_MERCHANT_CODE,
-    MONGO_URL
+    MONGO_URL,
+    GOOGLE_MAP_API_KEY,
+    SYSTEM_AVAILABLE_GEO_LOCATIONS
 } = process.env;
 
 export const config = {
@@ -88,8 +90,14 @@ export const config = {
             DESCRIPTION: GOOGLE_CALENDER_TASK_DESCRIPTION || 
                 'This event has been created by Emays System to remind you about your order arrival',
             BOOK_CALENDER_REDIRECTION_PATH: 'http://localhost:8080/api-dev/googleCalender' 
+        },
+        MAP: {
+            API_KEY: GOOGLE_MAP_API_KEY || ''
         }
     },
+    SYSTEM_AVAILABLE_GEO_LOCATIONS: SYSTEM_AVAILABLE_GEO_LOCATIONS || [
+        { location: 'Milan', insideCost: 1500, outsideCost: 2500 }
+    ],
     SERVICE_CHARGE: SERVICE_CHARGE || 1200.00,
     SUMUP: {
         MERCHANT_CODE: SUMUP_MERCHANT_CODE || 'MTCNFGH2',
