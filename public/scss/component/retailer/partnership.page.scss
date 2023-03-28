@@ -3,6 +3,7 @@
   color: #FFFFFF;
   margin-top: 85px;
   overflow: hidden;
+  flex: 1;
 
   .header {
     font-size: 42px;
@@ -82,7 +83,7 @@
     }
 
     .chart {
-      width: 700px;
+      width: 760px;
       display: none;
 
       @media (min-width: 66rem) {
