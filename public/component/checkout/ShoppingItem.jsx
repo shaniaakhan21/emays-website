@@ -3,9 +3,11 @@ import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
 import '../../scss/component/checkout/shoppingItem.scss';
+import Trash from '../../images/trash.svg';
 
 const ShoppingItem = ({
-
+    index,
+    onDelete,
     itemName,
     color,
     quantity,
@@ -26,6 +28,7 @@ const ShoppingItem = ({
             <div className='details'>
                 <div className='header'>
                     <p>{itemName?.toUpperCase()}</p>
+                    {onDelete && <img onClick={() => onDelete(index)} src={Trash} alt='Remove Item' />}
                 </div>
                 <div className='size'>
                     { 
@@ -58,13 +61,15 @@ const ShoppingItem = ({
 };
 
 ShoppingItem.propTypes = {
+    index: PropTypes.number.isRequired,
     itemName: PropTypes.string.isRequired,
     color: PropTypes.string,
     quantity: PropTypes.number.isRequired,
     price: PropTypes.string,
     size: PropTypes.string,
     image: PropTypes.string,
-    imageAlt: PropTypes.string
+    imageAlt: PropTypes.string,
+    onDelete: PropTypes.func
 };
 
 export default ShoppingItem;

@@ -14,10 +14,19 @@
         width: 100%;
         .header {
             padding-top: 0;
+            display: flex;
+
             p {
+                flex: 1;
                 font-size: 14px;
                 font-weight: bold;
                 font-family: 'Montserrat';
+            }
+
+            img {
+                height: 20px;
+                width: 20px;
+                cursor: pointer;
             }
         }
 

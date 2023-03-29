@@ -1,16 +1,17 @@
 'use strict';
 
 import * as express from 'express';
-
-const router = express.Router();
 import { RoutePath } from '../const/routePath';
 import { Logger } from '../log/logger';
 import { DataToRender, DevLaunchTemplateData, LaunchRequestBody, LaunchUIContext } from '../type/ILaunchContext';
 import { authorizeLaunchRoute, buildAppLaunchPath, getJWTForSession } from '../api/launchAPI';
 import { config } from '../config/config';
 import * as core from 'express-serve-static-core';
-import { buildErrorMessage,
-    buildInfoMessageRouteHit, buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
+import {
+    buildErrorMessage,
+    buildInfoMessageRouteHit,
+    buildInfoMessageUserProcessCompleted
+} from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { validateJWTToken } from '../middleware/jwtTokenValidationMiddleware';
 import { retrieveOrderDetailsByUserId } from '../service/orderService';
@@ -20,6 +21,8 @@ import { v4 as uuidv4 } from 'uuid';
 import LaunchParamBuilder from '../util/LaunchParamBuilder';
 import { LaunchType } from '../type/ILaunchPayload';
 import { ErrorTemplateMessage } from '../const/errorTemplateMessage';
+
+const router = express.Router();
 
 const Logging = Logger(__filename);
 
@@ -68,8 +71,13 @@ router.get(RoutePath.LAUNCH_MAIL, (
         const stringifyUser = JSON.stringify(launchTemplateDataUser);
         const cleanedUser = stringifyUser.replace(/\\/g, '');
 
-        const applicationPath: string = await buildAppLaunchPath(config.UI_APP_ENTRY_POINT);
+        let applicationPath: string;
         const paramBuilder = new LaunchParamBuilder(launchType);
+        if (launchType === LaunchType.EMAIL_EDIT) {
+            applicationPath = await buildAppLaunchPath(config.DEV_ENTRY_POINT);
+        } else {
+            applicationPath = await buildAppLaunchPath(config.UI_APP_ENTRY_POINT);
+        }
         return res.render(applicationPath, paramBuilder.makeAuthentic(sessionToken)
             .makeProductPayload(cleanedOrder).makeUserPayload(cleanedUser).build());
 

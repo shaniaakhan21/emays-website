@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import '../../scss/component/checkout/shoppingBag.scss';
 
 import FallBack from '../../icons/fallback.png';
+import Trash from '../../images/trash.svg';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -20,7 +21,7 @@ const getFinalCost = (serviceCharge = 0.00, itemsPrices = []) => {
     return +serviceCharge + +itemsTotal;
 };
 
-const ShoppingBag = ({ productList = [] }) => {
+const ShoppingBag = ({ productList = [], onDelete }) => {
 
     const [t] = useTranslation();
 
@@ -47,7 +48,9 @@ const ShoppingBag = ({ productList = [] }) => {
             </div>
             <div className='items'>
                 {
-                    productList.map((item) => <ShoppingItem
+                    productList.map((item, idx) => <ShoppingItem
+                        index={idx}
+                        onDelete={onDelete}
                         itemName={item.productName}
                         image={item.productImage || FallBack}
                         color={item.productColor}
@@ -87,7 +90,8 @@ ShoppingBag.propTypes = {
             productQuantity: PropTypes.number.isRequired,
             productCost: PropTypes.number.isRequired
         })
-    ).isRequired
+    ).isRequired,
+    onDelete: PropTypes.func
 };
   
 export default ShoppingBag;

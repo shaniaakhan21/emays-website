@@ -1,6 +1,6 @@
-import { Grid, Column } from '@carbon/react';
+import { Grid, Column, Modal, ModalWrapper, ModalHeader } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { PropTypes } from 'prop-types';
 
 // Components
@@ -25,15 +25,22 @@ import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import timeframes from '../../../app/const/timeframes';
 import LoadingIndicator from '../LoadingIndicator';
+import ConfirmDialog from '../common/ConfirmDialog';
+import FallBack from '../../icons/fallback.png';
+import ShoppingItem from './ShoppingItem';
+import { useMessage } from '../common/messageCtx';
+import { updateOrder } from '../../services/order';
 
 const Checkout = () => {
 
     const [t] = useTranslation();
     const history = useHistory();
+    const pushAlert = useMessage();
 
     const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {} });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
+    const [showDelete, setShowDelete] = useState(undefined);
 
     // Handler function for option change
     const handleOptionChange = (option) => {
@@ -68,8 +75,38 @@ const Checkout = () => {
         }, 1000);
     };
 
+    const removeItem = useCallback(async () => {
+        try {
+            setLoading(true);
+            await updateOrder(state.uid, { orderItems: productData?.filter((o, i) => i !== showDelete) });
+            setShowDelete(false);
+            setProductData(productData?.filter((o, i) => i !== showDelete));
+        } catch (e) {
+            pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: e.message });
+        } finally {
+            setLoading(false);
+        }
+    }, [showDelete]);
+
     return (
         <Grid className='landing-page'>
+            <ConfirmDialog
+                open={showDelete !== undefined && showDelete !== false}
+                setOpen={setShowDelete}
+                secondaryButtonText='Back'
+                primaryButtonText='Yes, I dont want it'
+                modalLabel='DELETE THIS ITEM?'
+                onRequestSubmit={removeItem}
+            >
+                <ShoppingItem
+                    index={showDelete}
+                    itemName={productData[showDelete]?.productName}
+                    image={productData[showDelete]?.productImage || FallBack}
+                    color={productData[showDelete]?.productColor}
+                    size={productData[showDelete]?.productSize}
+                    quantity={productData[showDelete]?.productQuantity}
+                    price={`€ ${productData[showDelete]?.productCost}`} />
+            </ConfirmDialog>
             <Column lg={16} md={16} sm={16} xs={16} className='logo'>
                 <img src={Emays} alt='The Emays logo' />
             </Column>
@@ -222,7 +259,7 @@ const Checkout = () => {
                     </div>
                 </Column>}
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                <ShoppingBag productList={productData}/>
+                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData} />
             </Column>
         </Grid>
     );
