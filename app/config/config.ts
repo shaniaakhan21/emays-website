@@ -26,7 +26,11 @@ const {
     SUMUP_API_URL,
     SUMUP_SECRET_KEY,
     SUMUP_MERCHANT_CODE,
-    MONGO_URL
+    MONGO_URL,
+    CUSTOMER_EMAIL_REMINDER,
+    CUSTOMER_EMAIL_REMINDER_SECOND,
+    CUSTOMER_INVOICE_EMAIL
+
 } = process.env;
 
 export const config = {
@@ -47,17 +51,22 @@ export const config = {
     JSON_WEB_TOKEN_SECRET: JSON_WEB_TOKEN_SECRET || 'secret123',
     ERROR_TEMPLATE: ERROR_TEMPLATE || '/template/error-template.html',
     DB: {
-        MONGO_URL: MONGO_URL || 'mongodb://root:123456@172.17.0.2:27017/emays_service_db?authSource=admin'
+        MONGO_URL: MONGO_URL || 'mongodb://root:123456@localhost:27017/emays_service_db?authSource=admin'
     },
     AWS_SES: {
-        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
-        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '',
+        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || 'AKIAV5FWNLRPVPMCUXEY',
+        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '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',
         AWS_REGION: AWS_REGION || 'us-east-2',
-        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || 'thathsararaviraj@gmail.com'
+        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || 'shaniyak656@gmail.com'
     },
     EMAIL_TEMPLATE: {
         CUSTOMER_EMAIL_TEMPLATE: CUSTOMER_EMAIL_TEMPLATE || '/template/temp-customer-email.html',
         RETAILER_EMAIL_TEMPLATE: RETAILER_EMAIL_TEMPLATE || '/template/temp-retailer-email.html',
+        CUSTOMER_EMAIL_REMINDER: CUSTOMER_EMAIL_REMINDER || '/template/customer-reminder-email.html',
+        // eslint-disable-next-line max-len
+        CUSTOMER_EMAIL_REMINDER_SECOND: CUSTOMER_EMAIL_REMINDER_SECOND || '/template/customer-reminder-email-second.html',
+        CUSTOMER_INVOICE_EMAIL: CUSTOMER_INVOICE_EMAIL || '/template/customer-invoice.html',
+                
         URLS: {
             URL_LOGO: 'https://drive.google.com/uc?export=view&id=11X4cJtuABLOYE95IqbjdJO0ve5L9sbWP',
             PRODUCT_FALL_BACK: 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN',
