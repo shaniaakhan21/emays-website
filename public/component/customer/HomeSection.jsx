@@ -37,7 +37,7 @@ const HomeSection = () => {
             </Column>
             <Column lg={9} md={5} sm={4} className='shipping-column__below' >
                 <img className='bag-img' src={EMAYBAG}/>
-                <div className='buttons'>
+                {/* <div className='buttons'>
                     <ButtonCustom action={() => {}} text={'Shop With Our Brands'} />
                     <ButtonCustom
                         action={() => {}}
@@ -45,7 +45,7 @@ const HomeSection = () => {
                         hasIconOnly
                         renderIcon={() => <img src={MailIcon} alt='E-Mail' />}
                     />
-                </div>
+                </div> */}
                 <Button className='shipping-section__button show'>
                     {t('home-section.col-1.btn-text')}
                 </Button>
