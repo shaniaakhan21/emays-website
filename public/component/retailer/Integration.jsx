@@ -30,8 +30,8 @@ const RetailerIntegration = () => {
     const t = (key) => translate(`retailer.integration.${key}`);
 
     return (
-        <RetailerLayout className='integration'>
-            <Column lg={16} md={8} sm={4} xs={4} className='title' 
+        <RetailerLayout withoutNav className='integration'>
+            <Column lg={16} md={8} sm={4} xs={4} className='title'
                 data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000'>
                 {t('title')}
             </Column>
@@ -65,7 +65,7 @@ const RetailerIntegration = () => {
                             {t(`info-box.${index}.description`)}</p>
                     </div>
                 </Column>))}
-            <Column lg={16} md={8} sm={4} xs={4} className='req-demo' 
+            <Column lg={16} md={8} sm={4} xs={4} className='req-demo'
                 data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
                 <ButtonCustom action={() => {}} text={t('button')} />
             </Column>

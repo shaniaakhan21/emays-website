@@ -12,6 +12,7 @@ import ServiceError from '../type/error/ServiceError';
 import ErrorType from '../const/errorType';
 import { HTTPUserError } from '../const/httpCode';
 import { buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
+import { AppRequest } from '../type/appRequestType';
 
 const Logging = Logger(__filename);
 
@@ -21,9 +22,9 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
         (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&  
         (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_ACCESS}`) && 
         (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_REDIRECTION}`) &&  
-        (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}`) &&  
-        (!req.path.startsWith(RoutePath.CUSTOMER_UI)) &&
-        (!req.path.startsWith(RoutePath.RETAILER_UI)) &&
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}`) &&
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEM_TOKEN}`) &&
+        (req.path !== '/') &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LAUNCH_MAIL}`) &&
         (req.path !== `${config.ROUTE_PATH}/test`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LAUNCH}`) && !req.path.includes('app-dist') &&
@@ -31,7 +32,8 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
         const authHeader = req?.headers?.authorization as string;
         const [authType, authToken] = authHeader ? authHeader?.split(' ') : [null, null];
         if (authType && authType === 'Bearer' && authToken) {
-            validateJWTToken(authToken);
+            const claims = validateJWTToken(authToken);
+            (req as AppRequest).claims = claims;
         } else {
             throw new ServiceError(ErrorType.ORDER_SERVICE_ERROR, 'Not a valid token', '', HTTPUserError.
                 UNAUTHORIZED_CODE);
@@ -45,7 +47,7 @@ export const validateJWTToken = (token: string) => {
     jwt.verify(token, config.JSON_WEB_TOKEN_SECRET, (
         error, decode) => {
         if (error) {
-            throw new ServiceError(ErrorType.ORDER_SERVICE_ERROR, error.message, '', HTTPUserError.
+            throw new ServiceError(ErrorType.UNAUTHORIZED, error.message, '', HTTPUserError.
                 UNAUTHORIZED_CODE);
         }
         claims = decode as IJWTClaims;

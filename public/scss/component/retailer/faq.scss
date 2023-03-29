@@ -29,6 +29,10 @@
     flex-direction: row;
     flex-wrap: wrap;
 
+    .cds--tag {
+      background: #fff;
+    }
+
     > div {
       margin-right: 10px;
     }
@@ -62,6 +66,7 @@
 
       .cds--accordion__heading {
         color: #8d8d8d;
+        background-color: transparent;
 
         svg {
           fill: #8d8d8d;

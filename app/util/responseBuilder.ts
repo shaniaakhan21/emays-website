@@ -1,5 +1,6 @@
 'use strict';
 
+import { IGeoTypeDTO } from '../type/geoType';
 import { IOrderDTO } from '../type/orderType';
 import { ErrorResponseBuilderFunc, SuccessResponseBuilderFunc } from '../type/responseBuilderType';
 
@@ -18,6 +19,6 @@ export const errorResponseBuilder: ErrorResponseBuilderFunc = (error) => {
  * @returns {SuccessResponseBuilderResponse} Success response
  */
 export const successResponseBuilder: SuccessResponseBuilderFunc<IOrderDTO | 
-    {token: string} > = (data) => {
+    {token: string} | IGeoTypeDTO > = (data) => {
         return { data: data };
     };
