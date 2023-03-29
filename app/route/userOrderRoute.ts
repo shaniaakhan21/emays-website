@@ -75,7 +75,7 @@ router.patch(RoutePath.ORDERS + PathParam.USER_ID, validateHeader, validateParam
     (async () => {
         Logging.log(buildInfoMessageRouteHit(req.path, `uid: ${pathParamUserId}`), LogType.INFO);
         await patchOrderDetailsByUserId(pathParamUserId, patchOrder);
-        Logging.log(buildInfoMessageUserProcessCompleted('Patch', pathParamUserId), LogType.INFO);
+        Logging.log(buildInfoMessageUserProcessCompleted('Patch order', pathParamUserId), LogType.INFO);
         return res.sendStatus(HTTPSuccess.NO_CONTENT_CODE);
     })().catch(error => {
         const err = error as Error;

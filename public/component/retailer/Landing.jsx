@@ -10,6 +10,16 @@ import './../../scss/component/retailer/landing.page.scss';
 
 // Images
 import EmailIcon from '../../icons/email.svg';
+import RetailerPartnership from './Partnership';
+import EnvironmentHeader from '../common/environment/EnvironmentHeader';
+import IconTextImg from '../common/environment/IconTextImg';
+import IconImgText from '../common/environment/IconImgText';
+import ImgTextIcon from '../common/environment/ImgTextIcon';
+import TextImg from '../common/environment/TextImg';
+import RetailerIntegration from './Integration';
+import RetailerFAQs from './FAQs';
+import RetailerLetsTalk from './LetsTalk';
+import { useRef } from 'react';
 
 const RetailerLanding = () => {
     const [translate] = useTranslation();
@@ -18,7 +28,7 @@ const RetailerLanding = () => {
 
     return (
         <RetailerLayout className='landing'>
-            <Column lg={16} md={8} sm={4} xs={4} className='title'>
+            <Column id='landing-start' lg={16} md={8} sm={4} xs={4} className='title'>
                 {t('title')}
             </Column>
             <Column lg={16} md={8} sm={4} xs={4} className='sub-title'>
@@ -32,6 +42,27 @@ const RetailerLanding = () => {
             </Column>
             <Column lg={16} md={8} sm={4} xs={4} className='buttons'>
             </Column>
+            <Column id='integration-start' lg={16} md={8} sm={4} xs={4}>
+                <RetailerIntegration />
+            </Column>
+            <Column id='faqs-start' lg={16} md={8} sm={4} xs={4}>
+                <RetailerFAQs />
+            </Column>
+
+            <Column id='sustainability-start' lg={16} md={8} sm={4} xs={4} style={{ padding: 0 }}>
+                <EnvironmentHeader />
+                <IconTextImg />
+                <IconImgText />
+                <ImgTextIcon/>
+                <TextImg/>
+            </Column>
+
+            <RetailerPartnership />
+
+            <Column id='lets-talk-start' lg={16} md={8} sm={4} xs={4}>
+                <RetailerLetsTalk />
+            </Column>
+
         </RetailerLayout>
     );
 };

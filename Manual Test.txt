@@ -82,3 +82,12 @@ content-type: application/json
     "extSysUsername": "storex",
     "extSysPassword": "abCq2&!Ms"
 }
+
+
+----- Get service cost based on the coordinations ------
+
+GET http://localhost:8080/api-dev/geo/Milan/45.45638246318493/9.353985555977896
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0yOFQxNTo0NTozOC4wNTdaIiwiZXhwIjoxNjgwMDIxOTM4LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiI4Mzk4ODhmMC05NmU3LTRhOWItYjUwNC1kMDkyN2VlNzk1ZWEiLCJpYXQiOjE2ODAwMTgzMzh9.e0lnxxZRwyzJR2bOPucAuSqrmlYDJYyF-5IaApB1yfc
+content-type: application/json
+
+

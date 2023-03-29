@@ -30,8 +30,7 @@ const ShopWithUs = () => {
     }, []);
 
     return (
-        <div className='container-shop' style={{ background: '#231F20' }}>  
-            <Nav />
+        <div className='container-shop' style={{ background: '#231F20' }} id='shop-with-us-start'>  
             <ShopHeader />
             <ShopTextBox
                 headingText={t('shop-with-us.first-block.head-text')}

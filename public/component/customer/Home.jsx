@@ -1,12 +1,25 @@
+import PropTypes from 'prop-types';
 import Nav from '../common/Nav';
 import HomeSection from './HomeSection';
+import ShopWithUs from './ShopWithUs';
+import Environment from './Environment';
+import Services from './Services';
+import RetailerLetsTalk from '../retailer/LetsTalk';
+import RetailerFAQs from '../retailer/FAQs';
 
-const CustomerHome = () => {
+const CustomerHome = ({
+    withoutNav,
+    ...props
+}) => {
     return (
         <>
-            <Nav />
+            {!withoutNav && <Nav refs={props.refs} />}
             <HomeSection />
-        
+            <ShopWithUs />
+            <Environment />
+            <Services />
+            <RetailerLetsTalk />
+            <RetailerFAQs />
         </>
     );
 };

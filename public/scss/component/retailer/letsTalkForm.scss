@@ -23,6 +23,7 @@
         font-family: 'Montserrat';
         font-size: 42px;
         margin-bottom: 40px;
+        margin-top: 0;
       }
 
       .message textarea {
@@ -45,7 +46,7 @@
     }
   }
   .right {
-    padding-top: 200px;
+    padding-top: 175px;
 
     @media (max-width: 671px) {
       padding-top: 20px;
@@ -72,6 +73,7 @@
           &.title {
             font-weight: 700;
             font-size: 18px;
+            margin-top: 0;
           }
         }
       }
