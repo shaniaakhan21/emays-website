@@ -16,6 +16,7 @@ import orderRoute from './app/route/userOrderRoute';
 import customerRoutes from './app/route/customerRoute';
 import externalSystemRoute from './app/route/systemRoute';
 import geoRoute from './app/route/geoRoute';
+import appInfoRoute from './app/route/appInfoRoute';
 import sendErrorResponse from './app/middleware/errorResponseBuilderMiddleware';
 import { AppConfigKey } from './app/const/appConfigKey';
 import { validateJWT } from './app/middleware/jwtTokenValidationMiddleware';
@@ -54,6 +55,7 @@ app.use(config.ROUTE_PATH, orderRoute);
 app.use(config.ROUTE_PATH, calenderRoute);
 app.use(config.ROUTE_PATH, externalSystemRoute);
 app.use(config.ROUTE_PATH, geoRoute);
+app.use(config.ROUTE_PATH, appInfoRoute);
 app.use(customerRoutes);
 
 /*
