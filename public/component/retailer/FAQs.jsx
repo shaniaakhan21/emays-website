@@ -7,7 +7,7 @@ import FAQForm from '../common/FAQForm';
 const RetailerFAQs = () => {
     return (
         <RetailerLayout withoutNav>
-            <Column lg={16} md={8} sm={4} xs={4}>
+            <Column lg={16} md={8} sm={4} xs={4} id='faqs-start'>
                 <FAQForm />
             </Column>
         </RetailerLayout>
