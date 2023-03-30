@@ -74,12 +74,26 @@ router.get(RoutePath.LAUNCH_MAIL, (
         let applicationPath: string;
         const paramBuilder = new LaunchParamBuilder(launchType);
         if (launchType === LaunchType.EMAIL_EDIT) {
-            applicationPath = await buildAppLaunchPath(config.DEV_ENTRY_POINT);
+            applicationPath = await buildAppLaunchPath(config.UI_APP_ENTRY_POINT);
         } else {
             applicationPath = await buildAppLaunchPath(config.UI_APP_ENTRY_POINT);
         }
-        return res.render(applicationPath, paramBuilder.makeAuthentic(sessionToken)
-            .makeProductPayload(cleanedOrder).makeUserPayload(cleanedUser).build());
+        const retailerData = {
+            // eslint-disable-next-line max-len
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+            retailerEmail: order?.retailerEmail
+        };
+        const stringifyRetailerData = JSON.stringify(retailerData);
+        const cleanedRetailerData = stringifyRetailerData.replace(/\\/g, '');
+        
+        return res.render(
+            applicationPath, paramBuilder
+                .makeAuthentic(sessionToken)
+                .makeRetailerPayload(cleanedRetailerData)
+                .makeProductPayload(cleanedOrder)
+                .makeUserPayload(cleanedUser)
+                .build()
+        );
 
     })().catch((error) => {
         const errorObject: Error = error as Error;
