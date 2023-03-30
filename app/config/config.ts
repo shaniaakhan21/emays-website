@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 'use strict';
 
 const {
@@ -29,7 +30,11 @@ const {
     MONGO_URL,
     CUSTOMER_EMAIL_REMINDER,
     CUSTOMER_EMAIL_REMINDER_SECOND,
-    CUSTOMER_INVOICE_EMAIL
+    CUSTOMER_INVOICE_EMAIL,
+    CUSTOMER_CANCEL_EMAIL,
+    RETAILER_REMINDER_EMAIL,
+    RETAILER_EMAIL_REMINDER_SECOND,
+    RETAILER_EMAIL_ITEMS_SOLD
 
 } = process.env;
 
@@ -60,17 +65,23 @@ export const config = {
         AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || 'shaniyak656@gmail.com'
     },
     EMAIL_TEMPLATE: {
-        CUSTOMER_EMAIL_TEMPLATE: CUSTOMER_EMAIL_TEMPLATE || '/template/temp-customer-email.html',
-        RETAILER_EMAIL_TEMPLATE: RETAILER_EMAIL_TEMPLATE || '/template/temp-retailer-email.html',
-        CUSTOMER_EMAIL_REMINDER: CUSTOMER_EMAIL_REMINDER || '/template/customer-reminder-email.html',
-        // eslint-disable-next-line max-len
-        CUSTOMER_EMAIL_REMINDER_SECOND: CUSTOMER_EMAIL_REMINDER_SECOND || '/template/customer-reminder-email-second.html',
-        CUSTOMER_INVOICE_EMAIL: CUSTOMER_INVOICE_EMAIL || '/template/customer-invoice.html',
+        CUSTOMER_EMAIL_TEMPLATE: CUSTOMER_EMAIL_TEMPLATE || '/template/customer/temp-customer-email.html',
+        RETAILER_EMAIL_TEMPLATE: RETAILER_EMAIL_TEMPLATE || '/template/retailer/temp-retailer-email.html',
+        CUSTOMER_EMAIL_REMINDER: CUSTOMER_EMAIL_REMINDER || '/template/customer/customer-reminder-email.html',
+        CUSTOMER_EMAIL_REMINDER_SECOND: CUSTOMER_EMAIL_REMINDER_SECOND || '/template/customer/customer-reminder-email-second.html',
+        CUSTOMER_INVOICE_EMAIL: CUSTOMER_INVOICE_EMAIL || '/template/customer/customer-invoice.html',
+        CUSTOMER_CANCEL_EMAIL: CUSTOMER_CANCEL_EMAIL || '/template/customer/customer-cancel-order.html',
+        RETAILER_REMINDER_EMAIL: RETAILER_REMINDER_EMAIL || '/template/retailer/retailer-reminder-email.html',
+        RETAILER_EMAIL_REMINDER_SECOND: RETAILER_EMAIL_REMINDER_SECOND || '/template/retailer/retailer-reminder-email-second.html',
+        RETAILER_EMAIL_ITEMS_SOLD: RETAILER_EMAIL_ITEMS_SOLD || '/template/retailer/retailer-items-sold.html',
                 
         URLS: {
             URL_LOGO: 'https://drive.google.com/uc?export=view&id=11X4cJtuABLOYE95IqbjdJO0ve5L9sbWP',
             PRODUCT_FALL_BACK: 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN',
             ORDER_STATUS_PLACED: 'https://drive.google.com/uc?export=view&id=1PSHv1KnzXRxLLdnzKB-L8DpAyWC0qtBE',
+            ORDER_STATUS_ONTHEWAY: 'https://drive.google.com/uc?export=view&id=1ct5qDqIwPBhEXcCswtoBY7YFN2wEaQkO&raw=true',
+            ORDER_STATUS_DELIVERED: 'https://drive.google.com/uc?export=view&id=1DQU9fxWwk2k1zNOt5cLbEgzo8vTvP-_r&raw=true',
+            TRUSTPILOT_REVIEW: 'https://drive.google.com/uc?export=view&id=1x0F13iMoJlXzQrJ8gbRpA7WfrYTAnTnz&raw=true',
             EXCLAMATION: 'https://drive.google.com/uc?export=view&id=1C2agRu6adMVXXizmQtTpTp7M2-tzUx6S',
             FACEBOOK_IMAGE: 'https://drive.google.com/uc?export=view&id=1-BonISa9pSVgaD4WdboBdoWPDssYPBUC',
             TWITTER_IMAGE: 'https://drive.google.com/uc?export=view&id=1qrmr-LtUB9LWbaygzWR65JYDUkGeV6Nl',
@@ -79,7 +90,7 @@ export const config = {
             TWITTER_LINK: 'https://twitter.com',
             INSTAGRAM_LINK: 'https://instagram.com',
             EMAYS_CONTACT_US: 'https://emays.com/contact-us',
-            EMAIL_REDIRECTION_PATH: 'http://localhost:8080/api-dev/launchMail' 
+            EMAIL_REDIRECTION_PATH: 'http://localhost:8080/api-dev/launchMail'
         }
     },
     GOOGLE: {

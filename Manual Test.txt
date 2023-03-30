@@ -12,7 +12,7 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0yOVQxMDoxOTozNS40OTVaIiwiZXhwIjoxNjgwMDk1OTc1LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NDI0MTBiNDEzZjA4MDQ2NWQ3ZWZkMTciLCJpYXQiOjE2ODAwODUxNzV9.jIkFYtudhzPlopbQxPWR4wI3KGRSvjZtcL6cggaEJOI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0zMFQyMjo1MTozMy4zNjZaIiwiZXhwIjoxNjgwMjI3NDkzLCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NDI2MTI3MTE4NTZkM2QwZGY2NDQwNmQiLCJpYXQiOjE2ODAyMTY2OTN9.iXF6nWlcGbWnP31d3yhf9ezrN45IfzRNTrcOdig-woI
 
 {
     "email": "shaniyak656@gmail.com",
@@ -20,7 +20,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wM
     "firstName": "Thathsara",
     "lastName": "Raviraj",
     "phoneNumber": "07122658978",
-    "uid": "1234567341051",
+    "uid": "12345673410101",
     "date": "2023-03-16",
     "startTime": "19:00",
     "endTime": "21:00",
