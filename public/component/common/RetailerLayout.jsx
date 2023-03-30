@@ -5,11 +5,13 @@ import Nav from './Nav';
 
 const RetailerLayout = ({
     className,
-    children
+    children,
+    withoutNav,
+    ...props
 }) => {
     return (
         <Grid className={`retailer-main${className ? ` ${className}` : ''}`} fullWidth>
-            <Nav retailer />
+            {!withoutNav && <Nav refs={props.refs} retailer/>}
             {children}
         </Grid>
     );
@@ -17,7 +19,15 @@ const RetailerLayout = ({
 
 RetailerLayout.propTypes = {
     className: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    refs: PropTypes.arrayOf(
+        PropTypes.oneOfType([
+            // Either a function
+            PropTypes.func,
+            // Or the instance of a DOM native element (see the note about SSR)
+            PropTypes.shape({ current: PropTypes.instanceOf(Element) })
+        ])
+    )
 };
 
 export default RetailerLayout;
