@@ -20,3 +20,5 @@ export const USER_DATA = 'userData';
 export const RETAILER_DATA = 'retailerData';
 // CUSTOMER UI
 export const CUSTOMER_UI = 'customerUI';
+
+export const SERVICE_COST = 'serviceCost';

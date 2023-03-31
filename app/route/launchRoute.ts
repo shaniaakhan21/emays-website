@@ -139,7 +139,8 @@ router.post(RoutePath.LAUNCH, (req: express.Request,
         const retailerData = {
             // eslint-disable-next-line max-len
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-            retailerEmail: req.body?.retailerEmail
+            retailerEmail: req.body?.retailerEmail,
+            retailerArea: 'Milan'
         };
         const stringifyRetailerData = JSON.stringify(retailerData);
         const cleanedRetailerData = stringifyRetailerData.replace(/\\/g, '');

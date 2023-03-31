@@ -11,7 +11,8 @@ export interface LaunchRequestBody {
     productQuantity: number,
     productCost: string,
     productImage: string,
-    productDeliveryInformation: string
+    productDeliveryInformation: string,
+    area: string 
 }
 
 export interface LaunchUIContext {

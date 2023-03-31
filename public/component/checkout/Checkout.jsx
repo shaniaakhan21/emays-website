@@ -25,6 +25,7 @@ import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import timeframes from '../../../app/const/timeframes';
 import LoadingIndicator from '../LoadingIndicator';
+import GeoContainer from '../common/GeoContainer';
 
 const Checkout = () => {
 
@@ -38,6 +39,12 @@ const Checkout = () => {
     // Handler function for option change
     const handleOptionChange = (option) => {
         setState(cs => ({ ...cs, options: { ...cs.options, [option]: !cs.options[option] } }));
+    };
+
+    // State address update function from GeoContainer
+    const updateAddress = ({ addOne, addTwo, addThree, addFour }) => {
+        setState(cs => ({ ...cs, address: { ...cs.address, addOne: addOne, addTwo: addTwo,
+            addThree: addThree, addFour: addFour } }));
     };
 
     // State for product data
@@ -157,6 +164,9 @@ const Checkout = () => {
                         </div>
                         <div className='address'>
                             <p>{t('checkout.delivery-address.address')}</p>
+                        </div>
+                        <div>
+                            <GeoContainer updateAddress = {updateAddress}/>
                         </div>
                         <div className='address-info'>
                             <div>

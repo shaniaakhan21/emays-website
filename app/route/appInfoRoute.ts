@@ -10,6 +10,8 @@ import { RoutePath } from '../const/routePath';
 import { allowedForClientRoleOnly } from '../middleware/paramValidationMiddleware';
 import { buildInfoMessageRouteHit } from '../util/logMessageBuilder';
 import { AppRequest } from '../type/appRequestType';
+import { successResponseBuilder } from '../util/responseBuilder';
+import { HTTPSuccess } from '../const/httpCode';
 
 const Logging = Logger(__filename);
 
@@ -23,7 +25,7 @@ const Logging = Logger(__filename);
 router.get(RoutePath.APP_INFO, allowedForClientRoleOnly, (req: express.Request, res: express.Response): void => {
     const request: AppRequest = (req as AppRequest);
     Logging.log(buildInfoMessageRouteHit(req.path, `uid: ${request?.claims?.id as string}`), LogType.INFO);
-    res.json({ googleMapAPIKey: config.GOOGLE.MAP.API_KEY });
+    res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder({ googleMapAPIKey: config.GOOGLE.MAP.API_KEY }));
 });
 
 export default router;
