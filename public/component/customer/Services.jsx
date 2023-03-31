@@ -33,8 +33,8 @@ const Services = () => {
 
     const [t] = useTranslation();
     return (
-        <>  <Nav/>
-            <Grid className='grid-section'>
+        <> 
+            <Grid className='grid-section' id='services-start'>
                 <Column lg={16} md={8} sm={4} className='head-section'>
                     <h1 data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' >
                         {t('services.text-h1')}
@@ -53,7 +53,7 @@ const Services = () => {
                     <img data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1500' 
                         data-aos-delay='500' src={PRADA}/>
                 </Column>
-                <Column lg={16} md={8} sm={4}>
+                <Column lg={16} md={8} sm={4} className='carousel-on-phone'>
                     <Slider {...settings}>
                         <div>
                             <img src={LV} alt='Image 1' className='lv' />

@@ -79,13 +79,46 @@ const Nav = () => {
                         }}
                     >{t('nav.menu.lets-talk')}</HeaderMenuItem>
                 </> : <>
-                    <HeaderMenuItem href='/#/services' style={{ marginLeft: '1rem' }}>
+                    <HeaderMenuItem
+                        href='/#/'
+                        onClick={() => {
+                            const elem = document.querySelector( '#services-start' );
+                            elem.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        style={{ marginLeft: '1rem' }}
+                    >
                         {t('nav.menu.services')}
                     </HeaderMenuItem>
-                    <HeaderMenuItem href='/#/environment'>{t('nav.menu.sustainability')}</HeaderMenuItem>
-                    <HeaderMenuItem href='/#/shop-with-us'>{t('nav.menu.shop-with-us')}</HeaderMenuItem>
-                    <HeaderMenuItem href='/#/letsTalk'>{t('nav.menu.lets-talk')}</HeaderMenuItem>
-                    <HeaderMenuItem href='/#/faq'>{t('nav.menu.faqs')}</HeaderMenuItem>
+                    <HeaderMenuItem
+                        href='/#/'
+                        onClick={() => {
+                            const elem = document.querySelector( '#sustainability-start' );
+                            elem.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                    >{t('nav.menu.sustainability')}
+                    </HeaderMenuItem>
+                    <HeaderMenuItem
+                        href='/#/'
+                        onClick={() => {
+                            const elem = document.querySelector( '#shop-with-us-start' );
+                            elem.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                    >{t('nav.menu.shop-with-us')}</HeaderMenuItem>
+                    <HeaderMenuItem
+                        href='/#/'
+                        onClick={() => {
+                            const elem = document.querySelector( '#lets-talk-start' );
+                            elem.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                    >{t('nav.menu.lets-talk')}</HeaderMenuItem>
+                    <HeaderMenuItem
+                        href='/#/'
+                        onClick={() => {
+                            const elem = document.querySelector( '#faqs-start' );
+                            elem.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                    >{t('nav.menu.faqs')}</HeaderMenuItem>
+
                 </>}
             </HeaderNavigation>
         </Header>
