@@ -1,6 +1,7 @@
 {
   "common": {
     "error": "Error",
+    "success": "Success",
     "lets-talk-form": {
       "header": "Are you curious about something? Let’s talk",
       "name": "Name",
@@ -88,6 +89,7 @@
       "copy-right": "© Emays 2023. All rights reserved."
   },
   "confirm": {
+    "success": "Appointment updated successfully!",
     "edit-appointment": {
         "header": "YOUR APPOINTMENT",
         "edit-button": "EDIT"
