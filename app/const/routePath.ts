@@ -5,6 +5,8 @@ export enum RoutePath {
     CALENDER_ACCESS = '/googleCalender',
     CALENDER_REDIRECTION = '/redirectGoogleAccess', 
     LAUNCH = '/launch',
+    LAUNCH_ADD = '/launch_add',
+    LAUNCH_UPDATE = '/launch_update',
     LAUNCH_MAIL = '/launchMail',
     DEV_LAUNCH = '/devLaunch',
     ORDERS= '/orders',
