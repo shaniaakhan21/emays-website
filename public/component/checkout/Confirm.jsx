@@ -84,7 +84,11 @@ const Confirm = () => {
                     kind: 'success'
                 });
             } else {
-                await saveOrder();
+                await saveOrder({ ...rest, ...commonData, experience: `${[
+                    options?.assist ? 'Assist Me' : undefined,
+                    options?.tailoring ? 'Tailoring' : undefined,
+                    options?.inspire ? 'Inspire Me' : undefined
+                ]?.filter(i => i).join(', ')}.` });    
                 setOpen({ uuid: commonData.uuid });
             }
         } catch (e) {

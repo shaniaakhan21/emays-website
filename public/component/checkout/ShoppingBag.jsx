@@ -9,8 +9,7 @@ import FallBack from '../../icons/fallback.png';
 import Trash from '../../images/trash.svg';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-const serviceFee = 1499.00;
+import { getServiceCost } from '../../js/util/SessionStorageUtil';
 
 const getPriceList = (productList = []) => {
     return productList?.map((item) => (item.productCost));
@@ -27,12 +26,14 @@ const ShoppingBag = ({ productList = [], onDelete }) => {
 
     const [finalCost, setFinalCost] = useState(0.00);
 
+    const serviceFee = getServiceCost();
+
     useEffect(() => {
         const priceList = getPriceList(productList);
         const finalCost = getFinalCost(serviceFee, priceList);
         setFinalCost(finalCost);
 
-    }, [productList]);
+    }, [productList, serviceFee]);
 
     const instruction = useMemo(() => [
         t('shopping-bag-container.instruction-1'),
@@ -61,7 +62,7 @@ const ShoppingBag = ({ productList = [], onDelete }) => {
             </div>
             <div className='service-fee'>
                 <div className='text'><p>{t('shopping-bag-container.service-fee')}</p></div>
-                <div className='cost'><p>{`€ ${serviceFee}`}</p></div>
+                <div className='cost'> { serviceFee ? <p>{`€ ${serviceFee}`}</p> : <p>Calculating...</p> }</div>
             </div>
             <div className='instruction'>
                 <ListBoxCustom style={{ fontSize: '15px', fontFamily: 'SkolaSans' }} items={instruction}/>

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import { Grid, Column, Modal, ModalWrapper, ModalHeader } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
 import { useCallback, useEffect, useMemo, useState } from 'react';
@@ -25,6 +26,7 @@ import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import timeframes from '../../../app/const/timeframes';
 import LoadingIndicator from '../LoadingIndicator';
+import GeoContainer from '../common/GeoContainer';
 import ConfirmDialog from '../common/ConfirmDialog';
 import FallBack from '../../icons/fallback.png';
 import ShoppingItem from './ShoppingItem';
@@ -47,17 +49,26 @@ const Checkout = () => {
         setState(cs => ({ ...cs, options: { ...cs.options, [option]: !cs.options[option] } }));
     };
 
+    // State address update function from GeoContainer
+    const updateAddress = ({ addOne }) => {
+        setState(cs => ({ ...cs, address: { ...cs.address, addOne: addOne } }));
+    };
+
     // State for product data
     const [productData, setProductData] = useState([]);
 
-    // Get product data from session storage and update product data state
+    // Component load logics
     useEffect(() => {
         const productData = getProductList();
         setProductData(productData);
     }, []);
 
+    const preventTyping = (event) => {
+        event.preventDefault();
+    };
+
     const submit = () => {
-        const errors = ['addOne', 'addTwo', 'addThree', 'addFour'].reduce(
+        const errors = ['addOne', 'addTwo', 'addThree', 'addFour', 'addFive', 'addSix'].reduce(
             (acc, k) => (
                 state?.address?.[k] && state?.address?.[k] !== '' ? acc : { ...acc, [k]: true }
             ), {}
@@ -195,9 +206,15 @@ const Checkout = () => {
                         <div className='address'>
                             <p>{t('checkout.delivery-address.address')}</p>
                         </div>
+                        <div>
+                            <GeoContainer updateAddress = {updateAddress}/>
+                        </div>
                         <div className='address-info'>
                             <div>
                                 <TextBoxCustom
+                                    onKeyDown = {preventTyping}
+                                    id = {'addressStreet'}
+                                    placeholderText={t('checkout.book-appointment.addOnePlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addOne ?? ''}
                                     onChange={
@@ -209,6 +226,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addTwoPlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addTwo}
                                     onChange={
@@ -220,6 +238,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addThreePlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addThree}
                                     onChange={
@@ -231,6 +250,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addFourPlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addFour}
                                     onChange={
@@ -239,6 +259,31 @@ const Checkout = () => {
                                         )
                                     }
                                     invalid={errors?.addFour} />
+                                
+                            </div>
+                            <div>
+                                <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addFivePlaceHolder')}
+                                    customStyle={{ backgroundColor: 'white' }}
+                                    value={state?.address?.addFive}
+                                    onChange={
+                                        (e) => setState(
+                                            cs => ({ ...cs, address: { ...cs.address, addFive: e.target.value } })
+                                        )
+                                    }
+                                    invalid={errors?.addFive} />
+                            </div>
+                            <div>
+                                <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addSixPlaceHolder')}
+                                    customStyle={{ backgroundColor: 'white' }}
+                                    value={state?.address?.addSix}
+                                    onChange={
+                                        (e) => setState(
+                                            cs => ({ ...cs, address: { ...cs.address, addSix: e.target.value } })
+                                        )
+                                    }
+                                    invalid={errors?.addSix} />
                             </div>
                         </div>
                     </div>

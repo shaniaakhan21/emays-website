@@ -36,7 +36,14 @@
       "header": "BOOK YOUR APPOINTMENT",
       "choose-date": "Choose Date",
       "choose-time": "Choose Time Window",
-      "custom-date": "Custom Date"
+      "custom-date": "Custom Date",
+      "addOnePlaceHolder": "Street Name | Auto Complete",
+      "addTwoPlaceHolder": "Portal Number",
+      "addThreePlaceHolder": "Apartment, Suit",
+      "addFourPlaceHolder": "City",
+      "addFivePlaceHolder": "Country",
+      "addSixPlaceHolder": "Post Code",
+      "searchAddress": "Search your address street or complete address"
     },
     "customize-experience": {
       "header": "CUSTOMIZE YOUR EXPERIENCE FOR FREE",

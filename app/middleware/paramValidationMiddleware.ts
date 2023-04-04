@@ -65,9 +65,19 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
             experience: Joi.string().required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, EXPERIENCE_REQUIRED); }),
-            address: Joi.object().keys({ addOne: Joi.string().required(),
-                addTwo: Joi.string().required(), addThree: Joi.string().required(),
-                addFour: Joi.string().required() }).required().error((error) => {
+            address: Joi.object().keys({ 
+                // Street
+                addOne: Joi.string().required(),
+                // Portal number
+                addTwo: Joi.string().required(),
+                // Apartment, suit
+                addThree: Joi.string().required(),
+                // City
+                addFour: Joi.string().required(),
+                // Country
+                addFive: Joi.string().required(),
+                // Post code
+                addSix: Joi.string().required() }).required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, ADDRESS_REQUIRED); }),
             orderItems: Joi.array().items({

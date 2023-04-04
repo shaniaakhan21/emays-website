@@ -1,6 +1,7 @@
 'use strict';
 
-import { AUTH_TOKEN, PRODUCT_LIST, ADDRESS, LAUNCH_TYPE, USER_DATA, RETAILER_DATA } from '../const/SessionStorageConst';
+import { AUTH_TOKEN, PRODUCT_LIST, ADDRESS, LAUNCH_TYPE, USER_DATA,
+    RETAILER_DATA, SERVICE_COST } from '../const/SessionStorageConst';
 
 const getItem = (key) => {
     const itemsAsString = sessionStorage.getItem(key);
@@ -92,4 +93,12 @@ export const getRetailerData = () => {
     const cleaned = retailerDataString.replace(/&#34;/g, '"');
     const json = JSON.parse(cleaned);
     return json;
+};
+
+export const setServiceCost = (serviceCost) => {
+    sessionStorage.setItem(SERVICE_COST, JSON.stringify(serviceCost));
+};
+
+export const getServiceCost = () => {
+    return sessionStorage.getItem(SERVICE_COST);
 };
