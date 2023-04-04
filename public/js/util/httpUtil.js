@@ -4,7 +4,7 @@
 import { getAuthToken } from './SessionStorageUtil';
 import ResponseValidator from './responseValidator';
 
-export const apiBase = '/api';
+export const apiBase = '/api-dev';
 
 export class HTTPHelper {
     static async get (uri, headers) {
@@ -16,8 +16,8 @@ export class HTTPHelper {
                 'Authorization': `Bearer ${getAuthToken()}`,
                 ...headers
             }
-        });      
-        return ResponseValidator.validate(response); 
+        });     
+        return ResponseValidator.validate(response);
     }
 
     static async post (uri, headers, data = {}) {

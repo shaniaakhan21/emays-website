@@ -6,6 +6,8 @@ export const LAUNCH_TYPE = 'launchType';
 export const PRODUCT_LAUNCH = 'productLaunch';
 // Email Launch Types
 export const EMAIL_BOOKED = 'emailBooked';
+// Email Launch Types
+export const EMAIL_EDIT = 'emailEdit';
 export const EMAIL_REMINDER = 'emailReminder';
 export const EMAIL_TODAY = 'emailToday';
 export const EMAIL_INVOICE = 'emailInvoice';
@@ -20,3 +22,5 @@ export const USER_DATA = 'userData';
 export const RETAILER_DATA = 'retailerData';
 // CUSTOMER UI
 export const CUSTOMER_UI = 'customerUI';
+
+export const SERVICE_COST = 'serviceCost';
