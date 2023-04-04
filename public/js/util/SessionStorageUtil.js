@@ -98,3 +98,7 @@ export const getRetailerData = () => {
 export const setServiceCost = (serviceCost) => {
     sessionStorage.setItem(SERVICE_COST, JSON.stringify(serviceCost));
 };
+
+export const getServiceCost = () => {
+    return sessionStorage.getItem(SERVICE_COST);
+};

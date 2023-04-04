@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { getRetailerData } from '../../js/util/SessionStorageUtil';
+import { getRetailerData, setServiceCost } from '../../js/util/SessionStorageUtil';
 import { getAppInfo, getServiceFee } from '../../services/geo';
 import TextBoxCustom from './TextBoxCustom';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 const GeoSearchContainer = styled.div`
     padding-top: 20px;
@@ -18,30 +19,38 @@ const List = styled.ul`
 `;
 
 const GeoContainer = ({ updateAddress }) => {
+
+    const [t] = useTranslation();
     const [address, setAddress] = useState('');
     const [predictions, setPredictions] = useState([]);
     const [autocompleteService, setAutocompleteService] = useState(null);
     const [placeService, setPlaceService] = useState(null);
     // Initialize google map API
     useEffect(() => {
-        let appInfo;
         (async () => {
-            appInfo = await getAppInfo();
-            const script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${appInfo.googleMapAPIKey}&libraries=places`;
-            script.defer = true;
-            script.async = true;
-            script.onload = () => {
-                setAutocompleteService(new window.google.maps.places.AutocompleteService());
-                setPlaceService(new google.maps.places.PlacesService(document.createElement('div')));
-            };
-            document.head.appendChild(script);
+            let script;
+            const scripts = document.getElementsByTagName('script');
+            const mapsApiLoaded = Array.from(scripts).some(
+                (script) => script.src.includes('https://maps.googleapis.com/maps/api/js?key')
+            );
+            if (!mapsApiLoaded) {
+                const appInfo = await getAppInfo();
+                script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${appInfo.googleMapAPIKey}&libraries=places`;
+                script.defer = true;
+                script.async = true;
+                script.onload = () => {
+                    setAutocompleteService(new window.google.maps.places.AutocompleteService());
+                    setPlaceService(new google.maps.places.PlacesService(document.createElement('div')));
+                };
+                document.head.appendChild(script);
+                return () => {
+                    document.head.removeChild(script);
+                };
+            }
         })().catch(error => {
             return error;
         });
-        return () => {
-            document.head.removeChild(script);
-        };
     }, []);
 
     const autoCompleteHandler = (event) => {
@@ -64,14 +73,12 @@ const GeoContainer = ({ updateAddress }) => {
         setAddress(prediction.description);
         placeService.getDetails({ placeId: prediction['place_id'] }, function (result, status) {
             const [addOne, addTwo, addThree, addFour] = prediction.description.split(', ');
-            updateAddress({ addOne: addOne ? addOne : '',
-                addTwo: addTwo ? addTwo : '', addThree: addThree ? addThree : '',
-                addFour: addFour ? addFour : '' });
+            updateAddress({ addOne: addOne ? addOne : '' });
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 const latLng = result.geometry.location;
                 const area = getRetailerData().retailerArea;
                 getServiceFee(area, latLng.lat(), latLng.lng()).then(data => {
-                    // Set service fee
+                    setServiceCost(data.serviceFee);
                 });
             }
         });
@@ -81,7 +88,7 @@ const GeoContainer = ({ updateAddress }) => {
     return (
         <GeoSearchContainer>
             <TextBoxCustom 
-                placeholder='Please try to search your address here'
+                placeholderText={t('checkout.book-appointment.searchAddress')}
                 customStyle={{ width: '100%' }}
                 value={address} onChange={autoCompleteHandler}
             />

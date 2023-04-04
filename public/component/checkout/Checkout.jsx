@@ -1,6 +1,7 @@
-import { Grid, Column } from '@carbon/react';
+/* eslint-disable max-lines */
+import { Grid, Column, Modal, ModalWrapper, ModalHeader } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { PropTypes } from 'prop-types';
 
 // Components
@@ -26,15 +27,22 @@ import useSessionState from '../../js/util/useSessionState';
 import timeframes from '../../../app/const/timeframes';
 import LoadingIndicator from '../LoadingIndicator';
 import GeoContainer from '../common/GeoContainer';
+import ConfirmDialog from '../common/ConfirmDialog';
+import FallBack from '../../icons/fallback.png';
+import ShoppingItem from './ShoppingItem';
+import { useMessage } from '../common/messageCtx';
+import { updateOrder } from '../../services/order';
 
 const Checkout = () => {
 
     const [t] = useTranslation();
     const history = useHistory();
+    const pushAlert = useMessage();
 
     const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {} });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
+    const [showDelete, setShowDelete] = useState(undefined);
 
     // Handler function for option change
     const handleOptionChange = (option) => {
@@ -42,22 +50,25 @@ const Checkout = () => {
     };
 
     // State address update function from GeoContainer
-    const updateAddress = ({ addOne, addTwo, addThree, addFour }) => {
-        setState(cs => ({ ...cs, address: { ...cs.address, addOne: addOne, addTwo: addTwo,
-            addThree: addThree, addFour: addFour } }));
+    const updateAddress = ({ addOne }) => {
+        setState(cs => ({ ...cs, address: { ...cs.address, addOne: addOne } }));
     };
 
     // State for product data
     const [productData, setProductData] = useState([]);
 
-    // Get product data from session storage and update product data state
+    // Component load logics
     useEffect(() => {
         const productData = getProductList();
         setProductData(productData);
     }, []);
 
+    const preventTyping = (event) => {
+        event.preventDefault();
+    };
+
     const submit = () => {
-        const errors = ['addOne', 'addTwo', 'addThree', 'addFour'].reduce(
+        const errors = ['addOne', 'addTwo', 'addThree', 'addFour', 'addFive', 'addSix'].reduce(
             (acc, k) => (
                 state?.address?.[k] && state?.address?.[k] !== '' ? acc : { ...acc, [k]: true }
             ), {}
@@ -75,8 +86,38 @@ const Checkout = () => {
         }, 1000);
     };
 
+    const removeItem = useCallback(async () => {
+        try {
+            setLoading(true);
+            await updateOrder(state.uid, { orderItems: productData?.filter((o, i) => i !== showDelete) });
+            setShowDelete(false);
+            setProductData(productData?.filter((o, i) => i !== showDelete));
+        } catch (e) {
+            pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: e.message });
+        } finally {
+            setLoading(false);
+        }
+    }, [showDelete]);
+
     return (
         <Grid className='landing-page'>
+            <ConfirmDialog
+                open={showDelete !== undefined && showDelete !== false}
+                setOpen={setShowDelete}
+                secondaryButtonText='Back'
+                primaryButtonText='Yes, I dont want it'
+                modalLabel='DELETE THIS ITEM?'
+                onRequestSubmit={removeItem}
+            >
+                <ShoppingItem
+                    index={showDelete}
+                    itemName={productData[showDelete]?.productName}
+                    image={productData[showDelete]?.productImage || FallBack}
+                    color={productData[showDelete]?.productColor}
+                    size={productData[showDelete]?.productSize}
+                    quantity={productData[showDelete]?.productQuantity}
+                    price={`€ ${productData[showDelete]?.productCost}`} />
+            </ConfirmDialog>
             <Column lg={16} md={16} sm={16} xs={16} className='logo'>
                 <img src={Emays} alt='The Emays logo' />
             </Column>
@@ -171,6 +212,9 @@ const Checkout = () => {
                         <div className='address-info'>
                             <div>
                                 <TextBoxCustom
+                                    onKeyDown = {preventTyping}
+                                    id = {'addressStreet'}
+                                    placeholderText={t('checkout.book-appointment.addOnePlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addOne ?? ''}
                                     onChange={
@@ -182,6 +226,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addTwoPlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addTwo}
                                     onChange={
@@ -193,6 +238,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addThreePlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addThree}
                                     onChange={
@@ -204,6 +250,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addFourPlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addFour}
                                     onChange={
@@ -212,6 +259,31 @@ const Checkout = () => {
                                         )
                                     }
                                     invalid={errors?.addFour} />
+                                
+                            </div>
+                            <div>
+                                <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addFivePlaceHolder')}
+                                    customStyle={{ backgroundColor: 'white' }}
+                                    value={state?.address?.addFive}
+                                    onChange={
+                                        (e) => setState(
+                                            cs => ({ ...cs, address: { ...cs.address, addFive: e.target.value } })
+                                        )
+                                    }
+                                    invalid={errors?.addFive} />
+                            </div>
+                            <div>
+                                <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addSixPlaceHolder')}
+                                    customStyle={{ backgroundColor: 'white' }}
+                                    value={state?.address?.addSix}
+                                    onChange={
+                                        (e) => setState(
+                                            cs => ({ ...cs, address: { ...cs.address, addSix: e.target.value } })
+                                        )
+                                    }
+                                    invalid={errors?.addSix} />
                             </div>
                         </div>
                     </div>
@@ -232,7 +304,7 @@ const Checkout = () => {
                     </div>
                 </Column>}
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                <ShoppingBag productList={productData}/>
+                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData} />
             </Column>
         </Grid>
     );
