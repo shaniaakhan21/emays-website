@@ -15,12 +15,12 @@ import Emays from '../../logo/emays-logo-white.png';
 import EditIcon from '../../icons/edit.svg';
 
 // Util
-import { getAddress, getProductList, getSelectedOptions } from '../../js/util/SessionStorageUtil';
+import { getAddress, getLaunchType, getProductList, getSelectedOptions } from '../../js/util/SessionStorageUtil';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
-import { CHECKOUT_INFO } from '../../js/const/SessionStorageConst';
+import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
 import ErrorBoundary from '../ErrorBoundary';
-import { saveOrder } from '../../services/order';
+import { saveOrder, updateOrder } from '../../services/order';
 import { useMessage } from '../common/messageCtx';
 import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
 import LoadingIndicator from '../LoadingIndicator';
@@ -30,6 +30,7 @@ const Confirm = () => {
     const [t] = useTranslation();
     const pushAlert = useMessage();
     const history = useHistory();
+    const launchType = getLaunchType();
 
     const [productData, setProductData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -46,6 +47,7 @@ const Confirm = () => {
 
     const submit = useCallback(async () => {
         try {
+            console.log('getRetailerData()()', getRetailerData());
             setLoading(true);
             const commonData = {
                 uid: getUserData().uid,
@@ -68,18 +70,33 @@ const Confirm = () => {
                 setErrors(errors);
                 return;
             }
-            await saveOrder({ ...rest, ...commonData, experience: `${[
+            const order = { ...rest, ...commonData, experience: `${[
                 options?.assist ? 'Assist Me' : undefined,
                 options?.tailoring ? 'Tailoring' : undefined,
                 options?.inspire ? 'Inspire Me' : undefined
-            ]?.filter(i => i).join(', ')}.` });
-            setOpen({ uuid: commonData.uuid });
+            ]?.filter(i => i).join(', ')}.` };
+            if (launchType === EMAIL_EDIT) {
+                await updateOrder(commonData.uid, order);
+                pushAlert({
+                    statusIconDescription: t('common.success'),
+                    title: t('common.success'),
+                    subtitle: t('confirm.success'),
+                    kind: 'success'
+                });
+            } else {
+                await saveOrder({ ...rest, ...commonData, experience: `${[
+                    options?.assist ? 'Assist Me' : undefined,
+                    options?.tailoring ? 'Tailoring' : undefined,
+                    options?.inspire ? 'Inspire Me' : undefined
+                ]?.filter(i => i).join(', ')}.` });    
+                setOpen({ uuid: commonData.uuid });
+            }
         } catch (e) {
             pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: e.message });
         } finally {
             setLoading(false);
         }
-    }, [state, productData]);
+    }, [state, productData, launchType]);
 
     return (
         <ErrorBoundary>

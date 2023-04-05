@@ -17,10 +17,18 @@ export interface IOrder {
     timeZone: string,
     experience: string,
     address: {
+        // Street
         addOne: string,
+        // Portal number
         addTwo: string,
+        // Apartment, suit
         addThree: string,
-        addFour: string
+        // City
+        addFour: string,
+        // Country
+        addFive: string,
+        // Post code
+        addSix: string
     },
     orderItems: Array<Order>,
     createdAt?: Date,
@@ -42,10 +50,18 @@ export interface IOrderDTO {
     timeZone?: string,
     experience?: string,
     address?: {
+        // Street
         addOne: string,
+        // Portal number
         addTwo: string,
+        // Apartment, suit
         addThree: string,
-        addFour: string
+        // City
+        addFour: string,
+        // Country
+        addFive: string,
+        // Post code
+        addSix: string
     },
     orderItems: Array<Order>,
     createdAt?: Date,
@@ -74,10 +90,18 @@ export interface IPatchOrder {
     timeZone?: string,
     experience?: string,
     address?: {
+        // Street
         addOne: string,
+        // Portal number
         addTwo: string,
+        // Apartment, suit
         addThree: string,
-        addFour: string
+        // City
+        addFour: string,
+        // Country
+        addFive: string,
+        // Post code
+        addSix: string
     },
     createdAt?: Date,
     history?: Array<Date>,

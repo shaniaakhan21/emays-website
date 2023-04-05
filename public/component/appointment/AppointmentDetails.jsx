@@ -11,16 +11,15 @@ import Email3 from '../../images/email-3.png';
 import Facebook from '../../images/facebookicon.png';
 import Instagram from '../../images/instagramicon.png';
 import Twitter from '../../images/twittericon.png';
-
-// Components
-
-// Util
-import { getAuthToken, getProductList, getUserData } from '../../js/util/SessionStorageUtil';
-import ShoppingItem from '../checkout/ShoppingItem';
 import FallBack from '../../icons/fallback.png';
 import Emays from '../../logo/emays-logo-white.png';
 
+// Components
+import ShoppingItem from '../checkout/ShoppingItem';
 import ButtonCustom from '../common/ButtonCustom';
+
+// Util
+import { getAuthToken, getProductList, getUserData } from '../../js/util/SessionStorageUtil';
 import moment from 'moment';
 
 // Const 
@@ -61,7 +60,6 @@ const Appointment = () => {
     };
 
     return (<div className='appointment-page'>
-        
         <div className='logo'>
             <img src={Emays} alt='The Emays logo' />
         </div>
@@ -69,7 +67,6 @@ const Appointment = () => {
             <p>{t('email-launch.header-one.left')}</p>
             <p>{t('email-launch.header-one.right')}</p>
         </div>
-        
         <div className='text-info'>
             <p>{data?.userData?.firstName}</p>
             <Trans>
