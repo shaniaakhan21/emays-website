@@ -7,7 +7,7 @@
 
 <body style="padding-left: 20px; padding-right: 20px;">
 
-  <table style="width:100%">
+  <table style="width: 40%;">
     <br>
     <tr>
       <td style="padding-left: 30%;" style="padding-top: 20px;">
@@ -33,7 +33,7 @@
     <tr>
       <td>
         <div style="width: 100%; height: 90px; background-color:#323232;">
-          <div style="color: white; float: left; padding-left: 10px; padding-bottom: 5px; width: 50%; border-right: 1px solid white;">
+          <div style="color: white; float: left; padding-left: 22px; padding-bottom: 5px; width: 50%; border-right: 1px solid white;">
             <h3>Date</h3>
             <p><%= date %></p>
           </div>
@@ -87,15 +87,15 @@
     <% } %>
     <tr>
       <td>
-        <div style="padding: 40px 20px 20px 0px;">
-          <a style="text-decoration: none; padding: 12px 45px 12px 45px; background-color: #323232; color: white;" href="http://localhost:8080/api-dev/editAppointment?authToken=tempToken&uuid=12345673360" target="_blank">EDIT APPOINTMENT</a>
-          <a style="text-decoration: none; padding: 12px 40px 12px 40px; background-color: #323232; color: white;" href="<%= bookCalendarURL %>" target="_blank">ADD TO MY CALENDAR</a>
+        <div style="padding: 40px 0px 20px 0px;">
+          <a style="text-decoration: none; padding: 12px 44px; background-color: #323232; color: white;" href="http://localhost:8080/api-dev/editAppointment?authToken=tempToken&uuid=12345673360" target="_blank">EDIT APPOINTMENT</a>
+          <a style="text-decoration: none; padding: 12px 44px;; background-color: #323232; color: white;" href="<%= bookCalendarURL %>" target="_blank">ADD TO MY CALENDAR</a>
         </div>
       </td>
     </tr>
     <tr>
       <td>
-        <div style="width: 505px;">
+        <div>
           <!-- TODO: change the image path adjust css for image -->
           <img style="margin-left: 20px;" width="400" height="75" src="<%= statusImage %>" alt="Status Image">
         </div>
@@ -103,7 +103,7 @@
     </tr>
     <tr>
       <td>
-        <div style="width: 450px; height: 95px; background-color: #323232; margin-top: 20px;">
+        <div style="height: 95px; background-color: #323232; margin-top: 20px;">
           <div style="display: flex; padding-left: 20px;">
             <!-- TODO: change the image path and adjust css for image -->
             <img style="margin-left: 15px; margin-top: 25px; height: 50px; width: 25px;" width="400" height="75" src="<%= exclamation%>" alt="Exclamation Image">
@@ -117,7 +117,7 @@
     <tr>
       <td>
         <div style="width: 455px;">
-          <p>We look forward to seeing you, but should you be unable to attend then please note our cancellation policy below.We require at least 48 hours notice should you wish to make any changes or amendments to your scheduled appointment. Should you not inform us of any change within 48 notice you will be charged the service fee.</p>
+          <p>We look forward to seeing you, but should you be unable to attend then please note our cancellation policy below. <br> We require at least 48 hours notice should you wish to make any changes or amendments to your scheduled appointment. Should you not inform us of any change within 48 notice you will be charged the service fee.</p>
         </div>
         <div style="width: 455px;">
           <a style="color: black;" href="<%= redirectionURL %>" target="_blank" rel="noopener noreferrer">View order details.</a>

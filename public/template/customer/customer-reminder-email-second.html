@@ -7,7 +7,7 @@
 
 <body style="padding-left: 20px; padding-right: 20px;">
 
-  <table style="width:100%">
+  <table style="width:40%">
     <br>
     <tr>
       <td style="padding-top: 20px;">
@@ -49,16 +49,19 @@
         </td>
       </tr>
     <% } %>
-    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-      <tr style="vertical-align: middle; background-color: #323232;">
-        <td style="width: 9%; text-align: end;">
-          <img style=" padding-top: 0.7%; height: 33px; width: 18px;" width="400" height="35" src="<%= exclamation%>" alt="Exclamation Image">
-        </td>
-        <td style="width: 50%;">
-          <p style="color: white; "><u>Please remember</u>, we will contact you the day before your appointment, as well as a reminder on the day</p>
+      <tr>
+        <td>
+          <div style="height: 95px; background-color: #323232; margin-top: 20px;">
+            <div style="display: flex; padding-left: 20px;">
+              <!-- TODO: change the image path and adjust css for image -->
+              <img style="margin-left: 15px; margin-top: 25px; height: 50px; width: 25px;" width="400" height="75" src="<%= exclamation%>" alt="Exclamation Image">
+              <div style="width: 350px; color: white; display: inline-block; margin-top: 15px;">
+                <p><u>Please remember</u>, we will contact you the day before your appointment, as well as a reminder on the day</p>
+              </div>
+            </div>
+          </div>
         </td>
       </tr>
-    </table>
     
     <tr>
       <td>

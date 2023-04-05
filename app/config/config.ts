@@ -77,7 +77,7 @@ export const config = {
         RETAILER_EMAIL_ITEMS_SOLD: RETAILER_EMAIL_ITEMS_SOLD || '/template/retailer/retailer-items-sold.html',
                 
         URLS: {
-            URL_LOGO: 'https://drive.google.com/uc?export=view&id=11X4cJtuABLOYE95IqbjdJO0ve5L9sbWP',
+            URL_LOGO: 'https://drive.google.com/uc?export=view&id=11X4cJtuABLOYE95IqbjdJO0ve5L9sbWP&raw=true',
             PRODUCT_FALL_BACK: 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN',
             ORDER_STATUS_PLACED: 'https://drive.google.com/uc?export=view&id=1PSHv1KnzXRxLLdnzKB-L8DpAyWC0qtBE',
             ORDER_STATUS_ONTHEWAY: 'https://drive.google.com/uc?export=view&id=1ct5qDqIwPBhEXcCswtoBY7YFN2wEaQkO&raw=true',

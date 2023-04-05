@@ -74,7 +74,7 @@ export const sendEmailForOrderTracking: SendEmailFunc = async (emailInfo, templa
                 },
                 Subject: {
                     Charset: 'UTF-8',
-                    Data: `EMAYS Order Confirmation For - ${emailInfo.firstName}`
+                    Data: `EMAYS Order Tracking Email For - ${emailInfo.firstName}`
                 }
             }
         };
@@ -147,7 +147,7 @@ export const sendEmailForOrderCancellation: SendEmailFunc = async (emailInfo, te
                 },
                 Subject: {
                     Charset: 'UTF-8',
-                    Data: `EMAYS Order Confirmation For - ${emailInfo.firstName}`
+                    Data: `EMAYS Order Cancellation For - ${emailInfo.firstName}`
                 }
             }
         };
@@ -292,7 +292,7 @@ export const sendEmailForSecondReminder: SendEmailFunc = async (emailInfo, templ
                 },
                 Subject: {
                     Charset: 'UTF-8',
-                    Data: `EMAYS Order Confirmation For - ${emailInfo.firstName}`
+                    Data: `EMAYS Reminder for your Order, ${emailInfo.firstName}`
                 }
             }
         };
@@ -364,7 +364,7 @@ export const sendEmailForReminder: SendEmailFunc = async (emailInfo, template) =
                 },
                 Subject: {
                     Charset: 'UTF-8',
-                    Data: `EMAYS Order Confirmation For - ${emailInfo.firstName}`
+                    Data: `EMAYS Reminder for your Order, - ${emailInfo.firstName}`
                 }
             }
         };
