@@ -10,6 +10,7 @@ export interface ISendEmailInfo {
     phoneNumber: string,
     urlLogo: string,
     statusImage: string,
+    trustpilotImage: string,
     exclamationImage: string,
     facebookLink: string,
     instagramLink: string,
