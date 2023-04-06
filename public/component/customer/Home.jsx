@@ -5,13 +5,14 @@ import Environment from './Environment';
 import Services from './Services';
 import RetailerLetsTalk from '../retailer/LetsTalk';
 import RetailerFAQs from '../retailer/FAQs';
+import ErrorBoundary from '../ErrorBoundary';
 
 const CustomerHome = ({
     withoutNav,
     ...props
 }) => {
     return (
-        <>
+        <ErrorBoundary>
             {!withoutNav && <Nav refs={props.refs} />}
             <HomeSection />
             <ShopWithUs />
@@ -19,7 +20,7 @@ const CustomerHome = ({
             <Services />
             <RetailerLetsTalk />
             <RetailerFAQs />
-        </>
+        </ErrorBoundary>
     );
 };
 

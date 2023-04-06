@@ -4,15 +4,18 @@ import IconTextImg from '../common/environment/IconTextImg';
 import ImgTextIcon from '../common/environment/ImgTextIcon';
 import TextImg from '../common/environment/TextImg';
 import Nav from '../common/Nav';
+import ErrorBoundary from '../ErrorBoundary';
+
 const Environment = () => {
     return (
-        <>  <Nav />
+        <ErrorBoundary>
+            <Nav />
             <EnvironmentHeader />
             <IconTextImg />
             <IconImgText />
             <ImgTextIcon/>
             <TextImg/>        
-        </>
+        </ErrorBoundary> 
     );
 };
 

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Grid, Column, InlineLoading } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
