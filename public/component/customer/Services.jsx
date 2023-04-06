@@ -15,6 +15,7 @@ import PRADA from '../../images/HomeCustomerSection/PRADA.svg';
 import CHANEL from '../../images/HomeCustomerSection/CHANEL.svg';
 import Nav from '../common/Nav';
 import { useTranslation } from 'react-i18next';
+import ErrorBoundary from '../ErrorBoundary';
 
 const Services = () => {
     useEffect(() => {
@@ -33,7 +34,7 @@ const Services = () => {
 
     const [t] = useTranslation();
     return (
-        <> 
+        <ErrorBoundary> 
             <Grid className='grid-section' id='services-start'>
                 <Column lg={16} md={8} sm={4} className='head-section'>
                     <h1 data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' >
@@ -70,7 +71,7 @@ const Services = () => {
                     </Slider>
                 </Column>
             </Grid>
-        </>
+        </ErrorBoundary>
     );
 };
 

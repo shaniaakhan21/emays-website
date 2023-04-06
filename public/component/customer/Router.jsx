@@ -1,6 +1,7 @@
 import { Route, Switch, useHistory } from 'react-router-dom';
 import Environment from './Environment';
 import ShopWithUs from './ShopWithUs';
+import ErrorBoundary from '../ErrorBoundary';
 // Components
 import CustomerHome from './Home';
 import Services from './Services';
@@ -70,16 +71,18 @@ const CustomerRouter = () => {
     }, [launchType]);
 
     return (
-        <Switch>
-            <Route path='/' exact component={() => <CustomerHome />} />
-            <Route path='/environment' component={() => <Environment />} />
-            <Route path='/services' component={() => <Services />} />
-            <Route path='/shop-with-us' component={() => <ShopWithUs />}/>
-            <Route path='/letsTalk' component={() => <RetailerLetsTalk />} />
-            <Route path='/faq' component={() => <RetailerFAQs />} />
-            <Route path='/integration' component={() => <RetailerIntegration />} />
-            <Route path='/partnership' component={() => <RetailerPartnership />} />
-        </Switch>
+        <ErrorBoundary>
+            <Switch>
+                <Route path='/' exact component={() => <CustomerHome />} />
+                <Route path='/environment' component={() => <Environment />} />
+                <Route path='/services' component={() => <Services />} />
+                <Route path='/shop-with-us' component={() => <ShopWithUs />}/>
+                <Route path='/letsTalk' component={() => <RetailerLetsTalk />} />
+                <Route path='/faq' component={() => <RetailerFAQs />} />
+                <Route path='/integration' component={() => <RetailerIntegration />} />
+                <Route path='/partnership' component={() => <RetailerPartnership />} />
+            </Switch>
+        </ErrorBoundary>
     );
 };
 

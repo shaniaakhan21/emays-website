@@ -37,27 +37,12 @@ const HomeSection = () => {
             </Column>
             <Column lg={9} md={5} sm={4} className='shipping-column__below' >
                 <img className='bag-img' src={EMAYBAG}/>
-                {/* <div className='buttons'>
-                    <ButtonCustom action={() => {}} text={'Shop With Our Brands'} />
-                    <ButtonCustom
-                        action={() => {}}
-                        iconDescription='E-Mail'
-                        hasIconOnly
-                        renderIcon={() => <img src={MailIcon} alt='E-Mail' />}
-                    />
-                </div> */}
                 <Button className='shipping-section__button show'>
                     {t('home-section.col-1.btn-text')}
                 </Button>
             </Column>
             <Column lg={9} md={5} sm={4} className='shipping-column__right' >
                 <div className='shipping-section__right buttons' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='1100'>
-                    {/* <ButtonCustom action={() => {}} text={'Shop With Our Brands'} />
-                    <ButtonCustom
-                        action={() => {}}
-                        iconDescription='E-Mail'
-                        hasIconOnly
-                        renderIcon={() => <img src={MailIcon} alt='E-Mail' />} */}
                 </div>
             </Column>
             
