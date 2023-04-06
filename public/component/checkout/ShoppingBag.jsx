@@ -39,7 +39,6 @@ const ShoppingBag = ({ productList = [], onDelete }) => {
         t('shopping-bag-container.instruction-1'),
         t('shopping-bag-container.instruction-2'),
         t('shopping-bag-container.instruction-3'),
-        t('shopping-bag-container.instruction-4')
     ], [t]);
 
     return (
@@ -65,7 +64,7 @@ const ShoppingBag = ({ productList = [], onDelete }) => {
                 <div className='cost'> { serviceFee ? <p>{`€ ${serviceFee}`}</p> : <p>Calculating...</p> }</div>
             </div>
             <div className='instruction'>
-                <ListBoxCustom style={{ fontSize: '15px', fontFamily: 'SkolaSans' }} items={instruction}/>
+                <ListBoxCustom style={{ fontSize: '15px', fontFamily: 'Montserrat' }} items={instruction}/>
             </div>
             <div className='book'>
                 <ButtonCustom

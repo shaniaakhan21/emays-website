@@ -1,0 +1,31 @@
+.cds--modal-container{
+    box-shadow: 1px 1px 11px 2px #ffffff52;
+}
+
+.cds--modal-header__label {
+    font-size: 1.5rem;
+    color: #bb0202;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.cds--modal-content>p {
+    font-size: 1.3rem;
+    padding: 0;
+}
+
+.cds--modal-footer{
+    display: flex;
+    height: 3rem;
+    justify-content: flex-end;
+}
+
+.cds--modal-footer .cds--btn{
+    height: 0;
+    flex: 0 1 15%;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    text-transform: uppercase;
+    justify-content: space-evenly;
+}
