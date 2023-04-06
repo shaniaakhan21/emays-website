@@ -39,7 +39,7 @@ const Checkout = () => {
     const history = useHistory();
     const pushAlert = useMessage();
 
-    const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {} });
+    const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {}, serviceFee: null });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [showDelete, setShowDelete] = useState(undefined);
@@ -52,6 +52,11 @@ const Checkout = () => {
     // State address update function from GeoContainer
     const updateAddress = ({ addOne }) => {
         setState(cs => ({ ...cs, address: { ...cs.address, addOne: addOne } }));
+    };
+
+    // State service fee update from GeoContainer
+    const updateServiceFee = (fee) => {
+        setState(cs => ({ ...cs, serviceFee: fee }));
     };
 
     // State for product data
@@ -207,7 +212,7 @@ const Checkout = () => {
                             <p>{t('checkout.delivery-address.address')}</p>
                         </div>
                         <div>
-                            <GeoContainer updateAddress = {updateAddress}/>
+                            <GeoContainer updateAddress = {updateAddress} updateServiceFee = {updateServiceFee}/>
                         </div>
                         <div className='address-info'>
                             <div>
@@ -304,7 +309,8 @@ const Checkout = () => {
                     </div>
                 </Column>}
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData} />
+                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData} 
+                    serviceFee={state.serviceFee} />
             </Column>
         </Grid>
     );

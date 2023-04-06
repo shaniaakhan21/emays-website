@@ -6,10 +6,8 @@ import PropTypes from 'prop-types';
 import '../../scss/component/checkout/shoppingBag.scss';
 
 import FallBack from '../../icons/fallback.png';
-import Trash from '../../images/trash.svg';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getServiceCost } from '../../js/util/SessionStorageUtil';
 
 const getPriceList = (productList = []) => {
     return productList?.map((item) => (item.productCost));
@@ -20,20 +18,18 @@ const getFinalCost = (serviceCharge = 0.00, itemsPrices = []) => {
     return +serviceCharge + +itemsTotal;
 };
 
-const ShoppingBag = ({ productList = [], onDelete }) => {
+const ShoppingBag = ({ productList = [], onDelete, serviceFee }) => {
 
     const [t] = useTranslation();
 
     const [finalCost, setFinalCost] = useState(0.00);
-
-    const serviceFee = getServiceCost();
 
     useEffect(() => {
         const priceList = getPriceList(productList);
         const finalCost = getFinalCost(serviceFee, priceList);
         setFinalCost(finalCost);
 
-    }, [productList, serviceFee]);
+    }, [productList]);
 
     const instruction = useMemo(() => [
         t('shopping-bag-container.instruction-1'),

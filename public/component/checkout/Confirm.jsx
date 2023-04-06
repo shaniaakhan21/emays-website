@@ -15,7 +15,7 @@ import Emays from '../../logo/emays-logo-white.png';
 import EditIcon from '../../icons/edit.svg';
 
 // Util
-import { getAddress, getLaunchType, getProductList, getSelectedOptions } from '../../js/util/SessionStorageUtil';
+import { getAddress, getLaunchType, getProductList, getServiceCost } from '../../js/util/SessionStorageUtil';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
@@ -252,7 +252,7 @@ const Confirm = () => {
                     <LoadingIndicator description={t('confirm.loading-description')} />
                 </Column>)}
                 <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                    <ShoppingBag productList={productData}/>
+                    <ShoppingBag productList={productData} serviceFee={getServiceCost()}/>
                 </Column>
             </Grid>
         </ErrorBoundary>
