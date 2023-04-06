@@ -30,7 +30,7 @@ const RetailerIntegration = () => {
     const t = (key) => translate(`retailer.integration.${key}`);
 
     return (
-        <RetailerLayout withoutNav className='integration'>
+        <RetailerLayout Nav className='integration'>
             <Column lg={16} md={8} sm={4} xs={4} className='title'
                 data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000'>
                 {t('title')}

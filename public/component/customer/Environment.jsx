@@ -6,7 +6,8 @@ import TextImg from '../common/environment/TextImg';
 import Nav from '../common/Nav';
 const Environment = () => {
     return (
-        <>  <EnvironmentHeader />
+        <>  <Nav />
+            <EnvironmentHeader />
             <IconTextImg />
             <IconImgText />
             <ImgTextIcon/>

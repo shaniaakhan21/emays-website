@@ -73,6 +73,7 @@ const Confirm = () => {
             const order = { ...rest, ...commonData, experience: `${[
                 options?.assist ? 'Assist Me' : undefined,
                 options?.tailoring ? 'Tailoring' : undefined,
+                options?.wait ? 'Contactless Delivery' : undefined,
                 options?.inspire ? 'Inspire Me' : undefined
             ]?.filter(i => i).join(', ')}.` };
             if (launchType === EMAIL_EDIT) {
@@ -87,6 +88,7 @@ const Confirm = () => {
                 await saveOrder({ ...rest, ...commonData, experience: `${[
                     options?.assist ? 'Assist Me' : undefined,
                     options?.tailoring ? 'Tailoring' : undefined,
+                    options?.wait ? 'Contactless Delivery' : undefined,
                     options?.inspire ? 'Inspire Me' : undefined
                 ]?.filter(i => i).join(', ')}.` });    
                 setOpen({ uuid: commonData.uuid });
