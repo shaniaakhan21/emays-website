@@ -19,11 +19,12 @@ import ButtonCustom from '../common/ButtonCustom';
 import useAPI from '../../js/util/useAPI';
 import { makeCheckout, submitCheckout } from '../../services/sumUp';
 import { useMessage } from '../common/messageCtx';
+import { getRetailerData, getUserData } from '../../js/util/SessionStorageUtil';
 
 const Payment = ({ open, setOpen }) => {
     const [translate] = useTranslation();
     const pushAlert = useMessage();
-    
+
     const { state: checkoutData, loading, callAPI } = useAPI(makeCheckout);
 
     const [data, setData] = useState({});
@@ -40,7 +41,12 @@ const Payment = ({ open, setOpen }) => {
 
     const submit = useCallback(async () => {
         try {
-            await submitCheckout('5a98fd50-a281-4f59-b116-86b961db0409', data);
+            await submitCheckout(getUserData().uid, data);
+            pushAlert({
+                statusIconDescription: t('common.success'),
+                title: t('common.success'),
+                subtitle: t('common.success-message')
+            });
         } catch (e) {
             pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: e.message });
         }
@@ -51,16 +57,13 @@ const Payment = ({ open, setOpen }) => {
     if (loading) {
         return <></>;
     }
-    
+
     return <>
         {createPortal(
             <ComposedModal className='payment-form' size='xs' open={!!open} onClose={() => setOpen(undefined)}>
                 <ModalHeader />
                 <ModalBody>
                     <Grid className='payment-model'>
-                        <Column lg={8} md={8} sm={4} xs={4} className='logo'>
-                            <img src={Emays} alt='The Emays logo' />
-                        </Column>
                         <Column lg={8} md={8} sm={4} xs={4} className='title'>
                             <h1>{t('title')}</h1>
                         </Column>
@@ -121,7 +124,7 @@ const Payment = ({ open, setOpen }) => {
                     </Grid>
                 </ModalBody>
             </ComposedModal>, document.body
-        )} 
+        )}
     </>;
 };
 

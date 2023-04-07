@@ -2,6 +2,7 @@
   "common": {
     "error": "Error",
     "success": "Success",
+    "success-message": "Appointment created successfully!",
     "lets-talk-form": {
       "header": "Are you curious about something? Let’s talk",
       "name": "Name",
@@ -123,7 +124,7 @@
   "shopping-bag-container": {
     "header": "SHOPPING BAG",
     "service-fee": "SERVICE FEE",
-    "instruction-1": "This fee helps us run our operations, all services included.",
+    "instruction-1": "This fee help us run our operations, all services included.",
     "instruction-2": "Amount will be blocked on your card until the day of the delivery.",
     "instruction-3": "Cancellations available before 24h appointment.",
     "instruction-4": "Luxury styling session at home.",
@@ -180,7 +181,7 @@
       "subtitle-h2":"Take the luxury shopping experience to your home.",
       "subtitle-h3":"Try What you want, pay only what you keep.",
       "btn-text":"See what we can do for you"
-    }   
+    }
   },
   "services":{
     "text-h1":"Our Services are available on selected brands websites"
@@ -211,7 +212,7 @@
     "fifth-block":{
       "btn-text":"Read more about this",
       "email-text":"Shop With Our Brands"
-    }   
+    }
   },
 
   "retailer": {
@@ -259,7 +260,7 @@
           }
         },
 
-        {  
+        {
           "title": "Seamless integration",
           "sub-items":[
             {
@@ -273,8 +274,8 @@
             }
           ]
         },
-        
-        { 
+
+        {
           "title": "Retail excellence",
           "description": "At Emays we believe that the customer experience always comes first. Our integration has been built to give the feeling of your brand and experience, just powered by Emays. Our aim is to create a pleasurable customer experience easy to use"
         }

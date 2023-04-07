@@ -4,7 +4,7 @@
 import { getAuthToken } from './SessionStorageUtil';
 import ResponseValidator from './responseValidator';
 
-export const apiBase = '/api-dev';
+export const apiBase = '/api';
 
 export class HTTPHelper {
     static async get (uri, headers) {
@@ -16,7 +16,7 @@ export class HTTPHelper {
                 'Authorization': `Bearer ${getAuthToken()}`,
                 ...headers
             }
-        });     
+        });
         return ResponseValidator.validate(response);
     }
 
@@ -32,7 +32,7 @@ export class HTTPHelper {
             },
             body: JSON.stringify(data)
         });
-        return ResponseValidator.validate(response); 
+        return ResponseValidator.validate(response);
     }
 
     static async put (uri, headers, data = {}) {
@@ -46,7 +46,7 @@ export class HTTPHelper {
             },
             body: JSON.stringify(data)
         });
-        return ResponseValidator.validate(response); 
+        return ResponseValidator.validate(response);
     }
 
     static async patch (uri, headers, data = {}) {
@@ -60,7 +60,7 @@ export class HTTPHelper {
             },
             body: JSON.stringify(data)
         });
-        return ResponseValidator.validate(response); 
+        return ResponseValidator.validate(response);
     }
 
     static async delete (uri, headers, data = {}) {
@@ -74,6 +74,6 @@ export class HTTPHelper {
             },
             body: JSON.stringify(data)
         });
-        return ResponseValidator.validate(response); 
+        return ResponseValidator.validate(response);
     }
 }
