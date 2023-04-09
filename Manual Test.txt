@@ -12,15 +12,15 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNlQxNTozMzoyNC4xMTBaIiwiZXhwIjoxNjc4OTkxNjA0LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NDEzMzZiZDM3NmVkZThkY2E0OTk0YmEiLCJpYXQiOjE2Nzg5ODA4MDR9.fIkiHbBix_ay3uOQcYRcVX5rg55jjvB6b9usBqzgHNI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0wNVQwNjo1Mzo1MS4zNzlaIiwiZXhwIjoxNjgwNjg4NDMxLCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NDJkMWFmYTNjNTVmNzIwZDk1ZWJmNDEiLCJpYXQiOjE2ODA2Nzc2MzF9.1ST9_B-YVrE17dt0-Y_QP4EbR06YpbZAd90nzDqREFI
 
 {
-    "email": "thathsararaviraj@gmail.com",
-    "retailerEmail": "thathsararaviraj@gmail.com",
+    "email": "shaniyak656@gmail.com",
+    "retailerEmail": "shaniyak656@gmail.com",
     "firstName": "Thathsara",
     "lastName": "Raviraj",
     "phoneNumber": "07122658978",
-    "uid": "12345673495",
+    "uid": "12345673410109",
     "date": "2023-03-16",
     "startTime": "19:00",
     "endTime": "21:00",

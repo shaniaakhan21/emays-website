@@ -3,6 +3,7 @@ import { Grid, Column, Modal, ModalWrapper, ModalHeader } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { PropTypes } from 'prop-types';
+import ErrorBoundary from '../ErrorBoundary';
 
 // Components
 import ContentSwitcherCustom from '../common/ContentSwitcherCustom';
@@ -162,7 +163,9 @@ const Checkout = () => {
                                         const tf = timeframes[e.selectedItem?.id];
                                         setState(cs => ({ ...cs, startTime: tf.start, endTime: tf.end }));
                                     }}
-                                    items={timeframes?.map((tf, k) => ({ id: k, text: `${tf.start} to ${tf.end}` }))}
+                                    items={timeframes?.map((tf, k) => (
+                                        { id: k, text: `${tf.start} to ${tf.end}` }
+                                    ))}
                                     selectedItem={
                                         state?.startTime ? {
                                             id: timeframes?.findIndex(tf => tf.start === state?.startTime),

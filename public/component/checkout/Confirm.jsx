@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Grid, Column, InlineLoading } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
@@ -73,6 +72,7 @@ const Confirm = () => {
             const order = { ...rest, ...commonData, experience: `${[
                 options?.assist ? 'Assist Me' : undefined,
                 options?.tailoring ? 'Tailoring' : undefined,
+                options?.wait ? 'Contactless Delivery' : undefined,
                 options?.inspire ? 'Inspire Me' : undefined
             ]?.filter(i => i).join(', ')}.` };
             if (launchType === EMAIL_EDIT) {
@@ -87,6 +87,7 @@ const Confirm = () => {
                 await saveOrder({ ...rest, ...commonData, experience: `${[
                     options?.assist ? 'Assist Me' : undefined,
                     options?.tailoring ? 'Tailoring' : undefined,
+                    options?.wait ? 'Contactless Delivery' : undefined,
                     options?.inspire ? 'Inspire Me' : undefined
                 ]?.filter(i => i).join(', ')}.` });    
                 setOpen({ uuid: commonData.uuid });

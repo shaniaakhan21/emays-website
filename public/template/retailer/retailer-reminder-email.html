@@ -5,9 +5,9 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 
-<body style="padding-right: 20px;">
+<body style="padding-left: 20px; padding-right: 20px;">
 
-  <table style="width:100%">
+  <table style="width:40%">
     <br>
     <tr>
       <td style="padding-left: 30%;" style="padding-top: 20px;">
@@ -18,20 +18,20 @@
     <tr>
       <td style="padding-top: 20px;">
         <div>
-          <h2>APPOINTMENT BOOKED!</h2></div>
+          <div style="float: left;"><h2 style="font-size: 26px;">THIS IS A REMINDER</h2></div>
         </div>
       </td>
     </tr>
     <tr>
       <td>
-        <p>Please prepare items below one hour before appointment.</p>
-        <p>No <strong> <%= uid %></strong></p>
+        <p>The day is getting closer, please wait our call to pick up the order 
+          No <b>EMC 000000</b></p>
       </td>
     </tr>
     <tr>
       <td>
         <div style="width: 100%; height: 90px; background-color:#323232;">
-          <div style="color: white; float: left; padding-left: 10px; padding-bottom: 5px; width: 50%; border-right: 1px solid white;">
+          <div style="color: white; float: left; padding-left: 15px; padding-bottom: 5px; width: 50%; border-right: 1px solid white;">
             <h3>Date</h3>
             <p><%= date %></p>
           </div>
@@ -44,7 +44,7 @@
     </tr>
     <tr>
       <td style="width: 100%;">
-        <p style="font-size: 20px; margin-bottom: 0px; padding-top: 20px;">ITEMS TO BE DELIVERED</p>
+        <p style="font-size: 24px; margin-bottom: 0px;">ITEMS TO BE DELIVERED</p>
       </td>
     </tr>
     <% for (var i = 0; i < items.length; i++) { %>
@@ -66,46 +66,28 @@
       </tr>
     <% } %>
     <tr>
+      <td>
+        <div style="padding: 40px 0px 20px 0px;">
+          <a style="text-decoration: none; padding: 12px 90px; background-color: #323232; color: white;" href="http://localhost:8080/api-dev/editAppointment?authToken=tempToken&uuid=12345673360" target="_blank">ADD TO MY CALENDAR</a>
+        </div>
+      </td>
+    </tr>
+    <tr>
       <td style="padding-top: 20px;">
         <div style="width: 100%; border: 1px solid black; overflow: hidden;">
           <div style="float: left; padding-left: 10px; padding-bottom: 5px; width: 50%; border-right: 1px solid white;">
             <p>TOTAL</p>
           </div>
-          <div style="float: right; width: 40%;">
-            <p style="padding-left: 120px;"><strong>€ <%= finalCost %></strong></p>
+          <div style="float: left; width: 40%;">
+            <p style="padding-left: 70%;"><strong>€ <%= finalCost %></strong></p>
           </div>
         </div>
       </td>
     </tr>
     <tr>
-      <td style="width: 100%; padding-top: 20px;">
-        <h3 style="margin: 0px; padding: 0px;">Customer Name</h3>
-        <p style="margin: 0px; padding: 0px;"><%= fullName %></p>
-      </td>
-    </tr>
-    <tr>
-      <td style="width: 100%; padding-top: 10px;">
-        <h3 style="margin: 0px; padding: 0px;">Experience Selected</h3>
-        <p style="margin: 0px; padding: 0px;"><%= experience %></p>
-      </td>
-    </tr>
-    <tr>
-      <td style="width: 100%; padding-top: 10px;">
-        <h3 style="margin: 0px; padding: 0px;">Delivery Address</h3>
-        <p style="margin: 0px; padding: 0px;"><%= address %></p>
-      </td>
-    </tr>
-    <tr>
       <td>
-        <div style="padding: 40px 20px 20px 0px;">
-          <a style="text-decoration: none; padding: 12px 150px 12px 150px; background-color: #323232; color: white;" href="http://localhost:8080/api-dev/editAppointment?authToken=tempToken&uuid=12345673360" target="_blank">ADD TO MY CALENDAR</a>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <div style="width: 455px; text-align: center;">
-          <p>
+        <div style="width: 100%; text-align: center; ">
+          <p style="padding: 0 7%;">
             We are unable to receive responses to this email. If you need assistance, go to <a style="color: black;" href="mailto:support@emays.com">support@emays.com</a> <strong>EMAYS</strong> sent you this email. 
             By using our services, you agree to our customer agreement. 
           </p>
