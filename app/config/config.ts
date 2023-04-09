@@ -60,10 +60,10 @@ export const config = {
         MONGO_URL: MONGO_URL || 'mongodb://root:123456@localhost:27017/emays_service_db?authSource=admin'
     },
     AWS_SES: {
-        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || 'AKIAV5FWNLRPVPMCUXEY',
-        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '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',
+        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
+        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '',
         AWS_REGION: AWS_REGION || 'us-east-2',
-        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || 'shaniyak656@gmail.com'
+        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || 'thathsararaviraj@gmail.com'
     },
     EMAIL_TEMPLATE: {
         CUSTOMER_EMAIL_TEMPLATE: CUSTOMER_EMAIL_TEMPLATE || '/template/customer/temp-customer-email.html',
