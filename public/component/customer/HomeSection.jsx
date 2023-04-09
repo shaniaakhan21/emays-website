@@ -7,10 +7,8 @@ import {
     Column,
     Button
 } from '@carbon/react';
-import ButtonCustom from '../common/ButtonCustom';
 import '../../scss/component/customer/homesection.scss';
 import EMAYBAG from '../../images/HomeCustomerSection/DELIVERYBAGG.png';
-import MailIcon from '../../images/HomeCustomerSection/email-icon.svg';
 import { useTranslation } from 'react-i18next';
 
 const HomeSection = () => {
