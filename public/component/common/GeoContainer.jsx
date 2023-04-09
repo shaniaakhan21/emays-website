@@ -18,7 +18,7 @@ const List = styled.ul`
     }
 `;
 
-const GeoContainer = ({ updateAddress }) => {
+const GeoContainer = ({ updateAddress, updateServiceFee }) => {
 
     const [t] = useTranslation();
     const [address, setAddress] = useState('');
@@ -72,13 +72,15 @@ const GeoContainer = ({ updateAddress }) => {
     const selectPredictionHandler = (prediction) => {
         setAddress(prediction.description);
         placeService.getDetails({ placeId: prediction['place_id'] }, function (result, status) {
-            const [addOne, addTwo, addThree, addFour] = prediction.description.split(', ');
+            const [addOne] = prediction.description.split(', ');
             updateAddress({ addOne: addOne ? addOne : '' });
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 const latLng = result.geometry.location;
                 const area = getRetailerData().retailerArea;
                 getServiceFee(area, latLng.lat(), latLng.lng()).then(data => {
-                    setServiceCost(data.serviceFee);
+                    const serviceFee = data.serviceFee;
+                    setServiceCost(serviceFee);
+                    updateServiceFee(serviceFee);
                 });
             }
         });
