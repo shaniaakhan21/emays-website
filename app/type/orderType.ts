@@ -32,6 +32,8 @@ export interface IOrder {
     },
     orderItems: Array<Order>,
     createdAt?: Date,
+    isDelivered?: boolean,
+    isDriverPicked?: boolean
     history?: Array<Date>,
     paymentRef?: string
 }
@@ -66,6 +68,8 @@ export interface IOrderDTO {
     orderItems: Array<Order>,
     createdAt?: Date,
     history?: Array<Date>,
+    isDelivered?: boolean,
+    isDriverPicked?: boolean
     paymentRef?: string
 }
 
