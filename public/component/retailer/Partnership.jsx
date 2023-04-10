@@ -132,6 +132,9 @@ const RetailerPartnership = () => {
                         </div>
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4} className='data'>
+                        <div className='item'>
+                            <h1 className='head'> Brands Results within the first year:</h1>
+                        </div>
                         {[0, 1, 2, 3].map((idx) => (<div 
                             key={idx}
                             data-aos='fade-up'
@@ -145,7 +148,7 @@ const RetailerPartnership = () => {
                         
                         </div>))}
                     </Col>
-                    <Column lg={16} md={8} sm={4} xs={4} className='logos'  
+                    {/* <Column lg={16} md={8} sm={4} xs={4} className='logos'  
                         data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='300'>
                         <div className='marquee'>
                             <div className='marquee__group'>
@@ -173,7 +176,7 @@ const RetailerPartnership = () => {
                                 <img src={PRADA} alt='Image 4' />
                             </div>
                         </Slider>
-                    </Column>
+                    </Column> */}
                 </RetailerLayout>
                 {/* <img src={PartnersFooterImage} alt='Partners Footer' className='partners-footer' /> */}
             </Column>
