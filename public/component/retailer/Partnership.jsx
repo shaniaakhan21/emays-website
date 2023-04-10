@@ -18,7 +18,6 @@ import YSLLogo from '../../images/logo-ysl.svg';
 import PRADA from '../../images/HomeCustomerSection/PRADA.svg';
 import CHANEL from '../../images/HomeCustomerSection/CHANEL.svg';
 import CASSANDRE from '../../images/HomeCustomerSection/CASSANDRE.svg';
-import ErrorBoundary from '../ErrorBoundary';
 
 const RetailerPartnership = () => {
     const [translate] = useTranslation();
@@ -40,7 +39,7 @@ const RetailerPartnership = () => {
     };
 
     return (
-        <ErrorBoundary>
+        <>
             <Column lg={16} md={8} sm={4} xs={4} id='partnership-start'>
                 <RetailerLayout withoutNav className='partnership'>
                     <Col lg={16} md={8} sm={4} xs={4} 
@@ -178,7 +177,7 @@ const RetailerPartnership = () => {
                 </RetailerLayout>
                 {/* <img src={PartnersFooterImage} alt='Partners Footer' className='partners-footer' /> */}
             </Column>
-        </ErrorBoundary>
+        </>
     );
 };
 

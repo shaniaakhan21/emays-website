@@ -6,11 +6,10 @@ import RetailerFAQs from './FAQs';
 import RetailerLanding from './Landing';
 import RetailerIntegration from './Integration';
 import RetailerPartnership from './Partnership';
-import ErrorBoundary from '../ErrorBoundary';
 
 const RetailerRouter = () => {
     return (
-        <ErrorBoundary>
+        <>
             <Switch>
                 <Route path='/retailer' exact component={() => <RetailerLanding />} />
                 <Route path='/retailer/letsTalk' component={() => <RetailerLetsTalk />} />
@@ -18,7 +17,7 @@ const RetailerRouter = () => {
                 <Route path='/retailer/integration' component={() => <RetailerIntegration />} />
                 <Route path='/retailer/partnership' component={() => <RetailerPartnership />} />
             </Switch>
-        </ErrorBoundary>
+        </>
     );
 };
 
