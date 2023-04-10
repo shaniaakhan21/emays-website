@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Grid, Column, InlineLoading } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
@@ -15,11 +14,10 @@ import Emays from '../../logo/emays-logo-white.png';
 import EditIcon from '../../icons/edit.svg';
 
 // Util
-import { getAddress, getLaunchType, getProductList, getSelectedOptions } from '../../js/util/SessionStorageUtil';
+import { getAddress, getLaunchType, getProductList, getServiceCost } from '../../js/util/SessionStorageUtil';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
-import ErrorBoundary from '../ErrorBoundary';
 import { saveOrder, updateOrder } from '../../services/order';
 import { useMessage } from '../common/messageCtx';
 import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
@@ -101,7 +99,7 @@ const Confirm = () => {
     }, [state, productData, launchType]);
 
     return (
-        <ErrorBoundary>
+        <>
             <Payment open={open} setOpen={setOpen} />
             <Grid className='landing-page'>
                 <Column lg={16} md={16} sm={16} xs={16} className='logo'>
@@ -254,10 +252,10 @@ const Confirm = () => {
                     <LoadingIndicator description={t('confirm.loading-description')} />
                 </Column>)}
                 <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                    <ShoppingBag productList={productData}/>
+                    <ShoppingBag productList={productData} serviceFee={getServiceCost()}/>
                 </Column>
             </Grid>
-        </ErrorBoundary>
+        </>
     );
 
 };

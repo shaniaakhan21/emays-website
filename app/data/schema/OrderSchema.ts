@@ -30,6 +30,8 @@ const OrderSchema = new Schema<IOrder>({
         type: Date,
         default: Date.now
     },
+    isDelivered: { type: Boolean, default: false },
+    isDriverPicked: { type: Boolean, default: false },
     history: [{
         date: { type: Date, default: Date.now }
     }],

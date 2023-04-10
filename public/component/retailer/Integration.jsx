@@ -30,57 +30,60 @@ const RetailerIntegration = () => {
     const t = (key) => translate(`retailer.integration.${key}`);
 
     return (
-        <RetailerLayout Nav className='integration'>
-            <Column lg={16} md={8} sm={4} xs={4} className='title'
-                data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000'>
-                {t('title')}
-            </Column>
-            <Column lg={16} md={8} sm={4} xs={4} className='description'
-                data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='200' >
-                {t('description')}
-            </Column>
-            <Column lg={16} md={8} sm={4} xs={4} className='see-more'
-                data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='500' >
-                <ButtonCustom action={() => {}} text={t('button')} />
-            </Column>
-            {[IntegrationImageOne, IntegrationImageTwo].map(
-                (image, index) => (<Column
-                    lg={16}
-                    md={8}
-                    sm={4}
-                    xs={4}
-                    className='info-box'
-                    data-aos-duration='1000'
-                    data-aos-delay={`${index * 100}`}
-                >
-                    <div data-aos-duration='1000' data-aos-delay='1000' data-aos='zoom-in' className='image'>
-                        <div className='image-container'>
-                            <img src={image} alt='Integration Sample Image' />
+        <>
+            <RetailerLayout Nav className='integration'>
+                <Column lg={16} md={8} sm={4} xs={4} className='title'
+                    data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000'>
+                    {t('title')}
+                </Column>
+                <Column lg={16} md={8} sm={4} xs={4} className='description'
+                    data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='200' >
+                    {t('description')}
+                </Column>
+                <Column lg={16} md={8} sm={4} xs={4} className='see-more'
+                    data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='500' >
+                    <ButtonCustom action={() => {}} text={t('button')} />
+                </Column>
+                {[IntegrationImageOne, IntegrationImageTwo].map(
+                    (image, index) => (<Column
+                        lg={16}
+                        md={8}
+                        sm={4}
+                        xs={4}
+                        className='info-box'
+                        data-aos-duration='1000'
+                        data-aos-delay={`${index * 100}`}
+                    >
+                        <div data-aos-duration='1000' data-aos-delay='1000' data-aos='zoom-in' className='image'>
+                            <div className='image-container'>
+                                <img src={image} alt='Integration Sample Image' />
+                            </div>
+                        </div>
+                        <div className='details'>
+                            <h2 data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
+                                {t(`info-box.${index}.title`)}</h2>
+                            <p data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
+                                {t(`info-box.${index}.description`)}</p>
+                        </div>
+                    </Column>))}
+                <Column lg={16} md={8} sm={4} xs={4} className='req-demo'
+                    data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
+                    <ButtonCustom action={() => {}} text={t('button')} />
+                </Column>
+                <Column lg={16} md={8} sm={4} xs={4} className='logos'>
+                    <div className='marquee'>
+                        <div className='marquee__group' 
+                            data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
+                            <img src={ShopifyLogo} alt='Shopify Logo' />
+                            <img src={SalesForceLogo} alt='Salesforce Logo' />
+                            <img src={BigcommerceLogo} alt='Commercetools Logo' />
+                            <img src={CommercetoolsLogo} alt='Bigcommerce Logo' />
+                            <img src={AdobeLogo} alt='Adobe Logo' className='adobe' />
                         </div>
                     </div>
-                    <div className='details'>
-                        <h2 data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
-                            {t(`info-box.${index}.title`)}</h2>
-                        <p data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
-                            {t(`info-box.${index}.description`)}</p>
-                    </div>
-                </Column>))}
-            <Column lg={16} md={8} sm={4} xs={4} className='req-demo'
-                data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
-                <ButtonCustom action={() => {}} text={t('button')} />
-            </Column>
-            <Column lg={16} md={8} sm={4} xs={4} className='logos'>
-                <div className='marquee'>
-                    <div className='marquee__group' data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
-                        <img src={ShopifyLogo} alt='Shopify Logo' />
-                        <img src={SalesForceLogo} alt='Salesforce Logo' />
-                        <img src={BigcommerceLogo} alt='Commercetools Logo' />
-                        <img src={CommercetoolsLogo} alt='Bigcommerce Logo' />
-                        <img src={AdobeLogo} alt='Adobe Logo' className='adobe' />
-                    </div>
-                </div>
-            </Column>
-        </RetailerLayout>
+                </Column>
+            </RetailerLayout>
+        </>
     );
 };
 

@@ -177,8 +177,8 @@ const Checkout = () => {
                                 <CheckBoxCustom
                                     labelText={t('checkout.customize-experience.checkbox-wait-label')}
                                     id={'op1'}
-                                    action={() => handleOptionChange('wait')}
-                                    checked={state?.options?.wait}
+                                    action={() => handleOptionChange('inspire')}
+                                    checked={state?.options?.inspire}
                                 />
                             </div>
                             <div className='checkbox-assist'>
@@ -195,14 +195,6 @@ const Checkout = () => {
                                     id={'op3'}
                                     action={() => handleOptionChange('tailoring')}
                                     checked={state?.options?.tailoring}
-                                />
-                            </div>
-                            <div className='checkbox-inspire'>
-                                <CheckBoxCustom
-                                    labelText={t('checkout.customize-experience.checkbox-inspire-label')}
-                                    id={'op4'}
-                                    action={() => handleOptionChange('inspire')}
-                                    checked={state?.options?.inspire}
                                 />
                             </div>
                         </div>
