@@ -7,7 +7,8 @@ import { HTTPUserError } from '../../const/httpCode';
 import LogType from '../../const/logType';
 import { Logger } from '../../log/logger';
 import ServiceError from '../../type/error/ServiceError';
-import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc } from '../../type/orderServiceType';
+import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc
+    , RetrieveOrdersByDeliveryStatusFunc } from '../../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { prepareUserDetailsToSend } from '../../util/orderDetailBuilder';
@@ -51,6 +52,25 @@ export const retrieveOrderByUserId: RetrieveOrderByUserIdFunc = async (userId) =
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, `Retrieve Order Details by User Id ${userId}`), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get orders by delivery status
+ * @param {boolean} status
+ * @returns {Array<IOrderDTO>} arrays of orders
+ */
+export const retrieveOrderByDeliveryStatus: RetrieveOrdersByDeliveryStatusFunc = async (status) => {
+    try {
+        const orderDetails: Array<IOrderDTO> = await OrderModel.find({ 'isDelivered': status }).exec();
+        return orderDetails;
+    } catch (error) {
+        const err = error as Error;
+        const deliveryStatus: string = status ? 'Done' : 'Pending';
+        Logging.log(
+            buildErrorMessage(
+                err, `Retrieve Order Details by Order delivery status:  ${deliveryStatus}`), LogType.ERROR);
         throw error;
     }
 };

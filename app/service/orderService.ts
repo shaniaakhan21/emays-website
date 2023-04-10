@@ -2,15 +2,15 @@
 /* eslint-disable max-len */
 'use strict';
 
-import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc } from '../type/orderServiceType';
+import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc, RetrieveOrdersByDeliveryStatusFunc } from '../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../type/orderType';
 import { Logger } from '../log/logger';
 import { buildErrorMessage, buildInfoMessageMethodCall,
     buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
-import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist } from '../data/model/OrderModel';
-import { sendEmailForOrderingItems, sendEmailForInvoice, sendEmailForReminder, sendEmailForSecondReminder, sendEmailForOrderTracking, sendEmailForOrderCancellation } from './emailService';
+import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus } from '../data/model/OrderModel';
+import { sendEmailForOrderingItems } from './emailService';
 import { config } from '../config/config';
 import { Order } from '../type/orderType';
 import { generateJWT } from '../util/jwtUtil';
@@ -50,174 +50,6 @@ export const createOrder: CreateOrderFunc = async (order) => {
         const redirectionURL = buildRedirectionURL(orderExtracted.uid);
         const bookCalendarURL = buildBookCalendar(orderExtracted.uid);
 
-        // Send retailer order tracking email
-        await sendEmailForOrderTracking(
-            { email: orderExtracted.email,
-                urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
-                statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_DELIVERED,
-                trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
-                exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
-                facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
-                facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
-                instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
-                instagramLink: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK,
-                twitterImage: config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE,
-                twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
-                emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
-                redirectionURL: redirectionURL,
-                bookCalenderURL: bookCalendarURL,
-                firstName: orderExtracted.firstName,
-                lastName: orderExtracted.lastName,
-                phoneNumber: orderExtracted.phoneNumber,
-                uid: orderExtracted.uid, date: orderExtracted.date,
-                startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
-                experience: orderExtracted.experience, address: orderExtracted.address,
-                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.RETAILER_EMAIL_ITEMS_SOLD);
-
-        // Send retailer order reminder email
-        await sendEmailForReminder(
-            { email: orderExtracted.email,
-                urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
-                statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_DELIVERED,
-                trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
-                exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
-                facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
-                facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
-                instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
-                instagramLink: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK,
-                twitterImage: config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE,
-                twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
-                emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
-                redirectionURL: redirectionURL,
-                bookCalenderURL: bookCalendarURL,
-                firstName: orderExtracted.firstName,
-                lastName: orderExtracted.lastName,
-                phoneNumber: orderExtracted.phoneNumber,
-                uid: orderExtracted.uid, date: orderExtracted.date,
-                startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
-                experience: orderExtracted.experience, address: orderExtracted.address,
-                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.RETAILER_REMINDER_EMAIL);
-        
-        // Send customer order cancellation email
-        await sendEmailForOrderCancellation(
-            { email: orderExtracted.email,
-                urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
-                statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_DELIVERED,
-                trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
-                exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
-                facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
-                facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
-                instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
-                instagramLink: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK,
-                twitterImage: config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE,
-                twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
-                emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
-                redirectionURL: redirectionURL,
-                bookCalenderURL: bookCalendarURL,
-                firstName: orderExtracted.firstName,
-                lastName: orderExtracted.lastName,
-                phoneNumber: orderExtracted.phoneNumber,
-                uid: orderExtracted.uid, date: orderExtracted.date,
-                startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
-                experience: orderExtracted.experience, address: orderExtracted.address,
-                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.CUSTOMER_CANCEL_EMAIL);
-
-        // Send customer invoice email
-        await sendEmailForInvoice(
-            { email: orderExtracted.email,
-                urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
-                statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_DELIVERED,
-                trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
-                exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
-                facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
-                facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
-                instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
-                instagramLink: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK,
-                twitterImage: config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE,
-                twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
-                emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
-                redirectionURL: redirectionURL,
-                bookCalenderURL: bookCalendarURL,
-                firstName: orderExtracted.firstName,
-                lastName: orderExtracted.lastName,
-                phoneNumber: orderExtracted.phoneNumber,
-                uid: orderExtracted.uid, date: orderExtracted.date,
-                startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
-                experience: orderExtracted.experience, address: orderExtracted.address,
-                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.CUSTOMER_INVOICE_EMAIL);
-
-        // Send retailer second reminder email
-        await sendEmailForSecondReminder(
-            { email: orderExtracted.email,
-                urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
-                statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_ONTHEWAY,
-                trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
-                exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
-                facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
-                facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
-                instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
-                instagramLink: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK,
-                twitterImage: config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE,
-                twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
-                emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
-                redirectionURL: redirectionURL,
-                bookCalenderURL: bookCalendarURL,
-                firstName: orderExtracted.firstName,
-                lastName: orderExtracted.lastName,
-                phoneNumber: orderExtracted.phoneNumber,
-                uid: orderExtracted.uid, date: orderExtracted.date,
-                startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
-                experience: orderExtracted.experience, address: orderExtracted.address,
-                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.RETAILER_EMAIL_REMINDER_SECOND);
-
-        // Send customer second reminder email
-        await sendEmailForSecondReminder(
-            { email: orderExtracted.email,
-                urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
-                statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_ONTHEWAY,
-                trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
-                exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
-                facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
-                facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
-                instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
-                instagramLink: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK,
-                twitterImage: config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE,
-                twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
-                emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
-                redirectionURL: redirectionURL,
-                bookCalenderURL: bookCalendarURL,
-                firstName: orderExtracted.firstName,
-                lastName: orderExtracted.lastName,
-                phoneNumber: orderExtracted.phoneNumber,
-                uid: orderExtracted.uid, date: orderExtracted.date,
-                startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
-                experience: orderExtracted.experience, address: orderExtracted.address,
-                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_REMINDER_SECOND);
-        
-        // Send customer reminder email
-        await sendEmailForReminder(
-            { email: orderExtracted.email,
-                urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
-                statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_ONTHEWAY,
-                trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
-                exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
-                facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
-                facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
-                instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
-                instagramLink: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK,
-                twitterImage: config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE,
-                twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
-                emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
-                redirectionURL: redirectionURL,
-                bookCalenderURL: bookCalendarURL,
-                firstName: orderExtracted.firstName,
-                lastName: orderExtracted.lastName,
-                phoneNumber: orderExtracted.phoneNumber,
-                uid: orderExtracted.uid, date: orderExtracted.date,
-                startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
-                experience: orderExtracted.experience, address: orderExtracted.address,
-                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_REMINDER);
-                
         // Send customer email
         await sendEmailForOrderingItems(
             { email: orderExtracted.email,
@@ -313,6 +145,29 @@ export const retrieveOrderDetailsByUserId: RetrieveOrderByUserIdFunc = async (us
 };
 
 /**
+ * Retrieve order
+ * @param {boolean} isDelivered delivery status
+ * @returns {Promise<Array<IOrder>>} Promise with orders data
+ */
+export const retrieveOrderDetailsByDeliveryStatus: RetrieveOrdersByDeliveryStatusFunc = async (isDelivered) => {
+    try {
+        const data = await retrieveOrderByDeliveryStatus(isDelivered);
+        const deliveryStatus = isDelivered ? 'Delivered' : 'Not Delivered';
+        if (data && data.length > 0) {
+            const UIds = data.map(itm => itm.uid).join(',');
+            Logging.log(buildInfoMessageUserProcessCompleted(`${deliveryStatus} Orders fetching`, `UIds ${UIds}` ), LogType.INFO);
+            return data;
+        }
+        return null;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Retrieve Order'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
  * Patch order
  * @param {string} userId User id
  * @returns {Promise<IOrderDTO>} Promise with order data
@@ -333,7 +188,7 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
     }
 };
 
-const getFinalCost = (serviceCharge = 0.00, itemList: Array<Order>): number => {
+export const getFinalCost = (serviceCharge = 0.00, itemList: Array<Order>): number => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get final cost of product list', ''), LogType.INFO);
@@ -353,7 +208,7 @@ const getFinalCost = (serviceCharge = 0.00, itemList: Array<Order>): number => {
     }
 };
 
-const buildRedirectionURL = (uuid: string): string => {
+export const buildRedirectionURL = (uuid: string): string => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Build email redirection URL', `UUID: ${uuid}`), LogType.INFO);
