@@ -10,10 +10,11 @@ import { Logger } from '../log/logger';
 import * as core from 'express-serve-static-core';
 import { buildCheckoutPath, buildCompleteCheckoutPath } from '../api/sumupAPI';
 import { ProcessCheckoutRequest } from '../service/sumupService';
+import { allowedForClientRoleOnly } from '../middleware/paramValidationMiddleware';
 
 const Logging = Logger(__filename);
 
-router.get(`${RoutePath.SUMUP}/checkout`, (
+router.get(`${RoutePath.SUMUP}/checkout`, allowedForClientRoleOnly, (
     req: express.Request<core.ParamsDictionary, any, any, { uuid: string }>,
     res: express.Response,
     next: express.NextFunction

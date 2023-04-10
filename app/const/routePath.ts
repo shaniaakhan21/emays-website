@@ -15,7 +15,8 @@ export enum RoutePath {
     EXTERNAL_SYSTEM_TOKEN = '/systemToken',
     SUMUP = '/sumUp',
     GEO = '/geo',
-    APP_INFO = '/appInfo'
+    APP_INFO = '/appInfo',
+    EMAIL_REMINDERS = '/emailReminders'
  }
 
 export enum PathParam {

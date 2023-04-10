@@ -6,10 +6,10 @@ import { Logger } from '../log/logger';
 import { buildErrorMessage, buildInfoMessageRouteHit, buildInfoMessageUserProcessCompleted }
     from '../util/logMessageBuilder';
 import { PathParam, RoutePath } from '../const/routePath';
-import { HTTPSuccess, HTTPUserError } from '../const/httpCode';
+import { HTTPSuccess } from '../const/httpCode';
 import { IOrder, IOrderDTO, IPatchOrder } from '../type/orderType';
 import { successResponseBuilder } from '../util/responseBuilder';
-import { validateCreateOrder, validateHeader
+import { allowedForClientRoleOnly, validateCreateOrder, validateHeader
     , validateOrderPatchRequestBody, validateParamUserId } from '../middleware/paramValidationMiddleware';
 import { createOrder, patchOrderDetailsByUserId, retrieveOrderDetailsByUserId } from '../service/orderService';
 
@@ -25,7 +25,7 @@ const OrderRoutePath: string = RoutePath.ORDERS;
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-router.post(OrderRoutePath, validateHeader, validateCreateOrder, (
+router.post(OrderRoutePath, allowedForClientRoleOnly, validateHeader, validateCreateOrder, (
     req: Request, res: Response, next: NextFunction): void => {
     (async () => {
         const order = req.body as IOrder;
@@ -47,7 +47,7 @@ router.post(OrderRoutePath, validateHeader, validateCreateOrder, (
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-router.get(`${OrderRoutePath}${PathParam.USER_ID}`, validateHeader, validateParamUserId, (
+router.get(`${OrderRoutePath}${PathParam.USER_ID}`, allowedForClientRoleOnly, validateHeader, validateParamUserId, (
     req: Request, res: Response, next: NextFunction
 ): void => {
     (async () => {
@@ -68,7 +68,8 @@ router.get(`${OrderRoutePath}${PathParam.USER_ID}`, validateHeader, validatePara
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-router.patch(RoutePath.ORDERS + PathParam.USER_ID, validateHeader, validateParamUserId, validateOrderPatchRequestBody, (
+// eslint-disable-next-line max-len
+router.patch(RoutePath.ORDERS + PathParam.USER_ID, allowedForClientRoleOnly, validateHeader, validateParamUserId, validateOrderPatchRequestBody, (
     req: Request, res: Response, next: NextFunction): void => {
     const pathParamUserId = req.params.userId;
     const patchOrder = req.body as IPatchOrder;

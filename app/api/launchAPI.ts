@@ -10,12 +10,12 @@ import { generateJWT } from '../util/jwtUtil';
 import { Logger } from '../log/logger';
 import { buildErrorMessage,
     buildInfoMessageMethodCall, buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
-import { validateJWTToken } from '../middleware/jwtTokenValidationMiddleware';
 import { getExternalSystemById } from '../service/externalSystemService';
 import ServiceError from '../type/error/ServiceError';
 import ErrorType from '../const/errorType';
 import { HTTPUserError } from '../const/httpCode';
 import { NOT_AUTHORIZED_TO_ACCESS_EMAYS_ERROR_MESSAGE } from '../const/errorMessage';
+import { AppRequest } from '../type/appRequestType';
 
 const Logging = Logger(__filename);
 
@@ -55,9 +55,7 @@ export const authorizeLaunchRoute = (req: express.Request, res: express.Response
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Authorize launch', ''), LogType.INFO);
-        const requestBody = req.body as {authToken: string};
-        const token = requestBody.authToken;
-        const claims = validateJWTToken(token) as unknown as IJWTClaims;
+        const claims = (req as AppRequest).claims as unknown as IJWTClaims;
         if (claims.roles.includes(Roles.EXTERNAL_SYSTEM)) {
             (async () => {
                 await getExternalSystemById(claims.id);
