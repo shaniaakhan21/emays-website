@@ -8,12 +8,11 @@ import { buildErrorMessage } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { Logger } from '../log/logger';
 import * as core from 'express-serve-static-core';
-import { buildCheckoutPath, buildCompleteCheckoutPath } from '../api/sumupAPI';
-import { ProcessCheckoutRequest } from '../service/sumupService';
+import { buildCheckoutPath, buildCompleteCheckoutPath } from '../api/stripeAPI';
 
 const Logging = Logger(__filename);
 
-router.get(`${RoutePath.SUMUP}/checkout`, (
+router.get(`${RoutePath.STRIPE}/checkout`, (
     req: express.Request<core.ParamsDictionary, any, any, { uuid: string }>,
     res: express.Response,
     next: express.NextFunction
@@ -31,15 +30,15 @@ router.get(`${RoutePath.SUMUP}/checkout`, (
     });
 });
 
-router.post(`${RoutePath.SUMUP}/checkout`, (
-    req: express.Request<core.ParamsDictionary, any, ProcessCheckoutRequest['card'], { id: string }>,
+router.get(`${RoutePath.STRIPE}/checkout/complete`, (
+    req: express.Request<core.ParamsDictionary, any, any, { id: string, uid: string }>,
     res: express.Response,
     next: express.NextFunction
 ) => {
     (async () => {
         // Todo: Validate JWT
 
-        const data = await buildCompleteCheckoutPath(req.query.id, { card: req.body });
+        const data = await buildCompleteCheckoutPath(req.query.id, req.query.uid);
 
         res.json(data);
     })().catch((error) => {

@@ -34,7 +34,7 @@ const ShoppingBag = ({ productList = [], onDelete, serviceFee }) => {
     const instruction = useMemo(() => [
         t('shopping-bag-container.instruction-1'),
         t('shopping-bag-container.instruction-2'),
-        t('shopping-bag-container.instruction-3'),
+        t('shopping-bag-container.instruction-3')
     ], [t]);
 
     return (
@@ -89,5 +89,5 @@ ShoppingBag.propTypes = {
     ).isRequired,
     onDelete: PropTypes.func
 };
-  
+
 export default ShoppingBag;

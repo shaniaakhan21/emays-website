@@ -36,7 +36,9 @@ const {
     RETAILER_EMAIL_REMINDER_SECOND,
     RETAILER_EMAIL_ITEMS_SOLD,
     GOOGLE_MAP_API_KEY,
-    SYSTEM_AVAILABLE_GEO_LOCATIONS
+    SYSTEM_AVAILABLE_GEO_LOCATIONS,
+    STRIPE_SECRET_KEY,
+    STRIPE_RETURN_DOMAIN
 } = process.env;
 
 export const config = {
@@ -75,7 +77,7 @@ export const config = {
         RETAILER_REMINDER_EMAIL: RETAILER_REMINDER_EMAIL || '/template/retailer/retailer-reminder-email.html',
         RETAILER_EMAIL_REMINDER_SECOND: RETAILER_EMAIL_REMINDER_SECOND || '/template/retailer/retailer-reminder-email-second.html',
         RETAILER_EMAIL_ITEMS_SOLD: RETAILER_EMAIL_ITEMS_SOLD || '/template/retailer/retailer-items-sold.html',
-                
+
         URLS: {
             URL_LOGO: 'https://drive.google.com/uc?export=view&id=11X4cJtuABLOYE95IqbjdJO0ve5L9sbWP&raw=true',
             PRODUCT_FALL_BACK: 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN',
@@ -97,7 +99,7 @@ export const config = {
     GOOGLE: {
         OAUTH2: {
             CLIENT: {
-                CLIENT_ID: GOOGLE_AUTH_CLIENT_ID || 
+                CLIENT_ID: GOOGLE_AUTH_CLIENT_ID ||
                     '',
                 CLIENT_SECRET: GOOGLE_AUTH_CLIENT_SECRET || '',
                 REDIRECTION_URL: GOOGLE_AUTH_REDIRECTION_URL || 'http://localhost:8080/api-dev/redirectGoogleAccess'
@@ -106,9 +108,9 @@ export const config = {
         },
         CALENDER: {
             SUMMERY: GOOGLE_CALENDER_TASK_SUMMERY || 'Emays Order Arrival',
-            DESCRIPTION: GOOGLE_CALENDER_TASK_DESCRIPTION || 
+            DESCRIPTION: GOOGLE_CALENDER_TASK_DESCRIPTION ||
                 'This event has been created by Emays System to remind you about your order arrival',
-            BOOK_CALENDER_REDIRECTION_PATH: 'http://localhost:8080/api-dev/googleCalender' 
+            BOOK_CALENDER_REDIRECTION_PATH: 'http://localhost:8080/api-dev/googleCalender'
         },
         MAP: {
             API_KEY: GOOGLE_MAP_API_KEY || ''
@@ -118,9 +120,6 @@ export const config = {
         { location: 'Milan', insideCost: 1500, outsideCost: 2500 }
     ],
     SERVICE_CHARGE: SERVICE_CHARGE || 1200.00,
-    SUMUP: {
-        MERCHANT_CODE: SUMUP_MERCHANT_CODE || 'MTCNFGH2',
-        API_URL: SUMUP_API_URL || 'https://api.sumup.com/v0.1',
-        SECRET_KEY: SUMUP_SECRET_KEY || 'sup_sk_2VWlJ5oob7wG9YU1S7G5jyfMOwd3MNaUJ'
-    }
+    STRIPE_SECRET_KEY: STRIPE_SECRET_KEY || 'sk_test_51JrIULEoSJYRvqg2R7Qp4nVcce368j3EuVW92nYFzIIKn3vXF2D0H4fyU71SAIBBx6y8WCvxjmHEK54gUeyW7LOq00aT8LvntA',
+    STRIPE_RETURN_DOMAIN: STRIPE_RETURN_DOMAIN || 'http://localhost:3000'
 };
