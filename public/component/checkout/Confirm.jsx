@@ -18,7 +18,6 @@ import { getAddress, getLaunchType, getProductList, getServiceCost } from '../..
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
-import ErrorBoundary from '../ErrorBoundary';
 import { saveOrder, updateOrder } from '../../services/order';
 import { useMessage } from '../common/messageCtx';
 import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
@@ -100,7 +99,7 @@ const Confirm = () => {
     }, [state, productData, launchType]);
 
     return (
-        <ErrorBoundary>
+        <>
             <Payment open={open} setOpen={setOpen} />
             <Grid className='landing-page'>
                 <Column lg={16} md={16} sm={16} xs={16} className='logo'>
@@ -256,7 +255,7 @@ const Confirm = () => {
                     <ShoppingBag productList={productData} serviceFee={getServiceCost()}/>
                 </Column>
             </Grid>
-        </ErrorBoundary>
+        </>
     );
 
 };

@@ -3,7 +3,6 @@ import { Grid, Column, Modal, ModalWrapper, ModalHeader } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { PropTypes } from 'prop-types';
-import ErrorBoundary from '../ErrorBoundary';
 
 // Components
 import ContentSwitcherCustom from '../common/ContentSwitcherCustom';
@@ -40,7 +39,7 @@ const Checkout = () => {
     const history = useHistory();
     const pushAlert = useMessage();
 
-    const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {}, serviceFee: null });
+    const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {} });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [showDelete, setShowDelete] = useState(undefined);
@@ -53,11 +52,6 @@ const Checkout = () => {
     // State address update function from GeoContainer
     const updateAddress = ({ addOne }) => {
         setState(cs => ({ ...cs, address: { ...cs.address, addOne: addOne } }));
-    };
-
-    // State service fee update from GeoContainer
-    const updateServiceFee = (fee) => {
-        setState(cs => ({ ...cs, serviceFee: fee }));
     };
 
     // State for product data
@@ -163,9 +157,7 @@ const Checkout = () => {
                                         const tf = timeframes[e.selectedItem?.id];
                                         setState(cs => ({ ...cs, startTime: tf.start, endTime: tf.end }));
                                     }}
-                                    items={timeframes?.map((tf, k) => (
-                                        { id: k, text: `${tf.start} to ${tf.end}` }
-                                    ))}
+                                    items={timeframes?.map((tf, k) => ({ id: k, text: `${tf.start} to ${tf.end}` }))}
                                     selectedItem={
                                         state?.startTime ? {
                                             id: timeframes?.findIndex(tf => tf.start === state?.startTime),
@@ -215,7 +207,7 @@ const Checkout = () => {
                             <p>{t('checkout.delivery-address.address')}</p>
                         </div>
                         <div>
-                            <GeoContainer updateAddress = {updateAddress} updateServiceFee = {updateServiceFee}/>
+                            <GeoContainer updateAddress = {updateAddress}/>
                         </div>
                         <div className='address-info'>
                             <div>
@@ -312,8 +304,7 @@ const Checkout = () => {
                     </div>
                 </Column>}
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData} 
-                    serviceFee={state.serviceFee} />
+                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData} />
             </Column>
         </Grid>
     );
