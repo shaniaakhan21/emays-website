@@ -307,5 +307,64 @@
       ],
       "button": "Ecommerce Integration"
     }
+  },
+
+  "dashboard": {
+    "login": {
+      "title":"Retailer",
+      "email-label": "Account Email",
+      "email-placeholder": "email@email.com",
+      "label-password": "Password",
+      "submit-btn-text": "Log In"
+    },
+
+    "dashboard-layout": {
+      "title": "Retailer's Control Panel",
+      "tabs-text-1": "Overview",
+      "tabs-text-2": "Delivery Orders",
+      "tabs-text-3": "Customers",
+      "tabs-text-4": "History",
+      "tabs-text-5": "New Orders"
+    },
+
+    "ordertable": {
+      "first-col": "#Order",
+      "second-col": "Client",
+      "third-col": "Amount Purchased",
+      "fourth-col": "Pick up date",
+      "fifth-col": "Time",
+      "sixth-col": "Status"
+    },
+
+    "revenue-card":{
+      "data": [
+        {
+          "title" : "Total revenue this Year",
+          "value" : "€ 290.050,00"
+        },
+
+        {
+          "title" : "Total revenue this month",
+          "value" : "€ 20.050"
+        },
+
+        {
+          "title" : "Average ticket",
+          "value" : "€30.043"
+        },
+
+        {
+          "title" : "No. of Orders this month",
+          "value" : "583 Orders"
+        }
+      ]
+    },
+
+    "order-alert": {
+      "first-text":"New order! ",
+      "second-text": "Pick up time 02/07/23 - 10:00 AM",
+      "link-text": "See order"
+    }
   }
+  
 }

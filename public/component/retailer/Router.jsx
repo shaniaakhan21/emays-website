@@ -7,6 +7,7 @@ import RetailerLanding from './Landing';
 import RetailerIntegration from './Integration';
 import RetailerPartnership from './Partnership';
 import RetailerLogin from '../dashboard/retailer/Login';
+import RetailerDashboardLayout from '../dashboard/retailer/DashboardLayout';
 
 const RetailerRouter = () => {
     return (
@@ -17,6 +18,7 @@ const RetailerRouter = () => {
             <Route path='/retailer/integration' component={() => <RetailerIntegration />} />
             <Route path='/retailer/partnership' component={() => <RetailerPartnership />} />
             <Route path='/retailer/login' component={() => <RetailerLogin />} />
+            <Route path='/retailer/dashboard' component={() => <RetailerDashboardLayout />} />
         </Switch>
     );
 };

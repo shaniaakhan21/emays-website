@@ -1,0 +1,47 @@
+.bg-secondary {
+    background-color: #E0E0E0!important;
+}
+
+.bg-primary {
+    background-color: #A7F0BA!important;
+}
+
+.bg-info {
+    background-color: #D0E2FF!important;
+}
+
+.bg-danger {
+    background-color: #E8DAFF!important;
+}
+
+.badge{
+    width: 100%!important;
+    color: #161616!important;
+    text-align: left!important;
+}
+
+.pagination{
+    justify-content: center;
+}
+
+.previous{
+    padding-right: 1%;
+}
+
+.next{
+    padding-left: 1%;
+}
+
+.pagination__link--active{
+    color: black;
+}
+
+li{
+    padding-right: 1%;
+}
+
+.fw-normal {
+    font-weight: 400!important;
+    font-size: 14px;
+    line-height: 18px;
+}
