@@ -11,7 +11,10 @@ import { ADDRESS_REQUIRED, AREA_REQUIRED, CONTENT_TYPE_REQUIRED
     EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY
     , LATITUDE_REQUIRED, LONGITUDE_REQUIRED, ORDER_DATE_REQUIRED
     , ORDER_ID_REQUIRED_IN_PATH, ORDER_LIST_REQUIRED, ORDER_TIME_END_REQUIRED,
-    ORDER_TIME_START_REQUIRED, PAYMENT_REFERENCE_REQUIRED, TIME_ZONE_REQUIRED
+    ORDER_TIME_START_REQUIRED, PAYMENT_REFERENCE_REQUIRED, SUPER_USER_EMAIL_REQUIRED,
+    SUPER_USER_FIRST_NAME_REQUIRED, SUPER_USER_LAST_NAME_REQUIRED,
+    SUPER_USER_PASSWORD_REQUIRED, SUPER_USER_USERNAME_REQUIRED
+    , TIME_ZONE_REQUIRED
     , USER_FIRST_NAME_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH, USER_LAST_NAME_REQUIRED
     , USER_PHONE_NUMBER_REQUIRED, 
     USER_UNAUTHORIZED } from '../const/errorMessage';
@@ -20,7 +23,6 @@ import { buildErrorMessage } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { config } from '../config/config';
 import { Roles } from '../const/roles';
-import { AppRequest } from '../type/appRequestType';
 
 const Logging = Logger(__filename);
 
@@ -206,6 +208,36 @@ export const validateCreateExtSysRequestBody = (req: Request, res: Response, nex
     validateRequest(req, next, validationCriteria);
 };
 
+// Super user create request body validator
+export const validateCreateSuperUserRequestBody = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        body: {
+            firstName: Joi.string().required().max(50).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_FIRST_NAME_REQUIRED);
+            }),
+            lastName: Joi.string().required().max(50).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_LAST_NAME_REQUIRED);
+            }),
+            username: Joi.string().required().max(20).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_USERNAME_REQUIRED);
+            }),
+            password: Joi.string().required().max(50).pattern(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_PASSWORD_REQUIRED);
+            }),
+            email: Joi.string().required().max(50).email().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_EMAIL_REQUIRED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // Validate request external system token 
 export const validateExternalSystemTokenRequestBody = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
@@ -216,6 +248,21 @@ export const validateExternalSystemTokenRequestBody = (req: Request, res: Respon
             extSysPassword: Joi.string().required().max(50).error((error) => { 
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, EXT_SYSTEM_PASSWORD_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate request super user token 
+export const validateSuperUserTokenRequestBody = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        body: {
+            username: Joi.string().required().max(20).error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_USERNAME_REQUIRED); }),
+            password: Joi.string().required().max(50).error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_PASSWORD_REQUIRED); })
         }
     });
     validateRequest(req, next, validationCriteria);

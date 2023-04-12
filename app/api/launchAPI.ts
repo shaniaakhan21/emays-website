@@ -10,7 +10,7 @@ import { generateJWT } from '../util/jwtUtil';
 import { Logger } from '../log/logger';
 import { buildErrorMessage,
     buildInfoMessageMethodCall, buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
-import { getExternalSystemById } from '../service/externalSystemService';
+import { getExternalSystemById } from '../service/administration/externalSystemService';
 import ServiceError from '../type/error/ServiceError';
 import ErrorType from '../const/errorType';
 import { HTTPUserError } from '../const/httpCode';
