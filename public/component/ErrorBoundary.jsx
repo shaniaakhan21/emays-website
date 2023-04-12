@@ -9,22 +9,26 @@ class ErrorBoundary extends React.Component {
     }
 
     static getDerivedStateFromError (error) {
-        if (error instanceof TypeError) {
-            return { 
-                hasError: true, errorMessage: 
-                'There was a problem with the network. Please check your internet connection and try again.' 
-            };
-        } else if (error instanceof CustomError) {
-            return {
-                hasError: true,
-                errorMessage: 'A custom error has occurred. Please try again later.'
-            };
-        } else if (error instanceof ReferenceError) {
-            return {
-                hasError: true,
-                errorMessage: 'A reference error has occurred. Please try again later.'
-            };
-        }
+        console.error('Error: ', error);
+        /* 
+         * TODO: organize this better way
+         * If (error instanceof TypeError) {
+         *     return { 
+         *         hasError: true, errorMessage: 
+         *         'There was a problem with the network. Please check your internet connection and try again.' 
+         *     };
+         * } else if (error instanceof CustomError) {
+         *     return {
+         *         hasError: true,
+         *         errorMessage: 'A custom error has occurred. Please try again later.'
+         *     };
+         * } else if (error instanceof ReferenceError) {
+         *     return {
+         *         hasError: true,
+         *         errorMessage: 'A reference error has occurred. Please try again later.'
+         *     };
+         * }
+         */
         return { hasError: true };
     }
 

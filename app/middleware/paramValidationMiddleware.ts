@@ -5,7 +5,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as Joi from 'joi';
 import { validatorErrorBuilder } from '../util/serviceErrorBuilder';
 import { ADDRESS_REQUIRED, AREA_REQUIRED, CONTENT_TYPE_REQUIRED
-    , CREATED_TIME_CAN_NOT_MODIFY, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
+    , CREATED_TIME_CAN_NOT_MODIFY, DELIVERY_INFO_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
     , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
     EXTERNAL_SYSTEM_PASSWORD_REQUIRED, EXTERNAL_SYSTEM_USERNAME_REQUIRED,
     EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY
@@ -68,6 +68,9 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
             experience: Joi.string().required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, EXPERIENCE_REQUIRED); }),
+            deliveryInfo: Joi.string().required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DELIVERY_INFO_REQUIRED); }),
             address: Joi.object().keys({ 
                 // Street
                 addOne: Joi.string().required(),

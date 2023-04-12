@@ -42,7 +42,8 @@ export const createOrder: CreateOrderFunc = async (order) => {
             timeZone: order.timeZone,
             experience: order.experience,
             address: order.address,
-            orderItems: order.orderItems
+            orderItems: order.orderItems,
+            deliveryInfo: order.deliveryInfo
         };
         const data = await saveOrder(orderExtracted);
         Logging.log(buildInfoMessageUserProcessCompleted('Order insertion', `Order Data:
