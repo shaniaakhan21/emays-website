@@ -12,7 +12,7 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0wNVQwNjo1Mzo1MS4zNzlaIiwiZXhwIjoxNjgwNjg4NDMxLCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NDJkMWFmYTNjNTVmNzIwZDk1ZWJmNDEiLCJpYXQiOjE2ODA2Nzc2MzF9.1ST9_B-YVrE17dt0-Y_QP4EbR06YpbZAd90nzDqREFI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0xMFQxODo1OTowNi42MjRaIiwiZXhwIjoxNjgxMTU2NzQ2LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIxOWJmOWNjNy1kYjYzLTQ1NTctYjU1My02YWVmYTFjMDA2ODQiLCJpYXQiOjE2ODExNTMxNDZ9.T0DW-OrmBN_aDNPWXZQtUVxc8LHjg1yfz-I0Iedyu90
 
 {
     "email": "shaniyak656@gmail.com",
@@ -30,15 +30,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wN
         "addOne": "No 1",
         "addTwo": "Subway",
         "addThree": "Khalifa",
-        "addFour": "Dubai"
+        "addFour": "Dubai",
+        "addFive": "Test",
+        "addSix": "Test"
     },
     "orderItems": [{"productName": "Denim shirt", "productColor": "blue", "productSize": "Large", "productQuantity": 2, "productCost": "10", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}, {"productName": "Denim Trouser", "productColor": "blue", "productSize": "Large", "productQuantity": 5, "productCost": "20", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}]
 }
 
 ----- Get order by user id----
 
-GET http://localhost:8080/api-dev/orders/12345673495
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNlQxNTozMzoyNC4xMTBaIiwiZXhwIjoxNjc4OTkxNjA0LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NDEzMzZiZDM3NmVkZThkY2E0OTk0YmEiLCJpYXQiOjE2Nzg5ODA4MDR9.fIkiHbBix_ay3uOQcYRcVX5rg55jjvB6b9usBqzgHNI
+GET http://localhost:8080/api-dev/orders/12345673410109
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0xMFQxODo1OTowNi42MjRaIiwiZXhwIjoxNjgxMTU2NzQ2LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIxOWJmOWNjNy1kYjYzLTQ1NTctYjU1My02YWVmYTFjMDA2ODQiLCJpYXQiOjE2ODExNTMxNDZ9.T0DW-OrmBN_aDNPWXZQtUVxc8LHjg1yfz-I0Iedyu90
 content-type: application/json
 
 
@@ -91,3 +93,26 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wM
 content-type: application/json
 
 
+------ Create super user ------
+
+
+POST http://localhost:8080/api-dev/superUsers
+content-type: application/json
+
+{
+    "firstName": "emmanuel",
+    "lastName": "emmanuel",
+    "username": "emmanuel",
+    "password": "abCq2&!Ms",
+    "email": "abCq2&!Ms@gmail.com"
+}
+
+------ Get super user token ----------
+
+POST http://localhost:8080/api-dev/superUsers/superUserToken
+content-type: application/json
+
+{
+    "username": "emmanuel",
+    "password": "abCq2&!Ms"
+}

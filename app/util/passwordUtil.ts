@@ -18,7 +18,7 @@ export const hashPassword: HashFunc = async (password) => {
 
 /**
  * Compare the password hash and send result 
- * @param {string} password External system password
+ * @param {string} password Provided password
  * @param {string} hashedPassword Hashed password stored in the database
  * @returns {Promise<boolean>} Is password correct or incorrect
  */
