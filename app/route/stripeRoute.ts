@@ -1,4 +1,5 @@
 'use strict';
+/* eslint camelcase: 0 */
 
 import * as express from 'express';
 const router = express.Router();
@@ -22,28 +23,33 @@ router.get(`${RoutePath.STRIPE}/checkout`, (
 
         const data = await buildCheckoutPath(req.query.uuid);
 
-        res.json(data);
+        res.json({ data });
     })().catch((error) => {
         const errorObject: Error = error as Error;
-        Logging.log(buildErrorMessage(errorObject, 'sumUp Checkout'), LogType.ERROR);
+        Logging.log(buildErrorMessage(errorObject, 'stripe Checkout'), LogType.ERROR);
         next(error);
     });
 });
 
 router.get(`${RoutePath.STRIPE}/checkout/complete`, (
-    req: express.Request<core.ParamsDictionary, any, any, { id: string, uid: string }>,
+    req: express.Request<core.ParamsDictionary, any, any, {
+        payment_intent_client_secret: string,
+        userId: string,
+        payment_intent: string,
+        redirect_status: string
+    }>,
     res: express.Response,
     next: express.NextFunction
 ) => {
     (async () => {
         // Todo: Validate JWT
+        console.log('req.query', req.query);
+        const data = await buildCompleteCheckoutPath(req.query.payment_intent, req.query.userId);
 
-        const data = await buildCompleteCheckoutPath(req.query.id, req.query.uid);
-
-        res.json(data);
+        res.json('ORDER COMPLETED');
     })().catch((error) => {
         const errorObject: Error = error as Error;
-        Logging.log(buildErrorMessage(errorObject, 'sumUp Checkout'), LogType.ERROR);
+        Logging.log(buildErrorMessage(errorObject, 'stripe Checkout'), LogType.ERROR);
         next(error);
     });
 });

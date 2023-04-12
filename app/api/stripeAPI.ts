@@ -57,11 +57,14 @@ export const buildCompleteCheckoutPath = async (checkoutId: string, uid: string)
          * Todo: Using checkout_reference to retrieve order details from DB and check if the order status is still valid
          */
 
-        const session = await confirmOrderServiceFeePayment(checkoutId);
+        const paymentIntent = await confirmOrderServiceFeePayment(uid);
 
-        if (!session) {
+        if (!paymentIntent) {
             throw new Error('Invalid checkout ID');
         }
+
+        console.log('session', paymentIntent);
+        console.log('uid', uid);
 
         const order = await retrieveOrderDetailsByUserId(uid);
 

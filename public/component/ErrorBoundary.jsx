@@ -9,15 +9,11 @@ class ErrorBoundary extends React.Component {
     }
 
     static getDerivedStateFromError (error) {
+        console.log('ErrorBoundary getDerivedStateFromError: ', error);
         if (error instanceof TypeError) {
-            return { 
-                hasError: true, errorMessage: 
-                'There was a problem with the network. Please check your internet connection and try again.' 
-            };
-        } else if (error instanceof CustomError) {
             return {
-                hasError: true,
-                errorMessage: 'A custom error has occurred. Please try again later.'
+                hasError: true, errorMessage:
+                'There was a problem with the network. Please check your internet connection and try again.'
             };
         } else if (error instanceof ReferenceError) {
             return {

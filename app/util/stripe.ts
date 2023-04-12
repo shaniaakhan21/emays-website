@@ -15,16 +15,10 @@ export const initiateOrderServiceFeePayment = async (userId: string) => {
     }
     const paymentIntent = await stripe.paymentIntents.create({
         amount: calculateServiceFee(order),
-        currency: 'itl',
+        currency: 'eur',
         automatic_payment_methods: {
             enabled: true
-        },
-        payment_method_options: {
-            card: {
-                capture_method: 'manual'
-            }
-        },
-        return_url: `${config.STRIPE_RETURN_DOMAIN}/stripe/checkout/complete?userId=${userId}`
+        }
     });
     order.paymentRef = paymentIntent.id;
     await orderService.patchOrderDetailsByUserId(userId, order);
@@ -50,5 +44,5 @@ export const confirmOrderServiceFeePayment = async (userId: string) => {
     if (!order.paymentRef) {
         throw new Error('Payment reference not found');
     }
-    return stripe.checkout.sessions.retrieve(order.paymentRef);
+    return stripe.paymentIntents.retrieve(order.paymentRef);
 };
