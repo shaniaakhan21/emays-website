@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 'use strict';
 
 import { Request, Response, NextFunction } from 'express';
@@ -119,6 +120,58 @@ export const allowedForClientRoleOnly = (req: Request, res: Response, next: Next
     const validationCriteria = Joi.object({
         claims: {
             roles: Joi.array().required().items(Joi.string().valid(Roles.CLIENT)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate only external system role allowed route
+export const allowedForExternalSystemRoleOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().valid(Roles.EXTERNAL_SYSTEM)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate only super role allowed route
+export const allowedForSuperRoleOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().valid(Roles.SUPER)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate only retailer role allowed route
+export const allowedForRetailerRoleOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().valid(Roles.RETAILER)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate only assistant role allowed route
+export const allowedForAssistantRoleOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().valid(Roles.ASSISTANT)).error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
             })

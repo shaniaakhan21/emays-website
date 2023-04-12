@@ -27,12 +27,17 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
         (req.path !== '/') &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LAUNCH_MAIL}`) &&
         (req.path !== `${config.ROUTE_PATH}/test`) &&
-        (req.path !== `${config.ROUTE_PATH}${RoutePath.LAUNCH}`) && !req.path.includes('app-dist') &&
+        !req.path.includes('app-dist') &&
         req.path !== '/favicon.ico') {
         const authHeader = req?.headers?.authorization as string;
         const [authType, authToken] = authHeader ? authHeader?.split(' ') : [null, null];
+        // Sometimes token comes with the request body. Ex: launch
+        const token = (req.body as {authToken: string})?.authToken;
         if (authType && authType === 'Bearer' && authToken) {
             const claims = validateJWTToken(authToken);
+            (req as AppRequest).claims = claims;
+        } else if (token) { 
+            const claims = validateJWTToken(token);
             (req as AppRequest).claims = claims;
         } else {
             throw new ServiceError(ErrorType.ORDER_SERVICE_ERROR, 'Not a valid token', '', HTTPUserError.

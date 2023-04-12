@@ -10,6 +10,7 @@ import { dailyReminder } from '../service/lambdaService';
 
 /**
  * To send emails by AWS Lambda
+ * TODO: add auth validation with AWS for lambda access
  */
 router.post(RoutePath.EMAIL_REMINDERS, (req: express.Request, res: express.Response): void => {
     (async () => {
