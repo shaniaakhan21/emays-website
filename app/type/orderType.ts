@@ -30,6 +30,7 @@ export interface IOrder {
         // Post code
         addSix: string
     },
+    deliveryInfo: string,
     orderItems: Array<Order>,
     createdAt?: Date,
     isDelivered?: boolean,
@@ -65,6 +66,7 @@ export interface IOrderDTO {
         // Post code
         addSix: string
     },
+    deliveryInfo: string,
     orderItems: Array<Order>,
     createdAt?: Date,
     history?: Array<Date>,

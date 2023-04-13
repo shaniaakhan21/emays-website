@@ -39,6 +39,8 @@ export const ORDER_TIME_END_REQUIRED = 'Please provide a valid end time';
 
 export const EXPERIENCE_REQUIRED = 'Please provide an valid experience';
 
+export const DELIVERY_INFO_REQUIRED = 'Please provide delivery information ';
+
 export const PAYMENT_REFERENCE_REQUIRED = 'Please provide an valid payment reference';
 
 export const ADDRESS_REQUIRED = 'Please provide a valid address';

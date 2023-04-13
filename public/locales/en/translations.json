@@ -43,7 +43,9 @@
       "addFourPlaceHolder": "City",
       "addFivePlaceHolder": "Country",
       "addSixPlaceHolder": "Post Code",
-      "searchAddress": "Search your address street or complete address"
+      "searchAddress": "Please search your address street or complete address",
+      "deliveryInfo": "User Comment",
+      "deliveryInfoPlaceholder": "Please enter your comment"
     },
     "customize-experience": {
       "header": "CUSTOMIZE YOUR EXPERIENCE FOR FREE",
@@ -56,6 +58,7 @@
         "header": "DELIVERY ADDRESS",
         "address": "Address"
     },
+    "delivery-info": "USER COMMENT",
     "submit-button": "CONTINUE"
   },
   "email-launch": {
@@ -106,7 +109,8 @@
       "date": "Date",
       "hour": "Hour",
       "selected-experience": "Experience Selected",
-      "delivery-address": "Delivery Address"
+      "delivery-address": "Delivery Address",
+      "delivery-info": "User Comment"
     },
     "contact-details": {
       "header": "CONTACT DETAILS",

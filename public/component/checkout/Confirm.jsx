@@ -152,8 +152,15 @@ const Confirm = () => {
                                     state?.address?.addOne,
                                     state?.address?.addTwo,
                                     state?.address?.addThree,
-                                    state?.address?.addFour
+                                    state?.address?.addFour,
+                                    state?.address?.addFive,
+                                    state?.address?.addSix
                                 ]?.filter(e => !!e).join(', ')}</p>
+                            </div>
+                            <br/>
+                            <p><strong>{t('confirm.user-appointment-info.delivery-info')}</strong></p>
+                            <div className='value'>
+                                <p>{ state?.deliveryInfo }</p>
                             </div>
                         </div>
                     </div>

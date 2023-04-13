@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
-import { Grid, Column, Modal, ModalWrapper, ModalHeader } from '@carbon/react';
+import { Grid, Column } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 
 // Components
@@ -32,6 +32,7 @@ import FallBack from '../../icons/fallback.png';
 import ShoppingItem from './ShoppingItem';
 import { useMessage } from '../common/messageCtx';
 import { updateOrder } from '../../services/order';
+import TextAreaCustom from '../common/TextAreaCustom';
 
 const Checkout = () => {
 
@@ -39,7 +40,8 @@ const Checkout = () => {
     const history = useHistory();
     const pushAlert = useMessage();
 
-    const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {} });
+    const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {},
+        serviceFee: null });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [showDelete, setShowDelete] = useState(undefined);
@@ -52,6 +54,12 @@ const Checkout = () => {
     // State address update function from GeoContainer
     const updateAddress = ({ addOne }) => {
         setState(cs => ({ ...cs, address: { ...cs.address, addOne: addOne } }));
+    };
+
+    // State service fee update from GeoContainer
+    const updateServiceFee = (fee) => {
+        console.log();
+        setState(cs => ({ ...cs, serviceFee: fee }));
     };
 
     // State for product data
@@ -207,7 +215,7 @@ const Checkout = () => {
                             <p>{t('checkout.delivery-address.address')}</p>
                         </div>
                         <div>
-                            <GeoContainer updateAddress = {updateAddress}/>
+                            <GeoContainer updateAddress = {updateAddress} updateServiceFee = {updateServiceFee}/>
                         </div>
                         <div className='address-info'>
                             <div>
@@ -286,6 +294,22 @@ const Checkout = () => {
                                     invalid={errors?.addSix} />
                             </div>
                         </div>
+                        <div className='delivery-info'>
+                            <p>{t('checkout.delivery-info')}</p>
+                            <TextAreaCustom
+                                className='user-message'
+                                placeholder={t('checkout.book-appointment.deliveryInfoPlaceholder')}
+                                enableCounter
+                                maxCount={100}
+                                name='message'
+                                value={state.deliveryInfo}
+                                onChange={
+                                    (e) => setState(
+                                        cs => ({ ...cs, deliveryInfo: e.target.value })
+                                    )
+                                }
+                            />
+                        </div>
                     </div>
                     <div className='submit-button'>
                         <ButtonCustom
@@ -304,7 +328,8 @@ const Checkout = () => {
                     </div>
                 </Column>}
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData} />
+                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData}
+                    serviceFee = {state.serviceFee}/>
             </Column>
         </Grid>
     );
