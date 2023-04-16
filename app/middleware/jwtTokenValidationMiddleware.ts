@@ -24,6 +24,7 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
         (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_REDIRECTION}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.STRIPE}/checkout/complete`) &&
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.STRIPE}/webhook`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEM_TOKEN}`) &&
         (req.path !== '/') &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LAUNCH_MAIL}`) &&
