@@ -10,12 +10,12 @@ class ErrorBoundary extends React.Component {
 
     static getDerivedStateFromError (error) {
         console.error('Error: ', error);
-        /* 
+        /*
          * TODO: organize this better way
          * If (error instanceof TypeError) {
-         *     return { 
-         *         hasError: true, errorMessage: 
-         *         'There was a problem with the network. Please check your internet connection and try again.' 
+         *     return {
+         *         hasError: true, errorMessage:
+         *         'There was a problem with the network. Please check your internet connection and try again.'
          *     };
          * } else if (error instanceof CustomError) {
          *     return {

@@ -7,13 +7,15 @@ const useAPI = (apiCall) => {
 
     const callAPI = async (...args) => {
         setLoading(true);
+        let response;
         try {
-            const response = await apiCall(...args);
+            response = await apiCall(...args);
             setState(response);
         } catch (error) {
             setError(error);
         }
         setLoading(false);
+        return response;
     };
 
     return { state, error, loading, callAPI };

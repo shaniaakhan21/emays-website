@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Grid, Column, InlineLoading } from '@carbon/react';
+import { Grid, Column } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
@@ -22,6 +24,8 @@ import { saveOrder, updateOrder } from '../../services/order';
 import { useMessage } from '../common/messageCtx';
 import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
 import LoadingIndicator from '../LoadingIndicator';
+import useAPI from '../../js/util/useAPI';
+import { makeCheckout } from '../../services/stripe';
 
 const Confirm = () => {
 
@@ -29,6 +33,7 @@ const Confirm = () => {
     const pushAlert = useMessage();
     const history = useHistory();
     const launchType = getLaunchType();
+    const { state: checkoutData, loading: LoadingCheckout, callAPI } = useAPI(makeCheckout);
 
     const [productData, setProductData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -99,7 +104,7 @@ const Confirm = () => {
                         subtitle: t('common.success-message')
                     });
                 } else {
-                    setOpen({ uuid: commonData.uuid });
+                    setOpen(getUserData());
                 }
             }
         } catch (e) {

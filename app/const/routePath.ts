@@ -3,7 +3,7 @@
 export enum RoutePath {
     HEALTH = '/health',
     CALENDER_ACCESS = '/googleCalender',
-    CALENDER_REDIRECTION = '/redirectGoogleAccess', 
+    CALENDER_REDIRECTION = '/redirectGoogleAccess',
     LAUNCH = '/launch',
     LAUNCH_MAIL = '/launchMail',
     DEV_LAUNCH = '/devLaunch',
@@ -16,6 +16,7 @@ export enum RoutePath {
     SUPER_USERS = '/superUsers',
     SUPER_USER_TOKEN = '/superUserToken',
     SUMUP = '/sumUp',
+    STRIPE = '/stripe',
     GEO = '/geo',
     APP_INFO = '/appInfo',
     EMAIL_REMINDERS = '/emailReminders'
