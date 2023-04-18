@@ -34,7 +34,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
             retailerEmail: order.retailerEmail,
             firstName: order.firstName,
             lastName: order.lastName,
-            phoneNumber: order.phoneNumber, 
+            phoneNumber: order.phoneNumber,
             uid: order.uid,
             date: order.date,
             startTime: order.startTime,
@@ -117,7 +117,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
 export const calculateServiceFee = (order: IOrderDTO) => {
     try {
         // Todo: calculate service fee properly
-        return 14.99;
+        return 1499;
     } catch (error) {
         const err = error as Error;
         serviceErrorBuilder(err.message);
@@ -133,7 +133,9 @@ export const calculateServiceFee = (order: IOrderDTO) => {
  */
 export const retrieveOrderDetailsByUserId: RetrieveOrderByUserIdFunc = async (userId) => {
     try {
+        console.log('userId', userId);
         const data = await retrieveOrderByUserId(userId);
+        console.log('data', data);
         Logging.log(buildInfoMessageUserProcessCompleted('Order retrieval', `Order Data:
             ${JSON.stringify(data)}` ), LogType.INFO);
         return data;
@@ -219,7 +221,7 @@ export const buildRedirectionURL = (uuid: string): string => {
             roles: role
         };
         const token: string = generateJWT(tokenBuildData, JWT_TYPE.LONG_LIVE);
-        const URL = 
+        const URL =
     `${config.EMAIL_TEMPLATE.URLS.EMAIL_REDIRECTION_PATH}?launchType=${EMAIL_BOOKED}&uuid=${uuid}&authToken=${token}`;
         Logging.log(buildInfoMessageUserProcessCompleted('Email redirection URL created', `UUID:
                 ${uuid} and URL: ${URL}` ), LogType.INFO);
@@ -229,7 +231,7 @@ export const buildRedirectionURL = (uuid: string): string => {
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, `Build email redirect URL for uuid ${uuid}`), LogType.ERROR);
         throw error;
-    } 
+    }
 };
 
 const buildBookCalendar = (uuid: string): string => {
@@ -242,7 +244,7 @@ const buildBookCalendar = (uuid: string): string => {
             roles: role
         };
         const token: string = generateJWT(tokenBuildData, JWT_TYPE.LONG_LIVE);
-        const URL = 
+        const URL =
         // eslint-disable-next-line max-len
         `${config.GOOGLE.CALENDER.BOOK_CALENDER_REDIRECTION_PATH}?uuid=${uuid}&authToken=${token}`;
         Logging.log(buildInfoMessageUserProcessCompleted('Build book calendar URL created', `UUID:
@@ -253,5 +255,5 @@ const buildBookCalendar = (uuid: string): string => {
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, `Build book calendar URL for uuid ${uuid}`), LogType.ERROR);
         throw error;
-    } 
+    }
 };

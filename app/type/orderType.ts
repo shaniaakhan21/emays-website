@@ -8,7 +8,7 @@ export interface IOrder {
     email: string,
     firstName: string,
     lastName: string,
-    phoneNumber: string, 
+    phoneNumber: string,
     retailerEmail: string,
     date: Date,
     uid: string,
@@ -42,6 +42,7 @@ export interface IOrderDTO {
     _id?: ObjectId,
     email?: string,
     payed?: boolean,
+    terminalPayment?: boolean,
     firstName?: string,
     lastName?: string,
     phoneNumber?: string,
@@ -73,6 +74,7 @@ export interface IOrderDTO {
     isDelivered?: boolean,
     isDriverPicked?: boolean
     paymentRef?: string
+    terminalPaymentRef?: string
 }
 
 export interface Order {

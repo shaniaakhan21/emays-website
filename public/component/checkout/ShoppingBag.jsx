@@ -89,5 +89,5 @@ ShoppingBag.propTypes = {
     ).isRequired,
     onDelete: PropTypes.func
 };
-  
+
 export default ShoppingBag;

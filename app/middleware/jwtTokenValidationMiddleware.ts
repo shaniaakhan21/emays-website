@@ -19,10 +19,12 @@ const Logging = Logger(__filename);
 export const validateJWT = (req: Request, res: Response, next: NextFunction) => {
     // TODO: add service-worker implementation to add the token with the UI files requests.
     if (req.path !== `${config.ROUTE_PATH}${RoutePath.HEALTH}` &&
-        (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&  
-        (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_ACCESS}`) && 
-        (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_REDIRECTION}`) &&  
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_ACCESS}`) &&
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_REDIRECTION}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}`) &&
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.STRIPE}/checkout/complete`) &&
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.STRIPE}/webhook`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEM_TOKEN}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.SUPER_USERS}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.SUPER_USERS}${RoutePath.SUPER_USER_TOKEN}`) &&
