@@ -28,12 +28,12 @@ const {
     SUMUP_SECRET_KEY,
     SUMUP_MERCHANT_CODE,
     MONGO_URL,
-    CUSTOMER_EMAIL_REMINDER,
+    CUSTOMER_EMAIL_REMINDER_ON_DEL_DAY_BEFORE_DRIVER_PICK,
     CUSTOMER_EMAIL_REMINDER_SECOND,
     CUSTOMER_INVOICE_EMAIL,
     CUSTOMER_CANCEL_EMAIL,
     RETAILER_REMINDER_EMAIL,
-    RETAILER_EMAIL_REMINDER_SECOND,
+    RETAILER_REMINDER_EMAIL_ON_DEL_DAY_BEFORE_DRIVER_PICK,
     RETAILER_EMAIL_ITEMS_SOLD,
     GOOGLE_MAP_API_KEY,
     SYSTEM_AVAILABLE_GEO_LOCATIONS
@@ -60,20 +60,23 @@ export const config = {
         MONGO_URL: MONGO_URL || 'mongodb://root:123456@localhost:27017/emays_service_db?authSource=admin'
     },
     AWS_SES: {
-        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || 'AKIAV5FWNLRPVPMCUXEY',
-        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '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',
+        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
+        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '',
         AWS_REGION: AWS_REGION || 'us-east-2',
-        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || 'shaniyak656@gmail.com'
+        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || 'thathsararaviraj@gmail.com'
     },
     EMAIL_TEMPLATE: {
         CUSTOMER_EMAIL_TEMPLATE: CUSTOMER_EMAIL_TEMPLATE || '/template/customer/temp-customer-email.html',
         RETAILER_EMAIL_TEMPLATE: RETAILER_EMAIL_TEMPLATE || '/template/retailer/temp-retailer-email.html',
-        CUSTOMER_EMAIL_REMINDER: CUSTOMER_EMAIL_REMINDER || '/template/customer/customer-reminder-email.html',
+        CUSTOMER_EMAIL_REMINDER_ON_DEL_DAY_BEFORE_DRIVER_PICK:
+        CUSTOMER_EMAIL_REMINDER_ON_DEL_DAY_BEFORE_DRIVER_PICK || '/template/customer/customer-reminder-email.html',
         CUSTOMER_EMAIL_REMINDER_SECOND: CUSTOMER_EMAIL_REMINDER_SECOND || '/template/customer/customer-reminder-email-second.html',
         CUSTOMER_INVOICE_EMAIL: CUSTOMER_INVOICE_EMAIL || '/template/customer/customer-invoice.html',
         CUSTOMER_CANCEL_EMAIL: CUSTOMER_CANCEL_EMAIL || '/template/customer/customer-cancel-order.html',
-        RETAILER_REMINDER_EMAIL: RETAILER_REMINDER_EMAIL || '/template/retailer/retailer-reminder-email.html',
-        RETAILER_EMAIL_REMINDER_SECOND: RETAILER_EMAIL_REMINDER_SECOND || '/template/retailer/retailer-reminder-email-second.html',
+        RETAILER_REMINDER_EMAIL:
+        RETAILER_REMINDER_EMAIL || '/template/retailer/retailer-reminder-email.html',
+        RETAILER_REMINDER_EMAIL_ON_DEL_DAY_BEFORE_DRIVER_PICK:
+        RETAILER_REMINDER_EMAIL_ON_DEL_DAY_BEFORE_DRIVER_PICK || '/template/retailer/retailer-reminder-email-second.html',
         RETAILER_EMAIL_ITEMS_SOLD: RETAILER_EMAIL_ITEMS_SOLD || '/template/retailer/retailer-items-sold.html',
                 
         URLS: {

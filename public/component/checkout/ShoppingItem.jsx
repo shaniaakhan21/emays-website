@@ -1,4 +1,3 @@
-import ErrorBoundary from '../ErrorBoundary';
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
@@ -20,7 +19,7 @@ const ShoppingItem = ({
     const [t] = useTranslation();
 
     return (
-        <ErrorBoundary>
+        <>
             <div className='container'>
                 <div>
                     {/* TODO: Here display a fallback image if image is not available */}
@@ -57,7 +56,7 @@ const ShoppingItem = ({
                     </div>
                 </div>
             </div>
-        </ErrorBoundary>
+        </>
     );
 
 };

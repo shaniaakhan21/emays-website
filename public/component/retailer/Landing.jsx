@@ -12,7 +12,6 @@ import './../../scss/component/retailer/landing.page.scss';
 // Images
 import RetailerPartnership from './Partnership';
 import MailIcon from '../../images/HomeCustomerSection/email-icon.svg';
-import ErrorBoundary from '../ErrorBoundary';
 
 const RetailerLanding = () => {
     const [translate] = useTranslation();
@@ -20,7 +19,7 @@ const RetailerLanding = () => {
     const t = (key) => translate(`retailer.landing.${key}`);
 
     return (
-        <ErrorBoundary>
+        <>
             <RetailerLayout className='landing'>
                 <Column id='landing-start' lg={16} md={8} sm={4} xs={4} className='title'>
                     {t('title')}
@@ -49,7 +48,7 @@ const RetailerLanding = () => {
                 <RetailerPartnership />
                 <Footer/>
             </RetailerLayout>
-        </ErrorBoundary>
+        </>
     );
 };
 

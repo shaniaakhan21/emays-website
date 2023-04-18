@@ -19,7 +19,6 @@ import SalesForceLogo from '../../images/logo-salesforce.svg';
 import BigcommerceLogo from '../../images/logo-bigcommerce.svg';
 import CommercetoolsLogo from '../../images/logo-commercetools.svg';
 import AdobeLogo from '../../images/logo-adobe.svg';
-import ErrorBoundary from '../ErrorBoundary';
 
 const RetailerIntegration = () => {
     const [translate] = useTranslation();
@@ -31,7 +30,7 @@ const RetailerIntegration = () => {
     const t = (key) => translate(`retailer.integration.${key}`);
 
     return (
-        <ErrorBoundary>
+        <>
             <RetailerLayout Nav className='integration'>
                 <Column lg={16} md={8} sm={4} xs={4} className='title'
                     data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000'>
@@ -84,7 +83,7 @@ const RetailerIntegration = () => {
                     </div>
                 </Column>
             </RetailerLayout>
-        </ErrorBoundary>
+        </>
     );
 };
 

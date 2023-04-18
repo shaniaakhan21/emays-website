@@ -17,6 +17,7 @@ const OrderSchema = new Schema<IOrder>({
     experience: { type: String, required: true },
     address: { type: Object, required: true },
     payed: { type: Boolean, default: false },
+    deliveryInfo: { type: String, required: true },
     orderItems: [{
         productName: { type: String, required: true },
         productColor: { type: String, required: true },
@@ -30,6 +31,8 @@ const OrderSchema = new Schema<IOrder>({
         type: Date,
         default: Date.now
     },
+    isDelivered: { type: Boolean, default: false },
+    isDriverPicked: { type: Boolean, default: false },
     history: [{
         date: { type: Date, default: Date.now }
     }],
