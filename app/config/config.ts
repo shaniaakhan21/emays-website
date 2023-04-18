@@ -28,12 +28,12 @@ const {
     SUMUP_SECRET_KEY,
     SUMUP_MERCHANT_CODE,
     MONGO_URL,
-    CUSTOMER_EMAIL_REMINDER,
+    CUSTOMER_EMAIL_REMINDER_ON_DEL_DAY_BEFORE_DRIVER_PICK,
     CUSTOMER_EMAIL_REMINDER_SECOND,
     CUSTOMER_INVOICE_EMAIL,
     CUSTOMER_CANCEL_EMAIL,
     RETAILER_REMINDER_EMAIL,
-    RETAILER_EMAIL_REMINDER_SECOND,
+    RETAILER_REMINDER_EMAIL_ON_DEL_DAY_BEFORE_DRIVER_PICK,
     RETAILER_EMAIL_ITEMS_SOLD,
     GOOGLE_MAP_API_KEY,
     SYSTEM_AVAILABLE_GEO_LOCATIONS,
@@ -71,12 +71,15 @@ export const config = {
     EMAIL_TEMPLATE: {
         CUSTOMER_EMAIL_TEMPLATE: CUSTOMER_EMAIL_TEMPLATE || '/template/customer/temp-customer-email.html',
         RETAILER_EMAIL_TEMPLATE: RETAILER_EMAIL_TEMPLATE || '/template/retailer/temp-retailer-email.html',
-        CUSTOMER_EMAIL_REMINDER: CUSTOMER_EMAIL_REMINDER || '/template/customer/customer-reminder-email.html',
+        CUSTOMER_EMAIL_REMINDER_ON_DEL_DAY_BEFORE_DRIVER_PICK:
+        CUSTOMER_EMAIL_REMINDER_ON_DEL_DAY_BEFORE_DRIVER_PICK || '/template/customer/customer-reminder-email.html',
         CUSTOMER_EMAIL_REMINDER_SECOND: CUSTOMER_EMAIL_REMINDER_SECOND || '/template/customer/customer-reminder-email-second.html',
         CUSTOMER_INVOICE_EMAIL: CUSTOMER_INVOICE_EMAIL || '/template/customer/customer-invoice.html',
         CUSTOMER_CANCEL_EMAIL: CUSTOMER_CANCEL_EMAIL || '/template/customer/customer-cancel-order.html',
-        RETAILER_REMINDER_EMAIL: RETAILER_REMINDER_EMAIL || '/template/retailer/retailer-reminder-email.html',
-        RETAILER_EMAIL_REMINDER_SECOND: RETAILER_EMAIL_REMINDER_SECOND || '/template/retailer/retailer-reminder-email-second.html',
+        RETAILER_REMINDER_EMAIL:
+        RETAILER_REMINDER_EMAIL || '/template/retailer/retailer-reminder-email.html',
+        RETAILER_REMINDER_EMAIL_ON_DEL_DAY_BEFORE_DRIVER_PICK:
+        RETAILER_REMINDER_EMAIL_ON_DEL_DAY_BEFORE_DRIVER_PICK || '/template/retailer/retailer-reminder-email-second.html',
         RETAILER_EMAIL_ITEMS_SOLD: RETAILER_EMAIL_ITEMS_SOLD || '/template/retailer/retailer-items-sold.html',
 
         URLS: {
@@ -121,7 +124,7 @@ export const config = {
         { location: 'Milan', insideCost: 1500, outsideCost: 2500 }
     ],
     SERVICE_CHARGE: SERVICE_CHARGE || 1200.00,
-    STRIPE_SECRET_KEY: STRIPE_SECRET_KEY || 'sk_test_51JrIULEoSJYRvqg2R7Qp4nVcce368j3EuVW92nYFzIIKn3vXF2D0H4fyU71SAIBBx6y8WCvxjmHEK54gUeyW7LOq00aT8LvntA',
-    STRIPE_WEBHOOK_SECRET: STRIPE_WEBHOOK_SECRET || 'whsec_2db73cc2e98c076bb61c73fdc9821783246652375e32da526ef27becce89e13d',
+    STRIPE_SECRET_KEY: STRIPE_SECRET_KEY || '',
+    STRIPE_WEBHOOK_SECRET: STRIPE_WEBHOOK_SECRET || '',
     STRIPE_RETURN_DOMAIN: STRIPE_RETURN_DOMAIN || 'http://localhost:3000'
 };

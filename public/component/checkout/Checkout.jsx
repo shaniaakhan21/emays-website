@@ -1,9 +1,8 @@
 /* eslint-disable max-lines */
-import { Grid, Column, Modal, ModalWrapper, ModalHeader } from '@carbon/react';
+import { Grid, Column } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
-import ErrorBoundary from '../ErrorBoundary';
 
 // Components
 import ContentSwitcherCustom from '../common/ContentSwitcherCustom';
@@ -33,6 +32,7 @@ import FallBack from '../../icons/fallback.png';
 import ShoppingItem from './ShoppingItem';
 import { useMessage } from '../common/messageCtx';
 import { updateOrder } from '../../services/order';
+import TextAreaCustom from '../common/TextAreaCustom';
 
 const Checkout = () => {
 
@@ -40,7 +40,8 @@ const Checkout = () => {
     const history = useHistory();
     const pushAlert = useMessage();
 
-    const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {}, serviceFee: null });
+    const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {},
+        serviceFee: null });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [showDelete, setShowDelete] = useState(undefined);
@@ -57,6 +58,7 @@ const Checkout = () => {
 
     // State service fee update from GeoContainer
     const updateServiceFee = (fee) => {
+        console.log();
         setState(cs => ({ ...cs, serviceFee: fee }));
     };
 
@@ -163,9 +165,7 @@ const Checkout = () => {
                                         const tf = timeframes[e.selectedItem?.id];
                                         setState(cs => ({ ...cs, startTime: tf.start, endTime: tf.end }));
                                     }}
-                                    items={timeframes?.map((tf, k) => (
-                                        { id: k, text: `${tf.start} to ${tf.end}` }
-                                    ))}
+                                    items={timeframes?.map((tf, k) => ({ id: k, text: `${tf.start} to ${tf.end}` }))}
                                     selectedItem={
                                         state?.startTime ? {
                                             id: timeframes?.findIndex(tf => tf.start === state?.startTime),
@@ -294,6 +294,22 @@ const Checkout = () => {
                                     invalid={errors?.addSix} />
                             </div>
                         </div>
+                        <div className='delivery-info'>
+                            <p>{t('checkout.delivery-info')}</p>
+                            <TextAreaCustom
+                                className='user-message'
+                                placeholder={t('checkout.book-appointment.deliveryInfoPlaceholder')}
+                                enableCounter
+                                maxCount={100}
+                                name='message'
+                                value={state.deliveryInfo}
+                                onChange={
+                                    (e) => setState(
+                                        cs => ({ ...cs, deliveryInfo: e.target.value })
+                                    )
+                                }
+                            />
+                        </div>
                     </div>
                     <div className='submit-button'>
                         <ButtonCustom
@@ -312,8 +328,8 @@ const Checkout = () => {
                     </div>
                 </Column>}
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData} 
-                    serviceFee={state.serviceFee} />
+                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData}
+                    serviceFee = {state.serviceFee}/>
             </Column>
         </Grid>
     );

@@ -1,7 +1,6 @@
 import { Route, Switch, useHistory } from 'react-router-dom';
 import Environment from './Environment';
 import ShopWithUs from './ShopWithUs';
-import ErrorBoundary from '../ErrorBoundary';
 // Components
 import CustomerHome from './Home';
 import Services from './Services';
@@ -18,7 +17,6 @@ import {
 } from '../../js/const/SessionStorageConst';
 import RetailerLetsTalk from '../retailer/LetsTalk';
 import RetailerFAQs from '../retailer/FAQs';
-import RetailerLanding from '../retailer/Landing';
 import RetailerIntegration from '../retailer/Integration';
 import RetailerPartnership from '../retailer/Partnership';
 import useSessionState from '../../js/util/useSessionState';
@@ -71,7 +69,7 @@ const CustomerRouter = () => {
     }, [launchType]);
 
     return (
-        <ErrorBoundary>
+        <>
             <Switch>
                 <Route path='/' exact component={() => <CustomerHome />} />
                 <Route path='/environment' component={() => <Environment />} />
@@ -82,7 +80,7 @@ const CustomerRouter = () => {
                 <Route path='/integration' component={() => <RetailerIntegration />} />
                 <Route path='/partnership' component={() => <RetailerPartnership />} />
             </Switch>
-        </ErrorBoundary>
+        </>
     );
 };
 

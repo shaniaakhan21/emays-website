@@ -27,7 +27,8 @@ export const prepareUserDetailsToSend: PrepareDetailsToSendFunc = (order) => {
         orderItems: order?.orderItems,
         createdAt: order?.createdAt,
         history: order?.history,
-        paymentRef: order?.paymentRef
+        paymentRef: order?.paymentRef,
+        deliveryInfo: order?.deliveryInfo
     };
     return filteredData;
 };

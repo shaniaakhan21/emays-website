@@ -14,9 +14,11 @@ import launchRoute from './app/route/launchRoute';
 import calenderRoute from './app/route/calendarRoute';
 import orderRoute from './app/route/userOrderRoute';
 import customerRoutes from './app/route/customerRoute';
-import externalSystemRoute from './app/route/systemRoute';
+import externalSystemRoute from './app/route/administration/systemRoute';
 import geoRoute from './app/route/geoRoute';
 import appInfoRoute from './app/route/appInfoRoute';
+import emailReminderRoute from './app/route/emailReminderRoute';
+import superUserRoute from './app/route/administration/superUserRoute';
 import stripeRoute from './app/route/stripeRoute';
 import sendErrorResponse from './app/middleware/errorResponseBuilderMiddleware';
 import { AppConfigKey } from './app/const/appConfigKey';
@@ -56,6 +58,8 @@ app.use(config.ROUTE_PATH, calenderRoute);
 app.use(config.ROUTE_PATH, externalSystemRoute);
 app.use(config.ROUTE_PATH, geoRoute);
 app.use(config.ROUTE_PATH, appInfoRoute);
+app.use(config.ROUTE_PATH, emailReminderRoute);
+app.use(config.ROUTE_PATH, superUserRoute);
 app.use(customerRoutes);
 
 /*

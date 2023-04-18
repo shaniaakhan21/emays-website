@@ -21,7 +21,6 @@ import MailIcon from '../../images/HomeCustomerSection/email-icon.svg';
 import '../../scss/component/customer/shopwithus.scss';
 import { Column, Button, Grid } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import ErrorBoundary from '../ErrorBoundary';
 
 const ShopWithUs = () => {
     const [t] = useTranslation();
@@ -31,7 +30,7 @@ const ShopWithUs = () => {
     }, []);
 
     return (
-        <ErrorBoundary>  
+        <>  
             <div className='container-shop' style={{ background: '#231F20' }} id='shop-with-us-start'>  
                 <ShopHeader />
                 <ShopTextBox
@@ -99,7 +98,7 @@ const ShopWithUs = () => {
                     />
                 </div>
             </ div>
-        </ErrorBoundary>
+        </>
     );
 };
 

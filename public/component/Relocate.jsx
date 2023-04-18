@@ -7,7 +7,8 @@ import {
     EMAIL_TODAY,
     PRODUCT_LAUNCH,
     CUSTOMER_UI,
-    UI_RETAILER
+    UI_RETAILER,
+    DASHBOARD_UI
 } from '../js/const/SessionStorageConst';
 import { getLaunchType, setLaunchType } from '../js/util/SessionStorageUtil';
 
