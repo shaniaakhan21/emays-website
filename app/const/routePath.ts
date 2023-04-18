@@ -3,10 +3,10 @@
 export enum RoutePath {
     HEALTH = '/health',
     CALENDER_ACCESS = '/googleCalender',
-    CALENDER_REDIRECTION = '/redirectGoogleAccess', 
+    CALENDER_REDIRECTION = '/redirectGoogleAccess',
     LAUNCH = '/launch',
-    LAUNCH_ADD = '/launch_add',
-    LAUNCH_UPDATE = '/launch_update',
+    LAUNCH_ADD = '/launchAdd',
+    LAUNCH_UPDATE = '/launchUpdate',
     LAUNCH_MAIL = '/launchMail',
     DEV_LAUNCH = '/devLaunch',
     ORDERS= '/orders',
