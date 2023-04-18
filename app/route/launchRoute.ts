@@ -21,6 +21,7 @@ import { v4 as uuidv4 } from 'uuid';
 import LaunchParamBuilder from '../util/LaunchParamBuilder';
 import { LaunchType } from '../type/ILaunchPayload';
 import { ErrorTemplateMessage } from '../const/errorTemplateMessage';
+import { allowedForClientRoleOnly, allowedForExternalSystemRoleOnly } from '../middleware/paramValidationMiddleware';
 
 const router = express.Router();
 
@@ -29,7 +30,7 @@ const Logging = Logger(__filename);
 /**
  * To accept the launch request from email and render the UI
  */
-router.get(RoutePath.LAUNCH_MAIL, (
+router.get(RoutePath.LAUNCH_MAIL, allowedForClientRoleOnly, (
     req: express.Request<core.ParamsDictionary, any, any, { uuid: string, launchType: string, authToken: string }>,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
@@ -126,7 +127,7 @@ router.get(RoutePath.DEV_LAUNCH, (req: express.Request, res: express.Response): 
 /**
  * To accept the launch request and render the UI
  */
-router.post(RoutePath.LAUNCH, (req: express.Request,
+router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Request,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
         authorizeLaunchRoute(req, res, next);

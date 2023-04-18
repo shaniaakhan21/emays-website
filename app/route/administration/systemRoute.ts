@@ -2,16 +2,16 @@
 
 import { Router, Request, Response, NextFunction } from 'express';
 import { validateCreateExtSysRequestBody,
-    validateExternalSystemTokenRequestBody, validateHeader } from '../middleware/paramValidationMiddleware';
-import { Logger } from '../log/logger';
-import { RoutePath } from '../const/routePath';
+    validateExternalSystemTokenRequestBody, validateHeader } from '../../middleware/paramValidationMiddleware';
+import { Logger } from '../../log/logger';
+import { RoutePath } from '../../const/routePath';
 import { buildErrorMessage, buildInfoMessageRouteHit
-    , buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
-import LogType from '../const/logType';
-import { IExternalSystem, IExternalSystemLogin } from '../type/IExternalSystem';
-import { createExternalSystem, getExternalSystemToken } from '../service/externalSystemService';
-import { HTTPSuccess } from '../const/httpCode';
-import { successResponseBuilder } from '../util/responseBuilder';
+    , buildInfoMessageUserProcessCompleted } from '../../util/logMessageBuilder';
+import LogType from '../../const/logType';
+import { IExternalSystem, IExternalSystemLogin } from '../../type/IExternalSystem';
+import { createExternalSystem, getExternalSystemToken } from '../../service/administration/externalSystemService';
+import { HTTPSuccess } from '../../const/httpCode';
+import { successResponseBuilder } from '../../util/responseBuilder';
 
 const router = Router();
 const Logging = Logger(__filename);

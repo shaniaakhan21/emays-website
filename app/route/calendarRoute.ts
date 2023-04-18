@@ -10,13 +10,14 @@ import { buildErrorMessage, buildInfoMessageRouteHit } from '../util/logMessageB
 import LogType from '../const/logType';
 import * as core from 'express-serve-static-core';
 import { validateJWTToken } from '../middleware/jwtTokenValidationMiddleware';
+import { allowedForClientRoleOnly } from '../middleware/paramValidationMiddleware';
 
 const Logging = Logger(__filename);
 
 /**
  * To request access to the user google account
  */
-router.get(RoutePath.CALENDER_ACCESS, (req:
+router.get(RoutePath.CALENDER_ACCESS, allowedForClientRoleOnly, (req:
         express.Request<core.ParamsDictionary, any, any, { uuid: string, authToken: string }>
 , res: express.Response, next: express.NextFunction): void => {
     try {

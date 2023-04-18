@@ -44,7 +44,9 @@
       "addFourPlaceHolder": "City",
       "addFivePlaceHolder": "Country",
       "addSixPlaceHolder": "Post Code",
-      "searchAddress": "Search your address street or complete address"
+      "searchAddress": "Please search your address street or complete address",
+      "deliveryInfo": "User Comment",
+      "deliveryInfoPlaceholder": "Please enter your comment"
     },
     "customize-experience": {
       "header": "CUSTOMIZE YOUR EXPERIENCE FOR FREE",
@@ -57,6 +59,7 @@
         "header": "DELIVERY ADDRESS",
         "address": "Address"
     },
+    "delivery-info": "USER COMMENT",
     "submit-button": "CONTINUE"
   },
   "email-launch": {
@@ -82,7 +85,7 @@
       "contact-message": "we will contact you the day before your appointment, as well as a reminder on the day",
       "special-info": {
         "line-one": "We look forward to seeing you, but should you be unable to attend then please note our cancellation policy below.",
-        "line-two": "We require at least 48 hours notice should you wish to make any changes or amendments to your scheduled appointment. Should you not inform us of any change within 48 notice you will be charged the service fee."
+        "line-two": "We require at least 24 hours notice should you wish to make any changes or amendments to your scheduled appointment. Should you not inform us of any change within 24 hours notice, you will be charged the service fee."
       },
       "need-help": "Need Help?",
       "mail": {
@@ -107,7 +110,8 @@
       "date": "Date",
       "hour": "Hour",
       "selected-experience": "Experience Selected",
-      "delivery-address": "Delivery Address"
+      "delivery-address": "Delivery Address",
+      "delivery-info": "User Comment"
     },
     "contact-details": {
       "header": "CONTACT DETAILS",
@@ -125,9 +129,8 @@
     "header": "SHOPPING BAG",
     "service-fee": "SERVICE FEE",
     "instruction-1": "This fee help us run our operations, all services included.",
-    "instruction-2": "Amount will be blocked on your card until the day of the delivery.",
+    "instruction-2": "Luxury styling session at home.",
     "instruction-3": "Cancellations available before 24h appointment.",
-    "instruction-4": "Luxury styling session at home.",
     "button": "BOOK YOUR APPOINTMENT",
     "item": {
       "size": "Size",
