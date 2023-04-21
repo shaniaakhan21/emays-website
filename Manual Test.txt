@@ -12,20 +12,21 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0xMFQxODo1OTowNi42MjRaIiwiZXhwIjoxNjgxMTU2NzQ2LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIxOWJmOWNjNy1kYjYzLTQ1NTctYjU1My02YWVmYTFjMDA2ODQiLCJpYXQiOjE2ODExNTMxNDZ9.T0DW-OrmBN_aDNPWXZQtUVxc8LHjg1yfz-I0Iedyu90
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yMVQxMTozODo1OC4zOTFaIiwiZXhwIjoxNjgyMDgwNzM4LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiI2ZDliY2NjNy1lMDNkLTQ1OTAtOTM4MC1hYTkzNTg0Y2VkNmQiLCJpYXQiOjE2ODIwNzcxMzh9.M5DWiJNaRZTuXNpU4s7Z9MOUQKClc6Udplm3apkHj9Y
 
 {
-    "email": "shaniyak656@gmail.com",
-    "retailerEmail": "shaniyak656@gmail.com",
+    "email": "thathsararaviraj@gmail.com",
+    "retailerEmail": "thathsararaviraj@gmail.com",
     "firstName": "Thathsara",
     "lastName": "Raviraj",
     "phoneNumber": "07122658978",
-    "uid": "12345673410109",
+    "uid": "12345673410113",
     "date": "2023-03-16",
     "startTime": "19:00",
     "endTime": "21:00",
     "experience": "Assist me, Tailoring, Inspire me",
     "timeZone": "Asia/Dubai",
+    "deliveryInfo": "Please deliver on time",
     "address": {
         "addOne": "No 1",
         "addTwo": "Subway",
@@ -39,8 +40,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wN
 
 ----- Get order by user id----
 
-GET http://localhost:8080/api-dev/orders/12345673410109
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0xMFQxODo1OTowNi42MjRaIiwiZXhwIjoxNjgxMTU2NzQ2LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIxOWJmOWNjNy1kYjYzLTQ1NTctYjU1My02YWVmYTFjMDA2ODQiLCJpYXQiOjE2ODExNTMxNDZ9.T0DW-OrmBN_aDNPWXZQtUVxc8LHjg1yfz-I0Iedyu90
+GET http://localhost:8080/api-dev/orders/5a680543-e251-4539-8741-16d7029284a5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0xMlQxODo0Njo1MS4xNTlaIiwiZXhwIjoxNjgxMzI4ODExLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhMzQ5MWZiOS0wOGE4LTRjMDMtOWYxZi02NmMxOGU5NDc1ZmUiLCJpYXQiOjE2ODEzMjUyMTF9.9D4kXZaPkiRdvkAi5We_z_SZ3rEq0xNNFgKnsq_y34g
 content-type: application/json
 
 
@@ -116,3 +117,10 @@ content-type: application/json
     "username": "emmanuel",
     "password": "abCq2&!Ms"
 }
+
+
+----- Get user order pagination ------------
+
+GET http://localhost:8080/api-dev/orders?page=1&pageLimit=4
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yMVQxMzowNToxNS4xNDhaIiwiZXhwIjoxNjgyMDg1OTE1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJiNTA2NjQ2Ni0wNmIzLTQ2NzgtYjkwYS1iOGI5YTBmOWYwZjIiLCJpYXQiOjE2ODIwODIzMTV9.CAwD_RfYFEv89_r1crQQY_d32c7P_Jr6VJalo_mRMhc

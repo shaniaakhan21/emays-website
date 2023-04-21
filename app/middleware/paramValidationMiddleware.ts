@@ -11,7 +11,8 @@ import { ADDRESS_REQUIRED, AREA_REQUIRED, CONTENT_TYPE_REQUIRED
     EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY
     , LATITUDE_REQUIRED, LONGITUDE_REQUIRED, ORDER_DATE_REQUIRED
     , ORDER_ID_REQUIRED_IN_PATH, ORDER_LIST_REQUIRED, ORDER_TIME_END_REQUIRED,
-    ORDER_TIME_START_REQUIRED, PAYMENT_REFERENCE_REQUIRED, SUPER_USER_EMAIL_REQUIRED,
+    ORDER_TIME_START_REQUIRED, PAGE_LIMIT_REQUIRED, PAGE_REQUIRED, PAYMENT_REFERENCE_REQUIRED
+    , SUPER_USER_EMAIL_REQUIRED,
     SUPER_USER_FIRST_NAME_REQUIRED, SUPER_USER_LAST_NAME_REQUIRED,
     SUPER_USER_PASSWORD_REQUIRED, SUPER_USER_USERNAME_REQUIRED
     , TIME_ZONE_REQUIRED
@@ -279,6 +280,21 @@ export const validateParamOrderId = (req: Request, res: Response, next: NextFunc
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, ORDER_ID_REQUIRED_IN_PATH); })
         }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Order details by pagination
+export const validateOrderDetailsPagination = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        query: Joi.object().keys({
+            page: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, PAGE_REQUIRED); }),
+            pageLimit: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, PAGE_LIMIT_REQUIRED); })
+        })
     });
     validateRequest(req, next, validationCriteria);
 };
