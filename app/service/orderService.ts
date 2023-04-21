@@ -1,13 +1,15 @@
+/* eslint-disable max-lines */
+/* eslint-disable max-len */
 'use strict';
 
-import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc } from '../type/orderServiceType';
+import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc, RetrieveOrdersByDeliveryStatusFunc } from '../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../type/orderType';
 import { Logger } from '../log/logger';
 import { buildErrorMessage, buildInfoMessageMethodCall,
     buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
-import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist } from '../data/model/OrderModel';
+import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus } from '../data/model/OrderModel';
 import { sendEmailForOrderingItems } from './emailService';
 import { config } from '../config/config';
 import { Order } from '../type/orderType';
@@ -32,7 +34,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
             retailerEmail: order.retailerEmail,
             firstName: order.firstName,
             lastName: order.lastName,
-            phoneNumber: order.phoneNumber, 
+            phoneNumber: order.phoneNumber,
             uid: order.uid,
             date: order.date,
             startTime: order.startTime,
@@ -40,7 +42,8 @@ export const createOrder: CreateOrderFunc = async (order) => {
             timeZone: order.timeZone,
             experience: order.experience,
             address: order.address,
-            orderItems: order.orderItems
+            orderItems: order.orderItems,
+            deliveryInfo: order.deliveryInfo
         };
         const data = await saveOrder(orderExtracted);
         Logging.log(buildInfoMessageUserProcessCompleted('Order insertion', `Order Data:
@@ -54,6 +57,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
                 urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
                 statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_PLACED,
                 exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
+                trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
                 facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
                 facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
                 instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
@@ -70,12 +74,14 @@ export const createOrder: CreateOrderFunc = async (order) => {
                 startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
                 experience: orderExtracted.experience, address: orderExtracted.address,
                 orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
+
         // Send retailer email
         const finalCost = getFinalCost(config.SERVICE_CHARGE as number, orderExtracted.orderItems);
         await sendEmailForOrderingItems(
             { email: orderExtracted.retailerEmail,
                 urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
                 statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_PLACED,
+                trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
                 exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
                 facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
                 facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
@@ -111,7 +117,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
 export const calculateServiceFee = (order: IOrderDTO) => {
     try {
         // Todo: calculate service fee properly
-        return 14.99;
+        return 1499;
     } catch (error) {
         const err = error as Error;
         serviceErrorBuilder(err.message);
@@ -127,10 +133,35 @@ export const calculateServiceFee = (order: IOrderDTO) => {
  */
 export const retrieveOrderDetailsByUserId: RetrieveOrderByUserIdFunc = async (userId) => {
     try {
+        console.log('userId', userId);
         const data = await retrieveOrderByUserId(userId);
+        console.log('data', data);
         Logging.log(buildInfoMessageUserProcessCompleted('Order retrieval', `Order Data:
             ${JSON.stringify(data)}` ), LogType.INFO);
         return data;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Retrieve Order'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Retrieve order
+ * @param {boolean} isDelivered delivery status
+ * @returns {Promise<Array<IOrder>>} Promise with orders data
+ */
+export const retrieveOrderDetailsByDeliveryStatus: RetrieveOrdersByDeliveryStatusFunc = async (isDelivered) => {
+    try {
+        const data = await retrieveOrderByDeliveryStatus(isDelivered);
+        const deliveryStatus = isDelivered ? 'Delivered' : 'Not Delivered';
+        if (data && data.length > 0) {
+            const UIds = data.map(itm => itm.uid).join(',');
+            Logging.log(buildInfoMessageUserProcessCompleted(`${deliveryStatus} Orders fetching`, `UIds ${UIds}` ), LogType.INFO);
+            return data;
+        }
+        return null;
     } catch (error) {
         const err = error as Error;
         serviceErrorBuilder(err.message);
@@ -160,7 +191,7 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
     }
 };
 
-const getFinalCost = (serviceCharge = 0.00, itemList: Array<Order>): number => {
+export const getFinalCost = (serviceCharge = 0.00, itemList: Array<Order>): number => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get final cost of product list', ''), LogType.INFO);
@@ -180,7 +211,7 @@ const getFinalCost = (serviceCharge = 0.00, itemList: Array<Order>): number => {
     }
 };
 
-const buildRedirectionURL = (uuid: string): string => {
+export const buildRedirectionURL = (uuid: string): string => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Build email redirection URL', `UUID: ${uuid}`), LogType.INFO);
@@ -190,7 +221,7 @@ const buildRedirectionURL = (uuid: string): string => {
             roles: role
         };
         const token: string = generateJWT(tokenBuildData, JWT_TYPE.LONG_LIVE);
-        const URL = 
+        const URL =
     `${config.EMAIL_TEMPLATE.URLS.EMAIL_REDIRECTION_PATH}?launchType=${EMAIL_BOOKED}&uuid=${uuid}&authToken=${token}`;
         Logging.log(buildInfoMessageUserProcessCompleted('Email redirection URL created', `UUID:
                 ${uuid} and URL: ${URL}` ), LogType.INFO);
@@ -200,7 +231,7 @@ const buildRedirectionURL = (uuid: string): string => {
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, `Build email redirect URL for uuid ${uuid}`), LogType.ERROR);
         throw error;
-    } 
+    }
 };
 
 const buildBookCalendar = (uuid: string): string => {
@@ -213,7 +244,7 @@ const buildBookCalendar = (uuid: string): string => {
             roles: role
         };
         const token: string = generateJWT(tokenBuildData, JWT_TYPE.LONG_LIVE);
-        const URL = 
+        const URL =
         // eslint-disable-next-line max-len
         `${config.GOOGLE.CALENDER.BOOK_CALENDER_REDIRECTION_PATH}?uuid=${uuid}&authToken=${token}`;
         Logging.log(buildInfoMessageUserProcessCompleted('Build book calendar URL created', `UUID:
@@ -224,5 +255,5 @@ const buildBookCalendar = (uuid: string): string => {
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, `Build book calendar URL for uuid ${uuid}`), LogType.ERROR);
         throw error;
-    } 
+    }
 };

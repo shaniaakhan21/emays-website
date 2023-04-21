@@ -106,6 +106,15 @@
             grid-template-rows: 1fr 1fr;
             gap: 10px 20px;
         }
+
+        .delivery-info {
+            padding-top: 30px;
+        }
+    }
+
+    .cds--content-switcher-btn.cds--content-switcher--selected:disabled {
+        color: white;
+        background: #393939;
     }
 
 }

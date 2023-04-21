@@ -4,6 +4,8 @@
   font-family: 'Montserrat';
   color: #FFFFFF;
   padding: 0;
+  background-image: url('../../../images/retailer-landing-bg.svg');
+  background-repeat: no-repeat;
 
   .title {
     margin-top: 150px;
@@ -45,17 +47,16 @@
   }
 
   .buttons {
-    margin-top: 90px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-start;
 
     > button:first-child {
-      margin-right: 80px;
+      margin-right: 3%;
     }
 
     @media (max-width: 500px) {
-      margin-top: 10px;
+      margin-top: 40px;
 
       > button:first-child {
         margin-right: 10px;

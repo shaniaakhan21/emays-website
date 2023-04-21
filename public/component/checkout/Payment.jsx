@@ -1,7 +1,8 @@
 import { Column, ComposedModal, Grid, ModalBody, ModalHeader } from '@carbon/react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
-import TextBoxCustom from '../common/TextBoxCustom';
+import { Elements, PaymentElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -17,41 +18,73 @@ import '../../scss/component/checkout/payment.scss';
 // Custom components
 import ButtonCustom from '../common/ButtonCustom';
 import useAPI from '../../js/util/useAPI';
-import { makeCheckout, submitCheckout } from '../../services/sumUp';
+import { makeCheckout, submitCheckout } from '../../services/stripe';
 import { useMessage } from '../common/messageCtx';
+import { getUserData } from '../../js/util/SessionStorageUtil';
+import { publishableKey } from '../../js/const/stripe';
+import { apiBase } from '../../js/util/httpUtil';
 
-const Payment = ({ open, setOpen }) => {
-    const [translate] = useTranslation();
-    const pushAlert = useMessage();
-    
-    const { state: checkoutData, loading, callAPI } = useAPI(makeCheckout);
+const stripePromise = loadStripe(publishableKey);
 
-    const [data, setData] = useState({});
+const StripeProvider = ({ open, setOpen }) => {
 
-    useEffect(() => {
+    const [data, setData] = useState(undefined);
+
+    const initialRender = useCallback(async () => {
         if (open) {
-            callAPI(open?.uid);
+            const res = await makeCheckout(open.uid);
+            setData(res);
         }
     }, [open]);
 
-    const setValue = (e) => {
-        setData(cd => ({ ...cd, [e.target.name]: e.target.value }));
-    };
+    useEffect(() => {
+        initialRender();
+    }, [initialRender]);
 
-    const submit = useCallback(async () => {
-        try {
-            await submitCheckout('5a98fd50-a281-4f59-b116-86b961db0409', data);
-        } catch (e) {
-            pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: e.message });
-        }
-    }, [data]);
+    if (!data?.client_secret) { return null; }
+
+    return (
+        <Elements stripe={stripePromise} options={{
+            clientSecret: data?.client_secret
+        }}>
+            <Payment open={open} setOpen={setOpen} />
+        </Elements>);
+
+};
+
+const Payment = ({ open, setOpen }) => {
+    const stripe = useStripe();
+    const elements = useElements();
+    const [translate] = useTranslation();
+    const pushAlert = useMessage();
 
     const t = (key) => translate(`common.payment-form.${key}`);
 
-    if (loading) {
-        return <></>;
-    }
-    
+    const submit = useCallback(async () => {
+        try {
+            if (!stripe || !elements) {
+                return;
+            }
+            const result = await stripe.confirmPayment({
+                elements,
+                confirmParams: {
+                    // eslint-disable-next-line camelcase
+                    return_url: `${apiBase}/stripe/checkout/complete?userId=${open.uid}`
+                }
+            });
+            if (result.error) {
+                pushAlert({
+                    statusIconDescription: t('common.error'),
+                    title: t('common.error'),
+                    subtitle: result.error.message
+                });
+            }
+            await submitCheckout(open.uid);
+        } catch (e) {
+            pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: e.message });
+        }
+    }, [pushAlert, t]);
+
     return <>
         {createPortal(
             <ComposedModal className='payment-form' size='xs' open={!!open} onClose={() => setOpen(undefined)}>
@@ -64,56 +97,59 @@ const Payment = ({ open, setOpen }) => {
                         <Column lg={8} md={8} sm={4} xs={4} className='title'>
                             <h1>{t('title')}</h1>
                         </Column>
-                        <Column lg={16} md={16} sm={8} xs={8} className='input'>
-                            <TextBoxCustom
-                                labelText={t('name')}
-                                autocomplete='cc-name'
-                                name='name'
-                                onChange={setValue}
-                            />
-                        </Column>
-                        <Column lg={16} md={16} sm={8} xs={8} className='input'>
-                            <TextBoxCustom
-                                labelText={t('number')}
-                                autocomplete='cc-number'
-                                name='number'
-                                onChange={setValue}
-                                type='number'
-                            />
-                        </Column>
-                        <Column lg={8} md={8} sm={4} xs={4} className='input'>
-                            <TextBoxCustom
-                                labelText={t('exp-month')}
-                                autocomplete='cc-exp-month'
-                                name='exp-month'
-                                onChange={setValue}
-                                type='number'
-                                max={2}
-                            />
-                        </Column>
-                        <Column lg={8} md={8} sm={4} xs={4} className='input'>
-                            <TextBoxCustom
-                                labelText={t('exp-year')}
-                                autocomplete='cc-exp-year'
-                                name='exp-year'
-                                onChange={setValue}
-                                type='number'
-                                max={2}
-                            />
-                        </Column>
-                        <Column lg={16} md={16} sm={8} xs={8} className='input'>
-                            <TextBoxCustom
-                                labelText={t('cvv')}
-                                autocomplete='cc-csc'
-                                name='cvv'
-                                onChange={setValue}
-                                type='number'
-                            />
-                        </Column>
-                        <Column lg={16} md={8} sm={4} xs={4} className='logos'>
-                            <img src={Master} alt='Master logo' />
-                            <img src={Visa} alt='Visa logo' />
-                            <img src={Amazon} alt='Amazon logo' />
+                        {/* <Column lg={16} md={16} sm={8} xs={8} className='input'> */}
+                        {/*     <TextBoxCustom */}
+                        {/*         LabelText={t('name')} */}
+                        {/*         Autocomplete='cc-name' */}
+                        {/*         Name='name' */}
+                        {/*         OnChange={setValue} */}
+                        {/*     /> */}
+                        {/* </Column> */}
+                        {/* <Column lg={16} md={16} sm={8} xs={8} className='input'> */}
+                        {/*     <TextBoxCustom */}
+                        {/*         LabelText={t('number')} */}
+                        {/*         Autocomplete='cc-number' */}
+                        {/*         Name='number' */}
+                        {/*         OnChange={setValue} */}
+                        {/*         Type='number' */}
+                        {/*     /> */}
+                        {/* </Column> */}
+                        {/* <Column lg={8} md={8} sm={4} xs={4} className='input'> */}
+                        {/*     <TextBoxCustom */}
+                        {/*         LabelText={t('exp-month')} */}
+                        {/*         Autocomplete='cc-exp-month' */}
+                        {/*         Name='exp-month' */}
+                        {/*         OnChange={setValue} */}
+                        {/*         Type='number' */}
+                        {/*         Max={2} */}
+                        {/*     /> */}
+                        {/* </Column> */}
+                        {/* <Column lg={8} md={8} sm={4} xs={4} className='input'> */}
+                        {/*     <TextBoxCustom */}
+                        {/*         LabelText={t('exp-year')} */}
+                        {/*         Autocomplete='cc-exp-year' */}
+                        {/*         Name='exp-year' */}
+                        {/*         OnChange={setValue} */}
+                        {/*         Type='number' */}
+                        {/*         Max={2} */}
+                        {/*     /> */}
+                        {/* </Column> */}
+                        {/* <Column lg={16} md={16} sm={8} xs={8} className='input'> */}
+                        {/*     <TextBoxCustom */}
+                        {/*         LabelText={t('cvv')} */}
+                        {/*         Autocomplete='cc-csc' */}
+                        {/*         Name='cvv' */}
+                        {/*         OnChange={setValue} */}
+                        {/*         Type='number' */}
+                        {/*     /> */}
+                        {/* </Column> */}
+                        {/* <Column lg={16} md={8} sm={4} xs={4} className='logos'> */}
+                        {/*     <img src={Master} alt='Master logo' /> */}
+                        {/*     <img src={Visa} alt='Visa logo' /> */}
+                        {/*     <img src={Amazon} alt='Amazon logo' /> */}
+                        {/* </Column> */}
+                        <Column lg={16} md={16} sm={8} xs={8}>
+                            <PaymentElement/>
                         </Column>
                         <Column lg={16} md={8} sm={4} xs={4} className='buttons'>
                             <ButtonCustom type='secondary' action={submit} text={t('button')} />
@@ -121,7 +157,7 @@ const Payment = ({ open, setOpen }) => {
                     </Grid>
                 </ModalBody>
             </ComposedModal>, document.body
-        )} 
+        )}
     </>;
 };
 
@@ -130,4 +166,4 @@ Payment.prototype = {
     setOpen: PropTypes.func
 };
 
-export default Payment;
+export default StripeProvider;

@@ -14,19 +14,21 @@ import launchRoute from './app/route/launchRoute';
 import calenderRoute from './app/route/calendarRoute';
 import orderRoute from './app/route/userOrderRoute';
 import customerRoutes from './app/route/customerRoute';
-import externalSystemRoute from './app/route/systemRoute';
+import externalSystemRoute from './app/route/administration/systemRoute';
 import geoRoute from './app/route/geoRoute';
 import appInfoRoute from './app/route/appInfoRoute';
+import emailReminderRoute from './app/route/emailReminderRoute';
+import superUserRoute from './app/route/administration/superUserRoute';
+import stripeRoute from './app/route/stripeRoute';
 import sendErrorResponse from './app/middleware/errorResponseBuilderMiddleware';
 import { AppConfigKey } from './app/const/appConfigKey';
 import { validateJWT } from './app/middleware/jwtTokenValidationMiddleware';
 import ServiceError from './app/type/error/ServiceError';
 import { connectToMongoDB } from './app/data/db/connector';
-import sumUpRoute from './app/route/sumUpRoute';
 
 // Parses incoming requests with JSON payloads (body-parser)
 app.use(express.json());
-// Parses incoming requests with HTML Form (body-parser) 
+// Parses incoming requests with HTML Form (body-parser)
 app.use(express.urlencoded({ extended: true }));
 
 // Connect to the database
@@ -49,13 +51,15 @@ app.use((req, res, next) => {
 
 // Define Routes
 app.use(config.ROUTE_PATH, healthRoute);
-app.use(config.ROUTE_PATH, sumUpRoute);
+app.use(config.ROUTE_PATH, stripeRoute);
 app.use(config.ROUTE_PATH, launchRoute);
 app.use(config.ROUTE_PATH, orderRoute);
 app.use(config.ROUTE_PATH, calenderRoute);
 app.use(config.ROUTE_PATH, externalSystemRoute);
 app.use(config.ROUTE_PATH, geoRoute);
 app.use(config.ROUTE_PATH, appInfoRoute);
+app.use(config.ROUTE_PATH, emailReminderRoute);
+app.use(config.ROUTE_PATH, superUserRoute);
 app.use(customerRoutes);
 
 /*

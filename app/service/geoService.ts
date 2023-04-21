@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable*/
 'use strict';
 
 import LogType from '../const/logType';

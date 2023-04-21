@@ -10,6 +10,7 @@ export interface ISendEmailInfo {
     phoneNumber: string,
     urlLogo: string,
     statusImage: string,
+    trustpilotImage: string,
     exclamationImage: string,
     facebookLink: string,
     instagramLink: string,
@@ -33,4 +34,41 @@ export interface ISendEmailInfo {
         addFour: string
     },
     orderItems: Array<Order>
+}
+
+export interface ISendEmailReminderToCustomerOnTheDeliveryDay {
+    firstName: string,
+    email: string,
+    date: Date,
+    urlLogo: string,
+    startTime: string,
+    endTime: string,
+    statusImage: string,
+    orderItems: Array<Order>,
+    exclamationImage: string,
+    facebookLink: string,
+    instagramLink: string,
+    twitterLink: string,
+    facebookImage: string,
+    instagramImage: string,
+    twitterImage: string,
+    emaysContactUsLink: string
+}
+
+export interface ISendEmailReminderToRetailerBeforeDriverPick {
+    retailerEmail: string,
+    date: Date,
+    urlLogo: string,
+    startTime: string,
+    endTime: string,
+    orderItems: Array<Order>,
+    finalCost: number,
+    uid: string,
+    facebookLink: string,
+    instagramLink: string,
+    twitterLink: string,
+    facebookImage: string,
+    instagramImage: string,
+    twitterImage: string,
+    emaysContactUsLink: string
 }

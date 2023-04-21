@@ -17,7 +17,6 @@ import {
 } from '../../js/const/SessionStorageConst';
 import RetailerLetsTalk from '../retailer/LetsTalk';
 import RetailerFAQs from '../retailer/FAQs';
-import RetailerLanding from '../retailer/Landing';
 import RetailerIntegration from '../retailer/Integration';
 import RetailerPartnership from '../retailer/Partnership';
 import useSessionState from '../../js/util/useSessionState';
@@ -70,16 +69,18 @@ const CustomerRouter = () => {
     }, [launchType]);
 
     return (
-        <Switch>
-            <Route path='/' exact component={() => <CustomerHome />} />
-            <Route path='/environment' component={() => <Environment />} />
-            <Route path='/services' component={() => <Services />} />
-            <Route path='/shop-with-us' component={() => <ShopWithUs />}/>
-            <Route path='/letsTalk' component={() => <RetailerLetsTalk />} />
-            <Route path='/faq' component={() => <RetailerFAQs />} />
-            <Route path='/integration' component={() => <RetailerIntegration />} />
-            <Route path='/partnership' component={() => <RetailerPartnership />} />
-        </Switch>
+        <>
+            <Switch>
+                <Route path='/' exact component={() => <CustomerHome />} />
+                <Route path='/environment' component={() => <Environment />} />
+                <Route path='/services' component={() => <Services />} />
+                <Route path='/shop-with-us' component={() => <ShopWithUs />}/>
+                <Route path='/letsTalk' component={() => <RetailerLetsTalk />} />
+                <Route path='/faq' component={() => <RetailerFAQs />} />
+                <Route path='/integration' component={() => <RetailerIntegration />} />
+                <Route path='/partnership' component={() => <RetailerPartnership />} />
+            </Switch>
+        </>
     );
 };
 

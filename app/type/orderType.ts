@@ -8,7 +8,7 @@ export interface IOrder {
     email: string,
     firstName: string,
     lastName: string,
-    phoneNumber: string, 
+    phoneNumber: string,
     retailerEmail: string,
     date: Date,
     uid: string,
@@ -30,8 +30,11 @@ export interface IOrder {
         // Post code
         addSix: string
     },
+    deliveryInfo: string,
     orderItems: Array<Order>,
     createdAt?: Date,
+    isDelivered?: boolean,
+    isDriverPicked?: boolean
     history?: Array<Date>,
     paymentRef?: string
 }
@@ -39,6 +42,7 @@ export interface IOrderDTO {
     _id?: ObjectId,
     email?: string,
     payed?: boolean,
+    terminalPayment?: boolean,
     firstName?: string,
     lastName?: string,
     phoneNumber?: string,
@@ -63,10 +67,14 @@ export interface IOrderDTO {
         // Post code
         addSix: string
     },
+    deliveryInfo: string,
     orderItems: Array<Order>,
     createdAt?: Date,
     history?: Array<Date>,
+    isDelivered?: boolean,
+    isDriverPicked?: boolean
     paymentRef?: string
+    terminalPaymentRef?: string
 }
 
 export interface Order {
