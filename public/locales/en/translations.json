@@ -55,55 +55,55 @@
       "checkbox-inspire-label": "Inspire me - Bring me additional items to try for free!"
     },
     "delivery-address": {
-        "header": "DELIVERY ADDRESS",
-        "address": "Address"
+      "header": "DELIVERY ADDRESS",
+      "address": "Address"
     },
     "delivery-info": "USER COMMENT",
     "submit-button": "CONTINUE"
   },
   "email-launch": {
-      "header-one": {
-        "left": "CHANEL",
-        "right": "APPOINTMENT BOOKED"
-      },
-      "thank": "Thank you for booking your <strong>Chanel</strong> appointment.",
-      "info": "(Your 40 minute appointment will begin when your Emays Stylist arrives).",
-      "time-info": {
-        "message": "We’re looking forward to seeing you on:",
-        "date": "Date",
-        "hour": "Hour"
-      },
-      "full-name": "Full Name",
-      "exp-selected": "Experience Selected",
-      "del-address": "Delivery Address ",
-      "items-to--be-deliver": "ITEMS TO BE DELIVERED",
-      "order-placed": "ORDER PLACED",
-      "in-progress": "DELIVERY IN PROGRESS",
-      "delivered": "DELIVERED",
-      "remember": "Please remember,",
-      "contact-message": "we will contact you the day before your appointment, as well as a reminder on the day",
-      "special-info": {
-        "line-one": "We look forward to seeing you, but should you be unable to attend then please note our cancellation policy below.",
-        "line-two": "We require at least 24 hours notice should you wish to make any changes or amendments to your scheduled appointment. Should you not inform us of any change within 24 hours notice, you will be charged the service fee."
-      },
-      "need-help": "Need Help?",
-      "mail": {
-        "part-one": "We are unable to receive responses to this email. If you need assistance, go to",
-        "link-text": "support@emays.com",
-        "part-two": "sent you this email. By using our services, you agree to our customer agreement."
-      },
-      "contact-us": "Contact Us",
-      "button": {
-        "edit-appointment": "EDIT APPOINTMENT",
-        "add-to-calendar": "ADD TO CALENDAR"
-      },
-      "copy-right": "© Emays 2023. All rights reserved."
+    "header-one": {
+      "left": "CHANEL",
+      "right": "APPOINTMENT BOOKED"
+    },
+    "thank": "Thank you for booking your <strong>Chanel</strong> appointment.",
+    "info": "(Your 40 minute appointment will begin when your Emays Stylist arrives).",
+    "time-info": {
+      "message": "We’re looking forward to seeing you on:",
+      "date": "Date",
+      "hour": "Hour"
+    },
+    "full-name": "Full Name",
+    "exp-selected": "Experience Selected",
+    "del-address": "Delivery Address ",
+    "items-to--be-deliver": "ITEMS TO BE DELIVERED",
+    "order-placed": "ORDER PLACED",
+    "in-progress": "DELIVERY IN PROGRESS",
+    "delivered": "DELIVERED",
+    "remember": "Please remember,",
+    "contact-message": "we will contact you the day before your appointment, as well as a reminder on the day",
+    "special-info": {
+      "line-one": "We look forward to seeing you, but should you be unable to attend then please note our cancellation policy below.",
+      "line-two": "We require at least 24 hours notice should you wish to make any changes or amendments to your scheduled appointment. Should you not inform us of any change within 24 hours notice, you will be charged the service fee."
+    },
+    "need-help": "Need Help?",
+    "mail": {
+      "part-one": "We are unable to receive responses to this email. If you need assistance, go to",
+      "link-text": "support@emays.com",
+      "part-two": "sent you this email. By using our services, you agree to our customer agreement."
+    },
+    "contact-us": "Contact Us",
+    "button": {
+      "edit-appointment": "EDIT APPOINTMENT",
+      "add-to-calendar": "ADD TO CALENDAR"
+    },
+    "copy-right": "© Emays 2023. All rights reserved."
   },
   "confirm": {
     "success": "Appointment updated successfully!",
     "edit-appointment": {
-        "header": "YOUR APPOINTMENT",
-        "edit-button": "EDIT"
+      "header": "YOUR APPOINTMENT",
+      "edit-button": "EDIT"
     },
     "user-appointment-info": {
       "date": "Date",
@@ -137,7 +137,6 @@
       "color": "Color"
     }
   },
-
   "nav": {
     "logo-alt": "EMAYS",
     "toggle-label": {
@@ -175,48 +174,99 @@
     "text-h1-02": "TREE",
     "text-h1-03": "PLANTED",
     "text-h5": "We partner with OneTreePlanted, and we support their projects. We plant one tree for every order that we complete, helping to clean the air that we breath, restore forests, create habitat for biodiversity, and make a positive social impact around the world.",
-    "btn-text":"Learn more about this initiative"
+    "btn-text": "Learn more about this initiative"
   },
-  "home-section":{
-    "col-1":{
-      "title":"WE SHIP THE SHOP",
-      "subtitle-h2":"Take the luxury shopping experience to your home.",
-      "subtitle-h3":"Try What you want, pay only what you keep.",
-      "btn-text":"See what we can do for you"
-    }   
+  "home-section": {
+    "col-1": {
+      "title": "IN STORE SHOPPING EXPERIENCE",
+      "title-2": "NOW AT HOME",
+      "subtitle-h2": "Brought to you, by Emays",
+      "subtitle-h3": "Try What you want, pay only what you keep",
+      "btn-text": "See what we can do for you"
+    }
   },
-  "services":{
-    "text-h1":"Our Services are available on selected brands websites"
+  "services": {
+    "text-h1": "Our Services are available on selected brands websites"
   },
-
-  "shop-with-us":{
-    "first-block":{
+  "shop-with-us": {
+    "first-block": {
       "main-heading": "Why shop with us?",
-      "head-text":"STORE AT HOME",
-      "subhead-text":"No upfront Payment",
-      "body-text":"Choose all the pieces you would like to try, we will bring them to you with no upfront payment."
+      "main-heading-2": "“The last mile service at your convenience”",
+      "head-text": "STORE AT HOME",
+      "subhead-text": "No upfront Payment",
+      "body-text": "Choose all the pieces you would like to try, we will bring them to you with no upfront payment."
     },
-    "second-block":{
-      "head-text":"Save time in returns",
-      "subhead-text":"Hassle-free returns",
-      "body-text":"Skip the process, we send back the pieces you don't want."
+    "second-block": {
+      "head-text": "Save time in returns",
+      "subhead-text": "Hassle-free returns",
+      "body-text": "Skip the process, we send back the pieces you don't want."
     },
-    "third-block":{
-      "head-text":"Schedule as needed",
-      "subhead-text":"1-hour windows",
-      "body-text":"Shop on your schedule with times available from 9am to 9pm, 7 days a week."
+    "third-block": {
+      "head-text": "Schedule as needed",
+      "subhead-text": "1-hour windows",
+      "body-text": "Shop on your schedule with times available from 9am to 9pm, 7 days a week."
     },
-    "fourth-block":{
-      "head-text":"Climate Conscious",
-      "subhead-text":"C02 Neutral",
-      "body-text":"Carbon footprint is considered with every step of our service."
+    "fourth-block": {
+      "head-text": "Climate Conscious",
+      "subhead-text": "C02 Neutral",
+      "body-text": "Carbon footprint is considered with every step of our service."
     },
-    "fifth-block":{
-      "btn-text":"Read more about this",
-      "email-text":"Shop With Our Brands"
-    }   
+    "fifth-block": {
+      "btn-text": "Read more about this",
+      "email-text": "Shop With Our Brands"
+    },
+    "info-box": {
+      "1": {
+        "no": "1.0",
+        "title": "Create your shopping basket",
+        "icon-text": "No upfront payment",
+        "description": "Choose all the pieces you want to try, shop freely. We will bring them to you with no upfront payment"
+      },
+      "2": {
+        "no": "2.0",
+        "title": "Save your time",
+        "icon-text": "Hassle-free returns",
+        "description": "Forget to repack and send back! No stress, no wrong sizes, Emays will take any unwanted items back to the store for you."
+      },
+      "3": {
+        "no": "3.0",
+        "title": "Schedule as needed",
+        "icon-text": "1-hour windows",
+        "description": "Book your one hour window schedule, available 9am to 9pm, 7 days a week. Take your time, we wait you try. You have 40 minutes to try and make a decision."
+      },
+      "4": {
+        "no": "4.0",
+        "title": "Store at home",
+        "icon-text": "At your door",
+        "description": "Whatever you wish, wherever you are. Pick where you want to try your items, whether it’s at your own home, office or hotel we deliver to you"
+      },
+      "4_1": {
+        "no": "",
+        "title": "",
+        "icon-text": "We wait, you try",
+        "description": "Your style concierge will deliver your items to you and come back only to take the payment and collect any unwanted items."
+      },
+      "4_2": {
+        "no": "",
+        "title": "",
+        "icon-text": "Assist Me",
+        "description": "Your style concierge will help with styling advice throughout out your time. If any adjustment is necessary we pin and tailor any items to make it perfect for you."
+      },
+      "5": {
+        "no": "5.0",
+        "title": "Finalize your purchase",
+        "icon-text": "Checkout",
+        "description": "We'll guide you through the seamless checkout process. Our user-friendly interface makes it easy for you to review your chosen items."
+      },
+      "6": {
+          "no": "6.0",
+          "title": "Climate Conscious",
+          "icon-text": "C02 Neutral",
+          "icon-text-short": "Neutral",
+          "description": "We take the climate and the environment seriously and believe in sustainable fashion. That's why we consider the carbon footprint with every step of our service. Understanding the impact that the fashion industry can have on the environment, we're committed to doing our part to minimize it."
+      }
+    }
   },
-
   "retailer": {
     "landing": {
       "title": "WE SHIP THE SHOP",
@@ -254,34 +304,30 @@
         {
           "title": "Converting new clients",
           "description": "Our services aims to make shopping easier towards brands for new customers to engage and overcome barriers such as:",
-          "list-description":{
-            "list-item-one":"Size issue",
-            "list-item-two":"Pending refunds",
-            "list-item-three":"Wrong fit",
-            "list-item-four":"Hassle of returns"
+          "list-description": {
+            "list-item-one": "Size issue",
+            "list-item-two": "Pending refunds",
+            "list-item-three": "Wrong fit",
+            "list-item-four": "Hassle of returns"
           }
         },
-
-        {  
+        {
           "title": "Seamless integration",
-          "sub-items":[
+          "sub-items": [
             {
               "title": "E-commerce",
               "description": "Emays connects with all primary E-commerce platforms and a simple API for anything more customized. Emays appears as a new delivery method, the client will have the option to pick their delivery date, time, and Emays services at the check out."
             },
-
             {
               "title": "In- Store",
               "description": "An easy to use web interface to book Emays deliveries and services that can be installed using in store devices such as phones and computers."
             }
           ]
         },
-        
-        { 
+        {
           "title": "Retail excellence",
           "description": "At Emays we believe that the customer experience always comes first. Our integration has been built to give the feeling of your brand and experience, just powered by Emays. Our aim is to create a pleasurable customer experience easy to use"
         }
-
       ],
       "chart-title": "From proven data studies:",
       "chart-info": "A global consumer survey conducted by Content Square (leader in digital experience analytics) indicates that only 15% of respondents are satisfied with their online shopping experience. In the last 6 months of 2022, data show increasing customers problems with their packaging:",

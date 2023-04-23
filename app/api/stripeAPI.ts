@@ -1,22 +1,9 @@
 'use strict';
 
-import * as path from 'path';
-import * as express from 'express';
-import { config } from '../config/config';
 import LogType from '../const/logType';
-import { v4 as uuidv4 } from 'uuid';
-import { Roles } from '../const/roles';
-import { IJWTBuildData, IJWTClaims, JWT_TYPE } from '../type/IJWTClaims';
-import { generateJWT } from '../util/jwtUtil';
 import { Logger } from '../log/logger';
 import { buildErrorMessage,
     buildInfoMessageMethodCall, buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
-import { validateJWTToken } from '../middleware/jwtTokenValidationMiddleware';
-import { getExternalSystemById } from '../service/externalSystemService';
-import ServiceError from '../type/error/ServiceError';
-import ErrorType from '../const/errorType';
-import { HTTPUserError } from '../const/httpCode';
-import { NOT_AUTHORIZED_TO_ACCESS_EMAYS_ERROR_MESSAGE } from '../const/errorMessage';
 import { patchOrderDetailsByUserId, retrieveOrderDetailsByUserId } from '../service/orderService';
 import {
     captureTerminalPayment,
@@ -26,7 +13,6 @@ import {
     listLocations, listReaders
 } from '../util/stripe';
 import Stripe from 'stripe';
-import { PatchOrderDetailsByUserIdFunc } from '../type/orderServiceType';
 import { IOrderDTO } from '../type/orderType';
 
 const Logging = Logger(__filename);

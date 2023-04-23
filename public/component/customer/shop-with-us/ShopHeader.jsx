@@ -12,11 +12,16 @@ const ShopHeader = () => {
 
     const [t] = useTranslation();
 
-    return ( 
-        <Grid className='section-box'>
+    return (
+        <Grid className='section-box header'>
             <Column lg={16} md={8} sm={4} className='head-section'>
                 <h1 data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
                     {t('shop-with-us.first-block.main-heading')}
+                </h1>
+            </Column>
+            <Column lg={16} md={8} sm={4} className='head-section-2'>
+                <h1 data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
+                    {t('shop-with-us.first-block.main-heading-2')}
                 </h1>
             </Column>
         </Grid>
