@@ -8,7 +8,6 @@ import {
     Button
 } from '@carbon/react';
 import '../../scss/component/customer/homesection.scss';
-import EMAYBAG from '../../images/HomeCustomerSection/DELIVERYBAGG.png';
 import { useTranslation } from 'react-i18next';
 
 import Home1 from '../../images/customer_home_1.png';
