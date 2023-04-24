@@ -16,7 +16,7 @@ import { Order } from '../type/orderType';
 import { generateJWT } from '../util/jwtUtil';
 import { Roles } from '../const/roles';
 import { IJWTBuildData, JWT_TYPE } from '../type/IJWTClaims';
-import { EMAIL_BOOKED } from '../../public/js/const/SessionStorageConst';
+import { EMAIL_BOOKED, EMAIL_EDIT } from '../../public/js/const/SessionStorageConst';
 
 const Logging = Logger(__filename);
 
@@ -50,6 +50,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
             ${JSON.stringify(data)}` ), LogType.INFO);
         const redirectionURL = buildRedirectionURL(orderExtracted.uid);
         const bookCalendarURL = buildBookCalendar(orderExtracted.uid);
+        const emailOrderEditURL = buildEditOrderURL(orderExtracted.uid);
 
         // Send customer email
         await sendEmailForOrderingItems(
@@ -73,7 +74,8 @@ export const createOrder: CreateOrderFunc = async (order) => {
                 uid: orderExtracted.uid, date: orderExtracted.date,
                 startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
                 experience: orderExtracted.experience, address: orderExtracted.address,
-                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
+                orderItems: orderExtracted.orderItems,
+                editOrderURL: emailOrderEditURL }, config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
 
         // Send retailer email
         const finalCost = getFinalCost(config.SERVICE_CHARGE as number, orderExtracted.orderItems);
@@ -99,7 +101,8 @@ export const createOrder: CreateOrderFunc = async (order) => {
                 uid: orderExtracted.uid, date: orderExtracted.date,
                 startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
                 experience: orderExtracted.experience, address: orderExtracted.address,
-                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.RETAILER_EMAIL_TEMPLATE);
+                orderItems: orderExtracted.orderItems,
+                editOrderURL: emailOrderEditURL }, config.EMAIL_TEMPLATE.RETAILER_EMAIL_TEMPLATE);
         return data;
     } catch (error) {
         const err = error as Error;
@@ -295,6 +298,29 @@ const buildBookCalendar = (uuid: string): string => {
         const err = error as Error;
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, `Build book calendar URL for uuid ${uuid}`), LogType.ERROR);
+        throw error;
+    }
+};
+
+export const buildEditOrderURL = (uuid: string): string => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Build email edit-order URL', `UUID: ${uuid}`), LogType.INFO);
+        const role: Roles = Roles.CLIENT;
+        const tokenBuildData: IJWTBuildData = {
+            id: uuid,
+            roles: role
+        };
+        const token: string = generateJWT(tokenBuildData, JWT_TYPE.LONG_LIVE);
+        const URL =
+    `${config.EMAIL_TEMPLATE.URLS.EMAIL_REDIRECTION_PATH}?launchType=${EMAIL_EDIT}&uuid=${uuid}&authToken=${token}`;
+        Logging.log(buildInfoMessageUserProcessCompleted('Build email edit-order URL created', `UUID:
+                ${uuid} and URL: ${URL}` ), LogType.INFO);
+        return URL;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, `Build email edit-order URL for uuid ${uuid}`), LogType.ERROR);
         throw error;
     }
 };

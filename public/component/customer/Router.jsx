@@ -39,7 +39,7 @@ const CustomerRouter = () => {
             case EMAIL_EDIT:
                 setLaunchType('');
                 document.body.classList.remove('bg');
-                setState({ ...getUserData(), options: {
+                setState({ ...getUserData(), launchType: EMAIL_EDIT, options: {
                     assist: getUserData().experience.includes('Assist Me') ? true : false,
                     tailoring: getUserData().experience.includes('Tailoring') ? true : false,
                     inspire: getUserData().experience.includes('Inspire Me') ? true : false

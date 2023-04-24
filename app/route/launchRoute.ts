@@ -16,7 +16,7 @@ import LogType from '../const/logType';
 import { validateJWTToken } from '../middleware/jwtTokenValidationMiddleware';
 import { retrieveOrderDetailsByUserId } from '../service/orderService';
 import { Order } from '../type/orderType';
-import { IUser } from '../type/IUserType';
+import { IUser, UserAddress } from '../type/IUserType';
 import { v4 as uuidv4 } from 'uuid';
 import LaunchParamBuilder from '../util/LaunchParamBuilder';
 import { LaunchType } from '../type/ILaunchPayload';
@@ -62,12 +62,8 @@ router.get(RoutePath.LAUNCH_MAIL, allowedForClientRoleOnly, (
             endTime: order.endTime as string,
             timeZone: order.timeZone as string,
             experience: order.experience as string,
-            address: order.address as {
-                addOne: string,
-                addTwo: string,
-                addThree: string,
-                addFour: string
-            }
+            address: order.address as UserAddress,
+            deliveryInfo: order.deliveryInfo
         };
         const stringifyUser = JSON.stringify(launchTemplateDataUser);
         const cleanedUser = stringifyUser.replace(/\\/g, '');
@@ -86,7 +82,6 @@ router.get(RoutePath.LAUNCH_MAIL, allowedForClientRoleOnly, (
         };
         const stringifyRetailerData = JSON.stringify(retailerData);
         const cleanedRetailerData = stringifyRetailerData.replace(/\\/g, '');
-        
         return res.render(
             applicationPath, paramBuilder
                 .makeAuthentic(sessionToken)

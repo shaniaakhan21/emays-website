@@ -21,7 +21,7 @@ import Emays from '../../logo/emays-logo-white.png';
 
 // Util
 import { getProductList } from '../../js/util/SessionStorageUtil';
-import { CHECKOUT_INFO } from '../../js/const/SessionStorageConst';
+import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import timeframes from '../../../app/const/timeframes';
@@ -45,6 +45,7 @@ const Checkout = () => {
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [showDelete, setShowDelete] = useState(undefined);
+    const [showDeleteAppointment, setDeleteAppointment] = useState(false);
 
     // Handler function for option change
     const handleOptionChange = (option) => {
@@ -58,7 +59,6 @@ const Checkout = () => {
 
     // State service fee update from GeoContainer
     const updateServiceFee = (fee) => {
-        console.log();
         setState(cs => ({ ...cs, serviceFee: fee }));
     };
 
@@ -313,7 +313,8 @@ const Checkout = () => {
                     </div>
                     <div className='submit-button'>
                         <ButtonCustom
-                            text={t('checkout.submit-button')}
+                            text={state.launchType === EMAIL_EDIT ?
+                                t('checkout.save-changes') : t('checkout.submit-button')}
                             action={submit}
                             type={'secondary'}
                             customStyle={{
@@ -325,6 +326,24 @@ const Checkout = () => {
                                 padding: '1%'
                             }}
                         />
+                    </div>
+                    <div>
+                        {
+                            state.launchType === EMAIL_EDIT && 
+                            <ButtonCustom
+                                text={t('checkout.cancel-order')}
+                                action={() => setDeleteAppointment(true)}
+                                type={'danger'}
+                                customStyle={{
+                                    minWidth: '100%',
+                                    marginTop: '25px',
+                                    marginBottom: '15px',
+                                    alignContent: 'center',
+                                    justifyContent: 'center',
+                                    padding: '1%'
+                                }}
+                            />
+                        }
                     </div>
                 </Column>}
             <Column lg={8} md={8} sm={16} className='shopping-bag'>

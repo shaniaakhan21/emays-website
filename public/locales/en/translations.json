@@ -59,7 +59,9 @@
         "address": "Address"
     },
     "delivery-info": "USER COMMENT",
-    "submit-button": "CONTINUE"
+    "submit-button": "CONTINUE",
+    "save-changes": "SAVE NEW CHANGES",
+    "cancel-order": "CANCEL APPOINTMENT"
   },
   "email-launch": {
       "header-one": {
