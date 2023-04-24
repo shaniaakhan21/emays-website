@@ -11,6 +11,10 @@ export const ORDER_INVALID_REQUEST_MESSAGE = 'The request body and/or parameters
 
 export const ORDER_ID_REQUIRED_IN_PATH = 'Please check order id in the request path';
 
+export const PAGE_LIMIT_REQUIRED = 'Please check page limit';
+
+export const PAGE_REQUIRED = 'Please check page';
+
 export const USER_ID_REQUIRED_IN_PATH = 'Please check user id in the request path';
 
 export const CONTENT_TYPE_REQUIRED = 'Please check content-type in the request heder';

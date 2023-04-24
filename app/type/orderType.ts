@@ -115,3 +115,18 @@ export interface IPatchOrder {
     history?: Array<Date>,
     paymentRef?: string
 }
+
+export interface IOrderPaginationDTO {
+    pages?: Array<IOrderDTO>,
+    next?: NextPageInfo,
+    previous?: PreviousPageInfo,
+    allPagesAvailable?: number
+}
+
+export interface NextPageInfo {
+    page: number, limit: number
+}
+
+export interface PreviousPageInfo {
+    page: number, limit: number
+}

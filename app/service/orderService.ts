@@ -2,14 +2,14 @@
 /* eslint-disable max-len */
 'use strict';
 
-import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc, RetrieveOrdersByDeliveryStatusFunc } from '../type/orderServiceType';
-import { IOrder, IOrderDTO } from '../type/orderType';
+import { CreateOrderFunc, GetOrderDetailsWithPages, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc, RetrieveOrdersByDeliveryStatusFunc } from '../type/orderServiceType';
+import { IOrder, IOrderDTO, IOrderPaginationDTO } from '../type/orderType';
 import { Logger } from '../log/logger';
 import { buildErrorMessage, buildInfoMessageMethodCall,
     buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
-import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus } from '../data/model/OrderModel';
+import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus, getOrderDocumentSize, getOrderDetailDocumentsArrayByStartAndEndIndex } from '../data/model/OrderModel';
 import { sendEmailForOrderingItems } from './emailService';
 import { config } from '../config/config';
 import { Order } from '../type/orderType';
@@ -187,6 +187,47 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
         const err = error as Error;
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, 'Patch Order'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Pagination order
+ * @param {string} page page
+ * @param {string} pageLimit page limit
+ * @returns {Promise<Array<IOrderDTO>>} Promise with array of order data
+ */
+export const getOrderDetailsWithPagination: GetOrderDetailsWithPages = async (page,
+    pageSize, role) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Get order pagination', role), LogType.INFO);
+        const startIndex = (page - 1) * pageSize;
+        const endIndex = page * pageSize;
+
+        const results: IOrderPaginationDTO = {};
+        const documentSize = await getOrderDocumentSize();
+        results.allPagesAvailable = Math.ceil(documentSize / pageSize);
+        if (endIndex < documentSize) {
+            results.next = {
+                page: page + 1,
+                limit: pageSize
+            };
+        }
+
+        if (startIndex > 0) {
+            results.previous = {
+                page: page - 1,
+                limit: pageSize
+            };
+        }
+        const orderData = await getOrderDetailDocumentsArrayByStartAndEndIndex(startIndex, pageSize);
+        results.pages = orderData;
+        return results;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Get order pagination'), LogType.ERROR);
         throw error;
     }
 };
