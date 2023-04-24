@@ -1,3 +1,8 @@
+
+$carbon-xs-max: 31.25em; // 500px
+$carbon-sm-max: 42.5em; // 680px
+$carbon-md-max: 64em;   // 1024px
+
 .chart-main {
   display: flex;
   justify-content: center;
@@ -7,6 +12,9 @@
     position: relative;
     height: 280px;
     width: 400px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
 
     .chart-wrapper, .legs-wrapper {
       position: absolute;
@@ -87,6 +95,10 @@
 
     > p {
       margin-bottom: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
 
       strong {
         font-size: 34px;
