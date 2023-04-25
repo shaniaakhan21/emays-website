@@ -16,7 +16,8 @@ export interface IUser {
     timeZone: string,
     experience: string,
     address: UserAddress,
-    deliveryInfo: string
+    deliveryInfo: string,
+    serviceFee: number
 }
 
 export interface UserAddress {

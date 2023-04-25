@@ -43,7 +43,8 @@ export const createOrder: CreateOrderFunc = async (order) => {
             experience: order.experience,
             address: order.address,
             orderItems: order.orderItems,
-            deliveryInfo: order.deliveryInfo
+            deliveryInfo: order.deliveryInfo,
+            serviceFee: order.serviceFee
         };
         const data = await saveOrder(orderExtracted);
         Logging.log(buildInfoMessageUserProcessCompleted('Order insertion', `Order Data:
@@ -183,6 +184,9 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
         Logging.log(buildInfoMessageMethodCall(
             'Patch order basic data', `uid: ${userId}`), LogType.INFO);
         const result = await findOneAndUpdateIfExist(userId, patchOrder);
+        if (patchOrder.isCanceled) {
+            // Send cancellation email
+        }
         Logging.log(buildInfoMessageUserProcessCompleted('Patch order basic data', `Order Data:
             ${JSON.stringify(result)}` ), LogType.INFO);
         return result;

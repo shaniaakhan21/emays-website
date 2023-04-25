@@ -12,12 +12,16 @@ import CheckBoxCustom from '../common/CheckBoxCustom';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ButtonCustom from '../common/ButtonCustom';
 import ShoppingBag from './ShoppingBag';
+import TextAreaCustom from '../common/TextAreaCustom';
+import DialogueModal from '../common/ReusableDialogueModal';
+import InfoModal from '../common/ReusableInfoModal';
 
 // SCSS
 import '../../scss/component/checkout/checkout.scss';
 
 // Images
 import Emays from '../../logo/emays-logo-white.png';
+import CorrectSign from '../../icons/correct-sign.png';
 
 // Util
 import { getProductList } from '../../js/util/SessionStorageUtil';
@@ -31,8 +35,8 @@ import ConfirmDialog from '../common/ConfirmDialog';
 import FallBack from '../../icons/fallback.png';
 import ShoppingItem from './ShoppingItem';
 import { useMessage } from '../common/messageCtx';
-import { updateOrder } from '../../services/order';
-import TextAreaCustom from '../common/TextAreaCustom';
+import { cancelOrder, updateOrder } from '../../services/order';
+import styled from 'styled-components';
 
 const Checkout = () => {
 
@@ -40,12 +44,15 @@ const Checkout = () => {
     const history = useHistory();
     const pushAlert = useMessage();
 
-    const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {},
-        serviceFee: null });
+    const [state, setState] = useSessionState(CHECKOUT_INFO, {
+        address: {}, options: {},
+        serviceFee: null
+    });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [showDelete, setShowDelete] = useState(undefined);
     const [showDeleteAppointment, setDeleteAppointment] = useState(false);
+    const [showAppointmentDeleteSuccess, setSuccessAppointmentDelete] = useState(false);
 
     // Handler function for option change
     const handleOptionChange = (option) => {
@@ -107,6 +114,31 @@ const Checkout = () => {
         }
     }, [showDelete]);
 
+    const deleteAppointmentAction = async () => {
+        const result = await cancelOrder(state.uid);
+        if (result) {
+            setDeleteAppointment(false);
+            setSuccessAppointmentDelete(true);
+        }
+    };
+
+    const AppointmentCancellationSuccessMessageContainer = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        & p {
+            font-size: 16px;
+            padding-top: 10px;
+        }
+    `;
+
+    const AppointmentCancellationDialogueMessageContainer = styled.div`
+        & p {
+            font-size: 16px;
+            padding-top: 20px;
+        }
+    `;
+
     return (
         <Grid className='landing-page'>
             <ConfirmDialog
@@ -139,7 +171,7 @@ const Checkout = () => {
                             disabled={state?.locked}
                             nextDateOne='Today Sat, Nov 2nd'
                             nextDateTwo='Sat, Nov 2nd'
-                            nextDateThree='Sat, Nov 2nd'/>
+                            nextDateThree='Sat, Nov 2nd' />
                     </div>
                     <div className='date-time-pick'>
                         <p>{t('checkout.book-appointment.custom-date')}</p>
@@ -215,13 +247,13 @@ const Checkout = () => {
                             <p>{t('checkout.delivery-address.address')}</p>
                         </div>
                         <div>
-                            <GeoContainer updateAddress = {updateAddress} updateServiceFee = {updateServiceFee}/>
+                            <GeoContainer updateAddress={updateAddress} updateServiceFee={updateServiceFee} />
                         </div>
                         <div className='address-info'>
                             <div>
                                 <TextBoxCustom
-                                    onKeyDown = {preventTyping}
-                                    id = {'addressStreet'}
+                                    onKeyDown={preventTyping}
+                                    id={'addressStreet'}
                                     placeholderText={t('checkout.book-appointment.addOnePlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addOne ?? ''}
@@ -267,7 +299,7 @@ const Checkout = () => {
                                         )
                                     }
                                     invalid={errors?.addFour} />
-                                
+
                             </div>
                             <div>
                                 <TextBoxCustom
@@ -329,10 +361,12 @@ const Checkout = () => {
                     </div>
                     <div>
                         {
-                            state.launchType === EMAIL_EDIT && 
+                            state.launchType === EMAIL_EDIT &&
                             <ButtonCustom
                                 text={t('checkout.cancel-order')}
-                                action={() => setDeleteAppointment(true)}
+                                action={() => { 
+                                    setDeleteAppointment(true);
+                                    setSuccessAppointmentDelete(false); }}
                                 type={'danger'}
                                 customStyle={{
                                     minWidth: '100%',
@@ -348,8 +382,39 @@ const Checkout = () => {
                 </Column>}
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
                 <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData}
-                    serviceFee = {state.serviceFee}/>
+                    serviceFee={state.serviceFee} />
             </Column>
+            {/* Appointment cancellation dialogue */}
+            <DialogueModal
+                showModal={showDeleteAppointment}
+                closeModal={ () => { setDeleteAppointment(false); }}
+                title={t('email-launch.cancellation.dialogue-header')}
+                body={
+                    <AppointmentCancellationDialogueMessageContainer>
+                        <p>{t('email-launch.cancellation.dialogue-body')}</p>
+                    </AppointmentCancellationDialogueMessageContainer>
+                }
+                confirmAction={ deleteAppointmentAction }
+            />
+            {/* Appointment cancelled info */}
+            <InfoModal
+                showModal={showAppointmentDeleteSuccess}
+                closeModal={ () => {
+                    setSuccessAppointmentDelete(false);
+                }}
+                cancelText={'Close'}
+                title={t('email-launch.cancellation.info-header')}
+                body={
+                    <AppointmentCancellationSuccessMessageContainer>
+                        <div>
+                            <img src={CorrectSign} alt='Completed image' />
+                        </div>
+                        <div>
+                            <p>{t('email-launch.cancellation.info-body')}</p>
+                        </div>
+                    </AppointmentCancellationSuccessMessageContainer>
+                }
+            />
         </Grid>
     );
 

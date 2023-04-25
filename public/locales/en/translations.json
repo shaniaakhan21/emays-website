@@ -99,7 +99,13 @@
         "edit-appointment": "EDIT APPOINTMENT",
         "add-to-calendar": "ADD TO CALENDAR"
       },
-      "copy-right": "© Emays 2023. All rights reserved."
+      "copy-right": "© Emays 2023. All rights reserved.",
+      "cancellation": {
+        "dialogue-header": "Are you sure you want to cancel this appointment?",
+        "dialogue-body": "This action may cause losing items you were trying to buy",
+        "info-header": "Appointment cancelled successfully",
+        "info-body": "You can close this browser window"
+      }
   },
   "confirm": {
     "success": "Appointment updated successfully!",
