@@ -449,6 +449,11 @@ button {
 
 
 .co2 {
+
+    .icon.xs {
+        display: none;
+    }
+
     @media screen and (max-width: 480px) {
         .info-box .icon {
             display: none;
@@ -476,10 +481,13 @@ button {
             margin: auto;
             width: 140px;
             height: 200px;
-            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+
+            @media screen and (max-width: 480px) {
+                display: flex;
+            }
 
             >img {
                 width: 20vw;

@@ -1,3 +1,7 @@
+$carbon-xs-max: 31.25em; // 500px
+$carbon-sm-max: 42.5em; // 680px
+$carbon-md-max: 64em;   // 1024px
+
 .footer {
     display: flex;
     justify-content: space-between;
@@ -8,6 +12,20 @@
     padding: 4% 6% 2%;
     background: #231f20;
     max-width: 1280px;
+
+    @media screen and (max-width: $carbon-xs-max) {
+      flex-direction: column;
+      align-items: center;
+      width: 100vw;
+
+      > div {
+        margin: 20px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
 
     .footer__logo{
         width: 85px;
@@ -29,8 +47,16 @@
     .footer__social{
         display: flex!important;
 
+      @media screen and (max-width: $carbon-xs-max) {
+        flex-direction: column;
+      }
+
         .cds--link{
             padding: 5px 10px;
+
+            @media screen and (max-width: $carbon-xs-max) {
+              padding: 15px 10px;
+            }
 
             img{
                 padding-right: 6px;

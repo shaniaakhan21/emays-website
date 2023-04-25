@@ -14,6 +14,10 @@ $carbon-md-max: 64em;   // 1024px
   background-size: 80vw;
   overflow: hidden;
 
+  @media screen and (max-width: $carbon-xs-max) {
+    background-image: none;
+  }
+
   .slanted_top {
     position: absolute;
     overflow: hidden;
@@ -40,6 +44,25 @@ $carbon-md-max: 64em;   // 1024px
     margin: 0 auto;
     min-height: 60vw;
     padding: 25px 20px;
+    padding-top: 250px;
+
+    @media screen and (max-width: $carbon-xs-max) {
+      padding: 25px 20px;
+      background-image: url('../../../images/4611cf073d397ea3b0b57069279bf588.png');
+      min-height: 900px;
+      background-repeat: no-repeat;
+      background-position: bottom 40px center;
+      background-size: 160vw;
+      overflow: hidden;
+    }
+
+    .title {
+      font-size: 62px;
+      font-weight: 700;
+      line-height: 45px;
+      letter-spacing: 0.1599999964237213px;
+      text-align: left;
+    }
   }
 
   .benefits,
@@ -57,6 +80,10 @@ $carbon-md-max: 64em;   // 1024px
     position: relative;
     margin: 0;
     padding-bottom: 300px;
+
+    @media screen and (max-width: $carbon-xs-max) {
+      padding-bottom: 100px;
+    }
 
     .white_box {
       color: #232323;
@@ -89,6 +116,10 @@ $carbon-md-max: 64em;   // 1024px
         font-weight: 800;
         text-transform: uppercase;
         margin-bottom: 80px;
+
+        @media screen and (max-width: $carbon-xs-max) {
+          text-align: left;
+        }
       }
 
       .info-box {
@@ -118,7 +149,22 @@ $carbon-md-max: 64em;   // 1024px
           }
         }
       }
+
+      .info-image {
+        align-items: center;
+        justify-content: center;
+        margin: 25px 0px;
+        display: none;
+
+        @media screen and (max-width: $carbon-xs-max) {
+          display: flex;
+        }
+      }
     }
+  }
+
+  .integration2 .black_box .info-box h2 {
+    text-transform: inherit;
   }
 
   .data {
@@ -220,5 +266,16 @@ $carbon-md-max: 64em;   // 1024px
         flex: 1;
       }
     }
+  }
+}
+
+.retailer-main .slanted_top.black {
+  display: inherit;
+}
+
+
+.xs-hidden {
+  @media screen and (max-width: $carbon-xs-max) {
+    display: none !important;
   }
 }

@@ -90,7 +90,7 @@ const RetailerLanding = () => {
                     <div className='black_box'>
                         <h1 className='title'>Seamless integration</h1>
                         <Grid>
-                            <Column lg={8} md={3} sm={4} xs={4} className='right'>
+                            <Column lg={8} md={3} sm={4} xs={4} className='right xs-hidden'>
                                 <img src={RetailerGraphic2} />
                                 <img src={RetailerGraphic3} />
                             </Column>
@@ -102,17 +102,23 @@ const RetailerLanding = () => {
                                         will have the option to pick their delivery date, time, and Emays services at
                                         the check out</p>
                                 </div>
+                                <div className='info-image xs-only'>
+                                    <img src={RetailerGraphic2} />
+                                </div>
                                 <div className='info-box'>
                                     <h2>In- Store</h2>
                                     <p>An easy to use web interface to book Emays deliveries and services that can
                                         be installed using in store devices such as phones and computers</p>
                                 </div>
                                 <div className='info-box'>
-                                    <h2>Retail excellence</h2>
+                                    <h2>RETAIL EXCELLENCE</h2>
                                     <p>At Emays we believe that the customer experience always comes first.
                                         Our integration has been built to give the feeling of your brand and
                                         experience, just powered by Emays. Our aim is to create a pleasurable
                                         customer experience easy to use</p>
+                                </div>
+                                <div className='info-image xs-only'>
+                                    <img src={RetailerGraphic3} />
                                 </div>
                             </Column>
                         </Grid>
@@ -121,11 +127,11 @@ const RetailerLanding = () => {
                 <Column lg={16} md={8} sm={4} xs={4} className='chart'>
                     <div className='slanted_top'></div>
                     <div className='white_box'>
-                        <h1 className='title'>Benefits</h1>
+                        <h1 className='title'>FROM PROVEN DATA STUDIES</h1>
                         <Grid>
                             <Column lg={10} md={5} sm={4} xs={4} className='left'>
                                 <Chart />
-                                {/* <Chart xs /> */}
+                                <Chart xs />
                             </Column>
                             <Column lg={6} md={3} sm={4} xs={4} className='right'>
                                 <p>A global consumer survey conducted by Content Square (leader in digital experience
