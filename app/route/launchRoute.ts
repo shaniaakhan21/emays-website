@@ -213,13 +213,6 @@ router.post(RoutePath.LAUNCH_ADD, (req: express.Request,
 
         const sessionToken: string = getJWTForSession(uid);
 
-        // Build user UID
-        const onlyUidWithUserData = {
-            uid
-        };
-        const stringifyUserData = JSON.stringify(onlyUidWithUserData);
-        const cleanedUserData = stringifyUserData.replace(/\\/g, '');
-
         let order = await OrderService.retrieveOrderDetailsByUserId(uid);
 
         if (!order) {
@@ -248,12 +241,9 @@ router.post(RoutePath.LAUNCH_ADD, (req: express.Request,
             endTime: order.endTime as string,
             timeZone: order.timeZone as string,
             experience: order.experience as string,
-            address: order.address as {
-                addOne: string,
-                addTwo: string,
-                addThree: string,
-                addFour: string
-            }
+            address: order.address as UserAddress,
+            deliveryInfo: order.deliveryInfo,
+            serviceFee: order.serviceFee
         };
         const stringifyUser = JSON.stringify(launchTemplateDataUser);
         const cleanedUser = stringifyUser.replace(/\\/g, '');
@@ -332,12 +322,9 @@ router.post(RoutePath.LAUNCH_UPDATE, (req: express.Request,
             endTime: order.endTime as string,
             timeZone: order.timeZone as string,
             experience: order.experience as string,
-            address: order.address as {
-                addOne: string,
-                addTwo: string,
-                addThree: string,
-                addFour: string
-            }
+            address: order.address as UserAddress,
+            deliveryInfo: order.deliveryInfo,
+            serviceFee: order.serviceFee
         };
         const stringifyUser = JSON.stringify(launchTemplateDataUser);
         const cleanedUser = stringifyUser.replace(/\\/g, '');
