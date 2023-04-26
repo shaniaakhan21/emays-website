@@ -2,6 +2,8 @@
 
 export const ORDER_NOT_FOUND_ERROR_MESSAGE = 'Couldn\'t find order';
 
+export const ORDER_NOT_ACTIVE = 'You have canceled the order';
+
 export const USER_UNAUTHORIZED = 'Invalid auth token';
 
 export const ISSUE_FOUND_WHILE_CONNECTING_DB_MESSAGE = 'This is an internal server error and DB is not connected';
@@ -45,7 +47,15 @@ export const EXPERIENCE_REQUIRED = 'Please provide an valid experience';
 
 export const DELIVERY_INFO_REQUIRED = 'Please provide delivery information ';
 
+export const SERVICE_FEE_REQUIRED = 'Please provide service fee ';
+
 export const PAYMENT_REFERENCE_REQUIRED = 'Please provide an valid payment reference';
+
+export const CANCELLATION_STATUS_REQUIRED = 'Please provide a valid cancellation status';
+
+export const DRIVER_PICKED_STATUS_REQUIRED = 'Please provide valid driver picked status';
+
+export const DELIVERED_STATUS_REQUIRED = 'Please provide valid delivery status';
 
 export const ADDRESS_REQUIRED = 'Please provide a valid address';
 

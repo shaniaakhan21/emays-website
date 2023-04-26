@@ -34,9 +34,11 @@ export interface IOrder {
     orderItems: Array<Order>,
     createdAt?: Date,
     isDelivered?: boolean,
-    isDriverPicked?: boolean
+    isDriverPicked?: boolean,
+    isCanceled?: boolean,
     history?: Array<Date>,
-    paymentRef?: string
+    paymentRef?: string,
+    serviceFee: number
 }
 export interface IOrderDTO {
     _id?: ObjectId,
@@ -72,9 +74,11 @@ export interface IOrderDTO {
     createdAt?: Date,
     history?: Array<Date>,
     isDelivered?: boolean,
-    isDriverPicked?: boolean
+    isDriverPicked?: boolean,
+    isCanceled?: boolean,
     paymentRef?: string
-    terminalPaymentRef?: string
+    terminalPaymentRef?: string,
+    serviceFee: number
 }
 
 export interface Order {
@@ -113,7 +117,8 @@ export interface IPatchOrder {
     },
     createdAt?: Date,
     history?: Array<Date>,
-    paymentRef?: string
+    paymentRef?: string,
+    isCanceled?: boolean
 }
 
 export interface IOrderPaginationDTO {

@@ -9,7 +9,7 @@ class ResponseValidator {
             response.status === NO_CONTENT ||
             response.status === FOUND_AT
         ) {
-            return;
+            return true;
         }
         const result = await response.json();
         // Backend throws errors with the key error

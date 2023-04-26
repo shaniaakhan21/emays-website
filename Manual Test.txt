@@ -40,19 +40,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wN
 
 ----- Get order by user id----
 
-GET http://localhost:8080/api-dev/orders/5a680543-e251-4539-8741-16d7029284a5
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0xMlQxODo0Njo1MS4xNTlaIiwiZXhwIjoxNjgxMzI4ODExLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhMzQ5MWZiOS0wOGE4LTRjMDMtOWYxZi02NmMxOGU5NDc1ZmUiLCJpYXQiOjE2ODEzMjUyMTF9.9D4kXZaPkiRdvkAi5We_z_SZ3rEq0xNNFgKnsq_y34g
+GET http://localhost:8080/api-dev/orders/0685641d-48c6-4636-b57c-b4760fbaeb63
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yNVQxNDoyMDoxNy40NTdaIiwiZXhwIjoxNjgyNDM2MDE3LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhYTY1NTE1Zi02YzdkLTQ1MTktODhhNi00NjJmNmIzMWVlMmEiLCJpYXQiOjE2ODI0MzI0MTd9.UOwKrNm4Cw_0qQN2wX1F7j8kFOBHMVKqNZpb9FJrDIQ
 content-type: application/json
 
 
 ----- Patch order by user id --------
 
-PATCH http://localhost:8080/api-dev/orders/12345673495
+PATCH http://localhost:8080/api-dev/orders/0685641d-48c6-4636-b57c-b4760fbaeb63
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNlQxNTozMzoyNC4xMTBaIiwiZXhwIjoxNjc4OTkxNjA0LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NDEzMzZiZDM3NmVkZThkY2E0OTk0YmEiLCJpYXQiOjE2Nzg5ODA4MDR9.fIkiHbBix_ay3uOQcYRcVX5rg55jjvB6b9usBqzgHNI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yNVQxNDoyMDoxNy40NTdaIiwiZXhwIjoxNjgyNDM2MDE3LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhYTY1NTE1Zi02YzdkLTQ1MTktODhhNi00NjJmNmIzMWVlMmEiLCJpYXQiOjE2ODI0MzI0MTd9.UOwKrNm4Cw_0qQN2wX1F7j8kFOBHMVKqNZpb9FJrDIQ
 
 {
-    "firstName": "thathsara"
+    "isCanceled": false
 }
 
 

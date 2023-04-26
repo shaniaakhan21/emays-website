@@ -21,6 +21,7 @@ export interface ISendEmailInfo {
     emaysContactUsLink: string,
     redirectionURL: string,
     bookCalenderURL: string,
+    editOrderURL: string,
     date: Date,
     uid: string,
     startTime: string,

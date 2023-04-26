@@ -14,7 +14,6 @@ import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { prepareUserDetailsToSend } from '../../util/orderDetailBuilder';
 import OrderSchema from '../schema/OrderSchema';
-import { integer } from 'aws-sdk/clients/cloudfront';
 
 const Logging = Logger(__filename);
 

@@ -16,12 +16,16 @@ import LogType from '../const/logType';
 import { validateJWTToken } from '../middleware/jwtTokenValidationMiddleware';
 import { retrieveOrderDetailsByUserId } from '../service/orderService';
 import { Order } from '../type/orderType';
-import { IUser } from '../type/IUserType';
+import { IUser, UserAddress } from '../type/IUserType';
 import { v4 as uuidv4 } from 'uuid';
 import LaunchParamBuilder from '../util/LaunchParamBuilder';
 import { LaunchType } from '../type/ILaunchPayload';
 import { ErrorTemplateMessage } from '../const/errorTemplateMessage';
 import { allowedForClientRoleOnly, allowedForExternalSystemRoleOnly } from '../middleware/paramValidationMiddleware';
+import ServiceError from '../type/error/ServiceError';
+import ErrorType from '../const/errorType';
+import { ORDER_NOT_ACTIVE, ORDER_NOT_FOUND_ERROR_MESSAGE } from '../const/errorMessage';
+import { HTTPUserError } from '../const/httpCode';
 
 const router = express.Router();
 
@@ -44,6 +48,13 @@ router.get(RoutePath.LAUNCH_MAIL, allowedForClientRoleOnly, (
         // Get all order data
         const order = await retrieveOrderDetailsByUserId(uuid);
 
+        // If order is cancelled user should not be able to access the order
+        if (order.isCanceled) {
+            throw new ServiceError(
+                ErrorType.ORDER_RETRIEVAL_ERROR, ORDER_NOT_ACTIVE, '', HTTPUserError
+                    .UNPROCESSABLE_ENTITY_CODE);
+        }
+
         // Prepare product data
         const launchTemplateDataOrder: Array<Order> = order.orderItems;
         const stringifyOrder = JSON.stringify(launchTemplateDataOrder);
@@ -62,12 +73,9 @@ router.get(RoutePath.LAUNCH_MAIL, allowedForClientRoleOnly, (
             endTime: order.endTime as string,
             timeZone: order.timeZone as string,
             experience: order.experience as string,
-            address: order.address as {
-                addOne: string,
-                addTwo: string,
-                addThree: string,
-                addFour: string
-            }
+            address: order.address as UserAddress,
+            deliveryInfo: order.deliveryInfo,
+            serviceFee: order.serviceFee
         };
         const stringifyUser = JSON.stringify(launchTemplateDataUser);
         const cleanedUser = stringifyUser.replace(/\\/g, '');
@@ -86,7 +94,6 @@ router.get(RoutePath.LAUNCH_MAIL, allowedForClientRoleOnly, (
         };
         const stringifyRetailerData = JSON.stringify(retailerData);
         const cleanedRetailerData = stringifyRetailerData.replace(/\\/g, '');
-        
         return res.render(
             applicationPath, paramBuilder
                 .makeAuthentic(sessionToken)
@@ -100,6 +107,12 @@ router.get(RoutePath.LAUNCH_MAIL, allowedForClientRoleOnly, (
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'launch email'), LogType.ERROR);
         buildAppLaunchPath(config.ERROR_TEMPLATE).then((path) => {
+
+            if (errorObject.message === ORDER_NOT_ACTIVE) {
+                return res.render(path, { errorTitle: ErrorTemplateMessage.LAUNCH_ERROR_EMAIL_HEADER,
+                    errorDescription: ErrorTemplateMessage.LAUNCH_ERROR_EMAIL_MESSAGE_ORDER_CANCELED });
+            }
+
             return res.render(path, { errorTitle: ErrorTemplateMessage.LAUNCH_ERROR_EMAIL_HEADER,
                 errorDescription: ErrorTemplateMessage.LAUNCH_ERROR_EMAIL_MESSAGE });
         }).catch(err => next(error));

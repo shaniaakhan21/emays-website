@@ -457,6 +457,7 @@ export const sendEmailForOrderingItems: SendEmailFunc = async (emailInfo, templa
         const emaysContactUsLink = emailInfo.emaysContactUsLink;
         const emailRedirectionURL = emailInfo.redirectionURL;
         const calendarRedirectionURL = emailInfo.bookCalenderURL;
+        const editOrderURL = emailInfo.editOrderURL;
 
         // eslint-disable-next-line max-len
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-call
@@ -473,6 +474,7 @@ export const sendEmailForOrderingItems: SendEmailFunc = async (emailInfo, templa
             , 'emaysContactUsLink': emaysContactUsLink
             , 'redirectionURL': emailRedirectionURL
             , 'bookCalendarURL': calendarRedirectionURL
+            , 'launchEditOrderURL': editOrderURL
         }) as string;
         
         const params = {
