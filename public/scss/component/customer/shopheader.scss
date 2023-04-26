@@ -1,12 +1,96 @@
 @import '../../fonts';
 
-.section-box{
-    background-color: #231F20;
+.section-box {
+    background-color: #ffffff;
     padding:0;
     font-family: 'Montserrat';
+    z-index: 100;
+    position: relative;
+    margin-bottom: 330px;
+    max-width: 990px;
 
-    .head-section{
-        margin: 8% 29%;
+    &.reverse {
+        @media screen and (max-width: 480px) {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+    }
+
+    &.item-set {
+        margin: 0 auto;
+        margin-bottom: 330px;
+
+        @media screen and (max-width: 480px) {
+            margin: 0 auto 100px;
+        }
+
+        & > div:first-child {
+            margin-right: 15%;
+
+            @media (max-width: 1024px) {
+                margin-right: 5%;
+            }
+        }
+        & > div:last-child {
+            margin-left: 15%;
+            @media (max-width: 1024px) {
+                margin-left: 5%;
+            }
+
+            @media screen and (max-width: 480px) {
+                margin: 0;
+            }
+        }
+
+        &.last {
+            margin-top: -500px;
+
+            & > .section-box:first-child {
+                padding-top: 50px;
+            }
+        }
+    }
+
+    &.header {
+        margin-bottom: 0px;
+    }
+
+    &.black {
+        background-color: transparent;
+        color: #fff;
+        top: calc(-8vw - 85px);
+        margin-bottom: 0;
+
+        @media screen and (max-width: 1024px) {
+            top: calc(-2vw - 85px);
+        }
+
+        @media screen and (max-width: 480px) {
+            top: 0;
+        }
+
+        //> div:first-child {
+        //    margin-top: 90px;
+        //}
+
+        .number {
+            color: #231f20;
+
+            @media screen and (max-width: 480px) {
+                color: #fff;
+            }
+        }
+    }
+
+    .center-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 50px 15px !important;
+    }
+
+    .head-section {
+        margin: 3% 12% 8%;
 
         @media screen and (max-width: 1200px) {
             margin: 10% 22%;
@@ -19,27 +103,63 @@
         @media screen and (max-width: 768px) {
             margin: 17% 6% 6% 6%;
         }
-        @media screen and (max-width: 460px) {
-            margin: 26% 6% 9% 6%;
+        @media screen and (max-width: 480px) {
+            margin: 0% 3% 8%;
         }
-        
-        h1{
-            color: white;
-            font-family: 'Montserrat';
+
+        h1 {
+            color: #231f20;
+            font-family: Sen, 'Montserrat';
+            font-size: 34px;
+            font-weight: 800;
+            line-height: 29px;
+            letter-spacing: -2.680000066757202px;
             text-align: center;
+            text-transform: uppercase;
+
             @media screen and (max-width: 575px) {
                 font-size: 2.5rem;
                 text-align: start;
             }
 
-            @media screen and (max-width: 460px) {
-                font-size: 3.2rem;
-                text-align: start;
+            @media screen and (max-width: 480px) {
+                font-size: 34px;
+                text-align: center;
+                max-width: 230px;
+                margin: 0 auto;
             }
+        }
+    }
 
-            @media screen and (max-width: 375px) {
-                font-size: 3rem;
-                text-align: start;
+    .head-section-2 {
+        margin: 3% 28% 8% 28%;
+
+        @media screen and (max-width: 1200px) {
+            margin: 10% 22%;
+        }
+
+        @media screen and (max-width: 890px) {
+            margin: 10% 16%;
+        }
+
+        @media screen and (max-width: 768px) {
+            margin: 17% 6% 6% 6%;
+        }
+        @media screen and (max-width: 480px) {
+            margin: 0% 3% 3%;
+        }
+
+        h1 {
+            font-family: SkolaSans, 'Montserrat';
+            font-size: 55px;
+            font-weight: 700;
+            line-height: 66px;
+            letter-spacing: 0em;
+            text-align: center;
+
+            @media screen and (max-width: 480px) {
+                font-size: 40px;
+                line-height: 50px;
             }
         }
     }

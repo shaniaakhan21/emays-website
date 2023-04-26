@@ -7,8 +7,8 @@
   font-family: 'Montserrat';
   justify-content: space-between;
   height: 4rem;
-  border-bottom: 4px solid #161616;
-  
+  border-bottom: none;
+
   .cds--header__menu-button {
     color: white;
   }
@@ -26,7 +26,7 @@
   }
 
     .cds--header__menu-item {
-        
+
         &:hover{
           background-color: #393939;
           color: white;

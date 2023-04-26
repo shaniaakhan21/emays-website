@@ -1,5 +1,10 @@
+
+$carbon-xs-max: 31.25em; // 500px
+$carbon-sm-max: 42.5em; // 680px
+$carbon-md-max: 64em;   // 1024px
+
 .chart-main {
-  display: flex;
+  display: none;
   justify-content: center;
 
   .wrapper {
@@ -7,6 +12,9 @@
     position: relative;
     height: 280px;
     width: 400px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
 
     .chart-wrapper, .legs-wrapper {
       position: absolute;
@@ -87,6 +95,10 @@
 
     > p {
       margin-bottom: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
 
       strong {
         font-size: 34px;
@@ -98,38 +110,58 @@
     }
   }
 
-
+  &:not(.xs) {
+    display: flex;
+    @media screen and (max-width: $carbon-xs-max) {
+      display: none;
+    }
+  }
 
   &.xs {
+    position: relative;
+    left: -30px;
+    margin-bottom: 90px;
+
+    @media screen and (max-width: $carbon-xs-max) {
+      display: flex;
+    }
 
     .wrapper {
-      height: 340px;
-      width: 100px;
+      height: 500px;
+      width: 220px;
     }
 
     .text-wrapper {
       margin-top: 4px;
+      position: absolute;
 
       > p {
         margin-bottom: 80px;
         position: relative;
 
         &:nth-child(1) {
-          left: -55px;
-          top: 5px;
+          position: absolute;
+          left: -40px;
+          top: -25px;
         }
 
         &:nth-child(2) {
-          top: -8px;
+          position: absolute;
+          top: 60px;
+          left: 30px;
         }
 
         &:nth-child(3) {
-          top: 15px;
+          position: absolute;
+          top: 358px;
+          left: -55px;
+          width: 210px;
         }
 
         &:nth-child(4) {
-          top: 5px;
-          left: -50px;
+          position: absolute;
+          top: 430px;
+          left: -70px;
         }
       }
     }
