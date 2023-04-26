@@ -4,6 +4,15 @@ $carbon-xs-max: 31.25em; // 500px
 $carbon-sm-max: 42.5em; // 680px
 $carbon-md-max: 64em;   // 1024px
 
+//@keyframes slide {
+//  0% {
+//    background-position: 0px 0px;
+//  }
+//  100% {
+//    background-position: 0px -320px;
+//  }
+//}
+
 .landing {
   font-family: 'Montserrat';
   color: #FFFFFF;
@@ -46,6 +55,83 @@ $carbon-md-max: 64em;   // 1024px
     padding: 25px 20px;
     padding-top: 250px;
 
+    > .animation-graphic-1 {
+      background-image: url('../../../images/ANIMATION HEADER.png');
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: absolute;
+      right: 18vw;
+      width: 11.2vw;
+      transform: rotate3d(1,1,1,-1deg);
+      top: 12vw;
+      height: 23vw;
+      background-position: calc(((100% + (-1 * 12.5vw)) / 12) * var(--n)) 0px;
+      //animation: slide 30s linear infinite;
+
+      &.f-1 {
+        --n: 0;
+      }
+
+      &.f-2 {
+        --n: 1;
+      }
+
+      &.f-3 {
+        --n: 2;
+      }
+
+      &.f-4 {
+        --n: 3;
+      }
+
+      &.f-5 {
+        --n: 4;
+      }
+
+      &.f-6 {
+        --n: 5;
+      }
+
+      &.f-7 {
+        --n: 6;
+      }
+
+      &.f-8 {
+        --n: 7;
+      }
+
+      &.f-9 {
+        --n: 8;
+      }
+
+      &.f-10 {
+        --n: 9;
+      }
+
+      &.f-11 {
+        --n: 10;
+      }
+
+      &.f-12 {
+        --n: 11;
+      }
+
+      @media screen and (max-width: $carbon-md-max) {
+        right: 40.5vw;
+        width: 23.5vw;
+        transform: rotate3d(1,1,1,-1deg);
+        bottom: 44.5vw;
+        height: 43vw;
+        top: auto;
+        background-position: calc(((100% + (-1 * 24.5vw)) / 12) * var(--n)) 0px;
+      }
+
+      @media screen and (max-width: $carbon-xs-max) {
+        bottom: 48.5vw;
+        height: 44vw;
+      }
+    }
+
     @media screen and (max-width: $carbon-md-max) {
       padding: 25px 20px;
       padding-top: 70px;
@@ -55,6 +141,7 @@ $carbon-md-max: 64em;   // 1024px
       background-position: bottom 40px center;
       background-size: 160vw;
       overflow: hidden;
+      position: relative;
     }
 
     @media screen and (max-width: $carbon-xs-max) {
@@ -285,14 +372,14 @@ $carbon-md-max: 64em;   // 1024px
     display: flex;
     justify-content: flex-start;
 
-    > button:first-child {
+    > a:first-child {
       margin-right: 3%;
     }
 
     @media (max-width: 500px) {
       margin-top: 40px;
 
-      > button:first-child {
+      > a:first-child {
         margin-right: 10px;
         max-width: 100%;
         flex: 1;
