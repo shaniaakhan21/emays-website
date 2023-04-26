@@ -1,16 +1,22 @@
+/* eslint-disable max-lines */
 'use strict';
 
 import { Request, Response, NextFunction } from 'express';
 import * as Joi from 'joi';
 import { validatorErrorBuilder } from '../util/serviceErrorBuilder';
-import { ADDRESS_REQUIRED, AREA_REQUIRED, CONTENT_TYPE_REQUIRED
-    , CREATED_TIME_CAN_NOT_MODIFY, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
+import { ADDRESS_REQUIRED, AREA_REQUIRED, CANCELLATION_STATUS_REQUIRED, CONTENT_TYPE_REQUIRED
+    , CREATED_TIME_CAN_NOT_MODIFY, DELIVERED_STATUS_REQUIRED, DELIVERY_INFO_REQUIRED
+    , EMAIL_REQUIRED, EXPERIENCE_REQUIRED
     , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
     EXTERNAL_SYSTEM_PASSWORD_REQUIRED, EXTERNAL_SYSTEM_USERNAME_REQUIRED,
     EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY
     , LATITUDE_REQUIRED, LONGITUDE_REQUIRED, ORDER_DATE_REQUIRED
     , ORDER_ID_REQUIRED_IN_PATH, ORDER_LIST_REQUIRED, ORDER_TIME_END_REQUIRED,
-    ORDER_TIME_START_REQUIRED, PAYMENT_REFERENCE_REQUIRED, TIME_ZONE_REQUIRED
+    ORDER_TIME_START_REQUIRED, PAGE_LIMIT_REQUIRED, PAGE_REQUIRED, PAYMENT_REFERENCE_REQUIRED
+    , SERVICE_FEE_REQUIRED, SUPER_USER_EMAIL_REQUIRED,
+    SUPER_USER_FIRST_NAME_REQUIRED, SUPER_USER_LAST_NAME_REQUIRED,
+    SUPER_USER_PASSWORD_REQUIRED, SUPER_USER_USERNAME_REQUIRED
+    , TIME_ZONE_REQUIRED
     , USER_FIRST_NAME_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH, USER_LAST_NAME_REQUIRED
     , USER_PHONE_NUMBER_REQUIRED, 
     USER_UNAUTHORIZED } from '../const/errorMessage';
@@ -19,7 +25,6 @@ import { buildErrorMessage } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { config } from '../config/config';
 import { Roles } from '../const/roles';
-import { AppRequest } from '../type/appRequestType';
 
 const Logging = Logger(__filename);
 
@@ -65,9 +70,25 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
             experience: Joi.string().required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, EXPERIENCE_REQUIRED); }),
-            address: Joi.object().keys({ addOne: Joi.string().required(),
-                addTwo: Joi.string().required(), addThree: Joi.string().required(),
-                addFour: Joi.string().required() }).required().error((error) => {
+            deliveryInfo: Joi.string().required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DELIVERY_INFO_REQUIRED); }),
+            serviceFee: Joi.number().required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SERVICE_FEE_REQUIRED); }),
+            address: Joi.object().keys({ 
+                // Street
+                addOne: Joi.string().required(),
+                // Portal number
+                addTwo: Joi.string().required(),
+                // Apartment, suit
+                addThree: Joi.string().required(),
+                // City
+                addFour: Joi.string().required(),
+                // Country
+                addFive: Joi.string().required(),
+                // Post code
+                addSix: Joi.string().required() }).required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, ADDRESS_REQUIRED); }),
             orderItems: Joi.array().items({
@@ -117,6 +138,58 @@ export const allowedForClientRoleOnly = (req: Request, res: Response, next: Next
     validateRequest(req, next, validationCriteria);
 };
 
+// Validate only external system role allowed route
+export const allowedForExternalSystemRoleOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().valid(Roles.EXTERNAL_SYSTEM)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate only super role allowed route
+export const allowedForSuperRoleOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().valid(Roles.SUPER)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate only retailer role allowed route
+export const allowedForRetailerRoleOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().valid(Roles.RETAILER)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate only assistant role allowed route
+export const allowedForAssistantRoleOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().valid(Roles.ASSISTANT)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // External system create request body validator
 export const validateCreateExtSysRequestBody = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
@@ -143,6 +216,36 @@ export const validateCreateExtSysRequestBody = (req: Request, res: Response, nex
     validateRequest(req, next, validationCriteria);
 };
 
+// Super user create request body validator
+export const validateCreateSuperUserRequestBody = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        body: {
+            firstName: Joi.string().required().max(50).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_FIRST_NAME_REQUIRED);
+            }),
+            lastName: Joi.string().required().max(50).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_LAST_NAME_REQUIRED);
+            }),
+            username: Joi.string().required().max(20).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_USERNAME_REQUIRED);
+            }),
+            password: Joi.string().required().max(50).pattern(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_PASSWORD_REQUIRED);
+            }),
+            email: Joi.string().required().max(50).email().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_EMAIL_REQUIRED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // Validate request external system token 
 export const validateExternalSystemTokenRequestBody = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
@@ -158,6 +261,21 @@ export const validateExternalSystemTokenRequestBody = (req: Request, res: Respon
     validateRequest(req, next, validationCriteria);
 };
 
+// Validate request super user token 
+export const validateSuperUserTokenRequestBody = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        body: {
+            username: Joi.string().required().max(20).error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_USERNAME_REQUIRED); }),
+            password: Joi.string().required().max(50).error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_PASSWORD_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // OrderId as parameter validation middleware 
 export const validateParamOrderId = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
@@ -166,6 +284,21 @@ export const validateParamOrderId = (req: Request, res: Response, next: NextFunc
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, ORDER_ID_REQUIRED_IN_PATH); })
         }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Order details by pagination
+export const validateOrderDetailsPagination = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        query: Joi.object().keys({
+            page: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, PAGE_REQUIRED); }),
+            pageLimit: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, PAGE_LIMIT_REQUIRED); })
+        })
     });
     validateRequest(req, next, validationCriteria);
 };
@@ -247,7 +380,19 @@ export const validateOrderPatchRequestBody = (req: Request, res: Response, next:
                 return validatorErrorBuilder(err as Error, HISTORY_CAN_NOT_MODIFY); }),
             paymentRef: Joi.string().error((error) => {
                 const err = error as Error | unknown;
-                return validatorErrorBuilder(err as Error, PAYMENT_REFERENCE_REQUIRED); })
+                return validatorErrorBuilder(err as Error, PAYMENT_REFERENCE_REQUIRED); }),
+            isCanceled: Joi.boolean().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, CANCELLATION_STATUS_REQUIRED); }),
+            isDriverPicked: Joi.boolean().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, CANCELLATION_STATUS_REQUIRED); }),
+            isDelivered: Joi.boolean().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DELIVERED_STATUS_REQUIRED); }),
+            serviceFee: Joi.number().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SERVICE_FEE_REQUIRED); })
         }   
     });
     validateRequest(req, next, checkOrderParams);

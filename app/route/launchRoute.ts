@@ -17,11 +17,16 @@ import LogType from '../const/logType';
 import { validateJWTToken } from '../middleware/jwtTokenValidationMiddleware';
 import { retrieveOrderDetailsByUserId } from '../service/orderService';
 import { IPatchOrder, Order } from '../type/orderType';
-import { IUser } from '../type/IUserType';
+import { IUser, UserAddress } from '../type/IUserType';
 import { v4 as uuidv4 } from 'uuid';
 import LaunchParamBuilder from '../util/LaunchParamBuilder';
 import { LaunchType } from '../type/ILaunchPayload';
 import { ErrorTemplateMessage } from '../const/errorTemplateMessage';
+import { allowedForClientRoleOnly, allowedForExternalSystemRoleOnly } from '../middleware/paramValidationMiddleware';
+import ServiceError from '../type/error/ServiceError';
+import ErrorType from '../const/errorType';
+import { ORDER_NOT_ACTIVE } from '../const/errorMessage';
+import { HTTPUserError } from '../const/httpCode';
 import * as OrderService from '../service/orderService';
 
 const router = express.Router();
@@ -31,7 +36,7 @@ const Logging = Logger(__filename);
 /**
  * To accept the launch request from email and render the UI
  */
-router.get(RoutePath.LAUNCH_MAIL, (
+router.get(RoutePath.LAUNCH_MAIL, allowedForClientRoleOnly, (
     req: express.Request<core.ParamsDictionary, any, any, { uuid: string, launchType: string, authToken: string }>,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
@@ -45,6 +50,13 @@ router.get(RoutePath.LAUNCH_MAIL, (
         // Get all order data
         const order = await retrieveOrderDetailsByUserId(uuid);
 
+        // If order is cancelled user should not be able to access the order
+        if (order.isCanceled) {
+            throw new ServiceError(
+                ErrorType.ORDER_RETRIEVAL_ERROR, ORDER_NOT_ACTIVE, '', HTTPUserError
+                    .UNPROCESSABLE_ENTITY_CODE);
+        }
+
         // Prepare product data
         const launchTemplateDataOrder: Array<Order> = order.orderItems;
         const stringifyOrder = JSON.stringify(launchTemplateDataOrder);
@@ -55,7 +67,7 @@ router.get(RoutePath.LAUNCH_MAIL, (
             email: order.email as string,
             firstName: order.firstName as string,
             lastName: order.lastName as string,
-            phoneNumber: order.phoneNumber as string, 
+            phoneNumber: order.phoneNumber as string,
             retailerEmail: order.email as string,
             date: order.date as Date,
             uid: order.uid as string,
@@ -63,12 +75,9 @@ router.get(RoutePath.LAUNCH_MAIL, (
             endTime: order.endTime as string,
             timeZone: order.timeZone as string,
             experience: order.experience as string,
-            address: order.address as {
-                addOne: string,
-                addTwo: string,
-                addThree: string,
-                addFour: string
-            }
+            address: order.address as UserAddress,
+            deliveryInfo: order.deliveryInfo,
+            serviceFee: order.serviceFee
         };
         const stringifyUser = JSON.stringify(launchTemplateDataUser);
         const cleanedUser = stringifyUser.replace(/\\/g, '');
@@ -87,7 +96,6 @@ router.get(RoutePath.LAUNCH_MAIL, (
         };
         const stringifyRetailerData = JSON.stringify(retailerData);
         const cleanedRetailerData = stringifyRetailerData.replace(/\\/g, '');
-        
         return res.render(
             applicationPath, paramBuilder
                 .makeAuthentic(sessionToken)
@@ -101,6 +109,12 @@ router.get(RoutePath.LAUNCH_MAIL, (
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'launch email'), LogType.ERROR);
         buildAppLaunchPath(config.ERROR_TEMPLATE).then((path) => {
+
+            if (errorObject.message === ORDER_NOT_ACTIVE) {
+                return res.render(path, { errorTitle: ErrorTemplateMessage.LAUNCH_ERROR_EMAIL_HEADER,
+                    errorDescription: ErrorTemplateMessage.LAUNCH_ERROR_EMAIL_MESSAGE_ORDER_CANCELED });
+            }
+
             return res.render(path, { errorTitle: ErrorTemplateMessage.LAUNCH_ERROR_EMAIL_HEADER,
                 errorDescription: ErrorTemplateMessage.LAUNCH_ERROR_EMAIL_MESSAGE });
         }).catch(err => next(error));
@@ -128,7 +142,7 @@ router.get(RoutePath.DEV_LAUNCH, (req: express.Request, res: express.Response): 
 /**
  * To accept the launch request and render the UI
  */
-router.post(RoutePath.LAUNCH, (req: express.Request,
+router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Request,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
         authorizeLaunchRoute(req, res, next);
@@ -163,11 +177,12 @@ router.post(RoutePath.LAUNCH, (req: express.Request,
         const retailerData = {
             // eslint-disable-next-line max-len
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-            retailerEmail: req.body?.retailerEmail
+            retailerEmail: req.body?.retailerEmail,
+            retailerArea: 'Milan'
         };
         const stringifyRetailerData = JSON.stringify(retailerData);
         const cleanedRetailerData = stringifyRetailerData.replace(/\\/g, '');
-        
+
         const paramBuilder = new LaunchParamBuilder(LaunchType.PRODUCT_LAUNCH);
 
         const productData: DataToRender = { 'productList': cleanedProduct, token: sessionToken };
@@ -204,9 +219,9 @@ router.post(RoutePath.LAUNCH_ADD, (req: express.Request,
         };
         const stringifyUserData = JSON.stringify(onlyUidWithUserData);
         const cleanedUserData = stringifyUserData.replace(/\\/g, '');
-        
+
         let order = await OrderService.retrieveOrderDetailsByUserId(uid);
-        
+
         if (!order) {
             throw new Error('Order not found');
         }
@@ -261,7 +276,7 @@ router.post(RoutePath.LAUNCH_ADD, (req: express.Request,
                 .makeUserPayload(cleanedUser)
                 .build()
         );
-        
+
     })().catch((error) => {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'launch add ui app'), LogType.ERROR);

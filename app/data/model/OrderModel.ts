@@ -7,7 +7,9 @@ import { HTTPUserError } from '../../const/httpCode';
 import LogType from '../../const/logType';
 import { Logger } from '../../log/logger';
 import ServiceError from '../../type/error/ServiceError';
-import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc } from '../../type/orderServiceType';
+import { CreateOrderFunc, GetOrderDetailDocumentsArrayByStartAndEndIndex,
+    GetOrderDocumentSize, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc
+    , RetrieveOrdersByDeliveryStatusFunc } from '../../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { prepareUserDetailsToSend } from '../../util/orderDetailBuilder';
@@ -56,6 +58,25 @@ export const retrieveOrderByUserId: RetrieveOrderByUserIdFunc = async (userId) =
 };
 
 /**
+ * Get orders by delivery status
+ * @param {boolean} status
+ * @returns {Array<IOrderDTO>} arrays of orders
+ */
+export const retrieveOrderByDeliveryStatus: RetrieveOrdersByDeliveryStatusFunc = async (status) => {
+    try {
+        const orderDetails: Array<IOrderDTO> = await OrderModel.find({ 'isDelivered': status }).exec();
+        return orderDetails;
+    } catch (error) {
+        const err = error as Error;
+        const deliveryStatus: string = status ? 'Done' : 'Pending';
+        Logging.log(
+            buildErrorMessage(
+                err, `Retrieve Order Details by Order delivery status:  ${deliveryStatus}`), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
  * Get order object by user id and update it.
  * @param {string} userId User Id
  * @returns {IOrderDTO} Returns IOrderDTO object
@@ -82,3 +103,38 @@ export const findOneAndUpdateIfExist: PatchOrderDetailsByUserIdFunc = async (use
         throw error;
     }
 };
+
+/**
+ * Get order document size
+ * @returns {integer} Returns integer size
+ */
+export const getOrderDocumentSize: GetOrderDocumentSize = () => {
+    try {
+        return OrderModel.countDocuments().exec();
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve Order document size'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get order document by index range
+ * @param {integer} startIndex start index
+ * @param {integer} endIndex end index
+ * @returns {Array<IOrderDTO>} Returns order details array
+ */
+export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocumentsArrayByStartAndEndIndex = async (
+    startIndex, limit
+) => {
+    try {
+        const orderArray = await OrderModel.find().skip(startIndex).limit(limit).exec();
+        const preparedOrderArray: Array<IOrderDTO> = orderArray.map(data => prepareUserDetailsToSend(data)); 
+        return preparedOrderArray;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve Orders array based on indexes'), LogType.ERROR);
+        throw error;
+    }
+};
+

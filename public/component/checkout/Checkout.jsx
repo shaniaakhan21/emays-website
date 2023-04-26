@@ -1,6 +1,7 @@
-import { Grid, Column, Modal, ModalWrapper, ModalHeader } from '@carbon/react';
+/* eslint-disable max-lines */
+import { Grid, Column } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 
 // Components
@@ -11,25 +12,31 @@ import CheckBoxCustom from '../common/CheckBoxCustom';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ButtonCustom from '../common/ButtonCustom';
 import ShoppingBag from './ShoppingBag';
+import TextAreaCustom from '../common/TextAreaCustom';
+import DialogueModal from '../common/ReusableDialogueModal';
+import InfoModal from '../common/ReusableInfoModal';
 
 // SCSS
 import '../../scss/component/checkout/checkout.scss';
 
 // Images
 import Emays from '../../logo/emays-logo-white.png';
+import CorrectSign from '../../icons/correct-sign.png';
 
 // Util
 import { getProductList } from '../../js/util/SessionStorageUtil';
-import { CHECKOUT_INFO } from '../../js/const/SessionStorageConst';
+import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import timeframes from '../../../app/const/timeframes';
 import LoadingIndicator from '../LoadingIndicator';
+import GeoContainer from '../common/GeoContainer';
 import ConfirmDialog from '../common/ConfirmDialog';
 import FallBack from '../../icons/fallback.png';
 import ShoppingItem from './ShoppingItem';
 import { useMessage } from '../common/messageCtx';
-import { updateOrder } from '../../services/order';
+import { cancelOrder, updateOrder } from '../../services/order';
+import styled from 'styled-components';
 
 const Checkout = () => {
 
@@ -37,27 +44,46 @@ const Checkout = () => {
     const history = useHistory();
     const pushAlert = useMessage();
 
-    const [state, setState] = useSessionState(CHECKOUT_INFO, { address: {}, options: {} });
+    const [state, setState] = useSessionState(CHECKOUT_INFO, {
+        address: {}, options: {},
+        serviceFee: null
+    });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [showDelete, setShowDelete] = useState(undefined);
+    const [showDeleteAppointment, setDeleteAppointment] = useState(false);
+    const [showAppointmentDeleteSuccess, setSuccessAppointmentDelete] = useState(false);
 
     // Handler function for option change
     const handleOptionChange = (option) => {
         setState(cs => ({ ...cs, options: { ...cs.options, [option]: !cs.options[option] } }));
     };
 
+    // State address update function from GeoContainer
+    const updateAddress = ({ addOne }) => {
+        setState(cs => ({ ...cs, address: { ...cs.address, addOne: addOne } }));
+    };
+
+    // State service fee update from GeoContainer
+    const updateServiceFee = (fee) => {
+        setState(cs => ({ ...cs, serviceFee: fee }));
+    };
+
     // State for product data
     const [productData, setProductData] = useState([]);
 
-    // Get product data from session storage and update product data state
+    // Component load logics
     useEffect(() => {
         const productData = getProductList();
         setProductData(productData);
     }, []);
 
+    const preventTyping = (event) => {
+        event.preventDefault();
+    };
+
     const submit = () => {
-        const errors = ['addOne', 'addTwo', 'addThree', 'addFour'].reduce(
+        const errors = ['addOne', 'addTwo', 'addThree', 'addFour', 'addFive', 'addSix'].reduce(
             (acc, k) => (
                 state?.address?.[k] && state?.address?.[k] !== '' ? acc : { ...acc, [k]: true }
             ), {}
@@ -87,6 +113,31 @@ const Checkout = () => {
             setLoading(false);
         }
     }, [showDelete]);
+
+    const deleteAppointmentAction = async () => {
+        const result = await cancelOrder(state.uid);
+        if (result) {
+            setDeleteAppointment(false);
+            setSuccessAppointmentDelete(true);
+        }
+    };
+
+    const AppointmentCancellationSuccessMessageContainer = styled.div`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        & p {
+            font-size: 16px;
+            padding-top: 10px;
+        }
+    `;
+
+    const AppointmentCancellationDialogueMessageContainer = styled.div`
+        & p {
+            font-size: 16px;
+            padding-top: 20px;
+        }
+    `;
 
     return (
         <Grid className='landing-page'>
@@ -120,7 +171,7 @@ const Checkout = () => {
                             disabled={state?.locked}
                             nextDateOne='Today Sat, Nov 2nd'
                             nextDateTwo='Sat, Nov 2nd'
-                            nextDateThree='Sat, Nov 2nd'/>
+                            nextDateThree='Sat, Nov 2nd' />
                     </div>
                     <div className='date-time-pick'>
                         <p>{t('checkout.book-appointment.custom-date')}</p>
@@ -195,9 +246,15 @@ const Checkout = () => {
                         <div className='address'>
                             <p>{t('checkout.delivery-address.address')}</p>
                         </div>
+                        <div>
+                            <GeoContainer updateAddress={updateAddress} updateServiceFee={updateServiceFee} />
+                        </div>
                         <div className='address-info'>
                             <div>
                                 <TextBoxCustom
+                                    onKeyDown={preventTyping}
+                                    id={'addressStreet'}
+                                    placeholderText={t('checkout.book-appointment.addOnePlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addOne ?? ''}
                                     onChange={
@@ -209,6 +266,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addTwoPlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addTwo}
                                     onChange={
@@ -220,6 +278,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addThreePlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addThree}
                                     onChange={
@@ -231,6 +290,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addFourPlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addFour}
                                     onChange={
@@ -239,12 +299,54 @@ const Checkout = () => {
                                         )
                                     }
                                     invalid={errors?.addFour} />
+
                             </div>
+                            <div>
+                                <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addFivePlaceHolder')}
+                                    customStyle={{ backgroundColor: 'white' }}
+                                    value={state?.address?.addFive}
+                                    onChange={
+                                        (e) => setState(
+                                            cs => ({ ...cs, address: { ...cs.address, addFive: e.target.value } })
+                                        )
+                                    }
+                                    invalid={errors?.addFive} />
+                            </div>
+                            <div>
+                                <TextBoxCustom
+                                    placeholderText={t('checkout.book-appointment.addSixPlaceHolder')}
+                                    customStyle={{ backgroundColor: 'white' }}
+                                    value={state?.address?.addSix}
+                                    onChange={
+                                        (e) => setState(
+                                            cs => ({ ...cs, address: { ...cs.address, addSix: e.target.value } })
+                                        )
+                                    }
+                                    invalid={errors?.addSix} />
+                            </div>
+                        </div>
+                        <div className='delivery-info'>
+                            <p>{t('checkout.delivery-info')}</p>
+                            <TextAreaCustom
+                                className='user-message'
+                                placeholder={t('checkout.book-appointment.deliveryInfoPlaceholder')}
+                                enableCounter
+                                maxCount={100}
+                                name='message'
+                                value={state.deliveryInfo}
+                                onChange={
+                                    (e) => setState(
+                                        cs => ({ ...cs, deliveryInfo: e.target.value })
+                                    )
+                                }
+                            />
                         </div>
                     </div>
                     <div className='submit-button'>
                         <ButtonCustom
-                            text={t('checkout.submit-button')}
+                            text={state.launchType === EMAIL_EDIT ?
+                                t('checkout.save-changes') : t('checkout.submit-button')}
                             action={submit}
                             type={'secondary'}
                             customStyle={{
@@ -257,10 +359,62 @@ const Checkout = () => {
                             }}
                         />
                     </div>
+                    <div>
+                        {
+                            state.launchType === EMAIL_EDIT &&
+                            <ButtonCustom
+                                text={t('checkout.cancel-order')}
+                                action={() => { 
+                                    setDeleteAppointment(true);
+                                    setSuccessAppointmentDelete(false); }}
+                                type={'danger'}
+                                customStyle={{
+                                    minWidth: '100%',
+                                    marginTop: '25px',
+                                    marginBottom: '15px',
+                                    alignContent: 'center',
+                                    justifyContent: 'center',
+                                    padding: '1%'
+                                }}
+                            />
+                        }
+                    </div>
                 </Column>}
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData} />
+                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData}
+                    serviceFee={state.serviceFee} />
             </Column>
+            {/* Appointment cancellation dialogue */}
+            <DialogueModal
+                showModal={showDeleteAppointment}
+                closeModal={ () => { setDeleteAppointment(false); }}
+                title={t('email-launch.cancellation.dialogue-header')}
+                body={
+                    <AppointmentCancellationDialogueMessageContainer>
+                        <p>{t('email-launch.cancellation.dialogue-body')}</p>
+                    </AppointmentCancellationDialogueMessageContainer>
+                }
+                confirmAction={ deleteAppointmentAction }
+            />
+            {/* Appointment cancelled info */}
+            <InfoModal
+                showModal={showAppointmentDeleteSuccess}
+                closeModal={ () => {
+                    setSuccessAppointmentDelete(false);
+                }}
+                cancelText={'Close'}
+                title={t('email-launch.cancellation.info-header')}
+                body={
+                    <AppointmentCancellationSuccessMessageContainer>
+                        <div>
+                            <img src={CorrectSign} alt='Completed image' />
+                        </div>
+                        <div>
+                            <p>{t('email-launch.cancellation.info-body')}</p>
+                        </div>
+                    </AppointmentCancellationSuccessMessageContainer>
+                }
+            />
         </Grid>
     );
 

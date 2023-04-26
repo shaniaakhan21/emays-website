@@ -34,7 +34,7 @@ const WinstonLogger = winston.createLogger({
     levels,
     format: combine(timestamp(), json()),
     transports,
-    defaultMeta: { service: 'Order-Service-API' }
+    defaultMeta: { service: 'Emays-Backend' }
 });
 
 export default WinstonLogger;

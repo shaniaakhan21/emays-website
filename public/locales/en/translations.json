@@ -2,6 +2,7 @@
   "common": {
     "error": "Error",
     "success": "Success",
+    "success-message": "Appointment created successfully!",
     "lets-talk-form": {
       "header": "Are you curious about something? Let’s talk",
       "name": "Name",
@@ -36,19 +37,32 @@
       "header": "BOOK YOUR APPOINTMENT",
       "choose-date": "Choose Date",
       "choose-time": "Choose Time Window",
-      "custom-date": "Custom Date"
+      "custom-date": "Custom Date",
+      "addOnePlaceHolder": "Street Name | Auto Complete",
+      "addTwoPlaceHolder": "Portal Number",
+      "addThreePlaceHolder": "Apartment, Suit",
+      "addFourPlaceHolder": "City",
+      "addFivePlaceHolder": "Country",
+      "addSixPlaceHolder": "Post Code",
+      "searchAddress": "Please search your address street or complete address",
+      "deliveryInfo": "User Comment",
+      "deliveryInfoPlaceholder": "Please enter your comment"
     },
     "customize-experience": {
       "header": "CUSTOMIZE YOUR EXPERIENCE FOR FREE",
-      "checkbox-wait-label": "We wait while you try - someWe wait while you try -  Contactless Delivery - We drop the items to your door  and the stylist will wait for your returns outside.",
+      "checkbox-wait-label": "We wait while you try -  Contactless Delivery - We drop the items to your door  and the stylist will wait for your returns outside.",
       "checkbox-assist-label": "Assist me -  I would like to be assisted during the whole appointment by the stylist.",
-      "checkbox-basic-label": "Basic Tailoring - I require Pinning and fitting."
+      "checkbox-basic-label": "Basic Tailoring - I require Pinning and fitting.",
+      "checkbox-inspire-label": "Inspire me - Bring me additional items to try for free!"
     },
     "delivery-address": {
         "header": "DELIVERY ADDRESS",
         "address": "Address"
     },
-    "submit-button": "CONTINUE"
+    "delivery-info": "USER COMMENT",
+    "submit-button": "CONTINUE",
+    "save-changes": "SAVE NEW CHANGES",
+    "cancel-order": "CANCEL APPOINTMENT"
   },
   "email-launch": {
       "header-one": {
@@ -73,7 +87,7 @@
       "contact-message": "we will contact you the day before your appointment, as well as a reminder on the day",
       "special-info": {
         "line-one": "We look forward to seeing you, but should you be unable to attend then please note our cancellation policy below.",
-        "line-two": "We require at least 48 hours notice should you wish to make any changes or amendments to your scheduled appointment. Should you not inform us of any change within 48 notice you will be charged the service fee."
+        "line-two": "We require at least 24 hours notice should you wish to make any changes or amendments to your scheduled appointment. Should you not inform us of any change within 24 hours notice, you will be charged the service fee."
       },
       "need-help": "Need Help?",
       "mail": {
@@ -86,7 +100,13 @@
         "edit-appointment": "EDIT APPOINTMENT",
         "add-to-calendar": "ADD TO CALENDAR"
       },
-      "copy-right": "© Emays 2023. All rights reserved."
+      "copy-right": "© Emays 2023. All rights reserved.",
+      "cancellation": {
+        "dialogue-header": "Are you sure you want to cancel this appointment?",
+        "dialogue-body": "This action may cause losing items you were trying to buy",
+        "info-header": "Appointment cancelled successfully",
+        "info-body": "You can close this browser window"
+      }
   },
   "confirm": {
     "success": "Appointment updated successfully!",
@@ -98,7 +118,8 @@
       "date": "Date",
       "hour": "Hour",
       "selected-experience": "Experience Selected",
-      "delivery-address": "Delivery Address"
+      "delivery-address": "Delivery Address",
+      "delivery-info": "User Comment"
     },
     "contact-details": {
       "header": "CONTACT DETAILS",
@@ -116,9 +137,8 @@
     "header": "SHOPPING BAG",
     "service-fee": "SERVICE FEE",
     "instruction-1": "This fee helps us run our operations, all services included.",
-    "instruction-2": "Amount will be blocked on your card until the day of the delivery.",
+    "instruction-2": "Luxury styling session at home.",
     "instruction-3": "Cancellations available before 24h appointment.",
-    "instruction-4": "Luxury styling session at home.",
     "button": "BOOK YOUR APPOINTMENT",
     "item": {
       "size": "Size",
@@ -172,7 +192,7 @@
       "subtitle-h2":"Take the luxury shopping experience to your home.",
       "subtitle-h3":"Try What you want, pay only what you keep.",
       "btn-text":"See what we can do for you"
-    }   
+    }
   },
   "services":{
     "text-h1":"Our Services are available on selected brands websites"
@@ -203,15 +223,15 @@
     "fifth-block":{
       "btn-text":"Read more about this",
       "email-text":"Shop With Our Brands"
-    }   
+    }
   },
 
   "retailer": {
     "landing": {
       "title": "WE SHIP THE SHOP",
       "sub-header": "Bring the Luxury shopping experience to your clients",
-      "description": "Highly personal in-store shopping experience delivered to your client’s home to give luxury fashion a sustainable turn.",
-      "button": "See what we can do for you",
+      "description": "Convert, grow and retain customers with Emays",
+      "button": "Request a DEMO",
       "button-api": "API Connection"
     },
     "integration": {
@@ -230,32 +250,47 @@
       ]
     },
     "partnership": {
-      "title": "Be our Partner",
+      "title": "Benefits",
       "infos": [
         {
-          "title": "Higher sales conversion",
-          "description": "Returning customers, Accurate customer data, Fast and easy retention."
+          "title": "Maximise and increase sales",
+          "description": "Personalised luxury experience for customers, assisted at every touch point of the shopping process by expert advisors at their own comfort."
         },
         {
           "title": "Full inventory control",
           "description": "If unsold, the product will return and be available in your store within 24 hours"
         },
         {
-          "title": "No time consuming",
-          "description": "We guarantee that the product will be delivered within 24 hours to the customer"
+          "title": "Converting new clients",
+          "description": "Our services aims to make shopping easier towards brands for new customers to engage and overcome barriers such as:",
+          "list-description":{
+            "list-item-one":"Size issue",
+            "list-item-two":"Pending refunds",
+            "list-item-three":"Wrong fit",
+            "list-item-four":"Hassle of returns"
+          }
         },
+
         {
-          "title": "Highly personalised luxury experience for customers",
-          "description": "Assisted at every touch-point of the shopping process by expert advisors"
+          "title": "Seamless integration",
+          "sub-items":[
+            {
+              "title": "E-commerce",
+              "description": "Emays connects with all primary E-commerce platforms and a simple API for anything more customized. Emays appears as a new delivery method, the client will have the option to pick their delivery date, time, and Emays services at the check out."
+            },
+
+            {
+              "title": "In- Store",
+              "description": "An easy to use web interface to book Emays deliveries and services that can be installed using in store devices such as phones and computers."
+            }
+          ]
         },
+
         {
-          "title": "Avoid paying higher fee to other competitors",
-          "description": "Security provided. We protect the product with an insurance Time saving to prepare orders online"
-        },
-        {
-          "title": "Time saving to return",
-          "description": "online orders No shipping fees Eco friendly, we deliver without harming the environment with our zero emission cars and green energy scooters."
+          "title": "Retail excellence",
+          "description": "At Emays we believe that the customer experience always comes first. Our integration has been built to give the feeling of your brand and experience, just powered by Emays. Our aim is to create a pleasurable customer experience easy to use"
         }
+
       ],
       "chart-title": "From proven data studies:",
       "chart-info": "A global consumer survey conducted by Content Square (leader in digital experience analytics) indicates that only 15% of respondents are satisfied with their online shopping experience. In the last 6 months of 2022, data show increasing customers problems with their packaging:",

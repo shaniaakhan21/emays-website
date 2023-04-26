@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import Nav from '../common/Nav';
 import HomeSection from './HomeSection';
 import ShopWithUs from './ShopWithUs';

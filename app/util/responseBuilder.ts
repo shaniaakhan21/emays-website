@@ -19,6 +19,8 @@ export const errorResponseBuilder: ErrorResponseBuilderFunc = (error) => {
  * @returns {SuccessResponseBuilderResponse} Success response
  */
 export const successResponseBuilder: SuccessResponseBuilderFunc<IOrderDTO | 
-    {token: string} | IGeoTypeDTO > = (data) => {
-        return { data: data };
-    };
+    {token: string} |
+    {googleMapAPIKey: string} |
+     IGeoTypeDTO > = (data) => {
+         return { data: data };
+     };

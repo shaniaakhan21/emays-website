@@ -8,7 +8,7 @@ export interface IOrder {
     email: string,
     firstName: string,
     lastName: string,
-    phoneNumber: string, 
+    phoneNumber: string,
     retailerEmail: string,
     date: Date,
     uid: string,
@@ -17,20 +17,34 @@ export interface IOrder {
     timeZone: string,
     experience: string,
     address: {
+        // Street
         addOne: string,
+        // Portal number
         addTwo: string,
+        // Apartment, suit
         addThree: string,
-        addFour: string
+        // City
+        addFour: string,
+        // Country
+        addFive: string,
+        // Post code
+        addSix: string
     },
+    deliveryInfo: string,
     orderItems: Array<Order>,
     createdAt?: Date,
+    isDelivered?: boolean,
+    isDriverPicked?: boolean,
+    isCanceled?: boolean,
     history?: Array<Date>,
-    paymentRef?: string
+    paymentRef?: string,
+    serviceFee: number
 }
 export interface IOrderDTO {
     _id?: ObjectId,
     email?: string,
     payed?: boolean,
+    terminalPayment?: boolean,
     firstName?: string,
     lastName?: string,
     phoneNumber?: string,
@@ -42,15 +56,29 @@ export interface IOrderDTO {
     timeZone?: string,
     experience?: string,
     address?: {
+        // Street
         addOne: string,
+        // Portal number
         addTwo: string,
+        // Apartment, suit
         addThree: string,
-        addFour: string
+        // City
+        addFour: string,
+        // Country
+        addFive: string,
+        // Post code
+        addSix: string
     },
+    deliveryInfo: string,
     orderItems: Array<Order>,
     createdAt?: Date,
     history?: Array<Date>,
+    isDelivered?: boolean,
+    isDriverPicked?: boolean,
+    isCanceled?: boolean,
     paymentRef?: string
+    terminalPaymentRef?: string,
+    serviceFee: number
 }
 
 export interface Order {
@@ -74,12 +102,36 @@ export interface IPatchOrder {
     timeZone?: string,
     experience?: string,
     address?: {
+        // Street
         addOne: string,
+        // Portal number
         addTwo: string,
+        // Apartment, suit
         addThree: string,
-        addFour: string
+        // City
+        addFour: string,
+        // Country
+        addFive: string,
+        // Post code
+        addSix: string
     },
     createdAt?: Date,
     history?: Array<Date>,
-    paymentRef?: string
+    paymentRef?: string,
+    isCanceled?: boolean
+}
+
+export interface IOrderPaginationDTO {
+    pages?: Array<IOrderDTO>,
+    next?: NextPageInfo,
+    previous?: PreviousPageInfo,
+    allPagesAvailable?: number
+}
+
+export interface NextPageInfo {
+    page: number, limit: number
+}
+
+export interface PreviousPageInfo {
+    page: number, limit: number
 }

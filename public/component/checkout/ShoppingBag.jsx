@@ -6,11 +6,8 @@ import PropTypes from 'prop-types';
 import '../../scss/component/checkout/shoppingBag.scss';
 
 import FallBack from '../../icons/fallback.png';
-import Trash from '../../images/trash.svg';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-const serviceFee = 1499.00;
 
 const getPriceList = (productList = []) => {
     return productList?.map((item) => (item.productCost));
@@ -21,7 +18,7 @@ const getFinalCost = (serviceCharge = 0.00, itemsPrices = []) => {
     return +serviceCharge + +itemsTotal;
 };
 
-const ShoppingBag = ({ productList = [], onDelete }) => {
+const ShoppingBag = ({ productList = [], onDelete, serviceFee }) => {
 
     const [t] = useTranslation();
 
@@ -37,8 +34,7 @@ const ShoppingBag = ({ productList = [], onDelete }) => {
     const instruction = useMemo(() => [
         t('shopping-bag-container.instruction-1'),
         t('shopping-bag-container.instruction-2'),
-        t('shopping-bag-container.instruction-3'),
-        t('shopping-bag-container.instruction-4')
+        t('shopping-bag-container.instruction-3')
     ], [t]);
 
     return (
@@ -61,10 +57,10 @@ const ShoppingBag = ({ productList = [], onDelete }) => {
             </div>
             <div className='service-fee'>
                 <div className='text'><p>{t('shopping-bag-container.service-fee')}</p></div>
-                <div className='cost'><p>{`€ ${serviceFee}`}</p></div>
+                <div className='cost'> { serviceFee ? <p>{`€ ${serviceFee}`}</p> : <p>Calculating...</p> }</div>
             </div>
             <div className='instruction'>
-                <ListBoxCustom style={{ fontSize: '15px', fontFamily: 'SkolaSans' }} items={instruction}/>
+                <ListBoxCustom style={{ fontSize: '15px', fontFamily: 'Montserrat' }} items={instruction}/>
             </div>
             <div className='book'>
                 <ButtonCustom
@@ -93,5 +89,5 @@ ShoppingBag.propTypes = {
     ).isRequired,
     onDelete: PropTypes.func
 };
-  
+
 export default ShoppingBag;
