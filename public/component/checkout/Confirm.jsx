@@ -45,6 +45,8 @@ const Confirm = () => {
     const submit = useCallback(async () => {
         try {
             console.log('getRetailerData()()', getRetailerData());
+            console.log('getUserData()()', getUserData());
+            console.log('state', state);
             setLoading(true);
             const commonData = {
                 uid: getUserData().uid,
@@ -90,7 +92,16 @@ const Confirm = () => {
                     options?.wait ? 'Contactless Delivery' : undefined,
                     options?.inspire ? 'Inspire Me' : undefined
                 ]?.filter(i => i).join(', ')}.` });
-                setOpen(getUserData());
+                const paymentMethod = getRetailerData().paymentMethod;
+                if (paymentMethod === 'CLIENT_HOUSE') {
+                    pushAlert({
+                        statusIconDescription: t('common.success'),
+                        title: t('common.success'),
+                        subtitle: t('common.success-message')
+                    });
+                } else {
+                    setOpen(getUserData());
+                }
             }
         } catch (e) {
             pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: e.message });
