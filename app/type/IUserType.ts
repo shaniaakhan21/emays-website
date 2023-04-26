@@ -15,10 +15,16 @@ export interface IUser {
     endTime: string,
     timeZone: string,
     experience: string,
-    address: {
-        addOne: string,
-        addTwo: string,
-        addThree: string,
-        addFour: string
-    },
+    address: UserAddress,
+    deliveryInfo: string,
+    serviceFee: number
+}
+
+export interface UserAddress {
+    addOne: string,
+    addTwo: string,
+    addThree: string,
+    addFour: string,
+    addFive: string,
+    addSix: string
 }

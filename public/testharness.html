@@ -8,6 +8,8 @@
     <select name="launchType" id="launchType">
         <option value="none" selected disabled hidden>Select an Option</option>
         <option value="product">Product Launch Simulation</option>
+        <option value="product_add">Product Add Simulation</option>
+        <option value="product_update">Product Update Simulation</option>
         <option value="email">Email Launch Simulation</option>
     </select><br><br>
     <div id="container">
@@ -35,8 +37,13 @@
             const selectedLaunchType = event?.target?.value;
             switch (selectedLaunchType) {
                 case 'product':
+                case 'product_add':
+                case 'product_update':
+                    const path = selectedLaunchType === 'product' ? 'launch' : selectedLaunchType === 'product_add' ? 'launch_add' : 'launch_update';
                     form = `
-                    <form method="post" action="${environment === 'development' ? '/api-dev' : '/api'}/launch">
+                    <form method="post" action="${environment === 'development' ? '/api-dev' : '/api'}/${path}">
+
+                    ${selectedLaunchType !== 'product' ? `<label for="uid">UID</label><br><input type="text" id="uid" name="uid" value=""><br><br>` : ''}
 
                     <label for="token">Auth Token</label><br>
                     <input type="text" id="authToken" name="authToken" value="tempToken">
@@ -81,7 +88,7 @@
                             <option value="emailEdit">Edit Appointment</option>
                         </select><br><br>
                         <label for="uuid">UUID</label><br>
-                        <input type="text" id="uuid" name="uuid" value="d24e3a05-1b45-4251-821f-38f7e915ad20" required><br><br>
+                        <input type="text" id="uuid" name="uuid" value="ae6a407a-375f-4efb-b1ba-096ea1f5b620" required><br><br>
                         <input type="submit" value="Submit">
                     </form>`;
                     break;

@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Grid, Column } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
@@ -16,7 +14,7 @@ import Emays from '../../logo/emays-logo-white.png';
 import EditIcon from '../../icons/edit.svg';
 
 // Util
-import { getAddress, getLaunchType, getProductList, getServiceCost } from '../../js/util/SessionStorageUtil';
+import { getProductList, getServiceCost } from '../../js/util/SessionStorageUtil';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
@@ -24,16 +22,12 @@ import { saveOrder, updateOrder } from '../../services/order';
 import { useMessage } from '../common/messageCtx';
 import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
 import LoadingIndicator from '../LoadingIndicator';
-import useAPI from '../../js/util/useAPI';
-import { makeCheckout } from '../../services/stripe';
 
 const Confirm = () => {
 
     const [t] = useTranslation();
     const pushAlert = useMessage();
     const history = useHistory();
-    const launchType = getLaunchType();
-    const { state: checkoutData, loading: LoadingCheckout, callAPI } = useAPI(makeCheckout);
 
     const [productData, setProductData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -51,6 +45,8 @@ const Confirm = () => {
     const submit = useCallback(async () => {
         try {
             console.log('getRetailerData()()', getRetailerData());
+            console.log('getUserData()()', getUserData());
+            console.log('state', state);
             setLoading(true);
             const commonData = {
                 uid: getUserData().uid,
@@ -79,7 +75,7 @@ const Confirm = () => {
                 options?.wait ? 'Contactless Delivery' : undefined,
                 options?.inspire ? 'Inspire Me' : undefined
             ]?.filter(i => i).join(', ')}.` };
-            if (launchType === EMAIL_EDIT) {
+            if (state.launchType === EMAIL_EDIT) {
                 await updateOrder(commonData.uid, order);
                 pushAlert({
                     statusIconDescription: t('common.success'),
@@ -88,20 +84,31 @@ const Confirm = () => {
                     kind: 'success'
                 });
             } else {
+                console.log('REST---', rest);
+                console.log('Common Data----', commonData);
                 await saveOrder({ ...rest, ...commonData, experience: `${[
                     options?.assist ? 'Assist Me' : undefined,
                     options?.tailoring ? 'Tailoring' : undefined,
                     options?.wait ? 'Contactless Delivery' : undefined,
                     options?.inspire ? 'Inspire Me' : undefined
                 ]?.filter(i => i).join(', ')}.` });
-                setOpen(getUserData());
+                const paymentMethod = getRetailerData().paymentMethod;
+                if (paymentMethod === 'CLIENT_HOUSE') {
+                    pushAlert({
+                        statusIconDescription: t('common.success'),
+                        title: t('common.success'),
+                        subtitle: t('common.success-message')
+                    });
+                } else {
+                    setOpen(getUserData());
+                }
             }
         } catch (e) {
             pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: e.message });
         } finally {
             setLoading(false);
         }
-    }, [state, productData, launchType]);
+    }, [state, productData]);
 
     return (
         <>
