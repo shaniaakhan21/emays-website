@@ -10,7 +10,7 @@ import { buildErrorMessage, buildInfoMessageMethodCall,
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
 import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus, getOrderDocumentSize, getOrderDetailDocumentsArrayByStartAndEndIndex } from '../data/model/OrderModel';
-import { sendEmailForOrderingItems } from './emailService';
+import { sendEmailForOrderCancellation, sendEmailForOrderingItems } from './emailService';
 import { config } from '../config/config';
 import { Order } from '../type/orderType';
 import { generateJWT } from '../util/jwtUtil';
@@ -186,6 +186,7 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
         const result = await findOneAndUpdateIfExist(userId, patchOrder);
         if (patchOrder.isCanceled) {
             // Send cancellation email
+            await sendOrderCancellationMail(result as IOrder);
         }
         Logging.log(buildInfoMessageUserProcessCompleted('Patch order basic data', `Order Data:
             ${JSON.stringify(result)}` ), LogType.INFO);
@@ -231,6 +232,52 @@ export const getOrderDetailsWithPagination: GetOrderDetailsWithPages = async (pa
         const orderData = await getOrderDetailDocumentsArrayByStartAndEndIndex(startIndex, pageSize);
         results.pages = orderData;
         return results;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Get order pagination'), LogType.ERROR);
+        throw error;
+    }
+};
+
+const sendOrderCancellationMail = async (order: IOrder) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Send appointment cancellation email', `uid: ${order.uid}`), LogType.INFO);
+        const orderExtracted: IOrder = {
+            email: order.email,
+            retailerEmail: order.retailerEmail,
+            firstName: order.firstName,
+            lastName: order.lastName,
+            phoneNumber: order.phoneNumber,
+            uid: order.uid,
+            date: order.date,
+            startTime: order.startTime,
+            endTime: order.endTime,
+            timeZone: order.timeZone,
+            experience: order.experience,
+            address: order.address,
+            orderItems: order.orderItems,
+            deliveryInfo: order.deliveryInfo,
+            serviceFee: order.serviceFee
+        };
+        const finalCost = getFinalCost(config.SERVICE_CHARGE as number, orderExtracted.orderItems);
+        await sendEmailForOrderCancellation(
+            { email: orderExtracted.retailerEmail,
+                trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
+                facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
+                facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
+                instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
+                instagramLink: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK,
+                twitterImage: config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE,
+                twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
+                emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
+                firstName: orderExtracted.firstName,
+                lastName: orderExtracted.lastName,
+                finalCost: finalCost,
+                experience: orderExtracted.experience, address: orderExtracted.address,
+                orderItems: orderExtracted.orderItems
+            }, config.EMAIL_TEMPLATE.CUSTOMER_CANCEL_EMAIL);
     } catch (error) {
         const err = error as Error;
         serviceErrorBuilder(err.message);
