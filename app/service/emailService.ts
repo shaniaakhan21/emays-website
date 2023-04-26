@@ -5,7 +5,7 @@
 import { buildAppLaunchPath } from '../api/launchAPI';
 import LogType from '../const/logType';
 import { Logger } from '../log/logger';
-import { SendEmailFunc, SendEmailReminderToCustomerOnDeliveryDayFunc, SendEmailReminderToRetailerBeforeDriverPickFunc } from '../type/emailServiceType';
+import { SendCancellationEmailToClientFunc, SendEmailFunc, SendEmailReminderToCustomerOnDeliveryDayFunc, SendEmailReminderToRetailerBeforeDriverPickFunc } from '../type/emailServiceType';
 import EmailClient from '../util/awsSESBuilder';
 import { buildErrorMessage } from '../util/logMessageBuilder';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
@@ -87,23 +87,18 @@ export const sendEmailForOrderTracking: SendEmailFunc = async (emailInfo, templa
     }
 };
 
-export const sendEmailForOrderCancellation: SendEmailFunc = async (emailInfo, template) => {
+export const sendEmailForOrderCancellation: SendCancellationEmailToClientFunc = async (emailInfo, template) => {
     try {
         const emailClientInstance = new EmailClient().getInstance();
         const templatePath: string = await buildAppLaunchPath(template);
-        const [completeDate, completeTime]: Array<string> = 
-            prepareDateTime(emailInfo.date, emailInfo.startTime, emailInfo.endTime);
+        
         const fullName: string = prepareFullName(emailInfo.firstName, emailInfo.lastName);
         const experience: string = emailInfo.experience;
         const { addOne, addTwo, addThree, addFour } = emailInfo.address;
         const address: string = prepareAddress(addOne, addTwo, addThree, addFour);
         const items: Array<object> = emailInfo.orderItems;
-        const uid: string = emailInfo.uid;
         const finalCost: number | undefined = emailInfo?.finalCost;
-        const urlLogo: string = emailInfo?.urlLogo;
-        const orderStatusImage = emailInfo.statusImage;
         const trustPilotReview = emailInfo?.trustpilotImage;
-        const exclamationImage = emailInfo.exclamationImage;
         const facebookImage = emailInfo.facebookImage;
         const facebookLink = emailInfo.facebookLink;
         const instagramImage = emailInfo.instagramImage;
@@ -111,15 +106,11 @@ export const sendEmailForOrderCancellation: SendEmailFunc = async (emailInfo, te
         const twitterImage = emailInfo.twitterImage;
         const twitterLink = emailInfo.twitterLink;
         const emaysContactUsLink = emailInfo.emaysContactUsLink;
-        const emailRedirectionURL = emailInfo.redirectionURL;
-        const calendarRedirectionURL = emailInfo.bookCalenderURL;
 
-        // eslint-disable-next-line max-len
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-var-requires, @typescript-eslint/no-unsafe-call
-        const data = await require('ejs').renderFile(templatePath, { 'firstName': emailInfo.firstName
-            , 'date': completeDate, 'time': completeTime, 'fullName': fullName, 'experience': experience
-            , 'address': address, 'items': items, 'uid': uid, 'finalCost': finalCost
-            , 'urlLogo': urlLogo, 'statusImage': orderStatusImage, 'trustpilotImage': trustPilotReview, 'exclamation': exclamationImage
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
+        const data = await require('ejs').renderFile(templatePath, { 'fullName': fullName, 'experience': experience
+            , 'address': address, 'items': items, 'finalCost': finalCost
+            , 'trustpilotImage': trustPilotReview
             , 'facebookLink': facebookLink
             , 'instagramLink': instagramLink
             , 'twitterLink': twitterLink
@@ -127,8 +118,6 @@ export const sendEmailForOrderCancellation: SendEmailFunc = async (emailInfo, te
             , 'instagramImage': instagramImage
             , 'twitterImage': twitterImage
             , 'emaysContactUsLink': emaysContactUsLink
-            , 'redirectionURL': emailRedirectionURL
-            , 'bookCalendarURL': calendarRedirectionURL
         }) as string;
         
         const params = {
