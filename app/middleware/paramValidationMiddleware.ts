@@ -4,14 +4,16 @@
 import { Request, Response, NextFunction } from 'express';
 import * as Joi from 'joi';
 import { validatorErrorBuilder } from '../util/serviceErrorBuilder';
-import { ADDRESS_REQUIRED, AREA_REQUIRED, CONTENT_TYPE_REQUIRED
-    , CREATED_TIME_CAN_NOT_MODIFY, DELIVERY_INFO_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
+import { ADDRESS_REQUIRED, AREA_REQUIRED, CANCELLATION_STATUS_REQUIRED, CONTENT_TYPE_REQUIRED
+    , CREATED_TIME_CAN_NOT_MODIFY, DELIVERED_STATUS_REQUIRED, DELIVERY_INFO_REQUIRED
+    , EMAIL_REQUIRED, EXPERIENCE_REQUIRED
     , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
     EXTERNAL_SYSTEM_PASSWORD_REQUIRED, EXTERNAL_SYSTEM_USERNAME_REQUIRED,
     EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY
     , LATITUDE_REQUIRED, LONGITUDE_REQUIRED, ORDER_DATE_REQUIRED
     , ORDER_ID_REQUIRED_IN_PATH, ORDER_LIST_REQUIRED, ORDER_TIME_END_REQUIRED,
-    ORDER_TIME_START_REQUIRED, PAYMENT_REFERENCE_REQUIRED, SUPER_USER_EMAIL_REQUIRED,
+    ORDER_TIME_START_REQUIRED, PAGE_LIMIT_REQUIRED, PAGE_REQUIRED, PAYMENT_REFERENCE_REQUIRED
+    , SERVICE_FEE_REQUIRED, SUPER_USER_EMAIL_REQUIRED,
     SUPER_USER_FIRST_NAME_REQUIRED, SUPER_USER_LAST_NAME_REQUIRED,
     SUPER_USER_PASSWORD_REQUIRED, SUPER_USER_USERNAME_REQUIRED
     , TIME_ZONE_REQUIRED
@@ -71,6 +73,9 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
             deliveryInfo: Joi.string().required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, DELIVERY_INFO_REQUIRED); }),
+            serviceFee: Joi.number().required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SERVICE_FEE_REQUIRED); }),
             address: Joi.object().keys({ 
                 // Street
                 addOne: Joi.string().required(),
@@ -283,6 +288,21 @@ export const validateParamOrderId = (req: Request, res: Response, next: NextFunc
     validateRequest(req, next, validationCriteria);
 };
 
+// Order details by pagination
+export const validateOrderDetailsPagination = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        query: Joi.object().keys({
+            page: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, PAGE_REQUIRED); }),
+            pageLimit: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, PAGE_LIMIT_REQUIRED); })
+        })
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // UserId as parameter validation middleware 
 export const validateParamUserId = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
@@ -360,7 +380,19 @@ export const validateOrderPatchRequestBody = (req: Request, res: Response, next:
                 return validatorErrorBuilder(err as Error, HISTORY_CAN_NOT_MODIFY); }),
             paymentRef: Joi.string().error((error) => {
                 const err = error as Error | unknown;
-                return validatorErrorBuilder(err as Error, PAYMENT_REFERENCE_REQUIRED); })
+                return validatorErrorBuilder(err as Error, PAYMENT_REFERENCE_REQUIRED); }),
+            isCanceled: Joi.boolean().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, CANCELLATION_STATUS_REQUIRED); }),
+            isDriverPicked: Joi.boolean().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, CANCELLATION_STATUS_REQUIRED); }),
+            isDelivered: Joi.boolean().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DELIVERED_STATUS_REQUIRED); }),
+            serviceFee: Joi.number().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SERVICE_FEE_REQUIRED); })
         }   
     });
     validateRequest(req, next, checkOrderParams);

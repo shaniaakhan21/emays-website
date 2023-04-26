@@ -20,7 +20,6 @@ import ButtonCustom from '../common/ButtonCustom';
 import useAPI from '../../js/util/useAPI';
 import { makeCheckout, submitCheckout } from '../../services/stripe';
 import { useMessage } from '../common/messageCtx';
-import { getUserData } from '../../js/util/SessionStorageUtil';
 import { publishableKey } from '../../js/const/stripe';
 import { apiBase } from '../../js/util/httpUtil';
 
@@ -58,6 +57,8 @@ const Payment = ({ open, setOpen }) => {
     const [translate] = useTranslation();
     const pushAlert = useMessage();
 
+    const { state: checkoutData, loading, callAPI } = useAPI(makeCheckout);
+
     const t = (key) => translate(`common.payment-form.${key}`);
 
     const submit = useCallback(async () => {
@@ -91,9 +92,6 @@ const Payment = ({ open, setOpen }) => {
                 <ModalHeader />
                 <ModalBody>
                     <Grid className='payment-model'>
-                        <Column lg={8} md={8} sm={4} xs={4} className='logo'>
-                            <img src={Emays} alt='The Emays logo' />
-                        </Column>
                         <Column lg={8} md={8} sm={4} xs={4} className='title'>
                             <h1>{t('title')}</h1>
                         </Column>

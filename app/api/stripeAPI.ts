@@ -3,7 +3,7 @@
 import LogType from '../const/logType';
 import { Logger } from '../log/logger';
 import { buildErrorMessage,
-    buildInfoMessageMethodCall, buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
+    buildInfoMessageMethodCall } from '../util/logMessageBuilder';
 import { patchOrderDetailsByUserId, retrieveOrderDetailsByUserId } from '../service/orderService';
 import {
     captureTerminalPayment,

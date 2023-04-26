@@ -7,7 +7,8 @@ import { HTTPUserError } from '../../const/httpCode';
 import LogType from '../../const/logType';
 import { Logger } from '../../log/logger';
 import ServiceError from '../../type/error/ServiceError';
-import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc
+import { CreateOrderFunc, GetOrderDetailDocumentsArrayByStartAndEndIndex,
+    GetOrderDocumentSize, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc
     , RetrieveOrdersByDeliveryStatusFunc } from '../../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
@@ -102,3 +103,38 @@ export const findOneAndUpdateIfExist: PatchOrderDetailsByUserIdFunc = async (use
         throw error;
     }
 };
+
+/**
+ * Get order document size
+ * @returns {integer} Returns integer size
+ */
+export const getOrderDocumentSize: GetOrderDocumentSize = () => {
+    try {
+        return OrderModel.countDocuments().exec();
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve Order document size'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get order document by index range
+ * @param {integer} startIndex start index
+ * @param {integer} endIndex end index
+ * @returns {Array<IOrderDTO>} Returns order details array
+ */
+export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocumentsArrayByStartAndEndIndex = async (
+    startIndex, limit
+) => {
+    try {
+        const orderArray = await OrderModel.find().skip(startIndex).limit(limit).exec();
+        const preparedOrderArray: Array<IOrderDTO> = orderArray.map(data => prepareUserDetailsToSend(data)); 
+        return preparedOrderArray;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve Orders array based on indexes'), LogType.ERROR);
+        throw error;
+    }
+};
+

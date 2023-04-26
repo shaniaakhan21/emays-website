@@ -2,21 +2,21 @@
 /* eslint-disable max-len */
 'use strict';
 
-import { CreateOrderFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc, RetrieveOrdersByDeliveryStatusFunc } from '../type/orderServiceType';
-import { IOrder, IOrderDTO } from '../type/orderType';
+import { CreateOrderFunc, GetOrderDetailsWithPages, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc, RetrieveOrdersByDeliveryStatusFunc } from '../type/orderServiceType';
+import { IOrder, IOrderDTO, IOrderPaginationDTO } from '../type/orderType';
 import { Logger } from '../log/logger';
 import { buildErrorMessage, buildInfoMessageMethodCall,
     buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
-import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus } from '../data/model/OrderModel';
+import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus, getOrderDocumentSize, getOrderDetailDocumentsArrayByStartAndEndIndex } from '../data/model/OrderModel';
 import { sendEmailForOrderingItems } from './emailService';
 import { config } from '../config/config';
 import { Order } from '../type/orderType';
 import { generateJWT } from '../util/jwtUtil';
 import { Roles } from '../const/roles';
 import { IJWTBuildData, JWT_TYPE } from '../type/IJWTClaims';
-import { EMAIL_BOOKED } from '../../public/js/const/SessionStorageConst';
+import { EMAIL_BOOKED, EMAIL_EDIT } from '../../public/js/const/SessionStorageConst';
 
 const Logging = Logger(__filename);
 
@@ -43,13 +43,15 @@ export const createOrder: CreateOrderFunc = async (order) => {
             experience: order.experience,
             address: order.address,
             orderItems: order.orderItems,
-            deliveryInfo: order.deliveryInfo
+            deliveryInfo: order.deliveryInfo,
+            serviceFee: order.serviceFee
         };
         const data = await saveOrder(orderExtracted);
         Logging.log(buildInfoMessageUserProcessCompleted('Order insertion', `Order Data:
             ${JSON.stringify(data)}` ), LogType.INFO);
         const redirectionURL = buildRedirectionURL(orderExtracted.uid);
         const bookCalendarURL = buildBookCalendar(orderExtracted.uid);
+        const emailOrderEditURL = buildEditOrderURL(orderExtracted.uid);
 
         // Send customer email
         await sendEmailForOrderingItems(
@@ -73,7 +75,8 @@ export const createOrder: CreateOrderFunc = async (order) => {
                 uid: orderExtracted.uid, date: orderExtracted.date,
                 startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
                 experience: orderExtracted.experience, address: orderExtracted.address,
-                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
+                orderItems: orderExtracted.orderItems,
+                editOrderURL: emailOrderEditURL }, config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
 
         // Send retailer email
         const finalCost = getFinalCost(config.SERVICE_CHARGE as number, orderExtracted.orderItems);
@@ -99,7 +102,8 @@ export const createOrder: CreateOrderFunc = async (order) => {
                 uid: orderExtracted.uid, date: orderExtracted.date,
                 startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
                 experience: orderExtracted.experience, address: orderExtracted.address,
-                orderItems: orderExtracted.orderItems }, config.EMAIL_TEMPLATE.RETAILER_EMAIL_TEMPLATE);
+                orderItems: orderExtracted.orderItems,
+                editOrderURL: emailOrderEditURL }, config.EMAIL_TEMPLATE.RETAILER_EMAIL_TEMPLATE);
         return data;
     } catch (error) {
         const err = error as Error;
@@ -180,6 +184,9 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
         Logging.log(buildInfoMessageMethodCall(
             'Patch order basic data', `uid: ${userId}`), LogType.INFO);
         const result = await findOneAndUpdateIfExist(userId, patchOrder);
+        if (patchOrder.isCanceled) {
+            // Send cancellation email
+        }
         Logging.log(buildInfoMessageUserProcessCompleted('Patch order basic data', `Order Data:
             ${JSON.stringify(result)}` ), LogType.INFO);
         return result;
@@ -187,6 +194,47 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
         const err = error as Error;
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, 'Patch Order'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Pagination order
+ * @param {string} page page
+ * @param {string} pageLimit page limit
+ * @returns {Promise<Array<IOrderDTO>>} Promise with array of order data
+ */
+export const getOrderDetailsWithPagination: GetOrderDetailsWithPages = async (page,
+    pageSize, role) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Get order pagination', role), LogType.INFO);
+        const startIndex = (page - 1) * pageSize;
+        const endIndex = page * pageSize;
+
+        const results: IOrderPaginationDTO = {};
+        const documentSize = await getOrderDocumentSize();
+        results.allPagesAvailable = Math.ceil(documentSize / pageSize);
+        if (endIndex < documentSize) {
+            results.next = {
+                page: page + 1,
+                limit: pageSize
+            };
+        }
+
+        if (startIndex > 0) {
+            results.previous = {
+                page: page - 1,
+                limit: pageSize
+            };
+        }
+        const orderData = await getOrderDetailDocumentsArrayByStartAndEndIndex(startIndex, pageSize);
+        results.pages = orderData;
+        return results;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Get order pagination'), LogType.ERROR);
         throw error;
     }
 };
@@ -254,6 +302,29 @@ const buildBookCalendar = (uuid: string): string => {
         const err = error as Error;
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, `Build book calendar URL for uuid ${uuid}`), LogType.ERROR);
+        throw error;
+    }
+};
+
+export const buildEditOrderURL = (uuid: string): string => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Build email edit-order URL', `UUID: ${uuid}`), LogType.INFO);
+        const role: Roles = Roles.CLIENT;
+        const tokenBuildData: IJWTBuildData = {
+            id: uuid,
+            roles: role
+        };
+        const token: string = generateJWT(tokenBuildData, JWT_TYPE.LONG_LIVE);
+        const URL =
+    `${config.EMAIL_TEMPLATE.URLS.EMAIL_REDIRECTION_PATH}?launchType=${EMAIL_EDIT}&uuid=${uuid}&authToken=${token}`;
+        Logging.log(buildInfoMessageUserProcessCompleted('Build email edit-order URL created', `UUID:
+                ${uuid} and URL: ${URL}` ), LogType.INFO);
+        return URL;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, `Build email edit-order URL for uuid ${uuid}`), LogType.ERROR);
         throw error;
     }
 };

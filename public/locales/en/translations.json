@@ -2,6 +2,7 @@
   "common": {
     "error": "Error",
     "success": "Success",
+    "success-message": "Appointment created successfully!",
     "lets-talk-form": {
       "header": "Are you curious about something? Let’s talk",
       "name": "Name",
@@ -59,7 +60,9 @@
       "address": "Address"
     },
     "delivery-info": "USER COMMENT",
-    "submit-button": "CONTINUE"
+    "submit-button": "CONTINUE",
+    "save-changes": "SAVE NEW CHANGES",
+    "cancel-order": "CANCEL APPOINTMENT"
   },
   "email-launch": {
     "header-one": {
@@ -97,7 +100,13 @@
       "edit-appointment": "EDIT APPOINTMENT",
       "add-to-calendar": "ADD TO CALENDAR"
     },
-    "copy-right": "© Emays 2023. All rights reserved."
+    "copy-right": "© Emays 2023. All rights reserved.",
+      "cancellation": {
+        "dialogue-header": "Are you sure you want to cancel this appointment?",
+        "dialogue-body": "This action may cause losing items you were trying to buy",
+        "info-header": "Appointment cancelled successfully",
+        "info-body": "You can close this browser window"
+      }
   },
   "confirm": {
     "success": "Appointment updated successfully!",

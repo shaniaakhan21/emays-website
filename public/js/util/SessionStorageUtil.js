@@ -19,7 +19,7 @@ export const loadLocalStorage = (path, setStateFn) => {
     return null;
 };
 
-export const handleStorage = async (path, u, noRemove) => {
+export const handleStorage = (path, u, noRemove) => {
     if (u) {
         sessionStorage.setItem(path, JSON.stringify(u));
     } else if (!noRemove) {

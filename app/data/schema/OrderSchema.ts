@@ -32,11 +32,13 @@ const OrderSchema = new Schema<IOrder>({
         default: Date.now
     },
     isDelivered: { type: Boolean, default: false },
+    isCanceled: { type: Boolean, default: false },
     isDriverPicked: { type: Boolean, default: false },
     history: [{
         date: { type: Date, default: Date.now }
     }],
-    paymentRef: { type: String, required: false }
+    paymentRef: { type: String, required: false },
+    serviceFee: { type: Number, require: false }
 });
 
 export default OrderSchema;
