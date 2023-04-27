@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Header, HeaderName, HeaderNavigation, HeaderMenuItem, Toggle } from '@carbon/react';
 import '../../scss/component/customer/navbar.scss';
-import LOGO from '../../logo/EMAYS.svg'; 
+import LOGO from '../../logo/EMAYS.svg';
 import ICON from '../../icons/NAVICON.svg';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
@@ -25,7 +25,7 @@ const Nav = () => {
 
     return (
         <Header aria-label='EMAY'>
-            <HeaderName href='/#/' prefix='' className='header-name'>
+            <HeaderName href={isRetailer ? '/#/retailer' : '/#/'} prefix='' className='header-name'>
                 <img src={LOGO} alt='EMAYS' style={{ marginRight: '1rem' }} />
             </HeaderName>
             <Toggle
@@ -54,21 +54,7 @@ const Nav = () => {
                     >{t('nav.menu.partnership')}</HeaderMenuItem>
                 </> : <>
                     <HeaderMenuItem
-                        href='/#/'
-                        onClick={() => {
-                            const elem = document.querySelector( '#services-start' );
-                            elem.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                        style={{ marginLeft: '1rem' }}
-                    >
-                        {t('nav.menu.services')}
-                    </HeaderMenuItem>
-                    <HeaderMenuItem
-                        href='/#/'
-                        onClick={() => {
-                            const elem = document.querySelector( '#sustainability-start' );
-                            elem.scrollIntoView({ behavior: 'smooth' });
-                        }}
+                        href='/#/environment'
                     >{t('nav.menu.sustainability')}
                     </HeaderMenuItem>
                     <HeaderMenuItem
@@ -79,18 +65,10 @@ const Nav = () => {
                         }}
                     >{t('nav.menu.shop-with-us')}</HeaderMenuItem>
                     <HeaderMenuItem
-                        href='/#/'
-                        onClick={() => {
-                            const elem = document.querySelector( '#lets-talk-start' );
-                            elem.scrollIntoView({ behavior: 'smooth' });
-                        }}
+                        href='/#/letsTalk'
                     >{t('nav.menu.lets-talk')}</HeaderMenuItem>
                     <HeaderMenuItem
-                        href='/#/'
-                        onClick={() => {
-                            const elem = document.querySelector( '#faqs-start' );
-                            elem.scrollIntoView({ behavior: 'smooth' });
-                        }}
+                        href='/#/faq'
                     >{t('nav.menu.faqs')}</HeaderMenuItem>
 
                 </>}

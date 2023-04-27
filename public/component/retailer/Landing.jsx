@@ -10,23 +10,57 @@ import Footer from '../common/Footer';
 import './../../scss/component/retailer/landing.page.scss';
 
 // Images
-import RetailerPartnership from './Partnership';
+import AnimationGraphic from './../../images/animation.png';
 import MailIcon from '../../images/HomeCustomerSection/email-icon.svg';
 import RetailerGraphic1 from '../../images/retailer-graphic-1.svg';
 import RetailerGraphic2 from '../../images/retailer-graphic-2.svg';
 import RetailerGraphic3 from '../../images/retailer-graphic-3.svg';
 import Chart from '../common/Chart';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import IntegrationVideo from '../../videos/emays_animation_combined.webm';
+import IntegrationVideo2 from '../../videos/emays_animation_combined.webm';
+import IntegrationVideo3 from '../../videos/emays_animation_combined.webm';
+import VideoLooper from 'react-video-looper';
+
+VideoLooper.prototype.onLoadedVideo = function () {
+    this.video.pause();
+    this.video.currentTime = this.props.start;
+    // eslint-disable-next-line no-unused-expressions
+    this.props.autoPlay && this.togglePlayback();
+    this.video.playbackRate = this.props.speed || 1;
+};
 
 const RetailerLanding = () => {
+    const animationRef = useRef(null);
+    const timerRef = useRef(null);
     const [translate] = useTranslation();
 
     const t = (key) => translate(`retailer.landing.${key}`);
+
+    useEffect(() => {
+        const timerRef = setInterval(() => {
+            const found = /\s?f-(\d+)\s?/.exec(animationRef.current.className);
+            const cur = parseInt(found[1]);
+            let next = cur + 1;
+            if (cur === 12) {
+                next = 1;
+            }
+            animationRef.current.classList.remove(`f-${cur}`);
+            animationRef.current.classList.add(`f-${next}`);
+        }, 800);
+
+        return () => {
+            clearInterval(timerRef);
+        };
+    }, []);
 
     return (
         <>
             <RetailerLayout className='landing'>
                 <Column lg={16} md={8} sm={4} xs={4} className='heading-p1'>
+                    <div src={AnimationGraphic} className='animation-graphic-1 f-1' ref={r => {
+                        animationRef.current = r;
+                    }}/>
                     <Grid>
                         <Column id='landing-start' lg={16} md={8} sm={4} xs={4} className='title'>
                             {t('title')}
@@ -39,13 +73,19 @@ const RetailerLanding = () => {
                         </Column>
                         <Column lg={16} md={8} sm={4} xs={4} className='see-more'>
                             <div className='shipping-section__right buttons'>
-                                <ButtonCustom action={() => {}} text={t('button')} />
-                                <ButtonCustom
-                                    action={() => {}}
-                                    iconDescription='E-Mail'
-                                    hasIconOnly
-                                    renderIcon={() => <img src={MailIcon} alt='E-Mail' />}
-                                />
+                                <a href='/#/integration'>
+                                    <ButtonCustom action={() => {
+                                    }} text={t('button')}/>
+                                </a>
+                                <a href='/#/letsTalk'>
+                                    <ButtonCustom
+                                        action={() => {
+                                        }}
+                                        iconDescription='E-Mail'
+                                        hasIconOnly
+                                        renderIcon={() => <img src={MailIcon} alt='E-Mail'/>}
+                                    />
+                                </a>
                             </div>
                         </Column>
                     </Grid>
@@ -80,7 +120,16 @@ const RetailerLanding = () => {
                                 </div>
                             </Column>
                             <Column lg={8} md={3} sm={4} xs={4} className='right'>
-                                <img src={RetailerGraphic1} />
+                                <div>
+                                    <VideoLooper muted autoPlay source={IntegrationVideo2} start={6.5} end={15}
+                                        width='1px'
+                                        height='1px'
+                                    />
+                                    <VideoLooper muted autoPlay source={IntegrationVideo} start={1.1} end={6.3}
+                                        width='300px'
+                                        height='300px'
+                                    />
+                                </div>
                             </Column>
                         </Grid>
                     </div>
@@ -91,8 +140,13 @@ const RetailerLanding = () => {
                         <h1 className='title'>Seamless integration</h1>
                         <Grid>
                             <Column lg={8} md={3} sm={4} xs={4} className='right xs-hidden'>
-                                <img src={RetailerGraphic2} />
-                                <img src={RetailerGraphic3} />
+                                <VideoLooper muted autoPlay source={IntegrationVideo2} start={6.5} end={15}
+                                    width='300px'
+                                    height='300px'
+                                />
+                                <VideoLooper muted autoPlay source={IntegrationVideo3} start={15.5} end={20}
+                                    width='300px' height='120px'
+                                />
                             </Column>
                             <Column lg={8} md={5} sm={4} xs={4} className='left'>
                                 <div className='info-box'>
@@ -103,7 +157,14 @@ const RetailerLanding = () => {
                                         the check out</p>
                                 </div>
                                 <div className='info-image xs-only'>
-                                    <img src={RetailerGraphic2} />
+                                    <VideoLooper muted autoPlay source={IntegrationVideo2} start={6.5} end={15}
+                                        width='1px'
+                                        height='1px'
+                                    />
+                                    <VideoLooper muted autoPlay source={IntegrationVideo2} start={6.5} end={15}
+                                        width='300px'
+                                        height='300px'
+                                    />
                                 </div>
                                 <div className='info-box'>
                                     <h2>In- Store</h2>
@@ -118,7 +179,12 @@ const RetailerLanding = () => {
                                         customer experience easy to use</p>
                                 </div>
                                 <div className='info-image xs-only'>
-                                    <img src={RetailerGraphic3} />
+                                    <VideoLooper muted autoPlay source={IntegrationVideo3} start={15.5} end={20}
+                                        width='1px' height='1px'
+                                    />
+                                    <VideoLooper muted autoPlay source={IntegrationVideo3} start={15.5} end={20}
+                                        width='300px' height='120px'
+                                    />
                                 </div>
                             </Column>
                         </Grid>
@@ -130,8 +196,8 @@ const RetailerLanding = () => {
                         <h1 className='title'>FROM PROVEN DATA STUDIES</h1>
                         <Grid>
                             <Column lg={10} md={5} sm={4} xs={4} className='left'>
-                                <Chart />
-                                <Chart xs />
+                                <Chart/>
+                                <Chart xs/>
                             </Column>
                             <Column lg={6} md={3} sm={4} xs={4} className='right'>
                                 <p>A global consumer survey conducted by Content Square (leader in digital experience
