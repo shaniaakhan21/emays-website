@@ -2,6 +2,7 @@ import { Column } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import React, { useEffect } from 'react';
 import AOS from 'aos';
+import ReactPlayer from 'react-player';
 import 'aos/dist/aos.css';
 
 // Components
@@ -20,6 +21,9 @@ import BigcommerceLogo from '../../images/logo-bigcommerce.svg';
 import CommercetoolsLogo from '../../images/logo-commercetools.svg';
 import AdobeLogo from '../../images/logo-adobe.svg';
 
+// Video
+import IntegrationVideo from '../../videos/emays_animation.mp4';
+
 const RetailerIntegration = () => {
     const [translate] = useTranslation();
 
@@ -32,17 +36,22 @@ const RetailerIntegration = () => {
     return (
         <>
             <RetailerLayout Nav className='integration'>
-                <Column lg={16} md={8} sm={4} xs={4} className='title'
-                    data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000'>
-                    {t('title')}
+                <Column lg={8} md={8} sm={4} xs={4}>
+                    <div className='title'
+                        data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000'>
+                        {t('title')}
+                    </div>
+                    <div className='description'
+                        data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='200' >
+                        {t('description')}
+                    </div>
+                    <div className='see-more'
+                        data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='500' >
+                        <ButtonCustom action={() => {}} text={t('button')} />
+                    </div>
                 </Column>
-                <Column lg={16} md={8} sm={4} xs={4} className='description'
-                    data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='200' >
-                    {t('description')}
-                </Column>
-                <Column lg={16} md={8} sm={4} xs={4} className='see-more'
-                    data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='500' >
-                    <ButtonCustom action={() => {}} text={t('button')} />
+                <Column lg={8} md={8} sm={4} xs={4} className='video'>
+                    <ReactPlayer url={IntegrationVideo} playing loop muted width={350} />
                 </Column>
                 {[IntegrationImageOne, IntegrationImageTwo].map(
                     (image, index) => (<Column
@@ -72,7 +81,7 @@ const RetailerIntegration = () => {
                 </Column>
                 <Column lg={16} md={8} sm={4} xs={4} className='logos'>
                     <div className='marquee'>
-                        <div className='marquee__group' 
+                        <div className='marquee__group'
                             data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
                             <img src={ShopifyLogo} alt='Shopify Logo' />
                             <img src={SalesForceLogo} alt='Salesforce Logo' />

@@ -15,10 +15,10 @@ const CustomerHome = ({
             {!withoutNav && <Nav refs={props.refs} />}
             <HomeSection />
             <ShopWithUs />
-            <Environment />
-            <Services />
-            <RetailerLetsTalk />
-            <RetailerFAQs />
+            {/* <Environment /> */}
+            {/* /!* <Services /> *!/ */}
+            {/* <RetailerLetsTalk /> */}
+            {/* <RetailerFAQs /> */}
         </>
     );
 };

@@ -4,6 +4,12 @@
   font-family: 'Montserrat';
   color: #FFFFFF;
 
+  .video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .title {
     margin-top: 150px;
     font-size: 62px;
@@ -56,7 +62,7 @@
 
       &:nth-child(even) {
         flex-direction: row-reverse;
-        
+
         .details{
           padding-left: 0px;
         }
