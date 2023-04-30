@@ -24,56 +24,50 @@ const Nav = () => {
     };
 
     return (
-        <Header aria-label='EMAY'>
-            <HeaderName href={isRetailer ? '/#/retailer' : '/#/'} prefix='' className='header-name'>
-                <img src={LOGO} alt='EMAYS' style={{ marginRight: '1rem' }} />
-            </HeaderName>
-            <Toggle
-                aria-label='Retailer toggle'
-                id='retailer-toggle'
-                labelText={isRetailer ? t('nav.toggle-label.retailer') : t('nav.toggle-label.customer')}
-                toggled={isRetailer}
-                onToggle={handleToggleChange}
-                className='retailer-toggle'
-            />
-            <img src={ICON} alt='Nav icon' className='nav-icon' onClick={handleMenuClick}/>
-            <HeaderNavigation aria-label='Your Company' className={showMenu ? 'show-menu' : ''}>
-                {isRetailer ? <>
-                    <HeaderMenuItem href='/#/integration' style={{ marginLeft: '1rem' }}>
-                        {t('nav.menu.integration')}
-                    </HeaderMenuItem>
-                    <HeaderMenuItem href='/#/faq'>{t('nav.menu.faqs')}</HeaderMenuItem>
-                    <HeaderMenuItem href='/#/environment'>{t('nav.menu.sustainability')}</HeaderMenuItem>
-                    <HeaderMenuItem href='/#/letsTalk'>{t('nav.menu.lets-talk')}</HeaderMenuItem>
-                    <HeaderMenuItem
-                        href='/#/retailer'
-                        onClick={() => {
-                            const elem = document.querySelector( '#partnership-start' );
-                            elem.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                    >{t('nav.menu.partnership')}</HeaderMenuItem>
-                </> : <>
-                    <HeaderMenuItem
-                        href='/#/environment'
-                    >{t('nav.menu.sustainability')}
-                    </HeaderMenuItem>
-                    <HeaderMenuItem
-                        href='/#/'
-                        onClick={() => {
-                            const elem = document.querySelector( '#shop-with-us-start' );
-                            elem.scrollIntoView({ behavior: 'smooth' });
-                        }}
-                    >{t('nav.menu.shop-with-us')}</HeaderMenuItem>
-                    <HeaderMenuItem
-                        href='/#/letsTalk'
-                    >{t('nav.menu.lets-talk')}</HeaderMenuItem>
-                    <HeaderMenuItem
-                        href='/#/faq'
-                    >{t('nav.menu.faqs')}</HeaderMenuItem>
+        <div className='cds--wrapper'>
+            <Header aria-label='EMAY'>
+                <HeaderName href={isRetailer ? '/#/retailer' : '/#/'} prefix='' className='header-name'>
+                    <img src={LOGO} alt='EMAYS' style={{ marginRight: '1rem' }} />
+                </HeaderName>
+                <Toggle
+                    aria-label='Retailer toggle'
+                    id='retailer-toggle'
+                    labelText={isRetailer ? t('nav.toggle-label.retailer') : t('nav.toggle-label.customer')}
+                    toggled={isRetailer}
+                    onToggle={handleToggleChange}
+                    className='retailer-toggle'
+                />
+                <img src={ICON} alt='Nav icon' className='nav-icon' onClick={handleMenuClick}/>
+                <HeaderNavigation aria-label='Your Company' className={showMenu ? 'show-menu' : ''}>
+                    {isRetailer ? <>
+                        <HeaderMenuItem href='/#/integration' style={{ marginLeft: '1rem' }}>
+                            {t('nav.menu.integration')}
+                        </HeaderMenuItem>
+                        <HeaderMenuItem href='/#/environment'>{t('nav.menu.sustainability')}</HeaderMenuItem>
+                        <HeaderMenuItem href='/#/letsTalk'>{t('nav.menu.lets-talk')}</HeaderMenuItem>
+                    </> : <>
+                        <HeaderMenuItem
+                            href='/#/environment'
+                        >{t('nav.menu.sustainability')}
+                        </HeaderMenuItem>
+                        <HeaderMenuItem
+                            href='/#/'
+                            onClick={() => {
+                                const elem = document.querySelector( '#shop-with-us-start' );
+                                elem.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                        >{t('nav.menu.shop-with-us')}</HeaderMenuItem>
+                        <HeaderMenuItem
+                            href='/#/letsTalk'
+                        >{t('nav.menu.lets-talk')}</HeaderMenuItem>
+                        <HeaderMenuItem
+                            href='/#/faq'
+                        >{t('nav.menu.faqs')}</HeaderMenuItem>
 
-                </>}
-            </HeaderNavigation>
-        </Header>
+                    </>}
+                </HeaderNavigation>
+            </Header>
+        </div>
     );
 };
 

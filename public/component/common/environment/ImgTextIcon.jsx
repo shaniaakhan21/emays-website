@@ -17,9 +17,9 @@ const ImgTextIcon = () => {
     useEffect(() => {
         AOS.init();
     }, []);
-    
+
     return (
-        <Grid className='section-main custom-padding'>
+        <Grid className='section-main'>
             <Column sm={4} className='phone-mountain-img'>
                 <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={PhoneMountainIMG}/>
             </Column>

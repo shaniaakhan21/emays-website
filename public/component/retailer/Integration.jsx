@@ -22,7 +22,8 @@ import CommercetoolsLogo from '../../images/logo-commercetools.svg';
 import AdobeLogo from '../../images/logo-adobe.svg';
 
 // Video
-import IntegrationVideo from '../../videos/emays_animation.mp4';
+import IntegrationVideo from '../../videos/emays_animation_combined.webm';
+import Footer from '../common/Footer';
 
 const RetailerIntegration = () => {
     const [translate] = useTranslation();
@@ -42,16 +43,21 @@ const RetailerIntegration = () => {
                         {t('title')}
                     </div>
                     <div className='description'
-                        data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='200' >
+                        data-aos='fade-right' data-aos-easing='linear' data-aos-duration='1000'>
                         {t('description')}
                     </div>
                     <div className='see-more'
-                        data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='500' >
-                        <ButtonCustom action={() => {}} text={t('button')} />
+                        data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
+                        <a href='/#/letsTalk' className='btn'>
+                            <ButtonCustom action={() => {}} text={t('button')} />
+                        </a>
                     </div>
                 </Column>
                 <Column lg={8} md={8} sm={4} xs={4} className='video'>
-                    <ReactPlayer url={IntegrationVideo} playing loop muted width={350} />
+                    <video style={{ filter: 'saturate(3.5) hue-rotate(410deg) contrast(75%)' }} width='300' height='300'
+                        loop autoPlay muted>
+                        <source src={IntegrationVideo} type='video/mp4'/>
+                    </video>
                 </Column>
                 {[IntegrationImageOne, IntegrationImageTwo].map(
                     (image, index) => (<Column
@@ -65,32 +71,43 @@ const RetailerIntegration = () => {
                     >
                         <div data-aos-duration='1000' data-aos-delay='1000' data-aos='zoom-in' className='image'>
                             <div className='image-container'>
-                                <img src={image} alt='Integration Sample Image' />
+                                <img src={image} alt='Integration Sample Image'/>
                             </div>
                         </div>
                         <div className='details'>
-                            <h2 data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
+                            <h2 data-aos-duration='1000' data-aos='fade-in'>
                                 {t(`info-box.${index}.title`)}</h2>
-                            <p data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
+                            <p data-aos-duration='1000' data-aos='fade-in'>
                                 {t(`info-box.${index}.description`)}</p>
                         </div>
                     </Column>))}
                 <Column lg={16} md={8} sm={4} xs={4} className='req-demo'
-                    data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
-                    <ButtonCustom action={() => {}} text={t('button')} />
+                    data-aos-duration='1000' data-aos='fade-in'>
+                    <a href='/#/letsTalk' className='btn'>
+                        <ButtonCustom action={() => {}} text={t('button')} />
+                    </a>
                 </Column>
                 <Column lg={16} md={8} sm={4} xs={4} className='logos'>
                     <div className='marquee'>
                         <div className='marquee__group'
-                            data-aos-duration='1000' data-aos-delay='500' data-aos='fade-in'>
-                            <img src={ShopifyLogo} alt='Shopify Logo' />
-                            <img src={SalesForceLogo} alt='Salesforce Logo' />
-                            <img src={BigcommerceLogo} alt='Commercetools Logo' />
-                            <img src={CommercetoolsLogo} alt='Bigcommerce Logo' />
-                            <img src={AdobeLogo} alt='Adobe Logo' className='adobe' />
+                            data-aos-duration='1000' data-aos='fade-in'>
+                            <img src={ShopifyLogo} alt='Shopify Logo'/>
+                            <img src={SalesForceLogo} alt='Salesforce Logo'/>
+                            <img src={BigcommerceLogo} alt='Commercetools Logo'/>
+                            <img src={CommercetoolsLogo} alt='Bigcommerce Logo'/>
+                            <img src={AdobeLogo} alt='Adobe Logo' className='adobe'/>
+                        </div>
+                        <div className='marquee__group'
+                            data-aos-duration='1000' data-aos='fade-in'>
+                            <img src={ShopifyLogo} alt='Shopify Logo'/>
+                            <img src={SalesForceLogo} alt='Salesforce Logo'/>
+                            <img src={BigcommerceLogo} alt='Commercetools Logo'/>
+                            <img src={CommercetoolsLogo} alt='Bigcommerce Logo'/>
+                            <img src={AdobeLogo} alt='Adobe Logo' className='adobe'/>
                         </div>
                     </div>
                 </Column>
+                <Footer />
             </RetailerLayout>
         </>
     );
