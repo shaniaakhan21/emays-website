@@ -2,22 +2,29 @@
 
 .section-main{
     background-color: #231f20;
-    padding: 7% 18% 0% 18%;
+    max-width: 1280px;
     font-family: 'Montserrat';
+    margin: 8rem 1rem 0;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
 
-    @media (max-width: 1050px) {
-        padding: 0;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        margin: 1rem 0;
     }
 
     .CO2-neutral-img{
         text-align: end;
         align-self: center;
-        @media screen and (max-width: 575px) {
+        margin: 0;
+
+        @media screen and (max-width: 768px) {
             margin: 0;
             display: none;
         }
         img{
-            @media screen and (max-width: 575px) {
+            @media screen and (max-width: 768px) {
                width: 100%;
             }
         }
@@ -25,24 +32,30 @@
 
     .para-text-two{
         align-self: center;
-        margin-left: 14%;
-        @media screen and (max-width: 575px) {
+        flex: 1;
+        align-items: flex-end;
+        display: flex;
+        flex-direction: column;
+
+        @media screen and (max-width: 768px) {
             margin: 14px;
         }
 
         @media screen and (max-width: 640px) {
             margin:7%;
         }
-        
 
-        h1{
+
+        h1 {
             color: #fff;
             text-align: end;
             font-family: 'Montserrat';
             font-style: normal;
             font-weight: 400;
             font-size: 52px;
-            @media screen and (max-width: 575px) {
+            margin-bottom: 1rem;
+
+            @media screen and (max-width: 768px) {
                 text-align: end;
             }
 
@@ -58,7 +71,7 @@
             font-weight: 400;
             font-size: 20px;
 
-            @media screen and (max-width: 575px) {
+            @media screen and (max-width: 768px) {
                 text-align: end;
                 margin-top: 3%;
             }
@@ -78,12 +91,12 @@
                 width: 100%;
             }
 
-            
+
             @media screen and (max-width: 675px) {
                 width: 70%;
             }
 
-            @media screen and (max-width: 575px) {
+            @media screen and (max-width: 768px) {
                 display: none;
             }
         }
@@ -95,7 +108,7 @@
 
     .phone-mountain-img{
         display: none;
-        @media screen and (max-width: 575px) {
+        @media screen and (max-width: 768px) {
             display: block;
             margin: 5% 2% 0% 2%;
             img{

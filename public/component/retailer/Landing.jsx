@@ -17,18 +17,12 @@ import RetailerGraphic2 from '../../images/retailer-graphic-2.svg';
 import RetailerGraphic3 from '../../images/retailer-graphic-3.svg';
 import Chart from '../common/Chart';
 import React, { useEffect, useRef } from 'react';
-import IntegrationVideo from '../../videos/emays_animation_combined.webm';
-import IntegrationVideo2 from '../../videos/emays_animation_combined.webm';
-import IntegrationVideo3 from '../../videos/emays_animation_combined.webm';
-import VideoLooper from 'react-video-looper';
+import IntegrationVideo from '../../videos/emays_animation_1.mp4';
+import IntegrationVideo2 from '../../videos/emays_animation_2.mp4';
+import IntegrationVideo3 from '../../videos/emays_animation_3.mp4';
+import CountUp from 'react-countup';
 
-VideoLooper.prototype.onLoadedVideo = function () {
-    this.video.pause();
-    this.video.currentTime = this.props.start;
-    // eslint-disable-next-line no-unused-expressions
-    this.props.autoPlay && this.togglePlayback();
-    this.video.playbackRate = this.props.speed || 1;
-};
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const RetailerLanding = () => {
     const animationRef = useRef(null);
@@ -37,21 +31,39 @@ const RetailerLanding = () => {
 
     const t = (key) => translate(`retailer.landing.${key}`);
 
-    useEffect(() => {
-        const timerRef = setInterval(() => {
-            const found = /\s?f-(\d+)\s?/.exec(animationRef.current.className);
-            const cur = parseInt(found[1]);
-            let next = cur + 1;
-            if (cur === 12) {
-                next = 1;
-            }
-            animationRef.current.classList.remove(`f-${cur}`);
-            animationRef.current.classList.add(`f-${next}`);
-        }, 800);
+    const switchSlide = async () => {
+        const found = /\s?f-(\d+)\s?/.exec(animationRef.current.className);
+        const cur = parseInt(found[1]);
+        let next = cur + 1;
+        if (cur === 12) {
+            next = 1;
+        }
+        animationRef.current.classList.remove(`f-${cur}`);
+        animationRef.current.classList.add(`f-${next}`);
 
-        return () => {
-            clearInterval(timerRef);
-        };
+        animationRef.current.classList.add('show');
+        // Wait to show
+        await wait(400);
+        // Wait to visible
+        await wait(500);
+        // Check if need scrolling
+        if ([6].indexOf(next) > -1) {
+            animationRef.current.classList.add('scroll');
+            // Wait to scroll
+            await wait(800);
+            // Wait to view
+            await wait(400);
+        }
+        // Hide
+        animationRef.current.classList.remove('show');
+        // Wait to hide
+        await wait(400);
+
+        switchSlide();
+    };
+
+    useEffect(() => {
+        switchSlide();
     }, []);
 
     return (
@@ -95,7 +107,7 @@ const RetailerLanding = () => {
                     <div className='white_box'>
                         <h1 className='title'>Benefits</h1>
                         <Grid>
-                            <Column lg={8} md={5} sm={4} xs={4} className='left'>
+                            <Column lg={8} md={4} sm={4} xs={4} className='left'>
                                 <div className='info-box'>
                                     <h2>Maximise and increase sales</h2>
                                     <p>Personalised luxury experience for customers,
@@ -119,16 +131,11 @@ const RetailerLanding = () => {
                                     </ul>
                                 </div>
                             </Column>
-                            <Column lg={8} md={3} sm={4} xs={4} className='right'>
+                            <Column lg={8} md={4} sm={4} xs={4} className='right'>
                                 <div>
-                                    <VideoLooper muted autoPlay source={IntegrationVideo2} start={6.5} end={15}
-                                        width='1px'
-                                        height='1px'
-                                    />
-                                    <VideoLooper muted autoPlay source={IntegrationVideo} start={1.1} end={6.3}
-                                        width='300px'
-                                        height='300px'
-                                    />
+                                    <video style={{ filter: 'invert(1)' }} width='300' height='300' loop autoPlay muted>
+                                        <source src={IntegrationVideo} type='video/mp4'/>
+                                    </video>
                                 </div>
                             </Column>
                         </Grid>
@@ -139,16 +146,20 @@ const RetailerLanding = () => {
                     <div className='black_box'>
                         <h1 className='title'>Seamless integration</h1>
                         <Grid>
-                            <Column lg={8} md={3} sm={4} xs={4} className='right xs-hidden'>
-                                <VideoLooper muted autoPlay source={IntegrationVideo2} start={6.5} end={15}
-                                    width='300px'
-                                    height='300px'
-                                />
-                                <VideoLooper muted autoPlay source={IntegrationVideo3} start={15.5} end={20}
-                                    width='300px' height='120px'
-                                />
+                            <Column lg={8} md={4} sm={4} xs={4} className='right xs-hidden'>
+                                <video style={{ filter: 'saturate(3.5) hue-rotate(410deg) contrast(75%)' }} width='300'
+                                    height='300' loop autoPlay muted>
+                                    <source src={IntegrationVideo2} type='video/mp4'/>
+                                </video>
+                                <video style={{
+                                    filter: 'saturate(3.5) hue-rotate(410deg) contrast(75%)',
+                                    objectFit: 'cover'
+                                }} width='300'
+                                height='120' loop autoPlay muted>
+                                    <source src={IntegrationVideo3} type='video/mp4'/>
+                                </video>
                             </Column>
-                            <Column lg={8} md={5} sm={4} xs={4} className='left'>
+                            <Column lg={8} md={4} sm={4} xs={4} className='left'>
                                 <div className='info-box'>
                                     <h2>E-commerce</h2>
                                     <p>Emays connects with all primary E-commerce platforms and a simple API for
@@ -157,14 +168,10 @@ const RetailerLanding = () => {
                                         the check out</p>
                                 </div>
                                 <div className='info-image xs-only'>
-                                    <VideoLooper muted autoPlay source={IntegrationVideo2} start={6.5} end={15}
-                                        width='1px'
-                                        height='1px'
-                                    />
-                                    <VideoLooper muted autoPlay source={IntegrationVideo2} start={6.5} end={15}
-                                        width='300px'
-                                        height='300px'
-                                    />
+                                    <video style={{ filter: 'saturate(3.5) hue-rotate(410deg) contrast(75%)' }}
+                                        width='300' height='300' loop autoPlay muted>
+                                        <source src={IntegrationVideo2} type='video/mp4'/>
+                                    </video>
                                 </div>
                                 <div className='info-box'>
                                     <h2>In- Store</h2>
@@ -179,12 +186,13 @@ const RetailerLanding = () => {
                                         customer experience easy to use</p>
                                 </div>
                                 <div className='info-image xs-only'>
-                                    <VideoLooper muted autoPlay source={IntegrationVideo3} start={15.5} end={20}
-                                        width='1px' height='1px'
-                                    />
-                                    <VideoLooper muted autoPlay source={IntegrationVideo3} start={15.5} end={20}
-                                        width='300px' height='120px'
-                                    />
+                                    <video style={{
+                                        filter: 'saturate(3.5) hue-rotate(410deg) contrast(75%)',
+                                        objectFit: 'cover'
+                                    }}
+                                    width='300' height='120' loop autoPlay muted>
+                                        <source src={IntegrationVideo2} type='video/mp4'/>
+                                    </video>
                                 </div>
                             </Column>
                         </Grid>
@@ -215,7 +223,9 @@ const RetailerLanding = () => {
                                 className='item'>
 
                                 <p>{t(`data.${idx}.title`)}</p>
-                                <p>{t(`data.${idx}.value`)}</p>
+                                <p>{['+', '', '-', ''][idx]}<CountUp end={[45, 3, 45, 100][idx]} enableScrollSpy
+                                    scrollSpyDelay={500}/>{['%', '', '%', '%'][idx]}
+                                </p>
 
                             </div>))}
                         </div>

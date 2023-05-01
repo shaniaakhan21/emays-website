@@ -93,15 +93,15 @@
         margin: 3% 12% 8%;
 
         @media screen and (max-width: 1200px) {
-            margin: 10% 22%;
+            margin: 1% 22%;
         }
 
         @media screen and (max-width: 890px) {
-            margin: 10% 16%;
+            margin: 1% 16%;
         }
 
         @media screen and (max-width: 768px) {
-            margin: 17% 6% 6% 6%;
+            margin: 1% 6%;
         }
         @media screen and (max-width: 480px) {
             margin: 0% 3% 8%;
@@ -132,11 +132,9 @@
     }
 
     .head-section-2 {
-        margin: 3% 28% 8% 28%;
-
-        @media screen and (max-width: 1200px) {
-            margin: 10% 22%;
-        }
+        margin: 3rem auto 5rem;
+        max-width: 800px;
+        width: 100%;
 
         @media screen and (max-width: 890px) {
             margin: 10% 16%;

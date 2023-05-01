@@ -1,41 +1,51 @@
 @import '../../fonts';
 
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .env-section{
-    position: relative;
-    top: 63px;
     grid-template-columns: none;
     font-family: 'Montserrat';
     padding: 0;
     background-image: url('../../../images/HomeCustomerSection/env-header.svg');
     background-repeat: no-repeat;
     background-size: cover;
-    margin-left: 0;
     max-width: 100%;
-    margin-right: 0;
+    margin: 4rem 0 0;
 
-    .overlay-bg{
-        padding: 7% 16%;
+    .overlay-container {
         background-color: #231f20b0;
         display: flex;
-        flex-direction: column;
-        @media screen and (max-width: 448px) {
-            
-        }
+        align-items: center;
+        justify-content: center;
+        min-height: 326px;
 
-        .subhead-section{
-            padding: 2% 24%;
+        .overlay-bg {
             display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            
-            @media screen and (max-width: 1200px) {
-                padding: 2% 17%;
+            flex-direction: column;
+            max-width: 1280px;
+            @media screen and (max-width: 448px) {
+
             }
 
-            @media screen and (max-width: 475px) {
-                padding: 2% 0%;
+            .subhead-section{
+                padding: 2% 24%;
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                flex-direction: row;
+                flex-wrap: nowrap;
+
+                @media screen and (max-width: 1200px) {
+                    padding: 2% 17%;
+                }
+
+                @media screen and (max-width: 475px) {
+                    padding: 2% 0%;
+                }
             }
         }
     }
@@ -63,19 +73,24 @@
             }
 
             @media screen and (max-width: 448px) {
-                font-size: 21px;
-                line-height: 22px;
+                font-size: 35px;
+                line-height: 32px;
             }
-    
+
 
         }
     }
 
     .env-icon{
 
-            img{                
+        @media screen and (max-width: 768px) {
+            margin-left: 10px;
+        }
+
+            img{
                 @media screen and (max-width: 768px) {
-                    width: 39%;
+                    width: 10vw;
+                    max-width: 60px;
                 }
             }
 
@@ -85,16 +100,18 @@
                 font-weight: 700;
                 font-size: 26px;
                 color: #FFFFFF;
+
                 @media screen and (max-width: 768px) {
-                    font-size: 13px;
+                    font-size: 25px;
+                    line-height: 25px;
                 }
             }
     }
 
-    .env-sub-heading{
+    .env-sub-heading {
         padding-right: 0;
 
-        h5{
+        h5 {
             font-family: 'Montserrat';
             font-style: normal;
             font-weight: 400;
@@ -103,22 +120,24 @@
             line-height: 21px;
 
             @media screen and (max-width: 768px) {
-                font-size: 13px;
-                line-height: 15px;
+                font-size: 20px;
+                line-height: 22px;
             }
         }
     }
 
 }
 
-.CO2-img{
-    margin:0;
+.CO2-img {
+    margin: 0;
+    width: 35%;
 }
 
 .carbon{
     margin: 0;
-    width: 48%;
-    @media screen and (max-width: 1200px) {
-        width: 50%;
+    width: 50%;
+    @media screen and (max-width: 768px) {
+        width: 65%;
+        padding-left: 10px;
     }
 }

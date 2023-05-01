@@ -3,6 +3,12 @@
 .retailer-main {
   background: #231F20;
   font-family: 'Montserrat';
+
+  &:not(.landing) {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0;
+  }
 }
 
 .bg {
