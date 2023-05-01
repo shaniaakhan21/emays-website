@@ -20,7 +20,29 @@
       "submit": "SUBMIT"
     },
     "faq": {
-      "title": "Frequently Asked Questions"
+      "title": "Frequently Asked Questions",
+      "data": [
+        {
+          "title": "Who will deliver my pieces?",
+          "description": "We deliver your pieces with a member of our experience style concierge. All of our style concierges are trained aside with each of our brand partners to insure you receive the fullest luxury experience, comfortably and stress free."
+        },
+        {
+          "title": "How long do I have to try my pieces?",
+          "description": "Your stylist will arrive within your chosen one-hour window from then you will have 40 minutes to try and make a decision. Don’t worry, 40 minutes is a comfortable amount of time as on average 14 minutes is usually spent in a fitting room."
+        },
+        {
+          "title": "Does the Style Concierge come into my home?",
+          "description": "Depending on which option you choose, ‘we wait you try’ or ‘assist me’. We wait you try: Your stylist will deliver your pieces, you will then have 40 minutes to try. When you have chosen the pieces you would like to keep, just simply pay and we take back the unsold items for you. Assist me: Your stylist will unpack your pieces and help you throught out your appointment with any styling advice and any tailoring if needed."
+        },
+        {
+          "title": "Is there any obligation to buy?",
+          "description": "Simply no. Emays helps you to find pieces you love, while making it easier to return the pieces you don’t — saving you time and effort. We want to make you feel confident and comfortable in your choices, without any pressure to buy."
+        },
+        {
+          "title": "How can I modify my appointment?",
+          "description": "Please contact Emays customer service team by emailing info@emaysstyle.com."
+        }
+      ]
     },
     "payment-form": {
       "title": "Payment Method",
@@ -163,7 +185,7 @@
     }
   },
   "environment-header": {
-    "env-header-h1": "FASHION SHOULDN’T COST THE EARTH",
+    "env-header-h1": "“FASHION SHOULDN’T COST THE EARTH”",
     "env-header-h5": "CO2 Neutral",
     "env-header-h5-subhead": "Carbon footprint is considered with every step of our service."
   },
@@ -312,8 +334,8 @@
           "description": "EMAYS booking modal automatically appears at checkout inside the brand website - for customers in our coverage areas."
         },
         {
-          "title": "Ecommerce",
-          "description": "EMAYS booking modal automatically appears at checkout inside the brand website - for customers in our coverage areas."
+          "title": "In- Store",
+          "description": "An easy to use web interface to book Emays deliveries and services that can be installed using in store devices such as phones and computers"
         }
       ]
     },

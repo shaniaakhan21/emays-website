@@ -7,8 +7,8 @@
     @media (max-width: 1050px) {
         padding: 0!important;
     }
+
     .img-position{
-        margin-left: -4%!important;
         h1{
             font-size: 35px;
             text-align: start;
@@ -17,11 +17,7 @@
             margin: 0 7%!important;
         }
         img{
-            position: relative;
-            top: 70px;
-            @media (max-width: 920px) {
-                width: 27%;
-            }
+
         }
 
         .margin-left-21{
@@ -58,7 +54,7 @@
     }
 
     .Img-Position{
-        margin: 4%;
+        margin: 1rem;
 
         @media (max-width: 920px) {
             margin: 10% 8% 0 8%;

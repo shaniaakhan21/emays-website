@@ -8,6 +8,11 @@ $carbon-md-max: 64em;   // 1024px
     margin-top: -330px;
     padding-bottom: 330px;
 
+    @media screen and (max-width: $carbon-xs-max) {
+        margin-top: 0;
+        padding-bottom: 0;
+    }
+
     &.last {
         margin-top: -550px;
 

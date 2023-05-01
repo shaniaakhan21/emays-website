@@ -4,13 +4,39 @@ $carbon-xs-max: 31.25em; // 500px
 $carbon-sm-max: 42.5em; // 680px
 $carbon-md-max: 64em;   // 1024px
 
-//@keyframes slide {
+@keyframes slide {
+  0% {
+    background-position: 0px 0px;
+    opacity: 1;
+  }
+  15%, 85% {
+    opacity: 1;
+  }
+  70% {
+    background-position: 0px 100%;
+  }
+  100% {
+    background-position: 0px 100%;
+    opacity: 0;
+  }
+}
+
+//@keyframes fade-in {
 //  0% {
-//    background-position: 0px 0px;
+//    opacity: 0;
 //  }
 //  100% {
-//    background-position: 0px -320px;
+//    opacity: 1;
 //  }
+//}
+//
+//@keyframes fade-out {
+//    0% {
+//        opacity: 1;
+//    }
+//    100% {
+//        opacity: 0;
+//    }
 //}
 
 .landing {
@@ -56,74 +82,98 @@ $carbon-md-max: 64em;   // 1024px
     padding-top: 250px;
 
     > .animation-graphic-1 {
-      background-image: url('../../../images/ANIMATION HEADER.png');
+      opacity: 0;
       background-repeat: no-repeat;
       background-size: cover;
       position: absolute;
-      right: 18vw;
+      right: 17.6vw;
       width: 11.2vw;
       transform: rotate3d(1,1,1,-1deg);
       top: 12vw;
       height: 23vw;
-      background-position: calc(((100% + (-1 * 12.5vw)) / 12) * var(--n)) 0px;
+      transition: 0.4s opacity ease-in-out;
+      //background-position: calc(((100% + (-1 * 12.5vw)) / 12) * var(--n)) 0px;
       //animation: slide 30s linear infinite;
 
+      &.show {
+        opacity: 1;
+      }
+
+      &.hide {
+        opacity: 0;
+      }
+
+      &.scroll {
+        animation: slide 800ms ease-in-out 1;
+      }
+
       &.f-1 {
+        background-image: url('../../../images/loop/1.png');
         --n: 0;
       }
 
       &.f-2 {
+        background-image: url('../../../images/loop/2.png');
         --n: 1;
       }
 
       &.f-3 {
+        background-image: url('../../../images/loop/3.png');
         --n: 2;
       }
 
       &.f-4 {
+        background-image: url('../../../images/loop/4.png');
         --n: 3;
       }
 
       &.f-5 {
+        background-image: url('../../../images/loop/5.png');
         --n: 4;
       }
 
       &.f-6 {
+        background-image: url('../../../images/loop/6.png');
         --n: 5;
       }
 
       &.f-7 {
+        background-image: url('../../../images/loop/7.png');
         --n: 6;
       }
 
       &.f-8 {
+        background-image: url('../../../images/loop/8.png');
         --n: 7;
       }
 
       &.f-9 {
+        background-image: url('../../../images/loop/9.png');
         --n: 8;
       }
 
       &.f-10 {
+        background-image: url('../../../images/loop/10.png');
         --n: 9;
       }
 
       &.f-11 {
+        background-image: url('../../../images/loop/11.png');
         --n: 10;
       }
 
       &.f-12 {
+        background-image: url('../../../images/loop/12.png');
         --n: 11;
       }
 
       @media screen and (max-width: $carbon-md-max) {
-        right: 40.5vw;
-        width: 23.5vw;
+        right: 20.3vw;
+        width: 23vw;
         transform: rotate3d(1,1,1,-1deg);
         bottom: 44.5vw;
         height: 43vw;
         top: auto;
-        background-position: calc(((100% + (-1 * 24.5vw)) / 12) * var(--n)) 0px;
       }
 
       @media screen and (max-width: $carbon-xs-max) {
@@ -138,7 +188,7 @@ $carbon-md-max: 64em;   // 1024px
       background-image: url('../../../images/4611cf073d397ea3b0b57069279bf588.png');
       min-height: 1115px;
       background-repeat: no-repeat;
-      background-position: bottom 40px center;
+      background-position: bottom 40px left -9.5vw;
       background-size: 160vw;
       overflow: hidden;
       position: relative;
@@ -198,7 +248,11 @@ $carbon-md-max: 64em;   // 1024px
   .chart {
     position: relative;
     margin: 0;
-    padding-bottom: 300px;
+    padding-bottom: 200px;
+
+    @media screen and (max-width: $carbon-md-max) {
+      padding-bottom: 150px;
+    }
 
     @media screen and (max-width: $carbon-xs-max) {
       padding-bottom: 100px;
@@ -282,6 +336,10 @@ $carbon-md-max: 64em;   // 1024px
     }
   }
 
+  .chart {
+    padding-bottom: 100px;
+  }
+
   .integration2 .black_box .info-box h2 {
     text-transform: inherit;
   }
@@ -363,6 +421,7 @@ $carbon-md-max: 64em;   // 1024px
       @media (max-width: 500px) {
         max-width: 100%;
         width: 100%;
+        min-width: 100%;
       }
     }
   }
