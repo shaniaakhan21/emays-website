@@ -5,20 +5,24 @@ import Environment from './Environment';
 import Services from './Services';
 import RetailerLetsTalk from '../retailer/LetsTalk';
 import RetailerFAQs from '../retailer/FAQs';
+import Footer from '../common/Footer';
+import { useEffect } from 'react';
 
 const CustomerHome = ({
     withoutNav,
     ...props
 }) => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <>
             {!withoutNav && <Nav refs={props.refs} />}
             <HomeSection />
             <ShopWithUs />
-            {/* <Environment /> */}
-            {/* /!* <Services /> *!/ */}
-            {/* <RetailerLetsTalk /> */}
-            {/* <RetailerFAQs /> */}
+            <Footer />
         </>
     );
 };

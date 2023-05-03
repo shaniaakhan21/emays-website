@@ -28,15 +28,15 @@ const Nav = () => {
             <Header aria-label='EMAY'>
                 <HeaderName href={isRetailer ? '/#/retailer' : '/#/'} prefix='' className='header-name'>
                     <img src={LOGO} alt='EMAYS' style={{ marginRight: '1rem' }} />
+                    <Toggle
+                        aria-label='Retailer toggle'
+                        id='retailer-toggle'
+                        labelText={isRetailer ? t('nav.toggle-label.retailer') : t('nav.toggle-label.customer')}
+                        toggled={isRetailer}
+                        onToggle={handleToggleChange}
+                        className='retailer-toggle'
+                    />
                 </HeaderName>
-                <Toggle
-                    aria-label='Retailer toggle'
-                    id='retailer-toggle'
-                    labelText={isRetailer ? t('nav.toggle-label.retailer') : t('nav.toggle-label.customer')}
-                    toggled={isRetailer}
-                    onToggle={handleToggleChange}
-                    className='retailer-toggle'
-                />
                 <img src={ICON} alt='Nav icon' className='nav-icon' onClick={handleMenuClick}/>
                 <HeaderNavigation aria-label='Your Company' className={showMenu ? 'show-menu' : ''}>
                     {isRetailer ? <>

@@ -1,5 +1,9 @@
 @import '../../fonts';
 
+$carbon-xs-max: 31.25em; // 500px
+$carbon-sm-max: 42.5em; // 680px
+$carbon-md-max: 64em;   // 1024px
+
 .cds--wrapper {
   background-color: #231F20;
   height: 4rem;
@@ -54,7 +58,13 @@
   }
 
   .cds--header__menu-bar li:last-child .cds--header__menu-item {
-    padding-bottom: 2rem;
+    @media screen and (max-width: $carbon-sm-max) {
+      padding-bottom: 2rem;
+    }
+  }
+
+  .cds--toggle {
+    margin-left: 3rem;
   }
 
   .cds--header__navigation {

@@ -15,6 +15,7 @@ $carbon-md-max: 64em;   // 1024px
 
     &.last {
         margin-top: -550px;
+        padding-bottom: 30px;
 
         @media screen and (max-width: $carbon-xs-max) {
             margin-top: 10px;
@@ -454,6 +455,20 @@ button {
 
 
 .co2 {
+
+    button {
+        border: none !important;
+        box-shadow: none !important;
+        background-color: #393939;
+        color: #FFFFFF;
+        margin-top: 48px;
+        width: 100%;
+        max-width: 100%;
+
+        &:active {
+            background-color: #393939 !important;
+        }
+    }
 
     .icon.xs {
         display: none;

@@ -24,6 +24,7 @@ import Image61 from '../../images/6_1.png';
 import '../../scss/component/customer/shopwithus.scss';
 import { Column, Button, Grid } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
+import ButtonCustom from '../common/ButtonCustom';
 
 const icons = {
     1: LocationHeart,
@@ -45,21 +46,21 @@ const ShopWithUs = () => {
                 <ShopHeader/>
                 <Grid className='section-box item-set'>
                     <Column lg={8} md={4} sm={4} className='image-box'>
-                        <img src={Image5} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'/>
-                        <img src={Image6} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'/>
+                        <img src={Image5} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
+                        <img src={Image6} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
                     </Column>
                     <Column lg={8} md={4} sm={4}>
-                        {[1, 2, 3].map(i => (<div className='info-box'>
+                        {[1, 2, 3].map(i => (<div className={`info-box info-box-${i}`}>
                             <h3 className='number' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t(`shop-with-us.info-box.${i}.no`)}</h3>
+                                data-aos-duration='800'>{t(`shop-with-us.info-box.${i}.no`)}</h3>
                             <h1 className='title' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t(`shop-with-us.info-box.${i}.title`)}</h1>
-                            <div className='icon' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
+                                data-aos-duration='800'>{t(`shop-with-us.info-box.${i}.title`)}</h1>
+                            <div className='icon' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'>
                                 <img src={icons[i]}/>
                                 <h4 className='title'>{t(`shop-with-us.info-box.${i}.icon-text`)}</h4>
                             </div>
                             <p className='description' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t(`shop-with-us.info-box.${i}.description`)}</p>
+                                data-aos-duration='800'>{t(`shop-with-us.info-box.${i}.description`)}</p>
                         </div>))}
                     </Column>
                 </Grid>
@@ -70,15 +71,15 @@ const ShopWithUs = () => {
                     <Column lg={8} md={4} sm={4} className='center-text'>
                         <div className='info-box'>
                             <h3 className='number' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t('shop-with-us.info-box.4.no')}</h3>
+                                data-aos-duration='800'>{t('shop-with-us.info-box.4.no')}</h3>
                             <h1 className='title' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t('shop-with-us.info-box.4.title')}</h1>
-                            <div className='icon' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
+                                data-aos-duration='800'>{t('shop-with-us.info-box.4.title')}</h1>
+                            <div className='icon' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'>
                                 <img src={Home}/>
                                 <h4 className='title'>{t('shop-with-us.info-box.4.icon-text')}</h4>
                             </div>
                             <p className='description' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t('shop-with-us.info-box.4.description')}</p>
+                                data-aos-duration='800'>{t('shop-with-us.info-box.4.description')}</p>
                         </div>
                     </Column>
                     <Column lg={8} md={4} sm={4} className='image-box solo'>
@@ -87,28 +88,28 @@ const ShopWithUs = () => {
                 </Grid>
                 <Grid className='section-box item-set black'>
                     <Column lg={8} md={4} sm={4} className='image-box solo'>
-                        <img src={Image32} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'/>
+                        <img src={Image32} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
                     </Column>
                     <Column lg={8} md={4} sm={4} className='center-text'>
                         <div className='info-box'>
-                            <div className='icon' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
+                            <div className='icon' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'>
                                 <img src={Time}/>
                                 <h4 className='title'>{t('shop-with-us.info-box.4_1.icon-text')}</h4>
                             </div>
                             <p className='description' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t('shop-with-us.info-box.4_1.description')}</p>
+                                data-aos-duration='800'>{t('shop-with-us.info-box.4_1.description')}</p>
                         </div>
                     </Column>
                 </Grid>
                 <Grid className='section-box item-set black reverse'>
                     <Column lg={8} md={4} sm={4} className='center-text'>
                         <div className='info-box'>
-                            <div className='icon' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
+                            <div className='icon' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'>
                                 <img src={HelpDesk}/>
                                 <h4 className='title'>{t('shop-with-us.info-box.4_2.icon-text')}</h4>
                             </div>
                             <p className='description' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t('shop-with-us.info-box.4_2.description')}</p>
+                                data-aos-duration='800'>{t('shop-with-us.info-box.4_2.description')}</p>
                         </div>
                     </Column>
                     <Column lg={8} md={4} sm={4} className='image-box solo'>
@@ -125,15 +126,15 @@ const ShopWithUs = () => {
                     <Column lg={8} md={4} sm={4} className='center-text'>
                         <div className='info-box'>
                             <h3 className='number' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t('shop-with-us.info-box.5.no')}</h3>
+                                data-aos-duration='800'>{t('shop-with-us.info-box.5.no')}</h3>
                             <h1 className='title' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t('shop-with-us.info-box.5.title')}</h1>
-                            <div className='icon' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
+                                data-aos-duration='800'>{t('shop-with-us.info-box.5.title')}</h1>
+                            <div className='icon' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'>
                                 <img src={Purchase}/>
                                 <h4 className='title'>{t('shop-with-us.info-box.5.icon-text')}</h4>
                             </div>
                             <p className='description' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t('shop-with-us.info-box.5.description')}</p>
+                                data-aos-duration='800'>{t('shop-with-us.info-box.5.description')}</p>
                         </div>
                     </Column>
                 </Grid>
@@ -141,22 +142,25 @@ const ShopWithUs = () => {
                     <Column lg={8} md={4} sm={4} className='center-text'>
                         <div className='info-box'>
                             <h3 className='number' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t('shop-with-us.info-box.6.no')}</h3>
+                                data-aos-duration='800'>{t('shop-with-us.info-box.6.no')}</h3>
                             <h1 className='title' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t('shop-with-us.info-box.6.title')}</h1>
-                            <div className='icon' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
-                                <img src={Sprout} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'/>
+                                data-aos-duration='800'>{t('shop-with-us.info-box.6.title')}</h1>
+                            <div className='icon' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'>
+                                <img src={Sprout} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
                                 <h4 className='title'>{t('shop-with-us.info-box.6.icon-text')}</h4>
                             </div>
                             <p className='description' data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'>{t('shop-with-us.info-box.6.description')}</p>
+                                data-aos-duration='800'>{t('shop-with-us.info-box.6.description')}</p>
+                            <a href='https://onetreeplanted.org/'>
+                                <ButtonCustom action={() => {}} text={'Read More About this'} />
+                            </a>
                         </div>
                     </Column>
                     <Column lg={8} md={4} sm={4} className='image-box solo'>
-                        <img src={Image61} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'/>
-                        <div className='icon xs' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
+                        <img src={Image61} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
+                        <div className='icon xs' data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'>
                             <img src={SproutWhite} data-aos='fade-in' data-aos-easing='linear'
-                                data-aos-duration='1000'/>
+                                data-aos-duration='800'/>
                             <h4 className='title'>{t('shop-with-us.info-box.6.icon-text-short')}</h4>
                         </div>
                     </Column>
