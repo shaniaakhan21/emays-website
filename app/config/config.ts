@@ -24,9 +24,6 @@ const {
     RETAILER_EMAIL_TEMPLATE,
     SERVICE_CHARGE,
     ERROR_TEMPLATE,
-    SUMUP_API_URL,
-    SUMUP_SECRET_KEY,
-    SUMUP_MERCHANT_CODE,
     MONGO_URL,
     CUSTOMER_EMAIL_REMINDER_ON_DEL_DAY_BEFORE_DRIVER_PICK,
     CUSTOMER_EMAIL_REMINDER_SECOND,
@@ -96,7 +93,7 @@ export const config = {
             FACEBOOK_LINK: 'https://facebook.com',
             TWITTER_LINK: 'https://twitter.com',
             INSTAGRAM_LINK: 'https://instagram.com',
-            EMAYS_CONTACT_US: 'https://emays.com/contact-us',
+            EMAYS_CONTACT_US: 'mailto:thathsararaviraj@gmail.com?subject=Contact%20Emays',
             EMAIL_REDIRECTION_PATH: 'http://localhost:8080/api-dev/launchMail'
         }
     },
