@@ -65,7 +65,7 @@ $carbon-md-max: 64em;   // 1024px
     transform-origin: 0;
 
     &.black {
-      background: #231f20;
+      background: #000000;
 
       @media screen and (max-width: $carbon-xs-max) {
         display: none;
@@ -86,7 +86,7 @@ $carbon-md-max: 64em;   // 1024px
       background-repeat: no-repeat;
       background-size: cover;
       position: absolute;
-      right: 17.6vw;
+      right: 18.6vw;
       width: 11.2vw;
       transform: rotate3d(1,1,1,-1deg);
       top: 12vw;
@@ -240,7 +240,7 @@ $carbon-md-max: 64em;   // 1024px
   }
 
   .integration2 {
-    background-color: #231f20;
+    background-color: #000000;
   }
 
   .benefits,

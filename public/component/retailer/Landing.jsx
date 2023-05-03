@@ -64,6 +64,7 @@ const RetailerLanding = () => {
 
     useEffect(() => {
         switchSlide();
+        window.scrollTo(0, 0);
     }, []);
 
     return (
@@ -147,12 +148,11 @@ const RetailerLanding = () => {
                         <h1 className='title'>Seamless integration</h1>
                         <Grid>
                             <Column lg={8} md={4} sm={4} xs={4} className='right xs-hidden'>
-                                <video style={{ filter: 'saturate(3.5) hue-rotate(410deg) contrast(75%)' }} width='300'
+                                <video width='300'
                                     height='300' loop autoPlay muted>
                                     <source src={IntegrationVideo2} type='video/mp4'/>
                                 </video>
                                 <video style={{
-                                    filter: 'saturate(3.5) hue-rotate(410deg) contrast(75%)',
                                     objectFit: 'cover'
                                 }} width='300'
                                 height='120' loop autoPlay muted>
@@ -168,7 +168,7 @@ const RetailerLanding = () => {
                                         the check out</p>
                                 </div>
                                 <div className='info-image xs-only'>
-                                    <video style={{ filter: 'saturate(3.5) hue-rotate(410deg) contrast(75%)' }}
+                                    <video
                                         width='300' height='300' loop autoPlay muted>
                                         <source src={IntegrationVideo2} type='video/mp4'/>
                                     </video>
@@ -187,7 +187,6 @@ const RetailerLanding = () => {
                                 </div>
                                 <div className='info-image xs-only'>
                                     <video style={{
-                                        filter: 'saturate(3.5) hue-rotate(410deg) contrast(75%)',
                                         objectFit: 'cover'
                                     }}
                                     width='300' height='120' loop autoPlay muted>
@@ -226,7 +225,6 @@ const RetailerLanding = () => {
                                 <p>{['+', '', '-', ''][idx]}<CountUp end={[45, 3, 45, 100][idx]} enableScrollSpy
                                     scrollSpyDelay={500}/>{['%', '', '%', '%'][idx]}
                                 </p>
-
                             </div>))}
                         </div>
                     </div>
