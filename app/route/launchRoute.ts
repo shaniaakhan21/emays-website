@@ -28,6 +28,7 @@ import ErrorType from '../const/errorType';
 import { ORDER_NOT_ACTIVE } from '../const/errorMessage';
 import { HTTPUserError } from '../const/httpCode';
 import * as OrderService from '../service/orderService';
+import { prepareUserPayload } from '../api/userAPI';
 
 const router = express.Router();
 
@@ -63,22 +64,7 @@ router.get(RoutePath.LAUNCH_MAIL, allowedForClientRoleOnly, (
         const cleanedOrder = stringifyOrder.replace(/\\/g, '');
 
         // Prepare user data
-        const launchTemplateDataUser: IUser = {
-            email: order.email as string,
-            firstName: order.firstName as string,
-            lastName: order.lastName as string,
-            phoneNumber: order.phoneNumber as string,
-            retailerEmail: order.email as string,
-            date: order.date as Date,
-            uid: order.uid as string,
-            startTime: order.startTime as string,
-            endTime: order.endTime as string,
-            timeZone: order.timeZone as string,
-            experience: order.experience as string,
-            address: order.address as UserAddress,
-            deliveryInfo: order.deliveryInfo,
-            serviceFee: order.serviceFee
-        };
+        const launchTemplateDataUser: IUser = prepareUserPayload(order);
         const stringifyUser = JSON.stringify(launchTemplateDataUser);
         const cleanedUser = stringifyUser.replace(/\\/g, '');
 
@@ -120,6 +106,7 @@ router.get(RoutePath.LAUNCH_MAIL, allowedForClientRoleOnly, (
         }).catch(err => next(error));
     });
 });
+
 /**
  * To access the dev world, this route will provide you a HTML form
  */
@@ -204,6 +191,9 @@ router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Re
     });
 });
 
+/**
+ * Add items to user order
+ */
 router.post(RoutePath.LAUNCH_ADD, (req: express.Request,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
@@ -215,8 +205,11 @@ router.post(RoutePath.LAUNCH_ADD, (req: express.Request,
 
         let order = await OrderService.retrieveOrderDetailsByUserId(uid);
 
-        if (!order) {
-            throw new Error('Order not found');
+        // If order is cancelled user should not be able to access the order
+        if (order.isCanceled) {
+            throw new ServiceError(
+                ErrorType.ORDER_RETRIEVAL_ERROR, ORDER_NOT_ACTIVE, '', HTTPUserError
+                    .UNPROCESSABLE_ENTITY_CODE);
         }
 
         order = await OrderService.patchOrderDetailsByUserId(uid, {
@@ -229,22 +222,7 @@ router.post(RoutePath.LAUNCH_ADD, (req: express.Request,
         const cleanedOrder = stringifyOrder.replace(/\\/g, '');
 
         // Prepare user data
-        const launchTemplateDataUser: IUser = {
-            email: order.email as string,
-            firstName: order.firstName as string,
-            lastName: order.lastName as string,
-            phoneNumber: order.phoneNumber as string,
-            retailerEmail: order.email as string,
-            date: order.date as Date,
-            uid: order.uid as string,
-            startTime: order.startTime as string,
-            endTime: order.endTime as string,
-            timeZone: order.timeZone as string,
-            experience: order.experience as string,
-            address: order.address as UserAddress,
-            deliveryInfo: order.deliveryInfo,
-            serviceFee: order.serviceFee
-        };
+        const launchTemplateDataUser: IUser = prepareUserPayload(order);
         const stringifyUser = JSON.stringify(launchTemplateDataUser);
         const cleanedUser = stringifyUser.replace(/\\/g, '');
 
@@ -277,6 +255,9 @@ router.post(RoutePath.LAUNCH_ADD, (req: express.Request,
     });
 });
 
+/**
+ * Update user order as a whole by going back to the shopping site and coming back 
+ */
 router.post(RoutePath.LAUNCH_UPDATE, (req: express.Request,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
@@ -286,17 +267,13 @@ router.post(RoutePath.LAUNCH_UPDATE, (req: express.Request,
 
         const sessionToken: string = getJWTForSession(uid);
 
-        // Build user UID
-        const onlyUidWithUserData = {
-            uid
-        };
-        const stringifyUserData = JSON.stringify(onlyUidWithUserData);
-        const cleanedUserData = stringifyUserData.replace(/\\/g, '');
-
         let order = await OrderService.retrieveOrderDetailsByUserId(uid);
 
-        if (!order) {
-            throw new Error('Order not found');
+        // If order is cancelled user should not be able to access the order
+        if (order.isCanceled) {
+            throw new ServiceError(
+                ErrorType.ORDER_RETRIEVAL_ERROR, ORDER_NOT_ACTIVE, '', HTTPUserError
+                    .UNPROCESSABLE_ENTITY_CODE);
         }
 
         order = await OrderService.patchOrderDetailsByUserId(uid, {
@@ -310,22 +287,7 @@ router.post(RoutePath.LAUNCH_UPDATE, (req: express.Request,
         const cleanedOrder = stringifyOrder.replace(/\\/g, '');
 
         // Prepare user data
-        const launchTemplateDataUser: IUser = {
-            email: order.email as string,
-            firstName: order.firstName as string,
-            lastName: order.lastName as string,
-            phoneNumber: order.phoneNumber as string,
-            retailerEmail: order.email as string,
-            date: order.date as Date,
-            uid: order.uid as string,
-            startTime: order.startTime as string,
-            endTime: order.endTime as string,
-            timeZone: order.timeZone as string,
-            experience: order.experience as string,
-            address: order.address as UserAddress,
-            deliveryInfo: order.deliveryInfo,
-            serviceFee: order.serviceFee
-        };
+        const launchTemplateDataUser: IUser = prepareUserPayload(order);
         const stringifyUser = JSON.stringify(launchTemplateDataUser);
         const cleanedUser = stringifyUser.replace(/\\/g, '');
 
