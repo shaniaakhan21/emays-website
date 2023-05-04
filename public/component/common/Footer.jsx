@@ -6,8 +6,13 @@ import TrustPilot from '../../icons/trustpilot.svg';
 import Instagram from '../../icons/logo--instagram.svg';
 import Facebook from '../../icons/logo--facebook.svg';
 import '../../scss/component/customer/footer.scss';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+    const [translate] = useTranslation();
+
+    const t = (key) => translate(`footer.${key}`);
+
     return (
         <Column lg={16} md={8} sm={4} xs={4} as='footer'>
             <Grid className='footer'>
@@ -16,33 +21,33 @@ const Footer = () => {
                 </Column>
                 <Column sm={8} md={6} lg={2}>
                     <div className='footer__links terms'>
-                        <Link href='#'>Terms &amp; Conditions</Link>
+                        <Link href='#'>{t('terms')}</Link>
                     </div>
                     <div className='footer__links'>
-                        <Link href='#'>Privacy Policy</Link>
+                        <Link href='#'>{t('privacy')}</Link>
                     </div>
                 </Column>
                 <Column sm={8} md={6} lg={2}>
                     <div className='footer__links contact'>
-                        <Link href='#'>Contact</Link>
+                        <Link href='#'>{t('contact')}</Link>
                     </div>
                     <div className='footer__links'>
-                        <span>© Emays 2023</span>
+                        <span>{t('copy')}</span>
                     </div>
                 </Column>
                 <Column sm={12} md={3} lg={8} className='footer__right'>
                     <div className='footer__social'>
                         <Link href='#'>
                             <img src={TrustPilot} alt='TrustPilot' />
-                            TrustPilot
+                            {t('trustpilot')}
                         </Link>
                         <Link href='#'>
                             <img src={Instagram} alt='Instagram' />
-                            Instagram
+                            {t('instagram')}
                         </Link>
                         <Link href='#'>
                             <img src={Facebook} alt='Facebook' />
-                            Facebook
+                            {t('facebook')}
                         </Link>
                     </div>
                 </Column>

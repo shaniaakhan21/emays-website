@@ -152,7 +152,7 @@ const ShopWithUs = () => {
                             <p className='description' data-aos='fade-in' data-aos-easing='linear'
                                 data-aos-duration='800'>{t('shop-with-us.info-box.6.description')}</p>
                             <a href='https://onetreeplanted.org/'>
-                                <ButtonCustom action={() => {}} text={'Read More About this'} />
+                                <ButtonCustom action={() => {}} text={t('shop-with-us.info-box.6.button')} />
                             </a>
                         </div>
                     </Column>
