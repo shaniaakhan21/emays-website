@@ -42,7 +42,7 @@ const HomeSection = () => {
                         </Button>
                         <a href='/#/letsTalk'>
                             <Button renderIcon={() => <img src={MailIcon} />} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='1100' className='shipping-section__button btn2'>
-                                <p>E-Mail us</p>
+                                <p>{t('home-section.col-1.btn-text')}</p>
                             </Button>
                         </a>
                     </div>
@@ -63,7 +63,7 @@ const HomeSection = () => {
                     {t('home-section.col-1.btn-text')}
                 </Button>
                 <Button renderIcon={() => <img src={MailIcon} />} className='shipping-section__button btn2 alignment'>
-                    <p>E-Mail us</p>
+                    <p>{t('home-section.col-1.btn2-text')}</p>
                 </Button>
             </Column>
         </Grid>

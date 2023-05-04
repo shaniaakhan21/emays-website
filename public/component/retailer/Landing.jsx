@@ -110,25 +110,21 @@ const RetailerLanding = () => {
                         <Grid>
                             <Column lg={8} md={4} sm={4} xs={4} className='left'>
                                 <div className='info-box'>
-                                    <h2>Maximise and increase sales</h2>
-                                    <p>Personalised luxury experience for customers,
-                                        assisted at every touch point of the shopping process
-                                        by expert advisors at their own comfort</p>
+                                    <h2>{t('info-box.0.title')}</h2>
+                                    <p>{t('info-box.0.description')}</p>
                                 </div>
                                 <div className='info-box'>
-                                    <h2>Full inventory control</h2>
-                                    <p>If unsold, the product will return and be
-                                        available in your store within 24 hours</p>
+                                    <h2>{t('info-box.1.title')}</h2>
+                                    <p>{t('info-box.1.description')}</p>
                                 </div>
                                 <div className='info-box'>
-                                    <h2>Converting new clients</h2>
-                                    <p>Our services aims to make shopping easier towards brands for new customers
-                                        to engage and overcome barriers such as:</p>
+                                    <h2>{t('info-box.2.title')}</h2>
+                                    <p>{t('info-box.2.description')}</p>
                                     <ul>
-                                        <li>Size issue</li>
-                                        <li>Pending refunds</li>
-                                        <li>Wrong fit</li>
-                                        <li>Hassle of returns</li>
+                                        <li>{t('info-box.2.list.0')}</li>
+                                        <li>{t('info-box.2.list.1')}</li>
+                                        <li>{t('info-box.2.list.2')}</li>
+                                        <li>{t('info-box.2.list.3')}</li>
                                     </ul>
                                 </div>
                             </Column>
@@ -161,11 +157,8 @@ const RetailerLanding = () => {
                             </Column>
                             <Column lg={8} md={4} sm={4} xs={4} className='left'>
                                 <div className='info-box'>
-                                    <h2>E-commerce</h2>
-                                    <p>Emays connects with all primary E-commerce platforms and a simple API for
-                                        anything more customized. Emays appears as a new delivery method, the client
-                                        will have the option to pick their delivery date, time, and Emays services at
-                                        the check out</p>
+                                    <h2>{t('info-box.3.title')}</h2>
+                                    <p>{t('info-box.3.description')}</p>
                                 </div>
                                 <div className='info-image xs-only'>
                                     <video
@@ -174,16 +167,12 @@ const RetailerLanding = () => {
                                     </video>
                                 </div>
                                 <div className='info-box'>
-                                    <h2>In- Store</h2>
-                                    <p>An easy to use web interface to book Emays deliveries and services that can
-                                        be installed using in store devices such as phones and computers</p>
+                                    <h2>{t('info-box.4.title')}</h2>
+                                    <p>{t('info-box.4.description')}</p>
                                 </div>
                                 <div className='info-box'>
-                                    <h2>RETAIL EXCELLENCE</h2>
-                                    <p>At Emays we believe that the customer experience always comes first.
-                                        Our integration has been built to give the feeling of your brand and
-                                        experience, just powered by Emays. Our aim is to create a pleasurable
-                                        customer experience easy to use</p>
+                                    <h2>{t('info-box.5.title')}</h2>
+                                    <p>{t('info-box.5.description')}</p>
                                 </div>
                                 <div className='info-image xs-only'>
                                     <video style={{
@@ -200,22 +189,19 @@ const RetailerLanding = () => {
                 <Column lg={16} md={8} sm={4} xs={4} className='chart'>
                     <div className='slanted_top'></div>
                     <div className='white_box'>
-                        <h1 className='title'>FROM PROVEN DATA STUDIES</h1>
+                        <h1 className='title'>{t('chart.title')}</h1>
                         <Grid>
                             <Column lg={10} md={5} sm={4} xs={4} className='left'>
                                 <Chart/>
                                 <Chart xs/>
                             </Column>
                             <Column lg={6} md={3} sm={4} xs={4} className='right'>
-                                <p>A global consumer survey conducted by Content Square (leader in digital experience
-                                    analytics) indicates that only 15% of respondents are satisfied with their online
-                                    shopping experience. In the last 6 months of 2022, data show increasing
-                                    customers problems with their packaging</p>
+                                <p>{t('chart.description')}</p>
                             </Column>
                         </Grid>
                         <div className='data'>
                             <div className='item'>
-                                <h1 className='head'>Benefits within a year</h1>
+                                <h1 className='head'>{t('data-title')}</h1>
                             </div>
                             {[0, 1, 2, 3].map((idx) => (<div
                                 key={idx}

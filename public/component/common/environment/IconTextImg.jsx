@@ -7,7 +7,7 @@ import {
 } from '@carbon/react';
 import '../../../scss/component/customer/icontextimg.scss';
 import CO2SVG from '../../../images/HomeCustomerSection/CO2.svg';
-import MountainIMG from '../../../images/HomeCustomerSection/mountain.svg';
+import MountainIMG from '../../../images/ice.png';
 import PhoneMountainIMG from '../../../images/first-img-xs.png';
 import { useTranslation } from 'react-i18next';
 

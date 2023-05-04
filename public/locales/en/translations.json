@@ -213,7 +213,8 @@
       "title-2": "NOW AT HOME",
       "subtitle-h2": "Brought to you, by Emays",
       "subtitle-h3": "Try what you want, pay only what you keep",
-      "btn-text": "See what we can do for you"
+      "btn-text": "See what we can do for you",
+      "btn2-text": "E-Mail us"
     }
   },
   "services": {
@@ -294,7 +295,8 @@
           "title": "Climate Conscious",
           "icon-text": "C02 Neutral",
           "icon-text-short": "Neutral",
-          "description": "We take the climate and the environment seriously and believe in sustainable fashion. That's why we consider the carbon footprint with every step of our service. Understanding the impact that the fashion industry can have on the environment, we're committed to doing our part to minimize it."
+          "description": "We take the climate and the environment seriously and believe in sustainable fashion. That's why we consider the carbon footprint with every step of our service. Understanding the impact that the fashion industry can have on the environment, we're committed to doing our part to minimize it.",
+          "button": "Read More About this"
       }
     }
   },
@@ -322,7 +324,44 @@
           "title": "Data Captured",
           "value": "100%"
         }
-      ]
+      ],
+      "info-box": [
+        {
+          "title": "Maximise and increase sales",
+          "description": "Personalised luxury experience for customers, assisted at every touch point of the shopping process by expert advisors at their own comfort"
+        },
+        {
+          "title": "Full inventory control",
+          "description": "If unsold, the product will return and be available in your store within 24 hours"
+        },
+        {
+          "title": "Converting new clients",
+          "description": "Our services aims to make shopping easier towards brands for new customers to engage and overcome barriers such as:",
+          "list": [
+            "Size issue",
+            "Pending refunds",
+            "Wrong fit",
+            "Hassle of returns"
+          ]
+        },
+        {
+          "title": "E-commerce",
+          "description": "Emays connects with all primary E-commerce platforms and a simple API for anything more customized. Emays appears as a new delivery method, the client will have the option to pick their delivery date, time, and Emays services at the check out"
+        },
+        {
+          "title": "In- Store",
+          "description": "An easy to use web interface to book Emays deliveries and services that can be installed using in store devices such as phones and computers"
+        },
+        {
+          "title": "RETAIL EXCELLENCE",
+          "description": "At Emays we believe that the customer experience always comes first. Our integration has been built to give the feeling of your brand and experience, just powered by Emays. Our aim is to create a pleasurable customer experience easy to use"
+        }
+      ],
+      "chart": {
+        "title": "FROM PROVEN DATA STUDIES",
+        "description": "A global consumer survey conducted by Content Square (leader in digital experience analytics) indicates that only 15% of respondents are satisfied with their online shopping experience. In the last 6 months of 2022, data show increasing customers problems with their packaging"
+      },
+      "data-title": "Benefits within a year"
     },
     "integration": {
       "title": "EASY INTEGRATION",
@@ -388,5 +427,14 @@
       },
       "button": "Ecommerce Integration"
     }
+  },
+  "footer": {
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "contact": "Contact",
+    "copy": "© 2023 Emays",
+    "trust": "Trustpilot",
+    "instagram": "Instagram",
+    "facebook": "Facebook"
   }
 }
