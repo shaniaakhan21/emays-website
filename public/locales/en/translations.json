@@ -301,6 +301,10 @@
     }
   },
   "retailer": {
+    "login": {
+      "heading": "Retailer",
+      "button-text": "LOGIN"
+    },
     "landing": {
       "title": "WE SHIP THE SHOP",
       "sub-header": "Bring the Luxury shopping experience to your clients",

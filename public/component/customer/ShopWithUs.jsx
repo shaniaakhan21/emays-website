@@ -1,10 +1,7 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import ShopTextBox from './shop-with-us/ShopTextBox';
-import LocationICON from '../../images/HomeCustomerSection/location--heart.svg';
 import ShopHeader from './shop-with-us/ShopHeader';
-import Nav from '../common/Nav';
 import LocationHeart from '../../images/location--heart.svg';
 import EdtLoop from '../../images/edt-loop.svg';
 import EventSchedule from '../../images/event--schedule.svg';
