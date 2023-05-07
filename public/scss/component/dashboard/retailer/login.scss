@@ -2,8 +2,12 @@
 @include grid.flex-grid();
 
 .login-container {
-    background-color: #231F20;
-    padding: 10% 20%;
+
+    .error {
+        color: red;
+        padding-top: 10px;
+        padding-left: 30px;
+    }
 
     .image-container {
         display: flex;
@@ -39,65 +43,3 @@
         padding-top: 25px;
     }
 }
-
-// .Retailer_login{
-//     background-color: #231F20;
-//     padding: 14%;
-//     height: 100%;
-
-//     .first-row{
-//         display: flex;
-//         flex-direction: row;
-//         justify-content: center;
-//         align-items: center;
-
-//         img{
-//             width: 130px;
-//         }
-
-//         .col-text-head{
-//             margin: 0;
-//             width: 9%;
-
-//             .retailer-head-box{
-//                 background-color: white;
-//                 color: #231F20;
-//                 padding: 9% 7%;
-
-//                 h1{
-//                     font-weight: 500;
-//                     font-size: 20px;
-//                     font-family: 'Montserrat';
-//                     line-height: 44px;
-//                 }
-//             }
-//         }
-//     }
-
-//     .first-box{
-//         width: 23.5%;
-//         margin-left: 39%;
-//         margin-top: 1.5%;
-
-//         .cds--label{
-//             font-style: normal;
-//             font-weight: 400;
-//             font-size: 17px;
-//             line-height: 16px;
-//             color: white;
-//             font-family: 'Montserrat';
-//         }
-        
-//         .cds--text-input{
-//             background-color: #F4F4F4;
-//         }
-
-//         .cds--text-input:focus, .cds--text-input:active {
-//             outline: 2px solid #ffffff38;
-//             outline-offset: 1px;
-//         }
-
-//     }
-
-
-// }

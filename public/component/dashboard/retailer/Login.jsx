@@ -1,12 +1,15 @@
 import '../../../scss/component/dashboard/retailer/login.scss';
-import { Grid, Row, Column } from '@carbon/react';
 import LOGO from '../../../images/Dashboard/EMAYS-LOGO.svg'; 
 import TextBoxCustom from '../../common/TextBoxCustom';
 import TextBoxPassword from '../../common/TextBoxPassword';
 import ButtonCustom from '../../common/ButtonCustom';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
-const RetailerLogin = () => {
+const RetailerLogin = ({ exeLogin = () => {} }) => {
+
+    const [formData, updateFormData] = useState( { username: '', password: '' } );
+    const [error, updateError] = useState( { usernameError: false, passwordError: false });
 
     const [t] = useTranslation();
     
@@ -29,12 +32,21 @@ const RetailerLogin = () => {
                 <div class='cds--col text-container'>
                     <div>
                         <TextBoxCustom
+                            onChange={(event) => { 
+                                if (event.target.value) {
+                                    updateError({ ...error, usernameError: false });
+                                } else {
+                                    updateError({ ...error, usernameError: true });
+                                }
+                                updateFormData( { ...formData, username: event.target.value });
+                            }}
                             labelText='Account Email'
                             placeholderText='email@example.com'
                             autocomplete='given-email'
                             name='account-email'
                             customStyle={{ width: '313px' }}
                         />
+                        {error.usernameError && <div className='error'>Invalid Username</div>}
                     </div>
                 </div>
             </div>
@@ -43,10 +55,18 @@ const RetailerLogin = () => {
                 <div class='cds--col text-container'>
                     <div>
                         <TextBoxPassword
+                            onChange={(event) => { 
+                                if (event.target.value) {
+                                    updateError({ ...error, passwordError: false });
+                                } else {
+                                    updateError({ ...error, passwordError: true });
+                                }
+                                updateFormData( { ...formData, password: event.target.value }); } }
                             labelText='Password'
                             hidePasswordLabel='Hide password'
                             customStyle={{ width: '313px' }}
                         />
+                        {error.passwordError && <div className='error'>Invalid Password</div>}
                     </div>
                 </div>
             </div>
@@ -54,61 +74,26 @@ const RetailerLogin = () => {
             <div class='cds--row'>
                 <div class='cds--col button-container'>
                     <div>
-                        <ButtonCustom action={() => onSubmit(data)} className='submit'
-                            text={t('retailer.login.button-text')}
-                            customStyle={ { width: '313px', background: '#525252' }}
+                        <ButtonCustom action={
+                            async () => {
+                                if (!formData.username) {
+                                    updateError({ ...error, usernameError: true });
+                                    return;
+                                } else if (!formData.password) {
+                                    updateError({ ...error, passwordError: true });
+                                    return;
+                                }
+                                exeLogin({
+                                    ...formData
+                                });
+                            }} className='submit'
+                        text={t('retailer.login.button-text')}
+                        customStyle={ { width: '313px', background: '#525252' }}
                         />
                     </div>
                 </div>
             </div>
         </div>
-        
-    /*
-     * <Grid fullWidth className='Retailer_login'>
-     *     <div>
-     *         <Row lg={16} md={16}>
-     *             <Column lg={8} md={8}>Column 1</Column>
-     *             <Column lg={8} md={8}>Column 2</Column>
-     *         </Row>
-     *         <Row lg={16}>Row 2</Row>
-     *         <Row lg={16}>Row 3</Row>
-     *     </div>
-     *     <Column lg={16} md={8} sm={4} xs={4}>
-     *         <Grid fullWidth className='first-row'>
-     *             <Column lg={8} md={4} sm={4} xs={4}>
-     *                 <img src={LOGO} height={'100px'} width={'130px'} alt='EMAYS' />
-     *             </Column>
-     *             <Column lg={8} md={4} sm={4} xs={4} className='col-text-head'>
-     *                 <div className='retailer-head-box'>
-     *                     <h1>{t('retailer.login.heading')}</h1>
-     *                 </div>
-     *             </Column>
-     *         </Grid>
-     *         <Column lg={16} md={8} sm={4} xs={4} className='first-box'>
-     *             <TextBoxCustom
-     *                 labelText='Account Email'
-     *                 placeholderText='email@email.com'
-     *                 autocomplete='given-email'
-     *                 name='Account Email'
-     *             />
-     *         </Column>
-     *         <Column lg={16} md={8} sm={4} xs={4} className='first-box'>
-     *             <TextBoxPassword
-     *                 labelText='Password'
-     *                 hidePasswordLabel='Hide password'
-     *             />
-     *         </Column>
-     *         <Column lg={16} md={8} sm={4} xs={4} className='login-button'>
-     *             <ButtonCustom action={() => onSubmit(data)} className='submit'
-     *                 text={t('retailer.login.button-text')} />
-     * 
-     * 
-     * 
-     * 
-     *         </Column>
-     *     </Column>
-     * </Grid>
-     */
     );
 };
 

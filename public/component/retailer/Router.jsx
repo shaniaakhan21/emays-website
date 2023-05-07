@@ -7,6 +7,7 @@ import RetailerLanding from './Landing';
 import RetailerIntegration from './Integration';
 import RetailerPartnership from './Partnership';
 import RetailerLogin from '../dashboard/retailer/Login';
+import LoginWrapper from '../dashboard/LoginWrapper';
 
 const RetailerRouter = () => {
     return (
@@ -16,7 +17,10 @@ const RetailerRouter = () => {
             <Route path='/retailer/faq' component={() => <RetailerFAQs />} />
             <Route path='/retailer/integration' component={() => <RetailerIntegration />} />
             <Route path='/retailer/partnership' component={() => <RetailerPartnership />} />
-            <Route path='/retailer/login' component={() => <RetailerLogin />} />
+            <Route path='/retailer/login' component={() => <LoginWrapper uri={''}
+                loginComponent={RetailerLogin}
+                wrapperStyle={ { backgroundColor: '#231F20', height: '100vh'
+                    , display: 'flex', alignItems: 'center', justifyContent: 'center' } } />} />
         </Switch>
     );
 };
