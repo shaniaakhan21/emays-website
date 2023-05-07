@@ -29,7 +29,7 @@ const Footer = () => {
                 </Column>
                 <Column sm={8} md={6} lg={2}>
                     <div className='footer__links contact'>
-                        <Link href='#'>{t('contact')}</Link>
+                        <Link href='/#/letsTalk'>{t('contact')}</Link>
                     </div>
                     <div className='footer__links'>
                         <span>{t('copy')}</span>
@@ -37,16 +37,16 @@ const Footer = () => {
                 </Column>
                 <Column sm={12} md={3} lg={8} className='footer__right'>
                     <div className='footer__social'>
-                        <Link href='#'>
-                            <img src={TrustPilot} alt='TrustPilot' />
+                        <Link href='https://www.trustpilot.com/review/emaysstyle.com'>
+                            <img src={TrustPilot} alt={t('trustpilot')} />
                             {t('trustpilot')}
                         </Link>
-                        <Link href='#'>
-                            <img src={Instagram} alt='Instagram' />
+                        <Link href='https://www.instagram.com/emaysstyle'>
+                            <img src={Instagram} alt={t('instagram')} />
                             {t('instagram')}
                         </Link>
-                        <Link href='#'>
-                            <img src={Facebook} alt='Facebook' />
+                        <Link href='https://www.facebook.com/Emaysstyle'>
+                            <img src={Facebook} alt={t('facebook')} />
                             {t('facebook')}
                         </Link>
                     </div>
