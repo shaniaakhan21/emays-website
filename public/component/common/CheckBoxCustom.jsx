@@ -8,7 +8,7 @@ const CheckBoxCustom = ({
     ...props
 }) => {
     return (
-        <Checkbox {...props} onChange={() => { action(); }} labelText={labelText} id={id} />
+        <Checkbox onChange={() => { action(); }} labelText={labelText} id={id} {...props} />
     );
 };
 

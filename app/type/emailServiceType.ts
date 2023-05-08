@@ -11,3 +11,11 @@ export type SendEmailReminderToCustomerOnDeliveryDayFunc = (data: ISendEmailRemi
 export type SendEmailReminderToRetailerBeforeDriverPickFunc = (data: ISendEmailReminderToRetailerBeforeDriverPick, template: string) => Promise<void>;
 
 export type SendCancellationEmailToClientFunc = (data: ISendEmailForAppointmentCancellation, template: string) => Promise<void>;
+
+export type LetsTalkEmailData = {
+    name: string;
+    email: string;
+    phoneNo: string;
+    message: string;
+    reCaptcha: string;
+};

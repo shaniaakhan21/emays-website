@@ -16,7 +16,9 @@ import PhoneIcon from '../../images/phone.svg';
 import InstagramIcon from '../../images/logo--instagram.svg';
 import FacebookIcon from '../../images/fb.svg';
 import LinkedInIcon from '../../images/linkedin.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { recaptchaKey } from '../../js/const/recaptcha';
+import Checkbox from '@carbon/react/lib/components/Checkbox/Checkbox';
 
 const LetsTalkForm = ({ onSubmit }) => {
     const [translate] = useTranslation();
@@ -30,9 +32,19 @@ const LetsTalkForm = ({ onSubmit }) => {
         }
         setData(cd => ({ ...cd, [e.target.name]: e.target.value }));
     };
-    
+
     const t = (key) => translate(`common.lets-talk-form.${key}`);
-    
+
+    useEffect(() => {
+        grecaptcha.enterprise.ready(function () {
+            grecaptcha.enterprise.execute(
+                recaptchaKey, { action: 'letsTalk' }
+            ).then(function (token) {
+                setData(d => ({ ...d, reCaptcha: token }));
+            });
+        });
+    }, []);
+
     return (
         <Grid fullWidth className='letsTalk'>
             <Col lg={10} md={5} sm={4} xs={4} className='left'>
@@ -82,25 +94,26 @@ const LetsTalkForm = ({ onSubmit }) => {
                             className='privacy'
                             labelText={t('privacy-policy')}
                             name='privacy-policy'
-                            action={setValue}
+                            id='privacy-policy'
+                            onChange={setValue}
                         />
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
-                        <ButtonCustom action={() => onSubmit(data)} className='submit' text={t('submit')} />
+                        <ButtonCustom action={() => onSubmit(data)} className='submit' text={t('submit')}/>
                     </Col>
                 </Grid>
             </Col>
             <Col lg={6} md={3} sm={4} xs={4} className='right'>
-                <img className='logo' src={Logo} alt='Emays Logo' />
+                <img className='logo' src={Logo} alt='Emays Logo'/>
                 <div className='email'>
-                    <img src={EmailIcon} alt='E-Mail' />
+                    <img src={EmailIcon} alt='E-Mail'/>
                     <div>
                         <span className='title'>{t('email-2')}</span>
                         <span>{t('email-2-value')}</span>
                     </div>
                 </div>
                 <div className='phone'>
-                    <img src={PhoneIcon} alt='Phone Number' />
+                    <img src={PhoneIcon} alt='Phone Number'/>
                     <div>
                         <span className='title'>{t('phone-2')}</span>
                         <span>{t('phone-2-value')}</span>
@@ -108,13 +121,13 @@ const LetsTalkForm = ({ onSubmit }) => {
                 </div>
                 <div className='social'>
                     <a href=''>
-                        <img src={InstagramIcon} alt='Instagram' />
+                        <img src={InstagramIcon} alt='Instagram'/>
                     </a>
                     <a href=''>
-                        <img src={LinkedInIcon} alt='LinkedIn' />
+                        <img src={LinkedInIcon} alt='LinkedIn'/>
                     </a>
                     <a href=''>
-                        <img src={FacebookIcon} alt='Facebook' />
+                        <img src={FacebookIcon} alt='Facebook'/>
                     </a>
                 </div>
             </Col>
