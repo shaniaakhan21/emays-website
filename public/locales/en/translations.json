@@ -3,6 +3,7 @@
     "error": "Error",
     "success": "Success",
     "success-message": "Appointment created successfully!",
+    "confirm-privacy-policy": "Please confirm the privacy policy",
     "lets-talk-form": {
       "header": "Are you curious about something? Let’s talk",
       "name": "Name",
@@ -159,8 +160,9 @@
     "header": "SHOPPING BAG",
     "service-fee": "SERVICE FEE",
     "instruction-1": "This fee helps us run our operations, all services included.",
-    "instruction-2": "Luxury styling session at home.",
+    "instruction-2": "Amount will be blocked on your card until the day of the delivery.",
     "instruction-3": "Cancellations available before 24h appointment.",
+    "instruction-4": "Luxury styling session at home.",
     "button": "BOOK YOUR APPOINTMENT",
     "item": {
       "size": "Size",
@@ -370,11 +372,11 @@
       "info-box": [
         {
           "title": "Ecommerce",
-          "description": "EMAYS booking modal automatically appears at checkout inside the brand website - for customers in our coverage areas."
+          "description": "-commerce software is created to simplify the shopping experience for high-end fashion retailers and their customers. Through the booking modal automatically appears at checkout inside the brand website - for customers in our coverage areas. With our appointment booking feature, customers can choose their preferred date and time for a stress-free shopping experience right at home. Retailers can easily manage orders and track their revenue with a designed dashboard."
         },
         {
           "title": "In- Store",
-          "description": "An easy to use web interface to book Emays deliveries and services that can be installed using in store devices such as phones and computers"
+          "description": "In-Store software is designed to streamline your operations and improve your customer experience. Our software is user-friendly and customizable, allowing you to tailor it to your specific needs. Let Emays help you simplify your retail operations and provide an exceptional shopping experience for your customers."
         }
       ]
     },
@@ -433,7 +435,7 @@
     "privacy": "Privacy Policy",
     "contact": "Contact",
     "copy": "© 2023 Emays",
-    "trust": "Trustpilot",
+    "trustpilot": "Trustpilot",
     "instagram": "Instagram",
     "facebook": "Facebook"
   }

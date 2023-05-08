@@ -59,12 +59,17 @@ const HomeSection = () => {
                 <img src={Home1} className='shipping-section__right-img2' />
             </Column>
             <Column lg={16} md={8} sm={4} className='shipping-section__button_parent mobile' >
-                <Button className='shipping-section__button alignment'>
+                <Button onClick={() => {
+                    const elem = document.querySelector( '#shop-with-us-start' );
+                    elem.scrollIntoView({ behavior: 'smooth' });
+                }} className='shipping-section__button alignment'>
                     {t('home-section.col-1.btn-text')}
                 </Button>
-                <Button renderIcon={() => <img src={MailIcon} />} className='shipping-section__button btn2 alignment'>
-                    <p>{t('home-section.col-1.btn2-text')}</p>
-                </Button>
+                <a href='/#/letsTalk'>
+                    <Button renderIcon={() => <img src={MailIcon} />} className='shipping-section__button btn2 alignment'>
+                        <p>{t('home-section.col-1.btn2-text')}</p>
+                    </Button>
+                </a>
             </Column>
         </Grid>
     );

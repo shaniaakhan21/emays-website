@@ -20,6 +20,7 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
     // TODO: add service-worker implementation to add the token with the UI files requests.
     if (req.path !== `${config.ROUTE_PATH}${RoutePath.HEALTH}` &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.LETS_TALK}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_ACCESS}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_REDIRECTION}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}`) &&
@@ -40,7 +41,7 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
         if (authType && authType === 'Bearer' && authToken) {
             const claims = validateJWTToken(authToken);
             (req as AppRequest).claims = claims;
-        } else if (token) { 
+        } else if (token) {
             const claims = validateJWTToken(token);
             (req as AppRequest).claims = claims;
         } else {
