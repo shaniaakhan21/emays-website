@@ -3,6 +3,7 @@
     "error": "Error",
     "success": "Success",
     "success-message": "Appointment created successfully!",
+    "confirm-privacy-policy": "Please confirm the privacy policy",
     "lets-talk-form": {
       "header": "Are you curious about something? Let’s talk",
       "name": "Name",

@@ -25,6 +25,7 @@ import { AppConfigKey } from './app/const/appConfigKey';
 import { validateJWT } from './app/middleware/jwtTokenValidationMiddleware';
 import ServiceError from './app/type/error/ServiceError';
 import { connectToMongoDB } from './app/data/db/connector';
+import letsTalkRoute from './app/route/letsTalkRoute';
 
 // Parses incoming requests with JSON payloads (body-parser)
 app.use(express.json());
@@ -60,6 +61,7 @@ app.use(config.ROUTE_PATH, geoRoute);
 app.use(config.ROUTE_PATH, appInfoRoute);
 app.use(config.ROUTE_PATH, emailReminderRoute);
 app.use(config.ROUTE_PATH, superUserRoute);
+app.use(config.ROUTE_PATH, letsTalkRoute);
 app.use(customerRoutes);
 
 /*
