@@ -85,7 +85,10 @@
     "delivery-info": "USER COMMENT",
     "submit-button": "CONTINUE",
     "save-changes": "SAVE NEW CHANGES",
-    "cancel-order": "CANCEL APPOINTMENT"
+    "cancel-order": "CANCEL APPOINTMENT",
+    "delete-item-title": "DELETE THIS ITEM?",
+    "delete-item-confirm": "Yes, I dont want it",
+    "delete-item-cancel": "Back"
   },
   "email-launch": {
     "header-one": {
