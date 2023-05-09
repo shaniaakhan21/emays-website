@@ -2,6 +2,7 @@ import { defineConfig, normalizePath } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve, extname } from 'path';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
+import { v4 as uuid } from 'uuid';
 import fs from 'fs';
 
 const getStaticResources = () => {
@@ -19,6 +20,15 @@ const generateServiceWorker = () => {
 
     const swCode = fs.readFileSync(resolve(__dirname, 'app-dist/dist/sw.js'), 'utf-8')
         .replace('const STATIC_RESOURCES = [];', `const STATIC_RESOURCES = ${JSON.stringify(STATIC_RESOURCES)};`);
+
+    fs.writeFileSync(resolve(__dirname, 'app-dist/dist/sw.js'), swCode, 'utf-8');
+};
+
+const replaceHash = () => {
+    const swCode = fs.readFileSync(resolve(__dirname, 'app-dist/dist/sw.js'), 'utf-8')
+        .replace(
+            'const CACHE_NAME = \'static-cache-v1\';', `const CACHE_NAME = 'static-cache-${uuid()}';`
+        );
 
     fs.writeFileSync(resolve(__dirname, 'app-dist/dist/sw.js'), swCode, 'utf-8');
 };
@@ -43,6 +53,7 @@ export default defineConfig({
             name: 'postbuild-commands',
             closeBundle: async () => {
                 await generateServiceWorker();
+                await replaceHash();
             }
         }],
     root: resolve(__dirname, 'public'),
