@@ -1,8 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DialogueModal = ({ title, body, showModal, closeModal, confirmAction }) => {
-    
+const DialogueModal = ({
+    title,
+    body,
+    showModal,
+    closeModal,
+    confirmAction,
+    confirmButtonText = 'Confirm',
+    cancelButtonText = 'Cancel'
+}) => {
+
     const modalOverlay = {
         position: 'fixed',
         top: 0,
@@ -76,15 +84,17 @@ const DialogueModal = ({ title, body, showModal, closeModal, confirmAction }) =>
             <div style={modalContent}>
                 <div style={modalHeader}>
                     <div>{title}</div>
-                    <div><button style={closeButton} onClick={closeModal}>X</button></div>
+                    <div>
+                        <button style={closeButton} onClick={closeModal}>X</button>
+                    </div>
                 </div>
                 <div style={modalBody}>{body}</div>
                 <div style={modalFooter}>
                     <button style={confirmButton} onClick={confirmAction}>
-                        Confirm
+                        {confirmButtonText}
                     </button>
                     <button style={cancelButton} onClick={closeModal}>
-                        Cancel
+                        {cancelButtonText}
                     </button>
                 </div>
             </div>
