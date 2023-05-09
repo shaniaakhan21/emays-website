@@ -42,6 +42,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Static Files through /dist path since we have multiple versions
 app.use(config.STATIC_FILES_LOCATION, express.static(__dirname + config.UI_VERSIONS_LOCATION));
+app.use('/sw.js', express.static(__dirname + config.UI_VERSIONS_LOCATION + '/sw.js'));
 // Set Template Engine
 app.set(AppConfigKey.VIEWS, config.STATIC_FILES_LOCATION);
 app.engine(AppConfigKey.HTML, require('ejs').renderFile);
