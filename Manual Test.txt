@@ -1,7 +1,7 @@
 /**
 * Install REST Client VSCode extension
 * To execute the bellow => cntrl + shift + p
-* Search for rest and select the run command 
+* Search for rest and select the run command
 */
 
 ----- Check health -----
@@ -124,3 +124,30 @@ content-type: application/json
 GET http://localhost:8080/api-dev/orders?page=1&pageLimit=4
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yMVQxMzowNToxNS4xNDhaIiwiZXhwIjoxNjgyMDg1OTE1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJiNTA2NjQ2Ni0wNmIzLTQ2NzgtYjkwYS1iOGI5YTBmOWYwZjIiLCJpYXQiOjE2ODIwODIzMTV9.CAwD_RfYFEv89_r1crQQY_d32c7P_Jr6VJalo_mRMhc
+
+------ Create FAQ ------
+
+PUT http://localhost:8080/api-dev/faq
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yMVQxMzowNToxNS4xNDhaIiwiZXhwIjoxNjgyMDg1OTE1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJiNTA2NjQ2Ni0wNmIzLTQ2NzgtYjkwYS1iOGI5YTBmOWYwZjIiLCJpYXQiOjE2ODIwODIzMTV9.CAwD_RfYFEv89_r1crQQY_d32c7P_Jr6VJalo_mRMhc
+
+{
+    "question": "Test Question",
+    "answer": "Test Answer"
+}
+
+------ Update FAQ ------
+
+PATCH http://localhost:8080/api-dev/faq
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yMVQxMzowNToxNS4xNDhaIiwiZXhwIjoxNjgyMDg1OTE1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJiNTA2NjQ2Ni0wNmIzLTQ2NzgtYjkwYS1iOGI5YTBmOWYwZjIiLCJpYXQiOjE2ODIwODIzMTV9.CAwD_RfYFEv89_r1crQQY_d32c7P_Jr6VJalo_mRMhc
+
+{
+    "_id": "64590244ebaa6d3def34f526",
+    "question": "Test Question",
+    "answer": "Test Answer"
+}
+
+------ Get All FAQs ------
+
+GET http://localhost:8080/api-dev/faq

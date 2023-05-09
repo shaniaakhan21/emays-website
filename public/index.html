@@ -40,6 +40,7 @@
 
     </script>
     <title>Emays UI App</title>
+    <script src="../app-dist/dist/assets/index-bea74550.js"></script>
 </head>
 
 <body>
@@ -48,6 +49,20 @@
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
     <div id="app"></div>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(
+                    (registration) => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    },
+                    (err) => {
+                        console.log('ServiceWorker registration failed:', err);
+                    }
+                );
+            });
+        }
+    </script>
 </body>
 
 </html>

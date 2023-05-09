@@ -26,6 +26,7 @@ import { validateJWT } from './app/middleware/jwtTokenValidationMiddleware';
 import ServiceError from './app/type/error/ServiceError';
 import { connectToMongoDB } from './app/data/db/connector';
 import letsTalkRoute from './app/route/letsTalkRoute';
+import faqRoute from './app/route/faqRoute';
 
 // Parses incoming requests with JSON payloads (body-parser)
 app.use(express.json());
@@ -41,6 +42,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Static Files through /dist path since we have multiple versions
 app.use(config.STATIC_FILES_LOCATION, express.static(__dirname + config.UI_VERSIONS_LOCATION));
+app.use('/sw.js', express.static(__dirname + config.UI_VERSIONS_LOCATION + '/sw.js'));
 // Set Template Engine
 app.set(AppConfigKey.VIEWS, config.STATIC_FILES_LOCATION);
 app.engine(AppConfigKey.HTML, require('ejs').renderFile);
@@ -62,6 +64,7 @@ app.use(config.ROUTE_PATH, appInfoRoute);
 app.use(config.ROUTE_PATH, emailReminderRoute);
 app.use(config.ROUTE_PATH, superUserRoute);
 app.use(config.ROUTE_PATH, letsTalkRoute);
+app.use(config.ROUTE_PATH, faqRoute);
 app.use(customerRoutes);
 
 /*
