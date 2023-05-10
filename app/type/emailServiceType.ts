@@ -15,7 +15,7 @@ export type SendCancellationEmailToClientFunc = (data: ISendEmailForAppointmentC
 export type LetsTalkEmailData = {
     name: string;
     email: string;
-    phoneNo: string;
+    phone: string;
     message: string;
     reCaptcha: string;
 };

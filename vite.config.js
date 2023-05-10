@@ -42,7 +42,10 @@ export default defineConfig({
     plugins: [react(),
         viteStaticCopy({
             targets: [
-                { src: resolve(__dirname, 'public/template'), dest: resolve(__dirname, 'app-dist/dist') },
+                {
+                    src: normalizePath(resolve(__dirname, 'public/template')),
+                    dest: normalizePath(resolve(__dirname, 'app-dist/dist'))
+                },
                 {
                     src: normalizePath(resolve(__dirname, 'public/js/sw.js')),
                     dest: normalizePath(resolve(__dirname, 'app-dist/dist/'))

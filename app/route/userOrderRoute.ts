@@ -14,14 +14,36 @@ import { successResponseBuilder } from '../util/responseBuilder';
 import { allowedForClientRoleOnly, validateCreateOrder, validateHeader
     , validateOrderDetailsPagination, validateOrderPatchRequestBody,
     validateParamUserId } from '../middleware/paramValidationMiddleware';
-import { createOrder, getOrderDetailsWithPagination, patchOrderDetailsByUserId,
-    retrieveOrderDetailsByUserId } from '../service/orderService';
+import {
+    createOrder, getOrderDetailsWithPagination, patchOrderDetailsByUserId,
+    retrieveOrderDetailsByUserId, testOrderEmail
+} from '../service/orderService';
 import { AppRequest } from '../type/appRequestType';
 
 const router = Router();
 const Logging = Logger(__filename);
 
 const OrderRoutePath: string = RoutePath.ORDERS;
+
+/**
+ * Test order email
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+router.post(`${OrderRoutePath}/testmail`, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => {
+        const body = req.body as { email: string, orderId: string };
+        await testOrderEmail(body.email, body.orderId);
+        res.sendStatus(HTTPSuccess.OK_CODE);
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, OrderRoutePath), LogType.ERROR);
+        next(error);
+    });
+});
 
 /**
  * Add new order
@@ -74,7 +96,7 @@ router.get(`${OrderRoutePath}${PathParam.USER_ID}`, allowedForClientRoleOnly, va
  * @returns {void}
  */
 const validationsPatch = [allowedForClientRoleOnly, validateHeader
-    , validateParamUserId, validateOrderPatchRequestBody]; 
+    , validateParamUserId, validateOrderPatchRequestBody];
 router.patch(RoutePath.ORDERS + PathParam.USER_ID, validationsPatch, (
     req: Request, res: Response, next: NextFunction): void => {
     const pathParamUserId = req.params.userId;

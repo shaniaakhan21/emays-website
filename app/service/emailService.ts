@@ -24,7 +24,7 @@ export const sendEmailForOrderTracking: SendEmailFunc = async (emailInfo, templa
     try {
         const emailClientInstance = new EmailClient().getInstance();
         const templatePath: string = await buildAppLaunchPath(template);
-        const [completeDate, completeTime]: Array<string> = 
+        const [completeDate, completeTime]: Array<string> =
             prepareDateTime(emailInfo.date, emailInfo.startTime, emailInfo.endTime);
         const fullName: string = prepareFullName(emailInfo.firstName, emailInfo.lastName);
         const experience: string = emailInfo.experience;
@@ -63,7 +63,7 @@ export const sendEmailForOrderTracking: SendEmailFunc = async (emailInfo, templa
             , 'redirectionURL': emailRedirectionURL
             , 'bookCalendarURL': calendarRedirectionURL
         }) as string;
-        
+
         const params = {
             Source: config.AWS_SES.AWS_SOURCE_EMAIL,
             Destination: {
@@ -97,7 +97,7 @@ export const sendEmailForOrderCancellation: SendCancellationEmailToClientFunc = 
     try {
         const emailClientInstance = new EmailClient().getInstance();
         const templatePath: string = await buildAppLaunchPath(template);
-        
+
         const fullName: string = prepareFullName(emailInfo.firstName, emailInfo.lastName);
         const experience: string = emailInfo.experience;
         const { addOne, addTwo, addThree, addFour } = emailInfo.address;
@@ -125,7 +125,7 @@ export const sendEmailForOrderCancellation: SendCancellationEmailToClientFunc = 
             , 'twitterImage': twitterImage
             , 'emaysContactUsLink': emaysContactUsLink
         }) as string;
-        
+
         const params = {
             Source: config.AWS_SES.AWS_SOURCE_EMAIL,
             Destination: {
@@ -159,7 +159,7 @@ export const sendEmailForInvoice: SendEmailFunc = async (emailInfo, template) =>
     try {
         const emailClientInstance = new EmailClient().getInstance();
         const templatePath: string = await buildAppLaunchPath(template);
-        const [completeDate, completeTime]: Array<string> = 
+        const [completeDate, completeTime]: Array<string> =
             prepareDateTime(emailInfo.date, emailInfo.startTime, emailInfo.endTime);
         const fullName: string = prepareFullName(emailInfo.firstName, emailInfo.lastName);
         const experience: string = emailInfo.experience;
@@ -198,7 +198,7 @@ export const sendEmailForInvoice: SendEmailFunc = async (emailInfo, template) =>
             , 'redirectionURL': emailRedirectionURL
             , 'bookCalendarURL': calendarRedirectionURL
         }) as string;
-        
+
         const params = {
             Source: config.AWS_SES.AWS_SOURCE_EMAIL,
             Destination: {
@@ -232,7 +232,7 @@ export const sendEmailForSecondReminder: SendEmailFunc = async (emailInfo, templ
     try {
         const emailClientInstance = new EmailClient().getInstance();
         const templatePath: string = await buildAppLaunchPath(template);
-        const [completeDate, completeTime]: Array<string> = 
+        const [completeDate, completeTime]: Array<string> =
             prepareDateTime(emailInfo.date, emailInfo.startTime, emailInfo.endTime);
         const fullName: string = prepareFullName(emailInfo.firstName, emailInfo.lastName);
         const experience: string = emailInfo.experience;
@@ -270,7 +270,7 @@ export const sendEmailForSecondReminder: SendEmailFunc = async (emailInfo, templ
             , 'redirectionURL': emailRedirectionURL
             , 'bookCalendarURL': calendarRedirectionURL
         }) as string;
-        
+
         const params = {
             Source: config.AWS_SES.AWS_SOURCE_EMAIL,
             Destination: {
@@ -306,7 +306,7 @@ export const sendEmailReminderToCustomerOnDeliveryDay: SendEmailReminderToCustom
         const firstName = emailInfo.firstName;
         const emailClientInstance = new EmailClient().getInstance();
         const templatePath: string = await buildAppLaunchPath(template);
-        const [completeDate, completeTime]: Array<string> = 
+        const [completeDate, completeTime]: Array<string> =
             prepareDateTime(emailInfo.date, emailInfo.startTime, emailInfo.endTime);
         const items: Array<object> = emailInfo.orderItems;
         const urlLogo: string = emailInfo?.urlLogo;
@@ -334,7 +334,7 @@ export const sendEmailReminderToCustomerOnDeliveryDay: SendEmailReminderToCustom
             , 'twitterImage': twitterImage
             , 'emaysContactUsLink': emaysContactUsLink
         }) as string;
-        
+
         const params = {
             Source: config.AWS_SES.AWS_SOURCE_EMAIL,
             Destination: {
@@ -368,7 +368,7 @@ export const sendEmailReminderToRetailerBeforeDriverPick: SendEmailReminderToRet
     try {
         const emailClientInstance = new EmailClient().getInstance();
         const templatePath: string = await buildAppLaunchPath(template);
-        const [completeDate, completeTime]: Array<string> = 
+        const [completeDate, completeTime]: Array<string> =
             prepareDateTime(emailInfo.date, emailInfo.startTime, emailInfo.endTime);
         const items: Array<object> = emailInfo.orderItems;
         const urlLogo: string = emailInfo?.urlLogo;
@@ -398,7 +398,7 @@ export const sendEmailReminderToRetailerBeforeDriverPick: SendEmailReminderToRet
             , 'emaysContactUsLink': emaysContactUsLink
             , 'orderNumber': uid
         }) as string;
-        
+
         const params = {
             Source: config.AWS_SES.AWS_SOURCE_EMAIL,
             Destination: {
@@ -431,7 +431,7 @@ export const sendEmailForOrderingItems: SendEmailFunc = async (emailInfo, templa
     try {
         const emailClientInstance = new EmailClient().getInstance();
         const templatePath: string = await buildAppLaunchPath(template);
-        const [completeDate, completeTime]: Array<string> = 
+        const [completeDate, completeTime]: Array<string> =
             prepareDateTime(emailInfo.date, emailInfo.startTime, emailInfo.endTime);
         const fullName: string = prepareFullName(emailInfo.firstName, emailInfo.lastName);
         const experience: string = emailInfo.experience;
@@ -471,7 +471,7 @@ export const sendEmailForOrderingItems: SendEmailFunc = async (emailInfo, templa
             , 'bookCalendarURL': calendarRedirectionURL
             , 'launchEditOrderURL': editOrderURL
         }) as string;
-        
+
         const params = {
             Source: config.AWS_SES.AWS_SOURCE_EMAIL,
             Destination: {
@@ -516,15 +516,19 @@ export const sendEmailForLetsTalk = async (data: LetsTalkEmailData) => {
                 Body: {
                     Text: {
                         Charset: 'UTF-8',
-                        Data: `Email - ${data.email}
+                        Data: `
+----------------------------------------------------------------------------------
+                        Email - ${data.email}
                         Name - ${data.name}
                         Message - ${data.message}
-                        Phone Number - ${data.phoneNo}`
+                        Phone Number - ${data.phone}
+==================================================================================
+                        `
                     }
                 },
                 Subject: {
                     Charset: 'UTF-8',
-                    Data: `EMAYS Let's Talk Appointment - ${data.email}`
+                    Data: `EMAYS Let's Talk Appointment from ${data.email}`
                 }
             }
         };

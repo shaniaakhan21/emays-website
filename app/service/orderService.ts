@@ -9,7 +9,15 @@ import { buildErrorMessage, buildInfoMessageMethodCall,
     buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
-import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus, getOrderDocumentSize, getOrderDetailDocumentsArrayByStartAndEndIndex } from '../data/model/OrderModel';
+import {
+    saveOrder,
+    retrieveOrderByUserId,
+    findOneAndUpdateIfExist,
+    retrieveOrderByDeliveryStatus,
+    getOrderDocumentSize,
+    getOrderDetailDocumentsArrayByStartAndEndIndex,
+    OrderModel
+} from '../data/model/OrderModel';
 import { sendEmailForOrderCancellation, sendEmailForOrderingItems } from './emailService';
 import { config } from '../config/config';
 import { Order } from '../type/orderType';
@@ -19,6 +27,75 @@ import { IJWTBuildData, JWT_TYPE } from '../type/IJWTClaims';
 import { EMAIL_BOOKED, EMAIL_EDIT } from '../../public/js/const/SessionStorageConst';
 
 const Logging = Logger(__filename);
+
+/**
+ * API for test emails
+ * @param {string} email Email address
+ * @params {string} orderId Order Id
+ * @returns {Promise<void>} Promise with void
+ */
+export const testOrderEmail = async (email: string, orderId: string): Promise<void> => {
+    const orderExtracted = await OrderModel.findById(orderId);
+    if (!orderExtracted) {
+        throw new Error('Order not found');
+    }
+
+    const redirectionURL = buildRedirectionURL(orderExtracted.uid);
+    const bookCalendarURL = buildBookCalendar(orderExtracted.uid);
+    const emailOrderEditURL = buildEditOrderURL(orderExtracted.uid);
+
+    // Send customer email
+    await sendEmailForOrderingItems(
+        { email: email,
+            urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
+            statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_PLACED,
+            exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
+            trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
+            facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
+            facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
+            instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
+            instagramLink: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK,
+            twitterImage: config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE,
+            twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
+            emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
+            redirectionURL: redirectionURL,
+            bookCalenderURL: bookCalendarURL,
+            firstName: orderExtracted.firstName,
+            lastName: orderExtracted.lastName,
+            phoneNumber: orderExtracted.phoneNumber,
+            uid: orderExtracted.uid, date: orderExtracted.date,
+            startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
+            experience: orderExtracted.experience, address: orderExtracted.address,
+            orderItems: orderExtracted.orderItems,
+            editOrderURL: emailOrderEditURL }, config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
+
+    // Send retailer email
+    const finalCost = getFinalCost(config.SERVICE_CHARGE as number, orderExtracted.orderItems);
+    await sendEmailForOrderingItems(
+        { email: email,
+            urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
+            statusImage: config.EMAIL_TEMPLATE.URLS.ORDER_STATUS_PLACED,
+            trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
+            exclamationImage: config.EMAIL_TEMPLATE.URLS.EXCLAMATION,
+            facebookImage: config.EMAIL_TEMPLATE.URLS.FACEBOOK_IMAGE,
+            facebookLink: config.EMAIL_TEMPLATE.URLS.FACEBOOK_LINK,
+            instagramImage: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_IMAGE,
+            instagramLink: config.EMAIL_TEMPLATE.URLS.INSTAGRAM_LINK,
+            twitterImage: config.EMAIL_TEMPLATE.URLS.TWITTER_IMAGE,
+            twitterLink: config.EMAIL_TEMPLATE.URLS.TWITTER_LINK,
+            emaysContactUsLink: config.EMAIL_TEMPLATE.URLS.EMAYS_CONTACT_US,
+            redirectionURL: redirectionURL,
+            bookCalenderURL: bookCalendarURL,
+            firstName: orderExtracted.firstName,
+            lastName: orderExtracted.lastName,
+            phoneNumber: orderExtracted.phoneNumber,
+            finalCost: finalCost,
+            uid: orderExtracted.uid, date: orderExtracted.date,
+            startTime: orderExtracted.startTime, endTime: orderExtracted.endTime,
+            experience: orderExtracted.experience, address: orderExtracted.address,
+            orderItems: orderExtracted.orderItems,
+            editOrderURL: emailOrderEditURL }, config.EMAIL_TEMPLATE.RETAILER_EMAIL_TEMPLATE);
+};
 
 /**
  * Create new order
