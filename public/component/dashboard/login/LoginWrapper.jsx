@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import RetailerLogin from './Login';
-import { loginExe } from './redux/thunk/loginThunk';
+import { loginExe } from '../redux/thunk/loginThunk';
 import { useDispatch } from 'react-redux';
 
 const LoginWrapperLayout = styled.div`

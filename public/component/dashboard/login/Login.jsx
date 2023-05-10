@@ -1,8 +1,8 @@
-import '../../scss/component/dashboard/retailer/login.scss';
-import LOGO from '../../images/Dashboard/EMAYS-LOGO.svg'; 
-import TextBoxCustom from '../common/TextBoxCustom';
-import TextBoxPassword from '../common/TextBoxPassword';
-import ButtonCustom from '../common/ButtonCustom';
+import '../../../scss/component/dashboard/login.scss';
+import LOGO from '../../../images/Dashboard/EMAYS-LOGO.svg'; 
+import TextBoxCustom from '../../common/TextBoxCustom';
+import TextBoxPassword from '../../common/TextBoxPassword';
+import ButtonCustom from '../../common/ButtonCustom';
 import { useTranslation } from 'react-i18next';
 import { useState } from 'react';
 
