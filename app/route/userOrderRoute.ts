@@ -11,17 +11,48 @@ import { PathParam, RoutePath } from '../const/routePath';
 import { HTTPSuccess } from '../const/httpCode';
 import { IOrder, IOrderDTO, IPatchOrder } from '../type/orderType';
 import { successResponseBuilder } from '../util/responseBuilder';
-import { allowedForClientRoleOnly, validateCreateOrder, validateHeader
+import {
+    allowedForClientRoleOnly, allowedForRetailerRoleOnly, validateCreateOrder, validateHeader
     , validateOrderDetailsPagination, validateOrderPatchRequestBody,
-    validateParamUserId } from '../middleware/paramValidationMiddleware';
+    validateParamUserId
+} from '../middleware/paramValidationMiddleware';
 import { createOrder, getOrderDetailsWithPagination, patchOrderDetailsByUserId,
     retrieveOrderDetailsByUserId } from '../service/orderService';
 import { AppRequest } from '../type/appRequestType';
+import { prepareRetailerDashboardSummary } from '../api/userAPI';
 
 const router = Router();
 const Logging = Logger(__filename);
 
 const OrderRoutePath: string = RoutePath.ORDERS;
+
+type CustomRequest = Request & { claims: { id: string, roles: string[] } }
+
+/**
+ * Get dashboard summary
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+router.get(`${OrderRoutePath}/summary`, validateHeader, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => {
+        const claims = (req as CustomRequest).claims;
+        Logging.log(buildInfoMessageRouteHit(req.path, `Loading summaries : user id: ${claims?.id}`), LogType.INFO);
+        const info = await prepareRetailerDashboardSummary(claims?.id);
+        Logging.log(
+            buildInfoMessageUserProcessCompleted(
+                'Summaries successfully loaded', `user id: ${claims?.id}`
+            ), LogType.INFO
+        );
+        res.send({ data: info });
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, OrderRoutePath), LogType.ERROR);
+        next(error);
+    });
+});
 
 /**
  * Add new order
@@ -74,7 +105,7 @@ router.get(`${OrderRoutePath}${PathParam.USER_ID}`, allowedForClientRoleOnly, va
  * @returns {void}
  */
 const validationsPatch = [allowedForClientRoleOnly, validateHeader
-    , validateParamUserId, validateOrderPatchRequestBody]; 
+    , validateParamUserId, validateOrderPatchRequestBody];
 router.patch(RoutePath.ORDERS + PathParam.USER_ID, validationsPatch, (
     req: Request, res: Response, next: NextFunction): void => {
     const pathParamUserId = req.params.userId;
