@@ -1,20 +1,20 @@
 import LoginWrapper from './LoginWrapper';
-import { login } from './redux/slice/loginSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import RetailerLogin from './Login';
-import { useReducer, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { loginSelector } from './redux/selector/loginSelector';
 
 export const Dashboard = () => {
 
     const [loginStatus, setLoginStatus] = useState(null);
+    const loginStatusStore = useSelector(loginSelector);
 
-    useReducer(() => {
-        const loginStatus = useSelector((state) => state.loginStatus);
-        setLoginStatus(loginStatus);
+    useEffect(() => {
+        setLoginStatus(loginStatusStore);
     });
 
     return (
-        loginStatus ? <h1>Success</h1> : <LoginWrapper uri={''}
+        loginStatus?.isSuccess ? <h1>Success</h1> : <LoginWrapper uri={''}
             loginComponent={RetailerLogin}
             wrapperStyle={ { backgroundColor: '#231F20', height: '100vh'
                 , display: 'flex', alignItems: 'center', justifyContent: 'center' } } />

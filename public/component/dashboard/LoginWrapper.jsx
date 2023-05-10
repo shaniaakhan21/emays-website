@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import RetailerLogin from './Login';
-import { loginSuperUser } from '../../services/login';
-import { login } from './redux/slice/loginSlice';
+import { loginExe } from './redux/thunk/loginThunk';
 import { useDispatch } from 'react-redux';
 
 const LoginWrapperLayout = styled.div`
@@ -15,18 +14,17 @@ LoginWrapperLayout.propTypes = {
     styles: PropTypes.object
 };
 
-const exeLogin = async ({
-    username,
-    password
-}) => {
-    const dispatch = useDispatch();
-    const data = await loginSuperUser({ username: username, password: password });
-    if (data) {
-        dispatch(login('token'));
-    }
-};
-
 const LoginWrapper = ({ loginComponent: LoginComponent, uri, wrapperStyle }) => {
+
+    const dispatch = useDispatch();
+
+    const exeLogin = async ({
+        username,
+        password
+    }) => {
+        const data = { dispatch: dispatch, username: username, password: password };
+        dispatch(loginExe(data));
+    };
     
     return (
         <LoginWrapperLayout styles={wrapperStyle}>

@@ -2,8 +2,7 @@ import { apiBase, HTTPHelper as httpUtil } from '../js/util/httpUtil';
 
 /**
  * Login super user
- * @param username {string}
- * @param password {string}
+ * @param data {object}
  * @returns {Promise<undefined|*>}
  */
 export const loginSuperUser = (data) => {
