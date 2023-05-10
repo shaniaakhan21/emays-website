@@ -54,7 +54,7 @@ const Nav = () => {
                             href='/#/'
                             onClick={() => {
                                 const elem = document.querySelector( '#shop-with-us-start' );
-                                elem.scrollIntoView({ behavior: 'smooth' });
+                                elem?.scrollIntoView?.({ behavior: 'smooth' });
                             }}
                         >{t('nav.menu.shop-with-us')}</HeaderMenuItem>
                         <HeaderMenuItem

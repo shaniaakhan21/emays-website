@@ -32,30 +32,33 @@ const RetailerLanding = () => {
     const t = (key) => translate(`retailer.landing.${key}`);
 
     const switchSlide = async () => {
-        const found = /\s?f-(\d+)\s?/.exec(animationRef.current.className);
-        const cur = parseInt(found[1]);
-        let next = cur + 1;
-        if (cur === 12) {
-            next = 1;
-        }
-        animationRef.current.classList.remove(`f-${cur}`);
-        animationRef.current.classList.add(`f-${next}`);
+        if (animationRef.current) {
 
-        animationRef.current.classList.add('show');
-        // Wait to show
-        await wait(400);
-        // Wait to visible
-        await wait(500);
-        // Check if need scrolling
-        if ([6].indexOf(next) > -1) {
-            animationRef.current.classList.add('scroll');
-            // Wait to scroll
-            await wait(800);
-            // Wait to view
+            const found = /\s?f-(\d+)\s?/.exec(animationRef.current.className);
+            const cur = parseInt(found[1]);
+            let next = cur + 1;
+            if (cur === 12) {
+                next = 1;
+            }
+            animationRef?.current?.classList?.remove?.(`f-${cur}`);
+            animationRef?.current?.classList?.add?.(`f-${next}`);
+
+            animationRef?.current?.classList?.add?.('show');
+            // Wait to show
             await wait(400);
+            // Wait to visible
+            await wait(500);
+            // Check if need scrolling
+            if ([6].indexOf(next) > -1) {
+                animationRef?.current?.classList?.add?.('scroll');
+                // Wait to scroll
+                await wait(800);
+                // Wait to view
+                await wait(400);
+            }
+            // Hide
+            animationRef.current?.classList?.remove?.('show');
         }
-        // Hide
-        animationRef.current.classList.remove('show');
         // Wait to hide
         await wait(400);
 

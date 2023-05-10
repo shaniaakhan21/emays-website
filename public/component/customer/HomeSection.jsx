@@ -36,7 +36,7 @@ const HomeSection = () => {
                     <div className='shipping-section__button_parent'>
                         <Button onClick={() => {
                             const elem = document.querySelector( '#shop-with-us-start' );
-                            elem.scrollIntoView({ behavior: 'smooth' });
+                            elem?.scrollIntoView?.({ behavior: 'smooth' });
                         }} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='1100' className='shipping-section__button'>
                             {t('home-section.col-1.btn-text')}
                         </Button>
@@ -61,7 +61,7 @@ const HomeSection = () => {
             <Column lg={16} md={8} sm={4} className='shipping-section__button_parent mobile' >
                 <Button onClick={() => {
                     const elem = document.querySelector( '#shop-with-us-start' );
-                    elem.scrollIntoView({ behavior: 'smooth' });
+                    elem?.scrollIntoView?.({ behavior: 'smooth' });
                 }} className='shipping-section__button alignment'>
                     {t('home-section.col-1.btn-text')}
                 </Button>
