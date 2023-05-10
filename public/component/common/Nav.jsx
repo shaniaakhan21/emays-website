@@ -2,14 +2,17 @@ import React, { useCallback, useState } from 'react';
 import { Header, HeaderName, HeaderNavigation, HeaderMenuItem, Toggle } from '@carbon/react';
 import '../../scss/component/customer/navbar.scss';
 import LOGO from '../../logo/EMAYS.svg';
-import ICON from '../../icons/NAVICON.svg';
+import LOGO_XS from '../../images/logo-xs.svg';
+import ICON from '../../images/burger-menu.svg';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
+import ButtonCustom from './ButtonCustom';
 
 const Nav = () => {
-    const [t] = useTranslation();
+    const { t, i18n } = useTranslation();
     const [isRetailer, setIsRetailer] = useSessionState('uiState', false);
     const [showMenu, setShowMenu] = useState(false);
+
     const handleToggleChange = useCallback(() => {
         setIsRetailer((prevIsRetailer) => !prevIsRetailer);
         if (isRetailer) {
@@ -19,6 +22,12 @@ const Nav = () => {
         }
     }, [isRetailer]);
 
+    const getLanguage = () => i18n.language || window.localStorage.i18nextLng;
+
+    const handleToggleLanguage = useCallback(() => {
+        i18n.changeLanguage(getLanguage() === 'it' ? 'en' : 'it');
+    }, []);
+
     const handleMenuClick = () => {
         setShowMenu(!showMenu);
     };
@@ -27,17 +36,21 @@ const Nav = () => {
         <div className='cds--wrapper'>
             <Header aria-label='EMAY'>
                 <HeaderName href={isRetailer ? '/#/retailer' : '/#/'} prefix='' className='header-name'>
-                    <img src={LOGO} alt='EMAYS' style={{ marginRight: '1rem' }} />
-                    <Toggle
-                        aria-label='Retailer toggle'
-                        id='retailer-toggle'
-                        labelText={isRetailer ? t('nav.toggle-label.retailer') : t('nav.toggle-label.customer')}
-                        toggled={isRetailer}
-                        onToggle={handleToggleChange}
-                        className='retailer-toggle'
-                    />
+                    <img src={LOGO} alt='EMAYS' style={{ marginRight: '1rem' }} className='logo' />
+                    <img src={LOGO_XS} alt='EMAYS' style={{ marginRight: '1rem' }} className='logo-xs' />
                 </HeaderName>
-                <img src={ICON} alt='Nav icon' className='nav-icon' onClick={handleMenuClick}/>
+                <div className='cus-retailer-toggle'>
+                    <ButtonCustom
+                        action={handleToggleChange}
+                        text={t('common.nav-customers')}
+                        className={`cus-ratailer-toggle__customer${isRetailer ? '' : ' active'}`}
+                    />
+                    <ButtonCustom
+                        action={handleToggleChange}
+                        text={t('common.nav-retailers')}
+                        className={`cus-ratailer-toggle__retailer${isRetailer ? ' active' : ''}`}
+                    />
+                </div>
                 <HeaderNavigation aria-label='Your Company' className={showMenu ? 'show-menu' : ''}>
                     {isRetailer ? <>
                         <HeaderMenuItem href='/#/integration' style={{ marginLeft: '1rem' }}>
@@ -66,6 +79,15 @@ const Nav = () => {
 
                     </>}
                 </HeaderNavigation>
+                <Toggle
+                    aria-label='Retailer toggle'
+                    id='retailer-toggle'
+                    labelText={getLanguage() === 'en' ? 'IT' : 'EN'}
+                    toggled={getLanguage() === 'it'}
+                    onToggle={handleToggleLanguage}
+                    className='retailer-toggle'
+                />
+                <img src={ICON} alt='Nav icon' className='nav-icon' onClick={handleMenuClick}/>
             </Header>
         </div>
     );
