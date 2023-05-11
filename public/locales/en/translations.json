@@ -460,5 +460,8 @@
     "trustpilot": "Trustpilot",
     "instagram": "Instagram",
     "facebook": "Facebook"
+  },
+  "privacy": {
+    "title": "PRIVACY POLICY"
   }
 }

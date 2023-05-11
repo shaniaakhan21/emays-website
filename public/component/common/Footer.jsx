@@ -24,7 +24,7 @@ const Footer = () => {
                         <Link href='#'>{t('terms')}</Link>
                     </div>
                     <div className='footer__links'>
-                        <Link href='#'>{t('privacy')}</Link>
+                        <Link href='/#/privacy'>{t('privacy')}</Link>
                     </div>
                 </Column>
                 <Column sm={8} md={6} lg={2}>
