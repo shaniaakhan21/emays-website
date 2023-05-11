@@ -32,7 +32,9 @@
         // Consume product list
         const jsonData = sessionStorage.getItem('productList');
         const removed = result.replace(/&#34;/g, '"');
-        const json = JSON.parse(removed);
+        try {
+            global.json = JSON.parse(removed);
+        } catch (e) {}
 
         // Store session token
         const token = "<%= token %>";
@@ -40,7 +42,6 @@
 
     </script>
     <title>Emays UI App</title>
-    <script src="../app-dist/dist/assets/index-bea74550.js"></script>
 </head>
 
 <body>
@@ -54,7 +55,6 @@
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js').then(
                     (registration) => {
-                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
                     },
                     (err) => {
                         console.log('ServiceWorker registration failed:', err);
