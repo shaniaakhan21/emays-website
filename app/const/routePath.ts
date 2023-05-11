@@ -30,5 +30,6 @@ export enum PathParam {
     USER_ID = '/:userId',
     AREA_NAME = '/:area',
     AREA_LATITUDE = '/:lat',
-    AREA_LONGITUDE = '/:long'
+    AREA_LONGITUDE = '/:long',
+    EXTERNAL_SYSTEM_ID = '/:externalSystemId'
 }

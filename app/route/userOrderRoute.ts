@@ -8,12 +8,18 @@ import { Logger } from '../log/logger';
 import { buildErrorMessage, buildInfoMessageRouteHit, buildInfoMessageUserProcessCompleted }
     from '../util/logMessageBuilder';
 import { PathParam, RoutePath } from '../const/routePath';
-import { HTTPSuccess } from '../const/httpCode';
+import { HTTPSuccess, HTTPUserError } from '../const/httpCode';
 import { IOrder, IOrderDTO, IPatchOrder } from '../type/orderType';
 import { successResponseBuilder } from '../util/responseBuilder';
 import {
-    allowedForClientRoleOnly, allowedForRetailerRoleOnly, validateCreateOrder, validateHeader
-    , validateOrderDetailsPagination, validateOrderPatchRequestBody,
+    allowedForClientRoleOnly,
+    allowedForExternalSystemRoleOnly,
+    allowedForRetailerRoleOnly,
+    validateCreateOrder,
+    validateHeader
+    ,
+    validateOrderDetailsPagination,
+    validateOrderPatchRequestBody,
     validateParamUserId
 } from '../middleware/paramValidationMiddleware';
 import { createOrder, getOrderDetailsWithPagination, patchOrderDetailsByUserId,
@@ -35,24 +41,30 @@ type CustomRequest = Request & { claims: { id: string, roles: string[] } }
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-router.get(`${OrderRoutePath}/summary`, validateHeader, (
-    req: Request, res: Response, next: NextFunction): void => {
-    (async () => {
-        const claims = (req as CustomRequest).claims;
-        Logging.log(buildInfoMessageRouteHit(req.path, `Loading summaries : user id: ${claims?.id}`), LogType.INFO);
-        const info = await prepareRetailerDashboardSummary(claims?.id);
-        Logging.log(
-            buildInfoMessageUserProcessCompleted(
-                'Summaries successfully loaded', `user id: ${claims?.id}`
-            ), LogType.INFO
-        );
-        res.send({ data: info });
-    })().catch(error => {
-        const err = error as Error;
-        Logging.log(buildErrorMessage(err, OrderRoutePath), LogType.ERROR);
-        next(error);
+router.get(
+    `${OrderRoutePath}${PathParam.EXTERNAL_SYSTEM_ID}/summary`, allowedForExternalSystemRoleOnly, validateHeader, (
+        req: Request, res: Response, next: NextFunction): void => {
+        (async () => {
+            const pathParam = req.params as { [key: string]: string };
+            const claims = (req as CustomRequest).claims;
+            Logging.log(buildInfoMessageRouteHit(req.path, `Loading summaries : user id: ${claims?.id}`), LogType.INFO);
+            if (pathParam.externalSystemId !== claims?.id) {
+                res.sendStatus(HTTPUserError.UNAUTHORIZED_CODE);
+                return;
+            }
+            const info = await prepareRetailerDashboardSummary(claims?.id);
+            Logging.log(
+                buildInfoMessageUserProcessCompleted(
+                    'Summaries successfully loaded', `user id: ${claims?.id}`
+                ), LogType.INFO
+            );
+            res.send({ data: info });
+        })().catch(error => {
+            const err = error as Error;
+            Logging.log(buildErrorMessage(err, OrderRoutePath), LogType.ERROR);
+            next(error);
+        });
     });
-});
 
 /**
  * Add new order
