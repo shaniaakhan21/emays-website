@@ -1,0 +1,43 @@
+
+.login-container {
+
+    .error {
+        color: red;
+        padding-top: 10px;
+        padding-left: 30px;
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .retailer-head {
+        background-color: #fff;
+        color: #231f20;
+        width: 150px;
+        height: 65px;
+        padding-top: 13px;
+        margin-top: 16px;
+    }
+
+    .text-container {
+        display: flex;
+        justify-content: center;
+        padding-left: 5px;
+        .cds--text-input-wrapper {
+            padding-left: 30px;
+        }
+        .cds--password-input-wrapper {
+            padding-top: 10px;
+        }
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        padding-left: 5px;
+        padding-left: 36px;
+        padding-top: 25px;
+    }
+}
