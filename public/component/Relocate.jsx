@@ -19,7 +19,6 @@ const Relocate = () => {
     const history = useHistory();
     useEffect(() => {
         // IMPORTANT: make sure you set the launch type to empty within each launch.
-        console.log('launchType', launchType);
         switch (launchType) {
             case PRODUCT_LAUNCH:
                 setLaunchType('');
