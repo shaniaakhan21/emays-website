@@ -102,3 +102,7 @@ export const AREA_REQUIRED = 'Please provide a valid area name or our service is
 export const LATITUDE_REQUIRED = 'Please provide a valid latitude';
 
 export const LONGITUDE_REQUIRED = 'Please provide a valid longitude';
+
+export const INVALID_RECAPTCHA_ERROR_MESSAGE = 'Recaptcha validation failed';
+
+export const ERROR_DOCUMENT_NOT_FOUND = 'Document not found';

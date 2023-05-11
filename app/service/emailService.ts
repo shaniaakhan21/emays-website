@@ -5,7 +5,13 @@
 import { buildAppLaunchPath } from '../api/launchAPI';
 import LogType from '../const/logType';
 import { Logger } from '../log/logger';
-import { SendCancellationEmailToClientFunc, SendEmailFunc, SendEmailReminderToCustomerOnDeliveryDayFunc, SendEmailReminderToRetailerBeforeDriverPickFunc } from '../type/emailServiceType';
+import {
+    LetsTalkEmailData,
+    SendCancellationEmailToClientFunc,
+    SendEmailFunc,
+    SendEmailReminderToCustomerOnDeliveryDayFunc,
+    SendEmailReminderToRetailerBeforeDriverPickFunc
+} from '../type/emailServiceType';
 import EmailClient from '../util/awsSESBuilder';
 import { buildErrorMessage } from '../util/logMessageBuilder';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
@@ -483,6 +489,42 @@ export const sendEmailForOrderingItems: SendEmailFunc = async (emailInfo, templa
                 Subject: {
                     Charset: 'UTF-8',
                     Data: `EMAYS Order Confirmation For - ${emailInfo.firstName}`
+                }
+            }
+        };
+        await emailClientInstance.sendEmail(params).promise();
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Send Email'), LogType.ERROR);
+        throw error;
+    }
+};
+
+export const sendEmailForLetsTalk = async (data: LetsTalkEmailData) => {
+    try {
+        const emailClientInstance = new EmailClient().getInstance();
+
+        const params = {
+            Source: config.AWS_SES.AWS_SOURCE_EMAIL,
+            Destination: {
+                ToAddresses: [
+                    config.LETS_TALK_EMAIL
+                ]
+            },
+            Message: {
+                Body: {
+                    Text: {
+                        Charset: 'UTF-8',
+                        Data: `Email - ${data.email}
+                        Name - ${data.name}
+                        Message - ${data.message}
+                        Phone Number - ${data.phoneNo}`
+                    }
+                },
+                Subject: {
+                    Charset: 'UTF-8',
+                    Data: `EMAYS Let's Talk Appointment - ${data.email}`
                 }
             }
         };

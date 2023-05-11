@@ -21,7 +21,9 @@ export enum RoutePath {
     STRIPE = '/stripe',
     GEO = '/geo',
     APP_INFO = '/appInfo',
-    EMAIL_REMINDERS = '/emailReminders'
+    EMAIL_REMINDERS = '/emailReminders',
+    LETS_TALK = '/letsTalk',
+    FAQ = '/faq'
  }
 
 export enum PathParam {

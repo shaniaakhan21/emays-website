@@ -14,8 +14,13 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+    z-index: 9999;
 
     > div {
         margin-top: 3px;
     }
+}
+
+.grecaptcha-badge {
+    visibility: hidden !important;
 }

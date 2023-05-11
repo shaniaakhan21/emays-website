@@ -141,23 +141,24 @@ const Checkout = () => {
 
     return (
         <Grid className='landing-page'>
-            <ConfirmDialog
-                open={showDelete !== undefined && showDelete !== false}
-                setOpen={setShowDelete}
-                secondaryButtonText='Back'
-                primaryButtonText='Yes, I dont want it'
-                modalLabel='DELETE THIS ITEM?'
-                onRequestSubmit={removeItem}
-            >
-                <ShoppingItem
-                    index={showDelete}
-                    itemName={productData[showDelete]?.productName}
-                    image={productData[showDelete]?.productImage || FallBack}
-                    color={productData[showDelete]?.productColor}
-                    size={productData[showDelete]?.productSize}
-                    quantity={productData[showDelete]?.productQuantity}
-                    price={`€ ${productData[showDelete]?.productCost}`} />
-            </ConfirmDialog>
+            <DialogueModal
+                showModal={showDelete !== undefined && showDelete !== false}
+                closeModal={() => { setShowDelete(false); }}
+                title={t('checkout.delete-item-title')}
+                confirmButtonText={t('checkout.delete-item-confirm')}
+                cancelButtonText={t('checkout.delete-item-cancel')}
+                body={
+                    <ShoppingItem
+                        index={showDelete}
+                        itemName={productData[showDelete]?.productName}
+                        image={productData[showDelete]?.productImage || FallBack}
+                        color={productData[showDelete]?.productColor}
+                        size={productData[showDelete]?.productSize}
+                        quantity={productData[showDelete]?.productQuantity}
+                        price={`€ ${productData[showDelete]?.productCost}`} />
+                }
+                confirmAction={removeItem}
+            />
             <Column lg={16} md={16} sm={16} xs={16} className='logo'>
                 <img src={Emays} alt='The Emays logo' />
             </Column>
@@ -364,7 +365,7 @@ const Checkout = () => {
                             state.launchType === EMAIL_EDIT &&
                             <ButtonCustom
                                 text={t('checkout.cancel-order')}
-                                action={() => { 
+                                action={() => {
                                     setDeleteAppointment(true);
                                     setSuccessAppointmentDelete(false); }}
                                 type={'danger'}
