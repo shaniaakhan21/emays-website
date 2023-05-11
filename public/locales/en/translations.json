@@ -315,6 +315,13 @@
         "invalid-username": "Invalid Username",
         "invalid-password": "Invalid Password"
       }
+    },
+    "navigation": {
+      "overview": "Overview",
+      "del-orders": "Delivery Orders",
+      "customers": "Customers",
+      "history": "History",
+      "new-orders": "New Orders"
     }
   },
   "retailer": {
