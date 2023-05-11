@@ -1,5 +1,7 @@
 {
   "common": {
+    "nav-customers": "CUSTOMERS",
+    "nav-retailers": "RETAILERS",
     "error": "Error",
     "success": "Success",
     "success-message": "Appointment created successfully!",
