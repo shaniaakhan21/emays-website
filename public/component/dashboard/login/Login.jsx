@@ -1,3 +1,4 @@
+import React from 'react';
 import '../../../scss/component/dashboard/login.scss';
 import LOGO from '../../../images/Dashboard/EMAYS-LOGO.svg'; 
 import TextBoxCustom from '../../common/TextBoxCustom';
@@ -15,23 +16,24 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
     
     return (
 
-        <div class='cds--grid login-container'>
-            <div class='cds--row'>
-                <div class='cds--col'>
-                    <div class='image-container'>
+        <div className='cds--grid login-container'>
+            <div className='cds--row'>
+                <div className='cds--col'>
+                    <div className='image-container'>
                         <img src={LOGO} height={'100px'} width={'130px'} alt='EMAYS' />
                     </div>
                 </div>
-                <div class='cds--col'>
+                <div className='cds--col'>
                     <div className='retailer-head'>
                         <h3>{t('retailer.login.heading')}</h3>
                     </div>
                 </div>
             </div>
-            <div class='cds--row'>
-                <div class='cds--col text-container'>
+            <div className='cds--row'>
+                <div className='cds--col text-container'>
                     <div>
                         <TextBoxCustom
+                            id='login_username'
                             onChange={(event) => { 
                                 if (event.target.value) {
                                     updateError({ ...error, usernameError: false });
@@ -42,7 +44,6 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                             }}
                             labelText='Account Email'
                             placeholderText='email@example.com'
-                            autocomplete='given-email'
                             name='account-email'
                             customStyle={{ width: '313px' }}
                         />
@@ -51,10 +52,11 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                 </div>
             </div>
 
-            <div class='cds--row'>
-                <div class='cds--col text-container'>
+            <div className='cds--row'>
+                <div className='cds--col text-container'>
                     <div>
                         <TextBoxPassword
+                            id='login_password'
                             onChange={(event) => { 
                                 if (event.target.value) {
                                     updateError({ ...error, passwordError: false });
@@ -71,8 +73,8 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                 </div>
             </div>
 
-            <div class='cds--row'>
-                <div class='cds--col button-container'>
+            <div className='cds--row'>
+                <div className='cds--col button-container'>
                     <div>
                         <ButtonCustom action={
                             async () => {
@@ -97,4 +99,4 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
     );
 };
 
-export default RetailerLogin;
+export default React.memo(RetailerLogin);

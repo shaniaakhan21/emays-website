@@ -1,3 +1,4 @@
+import React from 'react';
 import LoginWrapper from './login/LoginWrapper';
 import { useSelector } from 'react-redux';
 import RetailerLogin from './login/Login';
@@ -5,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { loginSelector } from './redux/selector/loginSelector';
 import DashboardLayout from './DashboardLayout';
 
-export const Dashboard = () => {
+const Dashboard = () => {
 
     const [loginStatus, setLoginStatus] = useState(null);
     const loginStatusStore = useSelector(loginSelector);
@@ -22,3 +23,5 @@ export const Dashboard = () => {
     );
     
 };
+
+export default React.memo(Dashboard);

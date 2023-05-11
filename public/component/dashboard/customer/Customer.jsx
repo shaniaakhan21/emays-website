@@ -1,3 +1,4 @@
+import React from 'react';
 
 const Customer = () => {
     return (
@@ -7,4 +8,4 @@ const Customer = () => {
     );
 };
 
-export default Customer;
+export default React.memo(Customer);

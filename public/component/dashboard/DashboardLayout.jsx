@@ -44,4 +44,4 @@ const DashboardLayout = () => {
     );
 };
 
-export default DashboardLayout;
+export default React.memo(DashboardLayout);

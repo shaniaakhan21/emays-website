@@ -1,3 +1,4 @@
+import React from 'react';
 
 const Overview = () => {
     return (
@@ -7,4 +8,4 @@ const Overview = () => {
     );
 };
 
-export default Overview;
+export default React.memo(Overview);

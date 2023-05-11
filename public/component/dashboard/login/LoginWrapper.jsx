@@ -1,3 +1,4 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import RetailerLogin from './Login';
@@ -43,4 +44,4 @@ LoginWrapper.propTypes = {
     wrapperStyle: PropTypes.object
 };
 
-export default LoginWrapper;
+export default React.memo(LoginWrapper);
