@@ -25,7 +25,7 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                 </div>
                 <div className='cds--col'>
                     <div className='retailer-head'>
-                        <h3>{t('retailer.login.heading')}</h3>
+                        <h3>{t('dashboard.login.heading-retailer')}</h3>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,8 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                             name='account-email'
                             customStyle={{ width: '313px' }}
                         />
-                        {error.usernameError && <div className='error'>Invalid Username</div>}
+                        {error.usernameError && 
+                            <div className='error'>{t('dashboard.login.error.invalid-username')}</div>}
                     </div>
                 </div>
             </div>
@@ -68,7 +69,8 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                             hidePasswordLabel='Hide password'
                             customStyle={{ width: '313px' }}
                         />
-                        {error.passwordError && <div className='error'>Invalid Password</div>}
+                        {error.passwordError && 
+                            <div className='error'>{t('dashboard.login.error.invalid-password')}</div>}
                     </div>
                 </div>
             </div>
@@ -89,7 +91,7 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                                     ...formData
                                 });
                             }} className='submit'
-                        text={t('retailer.login.button-text')}
+                        text={t('dashboard.login.button-text')}
                         customStyle={ { width: '313px', background: '#525252' }}
                         />
                     </div>

@@ -305,11 +305,17 @@
       }
     }
   },
-  "retailer": {
+  "dashboard": {
     "login": {
-      "heading": "Retailer",
-      "button-text": "LOGIN"
-    },
+      "heading-retailer": "Retailer",
+      "button-text": "LOGIN",
+      "error": {
+        "invalid-username": "Invalid Username",
+        "invalid-password": "Invalid Password"
+      }
+    }
+  },
+  "retailer": {
     "landing": {
       "title": "WE SHIP THE SHOP",
       "sub-header": "Bring the Luxury shopping experience to your clients",
