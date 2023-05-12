@@ -1,0 +1,447 @@
+{
+  "common": {
+    "nav-customers": "CUSTOMERS",
+    "nav-retailers": "RETAILERS",
+    "error": "Errore",
+    "success": "Successo",
+    "success-message": "Appuntamento creato con successo!",
+    "confirm-privacy-policy": "Conferma l'informativa sulla privacy",
+    "lets-talk-form": {
+      "header": "Sei curioso di sapere qualcosa? Parliamone",
+      "name": "Nome",
+      "name-placeholder": "Nome qui",
+      "email": "E-mail",
+      "phone": "Numero di telefono",
+      "phone-placeholder": "+ 39 0000 000",
+      "message": "Messaggio",
+      "message-placeholder": "Ciao, vorrei avere informazioni su...",
+      "privacy-policy": "Ho letto e accetto l'informativa sulla privacy",
+      "email-2": "Email",
+      "phone-2": "Telefono",
+      "email-2-value": "emays@emays.com",
+      "phone-2-value": "+ 39 000 000 000",
+      "submit": "INVIA"
+    },
+    "faq": {
+      "title": "Domande frequenti",
+      "data": [
+        {
+          "title": "Chi consegnerà i miei pezzi?",
+          "description": "Consegniamo i tuoi pezzi con un membro del nostro stylist team. Tutti i nostri style concierge sono formati con ciascuno dei nostri brand partner per assicurarti di ricevere la massima esperienza di lusso, comodamente e senza stress."
+        },
+        {
+          "title": "Quanto tempo ho per provare i miei pezzi?",
+          "description": "Il tuo stylist arriverà entro la finestra temporale di un'ora che hai scelto, da quel momento avrai 40 minuti per provare i tuoi capi e poi prendere una decisione. Non preoccuparti, 40 minuti sono abbastanza poiché in media solo 14 minuti si trascorrono in un camerino di negozio"
+        },
+        {
+          "title": "Lo Style Concierge viene a casa mia?",
+          "description": "A seconda dell'opzione che scegli, 'Aspettami' o 'Assistimi'. Aspettiamo che tu provi: il tuo stylist ti consegnerà i tuoi pezzi, avrai quindi 40 minuti per provare. Quando avrai scelto il pezzi che vorresti tenere, basta semplicemente pagare e noi ritiriamo gli articoli invenduti per te. Assitimi: il tuo stylist preparerà i tuoi pezzi e ti aiuterà durante l'appuntamento con qualsiasi consiglio di stile e qualsiasi sartoria se necessario."
+        },
+        {
+          "title": "C'è qualche obbligo di acquisto?",
+          "description": "Semplicemente no. Emays ti aiuta a trovare i pezzi che ami, rendendo più facile restituire i pezzi che non ti piacciono, facendoti risparmiare tempo e fatica. Vogliamo farti sentire sicuro e a tuo agio nelle tue scelte, senza qualsiasi pressione per comprare."
+        },
+        {
+          "title": "Come posso modificare il mio appuntamento?",
+          "description": "Contatta il servizio clienti di Emays inviando un'e-mail a info@emaysstyle.com."
+        }
+      ]
+    },
+    "payment-form": {
+      "title": "Metodo di pagamento",
+      "name": "Titolare della carta",
+      "number": "Numero di carta di credito/debito",
+      "exp-month": "Mese di scadenza",
+      "exp-year": "Anno di scadenza",
+      "cvv": " cvv ",
+      "button": "Paga ora"
+    }
+  },
+  "checkout": {
+    "book-appointment": {
+      "header": "PRENOTA IL TUO APPUNTAMENTO",
+      "choose-date": "Scegli data",
+      "choose-time": "Scegli finestra temporale",
+      "custom-date": "Data personalizzata",
+      "addOnePlaceHolder": "Nome della via | Completamento automatico",
+      "addTwoPlaceHolder": "Numero porta",
+      "addThreePlaceHolder": "Appartamento, Completo",
+      "addFourPlaceHolder": "Città",
+      "addFivePlaceHolder": "Paese",
+      "addSixPlaceHolder": "Codice Postale",
+      "searchAddress": "Cerca il tuo indirizzo via o l'indirizzo completo",
+      "deliveryInfo": "Commento utente",
+      "deliveryInfoPlaceholder": "Inserisci il tuo commento"
+    },
+    "customize-experience": {
+      "header": "PERSONALIZZA LA TUA ESPERIENZA GRATIS",
+      "checkbox-wait-label": "Aspettiamo mentre provi - Consegna senza contatto - Lasciamo gli articoli alla tua porta e lo stilista aspetterà i tuoi resi fuori.",
+      "checkbox-assist-label": "Assistimi - vorrei essere aiutato durante l'intero appuntamento dallo stylist.",
+      "checkbox-basic-label": "Sartoria di base - Ho bisogno di appuntare e adattare qualche minimo dettaglio.",
+      "checkbox-inspire-label": "Ispirami - Portami altri elementi da provare gratuitamente!"
+    },
+    "delivery-address": {
+      "header": "INDIRIZZO DI CONSEGNA",
+      "address": "Indirizzo"
+    },
+    "delivery-info": "COMMENTO UTENTE",
+    "submit-button": "CONTINUA",
+    "save-changes": "SALVA NUOVE MODIFICHE",
+    "cancel-order": "CANCELLA APPUNTAMENTO",
+    "delete-item-title": "ELIMINARE QUESTO ARTICOLO?",
+    "delete-item-confirm": "Sì, non lo voglio",
+    "delete-item-cancel": "Indietro"
+  },
+  "email-launch": {
+    "header-one": {
+      "left": "BRAND",
+      "right": "APPUNTAMENTO PRENOTATO"
+    },
+    "thank": "Grazie per aver prenotato il tuo appuntamento con <strong>Brand</strong>.",
+    "info": "(Il tuo appuntamento di 40 minuti inizierà quando arriverà il tuo Emays Stylist).",
+    "time-info": {
+      "message": "Non vediamo l'ora di vederti su:",
+      "data": "Data",
+      "ora": "Ora"
+    },
+    "full-name": "Nome completo",
+    "exp-selected": "Esperienza selezionata",
+    "del-address": "Indirizzo di consegna",
+    "items-to--be-deliver": "ARTICOLI DA CONSEGNARE",
+    "order-placed": "ORDINE EFFETTUATO",
+    "in-progress": "CONSEGNA IN CORSO",
+    "delivered": "CONSEGNA",
+    "remember": "Per favore ricorda,",
+    "contact-message": "ti contatteremo il giorno prima dell'appuntamento, oltre a un promemoria il giorno stesso",
+    "special-info": {
+      "line-one": "Non vediamo l'ora di vederti !!! Se non dovessi essere in grado di partecipare, ti preghiamo di notare la nostra politica di cancellazione qui sotto.",
+      "line-two": "Richiediamo un preavviso di almeno 24 ore se desideri apportare modifiche o emendamenti al tuo appuntamento programmato. Se non ci informi di qualsiasi modifica entro 24 ore di preavviso , ti verrà addebitato il costo del servizio."
+    },
+    "need-help": "Hai bisogno di aiuto?",
+    "mail": {
+      "part-one": "Non siamo in grado di ricevere risposte a questa email. Se hai bisogno di assistenza, vai a",
+      "link-text": "support@emays.com",
+      "part-two": "ti ha inviato questa email. Utilizzando i nostri servizi, accetti il nostro contratto con il cliente."
+    },
+    "contact-us": "Contattaci",
+    "button": {
+      "edit-appointment": "MODIFICA APPUNTAMENTO",
+      "add-to-calendar": "AGGIUNGI AL CALENDARIO"
+    },
+    "copy-right": "© Emays 2023. Tutti i diritti riservati.",
+    "cancellation": {
+      "dialogue-header": "Sei sicuro di voler cancellare questo appuntamento?",
+      "dialogue-body": "Questa azione potrebbe causare la perdita degli oggetti che stavi cercando di acquistare",
+      "info-header": "Appuntamento annullato con successo",
+      "info-body": "Puoi chiudere questa finestra del browser"
+    }
+  },
+  "confirm": {
+    "success": "Appuntamento aggiornato con successo!",
+    "edit-appointment": {
+      "header": "IL TUO APPUNTAMENTO",
+      "edit-button": "MODIFICA"
+    },
+    "user-appointment-info": {
+      "date": "Data",
+      "hour": "Ora",
+      "selected-experience": "Esperienza selezionata",
+      "delivery-address": "Indirizzo di consegna",
+      "delivery-info": "Commento utente"
+    },
+    "contact-details": {
+      "header": "DATI DI CONTATTO",
+      "info-text-important": "Importante:",
+      "info-text": "Ti chiameremo o ti invieremo un messaggio il giorno prima, nonché al momento dell'arrivo per garantire la qualità dell'esperienza.",
+      "first-name": "Nome",
+      "last-name": "Cognome",
+      "phone-number": "Numero di telefono",
+      "e-mail": "e-mail"
+    },
+    "submit-button": "CONFERMA DETTAGLI",
+    "loading-description": "Prenotazione appuntamento, ricerca assistente personale"
+  },
+  "shopping-bag-container": {
+    "header": "CARRELLO",
+    "service-fee": "COMMISSIONI DI SERVIZIO",
+    "instruction-1": "Questa commissione ci aiuta a gestire le nostre operazioni, tutti i servizi inclusi.",
+    "instruction-2": "L'importo sarà bloccato sulla tua carta fino al giorno della consegna.",
+    "instruction-3": "Cancellazioni disponibili prima dell'appuntamento di 24 ore.",
+    "instruction-4": "Sessione di styling di lusso a casa.",
+    "button": "PRENOTA IL TUO APPUNTAMENTO",
+    "item": {
+      "size": "Dimensione",
+      "quantity": "Quantità",
+      "color": "Colore"
+    }
+  },
+  "nav": {
+    "logo-alt": "EMAYS",
+    "toggle-label": {
+      "retailer": "RETAILER",
+      "customer": "CLIENTE"
+    },
+    "menu": {
+      "services": "SERVIZI",
+      "sustainability": "SOSTENIBILITÀ",
+      "shop-with-us": "ACQUISTA CON NOI",
+      "lets-talk": "Parliamo",
+      "faq": "FAQ",
+      "integration": "INTEGRAZIONE",
+      "partnership": "PARTNERSHIP"
+    }
+  },
+  "environment-header": {
+    "env-header-h1": "“L’INDUSTRIA DELLE MODA NON DOVREBBE DANNEGGIARE LA TERRA”",
+    "env-header-h5": "CO2 neutro",
+    "env-header-h5-subhead": " L'uso di carbonio viene considerato in ogni fase del nostro servizio."
+  },
+  "icon-img-text": {
+    "text-h1": "CANCELLA IL VIAGGIO DI RITORNO",
+    "text-h5": "Oltre un terzo degli ordini del fashion online termina con un reso, con due viaggi ciascuno: uno per consegnare e un altro per ritirare. Questo raddoppia i km percorsi per ogni negozio. Con Emays, queste consegne e resi di viaggi sono combinati, dimezziamo quei chilometri unendo la consegna e il viaggio di ritorno."
+  },
+  "icon-text-img": {
+    "text-h5": "Il servizio di consegna di Emays è progettato pensando all'ambiente e offre la migliore esperienza di acquisto per i clienti moderni. Ci impegniamo sempre per lasciare un'esperienza indimenticabile. Riduciamo ad ogni modo il nostro impatto ambientale e offriamo un servizio all-inclusive a casa tua con le nostre auto a emissioni zero, per rendere lo stile più sostenibile per le persone e il pianeta."
+  },
+  "img-text-icon": {
+    "text-h1": " CONSEGNAMO AD UN PREZZO CHE RISPETTI IL NOSTRO LAVORO E L’AMBIENTE ",
+    "text-h5": " Emays consegna utilizzando porta abiti per indumenti appesi senza imballaggio. Questo servizio ha lo scopo di evitare l'uso di plastica e cancellare l'imballaggio usa e getta."
+  },
+  "text-img": {
+    "text-h1-01": "UN",
+    "text-h1-02": "ALBERO",
+    "text-h1-03": "PIANTATO",
+    "text-h5": " Collaboriamo con OneTreePlanted e sosteniamo i loro progetti. Piantiamo un albero per ogni ordine che completiamo, aiutando a pulire l'aria che respiriamo, ripristinare le foreste, creare habitat per la biodiversità e dare un impatto sociale positivo in tutto il mondo.",
+    "btn-text": "Ulteriori informazioni su questa iniziativa"
+  },
+  "home-section": {
+    "col-1": {
+      "title": " PORTIAMO IL NEGOZIO A CASA TUA ",
+      "title-2": "NEL TUO COMFORT",
+      "subtitle-h2": "Consegnato a te, da Emays",
+      "subtitle-h3": "Prova quello che vuoi, paga solo quello che tieni",
+      "btn-text": "Guarda cosa possiamo fare per te",
+      "btn2-text": "Inviaci un'e-mail"
+    }
+  },
+  "services": {
+    "text-h1": "I nostri servizi sono disponibili su siti Web di marchi selezionati"
+  },
+  "shop-with-us": {
+    "first-block": {
+      "main-heading": "Perché acquistare da noi?",
+      "main-heading-2": "“Il servizio dell'ultimo miglio a tuo piacimento”",
+      "head-text": "PROVA PRIMA DI PAGARE",
+      "subhead-text": "Nessun pagamento anticipato",
+      "body-text": "Scegli tutti i pezzi che vorresti provare, te li porteremo senza alcun pagamento anticipato."
+    },
+    "second-block": {
+      "head-text": "Zero stress, nessuna taglia sbagliata. Risparmia tempo nei resi",
+      "subhead-text": "Dimentica di rispedire i tuoi ordini!",
+      "body-text": "Salta inutili file alla posta, noi portiamo indietro tutti i pezzi che non vuoi."
+    },
+    "third-block": {
+      "head-text": "Programma secondo necessità",
+      "subhead-text": "finestre di 1 ora",
+      "body-text": "Acquista secondo il tuo programma con orari disponibili dalle 9:00 alle 21:00, 7 giorni su 7."
+    },
+    "fourth-block": {
+      "head-text": "Il pianeta viene prima",
+      "subhead-text": "C02 Neutro",
+      "body-text": " L'annullamento di carbonio viene considerato in ogni fase del nostro servizio."
+    },
+    "fifth-block": {
+      "btn-text": "Leggi di più su questo",
+      "email-text": "Acquista con i nostri marchi"
+    },
+    "info-box": {
+      "1": {
+        "no": "1.0",
+        "title": "Crea il tuo carrello",
+        "icon-text": "Nessun pagamento anticipato",
+        "description": "Scegli tutti i pezzi che vuoi provare, acquista liberamente. Te li porteremo senza pagamento anticipato"
+      },
+      "2": {
+        "no": "2.0",
+        "title": "Risparmia tempo",
+        "icon-text": "Resi senza problemi",
+        "description": "Dimentica di reimballare e rispedire! Niente stress, niente taglie sbagliate, Emays riporterà gli articoli indesiderati al negozio per te."
+      },
+      "3": {
+        "no": "3.0",
+        "title": "Programma secondo necessità",
+        "icon-text": "finestre di 1 ora",
+        "description": "Prenota il tuo programma della finestra di un'ora, disponibile dalle 9:00 alle 21:00, 7 giorni su 7. Prenditi il tuo tempo, ti aspettiamo. Hai 40 minuti per provare e prendere una decisione."
+      },
+      "4": {
+        "no": "4.0",
+        "title": "Il negozio a casa",
+        "icon-text": "Fuori la tua porta",
+        "description": "Qualunque cosa desideri, ovunque tu sia. Scegli dove vuoi provare i tuoi articoli, che sia a casa tua, in ufficio o in hotel , ci pensiamo noi alla consegna"
+      },
+      "4_1": {
+        "NO": "",
+        "titolo": "",
+        "icon-text": "Noi aspettiamo, tu prova",
+        "description": "Il tuo stylist ti consegnerà i tuoi articoli e tornerà solo per prendere il pagamento e ritirare gli articoli indesiderati."
+      },
+      "4_2": {
+        "NO": "",
+        "titolo": "",
+        "icon-text": "Assistimi",
+        "description": "Il tuo stylist ti aiuterà con consigli di stile durante tutto il tuo tempo. Se è necessario qualche aggiustamento appuntiamo e personalizziamo qualsiasi articolo per renderlo perfetto per te."
+      },
+      "5": {
+        "no": "5.0",
+        "title": "Concludi il tuo acquisto",
+        "icon-text": "Acquista",
+        "description": "Ti guideremo attraverso il processo di checkout senza interruzioni. La nostra interfaccia user-friendly ti consente di rivedere facilmente gli articoli scelti."
+      },
+      "6": {
+        "no": "6.0",
+        "title": "Attento al clima",
+        "icon-text": "C02 Neutro",
+        "icon-text-short": "Neutro",
+        "description": "Prendiamo sul serio il clima e l'ambiente e crediamo nella moda sostenibile. Ecco perché consideriamo l'impronta di carbonio in ogni fase del nostro servizio. Comprendendo l'impatto che l'industria della moda può avere sull'ambiente, ci impegniamo fare la nostra parte per minimizzarlo.",
+        "button": "Leggi di più su questo"
+      }
+    }
+  },
+  "retailer": {
+    "landing": {
+      "title": "SPEDIAMO IL NEGOZIO",
+      "sub-header": "Porta l'esperienza di shopping di lusso ai tuoi clienti",
+      "description": "Converti, fai crescere e fidelizza i clienti con Emays",
+      "button": "Richiedi una DEMO",
+      "button-api": "Connessione API",
+      "data": [
+        {
+          "title": "ATV",
+          "value": "+45%"
+        },
+        {
+          "title": "UPT",
+          "value": "3"
+        },
+        {
+          "title": "Riduzione di ritorno",
+          "value": "-45%"
+        },
+        {
+          "title": "Dati acquisiti",
+          "value": "100%"
+        }
+      ],
+      "info-box": [
+        {
+          "title": "Massimizza e aumenta le vendite",
+          "description": "Esperienza di lusso personalizzata per i clienti, assistiti in ogni punto del processo di acquisto da consulenti esperti"
+        },
+        {
+          "title": "Controllo completo dell'inventario",
+          "description": "Se invenduto, il prodotto tornerà e sarà disponibile nel tuo negozio entro 24 ore"
+        },
+        {
+          "title": "Conversione di nuovi clienti",
+          "description": "I nostri servizi mirano a rendere più facile lo shopping verso i marchi affinché possano indurre i nuovi clienti possano superare barriere come:",
+          "list": [
+            "Problemi di taglie",
+            "Rimborsi e lunghe attese",
+            "Fit sbagliati",
+            "Rispedizione dei prodotti"
+          ]
+        },
+        {
+          "title": "E-commerce",
+          "description": "Emays si connette con tutte le principali piattaforme di e-commerce e una semplice API per qualcosa di più personalizzato. Emays appare come un nuovo metodo di consegna, il cliente avrà la possibilità di scegliere la data di consegna, l'ora e i servizi Emays"
+        },
+        {
+          "title": "In-store",
+          "description": "Un'interfaccia web facile da usare per prenotare consegne e servizi Emays che possono essere installati utilizzando dispositivi in negozio come telefoni e computer"
+        },
+        {
+          "title": "RETAIL EXCELLENCE",
+          "description": "In Emays crediamo che l'esperienza del cliente venga sempre al primo posto. La nostra integrazione è stata costruita per dare la sensazione del tuo marchio e della tua esperienza, apportata da Emays. Il nostro obiettivo è creare un'esperienza piacevole e da non dimenticare"
+        }
+      ],
+      "chart": {
+        "title": "DA STUDI DI DATI COMPROVATI",
+        "description": "Un sondaggio globale sui consumatori condotto da Content Square (leader nell'analisi dell'esperienza digitale) indica che solo il 15% degli intervistati è soddisfatto della propria esperienza di acquisto online. Negli ultimi 6 mesi del 2022, i dati mostrano un aumento dei problemi dei clienti con i propri acquisti"
+      },
+      "data-title": "Benefici entro un anno"
+    },
+    "integration": {
+      "title": "FACILE INTEGRAZIONE",
+      "description": "Integrazioni perfette con qualsiasi piattaforma abilitata per API",
+      "button": " Richiedi una DEMO",
+      "info-box": [
+        {
+          "title": "E-commerce",
+          "description": "il software E-commerce è stato creato per semplificare l'esperienza di acquisto per i rivenditori di moda e i loro clienti. Attraverso la modalità di prenotazione appare automaticamente alla cassa all'interno del sito Web del brand per i clienti nelle nostre aree di copertura. Con la nostra funzione di prenotazione degli appuntamenti, i clienti possono scegliere la data e l'ora che preferiscono per un'esperienza di acquisto senza stress direttamente a casa. Il team può gestire facilmente gli ordini e tenere traccia delle entrate con una dashboard progettata."
+        },
+        {
+          "title": "In-store",
+          "description": "Il software In-Store è progettato per semplificare le operazioni e migliorare l'esperienza del cliente. Il nostro software è facile da usare e personalizzabile, consentendoti di adattarlo alle tue esigenze specifiche. Lascia che Emays ti aiuti a semplificare le tue operazioni di vendita al dettaglio e a fornire un'esperienza di acquisto eccezionale per i tuoi clienti."
+        }
+      ]
+    },
+    "partnership": {
+      "title": "Vantaggi",
+      "infos": [
+        {
+          "title": "Massimizza e aumenta le vendite",
+          "description": "Esperienza di lusso personalizzata per i clienti, assistiti in ogni punto del processo di acquisto da consulenti esperti a proprio piacimento."
+        },
+        {
+          "title": "Controllo completo dell'inventario",
+          "description": "Se invenduto, il prodotto tornerà e sarà disponibile nel tuo negozio entro 24 ore"
+        },
+        {
+          "title": "Conversione di nuovi clienti",
+          "description": "I nostri servizi mirano a rendere più facile lo shopping verso i marchi affinché i nuovi clienti possano coinvolgere e superare barriere come:",
+          "list-description": {
+            "list-item-one": "Problema di dimensioni",
+            "list-item-two": "Rimborsi in attesa",
+            "list-item-three": "Compatibilità errata",
+            "list-item-four": "Problemi con i resi"
+          }
+        },
+        {
+          "title": "Integrazione perfetta",
+          "sub-items": [
+            {
+              "title": "E-commerce",
+              "description": "Emays si connette con tutte le principali piattaforme di e-commerce e una semplice API per qualcosa di più personalizzato. Emays appare come un nuovo metodo di consegna, il cliente avrà la possibilità di scegliere la data di consegna, l'ora e i servizi Emays."
+            },
+            {
+              "title": "In-store",
+              "description": "Un'interfaccia web facile da usare per prenotare consegne e servizi Emays che possono essere installati utilizzando dispositivi in negozio come telefoni e computer."
+            }
+          ]
+        },
+        {
+          "title": "Retail excellence",
+          "description": "In Emays crediamo che l'esperienza del cliente venga sempre al primo posto. La nostra integrazione è stata costruita per dare la sensazione del tuo marchio e della tua esperienza, apportata da Emays. Il nostro obiettivo è creare un'esperienza piacevole e da non dimenticare"
+        }
+      ],
+      "chart-title": "Da studi di dati comprovati:",
+      "chart-info": "Un sondaggio globale sui consumatori condotto da Content Square (leader nell'analisi dell'esperienza digitale) indica che solo il 15% degli intervistati è soddisfatto della propria esperienza di acquisto online. Negli ultimi 6 mesi del 2022, i dati mostrano un aumento dei problemi dei clienti con la loro confezione:",
+      "chart": {
+        "40": "Pacchi consegnati con successo",
+        "15": "Pacchi danneggiati",
+        "16": "Pacchi rubati",
+        "29": "Pacchi non consegnati"
+      },
+      "button": "Integrazione e-commerce"
+    }
+  },
+  "footer": {
+    "terms": "Termini e condizioni",
+    "privacy": "Informativa sulla privacy",
+    "contact": "Contatto",
+    "copy": "© 2023 Emays",
+    "trustpilot": "Trustpilot",
+    "instagram": "Instagram",
+    "facebook": " Facebook "
+  }
+}
