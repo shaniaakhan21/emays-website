@@ -1,0 +1,13 @@
+@import '../../fonts';
+
+.status-box {
+  padding: 0.4rem 1.5rem;
+  border-radius: 30px;
+
+  &.pending-pick-up {
+    background-color: #D0E2FF;
+    color: #0043CE;
+  }
+}
+
+

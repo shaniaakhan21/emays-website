@@ -16,7 +16,7 @@ const RetailerRouter = () => {
             <Route path='/retailer/faq' component={() => <RetailerFAQs />} />
             <Route path='/retailer/integration' component={() => <RetailerIntegration />} />
             <Route path='/retailer/partnership' component={() => <RetailerPartnership />} />
-            <Route path='/retailer/login' component={() => <DashboardContainer />} />
+            <Route path='/retailer/dashboard' component={() => <DashboardContainer />} />
         </Switch>
     );
 };
