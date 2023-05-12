@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 // SCSS
 import './../../../scss/component/retailer/overview.scss';
@@ -6,35 +6,13 @@ import Table from '../../common/table';
 import StatusBox from '../../common/statusBox';
 import FallBack from '../../../icons/fallback.png';
 import ShoppingItem from '../../checkout/ShoppingItem';
-
-const headers = [
-    {
-        key: 'id',
-        header: '# Order'
-    },
-    {
-        key: 'client',
-        header: 'Client'
-    },
-    {
-        key: 'amount',
-        header: 'Amount Purchased'
-    },
-    {
-        key: 'date',
-        header: 'Pick Up Date'
-    },
-    {
-        key: 'time',
-        header: 'Time'
-    },
-    {
-        key: 'status',
-        header: 'Status'
-    }
-];
+import { useTranslation } from 'react-i18next';
 
 const Overview = () => {
+
+    const [translate] = useTranslation();
+
+    const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
 
     const rows = [
         {
@@ -47,13 +25,17 @@ const Overview = () => {
         }
     ];
 
+    const headers = useMemo(
+        () => ['id', 'client', 'amount', 'date', 'time', 'status'].map(key => ({ key, header: t(`table.${key}`) })
+        ), [t]);
+
     return (
         <div className='overview'>
             <div className='table'>
-                <Table rows={rows} headers={headers}/>
+                <Table rows={rows} headers={headers} />
             </div>
             <div className='toBeDelivered'>
-                <h2 className='title'>Items To be delivered</h2>
+                <h2 className='title'>{t('toBeDelivered-title')}</h2>
                 <div className='items'>
                     {Array.of(1, 2, 3, 4, 5, 6, 7, 8, 9).map((item, index) => <ShoppingItem
                         index={1}
