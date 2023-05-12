@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, Link, useLocation } from 'react-router-dom';
 import Customer from './customer/Customer';
 import Overview from './overview/Overview';
 import NewOrder from './newOrder/NewOrder';
@@ -32,7 +32,7 @@ const DashboardLayout = () => {
                         <nav>
                             <ul>
                                 <li className={'nav-link'}>
-                                    <Link to='/dashboard/overview'>{t('dashboard.navigation.overview')}</Link>
+                                    <Link to='/retailer/dashboard/overview'>{t('dashboard.navigation.overview')}</Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/dashboard/deliveryOrders'>{t('dashboard.navigation.del-orders')}</Link>
@@ -51,17 +51,17 @@ const DashboardLayout = () => {
                     </div>
                     <div className='cds--col-md-10 content-section'>
                         <Switch>
-                            <Route exact path='/dashboard/overview' 
+                            <Route exact path='/overview'
                                 component={() => <Overview />}></Route>
-                            <Route exact path='/dashboard/deliveryOrders' 
+                            <Route exact path='/deliveryOrders'
                                 component={() => <DeliveryOrder />}></Route>
-                            <Route exact path='/dashboard/customers' 
+                            <Route exact path='/customers'
                                 component={() => <Customer />}></Route>
-                            <Route exact path='/dashboard/history' 
+                            <Route exact path='/history'
                                 component={() => <History />}></Route>
-                            <Route exact path='/dashboard/newOrders' 
+                            <Route exact path='/newOrders'
                                 component={() => <NewOrder />}></Route>
-                            <Route path='/' 
+                            <Route path='/'
                                 component={() => <Overview />}></Route>
                         </Switch>
                     </div>
