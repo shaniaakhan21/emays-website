@@ -1,10 +1,6 @@
 import Nav from '../common/Nav';
 import HomeSection from './HomeSection';
 import ShopWithUs from './ShopWithUs';
-import Environment from './Environment';
-import Services from './Services';
-import RetailerLetsTalk from '../retailer/LetsTalk';
-import RetailerFAQs from '../retailer/FAQs';
 import Footer from '../common/Footer';
 import { useEffect } from 'react';
 

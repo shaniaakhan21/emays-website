@@ -23,7 +23,7 @@ const MainRouter = () => {
             <MessageProvider>
                 <Router>
                     <Switch>
-                        <Route path='/confirm' component={() => <Confirm/>}></Route>
+                        <Route path='/confirm' component={() => <Confirm />}></Route>
                         <Route path='/checkout' component={() => <Checkout />}></Route>
                         <Route path='/appointment' component={() => <Appointment/>}></Route>
                         <Route path='/retailer' component={() => <RetailerRouter />} />
