@@ -2,25 +2,20 @@ import Nav from '../common/Nav';
 import Footer from '../common/Footer';
 import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
 
 // SCSS
 import '../../scss/component/customer/privacy.scss';
 import ButtonCustom from '../common/ButtonCustom';
-
-// Images
 import BackArrow from '../../images/back-arrow.png';
 
-const Privacy = ({
+const Terms = ({
     withoutNav,
     ...props
 }) => {
 
     const [translate] = useTranslation();
 
-    const t = useCallback((str) => translate(`privacy.${str}`), [translate]);
-
-    const history = useHistory();
+    const t = useCallback((str) => translate(`terms.${str}`), [translate]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -29,7 +24,7 @@ const Privacy = ({
     return (
         <>
             <Nav refs={props.refs}/>
-            <div className='privacy-page'>
+            <div className='terms-page'>
                 <h1>{t('title')}</h1>
                 <div className='content' dangerouslySetInnerHTML={{ __html: t('content') }} />
                 <div className='buttons'>
@@ -37,7 +32,7 @@ const Privacy = ({
                         className='back-button'
                         action={() => history?.goBack?.()}
                         text='Go back'
-                        renderIcon={() => <img src={BackArrow} />}
+                        renderIcon={() => <img src={BackArrow}/>}
                     />
                 </div>
             </div>
@@ -46,4 +41,4 @@ const Privacy = ({
     );
 };
 
-export default Privacy;
+export default Terms;
