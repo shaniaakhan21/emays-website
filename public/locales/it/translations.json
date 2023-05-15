@@ -1,0 +1,455 @@
+{
+  "common": {
+    "nav-customers": "CUSTOMERS",
+    "nav-retailers": "RETAILERS",
+    "error": "Errore",
+    "success": "Successo",
+    "success-message": "Appuntamento creato con successo!",
+    "confirm-privacy-policy": "Conferma l'informativa sulla privacy",
+    "lets-talk-form": {
+      "header": "Sei curioso di sapere qualcosa? Parliamone",
+      "name": "Nome",
+      "name-placeholder": "Nome qui",
+      "email": "E-mail",
+      "phone": "Numero di telefono",
+      "phone-placeholder": "+ 39 0000 000",
+      "message": "Messaggio",
+      "message-placeholder": "Ciao, vorrei avere informazioni su...",
+      "privacy-policy": "Ho letto e accetto l'informativa sulla privacy",
+      "email-2": "Email",
+      "phone-2": "Telefono",
+      "email-2-value": "emays@emays.com",
+      "phone-2-value": "+ 39 000 000 000",
+      "submit": "INVIA"
+    },
+    "faq": {
+      "title": "Domande frequenti",
+      "data": [
+        {
+          "title": "Chi consegnerà i miei pezzi?",
+          "description": "Consegniamo i tuoi pezzi con un membro del nostro stylist team. Tutti i nostri style concierge sono formati con ciascuno dei nostri brand partner per assicurarti di ricevere la massima esperienza di lusso, comodamente e senza stress."
+        },
+        {
+          "title": "Quanto tempo ho per provare i miei pezzi?",
+          "description": "Il tuo stylist arriverà entro la finestra temporale di un'ora che hai scelto, da quel momento avrai 40 minuti per provare i tuoi capi e poi prendere una decisione. Non preoccuparti, 40 minuti sono abbastanza poiché in media solo 14 minuti si trascorrono in un camerino di negozio"
+        },
+        {
+          "title": "Lo Style Concierge viene a casa mia?",
+          "description": "A seconda dell'opzione che scegli, 'Aspettami' o 'Assistimi'. Aspettiamo che tu provi: il tuo stylist ti consegnerà i tuoi pezzi, avrai quindi 40 minuti per provare. Quando avrai scelto il pezzi che vorresti tenere, basta semplicemente pagare e noi ritiriamo gli articoli invenduti per te. Assitimi: il tuo stylist preparerà i tuoi pezzi e ti aiuterà durante l'appuntamento con qualsiasi consiglio di stile e qualsiasi sartoria se necessario."
+        },
+        {
+          "title": "C'è qualche obbligo di acquisto?",
+          "description": "Semplicemente no. Emays ti aiuta a trovare i pezzi che ami, rendendo più facile restituire i pezzi che non ti piacciono, facendoti risparmiare tempo e fatica. Vogliamo farti sentire sicuro e a tuo agio nelle tue scelte, senza qualsiasi pressione per comprare."
+        },
+        {
+          "title": "Come posso modificare il mio appuntamento?",
+          "description": "Contatta il servizio clienti di Emays inviando un'e-mail a info@emaysstyle.com."
+        }
+      ]
+    },
+    "payment-form": {
+      "title": "Metodo di pagamento",
+      "name": "Titolare della carta",
+      "number": "Numero di carta di credito/debito",
+      "exp-month": "Mese di scadenza",
+      "exp-year": "Anno di scadenza",
+      "cvv": " cvv ",
+      "button": "Paga ora"
+    }
+  },
+  "checkout": {
+    "book-appointment": {
+      "header": "PRENOTA IL TUO APPUNTAMENTO",
+      "choose-date": "Scegli data",
+      "choose-time": "Scegli finestra temporale",
+      "custom-date": "Data personalizzata",
+      "addOnePlaceHolder": "Nome della via | Completamento automatico",
+      "addTwoPlaceHolder": "Numero porta",
+      "addThreePlaceHolder": "Appartamento, Completo",
+      "addFourPlaceHolder": "Città",
+      "addFivePlaceHolder": "Paese",
+      "addSixPlaceHolder": "Codice Postale",
+      "searchAddress": "Cerca il tuo indirizzo via o l'indirizzo completo",
+      "deliveryInfo": "Commento utente",
+      "deliveryInfoPlaceholder": "Inserisci il tuo commento"
+    },
+    "customize-experience": {
+      "header": "PERSONALIZZA LA TUA ESPERIENZA GRATIS",
+      "checkbox-wait-label": "Aspettiamo mentre provi - Consegna senza contatto - Lasciamo gli articoli alla tua porta e lo stilista aspetterà i tuoi resi fuori.",
+      "checkbox-assist-label": "Assistimi - vorrei essere aiutato durante l'intero appuntamento dallo stylist.",
+      "checkbox-basic-label": "Sartoria di base - Ho bisogno di appuntare e adattare qualche minimo dettaglio.",
+      "checkbox-inspire-label": "Ispirami - Portami altri elementi da provare gratuitamente!"
+    },
+    "delivery-address": {
+      "header": "INDIRIZZO DI CONSEGNA",
+      "address": "Indirizzo"
+    },
+    "delivery-info": "COMMENTO UTENTE",
+    "submit-button": "CONTINUA",
+    "save-changes": "SALVA NUOVE MODIFICHE",
+    "cancel-order": "CANCELLA APPUNTAMENTO",
+    "delete-item-title": "ELIMINARE QUESTO ARTICOLO?",
+    "delete-item-confirm": "Sì, non lo voglio",
+    "delete-item-cancel": "Indietro"
+  },
+  "email-launch": {
+    "header-one": {
+      "left": "BRAND",
+      "right": "APPUNTAMENTO PRENOTATO"
+    },
+    "thank": "Grazie per aver prenotato il tuo appuntamento con <strong>Brand</strong>.",
+    "info": "(Il tuo appuntamento di 40 minuti inizierà quando arriverà il tuo Emays Stylist).",
+    "time-info": {
+      "message": "Non vediamo l'ora di vederti su:",
+      "data": "Data",
+      "ora": "Ora"
+    },
+    "full-name": "Nome completo",
+    "exp-selected": "Esperienza selezionata",
+    "del-address": "Indirizzo di consegna",
+    "items-to--be-deliver": "ARTICOLI DA CONSEGNARE",
+    "order-placed": "ORDINE EFFETTUATO",
+    "in-progress": "CONSEGNA IN CORSO",
+    "delivered": "CONSEGNA",
+    "remember": "Per favore ricorda,",
+    "contact-message": "ti contatteremo il giorno prima dell'appuntamento, oltre a un promemoria il giorno stesso",
+    "special-info": {
+      "line-one": "Non vediamo l'ora di vederti !!! Se non dovessi essere in grado di partecipare, ti preghiamo di notare la nostra politica di cancellazione qui sotto.",
+      "line-two": "Richiediamo un preavviso di almeno 24 ore se desideri apportare modifiche o emendamenti al tuo appuntamento programmato. Se non ci informi di qualsiasi modifica entro 24 ore di preavviso , ti verrà addebitato il costo del servizio."
+    },
+    "need-help": "Hai bisogno di aiuto?",
+    "mail": {
+      "part-one": "Non siamo in grado di ricevere risposte a questa email. Se hai bisogno di assistenza, vai a",
+      "link-text": "support@emays.com",
+      "part-two": "ti ha inviato questa email. Utilizzando i nostri servizi, accetti il nostro contratto con il cliente."
+    },
+    "contact-us": "Contattaci",
+    "button": {
+      "edit-appointment": "MODIFICA APPUNTAMENTO",
+      "add-to-calendar": "AGGIUNGI AL CALENDARIO"
+    },
+    "copy-right": "© Emays 2023. Tutti i diritti riservati.",
+    "cancellation": {
+      "dialogue-header": "Sei sicuro di voler cancellare questo appuntamento?",
+      "dialogue-body": "Questa azione potrebbe causare la perdita degli oggetti che stavi cercando di acquistare",
+      "info-header": "Appuntamento annullato con successo",
+      "info-body": "Puoi chiudere questa finestra del browser"
+    }
+  },
+  "confirm": {
+    "success": "Appuntamento aggiornato con successo!",
+    "edit-appointment": {
+      "header": "IL TUO APPUNTAMENTO",
+      "edit-button": "MODIFICA"
+    },
+    "user-appointment-info": {
+      "date": "Data",
+      "hour": "Ora",
+      "selected-experience": "Esperienza selezionata",
+      "delivery-address": "Indirizzo di consegna",
+      "delivery-info": "Commento utente"
+    },
+    "contact-details": {
+      "header": "DATI DI CONTATTO",
+      "info-text-important": "Importante:",
+      "info-text": "Ti chiameremo o ti invieremo un messaggio il giorno prima, nonché al momento dell'arrivo per garantire la qualità dell'esperienza.",
+      "first-name": "Nome",
+      "last-name": "Cognome",
+      "phone-number": "Numero di telefono",
+      "e-mail": "e-mail"
+    },
+    "submit-button": "CONFERMA DETTAGLI",
+    "loading-description": "Prenotazione appuntamento, ricerca assistente personale"
+  },
+  "shopping-bag-container": {
+    "header": "CARRELLO",
+    "service-fee": "COMMISSIONI DI SERVIZIO",
+    "instruction-1": "Questa commissione ci aiuta a gestire le nostre operazioni, tutti i servizi inclusi.",
+    "instruction-2": "L'importo sarà bloccato sulla tua carta fino al giorno della consegna.",
+    "instruction-3": "Cancellazioni disponibili prima dell'appuntamento di 24 ore.",
+    "instruction-4": "Sessione di styling di lusso a casa.",
+    "button": "PRENOTA IL TUO APPUNTAMENTO",
+    "item": {
+      "size": "Dimensione",
+      "quantity": "Quantità",
+      "color": "Colore"
+    }
+  },
+  "nav": {
+    "logo-alt": "EMAYS",
+    "toggle-label": {
+      "retailer": "RETAILER",
+      "customer": "CLIENTE"
+    },
+    "menu": {
+      "services": "SERVIZI",
+      "sustainability": "SOSTENIBILITÀ",
+      "shop-with-us": "ACQUISTA CON NOI",
+      "lets-talk": "Parliamo",
+      "faqs": "FAQs",
+      "integration": "INTEGRAZIONE",
+      "partnership": "PARTNERSHIP"
+    }
+  },
+  "environment-header": {
+    "env-header-h1": "“L’INDUSTRIA DELLE MODA NON DOVREBBE DANNEGGIARE LA TERRA”",
+    "env-header-h5": "CO2 neutro",
+    "env-header-h5-subhead": " L'uso di carbonio viene considerato in ogni fase del nostro servizio."
+  },
+  "icon-img-text": {
+    "text-h1": "CANCELLA IL VIAGGIO DI RITORNO",
+    "text-h5": "Oltre un terzo degli ordini del fashion online termina con un reso, con due viaggi ciascuno: uno per consegnare e un altro per ritirare. Questo raddoppia i km percorsi per ogni negozio. Con Emays, queste consegne e resi di viaggi sono combinati, dimezziamo quei chilometri unendo la consegna e il viaggio di ritorno."
+  },
+  "icon-text-img": {
+    "text-h5": "Il servizio di consegna di Emays è progettato pensando all'ambiente e offre la migliore esperienza di acquisto per i clienti moderni. Ci impegniamo sempre per lasciare un'esperienza indimenticabile. Riduciamo ad ogni modo il nostro impatto ambientale e offriamo un servizio all-inclusive a casa tua con le nostre auto a emissioni zero, per rendere lo stile più sostenibile per le persone e il pianeta."
+  },
+  "img-text-icon": {
+    "text-h1": " CONSEGNAMO AD UN PREZZO CHE RISPETTI IL NOSTRO LAVORO E L’AMBIENTE ",
+    "text-h5": " Emays consegna utilizzando porta abiti per indumenti appesi senza imballaggio. Questo servizio ha lo scopo di evitare l'uso di plastica e cancellare l'imballaggio usa e getta."
+  },
+  "text-img": {
+    "text-h1-01": "UN",
+    "text-h1-02": "ALBERO",
+    "text-h1-03": "PIANTATO",
+    "text-h5": " Collaboriamo con OneTreePlanted e sosteniamo i loro progetti. Piantiamo un albero per ogni ordine che completiamo, aiutando a pulire l'aria che respiriamo, ripristinare le foreste, creare habitat per la biodiversità e dare un impatto sociale positivo in tutto il mondo.",
+    "btn-text": "Ulteriori informazioni su questa iniziativa"
+  },
+  "home-section": {
+    "col-1": {
+      "title": " PORTIAMO IL NEGOZIO A CASA TUA ",
+      "title-2": "NEL TUO COMFORT",
+      "subtitle-h2": "Consegnato a te, da Emays",
+      "subtitle-h3": "Prova quello che vuoi, paga solo quello che tieni",
+      "btn-text": "Guarda cosa possiamo fare per te",
+      "btn2-text": "Inviaci un'e-mail"
+    }
+  },
+  "services": {
+    "text-h1": "I nostri servizi sono disponibili su siti Web di marchi selezionati"
+  },
+  "shop-with-us": {
+    "first-block": {
+      "main-heading": "Perché acquistare da noi?",
+      "main-heading-2": "“Il servizio dell'ultimo miglio a tuo piacimento”",
+      "head-text": "PROVA PRIMA DI PAGARE",
+      "subhead-text": "Nessun pagamento anticipato",
+      "body-text": "Scegli tutti i pezzi che vorresti provare, te li porteremo senza alcun pagamento anticipato."
+    },
+    "second-block": {
+      "head-text": "Zero stress, nessuna taglia sbagliata. Risparmia tempo nei resi",
+      "subhead-text": "Dimentica di rispedire i tuoi ordini!",
+      "body-text": "Salta inutili file alla posta, noi portiamo indietro tutti i pezzi che non vuoi."
+    },
+    "third-block": {
+      "head-text": "Programma secondo necessità",
+      "subhead-text": "finestre di 1 ora",
+      "body-text": "Acquista secondo il tuo programma con orari disponibili dalle 9:00 alle 21:00, 7 giorni su 7."
+    },
+    "fourth-block": {
+      "head-text": "Il pianeta viene prima",
+      "subhead-text": "C02 Neutro",
+      "body-text": " L'annullamento di carbonio viene considerato in ogni fase del nostro servizio."
+    },
+    "fifth-block": {
+      "btn-text": "Leggi di più su questo",
+      "email-text": "Acquista con i nostri marchi"
+    },
+    "info-box": {
+      "1": {
+        "no": "1.0",
+        "title": "Crea il tuo carrello",
+        "icon-text": "Nessun pagamento anticipato",
+        "description": "Scegli tutti i pezzi che vuoi provare, acquista liberamente. Te li porteremo senza pagamento anticipato"
+      },
+      "2": {
+        "no": "2.0",
+        "title": "Risparmia tempo",
+        "icon-text": "Resi senza problemi",
+        "description": "Dimentica di reimballare e rispedire! Niente stress, niente taglie sbagliate, Emays riporterà gli articoli indesiderati al negozio per te."
+      },
+      "3": {
+        "no": "3.0",
+        "title": "Programma secondo necessità",
+        "icon-text": "finestre di 1 ora",
+        "description": "Prenota il tuo programma della finestra di un'ora, disponibile dalle 9:00 alle 21:00, 7 giorni su 7. Prenditi il tuo tempo, ti aspettiamo. Hai 40 minuti per provare e prendere una decisione."
+      },
+      "4": {
+        "no": "4.0",
+        "title": "Il negozio a casa",
+        "icon-text": "Fuori la tua porta",
+        "description": "Qualunque cosa desideri, ovunque tu sia. Scegli dove vuoi provare i tuoi articoli, che sia a casa tua, in ufficio o in hotel , ci pensiamo noi alla consegna"
+      },
+      "4_1": {
+        "NO": "",
+        "titolo": "",
+        "icon-text": "Noi aspettiamo, tu prova",
+        "description": "Il tuo stylist ti consegnerà i tuoi articoli e tornerà solo per prendere il pagamento e ritirare gli articoli indesiderati."
+      },
+      "4_2": {
+        "NO": "",
+        "titolo": "",
+        "icon-text": "Assistimi",
+        "description": "Il tuo stylist ti aiuterà con consigli di stile durante tutto il tuo tempo. Se è necessario qualche aggiustamento appuntiamo e personalizziamo qualsiasi articolo per renderlo perfetto per te."
+      },
+      "5": {
+        "no": "5.0",
+        "title": "Concludi il tuo acquisto",
+        "icon-text": "Acquista",
+        "description": "Ti guideremo attraverso il processo di checkout senza interruzioni. La nostra interfaccia user-friendly ti consente di rivedere facilmente gli articoli scelti."
+      },
+      "6": {
+        "no": "6.0",
+        "title": "Attento al clima",
+        "icon-text": "C02 Neutro",
+        "icon-text-short": "Neutro",
+        "description": "Prendiamo sul serio il clima e l'ambiente e crediamo nella moda sostenibile. Ecco perché consideriamo l'impronta di carbonio in ogni fase del nostro servizio. Comprendendo l'impatto che l'industria della moda può avere sull'ambiente, ci impegniamo fare la nostra parte per minimizzarlo.",
+        "button": "Leggi di più su questo"
+      }
+    }
+  },
+  "retailer": {
+    "landing": {
+      "title": "SPEDIAMO IL NEGOZIO",
+      "sub-header": "Porta l'esperienza di shopping di lusso ai tuoi clienti",
+      "description": "Converti, fai crescere e fidelizza i clienti con Emays",
+      "button": "Richiedi una DEMO",
+      "button-api": "Connessione API",
+      "data": [
+        {
+          "title": "ATV",
+          "value": "+45%"
+        },
+        {
+          "title": "UPT",
+          "value": "3"
+        },
+        {
+          "title": "Riduzione di ritorno",
+          "value": "-45%"
+        },
+        {
+          "title": "Dati acquisiti",
+          "value": "100%"
+        }
+      ],
+      "info-box": [
+        {
+          "title": "Massimizza e aumenta le vendite",
+          "description": "Esperienza di lusso personalizzata per i clienti, assistiti in ogni punto del processo di acquisto da consulenti esperti"
+        },
+        {
+          "title": "Controllo completo dell'inventario",
+          "description": "Se invenduto, il prodotto tornerà e sarà disponibile nel tuo negozio entro 24 ore"
+        },
+        {
+          "title": "Conversione di nuovi clienti",
+          "description": "I nostri servizi mirano a rendere più facile lo shopping verso i marchi affinché possano indurre i nuovi clienti possano superare barriere come:",
+          "list": [
+            "Problemi di taglie",
+            "Rimborsi e lunghe attese",
+            "Fit sbagliati",
+            "Rispedizione dei prodotti"
+          ]
+        },
+        {
+          "title": "E-commerce",
+          "description": "Emays si connette con tutte le principali piattaforme di e-commerce e una semplice API per qualcosa di più personalizzato. Emays appare come un nuovo metodo di consegna, il cliente avrà la possibilità di scegliere la data di consegna, l'ora e i servizi Emays"
+        },
+        {
+          "title": "In-store",
+          "description": "Un'interfaccia web facile da usare per prenotare consegne e servizi Emays che possono essere installati utilizzando dispositivi in negozio come telefoni e computer"
+        },
+        {
+          "title": "RETAIL EXCELLENCE",
+          "description": "In Emays crediamo che l'esperienza del cliente venga sempre al primo posto. La nostra integrazione è stata costruita per dare la sensazione del tuo marchio e della tua esperienza, apportata da Emays. Il nostro obiettivo è creare un'esperienza piacevole e da non dimenticare"
+        }
+      ],
+      "chart": {
+        "title": "DA STUDI DI DATI COMPROVATI",
+        "description": "Un sondaggio globale sui consumatori condotto da Content Square (leader nell'analisi dell'esperienza digitale) indica che solo il 15% degli intervistati è soddisfatto della propria esperienza di acquisto online. Negli ultimi 6 mesi del 2022, i dati mostrano un aumento dei problemi dei clienti con i propri acquisti"
+      },
+      "data-title": "Benefici entro un anno"
+    },
+    "integration": {
+      "title": "FACILE INTEGRAZIONE",
+      "description": "Integrazioni perfette con qualsiasi piattaforma abilitata per API",
+      "button": " Richiedi una DEMO",
+      "info-box": [
+        {
+          "title": "E-commerce",
+          "description": "il software E-commerce è stato creato per semplificare l'esperienza di acquisto per i rivenditori di moda e i loro clienti. Attraverso la modalità di prenotazione appare automaticamente alla cassa all'interno del sito Web del brand per i clienti nelle nostre aree di copertura. Con la nostra funzione di prenotazione degli appuntamenti, i clienti possono scegliere la data e l'ora che preferiscono per un'esperienza di acquisto senza stress direttamente a casa. Il team può gestire facilmente gli ordini e tenere traccia delle entrate con una dashboard progettata."
+        },
+        {
+          "title": "In-store",
+          "description": "Il software In-Store è progettato per semplificare le operazioni e migliorare l'esperienza del cliente. Il nostro software è facile da usare e personalizzabile, consentendoti di adattarlo alle tue esigenze specifiche. Lascia che Emays ti aiuti a semplificare le tue operazioni di vendita al dettaglio e a fornire un'esperienza di acquisto eccezionale per i tuoi clienti."
+        }
+      ]
+    },
+    "partnership": {
+      "title": "Vantaggi",
+      "infos": [
+        {
+          "title": "Massimizza e aumenta le vendite",
+          "description": "Esperienza di lusso personalizzata per i clienti, assistiti in ogni punto del processo di acquisto da consulenti esperti a proprio piacimento."
+        },
+        {
+          "title": "Controllo completo dell'inventario",
+          "description": "Se invenduto, il prodotto tornerà e sarà disponibile nel tuo negozio entro 24 ore"
+        },
+        {
+          "title": "Conversione di nuovi clienti",
+          "description": "I nostri servizi mirano a rendere più facile lo shopping verso i marchi affinché i nuovi clienti possano coinvolgere e superare barriere come:",
+          "list-description": {
+            "list-item-one": "Problema di dimensioni",
+            "list-item-two": "Rimborsi in attesa",
+            "list-item-three": "Compatibilità errata",
+            "list-item-four": "Problemi con i resi"
+          }
+        },
+        {
+          "title": "Integrazione perfetta",
+          "sub-items": [
+            {
+              "title": "E-commerce",
+              "description": "Emays si connette con tutte le principali piattaforme di e-commerce e una semplice API per qualcosa di più personalizzato. Emays appare come un nuovo metodo di consegna, il cliente avrà la possibilità di scegliere la data di consegna, l'ora e i servizi Emays."
+            },
+            {
+              "title": "In-store",
+              "description": "Un'interfaccia web facile da usare per prenotare consegne e servizi Emays che possono essere installati utilizzando dispositivi in negozio come telefoni e computer."
+            }
+          ]
+        },
+        {
+          "title": "Retail excellence",
+          "description": "In Emays crediamo che l'esperienza del cliente venga sempre al primo posto. La nostra integrazione è stata costruita per dare la sensazione del tuo marchio e della tua esperienza, apportata da Emays. Il nostro obiettivo è creare un'esperienza piacevole e da non dimenticare"
+        }
+      ],
+      "chart-title": "Da studi di dati comprovati:",
+      "chart-info": "Un sondaggio globale sui consumatori condotto da Content Square (leader nell'analisi dell'esperienza digitale) indica che solo il 15% degli intervistati è soddisfatto della propria esperienza di acquisto online. Negli ultimi 6 mesi del 2022, i dati mostrano un aumento dei problemi dei clienti con la loro confezione:",
+      "chart": {
+        "40": "Pacchi consegnati con successo",
+        "15": "Pacchi danneggiati",
+        "16": "Pacchi rubati",
+        "29": "Pacchi non consegnati"
+      },
+      "button": "Integrazione e-commerce"
+    }
+  },
+  "footer": {
+    "terms": "Termini e condizioni",
+    "privacy": "Informativa sulla privacy",
+    "contact": "Contatto",
+    "copy": "© 2023 Emays",
+    "trustpilot": "Trustpilot",
+    "instagram": "Instagram",
+    "facebook": " Facebook "
+  },
+  "privacy": {
+    "title": "PRIVACY POLICY",
+    "content": "<div class='section'><p>Emays s.r.l., con sede legale in Corso Italia 22, 20122 Milano (MI), C.F. 1260201010964, iscritta al registro delle Imprese di Milano Monza Brianza al R.E.A. MI – 2671764, (“<strong>Emays</strong>”) in qualità di Titolare del trattamento dei dati personali ( “<strong>Titolare</strong>”), nella sua qualità di proprietario del sito web , www.emaysstyle.com (il “<strong>Sito</strong>”) e dell’applicazione mobile Emays (“<strong>App.</strong>”) ai sensi degli artt. 4, n. 7) e 26 del Regolamento UE 2016/679 del 27 aprile 2016 relativo alla protezione delle persone fisiche con riguardo al trattamento dei dati personali (“Regolamento UE”) la informa ai sensi dell’art. 13 del Regolamento UE di essere Titolare dei suoi dati personali e che procederà al relativo trattamento per le finalità e con le modalità di seguito indicate.</p><p>Per trattamento di dati personali intendiamo qualsiasi operazione o insieme di operazioni, compiute con l'ausilio di processi automatizzati e applicate a dati personali o insiemi di dati personali, come la raccolta, la registrazione, l'organizzazione, la strutturazione, la conservazione, l'adattamento o la modifica, l'estrazione, la consultazione, l'uso, la comunicazione mediante trasmissione, diffusione o qualsiasi altra forma di messa a disposizione, il raffronto o l'interconnessione, la limitazione, la cancellazione o la distruzione.</p><p>L’utilizzazione del Sito, della App. o di uno qualsiasi dei nostri Servizi, presuppone la previa accettazione della presente Informativa.</p><p>Emays rispetta e tutela la riservatezza dei visitatori, ponendo in essere ogni sforzo possibile e proporzionato per non ledere i diritti degli utenti. La informiamo che tali dati verranno trattati con il supporto di mezzi informatici o telematici per le seguenti finalità.</p></div><h3 class='title'><span class='letter'>A.</span>Finalità del trattamento dei dati personali e base giuridica</h3><div class='section'><p><span class='letter'>1.</span>I dati forniti dall’utente registrato e non registrato saranno trattati, senza il preventivo consenso dell’Utente ai sensi dell’art. 6 Regolamento UE, per le seguenti finalità:<ul><li>per la gestione e l’elaborazione di indagini statistiche sull’uso del Sito;</li><li>per effettuare la manutenzione ed assistenza tecnica necessaria per assicurare il corretto funzionamento del Sito e dei servizi ad esso connessi;</li><li>per migliorare la qualità e la struttura del Sito, nonché per creare nuovi servizi, funzionalità e/o caratteristiche del medesimo;</li><li>per processare un’eventuale richiesta di contatto inoltrata dall’Utente per mezzo della compilazione dell’apposito form o per email, ad es. per ottenere chiarimenti sui servizi offerti;</li><li>per realizzare un’efficace gestione del rapporto contrattuale e per adempiere gli obblighi legali e contrattuali dalla stessa derivanti quale contratto di prestazione di servizi e per provvedere all’incasso dei pagamenti;</li><li>per permettere al Titolare di esercitare i propri diritti in sede giudiziaria e reprimere comportamenti illeciti;</li><li>per adempiere obblighi di legge o regolamento.</li></ul></p><p><span class='letter'>2.</span>I dati forniti dall’utente saranno trattati, previo suo consenso, che sarà distinto, specifico e separato per ogni punto del presente paragrafo, ai sensi dell’art. 6 Regolamento UE, per le seguenti finalità:<ul><li>per permettere l’invio di comunicazioni commerciali, promozionali e pubblicità a mezzo di sistemi automatizzati, quali e-mail su prodotti, iniziative e/o servizi proposti dal Titolare di newsletter contenenti approfondimenti rispetto ai principali temi legati alla moda.</li></ul></p></div><h3 class='title'><span class='letter'>B.</span>Comunicazione e diffusione dei dati personali per il perseguimento delle finalità del trattamento</h3><div class='section'><p>Con riferimento all’art. 13, comma 1, lettera (e) del Regolamento UE, si procede alla indicazione dei soggetti o delle categorie di soggetti che possono venire a conoscenza dei dati personali dell’utente in qualità di responsabili o incaricati e si fornisce di seguito apposito elenco per categorie:<ul><li>personale del Titolare adibito alle attività di gestione amministrativa ed alle attività commerciali, di marketing ed al servizio logistico;</li><li>incaricati della manutenzione e/o riparazione degli strumenti informatici;</li><li>incaricati di rilevazioni e prestazioni di servizi;</li><li>consulenti del Lavoro e/o studio di commercialisti, in qualità di responsabili;</li><li>professionisti e consulenti del Titolare;</li><li>aziende operanti nel settore del trasporto, della logistica e delle spedizioni.</li></ul></p><p>Inoltre, per il perseguimento delle finalità indicate nel punto A. i dati potranno essere comunicati a qualsiasi altro terzo soggetto quando la comunicazione sia obbligatoria in forza di legge o del contratto di prestazione di servizi.</p><p>I sistemi informatici e le procedure software preposte al funzionamento del Sito o della App. acquisiscono, nel corso del loro normale esercizio alcuni dati personali la cui trasmissione è implicita nell’uso dei protocolli di comunicazione di internet. Tali informazioni non sono raccolte per essere associate a interessati identificati, ma che per loro stessa natura potrebbero, attraverso elaborazioni ed associazioni con dati detenuti da terzi, permettere di identificare gli utenti.</p><p>In questa categoria di dati rientrano gli indirizzi IP o i nomi a dominio dei computer utilizzati dagli utenti che si connettono al Sito o alla App. , gli indirizzi in notazione URI (Uniform Resource Identifier) delle risorse richieste, l’orario della richiesta, eventualmente il numero di click, il metodo utilizzato nel sottoporre la richiesta al server, la dimensione del file ottenuto in risposta, il codice numerico indicante lo stato della risposta data dal server (buon fine, errore...) ed altri parametri relativi al sistema operativo e all’ambiente informatico dell’utente.</p><p>A fini di sicurezza (filtri antispam, firewall, rilevazione virus), il dato relativo all'indirizzo IP, potrebbe essere utilizzato, conformemente alle leggi vigenti in materia, al fine di bloccare tentativi di danneggiamento al Sito o alla App. o di recare danno ad altri utenti, o comunque attività dannose o costituenti reato.</p><p>I dati citati non sono mai utilizzati per l'identificazione o la profilazione dell'utente, ma solo a fini di informazioni sull’uso del Sito o della App. e per controllarne il corretto funzionamento e vengono cancellati immediatamente dopo l’elaborazione.</p><p>In ogni occasione di contatto con il oppure durante la registrazione di un account personale con la nostra società può raccogliere ulteriori informazioni personali, ad esempio, sue informazioni di contatto; informazioni su caratteristiche personali, nazione di residenza, numero di carta d’identità e data e luogo di rilascio; cronologia degli acquisti, informazioni di pagamento, come il numero della carta di pagamento e altre informazioni sulla carta, così come informazioni di autenticazione ed altri dettagli di fatturazione e del conto; le sue preferenze, previo suo consenso scritto, riguardo a marketing e comunicazione; nonché relativamente ai suoi acquisti.</p></div><h3 class='title'><span class='letter'>C.</span>Trasferimento dei dati personali</h3><div class='section'><p>Il presente Sito o App. potrebbero condividere alcuni dei dati raccolti con servizi localizzati al di fuori dell'area dell'Unione Europea attraverso l’utilizzo di provider nominati Responsabili del trattamento.</p><p>In tale contesto i dati personali saranno trasferiti negli Stati Uniti, conformemente agli accordi internazionali in essere ed alle Clausole Contrattuali Standard, che la Commissione europea ritiene offrano sufficienti garanzie per il trasferimento internazionale dei dati.</p><p>Al di fuori di questo caso, la gestione e la conservazione dei dati avverrà su server ubicati all’interno dell’Unione Europea</p></div><h3 class='title'><span class='letter'>D.</span>Tempi di conservazione dei dati e altre informazioni.</h3><div class='section'><p>Nel rispetto dei principi di liceità, limitazione delle finalità e minimizzazione dei dati, ai sensi dell’art. 5 del Regolamento UE n. 2016/679, i dati personali saranno conservati per il periodo di tempo necessario al conseguimento delle finalità per le quali sono raccolti (registrazione, consegna, fatturazione, ecc.).</p><p>La registrazione al e il correlato trattamento dei dati avviene sino a cancellazione da parte dell'utente.</p><p>I dati raccolti per finalità promozionali saranno conservati nei nostri data base finché l'interessato non eserciti il diritto di opposizione o cancellazione tramite le modalità messe a tal fine a disposizione e indicate nel Sito o anela App. e nella presente informativa.</p></div><h3 class='title'><span class='letter'>E.</span>Revoca del consenso e opposizione.</h3><div class='section'><p>Nel caso in cui l’interessato presti il proprio consenso per autorizzare il Titolare del trattamento a perseguire le finalità di cui al punto A.2, l’interessato resterà comunque libero in ogni momento di revocarlo, inviando senza formalità alcuna una chiara comunicazione in tal senso alla e-mail: info@emaysstyle.com . A seguito della ricezione di tale richiesta, sarà cura del Titolare del trattamento procedere tempestivamente alla rimozione e cancellazione dei dati dai database utilizzati per la predetta finalità e informare per le medesime finalità di cancellazione eventuali terzi cui i dati siano stati comunicati. La semplice ricezione della richiesta di cancellazione varrà automaticamente quale conferma di avvenuta cancellazione.</p><p>Si informa specificatamente e separatamente, come richiesto dall’art. 21 del Regolamento UE che qualora i dati personali siano trattati per finalità di marketing diretto, l'interessato ha il diritto di opporsi in qualsiasi momento al trattamento dei dati personali che lo riguardano effettuato per tali finalità e che qualora l'interessato si opponga al trattamento per finalità di marketing diretto, i dati personali non potranno più essere oggetto di trattamento per tali finalità.</p></div><h3 class='title'><span class='letter'>F.</span>Revoca del consenso e opposizione.</h3><div class='section'><p>Il trattamento dei dati per le finalità esposte ha luogo con modalità automatizzate, su supporto elettronico o magnetico, nel rispetto delle regole di riservatezza e di sicurezza previste dalla legge, dai regolamenti conseguenti e da disposizioni interne.</p><p>I dati saranno trattati da soggetti autorizzati all’assolvimento dei compiti di cui al punto A, costantemente identificati, opportunamente istruiti e resi edotti delle obbligazioni di sicurezza previste dalla disciplina interna, dal Regolamento UE nonché predisposte dal Titolare.</p></div><h3 class='title'><span class='letter'>G.</span>Titolare e Responsabili del trattamento.</h3><div class='section'><p>Gli estremi identificativi del Titolare del trattamento sono i seguenti:</p><ul><li>Emays s.r.l., con sede legale in Corso Italia 22, 20122 Milano (MI), C.F. 1260201010964, iscritta al registro delle Imprese di Milano Monza Brianza al R.E.A. MI – 2671764,</li><li>e-mail: info@emaysstyle.com</li></ul><p>L’elenco aggiornato dei Responsabili del trattamento è reso disponibile su richiesta dell’interessato da inoltrare al Titolare al seguente indirizzo e-mail:info@emaysstyle.com</p></div><h3 class='title'><span class='letter'>H.</span>Esercizio dei diritti da parte dell’interessato.</h3><div class='section'><p>Ai sensi degli articoli 13, comma 2, lettere (b) e (d), 15, 18, 19 e 21 del Regolamento UE, si informa l’interessato che egli ha il diritto di:<ul><li>chiedere la conferma dell’esistenza o meno di propri dati personali;</li><li>ottenere le indicazioni circa le finalità del trattamento, le categorie dei dati personali, i destinatari o le categorie di destinatari a cui i dati personali sono stati o saranno comunicati e, quando possibile, il periodo di conservazione;</li><li>ottenere la rettifica e la cancellazione dei dati;</li><li>ottenere la limitazione del trattamento od opporsi al trattamento;</li><li>ottenere la portabilità dei dati, ossia riceverli da un titolare del trattamento, in un formato strutturato, di uso comune e leggibile da dispositivo automatico, e trasmetterli ad un altro titolare del trattamento senza impedimenti;</li><li>revocare il consenso in qualsiasi momento senza pregiudicare la liceità del trattamento basata sul consenso prestato prima della revoca;</li><li>proporre un reclamo al Garante per la protezione dei dati personali, seguendo le procedure e le indicazioni pubblicate sul sito web ufficiale dell’Autorità su www.garanteprivacy.it;</li></ul></p><p>Le eventuali rettifiche o cancellazioni o limitazioni del trattamento effettuate su richiesta dell’interessato - salvo che ciò si riveli impossibile o implichi uno sforzo sproporzionato – saranno comunicate dal Titolare del trattamento a ciascuno dei destinatari cui sono stati trasmessi i dati personali. Il Titolare del trattamento potrà comunicare all'interessato tali destinatari qualora l'interessato lo richieda.</p><p>L’esercizio dei diritti non è soggetto ad alcun vincolo di forma ed è gratuito e potrà essere esercitato tramite invio di una e-mail all’indirizzo info@emaysstyle.com</p><p>Per utilità, gli articoli da 15 a 23 del Regolamento UE sono consultabili a questo link:<a href='https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=celex%3A32016R0679'>https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=celex%3A32016R0679</a></p></div><h3 class='title'><span class='letter'>I.</span>Informazioni non contenute in questa Privacy Policy e modifiche.</h3><div class='section'><p>Maggiori informazioni in relazione al trattamento dei dati personali potranno essere richieste in qualsiasi momento al Titolare del trattamento utilizzando le informazioni di contatto.</p><p>Il Titolare del trattamento si riserva il diritto di apportare modifiche alla presente Privacy Policy in qualunque momento dandone pubblicità agli utenti su questa pagina. Si prega dunque di consultare spesso questa pagina, prendendo come riferimento la data di ultima modifica indicata in fondo. Nel caso di mancata accettazione delle modifiche apportate alla presente Privacy Policy, l’utente è tenuto a cessare l’utilizzo del sito e può richiedere al Titolare del trattamento di rimuovere i propri dati personali.</p></div><h3 class='title'><span class='letter'>J.</span>Difesa in giudizio</h3><div class='section'><p>I dati personali dell’utente possono essere utilizzati per la difesa da parte del Titolare in giudizio o nelle fasi propedeutiche alla sua eventuale instaurazione, da abusi nell'utilizzo del sito e dei servizi connessi da parte dell’utente ovvero per difendere la nostra società nell'eventualità di azione legale ai nostri danni o per altra finalità dettata dalla legge.</p><p>L’utente dichiara di essere consapevole che al Titolare potrebbe essere richiesto di rivelare i dati su richiesta delle Pubbliche Autorità.</p></div>"
+  },
+  "terms": {
+    "title": "TERMS OF SERVICE",
+    "content": "<h3 class='title'><span class='letter'>1.</span>Oggetto</h3><div class='section'><p>Le presenti Condizioni di utilizzo (“<strong>Condizioni di Utilizzo</strong>”) hanno per oggetto le condizioni generali per l'utilizzo del sito web (il “<strong>Sito</strong>”) e/o l’applicazione mobile (“<strong>App.</strong>”), di proprietà della società Emays s.r.l., con sede legale in Corso Italia 22, 20122 Milano (MI), C.F. 1260201010964, iscritta al registro delle Imprese di Milano Monza Brianza al R.E.A. MI – 2671764, (“<strong>Emays</strong>”), messe a disposizione degli utenti tramite un apposito app store o altrimenti, in qualità di ospiti o di utenti registrati. Si prega di leggere attentamente le presenti Condizioni di Servizio prima di iniziare ad utilizzare il Sito o la App. Con l’accesso al Sito o con l’utilizzo della App. l’utente dichiara di accettare le presenti Condizioni di Utilizzo e si impegna a rispettarle. In caso di disaccordo con quanto previsto nelle presenti Condizioni di Utilizzo si prega di non navigare nel Sito e di non utilizzare la App.</p></div><h3 class='title'><span class='letter'>2.</span>Accesso</h3><div class='section'><p>L’accesso al Sito e alla App. sono consentiti su base temporanea e Emays si riserva il diritto di escludere o modificare l’accesso al Sito o alla App. senza. Emays non risponde della mancata disponibilità del Sito o della App., qualunque ne sia la ragione e in qualsiasi momento o per qualsiasi periodo di tempo si sia verificata. In alcune occasioni Emays può limitare l’accesso degli utenti, anche se registrati, al Sito o alla App. ovvero solo ad alcune parti di essi. L'utente è obbligato a mantenere riservati i propri dati di login così come tutta l'attività che si svolge nell'ambito del proprio Account. Qualora l'utente abbia motivo di preoccupazione riguardo ai propri dati di login o ritenga che siano stati oggetto di un utilizzo improprio è pregato di informare senza indugio Emays tramite l'indirizzo: info@emaysstyle.com. Emays ha facoltà di disattivare l'Account dell'utente in qualsiasi momento, senza pregiudizio per i diritti degli utenti.</p></div><h3 class='title'><span class='letter'>3.</span>Uso consentito</h3><div class='section'><p>Il Sito o la App. non possono essere utilizzati con modalità che costituiscano una violazione di legge o regolamenti in ambito nazionale o internazionale né possono essere utilizzati per inviare, ricevere consapevolmente, caricare (upload), scaricare (download), utilizzare o riutilizzare qualsiasi materiale non conforme alla legge. L'utente inoltre si impegna a non accedere al Sito o alla App. senza averne il diritto e a non danneggiare o manomettere  il Sito o la App.</p></div><h3 class='title'><span class='letter'>4.</span>Sospensione e Cancellazione</h3><div class='section'><p>Il mancato rispetto dell'articolo 3 (Uso consentito) costituisce grave inadempimento e può comportare l’adozione da parte di Emays di una o più misure tra quelle di seguito indicate:</p><ul><li>immediata sospensione, in via temporanea o permanente, dell’accesso;</li><li>cancellazione definitiva dell’Account;</li><li>segnalazione alla Pubblica Autorità in caso di atti illeciti.</li></ul><p>L’elenco non è esaustivo ed Emays può adottare qualsiasi altra iniziativa che ritenga appropriata.</p></div><h3 class='title'><span class='letter'>5.</span>Diritti di Proprietà Intellettuale</h3><div class='section'><p>Tutti i diritti di proprietà intellettuale relativi al Sito e alla App., nonché a tutti i contenuti in essi pubblicati, sono di titolarità di Emays o sono stati ad essa concessi in licenza. Tali contributi sono tutelati dalla normativa in materia di diritto d'autore e proprietà intellettuale nazionale e internazionale. E' fatto divieto all'utente di copiare, riprodurre, ripubblicare, scaricare, pubblicare online, diffondere, trasmettere, mettere a disposizione del pubblico o altrimenti utilizzare qualsiasi contenuto presente sul Sito o sulla App., con qualsiasi modalità.</p></div><h3 class='title'><span class='letter'>6.</span>Aggiornamenti</h3><div class='section'><p>Emays si propone di aggiornare il Sito e la App. regolarmente ed ha il diritto di modificarne i contenuti in qualsiasi momento. Emays può inoltre sospendere l'accesso al Sito alla App. e all’Account in caso di necessità. In ogni caso, i materiali presenti sul Sito e nella App. potrebbero risultare in un qualsiasi momento non aggiornati senza che Emays assuma alcun impegno di aggiornamento.</p></div><h3 class='title'><span class='letter'>7.</span>Responsabilità di Emays</h3><div class='section'><p>Emays ha approntato il Sito e la App. con la massima diligenza. In ogni caso, Emays non risponde degli eventuali imprecisioni, errori o omissioni presenti nei contenuti o degli eventuali problemi tecnici riscontrati nel Sito o nella App., salvo nei casi espressamente previsti dalla legge. Qualora Emays venga a conoscenza di eventuali imprecisioni o errori si attiverà per porvi rimedio nel minor tempo possibile. Nei limiti previsti dalla legge, Emays non assume alcuna responsabilità per eventuali danni o pregiudizi cui l'utente o eventuali soggetti terzi possano incorrere per utilizzo del Sito o della App.</p></div><h3 class='title'><span class='letter'>8.</span>Link di Terze Parti</h3><div class='section'><p>I collegamenti o link eventualmente presenti sul Sito o sulla App. che indirizzano ad altri siti web messi a disposizione da terze parti, vengono pubblicati esclusivamente per finalità di informazione. Emays non può avere alcun controllo su tali siti web e di conseguenza non assume alcuna responsabilità riguardo ad essi o relativamente ad eventuali pregiudizi o danni che possano derivare agli utenti a seguito del loro utilizzo.</p></div><h3 class='title'><span class='letter'>9.</span>Legge Applicabile e Foro Competente</h3><div class='section'><p>Le presenti Condizioni di Utilizzo sono sottoposte alla Legge italiana e qualsiasi controversia tra Emays e un consumatore derivante da, o relativa a, la visita del Sito o l’uso della App. è di competenza del Foro del luogo di residenza o domicilio del consumatore.</p></div><h3 class='title'><span class='letter'>10.</span>Modifiche</h3><div class='section'><p>Emays ha il diritto di modificare le presenti Condizioni di Utilizzo in qualsiasi momento apportando le modifiche direttamente al Sito o alla App., senza pregiudizio per i Servizi in corso di esecuzione.</p></div><h3 class='title'><span class='letter'>11.</span>Comunicazioni</h3><div class='section'><p>Per qualsiasi comunicazione relativa ai contenuti ed all’utilizzo del Sito e della App. si prega di rivolgersi al seguente indirizzo: info@emaysstyle.com</p></div>"
+  }
+}

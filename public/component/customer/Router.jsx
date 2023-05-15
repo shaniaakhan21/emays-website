@@ -20,6 +20,8 @@ import RetailerFAQs from '../retailer/FAQs';
 import RetailerIntegration from '../retailer/Integration';
 import RetailerPartnership from '../retailer/Partnership';
 import useSessionState from '../../js/util/useSessionState';
+import Privacy from './Privacy';
+import Terms from './Terms';
 
 const CustomerRouter = () => {
 
@@ -78,6 +80,8 @@ const CustomerRouter = () => {
                 <Route path='/faq' component={() => <RetailerFAQs />} />
                 <Route path='/integration' component={() => <RetailerIntegration />} />
                 <Route path='/partnership' component={() => <RetailerPartnership />} />
+                <Route path='/privacy' component={() => <Privacy />} />
+                <Route path='/terms' component={() => <Terms />} />
             </Switch>
         </>
     );

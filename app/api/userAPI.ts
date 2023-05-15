@@ -1,11 +1,14 @@
 'use strict';
 
+import * as moment from 'moment';
 import LogType from '../const/logType';
 import { Logger } from '../log/logger';
 import { IOrderDTO } from '../type/orderType';
 import { buildErrorMessage, buildInfoMessageMethodCall
     , buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import { IUser, UserAddress } from '../type/IUserType';
+import { ExternalSystemModel } from '../data/model/ExternalSystemModel';
+import { OrderModel } from '../data/model/OrderModel';
 const Logging = Logger(__filename);
 
 /**
@@ -43,3 +46,76 @@ export const prepareUserPayload = (order: IOrderDTO): IUser => {
     }
 };
 
+/**
+ * Get dashboard summary
+ * @param {string} id retailer id
+ * @returns {void}
+ */
+
+export const prepareRetailerDashboardSummary = async (id: string): Promise<{ revenueThisYear: number, revenueThisMonth: number, averageTicket: number, totalOrders: number }> => {
+    const retailerInfo = await ExternalSystemModel.findById(id);
+    const thisYearStart = moment().startOf('year').toDate();
+
+    const revenueThisYear = await OrderModel.aggregate<{ total: number }>([
+        {
+            $match: {
+                retailerEmail: retailerInfo?.extSysEmail,
+                date: { $gte: thisYearStart }
+            }
+        },
+        {
+            $unwind: '$orderItems'
+        },
+        {
+            $project: {
+                total: { $multiply: [{ $toInt: '$orderItems.productCost' }, '$orderItems.productQuantity'] }
+            }
+        },
+        {
+            $group: {
+                _id: null,
+                total: { $sum: '$total' }
+            }
+        }
+    ]);
+
+    const thisMonthStart = moment().startOf('month').toDate();
+
+    const statsThisMonth = await OrderModel.aggregate<{ total: number, count: number, average: number }>([
+        {
+            $match: {
+                retailerEmail: retailerInfo?.extSysEmail,
+                date: { $gte: thisMonthStart }
+            }
+        },
+        {
+            $unwind: '$orderItems'
+        },
+        {
+            $project: {
+                total: { $multiply: [{ $toInt: '$orderItems.productCost' }, '$orderItems.productQuantity'] }
+            }
+        },
+        {
+            $group: {
+                _id: '$_id',
+                total: { $sum: '$total' }
+            }
+        },
+        {
+            $group: {
+                _id: null,
+                total: { $sum: '$total' },
+                count: { $sum: 1 },
+                average: { $avg: '$total' }
+            }
+        }
+    ]);
+
+    return {
+        revenueThisYear: revenueThisYear[0]?.total || 0,
+        revenueThisMonth: statsThisMonth[0]?.total || 0,
+        averageTicket: statsThisMonth[0]?.average || 0,
+        totalOrders: statsThisMonth[0]?.count || 0
+    };
+};

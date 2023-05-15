@@ -19,6 +19,8 @@ $carbon-md-max: 64em;   // 1024px
 
 .main-container {
   overflow-x: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 .cds--header {
@@ -194,7 +196,7 @@ $carbon-md-max: 64em;   // 1024px
   .cus-ratailer-toggle__customer,
   .cus-ratailer-toggle__retailer{
     background: transparent;
-    color: #FFF;
+    color: #FFF !important;
     outline: none;
     box-shadow: none;
     border: none;
