@@ -363,6 +363,27 @@
         "description": "Use the scanner to add the item automatically, close this modal on the X to finish the scan"
       },
       "submit": "Create order"
+    },
+    "orderCreated": {
+      "title": "Order Created",
+      "sub-title": "Emays are in charge now, relax :)",
+      "appointmentInfo": {
+        "title": "Appointment Booked",
+        "date": "Date",
+        "hour": "Hour",
+        "address": "Delivery Address",
+        "name": "Full Name",
+        "email": "Email",
+        "tel": "Tel."
+      },
+      "items": {
+        "title": "Items To be delivered",
+        "button": "See all items"
+      },
+      "comments": {
+        "input-label": "Comments",
+        "input-placeholder": "Comments about delivery, client and especial petitions"
+      }
     }
   },
   "retailer": {
