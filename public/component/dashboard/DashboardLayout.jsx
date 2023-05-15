@@ -34,23 +34,28 @@ const DashboardLayout = () => {
                             <ul>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/overview'>
-                                        {t('dashboard.navigation.overview')}</Link>
+                                        {t('dashboard.navigation.overview')}
+                                    </Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/deliveryOrders'>
-                                        {t('dashboard.navigation.del-orders')}</Link>
+                                        {t('dashboard.navigation.del-orders')}
+                                    </Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/customers'>
-                                        {t('dashboard.navigation.customers')}</Link>
+                                        {t('dashboard.navigation.customers')}
+                                    </Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/history'>
-                                        {t('dashboard.navigation.history')}</Link>
+                                        {t('dashboard.navigation.history')}
+                                    </Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/newOrders'>
-                                        {t('dashboard.navigation.new-orders')}</Link>
+                                        {t('dashboard.navigation.new-orders')}
+                                    </Link>
                                 </li>
                             </ul>
                         </nav>
@@ -70,7 +75,7 @@ const DashboardLayout = () => {
                             <Route exact path='/retailer/dashboard/newOrders'
                                 component={() => <NewOrder />}></Route>
                             <Route path='/retailer/dashboard/'
-                                component={() => <Overview />}></Route>
+                                component={() => <Overview/>}></Route>
                         </Switch>
                     </div>
                 </div>
