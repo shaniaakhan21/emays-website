@@ -1,6 +1,7 @@
 'use strict';
 
 import { IGeoTypeDTO } from '../type/geoType';
+import { IOrderPaginationDTO } from '../type/orderType';
 import { IOrderDTO } from '../type/orderType';
 import { ErrorResponseBuilderFunc, SuccessResponseBuilderFunc } from '../type/responseBuilderType';
 
@@ -21,6 +22,7 @@ export const errorResponseBuilder: ErrorResponseBuilderFunc = (error) => {
 export const successResponseBuilder: SuccessResponseBuilderFunc<IOrderDTO | 
     {token: string} |
     {googleMapAPIKey: string} |
+    IOrderPaginationDTO |
      IGeoTypeDTO > = (data) => {
          return { data: data };
      };

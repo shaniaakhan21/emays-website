@@ -19,6 +19,7 @@ const DashboardLayout = () => {
     };
 
     useEffect(() => {
+        console.log('Shift...');
         const UL = document.querySelector('nav ul');
         UL.addEventListener('click', getActiveLinkStyle);
         return () => UL.removeEventListener('click', getComputedStyle);
@@ -66,7 +67,7 @@ const DashboardLayout = () => {
                                 component={() => <History />}></Route>
                             <Route exact path='/retailer/dashboard/newOrders'
                                 component={() => <NewOrder />}></Route>
-                            <Route path='/retailer/dashboard/'
+                            <Route path='/retailer/dashboard'
                                 component={() => <Overview />}></Route>
                         </Switch>
                     </div>
@@ -76,4 +77,4 @@ const DashboardLayout = () => {
     );
 };
 
-export default React.memo(DashboardLayout);
+export default DashboardLayout;

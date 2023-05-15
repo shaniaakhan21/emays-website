@@ -1,4 +1,6 @@
-import { apiBase, HTTPHelper as httpUtil } from '../js/util/httpUtil';
+'use strict';
+
+import { apiBase, HTTPHelper as httpUtil } from '../../js/util/httpUtil';
 
 /**
  * Login super user
