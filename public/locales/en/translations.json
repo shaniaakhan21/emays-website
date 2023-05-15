@@ -322,6 +322,36 @@
       "customers": "Customers",
       "history": "History",
       "new-orders": "New Orders"
+    },
+    "overview": {
+      "table": {
+        "id": "# Order",
+        "client": "Client",
+        "amount": "Amount Purchased",
+        "date": "Pick Up Date",
+        "time": "Time",
+        "status": "Status"
+      },
+      "toBeDelivered-title": "TO BE DELIVERED"
+    },
+    "deliveryOrders": {
+      "title": "Add products to be delivered",
+      "header-right": {
+        "title": "Items added"
+      },
+      "sub-title": "Please, scan the bar code or enter it manually",
+      "search": {
+        "input": {
+          "label": "Enter ASIN / Product ID",
+          "help-text": "Press enter to add item"
+        },
+        "button": "Scan item"
+      },
+      "scanModal": {
+        "title": "Scan code now",
+        "description": "Use the scanner to add the item automatically, close this modal on the X to finish the scan"
+      },
+      "submit": "Create order"
     }
   },
   "retailer": {
@@ -468,18 +498,5 @@
   "terms": {
     "title": "TERMS OF SERVICE",
     "content": "<h3 class='title'><span class='letter'>1.</span>Object</h3><div class='section'><p>These Terms of Use (“<strong>Terms of Use</strong>” ) concern the general conditions for the use of the website (the “<strong>Site</strong>”) and/or the mobile application (“<strong>App.</strong>”), owned by the company Emays srl, with registered office in Corso Italia 22 , 20122 Milano (MI), Tax Code 1260201010964, registered in the Milan Monza Brianza Company Register under REA MI – 2671764, ( “<strong>Emays</strong>” ), made available to users through a special app store or otherwise, as guests or registered users. Please read these Terms of Service carefully before starting to use the Site or the App. By accessing the Site or using the App, the user declares to accept these Terms of Use and undertakes to respect them. In case of disagreement with the provisions of these Terms of Use, please do not browse the Site and do not use the App.</p></div><h3 class='title'><span class='letter'>2.</span>Login</h3><div class='section'><p>Access to the Site and App. is permitted on a temporary basis and Emays reserves the right to exclude or modify access to the Site or App. without. Emays is not responsible for the unavailability of the Site or the App, whatever the reason and at any time or for any period of time it occurs. On some occasions Emays may limit users' access, even if registered, to the Site or App. or only to some parts of them. The user is obliged to keep his login data confidential as well as all the activity that takes place under his Account. If the user has cause for concern regarding their login data or believes that they have been misused, please inform Emays without delay via the address: info@emaysstyle.com . Emays may deactivate your Account at any time, without prejudice to your rights.</p></div><h3 class='title'><span class='letter'>3.</span>Permitted Use</h3><div class='section'><p>The Site or the App cannot be used in ways that constitute a violation of the law or regulation at a national or international level nor can they be used to knowingly send, receive, upload, download, use or reuse any material not in accordance with the law. The user also undertakes not to access the Site or the App without having the right and not to damage or tamper with the Site or the App.</p></div><h3 class='title'><span class='letter'>4.</span>Suspension and Cancellation</h3><div class='section'><p>Failure to comply with article 3 (Permitted use) constitutes a serious breach and may lead to the adoption by Emays of one or more measures among those indicated below:</p><ul><li>immediate suspension, temporarily or permanently, of access;</li><li>definitive cancellation of the Account;</li><li>reporting to the Public Authority in the event of illegal acts.</li></ul><p>The list is not exhaustive and Emays may take any other action it deems appropriate.</p></div><h3 class='title'><span class='letter'>5.</span>Intellectual Property Rights</h3><div class='section'><p>All intellectual property rights relating to the Site and the App, as well as to all the contents published therein, are owned by Emays or have been licensed to it. These contributions are protected by legislation on national and international copyright and intellectual property. It is forbidden for the user to copy, reproduce, republish, download, publish online, disseminate, transmit, make available to the public or otherwise use any content on the Site or on the App, in any way.</p></div><h3 class='title'><span class='letter'>6.</span>Updates</h3><div class='section'><p>Emays intends to update the Site and the App regularly and has the right to modify the contents at any time. Emays may also suspend access to the Site, App and Account if necessary. In any case, the materials present on the Site and in the App could be out of date at any time without Emays undertaking any updating commitment.</p></div><h3 class='title'><span class='letter'>7.</span>Liability of Emays</h3><div class='section'><p>Emays has prepared the Site and the App with the utmost diligence. In any case, Emays is not liable for any inaccuracies, errors or omissions present in the contents or for any technical problems encountered on the Site or in the App, except in the cases expressly provided for by law. If Emays becomes aware of any inaccuracies or errors, it will take steps to remedy them as soon as possible. Within the limits established by law, Emays assumes no responsibility for any damages or prejudices that the user or any third parties may incur through use of the Site or the App.</p></div><h3 class='title'><span class='letter'>8.</span>Third Party Links</h3><div class='section'><p>Any connections or links present on the Site or on the App that lead to other websites made available by third parties are published exclusively for information purposes. Emays cannot have any control over these websites and consequently assumes no responsibility with regard to them or in relation to any prejudice or damage that may arise to users as a result of their use.</p></div><h3 class='title'><span class='letter'>9.</span>Applicable Law and Jurisdiction</h3><div class='section'><p>These Terms of Use are subject to Italian law and any dispute between Emays and a consumer deriving from, or relating to, a visit to the Site or use of the App falls under the jurisdiction of the Court of the consumer's place of residence or domicile.</p></div><h3 class='title'><span class='letter'>10.</span>Changes</h3><div class='section'><p>Emays has the right to modify these Terms of Use at any time by making the modifications directly to the Site or App., without prejudice to the Services in progress.</p></div><h3 class='title'><span class='letter'>11.</span>Communications</h3><div class='section'><p>For any communication relating to the contents and use of the Site and the App, please contact the following address: info@emaysstyle.com</p></div>"
-  },
-  "dashboard": {
-    "overview": {
-      "table": {
-        "id": "# Order",
-        "client": "Client",
-        "amount": "Amount Purchased",
-        "date": "Pick Up Date",
-        "time": "Time",
-        "status": "Status"
-      },
-      "toBeDelivered-title": "TO BE DELIVERED"
-    }
   }
 }

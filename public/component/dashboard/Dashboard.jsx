@@ -13,7 +13,15 @@ const Dashboard = () => {
 
     useEffect(() => {
         setLoginStatus(loginStatusStore);
+        const main = document.getElementsByTagName('main')[0];
+        main?.classList?.add?.('retailer-dashboard');
+        return () => {
+            const main = document.getElementsByTagName('main')[0];
+            main?.classList?.remove?.('retailer-dashboard');
+        };
     });
+
+    return (<DashboardLayout/>);
 
     return (
         loginStatus?.isSuccess ? <DashboardLayout/> : <LoginWrapper uri={''}
@@ -21,7 +29,7 @@ const Dashboard = () => {
             wrapperStyle={ { backgroundColor: '#231F20', height: '100vh'
                 , display: 'flex', alignItems: 'center', justifyContent: 'center' } } />
     );
-    
+
 };
 
 export default React.memo(Dashboard);
