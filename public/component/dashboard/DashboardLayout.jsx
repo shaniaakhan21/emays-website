@@ -7,6 +7,7 @@ import History from './history/History';
 import '../../scss/component/dashboard/dashboardLayout.scss';
 import DeliveryOrder from './deliveryOrder/DeliveryOrder';
 import { useTranslation } from 'react-i18next';
+import OrderCreated from './orderCreated/OrderCreated';
 
 const DashboardLayout = () => {
 
@@ -60,6 +61,8 @@ const DashboardLayout = () => {
                                 component={() => <Overview />}></Route>
                             <Route exact path='/retailer/dashboard/deliveryOrders'
                                 component={() => <DeliveryOrder />}></Route>
+                            <Route exact path='/retailer/dashboard/orders/:id/created'
+                                component={() => <OrderCreated />}></Route>
                             <Route exact path='/retailer/dashboard/customers'
                                 component={() => <Customer />}></Route>
                             <Route exact path='/retailer/dashboard/history'
