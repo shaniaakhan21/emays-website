@@ -308,6 +308,17 @@
     }
   },
   "dashboard": {
+    "overview": {
+      "table": {
+        "id": "# Order",
+        "client": "Client",
+        "amount": "Amount Purchased",
+        "date": "Pick Up Date",
+        "time": "Time",
+        "status": "Status"
+      },
+      "toBeDelivered-title": "TO BE DELIVERED"
+    },
     "login": {
       "heading-retailer": "Retailer",
       "button-text": "LOGIN",
