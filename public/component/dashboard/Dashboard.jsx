@@ -21,8 +21,6 @@ const Dashboard = () => {
         };
     });
 
-    return (<DashboardLayout/>);
-
     return (
         loginStatus?.isSuccess ? <DashboardLayout/> : <LoginWrapper uri={''}
             loginComponent={RetailerLogin}
