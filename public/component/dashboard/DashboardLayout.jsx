@@ -33,41 +33,46 @@ const DashboardLayout = () => {
                             <ul>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/overview'>
-                                        {t('dashboard.navigation.overview')}</Link>
+                                        {t('dashboard.navigation.overview')}
+                                    </Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/deliveryOrders'>
-                                        {t('dashboard.navigation.del-orders')}</Link>
+                                        {t('dashboard.navigation.del-orders')}
+                                    </Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/customers'>
-                                        {t('dashboard.navigation.customers')}</Link>
+                                        {t('dashboard.navigation.customers')}
+                                    </Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/history'>
-                                        {t('dashboard.navigation.history')}</Link>
+                                        {t('dashboard.navigation.history')}
+                                    </Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/newOrders'>
-                                        {t('dashboard.navigation.new-orders')}</Link>
+                                        {t('dashboard.navigation.new-orders')}
+                                    </Link>
                                 </li>
                             </ul>
                         </nav>
                     </div>
                     <div className='cds--col-md-10 content-section'>
                         <Switch>
-                            <Route exact path='/retailer/dashboard/overview'
-                                component={() => <Overview />}></Route>
-                            <Route exact path='/retailer/dashboard/deliveryOrders'
-                                component={() => <DeliveryOrder />}></Route>
-                            <Route exact path='/retailer/dashboard/customers'
-                                component={() => <Customer />}></Route>
-                            <Route exact path='/retailer/dashboard/history'
-                                component={() => <History />}></Route>
-                            <Route exact path='/retailer/dashboard/newOrders'
-                                component={() => <NewOrder />}></Route>
+                            <Route path='/retailer/dashboard/overview'
+                                component={() => <Overview/>}></Route>
+                            <Route path='/retailer/dashboard/deliveryOrders'
+                                component={() => <DeliveryOrder/>}></Route>
+                            <Route path='/retailer/dashboard/customers'
+                                component={() => <Customer/>}></Route>
+                            <Route path='/retailer/dashboard/history'
+                                component={() => <History/>}></Route>
+                            <Route path='/retailer/dashboard/newOrders'
+                                component={() => <NewOrder/>}></Route>
                             <Route path='/retailer/dashboard/'
-                                component={() => <Overview />}></Route>
+                                component={() => <Overview/>}></Route>
                         </Switch>
                     </div>
                 </div>

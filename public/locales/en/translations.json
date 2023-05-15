@@ -333,6 +333,36 @@
       "customers": "Customers",
       "history": "History",
       "new-orders": "New Orders"
+    },
+    "overview": {
+      "table": {
+        "id": "# Order",
+        "client": "Client",
+        "amount": "Amount Purchased",
+        "date": "Pick Up Date",
+        "time": "Time",
+        "status": "Status"
+      },
+      "toBeDelivered-title": "TO BE DELIVERED"
+    },
+    "deliveryOrders": {
+      "title": "Add products to be delivered",
+      "header-right": {
+        "title": "Items added"
+      },
+      "sub-title": "Please, scan the bar code or enter it manually",
+      "search": {
+        "input": {
+          "label": "Enter ASIN / Product ID",
+          "help-text": "Press enter to add item"
+        },
+        "button": "Scan item"
+      },
+      "scanModal": {
+        "title": "Scan code now",
+        "description": "Use the scanner to add the item automatically, close this modal on the X to finish the scan"
+      },
+      "submit": "Create order"
     }
   },
   "retailer": {
