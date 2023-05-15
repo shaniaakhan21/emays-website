@@ -19,7 +19,7 @@
         const selectBox = document.getElementById('launchType');
         let form = null;
         const loadToken = async () => {
-            const token = await fetch(`http://localhost:8080${environment === 'development' ? '/api-dev' : '/api'}/externalSystems/systemToken`, {
+            const token = await fetch(`http://localhost:8080/api-dev/externalSystems/systemToken`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -41,7 +41,7 @@
                 case 'product_update':
                     const path = selectedLaunchType === 'product' ? 'launch' : selectedLaunchType === 'product_add' ? 'launch_add' : 'launch_update';
                     form = `
-                    <form method="post" action="${environment === 'development' ? '/api-dev' : '/api'}/${path}">
+                    <form method="post" action="/api-dev/${path}">
 
                     ${selectedLaunchType !== 'product' ? `<label for="uid">UID</label><br><input type="text" id="uid" name="uid" value=""><br><br>` : ''}
 
@@ -79,7 +79,7 @@
                     break;
                 case 'email':
                     form = `
-                    <form method="get" action="${environment === 'development' ? '/api-dev' : '/api'}/launchMail">
+                    <form method="get" action="/api-dev/launchMail">
                         <label for="token">Auth Token</label><br>
                         <input type="text" id="authToken" name="authToken" value="tempToken">
                         <button onclick="loadToken()" type="button">Load Token</button><br><br>

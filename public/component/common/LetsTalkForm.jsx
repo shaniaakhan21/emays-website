@@ -54,6 +54,7 @@ const LetsTalkForm = ({ onSubmit }) => {
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
                         <TextBoxCustom
+                            data-testid='name'
                             labelText={t('name')}
                             placeholderText={t('name-placeholder')}
                             autocomplete='given-name'
@@ -63,6 +64,7 @@ const LetsTalkForm = ({ onSubmit }) => {
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
                         <TextBoxCustom
+                            data-testid='email'
                             labelText={t('email')}
                             autocomplete='email'
                             name='email'
@@ -71,6 +73,7 @@ const LetsTalkForm = ({ onSubmit }) => {
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
                         <TextBoxCustom
+                            data-testid='phone'
                             labelText={t('phone')}
                             placeholderText={t('phone-placeholder')}
                             autocomplete='tel'
@@ -80,6 +83,7 @@ const LetsTalkForm = ({ onSubmit }) => {
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
                         <TextAreaCustom
+                            data-testid='message'
                             className='message'
                             labelText={t('message')}
                             placeholder={t('message-placeholder')}
@@ -91,6 +95,7 @@ const LetsTalkForm = ({ onSubmit }) => {
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
                         <CheckBoxCustom
+                            data-testid='privacy-policy'
                             className='privacy'
                             labelText={t('privacy-policy')}
                             name='privacy-policy'
@@ -99,7 +104,8 @@ const LetsTalkForm = ({ onSubmit }) => {
                         />
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
-                        <ButtonCustom action={() => onSubmit(data)} className='submit' text={t('submit')}/>
+                        <ButtonCustom
+                            data-testid='submit' action={() => onSubmit(data)} className='submit' text={t('submit')}/>
                     </Col>
                 </Grid>
             </Col>

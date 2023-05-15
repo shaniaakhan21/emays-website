@@ -13,17 +13,12 @@
     "watch-server": "nodemon --exec yarn watch-script",
     "start": "env-cmd --no-override -e production node ./app-dist/server.js",
     "lint": "eslint . --ext .ts --ext .jsx --ext .js ./public --quiet",
-    "test": "jest",
-    "prepare": "husky install"
+    "test": "playwright test",
+    "prepare": "husky install",
+    "test-ct": "playwright test -c playwright-ct.config.ts"
   },
   "engines": {
     "node": ">= 14.0.0"
-  },
-  "jest": {
-    "preset": "jest-puppeteer",
-    "setupFiles": [
-      "./test/setup.js"
-    ]
   },
   "author": "",
   "license": "SEE LICENSE IN <filename>",
@@ -81,6 +76,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
+    "@playwright/experimental-ct-react": "^1.33.0",
+    "@playwright/test": "^1.33.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.19.2",
     "@types/ejs": "^3.1.0",
