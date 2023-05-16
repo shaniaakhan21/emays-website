@@ -12,7 +12,7 @@ export const getOverviewData = createAsyncThunk('overview/getOverviewData', asyn
         , pageLimit: data?.pageLimit, token: loginData?.token });
     if (response) {
         console.log('Login Data', response);
-        data.dispatch(updateOverviewData({ test: 'some' }));
+        data?.dispatch(updateOverviewData({ ...response }));
     }
 });
 

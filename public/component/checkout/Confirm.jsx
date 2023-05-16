@@ -51,6 +51,7 @@ const Confirm = () => {
             const commonData = {
                 uid: getUserData().uid,
                 retailerEmail: getRetailerData().retailerEmail,
+                branchId: getRetailerData().branchId,
                 timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
                 orderItems: productData
             };

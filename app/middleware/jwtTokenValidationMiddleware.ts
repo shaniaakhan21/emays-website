@@ -54,14 +54,17 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
 };
 
 export const validateJWTToken = (token: string) => {
+    console.log('------validate token');
     let claims;
     jwt.verify(token, config.JSON_WEB_TOKEN_SECRET, (
         error, decode) => {
         if (error) {
+            console.log('------error token');
             throw new ServiceError(ErrorType.UNAUTHORIZED, error.message, '', HTTPUserError.
                 UNAUTHORIZED_CODE);
         }
         claims = decode as IJWTClaims;
+        console.log('----claims: ', claims);
         const userId = claims?.id;
         Logging.log(buildInfoMessageUserProcessCompleted(
             'JWT token validation', `User Id: ${userId}, roles: ${claims.roles.toString()}`), LogType.INFO);

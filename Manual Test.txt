@@ -21,6 +21,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wN
     "lastName": "Raviraj",
     "phoneNumber": "07122658978",
     "uid": "12345673410113",
+    "branchId": "12345673410113",
     "date": "2023-03-16",
     "startTime": "19:00",
     "endTime": "21:00",
@@ -97,7 +98,7 @@ content-type: application/json
 ------ Create super user ------
 
 
-POST http://localhost:8080/api-dev/superUsers
+POST http://localhost:8080/api-dev/superUsers 
 content-type: application/json
 
 {

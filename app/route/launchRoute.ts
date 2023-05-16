@@ -17,7 +17,7 @@ import LogType from '../const/logType';
 import { validateJWTToken } from '../middleware/jwtTokenValidationMiddleware';
 import { retrieveOrderDetailsByUserId } from '../service/orderService';
 import { IPatchOrder, Order } from '../type/orderType';
-import { IUser, UserAddress } from '../type/IUserType';
+import { IUser } from '../type/IUserType';
 import { v4 as uuidv4 } from 'uuid';
 import LaunchParamBuilder from '../util/LaunchParamBuilder';
 import { LaunchType } from '../type/ILaunchPayload';
@@ -37,7 +37,7 @@ const Logging = Logger(__filename);
 /**
  * To accept the launch request from email and render the UI
  */
-router.get(RoutePath.LAUNCH_MAIL, allowedForClientRoleOnly, (
+router.get(RoutePath.LAUNCH_MAIL, allowedForExternalSystemRoleOnly, (
     req: express.Request<core.ParamsDictionary, any, any, { uuid: string, launchType: string, authToken: string }>,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
@@ -165,7 +165,8 @@ router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Re
             // eslint-disable-next-line max-len
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
             retailerEmail: req.body?.retailerEmail,
-            retailerArea: 'Milan'
+            retailerArea: 'Milan',
+            branchId: ''
         };
         const stringifyRetailerData = JSON.stringify(retailerData);
         const cleanedRetailerData = stringifyRetailerData.replace(/\\/g, '');
