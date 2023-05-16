@@ -29,9 +29,11 @@ const TextImg = () => {
                 <h5 data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' className='margin-top-4'>
                     {t('text-img.text-h5')}
                 </h5>
-                <Button data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' className='env-button'>
-                    {t('text-img.btn-text')}
-                </Button>
+                <a className='btn' href='https://onetreeplanted.org/' target='_blank' rel='noreferrer'>
+                    <Button data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' className='env-button'>
+                        {t('text-img.btn-text')}
+                    </Button>
+                </a>
             </Column>
             <Column lg={8} md={4} sm={4} className='Img-Position'>
                 <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={MountainIMG}/>

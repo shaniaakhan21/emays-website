@@ -8,7 +8,6 @@ import {
 import '../../../scss/component/customer/icontextimg.scss';
 import CO2SVG from '../../../images/HomeCustomerSection/CO2.svg';
 import MountainIMG from '../../../images/ice.png';
-import PhoneMountainIMG from '../../../images/first-img-xs.png';
 import { useTranslation } from 'react-i18next';
 
 const IconTextImg = () => {
@@ -19,9 +18,9 @@ const IconTextImg = () => {
     }, []);
 
     return (
-        <div className='main-section'>
-            <div className='phone-mountain-img'>
-                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={PhoneMountainIMG}/>
+        <div className='main-section2'>
+            <div className='phone-mountain-img ice'>
+                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={MountainIMG}/>
             </div>
             <div className='CO2-neutral'>
                 <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={CO2SVG}/>
