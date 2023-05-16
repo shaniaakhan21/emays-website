@@ -1,6 +1,6 @@
 @import '../../fonts';
 
-.main-section{
+.main-section2 {
     background-color: #231f20;
     max-width: 1280px;
     font-family: 'Montserrat';
@@ -10,7 +10,6 @@
 
     @media screen and (max-width: 768px) {
         flex-direction: column;
-        margin: 0 1rem 0;
     }
 
     > div {
@@ -80,6 +79,11 @@
             img{
                 width: 100%!important;
             }
+        }
+
+        &.ice > img {
+            height: 9rem;
+            object-fit: cover;
         }
     }
 }
