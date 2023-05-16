@@ -332,7 +332,8 @@
       "del-orders": "Delivery Orders",
       "customers": "Customers",
       "history": "History",
-      "new-orders": "New Orders"
+      "new-orders": "New Orders",
+      "adminTools": "Admin Tools"
     },
     "overview": {
       "table": {
@@ -383,6 +384,44 @@
       "comments": {
         "input-label": "Comments",
         "input-placeholder": "Comments about delivery, client and especial petitions"
+      }
+    },
+    "adminTools": {
+      "createRetailer": {
+
+      },
+      "createDriver": {
+        "banner": "Please, complete the information to continue",
+        "basic": {
+          "sub-title": "About you",
+          "name": "Name",
+          "lastname": "Last Name",
+          "phone": "Phone Number",
+          "city": "City",
+          "country": "Country",
+          "zip": "Zip Code"
+        },
+        "documents": {
+          "sub-title": "Driver License",
+          "number": "Number",
+          "carModel": "Car Model",
+          "carPlate": "Car Plate",
+          "sub-title2": "Upload documents",
+          "sub-title2-info": "(Format admitted jpg or png)",
+          "upload": "Drag and drop files here or click to upload"
+        },
+        "billing": {
+          "sub-title": "Billing",
+          "address": "Billing Address",
+          "email": "Accountant Email",
+          "sub-title2": "Bank Information",
+          "bank": "Bank Name",
+          "swift": "Swift Number",
+          "account": "Account Number",
+          "country": "Country",
+          "paymentCurrency": "Payment Currency",
+          "paymentCurrency-label": "Choose an option"
+        }
       }
     }
   },

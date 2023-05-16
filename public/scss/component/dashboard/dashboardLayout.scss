@@ -1,36 +1,46 @@
-.nav-section {
+.dashboard-template {
+    display: flex;
+    flex-direction: row;
 
-    padding-top: 15px;
+    .dashboard-nav-section {
+        margin-top: 4rem;
+        margin-right: 2rem;
 
-    nav {
-        background-color: #F4F4F4;
-        width: 150px;
-    }
+        nav {
+            background-color: #FaFaFa;
+            width: 12rem;
+        }
 
-    .nav-link {
-        font-size: 14px;
-        border: 1px solid #e1e1e1;
-        width: auto;
-        a {
-            display: block;
-            text-decoration: none;
-            color: #484848;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            padding-left: 15px;
-            transition: color 0.2s ease-in-out;
+        .nav-link {
+            border-top: 1px solid #E0E0E0;
+            width: auto;
+
+            a {
+                display: block;
+                text-decoration: none;
+                color: #484848;
+                padding: 1rem;
+                transition: 0.2s ease-in-out all;
+                font-family: 'IBM Plex Sans';
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 18px;
+                text-align: left;
+
+                &:hover,
+                &.active{
+                    color: #000000;
+                    background-color: #e7e7e7;
+                }
+            }
         }
     }
-}
 
-.content-section {
-    padding-top: 15px;
-    flex: 1;
-}
-
-.active {
-    color: #000000 !important;
-    background-color: #c0c0c0;
+    .content-section {
+        flex: 1;
+        margin-top: 1rem;
+        max-width: 80%;
+    }
 }
 
 main.retailer-dashboard {
@@ -40,4 +50,10 @@ main.retailer-dashboard {
     left: 0;
     right: 0;
     left: 0;
+}
+
+.em-card {
+    background: #fff;
+    padding: 1.5rem;
+    margin: 0;
 }

@@ -8,6 +8,7 @@ import '../../scss/component/dashboard/dashboardLayout.scss';
 import DeliveryOrder from './deliveryOrder/DeliveryOrder';
 import { useTranslation } from 'react-i18next';
 import OrderCreated from './orderCreated/OrderCreated';
+import AdminToolsRouter from './adminTools/AdminToolsRouter';
 
 const DashboardLayout = () => {
 
@@ -27,57 +28,62 @@ const DashboardLayout = () => {
 
     return (
         <Router>
-            <div className='cds--grid'>
-                <div className='cds--row'>
-                    <div className='cds--col-md-2 nav-section'>
-                        <nav>
-                            <ul>
-                                <li className={'nav-link'}>
-                                    <Link to='/retailer/dashboard/overview'>
-                                        {t('dashboard.navigation.overview')}
-                                    </Link>
-                                </li>
-                                <li className={'nav-link'}>
-                                    <Link to='/retailer/dashboard/deliveryOrders'>
-                                        {t('dashboard.navigation.del-orders')}
-                                    </Link>
-                                </li>
-                                <li className={'nav-link'}>
-                                    <Link to='/retailer/dashboard/customers'>
-                                        {t('dashboard.navigation.customers')}
-                                    </Link>
-                                </li>
-                                <li className={'nav-link'}>
-                                    <Link to='/retailer/dashboard/history'>
-                                        {t('dashboard.navigation.history')}
-                                    </Link>
-                                </li>
-                                <li className={'nav-link'}>
-                                    <Link to='/retailer/dashboard/newOrders'>
-                                        {t('dashboard.navigation.new-orders')}
-                                    </Link>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div className='cds--col-md-10 content-section'>
-                        <Switch>
-                            <Route exact path='/retailer/dashboard/overview'
-                                component={() => <Overview />}></Route>
-                            <Route exact path='/retailer/dashboard/deliveryOrders'
-                                component={() => <DeliveryOrder />}></Route>
-                            <Route exact path='/retailer/dashboard/orders/:id/created'
-                                component={() => <OrderCreated />}></Route>
-                            <Route exact path='/retailer/dashboard/customers'
-                                component={() => <Customer />}></Route>
-                            <Route exact path='/retailer/dashboard/history'
-                                component={() => <History />}></Route>
-                            <Route exact path='/retailer/dashboard/newOrders'
-                                component={() => <NewOrder />}></Route>
-                            <Route path='/retailer/dashboard/'
-                                component={() => <Overview/>}></Route>
-                        </Switch>
-                    </div>
+            <div className='dashboard-template'>
+                <div className='dashboard-nav-section'>
+                    <nav>
+                        <ul>
+                            <li className={'nav-link'}>
+                                <Link to='/dashboard/overview'>
+                                    {t('dashboard.navigation.overview')}
+                                </Link>
+                            </li>
+                            <li className={'nav-link'}>
+                                <Link to='/dashboard/deliveryOrders'>
+                                    {t('dashboard.navigation.del-orders')}
+                                </Link>
+                            </li>
+                            <li className={'nav-link'}>
+                                <Link to='/dashboard/customers'>
+                                    {t('dashboard.navigation.customers')}
+                                </Link>
+                            </li>
+                            <li className={'nav-link'}>
+                                <Link to='/dashboard/history'>
+                                    {t('dashboard.navigation.history')}
+                                </Link>
+                            </li>
+                            <li className={'nav-link'}>
+                                <Link to='/dashboard/newOrders'>
+                                    {t('dashboard.navigation.new-orders')}
+                                </Link>
+                            </li>
+                            <li className={'nav-link'}>
+                                <Link to='/dashboard/adminTools'>
+                                    {t('dashboard.navigation.adminTools')}
+                                </Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div className='content-section'>
+                    <Switch>
+                        <Route exact path='/dashboard/overview'
+                            component={() => <Overview />}></Route>
+                        <Route exact path='/dashboard/deliveryOrders'
+                            component={() => <DeliveryOrder />}></Route>
+                        <Route exact path='/dashboard/orders/:id/created'
+                            component={() => <OrderCreated />}></Route>
+                        <Route exact path='/dashboard/customers'
+                            component={() => <Customer />}></Route>
+                        <Route exact path='/dashboard/history'
+                            component={() => <History />}></Route>
+                        <Route exact path='/dashboard/newOrders'
+                            component={() => <NewOrder />}></Route>
+                        <Route path='/dashboard/adminTools'
+                            component={() => <AdminToolsRouter />}></Route>
+                        <Route path='/dashboard/'
+                            component={() => <Overview/>}></Route>
+                    </Switch>
                 </div>
             </div>
         </Router>
