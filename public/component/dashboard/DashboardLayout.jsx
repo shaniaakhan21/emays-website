@@ -19,7 +19,6 @@ const DashboardLayout = () => {
     };
 
     useEffect(() => {
-        console.log('Shift...');
         const UL = document.querySelector('nav ul');
         UL.addEventListener('click', getActiveLinkStyle);
         return () => UL.removeEventListener('click', getComputedStyle);

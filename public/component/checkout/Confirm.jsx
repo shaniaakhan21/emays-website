@@ -44,9 +44,6 @@ const Confirm = () => {
 
     const submit = useCallback(async () => {
         try {
-            console.log('getRetailerData()()', getRetailerData());
-            console.log('getUserData()()', getUserData());
-            console.log('state', state);
             setLoading(true);
             const commonData = {
                 uid: getUserData().uid,
@@ -85,8 +82,6 @@ const Confirm = () => {
                     kind: 'success'
                 });
             } else {
-                console.log('REST---', rest);
-                console.log('Common Data----', commonData);
                 await saveOrder({ ...rest, ...commonData, experience: `${[
                     options?.assist ? 'Assist Me' : undefined,
                     options?.tailoring ? 'Tailoring' : undefined,

@@ -138,9 +138,7 @@ export const calculateServiceFee = (order: IOrderDTO) => {
  */
 export const retrieveOrderDetailsByUserId: RetrieveOrderByUserIdFunc = async (userId) => {
     try {
-        console.log('userId', userId);
         const data = await retrieveOrderByUserId(userId);
-        console.log('data', data);
         Logging.log(buildInfoMessageUserProcessCompleted('Order retrieval', `Order Data:
             ${JSON.stringify(data)}` ), LogType.INFO);
         return data;

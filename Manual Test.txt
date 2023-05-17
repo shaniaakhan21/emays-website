@@ -12,7 +12,7 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yMVQxMTozODo1OC4zOTFaIiwiZXhwIjoxNjgyMDgwNzM4LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiI2ZDliY2NjNy1lMDNkLTQ1OTAtOTM4MC1hYTkzNTg0Y2VkNmQiLCJpYXQiOjE2ODIwNzcxMzh9.M5DWiJNaRZTuXNpU4s7Z9MOUQKClc6Udplm3apkHj9Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNS0xN1QxMjo1Njo1Ni4yMjRaIiwiZXhwIjoxNjg0MzMxODE2LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhYjJkM2Q2Mi01NDE3LTQ2ZTctOTE0OS01NTY0N2NlM2FkZTMiLCJpYXQiOjE2ODQzMjgyMTZ9.Ojflli-iolVCVpzYWPcIOQq2Q5JU45iMGmE0_Ur4fyk
 
 {
     "email": "thathsararaviraj@gmail.com",
@@ -36,6 +36,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wN
         "addFive": "Test",
         "addSix": "Test"
     },
+    "serviceFee": "123",
     "orderItems": [{"productName": "Denim shirt", "productColor": "blue", "productSize": "Large", "productQuantity": 2, "productCost": "10", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}, {"productName": "Denim Trouser", "productColor": "blue", "productSize": "Large", "productQuantity": 5, "productCost": "20", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}]
 }
 

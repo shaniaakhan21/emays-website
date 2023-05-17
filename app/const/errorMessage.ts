@@ -35,7 +35,7 @@ export const USER_PHONE_NUMBER_REQUIRED = 'User phone number required';
 
 export const USER_ID_REQUIRED = 'User id required';
 
-export const BRANCH_ID_REQUIRED = 'User id required';
+export const BRANCH_ID_REQUIRED = 'Branch id required';
 
 export const TIME_ZONE_REQUIRED = 'Time zone required';
 

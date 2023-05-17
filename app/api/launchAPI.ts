@@ -56,7 +56,6 @@ export const authorizeLaunchRoute = (req: express.Request, res: express.Response
         Logging.log(buildInfoMessageMethodCall(
             'Authorize launch', ''), LogType.INFO);
         const claims = (req as AppRequest).claims as unknown as IJWTClaims;
-        console.log('Claims:', claims);
         if (claims.roles.includes(Roles.EXTERNAL_SYSTEM)) {
             (async () => {
                 await getExternalSystemById(claims.id);
