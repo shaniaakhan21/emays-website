@@ -9,13 +9,23 @@ const Dashboard = () => {
 
     const loginStatusStore = useSelector(loginSelector);
 
+    useEffect(() => {
+        setLoginStatus(loginStatusStore);
+        const main = document.getElementsByTagName('main')[0];
+        main?.classList?.add?.('retailer-dashboard');
+        return () => {
+            const main = document.getElementsByTagName('main')[0];
+            main?.classList?.remove?.('retailer-dashboard');
+        };
+    });
+
     return (
         loginStatusStore?.isSuccess ? <DashboardLayout/> : <LoginWrapper uri={''}
             loginComponent={RetailerLogin}
             wrapperStyle={ { backgroundColor: '#231F20', height: '100vh'
                 , display: 'flex', alignItems: 'center', justifyContent: 'center' } } />
     );
-    
+
 };
 
 export default React.memo(Dashboard);

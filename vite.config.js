@@ -52,8 +52,12 @@ export default defineConfig({
         {
             name: 'postbuild-commands',
             closeBundle: async () => {
-                await generateServiceWorker();
-                await replaceHash();
+                try {
+                    await generateServiceWorker();
+                    await replaceHash();
+                } catch (e) {
+                    console.error(e);
+                }
             }
         }],
     root: resolve(__dirname, 'public'),

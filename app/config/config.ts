@@ -65,8 +65,8 @@ export const config = {
         MONGO_URL: MONGO_URL || 'mongodb://root:123456@localhost:27017/emays_service_db?authSource=admin'
     },
     AWS_SES: {
-        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || 'AKIAUIFBMPO744WQUFXC',
-        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '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',
+        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
+        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '',
         AWS_REGION: AWS_REGION || 'us-east-2',
         AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || 'thathsararaviraj@gmail.com'
     },
@@ -106,8 +106,8 @@ export const config = {
         OAUTH2: {
             CLIENT: {
                 CLIENT_ID: GOOGLE_AUTH_CLIENT_ID ||
-                    '511265999052-6cljhl98gvp7s3v10rgs9avtb4g0v41q.apps.googleusercontent.com',
-                CLIENT_SECRET: GOOGLE_AUTH_CLIENT_SECRET || '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',
+                    '',
+                CLIENT_SECRET: GOOGLE_AUTH_CLIENT_SECRET || '',
                 REDIRECTION_URL: GOOGLE_AUTH_REDIRECTION_URL || 'http://localhost:8080/api-dev/redirectGoogleAccess'
             },
             SCOPE: GOOGLE_AUTH_SCOPE || 'https://www.googleapis.com/auth/calendar'
@@ -119,7 +119,7 @@ export const config = {
             BOOK_CALENDER_REDIRECTION_PATH: 'http://localhost:8080/api-dev/googleCalender'
         },
         MAP: {
-            API_KEY: GOOGLE_MAP_API_KEY || 'AIzaSyAgicf1wqHa1zbmqzsqHrubf-lXsArJ-Kg'
+            API_KEY: GOOGLE_MAP_API_KEY || ''
         }
     },
     SYSTEM_AVAILABLE_GEO_LOCATIONS: SYSTEM_AVAILABLE_GEO_LOCATIONS || [
@@ -129,7 +129,7 @@ export const config = {
     STRIPE_SECRET_KEY: STRIPE_SECRET_KEY || '',
     STRIPE_WEBHOOK_SECRET: STRIPE_WEBHOOK_SECRET || '',
     STRIPE_RETURN_DOMAIN: STRIPE_RETURN_DOMAIN || 'http://localhost:3000',
-    LETS_TALK_EMAIL: LETS_TALK_EMAIL || '',
+    LETS_TALK_EMAIL: LETS_TALK_EMAIL || 'info@emaysstyle.com',
     RECAPTCHA_PROJECT_ID: RECAPTCHA_PROJECT_ID || '',
     RECAPTCHA_SITE_KEY: RECAPTCHA_SITE_KEY || '',
     RECAPTCHA_SECRET: RECAPTCHA_SECRET || ''
