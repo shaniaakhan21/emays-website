@@ -40,8 +40,6 @@ const Appointment = () => {
 
         setProductData({ ...data, productData: productData, userData: userData
             , selectedTime: selectedTime, selectedDate: selectedDate });
-
-        console.log('State', productData);
     }, []);
 
     const prepareDate = (date) => {

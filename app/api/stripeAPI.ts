@@ -55,9 +55,6 @@ export const buildCompleteCheckoutPath = async (checkoutId: string, uid: string)
             throw new Error('Invalid checkout ID');
         }
 
-        console.log('session', paymentIntent);
-        console.log('uid', uid);
-
         const order = await retrieveOrderDetailsByUserId(uid);
 
         if (!order) {
@@ -150,11 +147,9 @@ export const listStripeLocations = async () => {
 export const handleStripeWebhookEvent = async (event: Stripe.Event) => {
     try {
         Logging.log(buildInfoMessageMethodCall('Handle Stripe Webhook Event', event.type), LogType.INFO);
-        console.log('event', event);
         switch (event.type) {
             case 'terminal.reader.action_succeeded':
                 const paymentIntent = event.data.object as Stripe.PaymentIntent;
-                console.log('paymentIntent', paymentIntent);
                 const order = await retrieveOrderDetailsByUserId(paymentIntent.metadata.uid);
                 await captureTerminalPayment(paymentIntent.id);
                 order.terminalPayment = true;

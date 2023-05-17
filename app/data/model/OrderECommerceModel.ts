@@ -13,12 +13,12 @@ import { CreateOrderFunc, GetOrderDetailDocumentsArrayByStartAndEndIndex,
 import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { prepareUserDetailsToSend } from '../../util/orderDetailBuilder';
-import OrderSchema from '../schema/OrderSchema';
+import OrderSchema from '../schema/OrderECommerceSchema';
 
 const Logging = Logger(__filename);
 
-const MODEL_NAME = 'Order';
-export const OrderModel = model<IOrder>(MODEL_NAME, OrderSchema);
+const MODEL_NAME = 'OrderECommerce';
+export const OrderECommerceModel = model<IOrder>(MODEL_NAME, OrderSchema);
 
 /**
  * Save order object wrapper
@@ -27,7 +27,7 @@ export const OrderModel = model<IOrder>(MODEL_NAME, OrderSchema);
  */
 export const saveOrder: CreateOrderFunc = async (order) => {
     try {
-        const orderModel = new OrderModel(order);
+        const orderModel = new OrderECommerceModel(order);
         const result: IOrderDTO = await orderModel.save();
         return result;
     } catch (error) {
@@ -44,7 +44,7 @@ export const saveOrder: CreateOrderFunc = async (order) => {
  */
 export const retrieveOrderByUserId: RetrieveOrderByUserIdFunc = async (userId) => {
     try {
-        const orderDetails = await OrderModel.findOne({ 'uid': userId }).exec();
+        const orderDetails = await OrderECommerceModel.findOne({ 'uid': userId }).exec();
         if (orderDetails) {
             return prepareUserDetailsToSend(orderDetails);
         }
@@ -64,7 +64,7 @@ export const retrieveOrderByUserId: RetrieveOrderByUserIdFunc = async (userId) =
  */
 export const retrieveOrderByDeliveryStatus: RetrieveOrdersByDeliveryStatusFunc = async (status) => {
     try {
-        const orderDetails: Array<IOrderDTO> = await OrderModel.find({ 'isDelivered': status }).exec();
+        const orderDetails: Array<IOrderDTO> = await OrderECommerceModel.find({ 'isDelivered': status }).exec();
         return orderDetails;
     } catch (error) {
         const err = error as Error;
@@ -83,7 +83,7 @@ export const retrieveOrderByDeliveryStatus: RetrieveOrdersByDeliveryStatusFunc =
  */
 export const findOneAndUpdateIfExist: PatchOrderDetailsByUserIdFunc = async (userId, patchData) => {
     try {
-        const currentOrderData = await OrderModel.findOne({ 'uid': userId }).exec();
+        const currentOrderData = await OrderECommerceModel.findOne({ 'uid': userId }).exec();
         if (currentOrderData) {
             currentOrderData.history?.push( new Date());
             const filteredData = prepareUserDetailsToSend(currentOrderData);
@@ -91,7 +91,7 @@ export const findOneAndUpdateIfExist: PatchOrderDetailsByUserIdFunc = async (use
             const filter = {
                 _id: currentOrderData._id
             };
-            await OrderModel.updateOne(filter, updatedOrder);
+            await OrderECommerceModel.updateOne(filter, updatedOrder);
             return updatedOrder;
         }
         throw new ServiceError(
@@ -110,7 +110,7 @@ export const findOneAndUpdateIfExist: PatchOrderDetailsByUserIdFunc = async (use
  */
 export const getOrderDocumentSize: GetOrderDocumentSize = () => {
     try {
-        return OrderModel.countDocuments().exec();
+        return OrderECommerceModel.countDocuments().exec();
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, 'Retrieve Order document size'), LogType.ERROR);
@@ -128,7 +128,7 @@ export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocum
     startIndex, limit
 ) => {
     try {
-        const orderArray = await OrderModel.find().skip(startIndex).limit(limit).exec();
+        const orderArray = await OrderECommerceModel.find().skip(startIndex).limit(limit).exec();
         const preparedOrderArray: Array<IOrderDTO> = orderArray.map(data => prepareUserDetailsToSend(data)); 
         return preparedOrderArray;
     } catch (error) {
