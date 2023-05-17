@@ -1,14 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Heading, TextArea } from '@carbon/react';
-import { Printer } from '@carbon/icons-react';
 
 // SCSS
-import '../../../scss/component/retailer/orderCreated.scss';
-import ButtonCustom from '../../common/ButtonCustom';
-import ShoppingItem from '../../checkout/ShoppingItem';
-import FallBack from '../../../icons/fallback.png';
+import '../../../scss/component/dashboard/adminTools/adminTools.scss';
 import { Link } from 'react-router-dom';
+import { Button, Heading } from '@carbon/react';
+import { Store, Add, Taxi } from '@carbon/icons-react';
 
 const AdminTools = () => {
     const [translate] = useTranslation();
@@ -17,13 +14,22 @@ const AdminTools = () => {
 
     return (
         <div className='adminTools'>
-            <Link to='/dashboard/adminTools/createRetailer'>
-                Create Retailer
-            </Link>
-            <br />
-            <Link to='/dashboard/adminTools/createDriver'>
-                Create Driver
-            </Link>
+            <div className='em-card'>
+                <Store />
+                <Heading className='title'>{t('add-store-title')}</Heading>
+                <Heading className='sub-title'>{t('add-store-subtitle')}</Heading>
+                <Link to='/dashboard/adminTools/createRetailer'>
+                    <Button renderIcon={() => <Add />} className='button'>{t('add-store-button')}</Button>
+                </Link>
+            </div>
+            <div className='em-card'>
+                <Taxi />
+                <Heading className='title'>{t('add-driver-title')}</Heading>
+                <Heading className='sub-title'>{t('add-driver-subtitle')}</Heading>
+                <Link to='/dashboard/adminTools/createDriver'>
+                    <Button renderIcon={() => <Add />} className='button'>{t('add-driver-button')}</Button>
+                </Link>
+            </div>
         </div>
     );
 };
