@@ -429,6 +429,17 @@
           "name": "Name",
           "email": "Email",
           "phone": "Phone Number"
+        },
+        "notes": {
+          "sub-title": "Add Comment",
+          "notes": "Comment here",
+          "notes-help": "Public",
+          "save-comment": "Save Comment",
+          "sub-title2": "Activity Log",
+          "date": "Date",
+          "event": "Event",
+          "download-log": "Download Activity Log",
+          "sub-title3": "Comments"
         }
       },
       "createDriver": {

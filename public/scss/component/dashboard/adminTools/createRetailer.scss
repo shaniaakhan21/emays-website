@@ -116,6 +116,31 @@
     }
   }
 
+  .grid-table {
+    margin-top: 1.5rem;
+
+    .grid-title {
+      h1 {
+        font-family: 'IBM Plex Sans';
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 18px;
+      }
+    }
+
+    > div {
+      margin-bottom: 0.5rem;
+
+      &:nth-child(odd) {
+        text-align: left;
+      }
+
+      &:nth-child(even) {
+        text-align: right;
+      }
+    }
+  }
+
   .cds--form-item {
     .cds--form-item {
       margin-top: 0;
@@ -125,6 +150,46 @@
     button {
       width: 100%;
       max-width: 100%;
+    }
+  }
+
+  .mt-1 {
+    margin-top: 1rem;
+  }
+
+  .mt-2 {
+    margin-top: 2rem;
+  }
+
+  .flow {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .comments {
+    margin-top: 1.5rem;
+    width: 50%;
+
+    .comment {
+      margin-bottom: 1.5rem;
+
+      .date {
+        font-family: 'IBM Plex Sans';
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+        text-align: left;
+        color: #A8A8A8;
+      }
+
+      .data {
+        margin-top: 0.2rem;
+        font-family: 'IBM Plex Sans';
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+        text-align: left;
+      }
     }
   }
 }

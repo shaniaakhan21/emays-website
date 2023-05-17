@@ -9,10 +9,11 @@ import CreateRetailerBasicInfo from './BasicInfo.fragment';
 import CreateRetailerBankInfo from './BankInfo.fragment';
 import CreateRetailerEmployeeInfo from './EmployeeInfo.fragment';
 import CreateRetailerAccountInfo from './AccountInfo.fragment';
+import CreateRetailerNotes from './Notes.fragment';
 
 const CreateRetailer = () => {
     const [translate] = useTranslation();
-    const [step, setStep] = useState(2);
+    const [step, setStep] = useState(3);
     const [state, setState] = useState({});
 
     const handleNext = useCallback(() => {
@@ -46,6 +47,7 @@ const CreateRetailer = () => {
                 {step === 0 ? <CreateRetailerBasicInfo setState={setState} /> : null}
                 {step === 1 ? <CreateRetailerEmployeeInfo setState={setState} /> : null}
                 {step === 2 ? <CreateRetailerAccountInfo setState={setState} /> : null}
+                {step === 3 ? <CreateRetailerNotes setState={setState} /> : null}
                 <Button kind='tertiary' className='back' onClick={() => setStep(s => s - 1)}>Back</Button>
                 <Button className='next' onClick={handleNext} renderIcon={() => <ArrowRight />}>Next</Button>
             </Grid>
