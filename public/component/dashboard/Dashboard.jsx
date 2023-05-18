@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LoginWrapper from './login/LoginWrapper';
 import { useSelector } from 'react-redux';
 import RetailerLogin from './login/Login';
@@ -10,7 +10,6 @@ const Dashboard = () => {
     const loginStatusStore = useSelector(loginSelector);
 
     useEffect(() => {
-        setLoginStatus(loginStatusStore);
         const main = document.getElementsByTagName('main')[0];
         main?.classList?.add?.('retailer-dashboard');
         return () => {
