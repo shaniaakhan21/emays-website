@@ -18,8 +18,8 @@
       "privacy-policy": "Ho letto e accetto l'informativa sulla privacy",
       "email-2": "Email",
       "phone-2": "Telefono",
-      "email-2-value": "emays@emays.com",
-      "phone-2-value": "+ 39 000 000 000",
+      "email-2-value": "info@emaysstyle.com",
+      "phone-2-value": "+ 39 334 241 5220",
       "submit": "INVIA"
     },
     "faq": {
@@ -120,7 +120,7 @@
     "need-help": "Hai bisogno di aiuto?",
     "mail": {
       "part-one": "Non siamo in grado di ricevere risposte a questa email. Se hai bisogno di assistenza, vai a",
-      "link-text": "support@emays.com",
+      "link-text": "info@emaysstyle.com",
       "part-two": "ti ha inviato questa email. Utilizzando i nostri servizi, accetti il nostro contratto con il cliente."
     },
     "contact-us": "Contattaci",
@@ -216,7 +216,7 @@
   },
   "home-section": {
     "col-1": {
-      "title": " PORTIAMO IL NEGOZIO A CASA TUA ",
+      "title": "IL NEGOZIO A DOMICILIO",
       "title-2": "NEL TUO COMFORT",
       "subtitle-h2": "Consegnato a te, da Emays",
       "subtitle-h3": "Prova quello che vuoi, paga solo quello che tieni",
@@ -230,7 +230,7 @@
   "shop-with-us": {
     "first-block": {
       "main-heading": "Perché acquistare da noi?",
-      "main-heading-2": "“Il servizio dell'ultimo miglio a tuo piacimento”",
+      "main-heading-2": "“ Esplora il futuro dello shopping con i nostri servizi unici, perché meriti il meglio! “",
       "head-text": "PROVA PRIMA DI PAGARE",
       "subhead-text": "Nessun pagamento anticipato",
       "body-text": "Scegli tutti i pezzi che vorresti provare, te li porteremo senza alcun pagamento anticipato."
@@ -310,7 +310,7 @@
   "retailer": {
     "landing": {
       "title": "SPEDIAMO IL NEGOZIO",
-      "sub-header": "Porta l'esperienza di shopping di lusso ai tuoi clienti",
+      "sub-header": "Offri ai tuoi clienti di vivere un’esperienza di shopping personalizzata con un solo click",
       "description": "Converti, fai crescere e fidelizza i clienti con Emays",
       "button": "Richiedi una DEMO",
       "button-api": "Connessione API",
@@ -343,7 +343,7 @@
         },
         {
           "title": "Conversione di nuovi clienti",
-          "description": "I nostri servizi mirano a rendere più facile lo shopping verso i marchi affinché possano indurre i nuovi clienti possano superare barriere come:",
+          "description": "I nostri servizi mirano a rendere più facile lo shopping verso i marchi affinché possano indurre i nuovi clienti a superare barriere come:",
           "list": [
             "Problemi di taglie",
             "Rimborsi e lunghe attese",

@@ -7,6 +7,7 @@ import History from './history/History';
 import '../../scss/component/dashboard/dashboardLayout.scss';
 import DeliveryOrder from './deliveryOrder/DeliveryOrder';
 import { useTranslation } from 'react-i18next';
+import OrderCreated from './orderCreated/OrderCreated';
 
 const DashboardLayout = () => {
 
@@ -19,7 +20,6 @@ const DashboardLayout = () => {
     };
 
     useEffect(() => {
-        console.log('Shift...');
         const UL = document.querySelector('nav ul');
         UL.addEventListener('click', getActiveLinkStyle);
         return () => UL.removeEventListener('click', getComputedStyle);
@@ -34,23 +34,28 @@ const DashboardLayout = () => {
                             <ul>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/overview'>
-                                        {t('dashboard.navigation.overview')}</Link>
+                                        {t('dashboard.navigation.overview')}
+                                    </Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/deliveryOrders'>
-                                        {t('dashboard.navigation.del-orders')}</Link>
+                                        {t('dashboard.navigation.del-orders')}
+                                    </Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/customers'>
-                                        {t('dashboard.navigation.customers')}</Link>
+                                        {t('dashboard.navigation.customers')}
+                                    </Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/history'>
-                                        {t('dashboard.navigation.history')}</Link>
+                                        {t('dashboard.navigation.history')}
+                                    </Link>
                                 </li>
                                 <li className={'nav-link'}>
                                     <Link to='/retailer/dashboard/newOrders'>
-                                        {t('dashboard.navigation.new-orders')}</Link>
+                                        {t('dashboard.navigation.new-orders')}
+                                    </Link>
                                 </li>
                             </ul>
                         </nav>
@@ -61,14 +66,16 @@ const DashboardLayout = () => {
                                 component={() => <Overview />}></Route>
                             <Route exact path='/retailer/dashboard/deliveryOrders'
                                 component={() => <DeliveryOrder />}></Route>
+                            <Route exact path='/retailer/dashboard/orders/:id/created'
+                                component={() => <OrderCreated />}></Route>
                             <Route exact path='/retailer/dashboard/customers'
                                 component={() => <Customer />}></Route>
                             <Route exact path='/retailer/dashboard/history'
                                 component={() => <History />}></Route>
                             <Route exact path='/retailer/dashboard/newOrders'
                                 component={() => <NewOrder />}></Route>
-                            <Route path='/retailer/dashboard'
-                                component={() => <Overview />}></Route>
+                            <Route path='/retailer/dashboard/'
+                                component={() => <Overview/>}></Route>
                         </Switch>
                     </div>
                 </div>

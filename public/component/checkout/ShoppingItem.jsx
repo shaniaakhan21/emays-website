@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
+import { TrashCan } from '@carbon/icons-react';
 
 import '../../scss/component/checkout/shoppingItem.scss';
-import Trash from '../../images/trash.svg';
 
 const ShoppingItem = ({
     index,
@@ -28,31 +28,31 @@ const ShoppingItem = ({
                 <div className='details'>
                     <div className='header'>
                         <p>{itemName?.toUpperCase()}</p>
-                        {onDelete && <img onClick={() => onDelete(index)} src={Trash} alt='Remove Item' />}
+                        {onDelete && <TrashCan onClick={() => onDelete(index)} alt='Remove Item' />}
                     </div>
                     <div className='size'>
-                        { 
+                        {
                             size && <p>{`${t('shopping-bag-container.item.size')}: ${size}`}</p>
                         }
                     </div>
                     <div className='color'>
-                        { 
+                        {
                             color && <p>{`${t('shopping-bag-container.item.color')}: ${color}`}</p>
-                        }   
+                        }
                     </div>
                     <div className='quantity'>
-                        { 
-                            quantity && price && 
+                        {
+                            quantity && price &&
                             <div>
                                 <p>{`${t('shopping-bag-container.item.quantity')}: ${quantity}`}</p>
                             </div>
                         }
                         {
-                            quantity && price && 
+                            quantity && price &&
                             <div className='price'>
                                 <p><strong>{price}</strong></p>
                             </div>
-                        }   
+                        }
                     </div>
                 </div>
             </div>

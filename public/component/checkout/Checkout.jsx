@@ -88,7 +88,6 @@ const Checkout = () => {
                 state?.address?.[k] && state?.address?.[k] !== '' ? acc : { ...acc, [k]: true }
             ), {}
         );
-        console.log(errors);
         if (Object.keys(errors).length > 0) {
             setErrors(errors);
             return;

@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 const ContentSwitcherCustom = ({ nextDateOne, nextDateTwo, nextDateThree }) => {
     return (
         <ContentSwitcher selectedIndex={2} onChange={(event) => {
-            console.log(event.target);
         }}>
             <Switch disabled name='one' text={nextDateOne} />
             <Switch disabled name='two' text={nextDateTwo} />

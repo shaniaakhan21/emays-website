@@ -79,8 +79,6 @@ const createAssessment = async ({
 
     // Check if the token is valid.
     if (!response?.tokenProperties?.valid) {
-        console.log(`The CreateAssessment call failed because the token was: ${response?.tokenProperties?.invalidReason ?? ''}`);
-
         return null;
     }
 
@@ -96,13 +94,9 @@ const createAssessment = async ({
          * For more information on interpreting the assessment,
          * see: https://cloud.google.com/recaptcha-enterprise/docs/interpret-assessment
          */
-        console.log(`The reCAPTCHA score is: ${response?.riskAnalysis?.score ?? ''}`);
-
         response?.riskAnalysis?.reasons?.map?.(console.log);
         return response?.riskAnalysis?.score;
     }
-    console.log('The action attribute in your reCAPTCHA tag ' +
-            'does not match the action you are expecting to score');
     return null;
 
 };

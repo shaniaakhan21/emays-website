@@ -18,8 +18,8 @@
       "privacy-policy": "I’ve read and, agree  the privacy policy",
       "email-2": "Email",
       "phone-2": "Phone",
-      "email-2-value": "emays@emays.com",
-      "phone-2-value": "+ 39 000 000 000",
+      "email-2-value": "info@emaysstyle.com",
+      "phone-2-value": "+ 39 334 241 5220",
       "submit": "SUBMIT"
     },
     "faq": {
@@ -120,7 +120,7 @@
     "need-help": "Need Help?",
     "mail": {
       "part-one": "We are unable to receive responses to this email. If you need assistance, go to",
-      "link-text": "support@emays.com",
+      "link-text": "info@emaysstyle.com",
       "part-two": "sent you this email. By using our services, you agree to our customer agreement."
     },
     "contact-us": "Contact Us",
@@ -333,6 +333,57 @@
       "customers": "Customers",
       "history": "History",
       "new-orders": "New Orders"
+    },
+    "overview": {
+      "table": {
+        "id": "# Order",
+        "client": "Client",
+        "amount": "Amount Purchased",
+        "date": "Pick Up Date",
+        "time": "Time",
+        "status": "Status"
+      },
+      "toBeDelivered-title": "TO BE DELIVERED"
+    },
+    "deliveryOrders": {
+      "title": "Add products to be delivered",
+      "header-right": {
+        "title": "Items added"
+      },
+      "sub-title": "Please, scan the bar code or enter it manually",
+      "search": {
+        "input": {
+          "label": "Enter ASIN / Product ID",
+          "help-text": "Press enter to add item"
+        },
+        "button": "Scan item"
+      },
+      "scanModal": {
+        "title": "Scan code now",
+        "description": "Use the scanner to add the item automatically, close this modal on the X to finish the scan"
+      },
+      "submit": "Create order"
+    },
+    "orderCreated": {
+      "title": "Order Created",
+      "sub-title": "Emays are in charge now, relax :)",
+      "appointmentInfo": {
+        "title": "Appointment Booked",
+        "date": "Date",
+        "hour": "Hour",
+        "address": "Delivery Address",
+        "name": "Full Name",
+        "email": "Email",
+        "tel": "Tel."
+      },
+      "items": {
+        "title": "Items To be delivered",
+        "button": "See all items"
+      },
+      "comments": {
+        "input-label": "Comments",
+        "input-placeholder": "Comments about delivery, client and especial petitions"
+      }
     }
   },
   "retailer": {

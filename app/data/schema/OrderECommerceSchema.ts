@@ -10,6 +10,7 @@ const OrderSchema = new Schema<IOrder>({
     lastName: { type: String, required: true },
     phoneNumber: { type: String, required: true },
     uid: { type: String, required: true, unique: true },
+    branchId: { type: String, required: true },
     date: { type: Date, required: true },
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },

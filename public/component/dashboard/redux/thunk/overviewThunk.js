@@ -11,8 +11,7 @@ export const getOverviewData = createAsyncThunk('overview/getOverviewData', asyn
     const response = await loadOrders({ pageNumber: data?.pageNumber
         , pageLimit: data?.pageLimit, token: loginData?.token });
     if (response) {
-        console.log('Login Data', response);
-        data.dispatch(updateOverviewData({ test: 'some' }));
+        data?.dispatch(updateOverviewData({ ...response }));
     }
 });
 
