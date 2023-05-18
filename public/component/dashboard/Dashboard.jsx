@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import LoginWrapper from './login/LoginWrapper';
 import { useSelector } from 'react-redux';
 import RetailerLogin from './login/Login';
@@ -8,6 +8,15 @@ import DashboardLayout from './DashboardLayout';
 const Dashboard = () => {
 
     const loginStatusStore = useSelector(loginSelector);
+
+    useEffect(() => {
+        const main = document.getElementsByTagName('main')[0];
+        main?.classList?.add?.('retailer-dashboard');
+        return () => {
+            const main = document.getElementsByTagName('main')[0];
+            main?.classList?.remove?.('retailer-dashboard');
+        };
+    });
 
     return (
         loginStatusStore?.isSuccess ? <DashboardLayout/> : <LoginWrapper uri={''}
