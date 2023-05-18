@@ -16,7 +16,7 @@ import CreateDriverBillingInformation from './BillingInformation.fragment';
 
 const CreateDriver = () => {
     const [translate] = useTranslation();
-    const [step, setStep] = useState(2);
+    const [step, setStep] = useState(0);
     const [state, setState] = useState({});
 
     const handleNext = useCallback(() => {

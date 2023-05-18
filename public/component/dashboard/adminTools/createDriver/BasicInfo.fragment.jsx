@@ -18,7 +18,7 @@ const CreateDriverBasicInfo = ({ setState }) => {
     const t = useCallback((key) => translate(`dashboard.adminTools.createDriver.basic.${key}`), [translate]);
 
     return (
-        <Column className='em-card' lg={5} md={4} sm={8} xs={8}>
+        <Column className='em-card' lg={5} md={4} sm={4} xs={4}>
             <div className='em-card'>
                 <Heading className='sub-title'>{t('sub-title')}</Heading>
                 {[

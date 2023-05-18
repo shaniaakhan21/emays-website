@@ -20,7 +20,7 @@ const CreateRetailerNotes = ({ setState }) => {
 
     return (
         <>
-            <Column lg={16} md={8} sm={8} xs={8}>
+            <Column lg={16} md={8} sm={4} xs={4}>
                 <div className='grid-3'>
                     <div>
                         <div className='em-card'>

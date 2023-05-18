@@ -1,14 +1,26 @@
+$carbon-xs-max: 31.25em; // 500px
+$carbon-sm-max: 42.5em; // 680px
+$carbon-md-max: 64em;   // 1024px
 
 .adminTools {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1.5rem;
     margin-top: 3rem;
+    margin-right: 1.5rem;
+
+    @media (max-width: $carbon-sm-max) {
+        grid-template-columns: repeat(1, 1fr);
+    }
 
     .em-card {
         display: flex;
         flex-direction: column;
         align-items: center;
+
+        @media (max-width: $carbon-sm-max) {
+            margin-top: 1.5rem;
+        }
 
         > svg {
             height: 2rem;

@@ -20,7 +20,7 @@ const CreateRetailerBasicInfo = ({ setState }) => {
 
     return (
         <>
-            <Column lg={5} md={4} sm={8} xs={8}>
+            <Column lg={5} md={4} sm={4} xs={4}>
                 <div className='em-card'>
                     <Heading className='sub-title'>{t('sub-title')}</Heading>
                     <TextInput labelText={t('name')} onChange={onChange} id='name' />
@@ -34,7 +34,7 @@ const CreateRetailerBasicInfo = ({ setState }) => {
                     ].map((item, idx) => (<TextInput key={idx} labelText={t(item)} onChange={onChange} id={item} />))}
                 </div>
             </Column>
-            <Column lg={11} md={4} sm={8} xs={8}>
+            <Column lg={11} md={4} sm={4} xs={4}>
                 <div className='em-card'>
                     <div className='grid-2'>
                         <div>

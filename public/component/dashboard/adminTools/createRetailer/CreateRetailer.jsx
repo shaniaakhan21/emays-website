@@ -13,7 +13,7 @@ import CreateRetailerNotes from './Notes.fragment';
 
 const CreateRetailer = () => {
     const [translate] = useTranslation();
-    const [step, setStep] = useState(3);
+    const [step, setStep] = useState(0);
     const [state, setState] = useState({});
 
     const handleNext = useCallback(() => {

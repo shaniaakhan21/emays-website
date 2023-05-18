@@ -7,6 +7,7 @@ self.addEventListener('install', (event) => {
             return cache.addAll(STATIC_RESOURCES);
         })
     );
+    self.skipWaiting();
 });
 
 self.addEventListener('fetch', (event) => {
