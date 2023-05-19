@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { getOverviewData } from '../redux/thunk/overviewThunk';
 import ShoppingItem from '../../checkout/ShoppingItem';
 import { loginSelector } from '../redux/selector/loginSelector';
+import Pagination from '../../common/Pagination';
 
 // SCSS
 import './../../../scss/component/retailer/overview.scss';
@@ -55,6 +56,14 @@ const Overview = () => {
                         size={'40'}
                         quantity={1} />)}
                 </div>
+            </div>
+            <div>
+                <Pagination wrapperStyle={ { color: 'red' } }
+                    paginationButtonStyles={'.pagination-buttons { padding-top: 10px }'}>
+                    <p>Hi</p>
+                    <p>All</p>
+                    <p>How Are You</p>
+                </ Pagination>
             </div>
         </div>
     );
