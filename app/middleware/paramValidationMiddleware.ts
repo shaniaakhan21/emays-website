@@ -4,7 +4,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as Joi from 'joi';
 import { validatorErrorBuilder } from '../util/serviceErrorBuilder';
-import { ADDRESS_REQUIRED, AREA_REQUIRED, CANCELLATION_STATUS_REQUIRED, CONTENT_TYPE_REQUIRED
+import { ADDRESS_REQUIRED, AREA_REQUIRED, BRANCH_ID_REQUIRED, CANCELLATION_STATUS_REQUIRED, CONTENT_TYPE_REQUIRED
     , CREATED_TIME_CAN_NOT_MODIFY, DELIVERED_STATUS_REQUIRED, DELIVERY_INFO_REQUIRED
     , EMAIL_REQUIRED, EXPERIENCE_REQUIRED
     , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
@@ -55,6 +55,9 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
             uid: Joi.string().max(36).required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, USER_ID_REQUIRED); }),
+            branchId: Joi.string().max(36).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, BRANCH_ID_REQUIRED); }),
             date: Joi.date().iso().required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, ORDER_DATE_REQUIRED); }),

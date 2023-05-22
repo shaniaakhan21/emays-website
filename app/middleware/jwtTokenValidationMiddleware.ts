@@ -21,7 +21,7 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
     if (req.path !== `${config.ROUTE_PATH}${RoutePath.HEALTH}` &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LETS_TALK}`) &&
-        (req.path !== `${config.ROUTE_PATH}${RoutePath.FAQ}` && req.method.toLowerCase() === 'get') &&
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.FAQ}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_ACCESS}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_REDIRECTION}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}`) &&

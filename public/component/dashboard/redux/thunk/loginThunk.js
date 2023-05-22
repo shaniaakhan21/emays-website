@@ -1,5 +1,7 @@
+'use strict';
+
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { loginSuperUser } from '../../../../services/login';
+import { loginSuperUser } from '../../../../services/dashboard/login';
 import { login } from '../slice/loginSlice';
 
 export const loginExe = createAsyncThunk('login/loginExe', async (data) => {

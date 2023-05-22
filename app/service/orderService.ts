@@ -9,7 +9,7 @@ import { buildErrorMessage, buildInfoMessageMethodCall,
     buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
-import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus, getOrderDocumentSize, getOrderDetailDocumentsArrayByStartAndEndIndex } from '../data/model/OrderModel';
+import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus, getOrderDocumentSize, getOrderDetailDocumentsArrayByStartAndEndIndex } from '../data/model/OrderECommerceModel';
 import { sendEmailForOrderCancellation, sendEmailForOrderingItems } from './emailService';
 import { config } from '../config/config';
 import { Order } from '../type/orderType';
@@ -35,6 +35,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
             firstName: order.firstName,
             lastName: order.lastName,
             phoneNumber: order.phoneNumber,
+            branchId: order.branchId,
             uid: order.uid,
             date: order.date,
             startTime: order.startTime,
@@ -137,9 +138,7 @@ export const calculateServiceFee = (order: IOrderDTO) => {
  */
 export const retrieveOrderDetailsByUserId: RetrieveOrderByUserIdFunc = async (userId) => {
     try {
-        console.log('userId', userId);
         const data = await retrieveOrderByUserId(userId);
-        console.log('data', data);
         Logging.log(buildInfoMessageUserProcessCompleted('Order retrieval', `Order Data:
             ${JSON.stringify(data)}` ), LogType.INFO);
         return data;
@@ -250,6 +249,7 @@ const sendOrderCancellationMail = async (order: IOrder) => {
             firstName: order.firstName,
             lastName: order.lastName,
             phoneNumber: order.phoneNumber,
+            branchId: order.branchId,
             uid: order.uid,
             date: order.date,
             startTime: order.startTime,
