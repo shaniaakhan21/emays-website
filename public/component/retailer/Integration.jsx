@@ -22,7 +22,7 @@ import CommercetoolsLogo from '../../images/logo-commercetools.svg';
 import AdobeLogo from '../../images/logo-adobe.svg';
 
 // Video
-import IntegrationVideo from '../../videos/emays_animation_combined.webm';
+import IntegrationVideo from '../../videos/emays_animation_combined.mp4';
 import Footer from '../common/Footer';
 
 const RetailerIntegration = () => {
@@ -55,7 +55,7 @@ const RetailerIntegration = () => {
                 </Column>
                 <Column lg={8} md={8} sm={4} xs={4} className='video'>
                     <video style={{ filter: 'saturate(3.5) hue-rotate(410deg) contrast(75%)' }} width='300' height='300'
-                        loop autoPlay muted playsInline>
+                        preload='yes' loop autoPlay muted playsInline>
                         <source src={IntegrationVideo} type='video/mp4'/>
                     </video>
                 </Column>
