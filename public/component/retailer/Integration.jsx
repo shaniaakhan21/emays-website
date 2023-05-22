@@ -22,7 +22,7 @@ import CommercetoolsLogo from '../../images/logo-commercetools.svg';
 import AdobeLogo from '../../images/logo-adobe.svg';
 
 // Video
-import IntegrationVideo from '../../videos/emays_animation_combined.webm';
+import IntegrationVideo from '../../videos/emays_animation_combined.mp4';
 import Footer from '../common/Footer';
 
 const RetailerIntegration = () => {
