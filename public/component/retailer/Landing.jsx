@@ -133,7 +133,8 @@ const RetailerLanding = () => {
                             </Column>
                             <Column lg={8} md={4} sm={4} xs={4} className='right'>
                                 <div>
-                                    <video style={{ filter: 'invert(1)' }} width='300' height='300' loop autoPlay  playsInline>
+                                    <video style={{ filter: 'invert(1)' }} width='300' height='300' 
+                                        loop autoPlay muted playsInline>
                                         <source src={IntegrationVideo} type='video/mp4'/>
                                     </video>
                                 </div>
