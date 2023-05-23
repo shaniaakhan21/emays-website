@@ -46,14 +46,14 @@ This repository consists of a React UI and its Immediate Backend.
 | 3     | connect MongoDB | You can use a tool like Mongo Compass to connect the docker Mongo container. |
 
 # Steps to run in windows
-| Step  | Instructions                                | Description                                                                                               |
-| ----- |:--------------------------------------------|:--------------------------------------------------------------------------------------------------------- |
+| Step  | Instructions                                                                                     |
+| ----- |:-------------------------------------------------------------------------------------------------|                                                     
 | 1     | Create Mongo Connection using 'mongodb://localhost:27017/emays_service_db' in Mongo Compass |
 | 2     | In emays-website/app/config/config.ts replace this "DB: {
-        MONGO_URL: MONGO_URL || 'mongodb://root:123456@localhost:27017/emays_service_db?authSource=admin'
-    } " with "DB: {
-        MONGO_URL: MONGO_URL || 'mongodb://localhost:27017/emays_service_db'
-    }," Rest all the steps are same as mentioned above.|
+MONGO_URL: MONGO_URL || 'mongodb://root:123456@localhost:27017/emays_service_db?authSource=admin'
+} " with "DB: {
+MONGO_URL: MONGO_URL || 'mongodb://localhost:27017/emays_service_db'
+}," Rest all the steps are same as mentioned above.|
 
 # Dev guide
 - make sure your Node version is >=14
