@@ -8,6 +8,17 @@ import '../../scss/component/dashboard/dashboardLayout.scss';
 import DeliveryOrder from './deliveryOrder/DeliveryOrder';
 import { useTranslation } from 'react-i18next';
 import OrderCreated from './orderCreated/OrderCreated';
+import AdminToolsRouter from './adminTools/AdminToolsRouter';
+import { Grid, UserAdmin, Money, UpdateNow, Taxi, ShoppingCartPlus } from '@carbon/icons-react';
+import {
+    Header,
+    HeaderContainer, HeaderGlobalAction, HeaderGlobalBar, HeaderMenu,
+    HeaderMenuButton, HeaderMenuItem,
+    HeaderName, HeaderNavigation,
+    SideNav, SideNavItems, SideNavLink, SideNavMenu, SideNavMenuItem,
+    SkipToContent
+} from '@carbon/react';
+import { Fade, Switcher, Search } from '@carbon/icons-react';
 
 const DashboardLayout = () => {
 
@@ -27,57 +38,179 @@ const DashboardLayout = () => {
 
     return (
         <Router>
-            <div className='cds--grid'>
-                <div className='cds--row'>
-                    <div className='cds--col-md-2 nav-section'>
-                        <nav>
-                            <ul>
-                                <li className={'nav-link'}>
-                                    <Link to='/retailer/dashboard/overview'>
+            <div className='dashboard-template'>
+                <HeaderContainer
+                    render={({ isSideNavExpanded, onClickSideNavExpand }) => (
+                        <>
+                            <Header aria-label='IBM Platform Name'>
+                                <SkipToContent/>
+                                <HeaderMenuButton
+                                    aria-label={isSideNavExpanded ? 'Close menu' : 'Open menu'}
+                                    isCollapsible
+                                    onClick={onClickSideNavExpand}
+                                    isActive={isSideNavExpanded}
+                                />
+                                <HeaderName href='#' prefix='IBM'>
+                                    [Platform]
+                                </HeaderName>
+                                <HeaderNavigation aria-label='IBM [Platform]'>
+                                    <HeaderMenuItem href='#'>Link 1</HeaderMenuItem>
+                                    <HeaderMenuItem href='#'>Link 2</HeaderMenuItem>
+                                    <HeaderMenuItem href='#'>Link 3</HeaderMenuItem>
+                                    <HeaderMenu aria-label='Link 4' menuLinkName='Link 4'>
+                                        <HeaderMenuItem href='#'>Sub-link 1</HeaderMenuItem>
+                                        <HeaderMenuItem href='#'>Sub-link 2</HeaderMenuItem>
+                                        <HeaderMenuItem href='#'>Sub-link 3</HeaderMenuItem>
+                                    </HeaderMenu>
+                                </HeaderNavigation>
+                                <HeaderGlobalBar>
+                                    <HeaderGlobalAction
+                                        aria-label='Search'>
+                                        <Search size={20}/>
+                                    </HeaderGlobalAction>
+                                    <HeaderGlobalAction
+                                        aria-label='Notifications'>
+                                        <Notification size={20}/>
+                                    </HeaderGlobalAction>
+                                    <HeaderGlobalAction
+                                        aria-label='App Switcher'
+                                        tooltipAlignment='end'>
+                                        <Switcher size={20}/>
+                                    </HeaderGlobalAction>
+                                </HeaderGlobalBar>
+                                <SideNav
+                                    aria-label='Side navigation'
+                                    isRail
+                                    expanded={isSideNavExpanded}
+                                    onOverlayClick={onClickSideNavExpand}
+                                    href='#main-content'
+                                    onSideNavBlur={onClickSideNavExpand}>
+                                    <SideNavItems>
+                                        <SideNavMenu renderIcon={Fade} title='Category title'>
+                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                                Link
+                                            </SideNavMenuItem>
+                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                                Link
+                                            </SideNavMenuItem>
+                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                                Link
+                                            </SideNavMenuItem>
+                                        </SideNavMenu>
+                                        <SideNavMenu renderIcon={Fade} title='Category title'>
+                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                                Link
+                                            </SideNavMenuItem>
+                                            <SideNavMenuItem
+                                                aria-current='page'
+                                                href='https://www.carbondesignsystem.com/'>
+                                                Link
+                                            </SideNavMenuItem>
+                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                                Link
+                                            </SideNavMenuItem>
+                                        </SideNavMenu>
+                                        <SideNavMenu renderIcon={Fade} title='Category title'>
+                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                                Link
+                                            </SideNavMenuItem>
+                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                                Link
+                                            </SideNavMenuItem>
+                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                                Link
+                                            </SideNavMenuItem>
+                                        </SideNavMenu>
+                                        <SideNavLink
+                                            renderIcon={Fade}
+                                            href='https://www.carbondesignsystem.com/'>
+                                            Link
+                                        </SideNavLink>
+                                        <SideNavLink
+                                            renderIcon={Fade}
+                                            href='https://www.carbondesignsystem.com/'>
+                                            Link
+                                        </SideNavLink>
+                                    </SideNavItems>
+                                </SideNav>
+                            </Header>
+                            <StoryContent/>
+                        </>
+                    )}
+                />
+                <div className='dashboard-nav-section'>
+                    <nav>
+                        <ul>
+                            <li className={'nav-link'}>
+                                <Link to='/dashboard/overview'>
+                                    <span>
                                         {t('dashboard.navigation.overview')}
-                                    </Link>
-                                </li>
-                                <li className={'nav-link'}>
-                                    <Link to='/retailer/dashboard/deliveryOrders'>
+                                    </span>
+                                    <Grid/>
+                                </Link>
+                            </li>
+                            <li className={'nav-link'}>
+                                <Link to='/dashboard/deliveryOrders'>
+                                    <span>
                                         {t('dashboard.navigation.del-orders')}
-                                    </Link>
-                                </li>
-                                <li className={'nav-link'}>
-                                    <Link to='/retailer/dashboard/customers'>
+                                    </span>
+                                    <UpdateNow/>
+                                </Link>
+                            </li>
+                            <li className={'nav-link'}>
+                                <Link to='/dashboard/customers'>
+                                    <span>
                                         {t('dashboard.navigation.customers')}
-                                    </Link>
-                                </li>
-                                <li className={'nav-link'}>
-                                    <Link to='/retailer/dashboard/history'>
+                                    </span>
+                                    <Taxi/>
+                                </Link>
+                            </li>
+                            <li className={'nav-link'}>
+                                <Link to='/dashboard/history'>
+                                    <span>
                                         {t('dashboard.navigation.history')}
-                                    </Link>
-                                </li>
-                                <li className={'nav-link'}>
-                                    <Link to='/retailer/dashboard/newOrders'>
+                                    </span>
+                                    <ShoppingCartPlus/>
+                                </Link>
+                            </li>
+                            <li className={'nav-link'}>
+                                <Link to='/dashboard/newOrders'>
+                                    <span>
                                         {t('dashboard.navigation.new-orders')}
-                                    </Link>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    <div className='cds--col-md-10 content-section'>
-                        <Switch>
-                            <Route exact path='/retailer/dashboard/overview'
-                                component={() => <Overview />}></Route>
-                            <Route exact path='/retailer/dashboard/deliveryOrders'
-                                component={() => <DeliveryOrder />}></Route>
-                            <Route exact path='/retailer/dashboard/orders/:id/created'
-                                component={() => <OrderCreated />}></Route>
-                            <Route exact path='/retailer/dashboard/customers'
-                                component={() => <Customer />}></Route>
-                            <Route exact path='/retailer/dashboard/history'
-                                component={() => <History />}></Route>
-                            <Route exact path='/retailer/dashboard/newOrders'
-                                component={() => <NewOrder />}></Route>
-                            <Route path='/retailer/dashboard/'
-                                component={() => <Overview/>}></Route>
-                        </Switch>
-                    </div>
+                                    </span>
+                                    <Money/>
+                                </Link>
+                            </li>
+                            <li className={'nav-link'}>
+                                <Link to='/dashboard/adminTools'>
+                                    <span>
+                                        {t('dashboard.navigation.adminTools')}
+                                    </span>
+                                    <UserAdmin/>
+                                </Link>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div className='content-section'>
+                    <Switch>
+                        <Route exact path='/dashboard/overview'
+                            component={() => <Overview/>}></Route>
+                        <Route exact path='/dashboard/deliveryOrders'
+                            component={() => <DeliveryOrder/>}></Route>
+                        <Route exact path='/dashboard/orders/:id/created'
+                            component={() => <OrderCreated/>}></Route>
+                        <Route exact path='/dashboard/customers'
+                            component={() => <Customer/>}></Route>
+                        <Route exact path='/dashboard/history'
+                            component={() => <History/>}></Route>
+                        <Route exact path='/dashboard/newOrders'
+                            component={() => <NewOrder/>}></Route>
+                        <Route path='/dashboard/adminTools'
+                            component={() => <AdminToolsRouter/>}></Route>
+                        <Route path='/dashboard/'
+                            component={() => <Overview/>}></Route>
+                    </Switch>
                 </div>
             </div>
         </Router>
