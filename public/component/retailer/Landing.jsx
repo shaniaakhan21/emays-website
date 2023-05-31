@@ -133,7 +133,8 @@ const RetailerLanding = () => {
                             </Column>
                             <Column lg={8} md={4} sm={4} xs={4} className='right'>
                                 <div>
-                                    <video style={{ filter: 'invert(1)' }} width='300' height='300' loop autoPlay muted>
+                                    <video style={{ filter: 'invert(1)' }} width='300' height='300' 
+                                        loop autoPlay muted playsInline>
                                         <source src={IntegrationVideo} type='video/mp4'/>
                                     </video>
                                 </div>
@@ -148,13 +149,13 @@ const RetailerLanding = () => {
                         <Grid>
                             <Column lg={8} md={4} sm={4} xs={4} className='right xs-hidden'>
                                 <video width='300'
-                                    height='300' loop autoPlay muted>
+                                    height='300' loop autoPlay muted playsInline>
                                     <source src={IntegrationVideo2} type='video/mp4'/>
                                 </video>
                                 <video style={{
                                     objectFit: 'cover'
                                 }} width='300'
-                                height='120' loop autoPlay muted>
+                                height='120' loop autoPlay muted playsInline>
                                     <source src={IntegrationVideo3} type='video/mp4'/>
                                 </video>
                             </Column>
@@ -165,7 +166,7 @@ const RetailerLanding = () => {
                                 </div>
                                 <div className='info-image xs-only'>
                                     <video
-                                        width='300' height='300' loop autoPlay muted>
+                                        width='300' height='300' loop autoPlay muted playsInline>
                                         <source src={IntegrationVideo2} type='video/mp4'/>
                                     </video>
                                 </div>
@@ -181,7 +182,7 @@ const RetailerLanding = () => {
                                     <video style={{
                                         objectFit: 'cover'
                                     }}
-                                    width='300' height='120' loop autoPlay muted>
+                                    width='300' height='120' loop autoPlay muted playsInline>
                                         <source src={IntegrationVideo2} type='video/mp4'/>
                                     </video>
                                 </div>

@@ -233,7 +233,7 @@
   a.btn {
     max-width: 440px;
     width: 100%;
-  }
+
 
   button.demo {
     margin-top: 40px;
@@ -250,7 +250,9 @@
     @media (max-width: 500px) {
       margin-bottom: 50px;
     }
+    }
   }
+
 
   .video {
     @media screen and (max-width: 500px) {

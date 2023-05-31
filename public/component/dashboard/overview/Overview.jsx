@@ -1,16 +1,26 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { getOverviewData } from '../redux/thunk/overviewThunk';
+import ShoppingItem from '../../checkout/ShoppingItem';
+import { loginSelector } from '../redux/selector/loginSelector';
 
 // SCSS
 import './../../../scss/component/retailer/overview.scss';
 import Table from '../../common/table';
 import StatusBox from '../../common/statusBox';
 import FallBack from '../../../icons/fallback.png';
-import ShoppingItem from '../../checkout/ShoppingItem';
-import { useTranslation } from 'react-i18next';
 
 const Overview = () => {
 
     const [translate] = useTranslation();
+    const dispatch = useDispatch();
+    const loginDataSelector = useSelector(loginSelector);
+
+    useEffect(() => {
+        const data = { dispatch: dispatch, loginSelector: loginDataSelector, pageNumber: 1, pageLimit: 2 };
+        dispatch(getOverviewData(data));
+    }, []);
 
     const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
 

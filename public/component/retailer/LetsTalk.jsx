@@ -15,7 +15,6 @@ const RetailerLetsTalk = () => {
         try {
             if (!d['privacy-policy']) { throw new Error(t('common.confirm-privacy-policy')); }
             const resp = await createAppointment(d);
-            console.log(resp);
             pushAlert({
                 statusIconDescription: t('common.success'),
                 title: t('common.success'),

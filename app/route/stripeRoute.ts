@@ -55,8 +55,7 @@ router.get(`${RoutePath.STRIPE}/checkout/complete`, (
 ) => {
     (async () => {
         // Todo: Validate JWT
-        console.log('req.query', req.query);
-        const data = await buildCompleteCheckoutPath(req.query.payment_intent, req.query.userId);
+        await buildCompleteCheckoutPath(req.query.payment_intent, req.query.userId);
 
         res.json('ORDER COMPLETED');
     })().catch((error) => {

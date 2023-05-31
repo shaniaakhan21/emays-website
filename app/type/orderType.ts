@@ -12,6 +12,7 @@ export interface IOrder {
     retailerEmail: string,
     date: Date,
     uid: string,
+    branchId: string,
     startTime: string,
     endTime: string,
     timeZone: string,
