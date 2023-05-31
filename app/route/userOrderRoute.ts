@@ -14,7 +14,6 @@ import { successResponseBuilder } from '../util/responseBuilder';
 import {
     allowedForClientRoleOnly,
     allowedForExternalSystemRoleOnly,
-    allowedForRetailerRoleOnly,
     validateCreateOrder,
     validateHeader
     ,
@@ -149,10 +148,10 @@ router.get(RoutePath.ORDERS, validateHeader, validateOrderDetailsPagination, (
         const page = parseInt(req.query.page);
         const pageLimit = parseInt(req.query.pageLimit);
         const data = await getOrderDetailsWithPagination(page, pageLimit, roles as string);
-        res.status(HTTPSuccess.OK_CODE).json(data);
+        res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(data));
     })().catch(error => {
         const err = error as Error;
-        Logging.log(buildErrorMessage(err, `Patch order for uid: ${roles as string}`), LogType.ERROR);
+        Logging.log(buildErrorMessage(err, `Get orders uid: ${roles as string}`), LogType.ERROR);
         next(error);
     });
 

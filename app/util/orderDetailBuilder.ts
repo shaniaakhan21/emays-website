@@ -32,7 +32,8 @@ export const prepareUserDetailsToSend: PrepareDetailsToSendFunc = (order) => {
         isDelivered: order?.isDelivered,
         isDriverPicked: order?.isDriverPicked,
         isCanceled: order?.isCanceled,
-        serviceFee: order?.serviceFee
+        serviceFee: order?.serviceFee,
+        branchId: order?.branchId
     };
     return filteredData;
 };
