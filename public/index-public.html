@@ -24,34 +24,6 @@
     <!-- End Google Tag Manager -->
     <script
         src="https://www.google.com/recaptcha/enterprise.js?render=6LeZUe8lAAAAALuM_bjvYMlBanNAeG_s4lulVkT_"></script>
-    <script src="./index.jsx" type="module"></script>
-    <script>
-
-        // Store in the session storage
-        const result = "<%= productList %>";
-        sessionStorage.setItem('productList', result);
-
-        const launchType = "<%= launchType %>";
-        sessionStorage.setItem('launchType', launchType);
-
-        const userData = "<%= userData %>";
-        sessionStorage.setItem('userData', userData);
-
-        const retailerData = "<%= retailerData %>";
-        sessionStorage.setItem('retailerData', retailerData);
-
-        // Consume product list
-        const jsonData = sessionStorage.getItem('productList');
-        const removed = result.replace(/&#34;/g, '"');
-        try {
-            global.json = JSON.parse(removed);
-        } catch (e) { }
-
-        // Store session token
-        const token = "<%= token %>";
-        sessionStorage.setItem('authToken', token);
-
-    </script>
     <title>Emays</title>
 </head>
 

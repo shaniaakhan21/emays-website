@@ -16,6 +16,20 @@ import { AppRequest } from '../type/appRequestType';
 
 const Logging = Logger(__filename);
 
+export const UI_PATHS = [
+    '/',
+    '/retailer',
+    '/environment',
+    '/services',
+    '/shop-with-us',
+    '/letsTalk',
+    '/faq',
+    '/integration',
+    '/partnership',
+    '/privacy',
+    '/terms'
+];
+
 export const validateJWT = (req: Request, res: Response, next: NextFunction) => {
     // TODO: add service-worker implementation to add the token with the UI files requests.
     if (req.path !== `${config.ROUTE_PATH}${RoutePath.HEALTH}` &&
@@ -30,7 +44,8 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
         (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEM_TOKEN}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.SUPER_USERS}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.SUPER_USERS}${RoutePath.SUPER_USER_TOKEN}`) &&
-        (req.path !== '/') &&
+        (!UI_PATHS.includes(req.path)) &&
+        (req.path !== '/testharness.html') &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LAUNCH_MAIL}`) &&
         (req.path !== `${config.ROUTE_PATH}/test`) &&
         !req.path.includes('app-dist') &&
