@@ -66,7 +66,35 @@
         sessionStorage.setItem('authToken', token);
 
     </script>
-    
+    <!-- Cookie Consent Banner -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            window.cookieconsent.initialise({
+                "palette": {
+                    "popup": {
+                        "background": "#4E4A4B",
+                    },
+                    "button": {
+                        "background": "#24a148"
+                    }
+                },
+                "theme": "classic",
+                "position": "bottom-left",
+                "type": "opt-in",
+                "content": {
+                    "message": "This website automatically uses only cookies and similar technologies for its operation and for basic settings.It is also possible to consent to the use of optional cookies that provide useful and personalized functions and/or targeted advertising.By clicking on 'I accept all cookies' you are consenting to the use of cookies for all the purposes described in our Cookie Policy",
+                    "allow": "I accept all cookies",
+                    "deny": "Decline",
+                    "link": "Learn more",
+                    "href": "https://www.cookiesandyou.com/"
+                }
+            });
+        });
+    </script>
+
     <title>Emays</title>
 </head>
 
