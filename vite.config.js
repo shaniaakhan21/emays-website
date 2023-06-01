@@ -74,7 +74,8 @@ export default defineConfig({
         },
         outDir: resolve(__dirname, 'app-dist/dist'),
         emptyOutDir: true,
-        sourcemap: process.env.NODE_ENV === 'development' ? true : false
+        sourcemap: process.env.NODE_ENV === 'development' ? true : false,
+        minify: false
     },
     base: '/app-dist/dist'
 });

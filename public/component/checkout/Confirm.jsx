@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Grid, Column } from '@carbon/react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
@@ -14,10 +14,10 @@ import Emays from '../../logo/emays-logo-white.png';
 import EditIcon from '../../icons/edit.svg';
 
 // Util
-import { getProductList, getServiceCost } from '../../js/util/SessionStorageUtil';
+import { getServiceCost } from '../../js/util/SessionStorageUtil';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
-import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
+import { CHECKOUT_INFO, EMAIL_EDIT, PRODUCT_LIST } from '../../js/const/SessionStorageConst';
 import { saveOrder, updateOrder } from '../../services/order';
 import { useMessage } from '../common/messageCtx';
 import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
@@ -27,20 +27,22 @@ const Confirm = () => {
 
     const [t] = useTranslation();
     const pushAlert = useMessage();
-    const history = useHistory();
+    const history = useNavigate();
 
     const [productData, setProductData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
 
     const [state, setState] = useSessionState(CHECKOUT_INFO);
+    const [productDataState] = useSessionState(PRODUCT_LIST);
     const [open, setOpen] = useState();
 
     // Fetch product data from session storage
     useEffect(() => {
-        const productData = getProductList();
-        setProductData(productData);
-    }, []);
+        if (productDataState) {
+            setProductData(productDataState);
+        }
+    }, [productDataState]);
 
     const submit = useCallback(async () => {
         try {

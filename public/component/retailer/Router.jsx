@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 // Components
 import RetailerLetsTalk from './LetsTalk';
@@ -10,13 +10,14 @@ import { DashboardContainer } from '../dashboard/DashboardContainer';
 
 const RetailerRouter = () => {
     return (
-        <Switch>
-            <Route path='/retailer' exact component={() => <RetailerLanding />} />
-            <Route path='/retailer/letsTalk' component={() => <RetailerLetsTalk />} />
-            <Route path='/retailer/faq' component={() => <RetailerFAQs />} />
-            <Route path='/retailer/integration' component={() => <RetailerIntegration />} />
-            <Route path='/retailer/partnership' component={() => <RetailerPartnership />} />
-        </Switch>
+        <Routes>
+            <Route path='/' exact element={<RetailerLanding />} />
+            <Route path='/letsTalk' element={<RetailerLetsTalk />} />
+            <Route path='/faq' element={<RetailerFAQs />} />
+            <Route path='/integration' element={<RetailerIntegration />} />
+            <Route path='/partnership' element={<RetailerPartnership />} />
+            <Route path='/dashboard' element={<DashboardContainer />} />
+        </Routes>
     );
 };
 

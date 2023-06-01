@@ -16,13 +16,13 @@ const Nav = () => {
     const handleToggleChange = useCallback(() => {
         setIsRetailer((prevIsRetailer) => !prevIsRetailer);
         if (isRetailer) {
-            window.location.href = '#/';
+            window.location.href = '/';
         } else {
-            window.location.href = '#/retailer';
+            window.location.href = '/retailer';
         }
     }, [isRetailer]);
 
-    const getLanguage = () => i18n.language || window.localStorage.i18nextLng;
+    const getLanguage = () => i18n.language;
 
     const handleToggleLanguage = useCallback(() => {
         i18n.changeLanguage(getLanguage() === 'it' ? 'en' : 'it');
@@ -35,7 +35,7 @@ const Nav = () => {
     return (
         <div className='cds--wrapper'>
             <Header aria-label='EMAY'>
-                <HeaderName href={isRetailer ? '/#/retailer' : '/#/'} prefix='' className='header-name'>
+                <HeaderName href={isRetailer ? '/retailer' : '/'} prefix='' className='header-name'>
                     <img src={LOGO} alt='EMAYS' style={{ marginRight: '1rem' }} className='logo' />
                     <img src={LOGO_XS} alt='EMAYS' style={{ marginRight: '1rem' }} className='logo-xs' />
                 </HeaderName>
@@ -53,11 +53,11 @@ const Nav = () => {
                 </div>
                 <HeaderNavigation aria-label='Your Company' className={showMenu ? 'show-menu' : ''}>
                     {isRetailer ? <>
-                        <HeaderMenuItem href='/#/integration' style={{ marginLeft: '1rem' }}>
+                        <HeaderMenuItem href='/integration' style={{ marginLeft: '1rem' }}>
                             {t('nav.menu.integration')}
                         </HeaderMenuItem>
-                        <HeaderMenuItem href='/#/environment'>{t('nav.menu.sustainability')}</HeaderMenuItem>
-                        <HeaderMenuItem href='/#/letsTalk'>{t('nav.menu.lets-talk')}</HeaderMenuItem>
+                        <HeaderMenuItem href='/environment'>{t('nav.menu.sustainability')}</HeaderMenuItem>
+                        <HeaderMenuItem href='/letsTalk'>{t('nav.menu.lets-talk')}</HeaderMenuItem>
                     </> : <>
                         <HeaderMenuItem
                             href='/#/environment'
@@ -71,10 +71,10 @@ const Nav = () => {
                             }}
                         >{t('nav.menu.shop-with-us')}</HeaderMenuItem>
                         <HeaderMenuItem
-                            href='/#/letsTalk'
+                            href='/letsTalk'
                         >{t('nav.menu.lets-talk')}</HeaderMenuItem>
                         <HeaderMenuItem
-                            href='/#/faq'
+                            href='/faq'
                         >{t('nav.menu.faqs')}</HeaderMenuItem>
 
                     </>}

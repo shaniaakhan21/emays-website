@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { Grid, Column } from '@carbon/react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 
@@ -24,8 +24,7 @@ import Emays from '../../logo/emays-logo-white.png';
 import CorrectSign from '../../icons/correct-sign.png';
 
 // Util
-import { getProductList } from '../../js/util/SessionStorageUtil';
-import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
+import { CHECKOUT_INFO, EMAIL_EDIT, PRODUCT_LIST } from '../../js/const/SessionStorageConst';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import timeframes from '../../../app/const/timeframes';
@@ -41,7 +40,7 @@ import styled from 'styled-components';
 const Checkout = () => {
 
     const [t] = useTranslation();
-    const history = useHistory();
+    const history = useNavigate();
     const pushAlert = useMessage();
 
     const [state, setState] = useSessionState(CHECKOUT_INFO, {
@@ -53,6 +52,7 @@ const Checkout = () => {
     const [showDelete, setShowDelete] = useState(undefined);
     const [showDeleteAppointment, setDeleteAppointment] = useState(false);
     const [showAppointmentDeleteSuccess, setSuccessAppointmentDelete] = useState(false);
+    const [productDataState] = useSessionState(PRODUCT_LIST);
 
     // Handler function for option change
     const handleOptionChange = (option) => {
@@ -74,9 +74,10 @@ const Checkout = () => {
 
     // Component load logics
     useEffect(() => {
-        const productData = getProductList();
-        setProductData(productData);
-    }, []);
+        if (productDataState) {
+            setProductData(productDataState);
+        }
+    }, [productDataState]);
 
     const preventTyping = (event) => {
         event.preventDefault();
@@ -421,15 +422,6 @@ const Checkout = () => {
 };
 
 Checkout.propTypes = {
-    address: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    selectedOptions: PropTypes.shape({
-        assist: PropTypes.bool.isRequired,
-        tailoring: PropTypes.bool.isRequired,
-        inspire: PropTypes.bool.isRequired
-    }).isRequired,
-    handleDateChange: PropTypes.func.isRequired,
-    handleAddressChange: PropTypes.func.isRequired,
-    handleOptionChange: PropTypes.func.isRequired
 };
 
 export default Checkout;

@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 // SCSS
 import '../scss/main.scss';
@@ -10,29 +10,47 @@ import ErrorBoundary from './ErrorBoundary';
 import Checkout from './checkout/Checkout';
 import Confirm from './checkout/Confirm';
 import Appointment from './appointment/AppointmentDetails';
-import CustomerRouter from './customer/Router';
 import RetailerRouter from './retailer/Router';
 import { MessageProvider } from './common/messageCtx';
-import { DashboardContainer } from './dashboard/DashboardContainer';
 
 // Util
+import '../js/util/i18n';
+import Environment from './customer/Environment';
+import Services from './customer/Services';
+import ShopWithUs from './customer/ShopWithUs';
+import RetailerLetsTalk from './retailer/LetsTalk';
+import RetailerFAQs from './retailer/FAQs';
+import RetailerIntegration from './retailer/Integration';
+import RetailerPartnership from './retailer/Partnership';
+import Privacy from './customer/Privacy';
+import Terms from './customer/Terms';
+import CustomerHome from './customer/Home';
 
 const MainRouter = () => {
+
+    useEffect(() => {
+        document.body.classList.add('bg');
+    }, []);
 
     return (<main className='main-container' role='main'>
         <ErrorBoundary>
             <MessageProvider>
-                <Router>
-                    <Switch>
-                        <Route path='/confirm' component={() => <Confirm />}></Route>
-                        <Route path='/checkout' component={() => <Checkout />}></Route>
-                        <Route path='/appointment' component={() => <Appointment/>}></Route>
-                        <Route path='/retailer' component={() => <RetailerRouter />} />
-                        <Route path='/dashboard' component={() => <DashboardContainer />} />
-                        {/* This component will act as a relocate router based on the initial launch type */}
-                        <Route path='/' component={() => <CustomerRouter />} />
-                    </Switch>
-                </Router>
+                <Routes>
+                    <Route path='/confirm' element={<Confirm />}></Route>
+                    <Route path='/checkout' element={<Checkout />}></Route>
+                    <Route path='/appointment' element={<Appointment/>}></Route>
+                    <Route path='/retailer/*' element={<RetailerRouter />} />
+                    <Route path='/environment' element={<Environment />} />
+                    <Route path='/services' element={<Services />} />
+                    <Route path='/shop-with-us' element={<ShopWithUs />}/>
+                    <Route path='/letsTalk' element={<RetailerLetsTalk />} />
+                    <Route path='/faq' element={<RetailerFAQs />} />
+                    <Route path='/integration' element={<RetailerIntegration />} />
+                    <Route path='/partnership' element={<RetailerPartnership />} />
+                    <Route path='/privacy' element={<Privacy />} />
+                    <Route path='/terms' element={<Terms />} />
+                    <Route path='/' exact element={<CustomerHome />} />
+                </Routes>
             </MessageProvider>
         </ErrorBoundary>
     </main>);

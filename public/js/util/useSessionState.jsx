@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import { createCustomSetStateFn, loadLocalStorage } from './SessionStorageUtil';
+import { handleStorage, loadLocalStorage } from './SessionStorageUtil';
 
 const useSessionState = (key, defaultValue = undefined, removeWhenUndefined = true) => {
     const [state, setState] = useState(defaultValue);
-
-    const customSetStateFn = createCustomSetStateFn(key, setState, !removeWhenUndefined);
 
     useEffect(() => {
         loadLocalStorage(key, setState);
     }, []);
 
-    return [state, customSetStateFn];
+    useEffect(() => {
+        handleStorage(key, state, removeWhenUndefined);
+    }, [state]);
+
+    return [state, setState];
 };
 
 export default useSessionState;

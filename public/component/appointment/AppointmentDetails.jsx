@@ -19,11 +19,13 @@ import ShoppingItem from '../checkout/ShoppingItem';
 import ButtonCustom from '../common/ButtonCustom';
 
 // Util
-import { getAuthToken, getProductList, getUserData } from '../../js/util/SessionStorageUtil';
+import { getAuthToken, getUserData } from '../../js/util/SessionStorageUtil';
 import moment from 'moment';
 
-// Const 
+// Const
 import { EMAIL_LAUNCH } from '../../js/const/URLMapper';
+import useSessionState from '../../js/util/useSessionState';
+import { PRODUCT_LIST, USER_DATA } from '../../js/const/SessionStorageConst';
 
 const Appointment = () => {
 
@@ -31,15 +33,30 @@ const Appointment = () => {
 
     const [data, setProductData] = useState({ orderData: {}, userData: {}, selectedDate: '', selectedTime: '' });
 
-    useEffect(() => {
+    const [productData] = useSessionState(PRODUCT_LIST);
+    const [userDataState] = useSessionState(USER_DATA);
 
-        const productData = getProductList();
-        const userData = getUserData();
+    useEffect(() => {
+        if (!productData) {
+            return;
+        }
+        setProductData({ ...data, productData });
+    }, [productData]);
+
+    useEffect(() => {
+        if (!userDataState) {
+            return;
+        }
+        const cleaned = userDataState.replace(/&#34;/g, '"');
+        const userData = JSON.parse(cleaned);
+        setProductData({ ...data, userData });
+    }, [userDataState]);
+
+    useEffect(() => {
         const selectedTime = prepareTime(userData.startTime, userData.endTime);
         const selectedDate = prepareDate(userData.date);
 
-        setProductData({ ...data, productData: productData, userData: userData
-            , selectedTime: selectedTime, selectedDate: selectedDate });
+        setProductData({ ...data, selectedTime, selectedDate });
     }, []);
 
     const prepareDate = (date) => {
@@ -103,7 +120,7 @@ const Appointment = () => {
         <h6 className='header'>{t('email-launch.items-to--be-deliver')}</h6>
         <div className='products'>
             {
-            
+
                 data?.productData?.map((item) => <ShoppingItem
                     itemName={item.productName}
                     image={item.productImage || FallBack}
@@ -129,7 +146,7 @@ const Appointment = () => {
             />
             <ButtonCustom
                 text={t('email-launch.button.add-to-calendar')}
-                action={() => { 
+                action={() => {
                     // eslint-disable-next-line max-len
                     window.open(`${EMAIL_LAUNCH}?uuid=${getUserData().uid}&authToken=${getAuthToken()}`);
                 }}
@@ -145,7 +162,7 @@ const Appointment = () => {
                 }}
             />
         </div>
-        
+
         <div className='delivery-steps'>
             <div className='icon active'>
                 <img src={Email1} alt='ORDER PLACED' />
