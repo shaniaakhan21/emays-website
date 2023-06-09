@@ -1,0 +1,211 @@
+$carbon-xs-max: 31.25em; // 500px
+$carbon-sm-max: 42.5em; // 680px
+$carbon-md-max: 64em;   // 1024px
+
+.createRetailer {
+  .cds--text-area {
+    min-width: 5rem;
+    width: 100%;
+  }
+
+  .banner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    height: 2rem;
+
+    .icon {
+      width: 2rem;
+      height: 2rem;
+      margin-right: 1.5rem;
+    }
+
+    .title {
+      font-family: 'IBM Plex Sans';
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 18px;
+      text-align: center;
+      color: #5B5959;
+    }
+  }
+
+  > .cds--progress {
+    width: 100%;
+
+    .cds--progress-step,
+    .cds--progress-line,
+    .cds--progress-label {
+      flex: 1;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .content {
+    margin-top: 1rem;
+    position: relative;
+    min-height: 30rem;
+    padding: 0 0 4rem;
+    margin-bottom: 1rem;
+
+    .grid-2  {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 1.5rem;
+    }
+
+    .grid-3  {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: 1.5rem;
+
+      @media (max-width: $carbon-md-max) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (max-width: $carbon-sm-max) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+
+    .map {
+      margin-top: 1.5rem;
+    }
+
+    .preview {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .sub-title {
+        color: #00000033;
+      }
+
+      img {
+        margin-top: 1.5rem;
+      }
+    }
+
+    .sub-title {
+      font-family: 'IBM Plex Sans';
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 18px;
+      text-align: left;
+
+      &:not(:first-child) {
+        margin-top: 1rem;
+      }
+
+      .info {
+        color: #A3A3A3;
+      }
+    }
+
+    .cds--form-item,
+    .cds--file,
+    .cds--dropdown__wrapper {
+      margin-top: 1.5rem;
+    }
+
+    > button {
+      position: absolute;
+      bottom: 0;
+      padding: 0rem 1rem;
+
+      &.next {
+        right: 0;
+      }
+
+      &.back {
+        left: 0;
+        min-width: 7rem;
+      }
+
+      > svg {
+        margin-left: 2rem;
+      }
+    }
+  }
+
+  .grid-table {
+    margin-top: 1.5rem;
+
+    .grid-title {
+      h1 {
+        font-family: 'IBM Plex Sans';
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 18px;
+      }
+    }
+
+    > div {
+      margin-bottom: 0.5rem;
+
+      &:nth-child(odd) {
+        text-align: left;
+      }
+
+      &:nth-child(even) {
+        text-align: right;
+      }
+    }
+  }
+
+  .cds--form-item {
+    .cds--form-item {
+      margin-top: 0;
+      width: 100%;
+    }
+
+    button {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  .mt-1 {
+    margin-top: 1rem;
+  }
+
+  .mt-2 {
+    margin-top: 2rem;
+  }
+
+  .flow {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .comments {
+    margin-top: 1.5rem;
+    width: 50%;
+
+    .comment {
+      margin-bottom: 1.5rem;
+
+      .date {
+        font-family: 'IBM Plex Sans';
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+        text-align: left;
+        color: #A8A8A8;
+      }
+
+      .data {
+        margin-top: 0.2rem;
+        font-family: 'IBM Plex Sans';
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 16px;
+        text-align: left;
+      }
+    }
+  }
+}

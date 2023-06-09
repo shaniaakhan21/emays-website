@@ -109,6 +109,11 @@
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/sw.js').then(
                     (registration) => {
+                        if (!navigator.serviceWorker.controller) {
+                            return;
+                        }
+                        registration.update();
+                        registration.waiting.postMessage('skipWaiting');
                     },
                     (err) => {
                         console.log('ServiceWorker registration failed:', err);

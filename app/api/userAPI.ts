@@ -8,7 +8,7 @@ import { buildErrorMessage, buildInfoMessageMethodCall
     , buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import { IUser, UserAddress } from '../type/IUserType';
 import { ExternalSystemModel } from '../data/model/ExternalSystemModel';
-import { OrderModel } from '../data/model/OrderModel';
+import { OrderECommerceModel } from '../data/model/OrderECommerceModel';
 const Logging = Logger(__filename);
 
 /**
@@ -56,7 +56,7 @@ export const prepareRetailerDashboardSummary = async (id: string): Promise<{ rev
     const retailerInfo = await ExternalSystemModel.findById(id);
     const thisYearStart = moment().startOf('year').toDate();
 
-    const revenueThisYear = await OrderModel.aggregate<{ total: number }>([
+    const revenueThisYear = await OrderECommerceModel.aggregate<{ total: number }>([
         {
             $match: {
                 retailerEmail: retailerInfo?.extSysEmail,
@@ -81,7 +81,7 @@ export const prepareRetailerDashboardSummary = async (id: string): Promise<{ rev
 
     const thisMonthStart = moment().startOf('month').toDate();
 
-    const statsThisMonth = await OrderModel.aggregate<{ total: number, count: number, average: number }>([
+    const statsThisMonth = await OrderECommerceModel.aggregate<{ total: number, count: number, average: number }>([
         {
             $match: {
                 retailerEmail: retailerInfo?.extSysEmail,

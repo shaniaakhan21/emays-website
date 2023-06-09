@@ -13,6 +13,7 @@ import Appointment from './appointment/AppointmentDetails';
 import CustomerRouter from './customer/Router';
 import RetailerRouter from './retailer/Router';
 import { MessageProvider } from './common/messageCtx';
+import { DashboardContainer } from './dashboard/DashboardContainer';
 
 // Util
 
@@ -27,6 +28,7 @@ const MainRouter = () => {
                         <Route path='/checkout' component={() => <Checkout />}></Route>
                         <Route path='/appointment' component={() => <Appointment/>}></Route>
                         <Route path='/retailer' component={() => <RetailerRouter />} />
+                        <Route path='/dashboard' component={() => <DashboardContainer />} />
                         {/* This component will act as a relocate router based on the initial launch type */}
                         <Route path='/' component={() => <CustomerRouter />} />
                     </Switch>
