@@ -9,33 +9,10 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="manifest" href="/images/site.webmanifest">
+    <link rel="stylesheet" href="./main.scss">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() {
-            window.dataLayer.push(arguments);
-        }
-
-        gtag('consent', 'default', {
-            'ad_storage': 'denied',
-            'analytics_storage': 'denied',
-            'personalization_storage': 'denied'
-        });
-
-        gtag("set", "ads_data_redaction", true);
-    </script>
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-WPMXCTK');</script>
-    <!-- End Google Tag Manager -->
     <script
         src="https://www.google.com/recaptcha/enterprise.js?render=6LeZUe8lAAAAALuM_bjvYMlBanNAeG_s4lulVkT_"></script>
     <script src="./index.jsx" type="module"></script>
@@ -66,15 +43,73 @@
         sessionStorage.setItem('authToken', token);
 
     </script>
-    
+    <!-- Google Tag Manager -->
+    <script>
+        function initializeGoogleAnalytics() {
+            // Get the consent status from the local storage
+            var consent = localStorage.getItem("cookie-consent");
+
+            if (consent === "true") {
+                // Enable GTM
+                var gtmScript = document.createElement('script');
+                gtmScript.async = true;
+                gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-WPMXCTK';
+                var gtmNoScript = document.createElement('noscript');
+                var gtmIframe = document.createElement('iframe');
+                gtmIframe.src = 'https://www.googletagmanager.com/ns.html?id=GTM-WPMXCTK';
+                gtmIframe.height = "0";
+                gtmIframe.width = "0";
+                gtmIframe.style.display = "none";
+                gtmIframe.style.visibility = "hidden";
+                gtmNoScript.appendChild(gtmIframe);
+                document.head.appendChild(gtmScript);
+                document.body.appendChild(gtmNoScript);
+                console.log("Google Tag Manager enabled");
+            } else {
+                // Disable Google Tag Manager tracking
+                console.log("Google Tag Manager disabled");
+
+                // Disable GTM
+                window["ga-disable-GTM-WPMXCTK"] = true;
+            }
+        }
+
+        function handleCookieConsent(consent) {
+            if (consent) {
+                // User accepted the cookie consent
+                localStorage.setItem("cookie-consent", "true");
+                initializeGoogleAnalytics(); // Update Google Tag Manager and GTM tracking
+            } else {
+                // User declined the cookie consent
+                localStorage.setItem("cookie-consent", "false");
+                // You might want to consider disabling or removing any cookies that were set before
+            }
+
+            // Fade out the cookie consent banner
+            var cookieBanner = document.getElementById("cookie-consent");
+            cookieBanner.classList.add("fade-out");
+        }
+
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C3L952ZLCZ"></script>
     <title>Emays</title>
 </head>
 
 <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPMXCTK" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    <!-- Cookie consent banner or popup -->
+    <div id="cookie-consent">
+        <div>
+            <p>🍪 This website uses cookies to ensure you get the best experience on our website. By continuing to
+                browse, you agree to our use of cookies. To learn more about how we use cookies and your options, please
+                see our Cookie Policy.</p>
+        </div>
+        <div class="btn-contains">
+            <button id="accept-cookie" class="op-color" onclick="handleCookieConsent(true)"
+                style="margin-right: 1%;">Accept</button>
+            <button id="decline-cookie" class="op-color"
+                onclick="handleCookieConsent(false)">Decline</button>
+        </div>
+    </div>
     <div id="app"></div>
     <script>
         if ('serviceWorker' in navigator) {
@@ -93,6 +128,19 @@
                 );
             });
         }
+    </script>
+    <script>
+        window.addEventListener("load", initializeGoogleAnalytics);
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check the consent status on page load
+            var consent = localStorage.getItem("cookie-consent");
+            if (consent) { // Check if consent is "true"
+                var cookieBanner = document.getElementById("cookie-consent");
+                setTimeout(function () {
+                    cookieBanner.classList.add("fade-out");
+                }, 50);
+            }
+        });
     </script>
 </body>
 
