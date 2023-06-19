@@ -22,6 +22,7 @@ import RetailerPartnership from '../retailer/Partnership';
 import useSessionState from '../../js/util/useSessionState';
 import Privacy from './Privacy';
 import Terms from './Terms';
+import Cookie from './Cookie';
 
 const CustomerRouter = () => {
 
@@ -82,6 +83,7 @@ const CustomerRouter = () => {
                 <Route path='/partnership' component={() => <RetailerPartnership />} />
                 <Route path='/privacy' component={() => <Privacy />} />
                 <Route path='/terms' component={() => <Terms />} />
+                <Route path='/cookie' component={() => <Cookie />} />
             </Switch>
         </>
     );
