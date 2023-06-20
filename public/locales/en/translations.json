@@ -615,7 +615,7 @@
     "facebook": "Facebook"
   },
   "cookie-banner":{
-    "text": "<p>🍪 This website automatically uses only cookies and similar technologies for its operation and for basic settings. It is also possible to consent to the use of optional cookies that provide useful and personalized functions and/or targeted advertising. By clicking on \"Accept\" you are consenting to the use of cookies for all the purposes described in our <a href='/#/cookie'>Cookie Policy</a>.</p>",
+    "text": "<p>🍪 This website automatically uses only cookies and similar technologies for its operation and for basic settings. It is also possible to consent to the use of optional cookies that provide useful and personalized functions and/or targeted advertising. By clicking on \"Accept\" you are consenting to the use of cookies for all the purposes described in our <a style=\"color:black; font-weight:bold; \" href='/#/cookie'>Cookie Policy</a>.</p>",
     "accept": "Accept",
     "decline": "Decline"
   },
