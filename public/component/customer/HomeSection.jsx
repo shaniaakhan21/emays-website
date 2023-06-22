@@ -48,12 +48,6 @@ const HomeSection = () => {
                     </div>
                 </div>
             </Column>
-            {/* <Column lg={9} md={5} sm={4} className='shipping-column__below'> */}
-            {/*     <img className='bag-img' src={EMAYBAG}/> */}
-            {/*     <Button className='shipping-section__button show'> */}
-            {/*         {t('home-section.col-1.btn-text')} */}
-            {/*     </Button> */}
-            {/* </Column> */}
             <Column lg={9} md={4} sm={4} className='shipping-column__right' >
                 <img src={Home2} className='shipping-section__right-img1' />
                 <img src={Home1} className='shipping-section__right-img2' />

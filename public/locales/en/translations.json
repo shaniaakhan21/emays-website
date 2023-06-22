@@ -1,4 +1,40 @@
 {
+  "heads": {
+    "customers": {
+      "home" : {
+        "title": "Emays - IN STORE SHOPPING EXPERIENCE AT HOME",
+        "description": "IN STORE SHOPPING EXPERIENCE NOW AT HOME Brought to you, by Emays"
+      },
+      "shopwithus" : {
+        "title": "Shop with us",
+        "description": "Emays Shop - IN STORE SHOPPING EXPERIENCE NOW AT HOME."
+      },
+      "faqs" : {
+        "title": "Frequently Asked Questions",
+        "description": "Emays - We got answers to all your questions under Frequently Asked Questions"
+      }
+    },
+    "common" : {
+      "environment" : {
+        "title": "We believe in Sustainability",
+        "description": "Emays - Carbon footprint is considered with every step of our service."
+      },
+      "letstalk" : {
+        "title": "Emays - Get in Touch",
+        "description": "IN STORE SHOPPING EXPERIENCE NOW AT HOME Brought to you, by Emays."
+      }
+    },
+    "retailers" : {
+      "integration" : {
+        "title": "Platform with easy integration",
+        "description": "Ecommerce and In-store software - Seamless integrations with any API enabled platform"
+      },
+      "home" : {
+        "title": "WE SHIP THE SHOP - Convert, grow and retain customers with Emays",
+        "description": "Emays - Bring the Luxury shopping experience to your clients - Convert, grow and retain customers with Emays"
+      }
+    }
+  },
   "common": {
     "nav-customers": "CUSTOMERS",
     "nav-retailers": "RETAILERS",
@@ -335,17 +371,6 @@
       "history": "History",
       "new-orders": "New Orders",
       "adminTools": "Admin Tools"
-    },
-    "overview": {
-      "table": {
-        "id": "# Order",
-        "client": "Client",
-        "amount": "Amount Purchased",
-        "date": "Pick Up Date",
-        "time": "Time",
-        "status": "Status"
-      },
-      "toBeDelivered-title": "TO BE DELIVERED"
     },
     "deliveryOrders": {
       "title": "Add products to be delivered",

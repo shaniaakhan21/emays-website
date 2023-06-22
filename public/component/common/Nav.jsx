@@ -36,8 +36,10 @@ const Nav = () => {
         <div className='cds--wrapper'>
             <Header aria-label='EMAY'>
                 <HeaderName href={isRetailer ? '/#/retailer' : '/#/'} prefix='' className='header-name'>
-                    <img src={LOGO} alt='EMAYS' style={{ marginRight: '1rem' }} className='logo' />
-                    <img src={LOGO_XS} alt='EMAYS' style={{ marginRight: '1rem' }} className='logo-xs' />
+                    <img src={LOGO} alt='EMAYS' title='emays logo' loading='eager' width='100%' height='auto'
+                        style={{ marginRight: '1rem' }} className='logo' />
+                    <img src={LOGO_XS} alt='EMAYS' title='emays logo' loading='eager' width='100%' height='auto'
+                        style={{ marginRight: '1rem' }} className='logo-xs' />
                 </HeaderName>
                 <div className='cus-retailer-toggle'>
                     <ButtonCustom
@@ -87,7 +89,8 @@ const Nav = () => {
                     onToggle={handleToggleLanguage}
                     className='retailer-toggle'
                 />
-                <img src={ICON} alt='Nav icon' className='nav-icon' onClick={handleMenuClick}/>
+                <img src={ICON} alt='Nav icon' title='hamburger icon' width='11%' height='auto'
+                    loading='eager' className='nav-icon' onClick={handleMenuClick}/>
             </Header>
         </div>
     );
