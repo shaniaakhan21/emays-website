@@ -30,7 +30,9 @@ const EnvironmentHeader = () => {
                         <Column className='CO2-img'>
                             <div className='env-icon'>
                                 <img data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'
-                                    data-aos-delay='300' src={CO2Neutral}/>
+                                    data-aos-delay='300' src={CO2Neutral} loading='eager' 
+                                    alt={t('img-alt-t-loading.common.environment.header.img-co2-alt')} 
+                                    title={t('img-alt-t-loading.common.environment.header.img-co2-title')}/>
                                 <h5 data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'
                                     data-aos-delay='300' >{t('environment-header.env-header-h5')}</h5>
                             </div>

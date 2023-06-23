@@ -35,6 +35,105 @@
       }
     }
   },
+  "img-alt-t-loading": {
+    "customer": {
+      "home": {
+        "mail-icon-alt" : "mail-icon",
+        "mail-icon-title" : "Mail Icon",
+        "home-img-1-alt": "man-using-mobile-device-for-shopping",
+        "home-img-1-title": "Shop from home",
+        "home-img-2-alt": "women-walking-towards-house-with-packages",
+        "home-img-2-title": "Luxurious service at home"
+      },
+      "shop-with-us": {
+        "image-5-alt": "mobile-phone",
+        "image-5-title": "Emays app on mobile phone",
+        "image-6-alt": "car-with-emays-logo",
+        "image-6-title": "Car service for Emays",
+        "home-alt": "house-icon",
+        "home-title": "Home Icon",
+        "image-31-alt": "wardrobe",
+        "image-31-title": "Wardrobe with Emays Logo on products",
+        "image-32-alt": "Emays dress",
+        "image-32-title": "Hanging Emays Dress on the wall",
+        "time-alt": "clock-icon",
+        "time-title": "Clock White Icon",
+        "help-desk-alt": "help-desk-icon",
+        "help-desk-title": "Help Desk Icon",
+        "image-33-alt": "lady-with-luggage",
+        "image-33-title": "Lady with luggage with Emays Logo on",
+        "image-51-alt": "lady-with-garment-rack",
+        "image-51-title": "Lady looking for clothes on garment rack",
+        "purchase-alt": "card-icon",
+        "purchase-title": "Debit or credit card icon",
+        "sprout-alt": "sprout-icon",
+        "sprout-title": "Plant icon depicting Co2 Neutral",
+        "image-61-alt": "plant-icon",
+        "image-61-title": "Lots of Plants depicting Co2 Neutral",
+        "sprout-white-alt": "white-sprout-icon",
+        "sprout-white-title": "Tiny plant depicting Co2 Neutral"
+      }
+    },
+    "common" : {
+      "header" : {
+        "emays-img-alt": "EMAYS",
+        "emays-img-title": "emays logo",
+        "hamburger-alt": "Nav icon",
+        "hamburger-title": "hamburger icon"
+      },
+      "footer" : {
+        "emays-img-alt": "EMAYS Logo",
+        "emays-img-title": "Logo of Emays Style",
+        "trustpilot-title": "Trustpilot",
+        "instagram-title": "Instagram",
+        "facebook-title": "Facebook"
+      },
+      "environment": {
+        "header" : {
+          "img-co2-alt": "Co2-Neutral-Icon",
+          "img-co2-title": "CO2 Neutral"
+        },
+        "icon-txt-img" : {
+          "mountain-alt": "mountain-covered-in-ice",
+          "mountain-title": "Mountain covered with ice",
+          "co2svg-alt": "Co2-Neutral-Icon",
+          "co2svg-title": "CO2 Neutral with infinity symbol"
+        },
+        "icon-img-txt" : {
+          "mountain-alt": "Green-land",
+          "mountain-title": "Depicting Greenery",
+          "co2svg-alt": "sustainable-delivery-Icon",
+          "co2svg-title": "Depicting Sustainable Delivery"
+        },
+        "img-txt-icon" : {
+          "img-alt": "Trees",
+          "img-title": "Jungle Forest Trees",
+          "icon-alt": "co2-earth-icon",
+          "icon-title": "Globe Earth Co2"
+        },
+        "text-img" : {
+          "img-alt": "Trees",
+          "img-title": "Jungle Forest Trees",
+          "icon-alt": "one-tree-planted-logo",
+          "icon-title": "One tree Planted Logo"
+        }
+      },
+      "lets-talk": {
+        "emays-alt": "Emays-logo",
+        "emays-title": "Emays Logo",
+        "email-alt": "email-icon",
+        "email-title": "Email icon",
+        "phone-alt": "phone-icon",
+        "phone-title": "Phone icon",
+        "facebook-alt": "Facebook",
+        "facebook-title": "Facebook",
+        "instagram-alt": "Instagram",
+        "instagram-title": "Instagram",
+        "linkedIn-alt": "LinkedIn",
+        "linkedIn-title": "LinkedIn"
+      }
+    }
+  },
   "common": {
     "nav-customers": "CUSTOMERS",
     "nav-retailers": "RETAILERS",
@@ -296,19 +395,25 @@
         "no": "1.0",
         "title": "Create your shopping basket",
         "icon-text": "No upfront payment",
-        "description": "Choose all the pieces you want to try, shop freely. We will bring them to you with no upfront payment"
+        "description": "Choose all the pieces you want to try, shop freely. We will bring them to you with no upfront payment",
+        "alt": "heart-location-icon",
+        "img-title": "Heart Location Icon"
       },
       "2": {
         "no": "2.0",
         "title": "Save your time",
         "icon-text": "Hassle-free returns",
-        "description": "Forget to repack and send back! No stress, no wrong sizes, Emays will take any unwanted items back to the store for you."
+        "description": "Forget to repack and send back! No stress, no wrong sizes, Emays will take any unwanted items back to the store for you.",
+        "alt": "infinity-symbol-icon",
+        "img-title": "Infinity Symbol"
       },
       "3": {
         "no": "3.0",
         "title": "Schedule as needed",
         "icon-text": "1-hour windows",
-        "description": "Book your one hour window schedule, available 9am to 9pm, 7 days a week. Take your time, we wait you try. You have 40 minutes to try and make a decision."
+        "description": "Book your one hour window schedule, available 9am to 9pm, 7 days a week. Take your time, we wait you try. You have 40 minutes to try and make a decision.",
+        "alt": "calendar-icon",
+        "img-title": "Calendar Icon"
       },
       "4": {
         "no": "4.0",
@@ -625,9 +730,11 @@
         "40": "Packages Successfully delivered",
         "15": "Damaged Packages",
         "16": "Stolen Packages",
-        "29": "Packages Not delivered"
-      },
-      "button": "Ecommerce Integration"
+        "29": "Packages Not delivered",
+        "button": "Ecommerce Integration",
+        "chart-alt": "data-pie-chart",
+        "chart-title-img": "Data Pie chart"
+      }
     }
   },
   "footer": {

@@ -36,9 +36,13 @@ const Nav = () => {
         <div className='cds--wrapper'>
             <Header aria-label='EMAY'>
                 <HeaderName href={isRetailer ? '/#/retailer' : '/#/'} prefix='' className='header-name'>
-                    <img src={LOGO} alt='EMAYS' title='emays logo' loading='eager' width='100%' height='auto'
+                    <img src={LOGO} alt={t('img-alt-t-loading.common.header.emays-img-alt')} 
+                        loading='eager' title={t('img-alt-t-loading.common.header.emays-img-title')}  
+                        width='100%' height='auto'
                         style={{ marginRight: '1rem' }} className='logo' />
-                    <img src={LOGO_XS} alt='EMAYS' title='emays logo' loading='eager' width='100%' height='auto'
+                    <img src={LOGO_XS} alt={t('img-alt-t-loading.common.header.emays-img-alt')} 
+                        loading='eager' title={t('img-alt-t-loading.common.header.emays-img-title')}  
+                        width='100%' height='auto'
                         style={{ marginRight: '1rem' }} className='logo-xs' />
                 </HeaderName>
                 <div className='cus-retailer-toggle'>
@@ -89,8 +93,9 @@ const Nav = () => {
                     onToggle={handleToggleLanguage}
                     className='retailer-toggle'
                 />
-                <img src={ICON} alt='Nav icon' title='hamburger icon' width='11%' height='auto'
-                    loading='eager' className='nav-icon' onClick={handleMenuClick}/>
+                <img src={ICON} alt={t('img-alt-t-loading.common.header.hamburger-alt')} 
+                    title={t('img-alt-t-loading.common.header.hamburger-title')} width='11%' height='auto'
+                    className='nav-icon' onClick={handleMenuClick} loading='eager' />
             </Header>
         </div>
     );

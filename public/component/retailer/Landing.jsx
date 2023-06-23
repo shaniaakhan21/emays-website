@@ -105,7 +105,10 @@ const RetailerLanding = () => {
                                             }}
                                             iconDescription='E-Mail'
                                             hasIconOnly
-                                            renderIcon={() => <img src={MailIcon} alt='E-Mail'/>}
+                                            renderIcon={() => <img src={MailIcon} 
+                                                alt={translate('img-alt-t-loading.customer.home.mail-icon-alt')} 
+                                                title={translate('img-alt-t-loading.customer.home.mail-icon-title')}
+                                                loading='eager'/>}
                                         />
                                     </a>
                                 </div>

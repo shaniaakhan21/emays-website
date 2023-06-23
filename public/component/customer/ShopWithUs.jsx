@@ -50,8 +50,12 @@ const ShopWithUs = () => {
                     <ShopHeader/>
                     <Grid className='section-box item-set'>
                         <Column lg={8} md={4} sm={4} className='image-box'>
-                            <img src={Image5} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
-                            <img src={Image6} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
+                            <img src={Image5} alt={t('img-alt-t-loading.customer.shop-with-us.image-5-alt')} 
+                                loading='eager' title={t('img-alt-t-loading.customer.shop-with-us.image-5-title')}
+                                data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
+                            <img src={Image6} alt={t('img-alt-t-loading.customer.shop-with-us.image-6-alt')} 
+                                loading='eager' title={t('img-alt-t-loading.customer.shop-with-us.image-6-title')} 
+                                data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
                         </Column>
                         <Column lg={8} md={4} sm={4}>
                             {[1, 2, 3].map(i => (<div className={`info-box info-box-${i}`}>
@@ -61,7 +65,8 @@ const ShopWithUs = () => {
                                     data-aos-duration='800'>{t(`shop-with-us.info-box.${i}.title`)}</h2>
                                 <div className='icon' data-aos='fade-in' data-aos-easing='linear' 
                                     data-aos-duration='800'>
-                                    <img src={icons[i]}/>
+                                    <img src={icons[i]} alt={t(`shop-with-us.info-box.${i}.alt`)}
+                                        loading='eager' title={t(`shop-with-us.info-box.${i}.img-title`)} />
                                     <h2 className='title'>{t(`shop-with-us.info-box.${i}.icon-text`)}</h2>
                                 </div>
                                 <p className='description' data-aos='fade-in' data-aos-easing='linear'
@@ -81,7 +86,9 @@ const ShopWithUs = () => {
                                     data-aos-duration='800'>{t('shop-with-us.info-box.4.title')}</h2>
                                 <div className='icon' data-aos='fade-in' data-aos-easing='linear' 
                                     data-aos-duration='800'>
-                                    <img src={Home}/>
+                                    <img src={Home} 
+                                        alt={t('img-alt-t-loading.customer.shop-with-us.home-alt')} loading='eager' 
+                                        title={t('img-alt-t-loading.customer.shop-with-us.home-title')}/>
                                     <h2 className='title'>{t('shop-with-us.info-box.4.icon-text')}</h2>
                                 </div>
                                 <p className='description' data-aos='fade-in' data-aos-easing='linear'
@@ -89,18 +96,25 @@ const ShopWithUs = () => {
                             </div>
                         </Column>
                         <Column lg={8} md={4} sm={4} className='image-box solo'>
-                            <img src={Image31}/>
+                            <img src={Image31} loading='eager' 
+                                alt={t('img-alt-t-loading.customer.shop-with-us.image-31-alt')} 
+                                title={t('img-alt-t-loading.customer.shop-with-us.image-31-title')} />
                         </Column>
                     </Grid>
                     <Grid className='section-box item-set black'>
                         <Column lg={8} md={4} sm={4} className='image-box solo'>
-                            <img src={Image32} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
+                            <img src={Image32} loading='eager' 
+                                alt={t('img-alt-t-loading.customer.shop-with-us.image-32-alt')} 
+                                title={t('img-alt-t-loading.customer.shop-with-us.image-32-title')} 
+                                data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
                         </Column>
                         <Column lg={8} md={4} sm={4} className='center-text'>
                             <div className='info-box'>
                                 <div className='icon' data-aos='fade-in' data-aos-easing='linear' 
                                     data-aos-duration='800'>
-                                    <img src={Time}/>
+                                    <img src={Time} loading='eager' 
+                                        alt={t('img-alt-t-loading.customer.shop-with-us.time-alt')} 
+                                        title={t('img-alt-t-loading.customer.shop-with-us.time-title')} />
                                     <h3 className='title'>{t('shop-with-us.info-box.4_1.icon-text')}</h3>
                                 </div>
                                 <p className='description' data-aos='fade-in' data-aos-easing='linear'
@@ -113,7 +127,9 @@ const ShopWithUs = () => {
                             <div className='info-box'>
                                 <div className='icon' data-aos='fade-in' data-aos-easing='linear' 
                                     data-aos-duration='800'>
-                                    <img src={HelpDesk}/>
+                                    <img src={HelpDesk} loading='eager' 
+                                        alt={t('img-alt-t-loading.customer.shop-with-us.help-desk-alt')} 
+                                        title={t('img-alt-t-loading.customer.shop-with-us.help-desk-title')}/>
                                     <h4 className='title'>{t('shop-with-us.info-box.4_2.icon-text')}</h4>
                                 </div>
                                 <p className='description' data-aos='fade-in' data-aos-easing='linear'
@@ -121,7 +137,9 @@ const ShopWithUs = () => {
                             </div>
                         </Column>
                         <Column lg={8} md={4} sm={4} className='image-box solo'>
-                            <img src={Image33}/>
+                            <img src={Image33} loading='eager' 
+                                alt={t('img-alt-t-loading.customer.shop-with-us.image-33-alt')} 
+                                title={t('img-alt-t-loading.customer.shop-with-us.image-33-title')}/>
                         </Column>
                     </Grid>
                 </ div>
@@ -129,7 +147,9 @@ const ShopWithUs = () => {
                     <div className='slanted_top'></div>
                     <Grid className='section-box first'>
                         <Column lg={8} md={4} sm={4} className='image-box solo'>
-                            <img src={Image51}/>
+                            <img src={Image51} loading='eager' 
+                                alt={t('img-alt-t-loading.customer.shop-with-us.image-51-alt')} 
+                                title={t('img-alt-t-loading.customer.shop-with-us.image-51-title')}/>
                         </Column>
                         <Column lg={8} md={4} sm={4} className='center-text'>
                             <div className='info-box'>
@@ -139,7 +159,9 @@ const ShopWithUs = () => {
                                     data-aos-duration='800'>{t('shop-with-us.info-box.5.title')}</h2>
                                 <div className='icon' data-aos='fade-in' data-aos-easing='linear' 
                                     data-aos-duration='800'>
-                                    <img src={Purchase}/>
+                                    <img src={Purchase} loading='eager' 
+                                        alt={t('img-alt-t-loading.customer.shop-with-us.purchase-alt')} 
+                                        title={t('img-alt-t-loading.customer.shop-with-us.purchase-title')}/>
                                     <h2 className='title'>{t('shop-with-us.info-box.5.icon-text')}</h2>
                                 </div>
                                 <p className='description' data-aos='fade-in' data-aos-easing='linear'
@@ -156,7 +178,10 @@ const ShopWithUs = () => {
                                     data-aos-duration='800'>{t('shop-with-us.info-box.6.title')}</h2>
                                 <div className='icon' data-aos='fade-in' data-aos-easing='linear' 
                                     data-aos-duration='800'>
-                                    <img src={Sprout} data-aos='fade-in' data-aos-easing='linear' 
+                                    <img src={Sprout} loading='eager' 
+                                        alt={t('img-alt-t-loading.customer.shop-with-us.sprout-alt')} 
+                                        title={t('img-alt-t-loading.customer.shop-with-us.sprout-title')} 
+                                        data-aos-easing='linear' data-aos='fade-in'
                                         data-aos-duration='800'/>
                                     <h2 className='title'>{t('shop-with-us.info-box.6.icon-text')}</h2>
                                 </div>
@@ -168,11 +193,16 @@ const ShopWithUs = () => {
                             </div>
                         </Column>
                         <Column lg={8} md={4} sm={4} className='image-box solo'>
-                            <img src={Image61} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
+                            <img src={Image61} loading='eager' 
+                                alt={t('img-alt-t-loading.customer.shop-with-us.image-61-alt')} 
+                                title={t('img-alt-t-loading.customer.shop-with-us.image-61-title')} 
+                                data-aos='fade-in' data-aos-easing='linear' data-aos-duration='800'/>
                             <div className='icon xs' data-aos='fade-in' 
                                 data-aos-easing='linear' data-aos-duration='800'>
                                 <img src={SproutWhite} data-aos='fade-in' data-aos-easing='linear'
-                                    data-aos-duration='800'/>
+                                    data-aos-duration='800' loading='eager' 
+                                    alt={t('img-alt-t-loading.customer.shop-with-us.sprout-white-alt')} 
+                                    title={t('img-alt-t-loading.customer.shop-with-us.sprout-white-title')} />
                                 <h3 className='title'>{t('shop-with-us.info-box.6.icon-text-short')}</h3>
                             </div>
                         </Column>

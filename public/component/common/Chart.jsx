@@ -24,7 +24,13 @@ const Chart = ({ xs }) => {
         <div className={`chart-main${xs ? ' xs' : ''}`}>
             <div className='wrapper'>
                 <Fade top cascade>
-                    {xs ? (<img src={ChartXS} className='chart-xs' />) : <img src={ChartLG} className='chart-lg' />}
+                    {xs ? (<img src={ChartXS} className='chart-xs' 
+                        alt={t('chart-alt')} 
+                        title={t('chart-title-img')}
+                        loading='eager'/>) : <img src={ChartLG} className='chart-lg' 
+                        alt={t('chart-alt')} 
+                        title={t('chart-title-img')}
+                        loading='eager' />}
                 </Fade>
             </div>
             <div className='text-wrapper'>
