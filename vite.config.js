@@ -69,6 +69,7 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 index: resolve(__dirname, 'public/index.html'),
+                webApp: resolve(__dirname, 'public/web-app.html'),
                 test: resolve(__dirname, 'public/testharness.html')
             }
         },

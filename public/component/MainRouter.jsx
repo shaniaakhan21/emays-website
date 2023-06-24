@@ -30,7 +30,6 @@ const MainRouter = () => {
                         <Route path='/retailer' component={() => <RetailerRouter />} />
                         <Route path='/dashboard' component={() => <DashboardContainer />} />
                         {/* This component will act as a relocate router based on the initial launch type */}
-                        <Route path='/' component={() => <CustomerRouter />} />
                     </Switch>
                 </Router>
             </MessageProvider>
