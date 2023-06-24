@@ -10,7 +10,7 @@ import ErrorBoundary from './ErrorBoundary';
 import Checkout from './checkout/Checkout';
 import Confirm from './checkout/Confirm';
 import Appointment from './appointment/AppointmentDetails';
-import CustomerRouter from './customer/Router';
+import RouterWebApp from './customer/RouterWebApp';
 import RetailerRouter from './retailer/Router';
 import { MessageProvider } from './common/messageCtx';
 import { DashboardContainer } from './dashboard/DashboardContainer';
@@ -24,7 +24,12 @@ const MainRouter = () => {
             <MessageProvider>
                 <Router>
                     <Switch>
-                        <Route path='/' component={() => <CustomerRouter />} />
+                        <Route path='/confirm' component={() => <Confirm />}></Route>
+                        <Route path='/checkout' component={() => <Checkout />}></Route>
+                        <Route path='/appointment' component={() => <Appointment/>}></Route>
+                        <Route path='/retailer' component={() => <RetailerRouter />} />
+                        <Route path='/dashboard' component={() => <DashboardContainer />} />
+                        <Route path='/' component={() => <RouterWebApp />} />
                     </Switch>
                 </Router>
             </MessageProvider>

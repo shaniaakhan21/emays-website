@@ -18,7 +18,7 @@ router.get(
     RoutePath.CUSTOMER_UI, (req: express.Request, res: express.Response, next: express.NextFunction): void => {
         (async () => {
             Logging.log('Requesting customer website', LogType.INFO);
-            const applicationPath: string = await buildAppLaunchPath(config?.UI_APP_ENTRY_POINT);
+            const applicationPath: string = await buildAppLaunchPath(config?.WEBSITE_ENTRY_POINT);
     
             Logging.log('App is going to deliver the customer website.', LogType.INFO);
             const paramBuilder = new LaunchParamBuilder(LaunchType.CUSTOMER_UI);
