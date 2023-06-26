@@ -17,7 +17,9 @@ const Footer = () => {
         <Column lg={16} md={8} sm={4} xs={4} as='footer'>
             <Grid className='footer'>
                 <Column sm={4} md={3} lg={2}>
-                    <img src={LOGO} alt='EMAYS'className='footer__logo' />
+                    <img src={LOGO} className='footer__logo' 
+                        alt={translate('img-alt-t-loading.common.footer.emays-img-alt')} 
+                        loading='eager' title={translate('img-alt-t-loading.common.footer.emays-img-title')} />
                 </Column>
                 <Column sm={8} md={6} lg={2}>
                     <div className='footer__links contact'>
@@ -38,15 +40,18 @@ const Footer = () => {
                 <Column sm={12} md={3} lg={8} className='footer__right'>
                     <div className='footer__social'>
                         <Link href='https://www.trustpilot.com/review/emaysstyle.com'>
-                            <img src={TrustPilot} alt={t('trustpilot')} />
+                            <img src={TrustPilot} alt={t('trustpilot')} loading='eager' 
+                                title={translate('img-alt-t-loading.common.footer.trustpilot-title')} />
                             {t('trustpilot')}
                         </Link>
                         <Link href='https://www.instagram.com/emaysstyle'>
-                            <img src={Instagram} alt={t('instagram')} />
+                            <img src={Instagram} alt={t('instagram')} loading='eager' 
+                                title={translate('img-alt-t-loading.common.footer.instagram-title')}/>
                             {t('instagram')}
                         </Link>
                         <Link href='https://www.facebook.com/Emaysstyle'>
-                            <img src={Facebook} alt={t('facebook')} />
+                            <img src={Facebook} alt={t('facebook')} loading='eager' 
+                                title={translate('img-alt-t-loading.common.footer.facebook-title')}/>
                             {t('facebook')}
                         </Link>
                     </div>

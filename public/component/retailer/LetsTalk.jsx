@@ -6,6 +6,8 @@ import LetsTalkForm from '../common/LetsTalkForm';
 import { useTranslation } from 'react-i18next';
 import { useMessage } from '../common/messageCtx';
 import { createAppointment } from '../../services/letsTalk';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import Footer from '../common/Footer';
 
 const RetailerLetsTalk = () => {
     const [t] = useTranslation();
@@ -28,11 +30,19 @@ const RetailerLetsTalk = () => {
 
     return (
         <>
-            <RetailerLayout Nav>
-                <Column lg={16} md={8} sm={4} xs={4} id='lets-talk-start'>
-                    <LetsTalkForm onSubmit={onSubmit} />
-                </Column>
-            </RetailerLayout>
+            <HelmetProvider>
+                <Helmet>
+                    <meta name='description' content={t('heads.common.letstalk.description')}/>
+                    <title>{t('heads.common.letstalk.title')}</title>
+                    <link rel='canonical' href='/' />
+                </Helmet>
+                <RetailerLayout Nav>
+                    <Column lg={16} md={8} sm={4} xs={4} id='lets-talk-start'>
+                        <LetsTalkForm onSubmit={onSubmit} />
+                    </Column>
+                    <Footer />
+                </RetailerLayout>
+            </HelmetProvider>
         </>
     );
 };
