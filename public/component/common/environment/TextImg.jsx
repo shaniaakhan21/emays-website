@@ -22,10 +22,16 @@ const TextImg = () => {
     return (
         <Grid className='section-main text-img-section'>
             <Column sm={4} className='phone-mountain-img'>
-                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={PhoneMountainIMG}/>
+                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={PhoneMountainIMG}
+                    loading='eager' 
+                    alt={t('img-alt-t-loading.common.environment.text-img.img-alt')} 
+                    title={t('img-alt-t-loading.common.environment.text-img.img-title')}/>
             </Column>
             <Column lg={8} md={4} sm={4} className='para-text-two img-position'>
-                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={CO2SVG}/>
+                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={CO2SVG}
+                    loading='eager' 
+                    alt={t('img-alt-t-loading.common.environment.text-img.icon-alt')} 
+                    title={t('img-alt-t-loading.common.environment.text-img.icon-title')}/>
                 <h5 data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' className='margin-top-4'>
                     {t('text-img.text-h5')}
                 </h5>
@@ -36,7 +42,10 @@ const TextImg = () => {
                 </a>
             </Column>
             <Column lg={8} md={4} sm={4} className='Img-Position'>
-                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={MountainIMG}/>
+                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={MountainIMG}
+                    loading='eager' 
+                    alt={t('img-alt-t-loading.common.environment.text-img.img-alt')} 
+                    title={t('img-alt-t-loading.common.environment.text-img.img-title')}/>
             </Column>
         </Grid>
     );

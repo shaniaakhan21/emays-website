@@ -104,16 +104,22 @@ const LetsTalkForm = ({ onSubmit }) => {
                 </Grid>
             </Col>
             <Col lg={6} md={3} sm={4} xs={4} className='right'>
-                <img className='logo' src={Logo} alt='Emays Logo'/>
+                <img className='logo' src={Logo} loading='eager' 
+                    alt={translate('img-alt-t-loading.common.lets-talk.emays-alt')} 
+                    title={translate('img-alt-t-loading.common.lets-talk.emays-title')}/>
                 <div className='email'>
-                    <img src={EmailIcon} alt='E-Mail'/>
+                    <img src={EmailIcon} loading='eager' 
+                        alt={translate('img-alt-t-loading.common.lets-talk.email-alt')} 
+                        title={translate('img-alt-t-loading.common.lets-talk.email-title')}/>
                     <div>
                         <span className='title'>{t('email-2')}</span>
                         <span>{t('email-2-value')}</span>
                     </div>
                 </div>
                 <div className='phone'>
-                    <img src={PhoneIcon} alt='Phone Number'/>
+                    <img src={PhoneIcon} loading='eager' 
+                        alt={translate('img-alt-t-loading.common.lets-talk.phone-alt')} 
+                        title={translate('img-alt-t-loading.common.lets-talk.phone-title')}/>
                     <div>
                         <span className='title'>{t('phone-2')}</span>
                         <span>{t('phone-2-value')}</span>
@@ -121,13 +127,19 @@ const LetsTalkForm = ({ onSubmit }) => {
                 </div>
                 <div className='social'>
                     <a href=''>
-                        <img src={InstagramIcon} alt='Instagram'/>
+                        <img src={InstagramIcon} loading='eager' 
+                            alt={translate('img-alt-t-loading.common.lets-talk.instagram-alt')} 
+                            title={translate('img-alt-t-loading.common.lets-talk.instagram-title')}/>
                     </a>
                     <a href=''>
-                        <img src={LinkedInIcon} alt='LinkedIn'/>
+                        <img src={LinkedInIcon} loading='eager' 
+                            alt={translate('img-alt-t-loading.common.lets-talk.linkedIn-alt')} 
+                            title={translate('img-alt-t-loading.common.lets-talk.linkedIn-title')}/>
                     </a>
                     <a href=''>
-                        <img src={FacebookIcon} alt='Facebook'/>
+                        <img src={FacebookIcon} loading='eager' 
+                            alt={translate('img-alt-t-loading.common.lets-talk.facebook-alt')} 
+                            title={translate('img-alt-t-loading.common.lets-talk.facebook-title')}/>
                     </a>
                 </div>
             </Col>

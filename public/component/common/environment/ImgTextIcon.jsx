@@ -21,10 +21,16 @@ const ImgTextIcon = () => {
     return (
         <Grid className='section-main'>
             <Column sm={4} className='phone-mountain-img'>
-                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={PhoneMountainIMG}/>
+                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={PhoneMountainIMG}
+                    loading='eager' 
+                    alt={t('img-alt-t-loading.common.environment.img-txt-icon.img-alt')} 
+                    title={t('img-alt-t-loading.common.environment.img-txt-icon.img-title')}/>
             </Column>
             <Column lg={5} md={3} sm={4}className='Img-Position'>
-                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={MountainIMG}/>
+                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={MountainIMG}
+                    loading='eager' 
+                    alt={t('img-alt-t-loading.common.environment.img-txt-icon.img-alt')} 
+                    title={t('img-alt-t-loading.common.environment.img-txt-icon.img-title')}/>
             </Column>
             <Column lg={8} md={3} sm={4} className='para-text-two margin-left-8'>
                 <h1 data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' className='margin-left-24' >
@@ -34,7 +40,10 @@ const ImgTextIcon = () => {
                 </h5>
             </Column>
             <Column lg={3} md={2} sm={1} className='CO2-neutral-img'>
-                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={CO2SVG}/>
+                <img data-aos='zoom-in' data-aos-easing='linear' data-aos-duration='1000' src={CO2SVG}
+                    loading='eager' 
+                    alt={t('img-alt-t-loading.common.environment.img-txt-icon.icon-alt')} 
+                    title={t('img-alt-t-loading.common.environment.img-txt-icon.icon-title')}/>
             </Column>
         </Grid>
     );

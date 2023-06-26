@@ -27,6 +27,7 @@ This repository consists of a React UI and its Immediate Backend.
 - GOOGLE API
 - Moment
 - BCrypt (Password Hashing)
+- react-helmet-async (Dynamic Document head)
 
 # Steps to run manually
 | Step  | Instructions                                | Description                                                                                               |
