@@ -1,35 +1,35 @@
 {
   "heads": {
     "customers": {
-      "home" : {
+      "home": {
         "title": "Emays - IN STORE SHOPPING EXPERIENCE AT HOME",
         "description": "IN STORE SHOPPING EXPERIENCE NOW AT HOME Brought to you, by Emays"
       },
-      "shopwithus" : {
+      "shopwithus": {
         "title": "Shop with us",
         "description": "Emays Shop - IN STORE SHOPPING EXPERIENCE NOW AT HOME."
       },
-      "faqs" : {
+      "faqs": {
         "title": "Frequently Asked Questions",
         "description": "Emays - We got answers to all your questions under Frequently Asked Questions"
       }
     },
-    "common" : {
-      "environment" : {
+    "common": {
+      "environment": {
         "title": "We believe in Sustainability",
         "description": "Emays - Carbon footprint is considered with every step of our service."
       },
-      "letstalk" : {
+      "letstalk": {
         "title": "Emays - Get in Touch",
         "description": "IN STORE SHOPPING EXPERIENCE NOW AT HOME Brought to you, by Emays."
       }
     },
-    "retailers" : {
-      "integration" : {
+    "retailers": {
+      "integration": {
         "title": "Platform with easy integration",
         "description": "Ecommerce and In-store software - Seamless integrations with any API enabled platform"
       },
-      "home" : {
+      "home": {
         "title": "WE SHIP THE SHOP - Convert, grow and retain customers with Emays",
         "description": "Emays - Bring the Luxury shopping experience to your clients - Convert, grow and retain customers with Emays"
       }
@@ -38,8 +38,8 @@
   "img-alt-t-loading": {
     "customer": {
       "home": {
-        "mail-icon-alt" : "mail-icon",
-        "mail-icon-title" : "Mail Icon",
+        "mail-icon-alt": "mail-icon",
+        "mail-icon-title": "Mail Icon",
         "home-img-1-alt": "man-using-mobile-device-for-shopping",
         "home-img-1-title": "Shop from home",
         "home-img-2-alt": "women-walking-towards-house-with-packages",
@@ -74,14 +74,30 @@
         "sprout-white-title": "Tiny plant depicting Co2 Neutral"
       }
     },
-    "common" : {
-      "header" : {
+    "retailer": {
+      "integration": {
+        "img-01-alt": "Integration Sample Image",
+        "img-01-title": "Book Your appointment",
+        "shopifyLogo-alt": "Shopify-logo",
+        "salesforce-alt": "Sales-Force-Logo",
+        "bigcommerce-alt": "Big-Commerce-Logo",
+        "commerce-tools-alt": "Commerce-Tools-Logo",
+        "adobe-logo-alt": "Adobe-Logo",
+        "shopifyLogo-title": "Shopify logo",
+        "salesforce-title": "Sales Force Logo",
+        "bigcommerce-title": "Big Commerce Logo",
+        "commerce-tools-title": "Commerce Tools Logo",
+        "adobe-logo-title": "Adobe Logo"
+      }
+    },
+    "common": {
+      "header": {
         "emays-img-alt": "EMAYS",
         "emays-img-title": "emays logo",
         "hamburger-alt": "Nav icon",
         "hamburger-title": "hamburger icon"
       },
-      "footer" : {
+      "footer": {
         "emays-img-alt": "EMAYS Logo",
         "emays-img-title": "Logo of Emays Style",
         "trustpilot-title": "Trustpilot",
@@ -89,29 +105,29 @@
         "facebook-title": "Facebook"
       },
       "environment": {
-        "header" : {
+        "header": {
           "img-co2-alt": "Co2-Neutral-Icon",
           "img-co2-title": "CO2 Neutral"
         },
-        "icon-txt-img" : {
+        "icon-txt-img": {
           "mountain-alt": "mountain-covered-in-ice",
           "mountain-title": "Mountain covered with ice",
           "co2svg-alt": "Co2-Neutral-Icon",
           "co2svg-title": "CO2 Neutral with infinity symbol"
         },
-        "icon-img-txt" : {
+        "icon-img-txt": {
           "mountain-alt": "Green-land",
           "mountain-title": "Depicting Greenery",
           "co2svg-alt": "sustainable-delivery-Icon",
           "co2svg-title": "Depicting Sustainable Delivery"
         },
-        "img-txt-icon" : {
+        "img-txt-icon": {
           "img-alt": "Trees",
           "img-title": "Jungle Forest Trees",
           "icon-alt": "co2-earth-icon",
           "icon-title": "Globe Earth Co2"
         },
-        "text-img" : {
+        "text-img": {
           "img-alt": "Trees",
           "img-title": "Jungle Forest Trees",
           "icon-alt": "one-tree-planted-logo",
@@ -265,12 +281,12 @@
       "add-to-calendar": "ADD TO CALENDAR"
     },
     "copy-right": "© Emays 2023. All rights reserved.",
-      "cancellation": {
-        "dialogue-header": "Are you sure you want to cancel this appointment?",
-        "dialogue-body": "This action may cause losing items you were trying to buy",
-        "info-header": "Appointment cancelled successfully",
-        "info-body": "You can close this browser window"
-      }
+    "cancellation": {
+      "dialogue-header": "Are you sure you want to cancel this appointment?",
+      "dialogue-body": "This action may cause losing items you were trying to buy",
+      "info-header": "Appointment cancelled successfully",
+      "info-body": "You can close this browser window"
+    }
   },
   "confirm": {
     "success": "Appointment updated successfully!",
@@ -440,12 +456,12 @@
         "description": "We'll guide you through the seamless checkout process. Our user-friendly interface makes it easy for you to review your chosen items."
       },
       "6": {
-          "no": "6.0",
-          "title": "Climate Conscious",
-          "icon-text": "C02 Neutral",
-          "icon-text-short": "Neutral",
-          "description": "We take the climate and the environment seriously and believe in sustainable fashion. That's why we consider the carbon footprint with every step of our service. Understanding the impact that the fashion industry can have on the environment, we're committed to doing our part to minimize it.",
-          "button": "Read More About this"
+        "no": "6.0",
+        "title": "Climate Conscious",
+        "icon-text": "C02 Neutral",
+        "icon-text-short": "Neutral",
+        "description": "We take the climate and the environment seriously and believe in sustainable fashion. That's why we consider the carbon footprint with every step of our service. Understanding the impact that the fashion industry can have on the environment, we're committed to doing our part to minimize it.",
+        "button": "Read More About this"
       }
     }
   },
@@ -746,7 +762,7 @@
     "instagram": "Instagram",
     "facebook": "Facebook"
   },
-  "cookie-banner":{
+  "cookie-banner": {
     "text": "<p>🍪 This website automatically uses only cookies and similar technologies for its operation and for basic settings. It is also possible to consent to the use of optional cookies that provide useful and personalized functions and/or targeted advertising. By clicking on \"Accept\" you are consenting to the use of cookies for all the purposes described in our <a style=\"color:black; font-weight:bold; \" href='/#/cookie'>Cookie Policy</a>.</p>",
     "accept": "Accept",
     "decline": "Decline"

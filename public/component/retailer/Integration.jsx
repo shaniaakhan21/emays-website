@@ -79,7 +79,9 @@ const RetailerIntegration = () => {
                         >
                             <div data-aos-duration='1000' data-aos-delay='1000' data-aos='zoom-in' className='image'>
                                 <div className='image-container'>
-                                    <img src={image} alt='Integration Sample Image'/>
+                                    <img src={image} loading='eager'
+                                        alt={translate('img-alt-t-loading.retailer.integration.img-01-alt')}
+                                        title={translate('img-alt-t-loading.retailer.integration.img-01-title')}/>
                                 </div>
                             </div>
                             <div className='details'>
@@ -99,19 +101,39 @@ const RetailerIntegration = () => {
                         <div className='marquee'>
                             <div className='marquee__group'
                                 data-aos-duration='1000' data-aos='fade-in'>
-                                <img src={ShopifyLogo} alt='Shopify Logo'/>
-                                <img src={SalesForceLogo} alt='Salesforce Logo'/>
-                                <img src={BigcommerceLogo} alt='Commercetools Logo'/>
-                                <img src={CommercetoolsLogo} alt='Bigcommerce Logo'/>
-                                <img src={AdobeLogo} alt='Adobe Logo' className='adobe'/>
+                                <img src={ShopifyLogo} loading='eager'
+                                    alt={translate('img-alt-t-loading.retailer.integration.shopifyLogo-alt')}
+                                    title={translate('img-alt-t-loading.retailer.integration.shopifyLogo-title')}/>
+                                <img src={SalesForceLogo} loading='eager'
+                                    alt={translate('img-alt-t-loading.retailer.integration.salesforce-alt')}
+                                    title={translate('img-alt-t-loading.retailer.integration.salesforce-title')}/>
+                                <img src={BigcommerceLogo} loading='eager'
+                                    alt={translate('img-alt-t-loading.retailer.integration.bigcommerce-alt')}
+                                    title={translate('img-alt-t-loading.retailer.integration.bigcommerce-title')}/>
+                                <img src={CommercetoolsLogo} loading='eager'
+                                    alt={translate('img-alt-t-loading.retailer.integration.commerce-tools-alt')}
+                                    title={translate('img-alt-t-loading.retailer.integration.commerce-tools-title')}/>
+                                <img src={AdobeLogo} className='adobe'loading='eager'
+                                    alt={translate('img-alt-t-loading.retailer.integration.adobe-logo-alt')}
+                                    title={translate('img-alt-t-loading.retailer.integration.adobe-logo-title')}/>
                             </div>
                             <div className='marquee__group'
                                 data-aos-duration='1000' data-aos='fade-in'>
-                                <img src={ShopifyLogo} alt='Shopify Logo'/>
-                                <img src={SalesForceLogo} alt='Salesforce Logo'/>
-                                <img src={BigcommerceLogo} alt='Commercetools Logo'/>
-                                <img src={CommercetoolsLogo} alt='Bigcommerce Logo'/>
-                                <img src={AdobeLogo} alt='Adobe Logo' className='adobe'/>
+                                <img src={ShopifyLogo} loading='eager'
+                                    alt={translate('img-alt-t-loading.retailer.integration.shopifyLogo-alt')}
+                                    title={translate('img-alt-t-loading.retailer.integration.shopifyLogo-title')}/>
+                                <img src={SalesForceLogo} loading='eager'
+                                    alt={translate('img-alt-t-loading.retailer.integration.salesforce-alt')}
+                                    title={translate('img-alt-t-loading.retailer.integration.salesforce-title')}/>
+                                <img src={BigcommerceLogo} loading='eager'
+                                    alt={translate('img-alt-t-loading.retailer.integration.bigcommerce-alt')}
+                                    title={translate('img-alt-t-loading.retailer.integration.bigcommerce-title')}/>
+                                <img src={CommercetoolsLogo} loading='eager'
+                                    alt={translate('img-alt-t-loading.retailer.integration.commerce-tools-alt')}
+                                    title={translate('img-alt-t-loading.retailer.integration.commerce-tools-title')}/>
+                                <img src={AdobeLogo} className='adobe' loading='eager'
+                                    alt={translate('img-alt-t-loading.retailer.integration.adobe-logo-alt')}
+                                    title={translate('img-alt-t-loading.retailer.integration.adobe-logo-title')}/>
                             </div>
                         </div>
                     </Column>
