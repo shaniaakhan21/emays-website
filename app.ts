@@ -34,11 +34,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Connect to the database
-(async () => {
-    await connectToMongoDB();
-})().catch(error => {
-    process.exit(1);
-});
+// (async () => {
+//     await connectToMongoDB();
+// })().catch(error => {
+//     process.exit(1);
+// });
 
 // Static Files through /dist path since we have multiple versions
 app.use(config.STATIC_FILES_LOCATION, express.static(__dirname + config.UI_VERSIONS_LOCATION));
@@ -54,17 +54,17 @@ app.use((req, res, next) => {
 
 // Define Routes
 app.use(config.ROUTE_PATH, healthRoute);
-app.use(config.ROUTE_PATH, stripeRoute);
-app.use(config.ROUTE_PATH, launchRoute);
-app.use(config.ROUTE_PATH, orderRoute);
-app.use(config.ROUTE_PATH, calenderRoute);
-app.use(config.ROUTE_PATH, externalSystemRoute);
-app.use(config.ROUTE_PATH, geoRoute);
-app.use(config.ROUTE_PATH, appInfoRoute);
-app.use(config.ROUTE_PATH, emailReminderRoute);
-app.use(config.ROUTE_PATH, superUserRoute);
-app.use(config.ROUTE_PATH, letsTalkRoute);
-app.use(config.ROUTE_PATH, faqRoute);
+// app.use(config.ROUTE_PATH, stripeRoute);
+// app.use(config.ROUTE_PATH, launchRoute);
+// app.use(config.ROUTE_PATH, orderRoute);
+// app.use(config.ROUTE_PATH, calenderRoute);
+// app.use(config.ROUTE_PATH, externalSystemRoute);
+// app.use(config.ROUTE_PATH, geoRoute);
+// app.use(config.ROUTE_PATH, appInfoRoute);
+// app.use(config.ROUTE_PATH, emailReminderRoute);
+// app.use(config.ROUTE_PATH, superUserRoute);
+// app.use(config.ROUTE_PATH, letsTalkRoute);
+// app.use(config.ROUTE_PATH, faqRoute);
 app.use(customerRoutes);
 
 /*
