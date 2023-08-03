@@ -1,3 +1,5 @@
+/* eslint-disable capitalized-comments */
+/* eslint-disable multiline-comment-style */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */

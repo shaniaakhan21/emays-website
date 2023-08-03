@@ -60,5 +60,8 @@ This repository consists of a React UI and its Immediate Backend.
 - focus about proper error handling for business logic in frontend and backend
 - follow design patterns at first place
 
+# Manual deployment steps
+- check the Deployment Steps in the /architecture/Deployment Steps.pdf
+
 # Architecture
 - Monolithic
