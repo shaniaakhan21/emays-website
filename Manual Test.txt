@@ -1,6 +1,6 @@
 /**
 * Install REST Client VSCode extension
-* To execute the bellow => cntrl + shift + p
+* To execute the bellow => cntrl + alt + r
 * Search for rest and select the run command
 */
 

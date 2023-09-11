@@ -9,7 +9,7 @@ import DeliveryOrder from './deliveryOrder/DeliveryOrder';
 import { useTranslation } from 'react-i18next';
 import OrderCreated from './orderCreated/OrderCreated';
 import AdminToolsRouter from './adminTools/AdminToolsRouter';
-import { Grid, UserAdmin, Money, UpdateNow, Taxi, ShoppingCartPlus } from '@carbon/icons-react';
+import { Grid, UserAdmin, Money, UpdateNow, Taxi, ShoppingCartPlus, Notification } from '@carbon/icons-react';
 import {
     Header,
     HeaderContainer, HeaderGlobalAction, HeaderGlobalBar, HeaderMenu,
@@ -42,9 +42,8 @@ const DashboardLayout = () => {
                 <HeaderContainer
                     render={({ isSideNavExpanded, onClickSideNavExpand }) => (
                         <>
-                            <Header aria-label='IBM Platform Name'>
-                                <SkipToContent/>
-                                <HeaderMenuButton
+                            {/* <SkipToContent/> */}
+                            {/* <HeaderMenuButton
                                     aria-label={isSideNavExpanded ? 'Close menu' : 'Open menu'}
                                     isCollapsible
                                     onClick={onClickSideNavExpand}
@@ -52,8 +51,8 @@ const DashboardLayout = () => {
                                 />
                                 <HeaderName href='#' prefix='IBM'>
                                     [Platform]
-                                </HeaderName>
-                                <HeaderNavigation aria-label='IBM [Platform]'>
+                                </HeaderName> */}
+                            {/* <HeaderNavigation aria-label='IBM [Platform]'>
                                     <HeaderMenuItem href='#'>Link 1</HeaderMenuItem>
                                     <HeaderMenuItem href='#'>Link 2</HeaderMenuItem>
                                     <HeaderMenuItem href='#'>Link 3</HeaderMenuItem>
@@ -62,8 +61,8 @@ const DashboardLayout = () => {
                                         <HeaderMenuItem href='#'>Sub-link 2</HeaderMenuItem>
                                         <HeaderMenuItem href='#'>Sub-link 3</HeaderMenuItem>
                                     </HeaderMenu>
-                                </HeaderNavigation>
-                                <HeaderGlobalBar>
+                                </HeaderNavigation> */}
+                            {/* <HeaderGlobalBar>
                                     <HeaderGlobalAction
                                         aria-label='Search'>
                                         <Search size={20}/>
@@ -77,68 +76,66 @@ const DashboardLayout = () => {
                                         tooltipAlignment='end'>
                                         <Switcher size={20}/>
                                     </HeaderGlobalAction>
-                                </HeaderGlobalBar>
-                                <SideNav
-                                    aria-label='Side navigation'
-                                    isRail
-                                    expanded={isSideNavExpanded}
-                                    onOverlayClick={onClickSideNavExpand}
-                                    href='#main-content'
-                                    onSideNavBlur={onClickSideNavExpand}>
-                                    <SideNavItems>
-                                        <SideNavMenu renderIcon={Fade} title='Category title'>
-                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                                Link
-                                            </SideNavMenuItem>
-                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                                Link
-                                            </SideNavMenuItem>
-                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                                Link
-                                            </SideNavMenuItem>
-                                        </SideNavMenu>
-                                        <SideNavMenu renderIcon={Fade} title='Category title'>
-                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                                Link
-                                            </SideNavMenuItem>
-                                            <SideNavMenuItem
-                                                aria-current='page'
-                                                href='https://www.carbondesignsystem.com/'>
-                                                Link
-                                            </SideNavMenuItem>
-                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                                Link
-                                            </SideNavMenuItem>
-                                        </SideNavMenu>
-                                        <SideNavMenu renderIcon={Fade} title='Category title'>
-                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                                Link
-                                            </SideNavMenuItem>
-                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                                Link
-                                            </SideNavMenuItem>
-                                            <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                                Link
-                                            </SideNavMenuItem>
-                                        </SideNavMenu>
-                                        <SideNavLink
-                                            renderIcon={Fade}
+                                </HeaderGlobalBar> */}
+                            <SideNav
+                                aria-label='Side navigation'
+                                isRail
+                                expanded={isSideNavExpanded}
+                                onOverlayClick={onClickSideNavExpand}
+                                href='#main-content'
+                                onSideNavBlur={onClickSideNavExpand}>
+                                <SideNavItems>
+                                    <SideNavMenu renderIcon={Fade} title='Category title'>
+                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                            Link
+                                        </SideNavMenuItem>
+                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                            Link
+                                        </SideNavMenuItem>
+                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                            Link
+                                        </SideNavMenuItem>
+                                    </SideNavMenu>
+                                    <SideNavMenu renderIcon={Fade} title='Category title'>
+                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                            Link
+                                        </SideNavMenuItem>
+                                        <SideNavMenuItem
+                                            aria-current='page'
                                             href='https://www.carbondesignsystem.com/'>
                                             Link
-                                        </SideNavLink>
-                                        <SideNavLink
-                                            renderIcon={Fade}
-                                            href='https://www.carbondesignsystem.com/'>
+                                        </SideNavMenuItem>
+                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
                                             Link
-                                        </SideNavLink>
-                                    </SideNavItems>
-                                </SideNav>
-                            </Header>
-                            <StoryContent/>
+                                        </SideNavMenuItem>
+                                    </SideNavMenu>
+                                    <SideNavMenu renderIcon={Fade} title='Category title'>
+                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                            Link
+                                        </SideNavMenuItem>
+                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                            Link
+                                        </SideNavMenuItem>
+                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
+                                            Link
+                                        </SideNavMenuItem>
+                                    </SideNavMenu>
+                                    <SideNavLink
+                                        renderIcon={Fade}
+                                        href='https://www.carbondesignsystem.com/'>
+                                        Link
+                                    </SideNavLink>
+                                    <SideNavLink
+                                        renderIcon={Fade}
+                                        href='https://www.carbondesignsystem.com/'>
+                                        Link
+                                    </SideNavLink>
+                                </SideNavItems>
+                            </SideNav>
                         </>
                     )}
                 />
-                <div className='dashboard-nav-section'>
+                {/* <div className='dashboard-nav-section'>
                     <nav>
                         <ul>
                             <li className={'nav-link'}>
@@ -191,25 +188,25 @@ const DashboardLayout = () => {
                             </li>
                         </ul>
                     </nav>
-                </div>
+                </div> */}
                 <div className='content-section'>
                     <Switch>
                         <Route exact path='/dashboard/overview'
-                            component={() => <Overview/>}></Route>
+                            component={() => <Overview />}></Route>
                         <Route exact path='/dashboard/deliveryOrders'
-                            component={() => <DeliveryOrder/>}></Route>
+                            component={() => <DeliveryOrder />}></Route>
                         <Route exact path='/dashboard/orders/:id/created'
-                            component={() => <OrderCreated/>}></Route>
+                            component={() => <OrderCreated />}></Route>
                         <Route exact path='/dashboard/customers'
-                            component={() => <Customer/>}></Route>
+                            component={() => <Customer />}></Route>
                         <Route exact path='/dashboard/history'
-                            component={() => <History/>}></Route>
+                            component={() => <History />}></Route>
                         <Route exact path='/dashboard/newOrders'
-                            component={() => <NewOrder/>}></Route>
+                            component={() => <NewOrder />}></Route>
                         <Route path='/dashboard/adminTools'
-                            component={() => <AdminToolsRouter/>}></Route>
+                            component={() => <AdminToolsRouter />}></Route>
                         <Route path='/dashboard/'
-                            component={() => <Overview/>}></Route>
+                            component={() => <Overview />}></Route>
                     </Switch>
                 </div>
             </div>
