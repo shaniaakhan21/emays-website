@@ -9,7 +9,9 @@ import DeliveryOrder from './deliveryOrder/DeliveryOrder';
 import { useTranslation } from 'react-i18next';
 import OrderCreated from './orderCreated/OrderCreated';
 import AdminToolsRouter from './adminTools/AdminToolsRouter';
-import { Grid, UserAdmin, Money, UpdateNow, Taxi, ShoppingCartPlus, Notification } from '@carbon/icons-react';
+import { Grid, UserAdmin, Money, UpdateNow, Taxi, ShoppingCartPlus
+    , Notification, ShoppingCartMinus, View, ListDropdown
+    , EventsAlt, ServerTime } from '@carbon/icons-react';
 import {
     Header,
     HeaderContainer, HeaderGlobalAction, HeaderGlobalBar, HeaderMenu,
@@ -78,6 +80,7 @@ const DashboardLayout = () => {
                                     </HeaderGlobalAction>
                                 </HeaderGlobalBar> */}
                             <SideNav
+                                className='dash-side-nav'
                                 aria-label='Side navigation'
                                 isRail
                                 expanded={isSideNavExpanded}
@@ -85,7 +88,7 @@ const DashboardLayout = () => {
                                 href='#main-content'
                                 onSideNavBlur={onClickSideNavExpand}>
                                 <SideNavItems>
-                                    <SideNavMenu renderIcon={Fade} title='Category title'>
+                                    {/* <SideNavMenu renderIcon={Fade} title='Category title'>
                                         <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
                                             Link
                                         </SideNavMenuItem>
@@ -95,40 +98,31 @@ const DashboardLayout = () => {
                                         <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
                                             Link
                                         </SideNavMenuItem>
-                                    </SideNavMenu>
-                                    <SideNavMenu renderIcon={Fade} title='Category title'>
-                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                            Link
-                                        </SideNavMenuItem>
-                                        <SideNavMenuItem
-                                            aria-current='page'
-                                            href='https://www.carbondesignsystem.com/'>
-                                            Link
-                                        </SideNavMenuItem>
-                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                            Link
-                                        </SideNavMenuItem>
-                                    </SideNavMenu>
-                                    <SideNavMenu renderIcon={Fade} title='Category title'>
-                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                            Link
-                                        </SideNavMenuItem>
-                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                            Link
-                                        </SideNavMenuItem>
-                                        <SideNavMenuItem href='https://www.carbondesignsystem.com/'>
-                                            Link
-                                        </SideNavMenuItem>
-                                    </SideNavMenu>
+                                    </SideNavMenu> */}
                                     <SideNavLink
-                                        renderIcon={Fade}
-                                        href='https://www.carbondesignsystem.com/'>
-                                        Link
+                                        renderIcon={View}
+                                        href='/#/dashboard/overview'>
+                                        Overview
                                     </SideNavLink>
                                     <SideNavLink
-                                        renderIcon={Fade}
-                                        href='https://www.carbondesignsystem.com/'>
-                                        Link
+                                        renderIcon={ListDropdown}
+                                        href='/#/dashboard/deliveryOrders'>
+                                        Delivery Order
+                                    </SideNavLink>
+                                    <SideNavLink
+                                        renderIcon={EventsAlt}
+                                        href='/#/dashboard/customers'>
+                                        Customers
+                                    </SideNavLink>
+                                    <SideNavLink
+                                        renderIcon={ServerTime}
+                                        href='/#/dashboard/history'>
+                                        History
+                                    </SideNavLink>
+                                    <SideNavLink
+                                        renderIcon={Notification}
+                                        href='/#/dashboard/newOrders'>
+                                        New Orders
                                     </SideNavLink>
                                 </SideNavItems>
                             </SideNav>
