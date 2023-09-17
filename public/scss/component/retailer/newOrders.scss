@@ -1,0 +1,117 @@
+@import '../../fonts';
+
+.newOrders {
+
+    .title {
+        margin-top: 4rem;
+        font-family: 'IBM Plex Sans';
+        font-size: 32px;
+        font-weight: 400;
+        line-height: 40px;
+        letter-spacing: 0px;
+        text-align: left;
+    }
+
+    .sub-title {
+        font-family: 'IBM Plex Sans';
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: left;
+
+    }
+
+    .sub-text {
+        font-family: 'IBM Plex Sans';
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 24px;
+        letter-spacing: 0px;
+        text-align: left;
+
+    }
+
+    .main-layout {
+        display: flex;
+        width: 100%
+    }
+
+    .sub-main-layout {
+        width: 70%;
+    }
+
+    .sub-main-layout-02 {
+        width: 30%;
+
+        .box-it {
+            width: 90%;
+            margin-left: 11%;
+
+            textarea {
+                background-color: white;
+                height: 53vh;
+            }
+        }
+
+
+        button {
+            margin-top: 10px;
+            background: #231F20;
+            width: 100%;
+
+            &:focus {
+                border-color: #231F20;
+                box-shadow: inset 0 0 0 1px var(--cds-button-focus-color, var(--cds-focus, #231F20)), inset 0 0 0 2px var(--cds-background, #ffffff);
+            }
+        }
+
+        .margin-2 {
+            margin-top: 6px;
+        }
+    }
+
+    .layout-sections {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .date {
+            width: 46%;
+        }
+
+        .cds--date-picker.cds--date-picker--single .cds--date-picker__input {
+            width: 100%;
+        }
+
+        .cds--date-picker {
+            width: 100%;
+        }
+
+        .cds--date-picker.cds--date-picker--single {
+            width: 100%;
+        }
+
+        .cds--date-picker-container {
+            width: 100%;
+        }
+
+        .full-width {
+            width: 100%;
+
+            .textboxes-sec {
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+
+                .half-width {
+                    width: 46%;
+                }
+            }
+        }
+    }
+
+    .start-it {
+        justify-content: flex-start;
+    }
+}
