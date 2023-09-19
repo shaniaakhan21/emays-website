@@ -6,7 +6,7 @@ import DropDownCustom from '../../common/DropDownCustom';
 import timeframes from '../../../../app/const/timeframes';
 import TextBoxCustom from '../../common/TextBoxCustom';
 import TextAreaCustom from '../../common/TextAreaCustom';
-//scss
+// Scss
 import '../../../scss/component/retailer/newOrders.scss';
 
 const NewOrder = () => {
@@ -34,7 +34,9 @@ const NewOrder = () => {
                                 <div>
                                     <p>{t('delivery-time')}</p>
                                     <DropDownCustom
-                                        items={timeframes?.map((tf, k) => ({ id: k, text: `${tf.start} to ${tf.end}` }))}
+                                        items={
+                                            timeframes?.map((tf, k) => ({ id: k, text: `${tf.start} to ${tf.end}` 
+                                            }))}
                                     />
                                 </div>
                             </div>

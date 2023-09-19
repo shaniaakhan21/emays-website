@@ -1,5 +1,5 @@
 @import '../../fonts';
-
+$carbon-sm-max: 42.5em; 
 .newOrders {
 
     .title {
@@ -113,5 +113,55 @@
 
     .start-it {
         justify-content: flex-start;
+    }
+
+    @media screen and (max-width: $carbon-sm-max) {
+        .title {
+            margin-top: 0;
+        }
+        .main-layout{
+            flex-direction: column;
+            width: 100%;
+            margin: 2%;
+
+            .layout-sections{
+                flex-direction: column;
+                width: 100%;
+
+                .full-width{
+                    .textboxes-sec{
+                        flex-direction: column;
+
+                        .half-width {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+
+            .sub-main-layout {
+                width: 100%;
+            }
+
+            .sub-main-layout-02{
+                width: 100%;
+            }
+
+            .date{
+                width: 100%;
+                margin-bottom: 2%;
+            }
+
+            .box-it{
+                width: 100%;
+                margin: 0;
+                margin-top: 4%;
+            }
+
+            button {
+                padding: 6%;
+            }
+
+        }
     }
 }
