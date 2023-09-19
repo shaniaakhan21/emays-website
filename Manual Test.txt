@@ -103,11 +103,11 @@ POST http://localhost:8080/api-dev/superUsers
 content-type: application/json
 
 {
-    "firstName": "Shaniya",
-    "lastName": "Shaniya",
-    "username": "Shaniya",
-    "password": "SHAN@2023sk",
-    "email": "shaniaa@gmail.com"
+    "firstName": "emmanuel",
+    "lastName": "emmanuel",
+    "username": "emmanuel",
+    "password": "abCq2&!Ms",
+    "email": "abCq2&!Ms@gmail.com"
 }
 
 ------ Get super user token ----------
@@ -116,8 +116,8 @@ POST http://localhost:8080/api-dev/superUsers/superUserToken
 content-type: application/json
 
 {
-    "username": "Shaniya",
-    "password": "SHAN@2023sk"
+    "username": "emmanuel",
+    "password": "abCq2&!Ms"
 }
 
 
