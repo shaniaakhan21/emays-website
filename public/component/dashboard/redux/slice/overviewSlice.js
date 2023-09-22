@@ -1,20 +1,22 @@
 'use strict';
 
 import { createSlice } from '@reduxjs/toolkit';
+import { getOverviewData } from '../thunk/overviewThunk';
     
 const initialState = {
-    data: {}
+    overviewState: {}
 };
 
 const overviewSlice = createSlice({
     name: 'overview',
     initialState,
     reducers: {
-        updateOverviewData (state, action) {
-            state.data = action.payload;
-        }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getOverviewData.fulfilled, (state, action) => {
+            state.overviewState = action.payload;
+        });
     }
 });
 
-export const { updateOverviewData } = overviewSlice.actions;
 export default overviewSlice.reducer;

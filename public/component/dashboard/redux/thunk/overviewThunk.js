@@ -2,16 +2,14 @@
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { loadOrders } from '../../../../services/dashboard/overview';
-import { updateOverviewData } from '../slice/overviewSlice';
 
-export const getOverviewData = createAsyncThunk('overview/getOverviewData', async (data) => {
+export const getOverviewData = createAsyncThunk('overview/getOverviewData', async (data, { getState }) => {
 
-    const loginData = data?.loginSelector;
-
+    const authToken = getState().loginState.token;
     const response = await loadOrders({ pageNumber: data?.pageNumber
-        , pageLimit: data?.pageLimit, token: loginData?.token });
+        , pageLimit: data?.pageLimit, token: authToken });
     if (response) {
-        data?.dispatch(updateOverviewData({ ...response }));
+        return response;
     }
 });
 
