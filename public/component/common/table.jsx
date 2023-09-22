@@ -18,7 +18,7 @@ const Table = ({ rows, headers, ...props }) => {
                 <CarbonTable {...getTableProps()}>
                     <TableHead>
                         <TableRow>
-                            {headers.map((header) => (
+                            {headers?.map((header) => (
                                 <TableHeader {...getHeaderProps({ header })}>
                                     {header.header}
                                 </TableHeader>
@@ -26,10 +26,10 @@ const Table = ({ rows, headers, ...props }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {rows?.map((row) => (
                             <TableRow {...getRowProps({ row })}>
                                 {row.cells.map((cell) => (
-                                    <TableCell key={cell.id}>{cell.value}</TableCell>
+                                    <TableCell key={cell?.id}>{cell?.value}</TableCell>
                                 ))}
                             </TableRow>
                         ))}

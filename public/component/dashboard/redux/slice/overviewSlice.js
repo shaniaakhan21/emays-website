@@ -4,7 +4,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { getOverviewData } from '../thunk/overviewThunk';
     
 const initialState = {
-    overviewState: {}
+    overviewState: {
+        isLoading: true,
+        data: {}
+    }
 };
 
 const overviewSlice = createSlice({
@@ -14,7 +17,11 @@ const overviewSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getOverviewData.fulfilled, (state, action) => {
-            state.overviewState = action.payload;
+            state.overviewState.data = action.payload;
+            state.overviewState.isLoading = false;
+        });
+        builder.addCase(getOverviewData.pending, (state, action) => {
+            state.overviewState.isLoading = true;
         });
     }
 });
