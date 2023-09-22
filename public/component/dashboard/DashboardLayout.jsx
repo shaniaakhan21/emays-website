@@ -37,8 +37,8 @@ const DashboardLayout = () => {
     }, []);
 
     // Overview props
-    const getOverviewDataWrapper = useCallback(() => { 
-        const data = { pageNumber: 1, pageLimit: 2 };
+    const getOverviewDataWrapper = useCallback((pageNo, limit) => { 
+        const data = { pageNumber: pageNo, pageLimit: limit };
         dispatch(getOverviewData(data));
     }, [dispatch]);
 
@@ -91,7 +91,6 @@ const DashboardLayout = () => {
                     <Switch>
                         <Route exact path='/dashboard/overview'
                             component={() => <PaginationContainer
-                                fullLength={10}
                                 wrapperStyle={{}}
                                 // The method used for fetch data
                                 getData={getOverviewDataWrapper}
