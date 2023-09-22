@@ -1,6 +1,7 @@
 'use strict';
 
 import { createSlice } from '@reduxjs/toolkit';
+import { loginExe } from '../thunk/loginThunk';
     
 const initialState = {
     token: '',
@@ -11,16 +12,18 @@ const loginSlice = createSlice({
     name: 'login',
     initialState,
     reducers: {
-        login (state, action) {
-            state.token = action.payload;
-            state.isSuccess = true;
-        },
         logOut (state) {
             state.token = '';
             state.isSuccess = false;
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(loginExe.fulfilled, (state, action) => {
+            state.isSuccess = true;
+            state.token = action.payload;
+        });
     }
-});
+}); 
 
-export const { login, logOut } = loginSlice.actions;
+export const { logOut } = loginSlice.actions;
 export default loginSlice.reducer;

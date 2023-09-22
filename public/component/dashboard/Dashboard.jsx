@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import LoginWrapper from './login/LoginWrapper';
 import { useSelector } from 'react-redux';
 import RetailerLogin from './login/Login';
-import { loginSelector } from './redux/selector/loginSelector';
+import { loginSelectorMemoized } from './redux/selector/loginSelector';
 import DashboardLayout from './DashboardLayout';
 
 const Dashboard = () => {
 
-    const loginStatusStore = useSelector(loginSelector);
+    const loginStatusStore = useSelector(loginSelectorMemoized);
 
     useEffect(() => {
         const main = document.getElementsByTagName('main')[0];
