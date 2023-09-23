@@ -28,6 +28,21 @@ const Overview = ({ overviewData, updateData }) => {
     
     useEffect(() => {
         updateData(overviewSelector);
+        const tableData = overviewSelector?.overviewState?.data?.pages?.map((data) => {
+        // eslint-disable-next-line no-multi-spaces, max-len
+            const amount =  data?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
+            return {
+                id: data?._id || '',
+                client: `${data?.firstName} ${data?.lastName}` || '',
+                amount: amount,
+                date: data?.date || '',
+                time: data?.createdAt || '',
+                status: <StatusBox status={'Pending to pickup'}/>
+            };
+        });
+        if (tableData && tableData?.length > 0) {
+            setTableRow(tableData);
+        }
     }, [overviewSelector]);
 
     const headers = useMemo(
