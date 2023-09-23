@@ -30,7 +30,6 @@ const DashboardLayout = () => {
     };
 
     useEffect(() => {
-        console.log('DASHBOARD LAYOUT---');
         const UL = document.querySelector('nav ul');
         UL.addEventListener('click', getActiveLinkStyle);
         return () => UL.removeEventListener('click', getComputedStyle);
@@ -91,11 +90,13 @@ const DashboardLayout = () => {
                     <Switch>
                         <Route exact path='/dashboard/overview'
                             component={() => <PaginationContainer
-                                wrapperStyle={{}}
+                                wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                                 // The method used for fetch data
                                 getData={getOverviewDataWrapper}
                                 // The property name of the overview component
                                 resourceName={'overviewData'}
+                                // Enable pagination
+                                isPaginationEnabled={true}
                             >
                                 <Overview />
                             </PaginationContainer>
