@@ -12,8 +12,14 @@ PaginationLayout.propTypes = {
     styles: PropTypes.object
 };
 
+const Button = styled.button`
+    height: 35px;
+    width: 45px;
+    background-color: white;
+`;
+
 const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getData,
-    children }) => {
+    isPaginationEnabled, children }) => {
 
     const [state, setState] = useReducer((state, action) => {
         switch (action.type) {
@@ -52,14 +58,17 @@ const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getData,
                     return child;
                 })
             }
-            <p>{state.currentIndex}</p>
-            <PaginationLayout styles={wrapperStyle}>
-                {
-                    Array.from({ length: state.initialData?.data?.allPagesAvailable || 0 }, (element, index) => {
-                        return <button onClick={() => { changeIndex(index); }} key={index}>{index}</button>;
-                    })
-                }
-            </PaginationLayout>
+
+            {
+                isPaginationEnabled && <PaginationLayout styles={wrapperStyle}>
+                    {
+                        Array.from({ length: state.initialData?.data?.allPagesAvailable || 0 }, (element, index) => {
+                            return <Button 
+                                onClick={() => { changeIndex(index); }} key={index}>{index}</Button>;
+                        })
+                    }
+                </PaginationLayout>
+            }
         </>
     );
 };
