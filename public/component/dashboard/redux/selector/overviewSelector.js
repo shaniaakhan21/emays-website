@@ -1,6 +1,8 @@
 'use strict';
 
-export const currentOverviewRecordSelector = (recordIndex) => currentOverviewPageSelector?.[recordIndex];
+import { createSelector } from '@reduxjs/toolkit';
 
-export const currentOverviewPageSelector = (pageIndex) => state?.overviewState?.[pageIndex];
+const overviewSelector = (state) => state?.overviewState;
+
+export const overviewSelectorMemoized = createSelector(overviewSelector, (overviewState) => overviewState);
 
