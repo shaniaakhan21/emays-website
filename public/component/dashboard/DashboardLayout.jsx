@@ -117,7 +117,17 @@ const DashboardLayout = () => {
                         <Route path='/dashboard/adminTools'
                             component={() => <AdminToolsRouter />}></Route>
                         <Route path='/dashboard/'
-                            component={() => <Overview />}></Route>
+                            component={() => <PaginationContainer
+                                wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                // The method used for fetch data
+                                getData={getOverviewDataWrapper}
+                                // The property name of the overview component
+                                resourceName={'overviewData'}
+                                // Enable pagination
+                                isPaginationEnabled={true}
+                            >
+                                <Overview />
+                            </PaginationContainer>}></Route>
                     </Switch>
                 </div>
             </div>
