@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Heading, Button } from '@carbon/react';
 import DatePickerCustom from '../../common/DatePickerCustom';
-import DropDownCustom from '../../common/DropDownCustom';
+import DropDownCustom from '../../common/DropdownCustom';
 import timeframes from '../../../../app/const/timeframes';
 import TextBoxCustom from '../../common/TextBoxCustom';
 import TextAreaCustom from '../../common/TextAreaCustom';
