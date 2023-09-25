@@ -1,7 +1,7 @@
 import React from 'react';
 import Counts from '../../components/counts';
 import SearchComp from '../../components/searchComp';
-import '../../../../scss/component/dashboard/history.scss'
+import '../../../../scss/component/dashboard/history.scss';
 
 const HistoryHeader = () => {
     return (
@@ -11,9 +11,9 @@ const HistoryHeader = () => {
                     <SearchComp />
                 </div>
                 <div className='grid-2'>
-                    <Counts heading="Last 30 days" value="383 Orders" />
-                    <Counts heading="Avg Days" value={6} />
-                    <Counts heading="Completed" value={682} />
+                    <Counts heading='Last 30 days' value='383 Orders' />
+                    <Counts heading='Avg Days' value={6} />
+                    <Counts heading='Completed' value={682} />
                 </div>
             </div>
         </>

@@ -1,10 +1,10 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import HistoryHeader from './component/header'
+import HistoryHeader from './component/header';
 import Table from '../../common/table';
 import StatusBox from '../../common/statusBox';
 import { useTranslation } from 'react-i18next';
 import RowDetails from './component/RowDetails';
-import '../../../scss/component/dashboard/history.scss'
+import '../../../scss/component/dashboard/history.scss';
 
 const History = () => {
     const [translate] = useTranslation();
@@ -53,23 +53,23 @@ const History = () => {
         onRowClick(row);
     };
       
-        return (
-          <>
+    return (
+        <>
             <HistoryHeader />
             <br></br>
             <div className='table'>
             
-              {selectedRow ? (
-                <div>
-                  <RowDetails row={selectedRow} headers={headers} /> 
+                {selectedRow ? (
+                    <div>
+                        <RowDetails row={selectedRow} headers={headers} /> 
                   
-                </div>
-              ) : (
-                <Table rows={tableRow} headers={headers} onRowClick={handleRowClick} />
-              )}
+                    </div>
+                ) : (
+                    <Table rows={tableRow} headers={headers} onRowClick={handleRowClick} />
+                )}
             </div>
-          </>
-        );
-      };
+        </>
+    );
+};
 
 export default React.memo(History);

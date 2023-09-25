@@ -6,16 +6,16 @@ import {
     TableBody,
     TableCell,
     DataTable,
-    Table as CarbonTable,
+    Table as CarbonTable
 } from '@carbon/react';
-import '../../../../scss/component/dashboard/history.scss'
+import '../../../../scss/component/dashboard/history.scss';
 import ShoppingItem from '../../../checkout/ShoppingItem';
 import { Button } from '@carbon/react';
-import FallBack from '../../../../icons/fallback.png'
+import FallBack from '../../../../icons/fallback.png';
 import TextAreaCustom from '../../../common/TextAreaCustom';
 const RowDetails = ({ row, headers }) => {
     if (!row) {
-        return null; // Don't render anything if no row is selected
+        return null;
     }
 
     return (
