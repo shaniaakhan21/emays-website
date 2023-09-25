@@ -15,6 +15,7 @@ export enum RoutePath {
     RETAILER_UI = '/retailer',
     EXTERNAL_SYSTEMS = '/externalSystems',
     EXTERNAL_SYSTEM_TOKEN = '/systemToken',
+    EXTERNAL_SYSTEM_INFO = '/systemInfo',
     SUPER_USERS = '/superUsers',
     SUPER_USER_TOKEN = '/superUserToken',
     SUMUP = '/sumUp',

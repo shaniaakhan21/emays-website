@@ -1,17 +1,20 @@
 'use strict';
 
 import { Router, Request, Response, NextFunction } from 'express';
-import { validateCreateExtSysRequestBody,
+import { allowedForExternalSystemSuperUserRolesOnly, validateCreateExtSysRequestBody,
     validateExternalSystemTokenRequestBody, validateHeader } from '../../middleware/paramValidationMiddleware';
 import { Logger } from '../../log/logger';
 import { RoutePath } from '../../const/routePath';
 import { buildErrorMessage, buildInfoMessageRouteHit
     , buildInfoMessageUserProcessCompleted } from '../../util/logMessageBuilder';
 import LogType from '../../const/logType';
+import { getExternalSystemById } from '../../service/administration/externalSystemService';
 import { IExternalSystem, IExternalSystemLogin } from '../../type/IExternalSystem';
 import { createExternalSystem, getExternalSystemToken } from '../../service/administration/externalSystemService';
 import { HTTPSuccess } from '../../const/httpCode';
 import { successResponseBuilder } from '../../util/responseBuilder';
+import { AppRequest } from '../../type/appRequestType';
+import { IJWTClaims } from '../../type/IJWTClaims';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -54,6 +57,30 @@ router.post(requestExtSysTokenPath, validateHeader, validateExternalSystemTokenR
     })().catch(error => {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, requestExtSysTokenPath), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
+ * Get system info
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+const getSystemInfoPath = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEM_INFO}`;
+router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUserRolesOnly, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => { 
+        const claims = (req as AppRequest).claims as unknown as IJWTClaims;
+        Logging.log(buildInfoMessageRouteHit(req.path, claims.id), LogType.INFO);
+        const externalSystemInfo = await getExternalSystemById(claims.id);
+        Logging.log(buildInfoMessageUserProcessCompleted(
+            'Request external system info', claims.id), LogType.INFO);
+        res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(externalSystemInfo));
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, getSystemInfoPath), LogType.ERROR);
         next(error);
     });
 });
