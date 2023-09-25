@@ -1,45 +1,49 @@
 import {
     TableHead,
     TableRow,
-    TableHeader, TableBody, TableCell, DataTable, Table as CarbonTable
+    TableHeader,
+    TableBody,
+    TableCell,
+    DataTable,
+    Table as CarbonTable
 } from '@carbon/react';
-import React from 'react';
-
-// SCSS
-
-// Components
-
-// Images
-
-const Table = ({ rows, headers, ...props }) => {
+import React, { useState } from 'react';
+  
+const Table = ({ rows, headers, onRowClick, ...props }) => {
+    const [selectedRow, setSelectedRow] = useState(null);
+  
+    const handleRowClick = (row) => {
+        setSelectedRow(row);
+        onRowClick(row); 
+    };
+  
     return (
-        <DataTable {...props} rows={rows} headers={headers}>
-            {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
-                <CarbonTable {...getTableProps()}>
-                    <TableHead>
-                        <TableRow>
-                            {headers?.map((header) => (
-                                <TableHeader {...getHeaderProps({ header })}>
-                                    {header.header}
-                                </TableHeader>
+        <div>
+            <CarbonTable {...props}>
+                <TableHead>
+                    <TableRow>
+                        {headers?.map((header, index) => (
+                            <TableHeader key={index}>{header.header}</TableHeader>
+                        ))}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {rows?.map((row) => (
+                        <TableRow
+                            key={row.id}
+                            onClick={() => handleRowClick(row)}
+                            className={selectedRow === row ? 'selected-row' : ''}
+                        >
+                            {headers.map((header) => (
+                                <TableCell key={header.key}>{row[header.key]}</TableCell>
                             ))}
                         </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows?.map((row) => (
-                            <TableRow {...getRowProps({ row })}>
-                                {row.cells.map((cell) => (
-                                    <TableCell key={cell?.id}>{cell?.value}</TableCell>
-                                ))}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </CarbonTable>
-            )}
-        </DataTable>
+                    ))}
+                </TableBody>
+            </CarbonTable>
+        </div>
     );
 };
-
-Table.propTypes = {};
-
+  
 export default Table;
+  
