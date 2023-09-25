@@ -62,7 +62,7 @@ export const config = {
     JSON_WEB_TOKEN_SECRET: JSON_WEB_TOKEN_SECRET || 'secret123',
     ERROR_TEMPLATE: ERROR_TEMPLATE || '/template/error-template.html',
     DB: {
-        MONGO_URL: MONGO_URL || 'mongodb://root:123456@localhost:27017/emays_service_db?authSource=admin'
+        MONGO_URL: MONGO_URL || 'mongodb://root:123456@localhost:27017/emays_service_db?authSource=admin' 
     },
     AWS_SES: {
         AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
