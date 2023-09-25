@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Heading, Button } from '@carbon/react';
 import DatePickerCustom from '../../common/DatePickerCustom';
@@ -11,7 +12,10 @@ import '../../../scss/component/retailer/newOrders.scss';
 
 const NewOrder = () => {
     const [translate] = useTranslation();
+    const history = useHistory();
     const t = useCallback((key) => translate(`dashboard.newOrders.${key}`), [translate]);
+    const [formData, setFormData] = useState({});
+
     return (
         <>
             <div className='newOrders'>
@@ -128,7 +132,8 @@ const NewOrder = () => {
                             <br></br>
                             <TextAreaCustom />
                             <p className='sub-title margin-2'>{t('p-text')}</p>
-                            <Button>{t('button-text')}</Button>
+                            <Button onClick={() =>
+                            { history.push('/dashboard/deliveryOrders'); }}>{t('button-text')}</Button>
                         </div>
 
                     </div>
