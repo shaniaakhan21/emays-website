@@ -11,7 +11,8 @@ import OrderCreated from './orderCreated/OrderCreated';
 import PaginationContainer from '../common/PaginationContainer';
 import AdminToolsRouter from './adminTools/AdminToolsRouter';
 import { Notification, View, ListDropdown
-    , EventsAlt, ServerTime } from '@carbon/icons-react';
+    , EventsAlt, ServerTime, NewTab, OperationsField } from '@carbon/icons-react';
+import { getSystemInfoExe } from './redux/thunk/systemInfoThunk';
 import { useDispatch } from 'react-redux';
 import { getOverviewData } from './redux/thunk/overviewThunk';
 import { HeaderContainer, SideNav, SideNavItems, SideNavLink
@@ -32,6 +33,7 @@ const DashboardLayout = () => {
     useEffect(() => {
         const UL = document.querySelector('nav ul');
         UL.addEventListener('click', getActiveLinkStyle);
+        dispatch(getSystemInfoExe());
         return () => UL.removeEventListener('click', getComputedStyle);
     }, []);
 
@@ -62,6 +64,11 @@ const DashboardLayout = () => {
                                         Overview
                                     </SideNavLink>
                                     <SideNavLink
+                                        renderIcon={NewTab}
+                                        href='/#/dashboard/newOrders'>
+                                        New Orders
+                                    </SideNavLink>
+                                    {/* <SideNavLink
                                         renderIcon={ListDropdown}
                                         href='/#/dashboard/deliveryOrders'>
                                         Delivery Order
@@ -70,16 +77,16 @@ const DashboardLayout = () => {
                                         renderIcon={EventsAlt}
                                         href='/#/dashboard/customers'>
                                         Customers
-                                    </SideNavLink>
+                                    </SideNavLink> */}
                                     <SideNavLink
                                         renderIcon={ServerTime}
                                         href='/#/dashboard/history'>
                                         History
                                     </SideNavLink>
                                     <SideNavLink
-                                        renderIcon={Notification}
-                                        href='/#/dashboard/newOrders'>
-                                        New Orders
+                                        renderIcon={OperationsField}
+                                        href='/#/dashboard/adminTools'>
+                                        Admin Tools
                                     </SideNavLink>
                                 </SideNavItems>
                             </SideNav>
@@ -106,7 +113,7 @@ const DashboardLayout = () => {
                             }></Route>
                         <Route exact path='/dashboard/deliveryOrders'
                             component={() => <DeliveryOrder />}></Route>
-                        <Route exact path='/dashboard/orders/:id/created'
+                        <Route exact path='/dashboard/orders/created'
                             component={() => <OrderCreated />}></Route>
                         <Route exact path='/dashboard/customers'
                             component={() => <Customer />}></Route>

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Heading, Modal, Tile } from '@carbon/react';
 import { Add, Close } from '@carbon/icons-react';
 import TextBoxCustom from '../../common/TextBoxCustom';
+import { useHistory } from 'react-router-dom';
 
 // SCSS
 import '../../../scss/component/retailer/deliveryOrders.scss';
@@ -12,6 +13,7 @@ import FallBack from '../../../icons/fallback.png';
 
 const DeliveryOrder = () => {
     const [translate] = useTranslation();
+    const history = useHistory();
     const [showScanModal, setShowScanModal] = useState(true);
 
     const t = useCallback((key) => translate(`dashboard.deliveryOrders.${key}`), [translate]);
@@ -57,7 +59,7 @@ const DeliveryOrder = () => {
                 />)}
             </div>
             <div className='buttons'>
-                <Button size='2xl'>{t('submit')}</Button>
+                <Button onClick={() => { history.push('/dashboard/orders/created'); }} size='2xl'>{t('submit')}</Button>
             </div>
         </div>
     );

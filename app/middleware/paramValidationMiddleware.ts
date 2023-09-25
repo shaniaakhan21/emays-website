@@ -154,6 +154,20 @@ export const allowedForExternalSystemRoleOnly = (req: Request, res: Response, ne
     validateRequest(req, next, validationCriteria);
 };
 
+// Validate only external system, super user roles allowed route
+export const allowedForExternalSystemSuperUserRolesOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string()
+                .valid(Roles.EXTERNAL_SYSTEM, Roles.SUPER)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // Validate only super role allowed route
 export const allowedForSuperRoleOnly = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
