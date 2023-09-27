@@ -18,8 +18,8 @@ const Button = styled.button`
     background-color: white;
 `;
 
-const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getData,
-    isPaginationEnabled, children }) => {
+const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getPaginationData,
+    getInitialData, isPaginationEnabled, children }) => {
 
     const [state, setState] = useReducer((state, action) => {
         switch (action.type) {
@@ -37,7 +37,13 @@ const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getData,
     );
 
     useEffect(() => {
-        getData(state.currentIndex + 1, 5);
+        if (getPaginationData) {
+            getPaginationData(state.currentIndex + 1, 5);
+        }
+        if (getInitialData) {
+            getInitialData();
+        }
+        
     }, [state.currentIndex]);
 
     const changeIndex = (value) => {
