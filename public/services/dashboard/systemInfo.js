@@ -12,3 +12,14 @@ export const getSystemInfo = ({ token }) => {
         'Authorization': `Bearer ${token}`
     }, {});
 };
+
+/**
+ * Load app info
+ * @param token {string}
+ * @returns {Promise<undefined|*>}
+ */
+export const getAppInfo = ({ token }) => {
+    return httpUtil.get(`${apiBase}/appInfo`, {
+        'Authorization': `Bearer ${token}`
+    }, {});
+};

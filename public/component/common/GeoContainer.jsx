@@ -18,7 +18,7 @@ const List = styled.ul`
     }
 `;
 
-const GeoContainer = ({ updateAddress, updateServiceFee }) => {
+const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
 
     const [t] = useTranslation();
     const [address, setAddress] = useState('');
@@ -34,7 +34,14 @@ const GeoContainer = ({ updateAddress, updateServiceFee }) => {
                 (script) => script.src.includes('https://maps.googleapis.com/maps/api/js?key')
             );
             if (!mapsApiLoaded) {
-                const appInfo = await getAppInfo();
+                let appInfo;
+                if (!appData) {
+                    appInfo = await getAppInfo();
+                } else {
+                    appInfo = {
+                        googleMapAPIKey: appData
+                    };
+                }
                 script = document.createElement('script');
                 script.src = `https://maps.googleapis.com/maps/api/js?key=${appInfo.googleMapAPIKey}&libraries=places`;
                 script.defer = true;
@@ -51,7 +58,7 @@ const GeoContainer = ({ updateAddress, updateServiceFee }) => {
         })().catch(error => {
             return error;
         });
-    }, []);
+    }, [appData]);
 
     const autoCompleteHandler = (event) => {
         setAddress(event.target.value);
