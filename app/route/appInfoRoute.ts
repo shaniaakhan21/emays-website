@@ -7,7 +7,7 @@ import { Logger } from '../log/logger';
 const router = express.Router();
 
 import { RoutePath } from '../const/routePath';
-import { allowedForClientRoleOnly } from '../middleware/paramValidationMiddleware';
+import { allowedForClientRoleAndSuperAdminOnly } from '../middleware/paramValidationMiddleware';
 import { buildInfoMessageRouteHit } from '../util/logMessageBuilder';
 import { AppRequest } from '../type/appRequestType';
 import { successResponseBuilder } from '../util/responseBuilder';
@@ -22,7 +22,8 @@ const Logging = Logger(__filename);
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-router.get(RoutePath.APP_INFO, allowedForClientRoleOnly, (req: express.Request, res: express.Response): void => {
+// eslint-disable-next-line max-len
+router.get(RoutePath.APP_INFO, allowedForClientRoleAndSuperAdminOnly, (req: express.Request, res: express.Response): void => {
     const request: AppRequest = (req as AppRequest);
     Logging.log(buildInfoMessageRouteHit(req.path, `uid: ${request?.claims?.id as string}`), LogType.INFO);
     res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder({ googleMapAPIKey: config.GOOGLE.MAP.API_KEY }));

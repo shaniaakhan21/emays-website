@@ -12,7 +12,7 @@ import PaginationContainer from '../common/PaginationContainer';
 import AdminToolsRouter from './adminTools/AdminToolsRouter';
 import { Notification, View, ListDropdown
     , EventsAlt, ServerTime, NewTab, OperationsField } from '@carbon/icons-react';
-import { getSystemInfoExe } from './redux/thunk/systemInfoThunk';
+import { getAppInfoExe, getSystemInfoExe } from './redux/thunk/appInfoThunk';
 import { useDispatch } from 'react-redux';
 import { getOverviewData } from './redux/thunk/overviewThunk';
 import { HeaderContainer, SideNav, SideNavItems, SideNavLink
@@ -41,6 +41,11 @@ const DashboardLayout = () => {
     const getOverviewDataWrapper = useCallback((pageNo, limit) => { 
         const data = { pageNumber: pageNo, pageLimit: limit };
         dispatch(getOverviewData(data));
+    }, [dispatch]);
+
+    // New Order props
+    const getNewOrderDataWrapper = useCallback(() => { 
+        dispatch(getAppInfoExe());
     }, [dispatch]);
 
     return (
@@ -98,8 +103,8 @@ const DashboardLayout = () => {
                         <Route exact path='/dashboard/overview'
                             component={() => <PaginationContainer
                                 wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                                // The method used for fetch data
-                                getData={getOverviewDataWrapper}
+                                // The method used for fetch pagination data
+                                getPaginationData={getOverviewDataWrapper}
                                 // The property name of the overview component
                                 resourceName={'overviewData'}
                                 // Enable pagination
@@ -107,9 +112,6 @@ const DashboardLayout = () => {
                             >
                                 <Overview />
                             </PaginationContainer>
-                            }></Route>
-                        <Route exact path='/dashboard/overview'
-                            component={() => <Overview />
                             }></Route>
                         <Route exact path='/dashboard/deliveryOrders'
                             component={() => <DeliveryOrder />}></Route>
@@ -120,7 +122,18 @@ const DashboardLayout = () => {
                         <Route exact path='/dashboard/history'
                             component={() => <History />}></Route>
                         <Route exact path='/dashboard/newOrders'
-                            component={() => <NewOrder />}></Route>
+                            component={() => <PaginationContainer
+                                wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                // The method used for fetch data
+                                getInitialData={getNewOrderDataWrapper}
+                                // The property name of the overview component
+                                resourceName={'newOrderData'}
+                                // Enable pagination
+                                isPaginationEnabled={false}
+                            >
+                                <NewOrder />
+                            </PaginationContainer>
+                            }></Route>
                         <Route path='/dashboard/adminTools'
                             component={() => <AdminToolsRouter />}></Route>
                         <Route path='/dashboard/'
