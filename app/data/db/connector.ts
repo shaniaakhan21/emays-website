@@ -20,9 +20,7 @@ export const connectToMongoDB = async () => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Connecting mongo db', 'app startup...'), LogType.INFO);
-        await mongoose.connect(prepareDBConnectionURL(), {
-            autoIndex: true
-        });
+        await mongoose.connect(prepareDBConnectionURL());
         Logging.log(buildInfoMessageUserProcessCompleted(
             'Connecting mongo db', 'app startup...'), LogType.INFO);
     } catch (error) {
