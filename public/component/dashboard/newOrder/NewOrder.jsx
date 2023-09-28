@@ -1,6 +1,6 @@
 
 /* eslint-disable max-lines */
-import React, { useCallback, useEffect, useReducer, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Heading, Button } from '@carbon/react';
@@ -14,12 +14,12 @@ import '../../../scss/component/retailer/newOrders.scss';
 import GeoContainer from '../../common/GeoContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { appInfoSelectorMemoized } from '../redux/selector/appInfoSelector';
-import { validateObject } from '../../../js/util/validateObject';
+import { validateObjectNullEmptyCheck } from '../../../js/util/validateObject';
+import { setNewOrderPhaseOneData } from '../redux/thunk/newOrderThunk';
 
 const NewOrder = ({ newOrderData }) => {
     const [translate] = useTranslation();
     const history = useHistory();
-    const addOneRef = useRef();
     const t = useCallback((key) => translate(`dashboard.newOrders.${key}`), [translate]);
 
     const [googleMapAPIKey, setGoogleMapInfo] = useState('');
@@ -57,7 +57,7 @@ const NewOrder = ({ newOrderData }) => {
                     addSix: completeAddress[5]
                 } };
             case 'setServiceFee':
-                return { ...state, serviceFee: action?.data }; 
+                return { ...state, serviceFee: action?.data };
             case 'setAddressLineOne':
                 return { ...state, address: { ...state?.address, addOne: action?.data } };
             case 'setAddressLineTwo':
@@ -99,6 +99,7 @@ const NewOrder = ({ newOrderData }) => {
     const appInfoSelector = useSelector(appInfoSelectorMemoized);
 
     useEffect(() => {
+        setFormData({ type: 'setTimeZone' });
         setGoogleMapInfo(appInfoSelector?.appInfoState?.data?.googleMapAPIKey);
     }, [appInfoSelector]);
 
@@ -108,8 +109,12 @@ const NewOrder = ({ newOrderData }) => {
 
     const submitForm = () => {
         setSubmitState(true);
-        const stateStatus = validateObject(state);
-        console.log('----->>>', stateStatus);
+        const isDataValid = validateObjectNullEmptyCheck(
+            state, ['addFive', 'addSix', 'experience', 'deliveryInfo', 'serviceFee']);
+        if (isDataValid) {
+            dispatch(setNewOrderPhaseOneData(state));
+            history.push('/dashboard/deliveryOrders');
+        }
     };
 
     return (
@@ -306,7 +311,7 @@ const NewOrder = ({ newOrderData }) => {
                             <TextAreaCustom />
                             <p className='sub-title margin-2'>{t('p-text')}</p>
                             <Button onClick={() =>
-                            { history.push('/dashboard/deliveryOrders'); }}>{t('button-text')}</Button>
+                            { submitForm(); }}>{t('button-text')}</Button>
                         </div>
 
                     </div>
