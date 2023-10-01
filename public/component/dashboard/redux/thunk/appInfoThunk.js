@@ -7,7 +7,6 @@ export const getSystemInfoExe = createAsyncThunk('appInfo/getSystemInfo', async 
     const authToken = getState().loginState.token;
     const response = await getSystemInfo({ token: authToken });
     if (response) {
-        console.log('System INFO;;;', response);
         return response;
     }
 });
@@ -16,7 +15,6 @@ export const getAppInfoExe = createAsyncThunk('appInfo/getAppInfo', async (data,
     const authToken = getState().loginState.token;
     const response = await getAppInfo({ token: authToken });
     if (response) {
-        console.log('App INFO;;;', response);
         return response;
     }
 });
