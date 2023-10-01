@@ -1,12 +1,14 @@
 'use strict';
 
 import { createSlice } from '@reduxjs/toolkit';
-import { setNewOrderPhaseOneData } from '../thunk/newOrderThunk';
+import { setNewOrderPhaseOneData, setNewOrderPhaseTwoData } from '../thunk/newOrderThunk';
     
 const initialState = {
-    newOrderState: {
-        isLoading: true,
-        data: {}
+    phaseOneData: {
+        isLoading: true
+    },
+    phaseTwoData: {
+        isLoading: true
     }
 };
 
@@ -17,11 +19,18 @@ const newOrderSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(setNewOrderPhaseOneData.fulfilled, (state, action) => {
-            state.newOrderState.data = action.payload;
-            state.newOrderState.isLoading = false;
+            state.phaseOneData = action.payload;
+            state.phaseOneData.isLoading = false;
         });
         builder.addCase(setNewOrderPhaseOneData.pending, (state, action) => {
-            state.newOrderState.isLoading = true;
+            state.phaseOneData.isLoading = true;
+        });
+        builder.addCase(setNewOrderPhaseTwoData.fulfilled, (state, action) => {
+            state.phaseTwoData = action.payload;
+            state.phaseTwoData.isLoading = false;
+        });
+        builder.addCase(setNewOrderPhaseTwoData.pending, (state, action) => {
+            state.phaseTwoData.isLoading = true;
         });
     }
 });

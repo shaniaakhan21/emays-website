@@ -498,6 +498,9 @@
       "header-right": {
         "title": "Items added"
       },
+      "header-left": {
+        "title": "Total"
+      },
       "sub-title": "Please, scan the bar code or enter it manually",
       "search": {
         "input": {
