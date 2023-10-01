@@ -9,3 +9,10 @@ export const setNewOrderPhaseOneData = createAsyncThunk('newOrder/phaseOne', asy
     }
 });
 
+export const setNewOrderPhaseTwoData = createAsyncThunk('newOrder/phaseTwo', async (data, { getState }) => {
+    const authToken = getState().loginState.token;
+    if (authToken) {
+        return data;
+    }
+});
+
