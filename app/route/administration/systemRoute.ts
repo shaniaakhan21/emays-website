@@ -9,12 +9,15 @@ import { buildErrorMessage, buildInfoMessageRouteHit
     , buildInfoMessageUserProcessCompleted } from '../../util/logMessageBuilder';
 import LogType from '../../const/logType';
 import { getExternalSystemById } from '../../service/administration/externalSystemService';
-import { IExternalSystem, IExternalSystemLogin } from '../../type/IExternalSystem';
+import { IExternalSystem, IExternalSystemDTO, IExternalSystemLogin } from '../../type/IExternalSystem';
 import { createExternalSystem, getExternalSystemToken } from '../../service/administration/externalSystemService';
 import { HTTPSuccess } from '../../const/httpCode';
 import { successResponseBuilder } from '../../util/responseBuilder';
 import { AppRequest } from '../../type/appRequestType';
 import { IJWTClaims } from '../../type/IJWTClaims';
+import { Roles } from '../../const/roles';
+import { getSuperUserById } from '../../service/administration/superUserService';
+import { ISystemInfoResponse } from '../../type/customResponseType';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -74,7 +77,24 @@ router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUser
     (async () => { 
         const claims = (req as AppRequest).claims as unknown as IJWTClaims;
         Logging.log(buildInfoMessageRouteHit(req.path, claims.id), LogType.INFO);
-        const externalSystemInfo = await getExternalSystemById(claims.id);
+
+        const externalSystemInfo: ISystemInfoResponse = {
+            email: '',
+            name: '',
+            roles: claims.roles
+        };
+        if (claims.roles.includes(Roles.EXTERNAL_SYSTEM)) {
+            const data: IExternalSystemDTO = await getExternalSystemById(claims.id);
+            externalSystemInfo.name = data.extSysName;
+            externalSystemInfo.email = data.extSysEmail;
+        } else if (claims.roles.includes(Roles.CLIENT)) {
+            
+        } else if (claims.roles.includes(Roles.SUPER)) {
+            const data = await getSuperUserById(claims.id);
+            externalSystemInfo.name = data.firstName;
+            externalSystemInfo.email = data.email;
+        }
+
         Logging.log(buildInfoMessageUserProcessCompleted(
             'Request external system info', claims.id), LogType.INFO);
         res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(externalSystemInfo));

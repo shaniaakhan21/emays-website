@@ -1,6 +1,7 @@
 'use strict';
 
 import { IExternalSystemDTO } from '../type/IExternalSystem';
+import { ISystemInfoResponse } from '../type/customResponseType';
 import { IGeoTypeDTO } from '../type/geoType';
 import { IOrderPaginationDTO } from '../type/orderType';
 import { IOrderDTO } from '../type/orderType';
@@ -25,6 +26,7 @@ export const successResponseBuilder: SuccessResponseBuilderFunc<IOrderDTO |
     {googleMapAPIKey: string} |
     IExternalSystemDTO |
     IOrderPaginationDTO |
+    ISystemInfoResponse |
      IGeoTypeDTO > = (data) => {
          return { data: data };
      };
