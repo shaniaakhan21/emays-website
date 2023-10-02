@@ -62,7 +62,7 @@ export const config = {
     JSON_WEB_TOKEN_SECRET: JSON_WEB_TOKEN_SECRET || 'secret123',
     ERROR_TEMPLATE: ERROR_TEMPLATE || '/template/error-template.html',
     DB: {
-        MONGO_URL: MONGO_URL || 'mongodb://root:123456@localhost:27017/emays_service_db?authSource=admin' 
+        MONGO_URL: MONGO_URL || 'mongodb://localhost:27017/emays_service_db'
     },
     AWS_SES: {
         AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
@@ -126,7 +126,7 @@ export const config = {
         { location: 'Milan', insideCost: 1500, outsideCost: 2500 }
     ],
     SERVICE_CHARGE: SERVICE_CHARGE || 1200.00,
-    STRIPE_SECRET_KEY: STRIPE_SECRET_KEY || '',
+    STRIPE_SECRET_KEY: STRIPE_SECRET_KEY || 'sk_test_51MyGFvB7uMaHzfLgYAJMVDmQrAV6KkgMe3vV2UMq2w0MppsugqMg8uPodMwx89gpuOSDOqhXjVBAHEAYAwq5hAvi00M4DD8qRu',
     STRIPE_WEBHOOK_SECRET: STRIPE_WEBHOOK_SECRET || '',
     STRIPE_RETURN_DOMAIN: STRIPE_RETURN_DOMAIN || 'http://localhost:3000',
     LETS_TALK_EMAIL: LETS_TALK_EMAIL || 'info@emaysstyle.com',

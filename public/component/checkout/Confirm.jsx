@@ -5,6 +5,7 @@ import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
 import Payment from './Payment';
+import StripeProvider from './Payment';
 
 // SCSS
 import '../../scss/component/checkout/confirm.scss';
@@ -108,7 +109,8 @@ const Confirm = () => {
 
     return (
         <>
-            <Payment open={open} setOpen={setOpen} />
+            {/* <Payment open={open} setOpen={setOpen} /> */}
+            <StripeProvider open={open} setOpen={setOpen} />
             <Grid className='landing-page'>
                 <Column lg={16} md={16} sm={16} xs={16} className='logo'>
                     <img src={Emays} alt='The Emays logo' />

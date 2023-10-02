@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { Column, ComposedModal, Grid, ModalBody, ModalHeader } from '@carbon/react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
@@ -66,11 +67,13 @@ const Payment = ({ open, setOpen }) => {
             if (!stripe || !elements) {
                 return;
             }
+            console.log('redirection url is', `${window.location.protocol}//${window.location.host}`);
             const result = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
-                    // eslint-disable-next-line camelcase
-                    return_url: `${apiBase}/stripe/checkout/complete?userId=${open.uid}`
+                    // eslint-disable-next-line camelcase, capitalized-comments
+                    // return_url: `${apiBase}/stripe/checkout/complete?userId=${open.uid}`
+                    return_url: `${window.location.protocol}//${window.location.host}`
                 }
             });
             if (result.error) {

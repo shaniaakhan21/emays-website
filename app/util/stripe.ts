@@ -1,10 +1,13 @@
+/* eslint-disable multiline-comment-style */
+/* eslint-disable capitalized-comments */
 /* eslint camelcase: 0 */
 import Stripe from 'stripe';
 import { config } from '../config/config';
 import * as orderService from '../service/orderService';
 import { calculateServiceFee } from '../service/orderService';
 
-const stripe = new Stripe(config.STRIPE_SECRET_KEY, {
+// eslint-disable-next-line max-len
+const stripe = new Stripe('sk_test_51MyGFvB7uMaHzfLgYAJMVDmQrAV6KkgMe3vV2UMq2w0MppsugqMg8uPodMwx89gpuOSDOqhXjVBAHEAYAwq5hAvi00M4DD8qRu', {
     apiVersion: '2022-11-15'
 });
 
@@ -14,11 +17,13 @@ export const initiateOrderServiceFeePayment = async (userId: string) => {
         throw new Error('Order not found');
     }
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: calculateServiceFee(order),
+        // eslint-disable-next-line max-len
+        amount: order.orderItems.reduce((acc, item) => acc + (item.productQuantity * parseInt(item.productCost)), 0) * 100,
         currency: 'eur',
-        automatic_payment_methods: {
-            enabled: true
-        }
+        // automatic_payment_methods: {
+        //     enabled: true
+        // }
+        payment_method_types: ['card', 'ideal', 'sepa_debit'] 
     });
     order.paymentRef = paymentIntent.id;
     await orderService.patchOrderDetailsByUserId(userId, order);
