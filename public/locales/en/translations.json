@@ -553,7 +553,8 @@
         "address": "Delivery Address",
         "name": "Full Name",
         "email": "Email",
-        "tel": "Tel."
+        "tel": "Tel.",
+        "total": "Total"
       },
       "items": {
         "title": "Items To be delivered",

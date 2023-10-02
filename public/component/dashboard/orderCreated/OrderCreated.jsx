@@ -62,6 +62,10 @@ const OrderCreated = () => {
                         <label>{t('appointmentInfo.tel')}</label>
                         <p>{newOrderPhaseOneSelector?.phoneNumber}</p>
                     </div>
+                    <div className='field'>
+                        <label>{t('appointmentInfo.total')}</label>
+                        <p>{newOrderPhaseTwoSelector?.total}</p>
+                    </div>
                 </div>
                 <div className='items-to-deliver'>
                     <Heading className='title'>

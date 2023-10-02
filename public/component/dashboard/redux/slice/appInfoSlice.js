@@ -1,7 +1,7 @@
 'use strict';
 
 import { createSlice } from '@reduxjs/toolkit';
-import { getAppInfoExe } from '../thunk/appInfoThunk';
+import { getAppInfoExe, getSystemInfoExe } from '../thunk/appInfoThunk';
     
 const initialState = {
     appInfoState: {
@@ -26,6 +26,13 @@ const appInfoSlice = createSlice({
         });
         builder.addCase(getAppInfoExe.pending, (state, action) => {
             state.appInfoState.isLoading = true;
+        });
+        builder.addCase(getSystemInfoExe.fulfilled, (state, action) => {
+            state.systemInfoState.data = action.payload;
+            state.systemInfoState.isLoading = false;
+        });
+        builder.addCase(getSystemInfoExe.pending, (state, action) => {
+            state.systemInfoState.isLoading = true;
         });
     }
 });
