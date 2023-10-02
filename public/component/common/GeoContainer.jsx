@@ -27,38 +27,47 @@ const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
     const [placeService, setPlaceService] = useState(null);
     // Initialize google map API
     useEffect(() => {
-        (async () => {
-            let script;
-            const scripts = document.getElementsByTagName('script');
-            const mapsApiLoaded = Array.from(scripts).some(
-                (script) => script.src.includes('https://maps.googleapis.com/maps/api/js?key')
-            );
-            if (!mapsApiLoaded) {
-                let appInfo;
-                if (!appData) {
-                    appInfo = await getAppInfo();
-                } else {
-                    appInfo = {
-                        googleMapAPIKey: appData
-                    };
-                }
-                script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${appInfo.googleMapAPIKey}&libraries=places`;
-                script.defer = true;
-                script.async = true;
-                script.onload = () => {
-                    setAutocompleteService(new window.google.maps.places.AutocompleteService());
-                    setPlaceService(new google.maps.places.PlacesService(document.createElement('div')));
-                };
-                document.head.appendChild(script);
-                return () => {
-                    document.head.removeChild(script);
+        loadServices();
+    }, [appData]);
+
+    useEffect(() => {
+        loadServices();
+    }, []);
+
+    const loadServices = async () => {
+        let script;
+        const scripts = document.getElementsByTagName('script');
+        const mapsApiLoaded = Array.from(scripts).some(
+            (script) => script.src.includes('https://maps.googleapis.com/maps/api/js?key')
+        );
+        if (!mapsApiLoaded) {
+            let appInfo;
+            if (!appData) {
+                appInfo = await getAppInfo();
+            } else {
+                appInfo = {
+                    googleMapAPIKey: appData
                 };
             }
-        })().catch(error => {
-            return error;
-        });
-    }, [appData]);
+            script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${appInfo.googleMapAPIKey}&libraries=places`;
+            script.defer = true;
+            script.async = true;
+            script.onload = () => {
+                setAutocompleteService(new window.google.maps.places.AutocompleteService());
+                setPlaceService(new google.maps.places.PlacesService(document.createElement('div')));
+            };
+            document.head.appendChild(script);
+            return () => {
+                document.head.removeChild(script);
+            };
+        } else if (mapsApiLoaded && !autocompleteService) {
+            setAutocompleteService(new window.google.maps.places.AutocompleteService());
+        } else if (mapsApiLoaded && !placeService) {
+            setPlaceService(new google.maps.places.PlacesService(document.createElement('div')));
+        }
+        
+    };
 
     const autoCompleteHandler = (event) => {
         setAddress(event.target.value);
@@ -72,7 +81,7 @@ const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
                 }
             );
         } else {
-            setPredictions([]);
+            setPredictions(['']);
         }
     };
 

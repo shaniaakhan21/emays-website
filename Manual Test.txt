@@ -136,7 +136,30 @@ content-type: application/json
     "extSysUsername": "storex",
     "extSysPassword": "abCq2&!Ms"
 }
-                                    
+
+----- Create admin user ------
+
+POST http://localhost:8080/api-dev/adminExternalSystem
+content-type: application/json
+
+{
+    "adminFirstName": "Thathsara",
+    "adminLastName": "Raviraj",
+    "adminUsername": "thathadminuser",
+    "adminPassword": "abCq2&!Ms",
+    "adminEmail": "adminX@gmail.com",
+    "externalSystemId": "6504061d3615ae0e08a4a789"
+}
+
+----- Get auth token for admin user -----
+      
+POST http://localhost:8080/api-dev/adminExternalSystem/adminExternalSystemToken
+content-type: application/json
+
+{
+    "adminUsername": "thathadminuser",
+    "adminPassword": "abCq2&!Ms"
+}               
 
 ----- Get service cost based on the coordinations ------
 

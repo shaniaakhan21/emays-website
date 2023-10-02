@@ -37,6 +37,9 @@ const DeliveryOrder = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        if (newOrderPhaseOneData.isLoading) {
+            console.log('Found');
+        }
         const getFinalCost = (serviceCharge = 0.00) => {
             const itemsTotal = orderInfo?.items?.reduce((acc, next) => {
                 return +acc + +next?.price; }, 0.00);
@@ -101,7 +104,7 @@ const DeliveryOrder = () => {
                 {orderInfo?.items?.map((item, index) => <ShoppingItem
                     index={index}
                     itemName={item?.name}
-                    image={item?.FallBack}
+                    image={item?.image}
                     color={item?.color}
                     size={item?.size}
                     onDelete={() => {

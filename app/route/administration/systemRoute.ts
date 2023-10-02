@@ -16,8 +16,7 @@ import { successResponseBuilder } from '../../util/responseBuilder';
 import { AppRequest } from '../../type/appRequestType';
 import { IJWTClaims } from '../../type/IJWTClaims';
 import { Roles } from '../../const/roles';
-import { getSuperUserById } from '../../service/administration/superUserService';
-import { ISystemInfoResponse } from '../../type/customResponseType';
+import { getAdminExternalSystemByAdminAssociatedId } from '../../service/administration/adminExternalSystemService';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -77,22 +76,19 @@ router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUser
     (async () => { 
         const claims = (req as AppRequest).claims as unknown as IJWTClaims;
         Logging.log(buildInfoMessageRouteHit(req.path, claims.id), LogType.INFO);
-
-        const externalSystemInfo: ISystemInfoResponse = {
-            email: '',
-            name: '',
-            roles: claims.roles
+        let externalSystemInfo: IExternalSystemDTO = {
+            extSysEmail: '',
+            extSysName: '',
+            id: ''
         };
         if (claims.roles.includes(Roles.EXTERNAL_SYSTEM)) {
-            const data: IExternalSystemDTO = await getExternalSystemById(claims.id);
-            externalSystemInfo.name = data.extSysName;
-            externalSystemInfo.email = data.extSysEmail;
+            externalSystemInfo = await getExternalSystemById(claims.id);
         } else if (claims.roles.includes(Roles.CLIENT)) {
-            
+            // NO LOGIC YET
         } else if (claims.roles.includes(Roles.SUPER)) {
-            const data = await getSuperUserById(claims.id);
-            externalSystemInfo.name = data.firstName;
-            externalSystemInfo.email = data.email;
+            // NO LOGIC YET
+        } else if (claims.roles.includes(Roles.ADMIN)) {
+            externalSystemInfo = await getAdminExternalSystemByAdminAssociatedId(claims.id);
         }
 
         Logging.log(buildInfoMessageUserProcessCompleted(

@@ -15,7 +15,7 @@ import { JWT_TYPE } from '../../type/IJWTClaims';
 import ServiceError from '../../type/error/ServiceError';
 import ErrorType from '../../const/errorType';
 import { HTTPUserError } from '../../const/httpCode';
-import { IExternalSystem } from '../../type/IExternalSystem';
+import { IExternalSystem, IExternalSystemDTO } from '../../type/IExternalSystem';
 import { INVALID_CREDENTIALS_ERROR_MESSAGE, SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
 
 const Logging = Logger(__filename);
@@ -88,7 +88,7 @@ export const getExternalSystemById: GetExternalSystemByIdFunc = async (id) => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get external system by id', `ext id: ${id}`), LogType.INFO);
-        const data = await ExternalSystemModel.findById(id) as IExternalSystem;
+        const data = await ExternalSystemModel.findById(id) as IExternalSystemDTO;
         if (data) {
             return data;
         } 

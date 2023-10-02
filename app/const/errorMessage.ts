@@ -73,6 +73,18 @@ export const SUPER_USER_LAST_NAME_REQUIRED = 'Please provide a valid super user 
 
 export const SUPER_USER_EMAIL_REQUIRED = 'Please provide a valid super user email';
 
+export const ADMIN_EXT_FIRST_NAME_REQUIRED = 'Please provide a valid admin first name';
+
+export const ADMIN_EXT_LAST_NAME_REQUIRED = 'Please provide a valid admin last name';
+
+export const ADMIN_EXT_USERNAME_REQUIRED = 'Please provide a valid admin username';
+
+export const ADMIN_EXT_PASSWORD_REQUIRED = 'Please provide a valid admin password';
+
+export const ADMIN_EXT_EMAIL_REQUIRED = 'Please provide a valid email';
+
+export const ADMIN_EXT_ID_REQUIRED = 'Please provide a valid external system id';
+
 export const EXTERNAL_SYSTEM_NAME_REQUIRED = 'Please provide a valid external system name';
 
 export const EXTERNAL_SYSTEM_USERNAME_REQUIRED = 'Please provide a valid external system username';
