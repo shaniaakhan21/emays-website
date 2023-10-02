@@ -28,7 +28,7 @@ const Overview = ({ overviewData, updateData }) => {
     
     useEffect(() => {
         updateData(overviewSelector);
-        const tableData = overviewSelector?.overviewState?.data?.pages?.map((data) => {
+        const tableData = overviewSelector?.data?.pages?.map((data) => {
         // eslint-disable-next-line no-multi-spaces, max-len
             const amount =  data?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
             return {
@@ -59,7 +59,7 @@ const Overview = ({ overviewData, updateData }) => {
                     <div className='toBeDelivered'>
                         <h2 className='title'>{t('toBeDelivered-title')}</h2>
                         <div className='items'>
-                            {overviewSelector?.overviewState?.data?.pages?.map((item, index) => <ShoppingItem
+                            {overviewSelector?.data?.pages?.map((item, index) => <ShoppingItem
                                 index={1}
                                 itemName={'productName'}
                                 image={FallBack}

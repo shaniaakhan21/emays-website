@@ -40,6 +40,37 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wO
     "orderItems": [{"productName": "Denim shirt", "productColor": "blue", "productSize": "Large", "productQuantity": 2, "productCost": "10", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}, {"productName": "Denim Trouser", "productColor": "blue", "productSize": "Large", "productQuantity": 5, "productCost": "20", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}]
 }
 
+
+POST https://emaysstyle.com/api/orders
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wOS0yN1QyMTozMTo1OS42NTZaIiwiZXhwIjoxNjk1ODUzOTE5LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIzZmE4NGFmMy01NTJmLTQ2ZjAtODBlMS00NTMzNjMyZDlhNmIiLCJpYXQiOjE2OTU4NTAzMTl9.O9H0kUALOXuDrxrroqBeFi9pM85mOuCdSeid9jE8-DY
+
+{
+    "email": "thathsararaviraj@gmail.com",
+    "retailerEmail": "thathsararaviraj@gmail.com",
+    "firstName": "Thathsara",
+    "lastName": "Raviraj",
+    "phoneNumber": "07122658978",
+    "uid": "12345673410113",
+    "branchId": "12345673410113",
+    "date": "2023-03-16",
+    "startTime": "19:00",
+    "endTime": "21:00",
+    "experience": "Assist me, Tailoring, Inspire me",
+    "timeZone": "Asia/Dubai",
+    "deliveryInfo": "Please deliver on time",
+    "address": {
+        "addOne": "No 1",
+        "addTwo": "Subway",
+        "addThree": "Khalifa",
+        "addFour": "Dubai",
+        "addFive": "Test",
+        "addSix": "Test"
+    },
+    "serviceFee": "123",
+    "orderItems": [{"productName": "Denim shirt", "productColor": "blue", "productSize": "Large", "productQuantity": 2, "productCost": "10", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}, {"productName": "Denim Trouser", "productColor": "blue", "productSize": "Large", "productQuantity": 5, "productCost": "20", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}]
+}
+
 ----- Get order by user id----
 
 GET http://localhost:8080/api-dev/orders/0685641d-48c6-4636-b57c-b4760fbaeb63
@@ -78,6 +109,16 @@ content-type: application/json
     "extSysEmail": "storeX@gmail.com"
 }
 
+POST https://emaysstyle.com/api/externalSystems
+content-type: application/json
+
+{
+    "extSysName": "Store-X",
+    "extSysUsername": "storex",
+    "extSysPassword": "abCq2&!Ms",
+    "extSysEmail": "storeX@gmail.com"
+}
+
 ----- Get auth token for external system ------
 
 POST http://localhost:8080/api-dev/externalSystems/systemToken
@@ -88,6 +129,14 @@ content-type: application/json
     "extSysPassword": "abCq2&!Ms"
 }
 
+POST  https://emaysstyle.com/api/externalSystems/systemToken
+content-type: application/json
+
+{
+    "extSysUsername": "storex",
+    "extSysPassword": "abCq2&!Ms"
+}
+                                    
 
 ----- Get service cost based on the coordinations ------
 
@@ -110,9 +159,28 @@ content-type: application/json
     "email": "abCq2&!Ms@gmail.com"
 }
 
+POST https://emaysstyle.com/api/superUsers 
+content-type: application/json
+
+{
+    "firstName": "emmanuel",
+    "lastName": "emmanuel",
+    "username": "thathsara",
+    "password": "abCq2&!Ms",
+    "email": "thath@gmail.com"
+}
+
 ------ Get super user token ----------
 
 POST http://localhost:8080/api-dev/superUsers/superUserToken
+content-type: application/json
+
+{
+    "username": "emmanuel",
+    "password": "abCq2&!Ms"
+}
+
+POST  https://emaysstyle.com/api/superUsers/superUserToken
 content-type: application/json
 
 {
