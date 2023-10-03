@@ -15,7 +15,8 @@ export interface IExternalSystem {
 
 export interface IExternalSystemDTO {
     extSysName: string,
-    extSysEmail: string
+    extSysEmail: string,
+    id: string
 }
 
 export interface IExternalSystemLogin {

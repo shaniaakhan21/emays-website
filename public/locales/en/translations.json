@@ -554,7 +554,8 @@
         "name": "Full Name",
         "email": "Email",
         "tel": "Tel.",
-        "total": "Total"
+        "total": "Total",
+        "comment": "User Comment"
       },
       "items": {
         "title": "Items To be delivered",

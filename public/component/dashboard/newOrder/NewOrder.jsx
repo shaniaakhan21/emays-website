@@ -308,8 +308,11 @@ const NewOrder = ({ newOrderData }) => {
                         <div className='box-it'>
                             <p>{t('sub-head-03')}</p>
                             <br></br>
-                            <TextAreaCustom />
-                            <p className='sub-title margin-2'>{t('p-text')}</p>
+                            <TextAreaCustom onChange={
+                                (e) => setFormData({ type: 'setDelInfo',
+                                    data: e.target.value })
+                            }/>
+                            {/* <p className='sub-title margin-2'>{t('p-text')}</p> */}
                             <Button onClick={() =>
                             { submitForm(); }}>{t('button-text')}</Button>
                         </div>
