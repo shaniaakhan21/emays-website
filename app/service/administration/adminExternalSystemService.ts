@@ -64,7 +64,7 @@ export const getAdminExternalSystemToken: RequestAdminExternalSystemTokenFunc = 
                     roles: Roles.ADMIN as string,
                     id: adminSystemByUsername._id as unknown as string
                 };
-                const successResponse = { token: generateJWT(claims, JWT_TYPE.SHORT_LIVE)
+                const successResponse = { token: generateJWT(claims, JWT_TYPE.SHORT_LIVE), roles: Roles.ADMIN
                 };
                 Logging.log(buildInfoMessageUserProcessCompleted('Get admin external system token', `System Token:
                     ${JSON.stringify(successResponse.token)}` ), LogType.INFO);

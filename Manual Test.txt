@@ -212,6 +212,23 @@ content-type: application/json
 }
 
 
+------ Use common login to get token ----------
+
+POST http://localhost:8080/api-dev/login
+content-type: application/json
+
+{
+    "username": "thathadminuser",
+    "password": "abCq2&!Ms"
+}
+
+---- Get system info -------
+
+POST http://localhost:8080/api-dev/externalSystems/systemInfo
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wM1QwNDo1Nzo0My43OTBaIiwiZXhwIjoxNjk2MzEyNjYzLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MDQwNWU2MzYxNWFlMGUwOGE0YTc4MiIsImlhdCI6MTY5NjMwOTA2M30.99YG8omeulyzE17g0Ripk1YjxMqE0P6CAjybkJkc34E
+
+
 ----- Get user order pagination ------------
 
 GET http://localhost:8080/api-dev/orders?page=1&pageLimit=4

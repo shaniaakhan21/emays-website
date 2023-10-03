@@ -18,6 +18,7 @@ export enum RoutePath {
     EXTERNAL_SYSTEM_INFO = '/systemInfo',
     SUPER_USERS = '/superUsers',
     ADMIN_EXTERNAL_SYSTEM_USERS = '/adminExternalSystem',
+    LOGIN = '/login',
     SUPER_USER_TOKEN = '/superUserToken',
     ADMIN_EXTERNAL_SYSTEM_USER_TOKEN = '/adminExternalSystemToken',
     SUMUP = '/sumUp',

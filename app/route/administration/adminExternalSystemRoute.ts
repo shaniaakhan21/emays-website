@@ -13,6 +13,7 @@ import { createAdminExternalSystem,
 import { validateAdminExternalSystemTokenRequestBody, validateAdminExternalSystemUserRequestBody, validateHeader
 } from '../../middleware/paramValidationMiddleware';
 import { successResponseBuilder } from '../../util/responseBuilder';
+import { checkUsernameInCommon } from '../../service/administration/commonLoginService';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -25,8 +26,11 @@ router.post(RoutePath.ADMIN_EXTERNAL_SYSTEM_USERS, validateHeader, validateAdmin
     (async () => {
         Logging.log(buildInfoMessageRouteHit(req.path, 'Admin external system user registration'), LogType.INFO);
         const adminExternalSystemUser = req.body as IAdminExternalSystem;
-        await createAdminExternalSystem(adminExternalSystemUser);
-        res.sendStatus(HTTPSuccess.CREATED_CODE);
+        const usernameValidity = await checkUsernameInCommon(adminExternalSystemUser.adminUsername);
+        if (usernameValidity) {
+            await createAdminExternalSystem(adminExternalSystemUser);
+            res.sendStatus(HTTPSuccess.CREATED_CODE);
+        }
     })().catch(error => {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, RoutePath.ADMIN_EXTERNAL_SYSTEM_USERS), LogType.ERROR);

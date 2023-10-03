@@ -1,5 +1,7 @@
 'use strict';
 
+export const USERNAME_RESERVED = 'Username already reserved';
+
 export const ORDER_NOT_FOUND_ERROR_MESSAGE = 'Couldn\'t find order';
 
 export const ORDER_NOT_ACTIVE = 'You have canceled the order';

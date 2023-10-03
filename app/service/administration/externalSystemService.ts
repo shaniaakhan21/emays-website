@@ -62,7 +62,8 @@ export const getExternalSystemToken: RequestExternalSystemTokenFunc = async (use
                     roles: Roles.EXTERNAL_SYSTEM as string,
                     id: systemByUsername._id as unknown as string
                 };
-                const successResponse = { token: generateJWT(claims, JWT_TYPE.EXTERNAL_SYSTEM)
+                const successResponse = { token: generateJWT(claims, JWT_TYPE.EXTERNAL_SYSTEM),
+                    roles: Roles.EXTERNAL_SYSTEM 
                 };
                 Logging.log(buildInfoMessageUserProcessCompleted('Get external system token', `System Token:
                     ${JSON.stringify(successResponse.token)}` ), LogType.INFO);

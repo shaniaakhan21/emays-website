@@ -343,6 +343,21 @@ export const validateSuperUserTokenRequestBody = (req: Request, res: Response, n
     validateRequest(req, next, validationCriteria);
 };
 
+// Validate request user token 
+export const validateUserTokenRequestBody = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        body: {
+            username: Joi.string().required().max(20).error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_USERNAME_REQUIRED); }),
+            password: Joi.string().required().max(50).error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_PASSWORD_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // Validate admin external system request token 
 export const validateAdminExternalSystemTokenRequestBody = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({

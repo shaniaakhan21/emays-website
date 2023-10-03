@@ -8,7 +8,7 @@ export type CreateOrderFunc = (order: IOrder) => Promise<IOrderDTO>;
 
 export type CreateExternalSystemFunc = (externalSystem: IExternalSystem) => Promise<IExternalSystemDTO>;
 
-export type RequestExternalSystemTokenFunc = (extSysUsername: string, extSysPassword: string) => Promise<{token: string}>;
+export type RequestExternalSystemTokenFunc = (extSysUsername: string, extSysPassword: string) => Promise<{token: string, roles: string}>;
 
 export type GetExternalSystemByIdFunc = (id: string) => Promise<IExternalSystemDTO>;
 
