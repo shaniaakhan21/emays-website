@@ -19,6 +19,7 @@ import { HTTPUserError } from '../../const/httpCode';
 import { IAdminExternalSystem } from '../../type/IAdminExternalSystem';
 import { INVALID_CREDENTIALS_ERROR_MESSAGE, SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
 import { getExternalSystemById } from './externalSystemService';
+import { IExternalSystemDTO } from '../../type/IExternalSystem';
 
 const Logging = Logger(__filename);
 
@@ -116,8 +117,13 @@ export const getAdminExternalSystemByAdminAssociatedId: GetExternalSystemByAdmin
         const data = await AdminExternalSystemModel.findById(id) as IAdminExternalSystem;
         const externalSystemId = data.externalSystemId;
         const externalSystemInfo = await getExternalSystemById(externalSystemId);
-        if (externalSystemInfo) {
-            return externalSystemInfo;
+        const preparedData: IExternalSystemDTO = {
+            extSysEmail: externalSystemInfo.extSysEmail,
+            extSysName: externalSystemInfo.extSysName,
+            id: externalSystemInfo.id
+        };
+        if (preparedData) {
+            return preparedData;
         } 
         throw new ServiceError(
             ErrorType.SYSTEM_RETRIEVAL_ERROR, SYSTEM_NOT_FOUND_ERROR_MESSAGE, '', HTTPUserError.NOT_FOUND_CODE);

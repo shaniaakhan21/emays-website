@@ -4,7 +4,7 @@ import { model } from 'mongoose';
 import LogType from '../../const/logType';
 import { Logger } from '../../log/logger';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
-import { IAdminExternalSystem, IAdminExternalSystemDTO } from '../../type/IAdminExternalSystem';
+import { IAdminExternalSystem } from '../../type/IAdminExternalSystem';
 import AdminExternalSystemSchema from '../schema/AdminExternalSystemSchema';
 import { CreateAdminExternalSystemFunc } from '../../type/adminExternalSystemServiceType';
 
@@ -22,9 +22,11 @@ export const saveAdminExternalSystemUser: CreateAdminExternalSystemFunc = async 
     try {
         const adminExternalSystemUserModel = new AdminExternalSystemModel(adminUser);
         const result = await adminExternalSystemUserModel.save();
-        const data: IAdminExternalSystemDTO = {
+        const data: IAdminExternalSystem = {
             adminFirstName: result.adminFirstName,
             adminLastName: result.adminLastName,
+            adminUsername: result.adminUsername,
+            adminPassword: result.adminPassword,
             adminEmail: result.adminEmail,
             externalSystemId: result.externalSystemId
         };
