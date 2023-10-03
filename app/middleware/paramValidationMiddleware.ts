@@ -157,10 +157,11 @@ export const allowedForExternalSystemRoleOnly = (req: Request, res: Response, ne
 };
 
 // Validate only client role, super user allowed route
-export const allowedForClientRoleAndSuperAdminOnly = (req: Request, res: Response, next: NextFunction) => {
+export const allowedForClientRoleAndSuperAdminAndAdminOnly = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
         claims: {
-            roles: Joi.array().required().items(Joi.string().valid(Roles.CLIENT, Roles.SUPER)).error((error) => {
+            roles: Joi.array().required().items(Joi.string().
+                valid(Roles.CLIENT, Roles.SUPER, Roles.ADMIN)).error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
             })
@@ -170,11 +171,11 @@ export const allowedForClientRoleAndSuperAdminOnly = (req: Request, res: Respons
 };
 
 // Validate only external system, super user roles allowed route
-export const allowedForExternalSystemSuperUserRolesOnly = (req: Request, res: Response, next: NextFunction) => {
+export const allowedForExternalSystemSuperUserAndAdminRolesOnly = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
         claims: {
             roles: Joi.array().required().items(Joi.string()
-                .valid(Roles.EXTERNAL_SYSTEM, Roles.SUPER)).error((error) => {
+                .valid(Roles.EXTERNAL_SYSTEM, Roles.SUPER, Roles.ADMIN)).error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
             })

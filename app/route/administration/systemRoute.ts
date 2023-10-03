@@ -1,7 +1,7 @@
 'use strict';
 
 import { Router, Request, Response, NextFunction } from 'express';
-import { allowedForExternalSystemSuperUserRolesOnly, validateCreateExtSysRequestBody,
+import { allowedForExternalSystemSuperUserAndAdminRolesOnly, validateCreateExtSysRequestBody,
     validateExternalSystemTokenRequestBody, validateHeader,
     validateUserTokenRequestBody } from '../../middleware/paramValidationMiddleware';
 import { Logger } from '../../log/logger';
@@ -85,7 +85,7 @@ router.post(requestExtSysTokenPath, validateHeader, validateExternalSystemTokenR
  * @returns {void}
  */
 const getSystemInfoPath = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEM_INFO}`;
-router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUserRolesOnly, (
+router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, (
     req: Request, res: Response, next: NextFunction): void => {
     (async () => { 
         const claims = (req as AppRequest).claims as unknown as IJWTClaims;
