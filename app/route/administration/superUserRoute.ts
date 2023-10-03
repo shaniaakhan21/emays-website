@@ -12,6 +12,7 @@ import { createSuperUser, getSuperUserToken } from '../../service/administration
 import { validateCreateSuperUserRequestBody, validateHeader
     , validateSuperUserTokenRequestBody } from '../../middleware/paramValidationMiddleware';
 import { successResponseBuilder } from '../../util/responseBuilder';
+import { checkUsernameInCommon } from '../../service/administration/commonLoginService';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -24,8 +25,11 @@ router.post(RoutePath.SUPER_USERS, validateHeader, validateCreateSuperUserReques
     (async () => {
         Logging.log(buildInfoMessageRouteHit(req.path, 'super user registration'), LogType.INFO);
         const superUser = req.body as ISuperUser;
-        await createSuperUser(superUser);
-        res.sendStatus(HTTPSuccess.CREATED_CODE);
+        const usernameValidity = await checkUsernameInCommon(superUser.username);
+        if (usernameValidity) {
+            await createSuperUser(superUser);
+            res.sendStatus(HTTPSuccess.CREATED_CODE);
+        }
     })().catch(error => {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, RoutePath.SUPER_USERS), LogType.ERROR);

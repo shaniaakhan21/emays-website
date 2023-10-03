@@ -5,5 +5,6 @@ export enum Roles {
     SUPER = 'super',
     RETAILER = 'retailer',
     ASSISTANT = 'assistant',
+    ADMIN = 'admin',
     EXTERNAL_SYSTEM = 'external_system',
 }
