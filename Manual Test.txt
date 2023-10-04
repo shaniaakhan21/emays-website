@@ -12,7 +12,7 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNS0xN1QxMjo1Njo1Ni4yMjRaIiwiZXhwIjoxNjg0MzMxODE2LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhYjJkM2Q2Mi01NDE3LTQ2ZTctOTE0OS01NTY0N2NlM2FkZTMiLCJpYXQiOjE2ODQzMjgyMTZ9.Ojflli-iolVCVpzYWPcIOQq2Q5JU45iMGmE0_Ur4fyk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNFQwNzozMDo1Mi4wMzRaIiwiZXhwIjoxNjk2NDA4MjUyLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJkOGVmZjY0Ny1kYmI5LTRiNzYtOWVjMC04YWUyMzE0MGNjYzkiLCJpYXQiOjE2OTY0MDQ2NTJ9.WqyrePXAtT7c58bUFIyQZQnu-s-xMMG1eWN69ZVaFNs
 
 {
     "email": "thathsararaviraj@gmail.com",
@@ -20,8 +20,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wN
     "firstName": "Thathsara",
     "lastName": "Raviraj",
     "phoneNumber": "07122658978",
-    "uid": "12345673410113",
-    "branchId": "12345673410113",
+    "uid": "12345673410500",
+    "branchId": "6504061d3615ae0e08a4a789",
     "date": "2023-03-16",
     "startTime": "19:00",
     "endTime": "21:00",
@@ -119,6 +119,17 @@ content-type: application/json
     "extSysEmail": "storeX@gmail.com"
 }
 
+
+POST https://emaysstyle.com/api/externalSystems
+content-type: application/json
+
+{
+    "extSysName": "Store-X",
+    "extSysUsername": "storeThath",
+    "extSysPassword": "abCq2&!Ms",
+    "extSysEmail": "storeX@gmail.com"
+}
+
 ----- Get auth token for external system ------
 
 POST http://localhost:8080/api-dev/externalSystems/systemToken
@@ -133,7 +144,7 @@ POST  https://emaysstyle.com/api/externalSystems/systemToken
 content-type: application/json
 
 {
-    "extSysUsername": "storex",
+    "extSysUsername": "storeThath",
     "extSysPassword": "abCq2&!Ms"
 }
 
@@ -145,9 +156,21 @@ content-type: application/json
 {
     "adminFirstName": "Thathsara",
     "adminLastName": "Raviraj",
-    "adminUsername": "thathadminuser",
+    "adminUsername": "thathsaraAdmin4",
     "adminPassword": "abCq2&!Ms",
-    "adminEmail": "adminX@gmail.com",
+    "adminEmail": "admin4@gmail.com",
+    "externalSystemId": "6504061d3615ae0e08a4a789"
+}
+
+POST https://emaysstyle.com/api/adminExternalSystem
+content-type: application/json
+
+{
+    "adminFirstName": "Thathsara",
+    "adminLastName": "Raviraj",
+    "adminUsername": "thathadminuser3",
+    "adminPassword": "abCq2&!Ms",
+    "adminEmail": "adminX1@gmail.com",
     "externalSystemId": "6504061d3615ae0e08a4a789"
 }
 
@@ -157,7 +180,7 @@ POST http://localhost:8080/api-dev/adminExternalSystem/adminExternalSystemToken
 content-type: application/json
 
 {
-    "adminUsername": "thathadminuser",
+    "adminUsername": "thathadminuser4",
     "adminPassword": "abCq2&!Ms"
 }               
 
@@ -218,7 +241,7 @@ POST http://localhost:8080/api-dev/login
 content-type: application/json
 
 {
-    "username": "thathadminuser",
+    "username": "thathsaraAdmin4",
     "password": "abCq2&!Ms"
 }
 
@@ -226,14 +249,19 @@ content-type: application/json
 
 POST http://localhost:8080/api-dev/externalSystems/systemInfo
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wM1QwNDo1Nzo0My43OTBaIiwiZXhwIjoxNjk2MzEyNjYzLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MDQwNWU2MzYxNWFlMGUwOGE0YTc4MiIsImlhdCI6MTY5NjMwOTA2M30.99YG8omeulyzE17g0Ripk1YjxMqE0P6CAjybkJkc34E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wM1QxNTo0Mzo1Ni44NDRaIiwiZXhwIjoxNjk2MzUxNDM2LCJyb2xlcyI6WyJhZG1pbiJdLCJpZCI6IjY1MWMzNjQxMjZjNGI4OThiN2I0MjJkZiIsImlhdCI6MTY5NjM0NzgzNn0.Lg35KR80ESq41f0atpg0ChT4VflXlPiH_uPt-cYZJvo
 
 
 ----- Get user order pagination ------------
 
+GET http://localhost:8080/api-dev/orders?page=1&pageLimit=4&storeId=6504061d3615ae0e08a4a789
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNFQwNzoyMjozOC41MDhaIiwiZXhwIjoxNjk2NDA3NzU4LCJyb2xlcyI6WyJhZG1pbiJdLCJpZCI6IjY1MWMzNjQxMjZjNGI4OThiN2I0MjJkZiIsImlhdCI6MTY5NjQwNDE1OH0.d2SugJ5wclMI3htSMTGa4qR0-J5FUDFdyxWgKnByOOo
+
+
 GET http://localhost:8080/api-dev/orders?page=1&pageLimit=4
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yMVQxMzowNToxNS4xNDhaIiwiZXhwIjoxNjgyMDg1OTE1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJiNTA2NjQ2Ni0wNmIzLTQ2NzgtYjkwYS1iOGI5YTBmOWYwZjIiLCJpYXQiOjE2ODIwODIzMTV9.CAwD_RfYFEv89_r1crQQY_d32c7P_Jr6VJalo_mRMhc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNFQwNzoyMjozOC41MDhaIiwiZXhwIjoxNjk2NDA3NzU4LCJyb2xlcyI6WyJhZG1pbiJdLCJpZCI6IjY1MWMzNjQxMjZjNGI4OThiN2I0MjJkZiIsImlhdCI6MTY5NjQwNDE1OH0.d2SugJ5wclMI3htSMTGa4qR0-J5FUDFdyxWgKnByOOo
 
 ------ Create FAQ ------
 

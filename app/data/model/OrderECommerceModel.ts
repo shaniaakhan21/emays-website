@@ -108,8 +108,11 @@ export const findOneAndUpdateIfExist: PatchOrderDetailsByUserIdFunc = async (use
  * Get order document size
  * @returns {integer} Returns integer size
  */
-export const getOrderDocumentSize: GetOrderDocumentSize = () => {
+export const getOrderDocumentSize: GetOrderDocumentSize = (storeBranchId) => {
     try {
+        if (storeBranchId) {
+            return OrderECommerceModel.countDocuments({ branchId: storeBranchId }).exec();
+        }
         return OrderECommerceModel.countDocuments().exec();
     } catch (error) {
         const err = error as Error;
@@ -125,10 +128,16 @@ export const getOrderDocumentSize: GetOrderDocumentSize = () => {
  * @returns {Array<IOrderDTO>} Returns order details array
  */
 export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocumentsArrayByStartAndEndIndex = async (
-    startIndex, limit
+    startIndex, limit, branchId
 ) => {
     try {
-        const orderArray = await OrderECommerceModel.find().skip(startIndex).limit(limit).exec();
+        let orderArray;
+        if (!branchId) {
+            orderArray = await OrderECommerceModel.find().skip(startIndex).limit(limit).exec();
+        } else {
+            orderArray = await OrderECommerceModel.find({ branchId: branchId }).skip(startIndex).limit(limit).exec();
+        }
+        
         const preparedOrderArray: Array<IOrderDTO> = orderArray.map(data => prepareUserDetailsToSend(data)); 
         return preparedOrderArray;
     } catch (error) {
