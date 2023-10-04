@@ -40,15 +40,18 @@ const DashboardLayout = () => {
     // Overview props
     const getOverviewDataWrapper = useCallback((pageNo, limit) => { 
         const data = { pageNumber: pageNo, pageLimit: limit };
-        dispatch(getOverviewData(data));
+        return dispatch(getOverviewData(data));
     }, [dispatch]);
 
     // New Order props
     const getNewOrderDataWrapper = useCallback(() => { 
-        dispatch(getAppInfoExe());
+        return dispatch(getAppInfoExe());
     }, [dispatch]);
 
     return (
+        /**
+         * IMPORTANT: Wrap all the components which directly loads inside the menu.
+         */
         <Router>
             <div className='dashboard-template'>
                 <HeaderContainer
@@ -120,7 +123,17 @@ const DashboardLayout = () => {
                         <Route exact path='/dashboard/customers'
                             component={() => <Customer />}></Route>
                         <Route exact path='/dashboard/history'
-                            component={() => <History />}></Route>
+                            component={() => <PaginationContainer
+                                wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                // The method used for fetch pagination data
+                                getPaginationData={getOverviewDataWrapper}
+                                // The property name of the overview component
+                                resourceName={'historyData'}
+                                // Enable pagination
+                                isPaginationEnabled={true}
+                            >
+                                <History />
+                            </PaginationContainer>}></Route>
                         <Route exact path='/dashboard/newOrders'
                             component={() => <PaginationContainer
                                 wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -128,14 +141,22 @@ const DashboardLayout = () => {
                                 getInitialData={getNewOrderDataWrapper}
                                 // The property name of the overview component
                                 resourceName={'newOrderData'}
-                                // Enable pagination
-                                isPaginationEnabled={false}
                             >
                                 <NewOrder />
                             </PaginationContainer>
                             }></Route>
                         <Route path='/dashboard/adminTools'
-                            component={() => <AdminToolsRouter />}></Route>
+                            component={() => <PaginationContainer
+                                wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                // The method used for fetch pagination data
+                                getPaginationData={getOverviewDataWrapper}
+                                // The property name of the overview component
+                                resourceName={'adminData'}
+                                // Enable pagination
+                                isPaginationEnabled={true}
+                            >
+                                <AdminToolsRouter />
+                            </PaginationContainer>}></Route>
                         <Route path='/dashboard'
                             component={() => <PaginationContainer
                                 wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}

@@ -141,13 +141,14 @@ router.patch(RoutePath.ORDERS + PathParam.USER_ID, validationsPatch, (
  * @returns {void}
  */
 router.get(RoutePath.ORDERS, validateHeader, validateOrderDetailsPagination, (
-    req: express.Request<core.ParamsDictionary, any, any, { page: string, pageLimit: string }>
+    req: express.Request<core.ParamsDictionary, any, any, { page: string, pageLimit: string, storeId: string }>
     , res: Response, next: NextFunction): void => {
     const roles = (req as AppRequest).claims?.roles.join(',');
     (async () => {
         const page = parseInt(req.query.page);
         const pageLimit = parseInt(req.query.pageLimit);
-        const data = await getOrderDetailsWithPagination(page, pageLimit, roles as string);
+        const storeId = req.query.storeId;
+        const data = await getOrderDetailsWithPagination(page, pageLimit, roles as string, storeId);
         res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(data));
     })().catch(error => {
         const err = error as Error;
