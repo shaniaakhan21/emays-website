@@ -46,7 +46,8 @@ const Checkout = () => {
 
     const [state, setState] = useSessionState(CHECKOUT_INFO, {
         address: {}, options: {},
-        serviceFee: null
+        serviceFee: null,
+        isNotInServiceArea: false
     });
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
@@ -66,6 +67,11 @@ const Checkout = () => {
 
     // State service fee update from GeoContainer
     const updateServiceFee = (fee) => {
+        if (!fee) {
+            setState(cs => ({ ...cs, isNotInServiceArea: true }));
+        } else {
+            setState(cs => ({ ...cs, isNotInServiceArea: false }));
+        }
         setState(cs => ({ ...cs, serviceFee: fee }));
     };
 
@@ -248,6 +254,8 @@ const Checkout = () => {
                         </div>
                         <div>
                             <GeoContainer updateAddress={updateAddress} updateServiceFee={updateServiceFee} />
+                            { state?.isNotInServiceArea && 
+                            <p className='no-service-info'>{t('checkout.not-in-service-area')}</p> }
                         </div>
                         <div className='address-info'>
                             <div>

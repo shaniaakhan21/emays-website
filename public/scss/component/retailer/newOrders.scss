@@ -2,6 +2,11 @@
 $carbon-sm-max: 42.5em; 
 .newOrders {
 
+    p.no-service-info {
+        color: red;
+        font-size: 12px;
+    }
+    
     .title {
         margin-top: 4rem;
         font-family: 'IBM Plex Sans';
