@@ -22,8 +22,8 @@ const Button = styled.button`
 const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getPaginationData,
     getInitialData, isPaginationEnabled, children }) => {
 
-    const { isSystemLoaded } = useSelector((state) => ({
-        isSystemLoaded: state?.appInfoState?.systemInfoState?.isLoading
+    const { isSystemLoading } = useSelector((state) => ({
+        isSystemLoading: state?.appInfoState?.systemInfoState?.isLoading
     }));
 
     const [state, setState] = useReducer((state, action) => {
@@ -43,14 +43,16 @@ const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getPagina
     );
 
     useEffect(() => {
-        if (getPaginationData) {
-            getPaginationData(state.currentIndex + 1, 5);
-        }
-        if (getInitialData) {
-            getInitialData();
+        if (!isSystemLoading) {
+            if (getPaginationData) {
+                getPaginationData(state.currentIndex + 1, 5);
+            }
+            if (getInitialData) {
+                getInitialData();
+            }
         }
         
-    }, [state.currentIndex, isSystemLoaded]);
+    }, [state.currentIndex, isSystemLoading]);
 
     const changeIndex = (value) => {
         setState({ type: 'update-current-index', data: value });
@@ -63,7 +65,7 @@ const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getPagina
     return (
         <>
             {
-                !isSystemLoaded && React.Children.map(children, child => {
+                !isSystemLoading && React.Children.map(children, child => {
                     if (React.isValidElement(child)) {
                         return React.cloneElement(child, { [resourceName]: state, updateData: updateInitialData });
                     }
@@ -72,7 +74,7 @@ const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getPagina
             }
 
             {
-                !isSystemLoaded && isPaginationEnabled && <PaginationLayout styles={wrapperStyle}>
+                !isSystemLoading && isPaginationEnabled && <PaginationLayout styles={wrapperStyle}>
                     {
                         Array.from({ length: state.initialData?.data?.allPagesAvailable || 0 }, (element, index) => {
                             return <Button 

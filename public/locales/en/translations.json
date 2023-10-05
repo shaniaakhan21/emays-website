@@ -236,6 +236,7 @@
       "header": "DELIVERY ADDRESS",
       "address": "Address"
     },
+    "not-in-service-area": "We are not serving your area",
     "delivery-info": "USER COMMENT",
     "submit-button": "CONTINUE",
     "save-changes": "SAVE NEW CHANGES",
