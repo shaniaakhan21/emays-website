@@ -235,6 +235,7 @@
       "header": "INDIRIZZO DI CONSEGNA",
       "address": "Indirizzo"
     },
+    "not-in-service-area": "Non serviamo la tua zona",
     "delivery-info": "COMMENTO UTENTE",
     "submit-button": "CONTINUA",
     "save-changes": "SALVA NUOVE MODIFICHE",

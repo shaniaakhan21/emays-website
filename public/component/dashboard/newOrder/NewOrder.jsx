@@ -56,8 +56,6 @@ const NewOrder = ({ newOrderData }) => {
                     addFive: completeAddress[4],
                     addSix: completeAddress[5]
                 } };
-            case 'setServiceFee':
-                return { ...state, serviceFee: action?.data };
             case 'setAddressLineOne':
                 return { ...state, address: { ...state?.address, addOne: action?.data } };
             case 'setAddressLineTwo':
@@ -70,6 +68,10 @@ const NewOrder = ({ newOrderData }) => {
                 return { ...state, address: { ...state?.address, addFive: action?.data } };
             case 'setAddressLineSix':
                 return { ...state, address: { ...state?.address, addSix: action?.data } };
+            case 'setIsServiceAvailable':
+                return { ...state, isServiceAvailable: action?.data };
+            case 'setIsServiceFee':
+                return { ...state, serviceFee: action?.data };
             default:
                 return { ...state };
         }
@@ -92,7 +94,8 @@ const NewOrder = ({ newOrderData }) => {
             addFive: '',
             addSix: ''
         },
-        serviceFee: ''
+        isServiceAvailable: true,
+        serviceFee: null
     });
 
     const dispatch = useDispatch();
@@ -105,6 +108,12 @@ const NewOrder = ({ newOrderData }) => {
 
     // State service fee update from GeoContainer
     const updateServiceFee = (fee) => {
+        if (fee) {
+            setFormData({ type: 'setIsServiceAvailable', data: true });
+            setFormData({ type: 'setIsServiceFee', data: fee });
+        } else {
+            setFormData({ type: 'setIsServiceAvailable', data: false });
+        }
     };
 
     const submitForm = () => {
@@ -240,6 +249,8 @@ const NewOrder = ({ newOrderData }) => {
                                         setFormData({ type: 'setAddressLineOne', data: addOne });
                                     }}
                                     updateServiceFee={updateServiceFee} />
+                                { !state?.isServiceAvailable && 
+                                <p className='no-service-info'>Service not available for your area</p> }
                                 <br></br>
                                 <div className='textboxes-sec'>
                                     <div className='half-width'>

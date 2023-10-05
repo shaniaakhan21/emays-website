@@ -62,7 +62,7 @@ export const config = {
     JSON_WEB_TOKEN_SECRET: JSON_WEB_TOKEN_SECRET || 'secret123',
     ERROR_TEMPLATE: ERROR_TEMPLATE || '/template/error-template.html',
     DB: {
-        MONGO_URL: MONGO_URL || 'mongodb://root:123456@localhost:27017/emays_service_db?authSource=admin' 
+        MONGO_URL: MONGO_URL || 'mongodb://root:123456@172.17.0.2:27017/emays_service_db?authSource=admin' 
     },
     AWS_SES: {
         AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
@@ -123,7 +123,24 @@ export const config = {
         }
     },
     SYSTEM_AVAILABLE_GEO_LOCATIONS: SYSTEM_AVAILABLE_GEO_LOCATIONS || [
-        { location: 'Milan', insideCost: 1500, outsideCost: 2500 }
+        // 14.99€
+        { location: 'Milan', cost: 14.99 }, 
+        // 35€
+        { location: 'Pavia', cost: 35 },
+        // 60€
+        { location: 'Cremona', cost: 60 },
+        // 25€
+        { location: 'Monza', cost: 25 },
+        // 40€
+        { location: 'Bergamo', cost: 40 },
+        // 32€
+        { location: 'Lecco', cost: 32 },
+        // 40€
+        { location: 'Como', cost: 40 },
+        // 40€
+        { location: 'Varese', cost: 40 },
+        // 75€
+        { location: 'Turin', cost: 75 }
     ],
     SERVICE_CHARGE: SERVICE_CHARGE || 1200.00,
     STRIPE_SECRET_KEY: STRIPE_SECRET_KEY || '',

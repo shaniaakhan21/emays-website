@@ -16,6 +16,7 @@ const Overview = ({ overviewData, updateData }) => {
     const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
 
     const overviewSelector = useSelector(overviewSelectorMemoized);
+    const [selectedRow, setSelectedRow] = useState(null);
 
     const [tableRow, setTableRow] = useState([{
         id: '',
@@ -37,6 +38,7 @@ const Overview = ({ overviewData, updateData }) => {
                 amount: amount,
                 date: data?.date || '',
                 time: data?.createdAt || '',
+                orderItems: data?.orderItems,
                 status: <StatusBox status={'Pending to pickup'}/>
             };
         });
@@ -54,18 +56,20 @@ const Overview = ({ overviewData, updateData }) => {
             {
                 overviewSelector.isLoading && tableRow ? <p>Loading...</p> : <div className='overview'>
                     <div className='table'>
-                        <Table rows={tableRow} headers={headers} />
+                        <Table rows={tableRow} headers={headers} onRowClick={(item) => {
+                            setSelectedRow(item?.orderItems);
+                        }} />
                     </div>
                     <div className='toBeDelivered'>
                         <h2 className='title'>{t('toBeDelivered-title')}</h2>
                         <div className='items'>
-                            {overviewSelector?.data?.pages?.map((item, index) => <ShoppingItem
-                                index={1}
-                                itemName={'productName'}
-                                image={FallBack}
-                                color={'Red'}
+                            {selectedRow?.map((item, index) => <ShoppingItem
+                                index={index}
+                                itemName={item?.productName}
+                                image={item?.productImage}
+                                color={item?.productColor}
                                 size={'40'}
-                                quantity={1} />)}
+                                quantity={item?.productQuantity} />)}
                         </div>
                     </div>
                 </div>
