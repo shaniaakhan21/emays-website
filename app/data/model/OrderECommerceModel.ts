@@ -8,7 +8,7 @@ import LogType from '../../const/logType';
 import { Logger } from '../../log/logger';
 import ServiceError from '../../type/error/ServiceError';
 import { CreateOrderFunc, GetOrderDetailDocumentsArrayByStartAndEndIndex,
-    GetOrderDocumentSize, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc
+    GetOrderDocumentSize, PatchOrderDetailsByUserIdFunc, RetrieveOrderByOrderIdFunc, RetrieveOrderByUserIdFunc
     , RetrieveOrdersByDeliveryStatusFunc } from '../../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
@@ -53,6 +53,41 @@ export const retrieveOrderByUserId: RetrieveOrderByUserIdFunc = async (userId) =
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, `Retrieve Order Details by User Id ${userId}`), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get order object by order id
+ * @param {string} orderId Order Id
+ * @returns {IOrderDTO} Returns IOrderDTO object
+ */
+export const retrieveOrderByOrderId: RetrieveOrderByOrderIdFunc = async (storeId, orderId) => {
+    try {
+        if (storeId && orderId) {
+            const orderDetails = await OrderECommerceModel.findOne({ $and: [
+                { '_id': orderId },
+                { 'branchId': storeId }
+            ] }).exec();
+            if (orderDetails) {
+                return prepareUserDetailsToSend(orderDetails);
+            }
+            throw new ServiceError(
+                ErrorType.ORDER_RETRIEVAL_ERROR, ORDER_NOT_FOUND_ERROR_MESSAGE, '', HTTPUserError.NOT_FOUND_CODE);
+        }
+        if (orderId) {
+            const orderDetails = await OrderECommerceModel.findOne({ '_id': orderId }).exec();
+            if (orderDetails) {
+                return prepareUserDetailsToSend(orderDetails);
+            }
+            throw new ServiceError(
+                ErrorType.ORDER_RETRIEVAL_ERROR, ORDER_NOT_FOUND_ERROR_MESSAGE, '', HTTPUserError.NOT_FOUND_CODE);
+        }
+        throw new ServiceError(
+            ErrorType.ORDER_RETRIEVAL_ERROR, ORDER_NOT_FOUND_ERROR_MESSAGE, '', HTTPUserError.NOT_FOUND_CODE);
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, `Retrieve Order Details by User Id ${orderId}`), LogType.ERROR);
         throw error;
     }
 };

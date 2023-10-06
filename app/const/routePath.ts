@@ -10,6 +10,9 @@ export enum RoutePath {
     LAUNCH_MAIL = '/launchMail',
     DEV_LAUNCH = '/devLaunch',
     ORDERS= '/orders',
+    ORDER_BY_USER_ID = '/byUserId',
+    ORDER_BY_ORDER_ID = '/byOrderId',
+    ORDER_BY_PAGINATION = '/pagination',
     CUSTOMER_UI = '/',
     USERS = '/users',
     RETAILER_UI = '/retailer',
@@ -32,6 +35,8 @@ export enum RoutePath {
 
 export enum PathParam {
     USER_ID = '/:userId',
+    ORDER_ID = '/:orderId',
+    STORE_ID = '/:storeId', 
     AREA_NAME = '/:area',
     AREA_LATITUDE = '/:lat',
     AREA_LONGITUDE = '/:long',

@@ -14,6 +14,8 @@ export type GetExternalSystemByIdFunc = (id: string) => Promise<IExternalSystemD
 
 export type RetrieveOrderByUserIdFunc = (userId: string) => Promise<IOrderDTO>;
 
+export type RetrieveOrderByOrderIdFunc = (storeId: string, orderId: string) => Promise<IOrderDTO>;
+
 export type RetrieveOrdersByDeliveryStatusFunc = (isDelivered: boolean) => Promise<Array<IOrderDTO> | null>;
 
 export type PatchOrderDetailsByUserIdFunc = (userId: string, patchData: IPatchOrder) => Promise<IOrderDTO>;
