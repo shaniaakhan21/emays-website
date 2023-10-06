@@ -186,7 +186,7 @@ content-type: application/json
 
 ----- Get service cost based on the coordinations ------
 
-GET http://localhost:8080/api-dev/geo/Milan/45.45638246318493/9.353985555977896
+GET	http://localhost:8080/api-dev/geo//34.1446973/-118.2597429
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0yOFQxNTo0NTozOC4wNTdaIiwiZXhwIjoxNjgwMDIxOTM4LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiI4Mzk4ODhmMC05NmU3LTRhOWItYjUwNC1kMDkyN2VlNzk1ZWEiLCJpYXQiOjE2ODAwMTgzMzh9.e0lnxxZRwyzJR2bOPucAuSqrmlYDJYyF-5IaApB1yfc
 content-type: application/json
 
@@ -262,6 +262,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
 GET http://localhost:8080/api-dev/orders?page=1&pageLimit=4
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNFQwNzoyMjozOC41MDhaIiwiZXhwIjoxNjk2NDA3NzU4LCJyb2xlcyI6WyJhZG1pbiJdLCJpZCI6IjY1MWMzNjQxMjZjNGI4OThiN2I0MjJkZiIsImlhdCI6MTY5NjQwNDE1OH0.d2SugJ5wclMI3htSMTGa4qR0-J5FUDFdyxWgKnByOOo
+
+GET http://localhost:8080/api-dev/orders/byOrderId/650803e5c53b6a587cf62d6a
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNlQwODozNDowNi41MzlaIiwiZXhwIjoxNjk2NTg0ODQ2LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MDQwNWU2MzYxNWFlMGUwOGE0YTc4MiIsImlhdCI6MTY5NjU4MTI0Nn0.B67LWPvk3xi2jxVn-Uhnszp_2wJpqV5gixyWsU13YKI
 
 ------ Create FAQ ------
 
