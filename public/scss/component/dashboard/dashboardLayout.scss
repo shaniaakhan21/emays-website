@@ -26,12 +26,16 @@ $carbon-md-max: 64em;   // 1024px
         }
     }
 
+    .cds--side-nav{
+        background-color: #F4F4F4;
+    }
+
     .dashboard-nav-section {
         margin-top: 4rem;
         margin-right: 2rem;
 
         nav {
-            background-color: #FaFaFa;
+            background-color: #F4F4F4;
             transition: 0.2s ease-in-out all;
             width: 12rem;
 
@@ -93,7 +97,7 @@ $carbon-md-max: 64em;   // 1024px
 }
 
 main.retailer-dashboard {
-    background: #F5F5F5;
+    background: #FAFAFA;
     position: fixed;
     top: 0;
     left: 0;

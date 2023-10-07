@@ -2,6 +2,10 @@
 $carbon-sm-max: 42.5em; 
 .newOrders {
 
+    input, .cds--dropdown:hover, .cds--dropdown{
+        background-color: transparent!important;
+    }
+
     .title {
         margin-top: 4rem;
         font-family: 'IBM Plex Sans';
