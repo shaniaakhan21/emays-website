@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ArrowRight } from '@carbon/icons-react';
 import { Button, Grid, ProgressIndicator, ProgressStep } from '@carbon/react';
@@ -10,17 +10,48 @@ import CreateRetailerBankInfo from './BankInfo.fragment';
 import CreateRetailerEmployeeInfo from './EmployeeInfo.fragment';
 import CreateRetailerAccountInfo from './AccountInfo.fragment';
 import CreateRetailerNotes from './Notes.fragment';
+import { setStageOneCreateStore, setStageThreeCreateStore, setStageTwoCreateStore } from '../../redux/thunk/adminThunk';
+import { useDispatch, useSelector } from 'react-redux';
+import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
+import CompletedMessageFragment from './Completed.message.fragment';
 
 const CreateRetailer = () => {
     const [translate] = useTranslation();
     const [step, setStep] = useState(0);
     const [state, setState] = useState({});
 
-    const handleNext = useCallback(() => {
+    const dispatch = useDispatch();
+    const selector = useSelector(newStoreSelectorMemoized);
+
+    const handleNext = () => {
         if (step < 5) {
-            setStep((s) => s + 1);
+            if (step === 0) {
+                dispatch(setStageOneCreateStore(state));
+            } else if (step === 1) {
+                dispatch(setStageTwoCreateStore(state));
+            } else if (step === 2) {
+                dispatch(setStageThreeCreateStore(state));
+            } else if (step === 3) {
+                dispatch(setStageOneCreateStore({}));
+                dispatch(setStageTwoCreateStore({}));
+                dispatch(setStageThreeCreateStore({}));
+            }
         }
-    }, [step, state]);
+    };
+
+    useEffect(() => {
+        if (!selector?.phaseThreeData?.isLoading) {
+            setStep(3);
+            setState({});
+        } else if (!selector?.phaseTwoData?.isLoading) {
+            setStep(2);
+            setState({});
+        }
+        else if (!selector?.phaseOneData?.isLoading) {
+            setStep(1);
+            setState({});
+        }
+    }, [selector]);
 
     const t = useCallback((key) => translate(`dashboard.adminTools.createRetailer.${key}`), [translate]);
 
@@ -35,7 +66,7 @@ const CreateRetailer = () => {
                     'Basic Info',
                     'Directory',
                     'User & Password',
-                    'Notes'
+                    'Completed'
                 ].map((item, index) => (<ProgressStep
                     key={index}
                     complete={step > index}
@@ -47,9 +78,17 @@ const CreateRetailer = () => {
                 {step === 0 ? <CreateRetailerBasicInfo setState={setState} /> : null}
                 {step === 1 ? <CreateRetailerEmployeeInfo setState={setState} /> : null}
                 {step === 2 ? <CreateRetailerAccountInfo setState={setState} /> : null}
-                {step === 3 ? <CreateRetailerNotes setState={setState} /> : null}
-                <Button kind='tertiary' className='back' onClick={() => setStep(s => s - 1)}>Back</Button>
-                <Button className='next' onClick={handleNext} renderIcon={() => <ArrowRight />}>Next</Button>
+                {/* {step === 3 ? <CreateRetailerNotes setState={setState} /> : null} */}
+                {step === 3 ? <CompletedMessageFragment setState={setState} /> : null}
+                
+                {
+                    (step !== 3) && 
+                    <Button kind='tertiary' className='back' onClick={() => setStep(s => s - 1)}>Back</Button>
+                }
+                {
+                    (step !== 3) && 
+                    <Button className='next' onClick={handleNext} renderIcon={() => <ArrowRight />}>Next</Button>
+                }
             </Grid>
         </div>
     );

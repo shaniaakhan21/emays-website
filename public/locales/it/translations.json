@@ -206,7 +206,9 @@
       "exp-year": "Anno di scadenza",
       "cvv": " cvv ",
       "button": "Paga ora"
-    }
+    },
+    "generate-password": "Generate Password",
+    "generate-password-label": "Password"
   },
   "checkout": {
     "book-appointment": {
@@ -594,6 +596,13 @@
           "paymentCurrency": "Payment Currency",
           "paymentCurrency-label": "Choose an option"
         },
+        "account": {
+          "sub-title": "Create User",
+          "username": "Username",
+          "email": "Email associated",
+          "password": "Password",
+          "re-password": "Retype password"
+        },
         "employee": {
           "sub-title": "Manager",
           "sub-title2": "Business Admin",
@@ -612,6 +621,10 @@
           "event": "Event",
           "download-log": "Download Activity Log",
           "sub-title3": "Comments"
+        },
+        "completed": {
+          "sub-title": "Congratulations!",
+          "successMessage": "Store registration completed successfully."
         }
       },
       "createDriver": {

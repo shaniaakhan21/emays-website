@@ -24,3 +24,4 @@ export const RETAILER_DATA = 'retailerData';
 export const CUSTOMER_UI = 'customerUI';
 
 export const SERVICE_COST = 'serviceCost';
+export const STORE_IMAGE = 'storeImage';
