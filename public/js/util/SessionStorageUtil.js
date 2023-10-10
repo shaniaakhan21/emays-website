@@ -58,6 +58,10 @@ export const setLaunchType = (launchType) => {
     return sessionStorage.setItem(LAUNCH_TYPE, launchType);
 };
 
+export const setAuthToken = (data) => {
+    return sessionStorage.setItem(LAUNCH_TYPE, data);
+};
+
 export const getAuthToken = () => {
     return sessionStorage.getItem(AUTH_TOKEN);
 };

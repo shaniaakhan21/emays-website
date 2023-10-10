@@ -23,3 +23,27 @@ export const getAppInfo = ({ token }) => {
         'Authorization': `Bearer ${token}`
     }, {});
 };
+
+/**
+ * Save external system
+ * @param token {string}
+ * @param appData {object}
+ * @returns {Promise<undefined|*>}
+ */
+export const saveExternalSystem = ({ token, appData }) => {
+    return httpUtil.post(`${apiBase}/externalSystems`, {
+        'Authorization': `Bearer ${token}`
+    }, { ...appData });
+};
+
+/**
+ * Check username validity
+ * @param token {string}
+ * @param appData {object}
+ * @returns {Promise<undefined|*>}
+ */
+export const checkUsernameValidityForAccountCreation = ({ token, appData }) => {
+    return httpUtil.post(`${apiBase}/externalSystems/usernameValidity`, {
+        'Authorization': `Bearer ${token}`
+    }, { ...appData });
+};

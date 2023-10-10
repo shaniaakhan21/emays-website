@@ -10,7 +10,8 @@ import CreateRetailerBankInfo from './BankInfo.fragment';
 import CreateRetailerEmployeeInfo from './EmployeeInfo.fragment';
 import CreateRetailerAccountInfo from './AccountInfo.fragment';
 import CreateRetailerNotes from './Notes.fragment';
-import { setStageOneCreateStore, setStageThreeCreateStore, setStageTwoCreateStore } from '../../redux/thunk/adminThunk';
+import { checkUsernameValidity, setStageOneCreateStore,
+    setStageThreeCreateStore, setStageTwoCreateStore } from '../../redux/thunk/adminThunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import CompletedMessageFragment from './Completed.message.fragment';
@@ -23,14 +24,25 @@ const CreateRetailer = () => {
     const dispatch = useDispatch();
     const selector = useSelector(newStoreSelectorMemoized);
 
-    const handleNext = () => {
+    const handleNext = async () => {
         if (step < 5) {
             if (step === 0) {
                 dispatch(setStageOneCreateStore(state));
+
             } else if (step === 1) {
-                dispatch(setStageTwoCreateStore(state));
+                const usernameBusinessAdminAvailability = 
+                await checkUsernameValidity({ username: state?.businessAdmin?.username });
+                const usernameManagerAvailability = 
+                await checkUsernameValidity({ username: state?.manager?.username });
+                if (usernameBusinessAdminAvailability.status && usernameManagerAvailability.status) {
+                    dispatch(setStageTwoCreateStore(state));
+                }
             } else if (step === 2) {
-                dispatch(setStageThreeCreateStore(state));
+                const usernameSystemAvailability = 
+                await checkUsernameValidity({ username: state?.username });
+                if (usernameSystemAvailability.status) {
+                    dispatch(setStageThreeCreateStore(state));
+                }
             } else if (step === 3) {
                 dispatch(setStageOneCreateStore({}));
                 dispatch(setStageTwoCreateStore({}));
@@ -64,9 +76,9 @@ const CreateRetailer = () => {
             <ProgressIndicator>
                 {[
                     'Basic Info',
-                    'Directory',
+                    'Members',
                     'User & Password',
-                    'Completed'
+                    'Summery'
                 ].map((item, index) => (<ProgressStep
                     key={index}
                     complete={step > index}
@@ -82,7 +94,7 @@ const CreateRetailer = () => {
                 {step === 3 ? <CompletedMessageFragment setState={setState} /> : null}
                 
                 {
-                    (step !== 3) && 
+                    (step !== 0) && 
                     <Button kind='tertiary' className='back' onClick={() => setStep(s => s - 1)}>Back</Button>
                 }
                 {

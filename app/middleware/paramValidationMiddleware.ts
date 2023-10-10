@@ -19,7 +19,7 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     SUPER_USER_FIRST_NAME_REQUIRED, SUPER_USER_LAST_NAME_REQUIRED,
     SUPER_USER_PASSWORD_REQUIRED, SUPER_USER_USERNAME_REQUIRED
     , TIME_ZONE_REQUIRED
-    , USER_FIRST_NAME_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH, USER_LAST_NAME_REQUIRED
+    , USERNAME_REQUIRED, USER_FIRST_NAME_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH, USER_LAST_NAME_REQUIRED
     , USER_PHONE_NUMBER_REQUIRED, 
     USER_UNAUTHORIZED } from '../const/errorMessage';
 import { Logger } from '../log/logger';
@@ -243,7 +243,20 @@ export const validateCreateExtSysRequestBody = (req: Request, res: Response, nex
             extSysEmail: Joi.string().required().max(50).email().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED);
-            })
+            }),
+            extSysAddress: Joi.object().keys({ 
+                // Street
+                addOne: Joi.string().required(),
+                // Portal number
+                addTwo: Joi.string().required(),
+                // City
+                addThree: Joi.string().required(),
+                // Country
+                addFour: Joi.string().required(),
+                // Zip / Postal code
+                addFive: Joi.string().required() }).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADDRESS_REQUIRED); })
         }
     });
     validateRequest(req, next, validationCriteria);
@@ -324,6 +337,18 @@ export const validateExternalSystemTokenRequestBody = (req: Request, res: Respon
             extSysPassword: Joi.string().required().max(50).error((error) => { 
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, EXT_SYSTEM_PASSWORD_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate username
+export const validateUsername = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        body: {
+            username: Joi.string().required().max(20).error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USERNAME_REQUIRED); })
         }
     });
     validateRequest(req, next, validationCriteria);

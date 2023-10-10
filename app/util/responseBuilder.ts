@@ -24,6 +24,7 @@ export const errorResponseBuilder: ErrorResponseBuilderFunc = (error) => {
 export const successResponseBuilder: SuccessResponseBuilderFunc<IOrderDTO | 
     {token: string} |
     {googleMapAPIKey: string} |
+    {status: boolean} |
     IExternalSystemDTO |
     IOrderPaginationDTO |
     ISystemInfoResponse |

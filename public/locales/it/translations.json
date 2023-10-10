@@ -608,6 +608,8 @@
           "sub-title2": "Business Admin",
           "sub-title3": "Other",
           "name": "Name",
+          "username": "Username",
+          "password": "Password",
           "email": "Email",
           "phone": "Phone Number"
         },
@@ -623,7 +625,9 @@
           "sub-title3": "Comments"
         },
         "completed": {
+          "summery": "Shop Summery",
           "sub-title": "Congratulations!",
+          "error-header": "Error Occurred",
           "successMessage": "Store registration completed successfully."
         }
       },

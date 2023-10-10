@@ -99,6 +99,8 @@ export const EXTERNAL_SYSTEM_CONTACT_NUMBER_REQUIRED = 'Please provide a valid e
 
 export const EXT_SYSTEM_USERNAME_REQUIRED = 'please provide a valid username';
 
+export const USERNAME_REQUIRED = 'please provide a valid username';
+
 export const EXT_SYSTEM_PASSWORD_REQUIRED = 'Please provide a valid password';
 
 export const SUPER_USER_USERNAME_REQUIRED = 'please provide a valid username';
