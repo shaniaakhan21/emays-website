@@ -616,7 +616,9 @@
           "sub-title3": "Other",
           "name": "Name",
           "email": "Email",
-          "phone": "Phone Number"
+          "phone": "Phone Number",
+          "username": "Username",
+          "password": "Password"
         },
         "notes": {
           "sub-title": "Add Comment",
@@ -630,7 +632,9 @@
           "sub-title3": "Comments"
         },
         "completed": {
+          "summery": "Shop Summery",
           "sub-title": "Congratulations!",
+          "error-header": "Error Occurred",
           "successMessage": "Store registration completed successfully."
         }
       },

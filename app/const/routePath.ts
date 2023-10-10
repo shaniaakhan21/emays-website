@@ -19,6 +19,7 @@ export enum RoutePath {
     EXTERNAL_SYSTEMS = '/externalSystems',
     EXTERNAL_SYSTEM_TOKEN = '/systemToken',
     EXTERNAL_SYSTEM_INFO = '/systemInfo',
+    USERNAME_VALIDITY= '/usernameValidity',
     SUPER_USERS = '/superUsers',
     ADMIN_EXTERNAL_SYSTEM_USERS = '/adminExternalSystem',
     LOGIN = '/login',
