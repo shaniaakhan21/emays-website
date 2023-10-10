@@ -64,7 +64,7 @@ const CreateRetailerBasicInfo = ({ setState }) => {
             setFormData({ type: 'setLogo', data: imageUrl });
             setStoreLogo(file);
 
-        }                   
+        }         
     };
 
     const handleDragOver = (event) => {

@@ -3,7 +3,8 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { allowedForExternalSystemSuperUserAndAdminRolesOnly, validateCreateExtSysRequestBody,
     validateExternalSystemTokenRequestBody, validateHeader,
-    validateUserTokenRequestBody } from '../../middleware/paramValidationMiddleware';
+    validateUserTokenRequestBody, 
+    validateUsername } from '../../middleware/paramValidationMiddleware';
 import { Logger } from '../../log/logger';
 import { RoutePath } from '../../const/routePath';
 import { buildErrorMessage, buildInfoMessageRouteHit
@@ -31,6 +32,27 @@ import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../const/errorMessage';
 
 const router = Router();
 const Logging = Logger(__filename);
+
+/**
+ * Check username in common
+ */
+const reqUsernameValidity = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.USERNAME_VALIDITY}`;
+router.post(reqUsernameValidity, validateHeader, validateUsername, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => {
+        Logging.log(buildInfoMessageRouteHit(req.path, ''), LogType.INFO);
+        const requestBody = req.body as { username: string };
+        const usernameValidity = await checkUsernameInCommon(requestBody.username);
+        if (usernameValidity) {
+            return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder({ status: true }));
+        }
+        return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder({ status: false }));
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, RoutePath.EXTERNAL_SYSTEMS), LogType.ERROR);
+        next(error);
+    });
+});
 
 /**
  * Register external system
@@ -93,7 +115,12 @@ router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUser
         let externalSystemInfo: IExternalSystemDTO = {
             extSysEmail: '',
             extSysName: '',
-            id: ''
+            id: '',
+            extSysAddress: {
+                addOne: '', addTwo: '', addThree: '', addFour: '', addFive: ''
+            },
+            extLogo: undefined,
+            extLogoContentType: ''
         };
         if (claims.roles.includes(Roles.EXTERNAL_SYSTEM)) {
             externalSystemInfo = await getExternalSystemById(claims.id);

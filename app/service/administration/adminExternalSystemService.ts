@@ -120,6 +120,7 @@ export const getAdminExternalSystemByAdminAssociatedId: GetExternalSystemByAdmin
         const preparedData: IExternalSystemDTO = {
             extSysEmail: externalSystemInfo.extSysEmail,
             extSysName: externalSystemInfo.extSysName,
+            extSysAddress: externalSystemInfo.extSysAddress,
             id: externalSystemInfo.id
         };
         if (preparedData) {
