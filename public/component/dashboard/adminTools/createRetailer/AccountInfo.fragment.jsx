@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Column, Heading, TextInput } from '@carbon/react';
 import GeneratePassword from '../../../common/GeneratePassword';
 
-const CreateRetailerAccountInfo = ({ setState }) => {
+const CreateRetailerAccountInfo = ({ setState, errorState }) => {
     const [translate] = useTranslation();
 
     const [state, setFormData] = useReducer((state, action) => {
@@ -48,12 +48,24 @@ const CreateRetailerAccountInfo = ({ setState }) => {
                     <TextInput labelText={t('username')} onChange={(e) => {
                         setFormData({ type: 'setUsername', data: e.target.value });
                     }} />
+                    {errorState === 'username' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter username</span>}
+                    {errorState === 'usernameReserved' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                This username already reserved</span>}
                     <TextInput labelText={t('email')} onChange={(e) => {
                         setFormData({ type: 'setEmail', data: e.target.value });
                     }} />
+                    {errorState === 'email' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter email</span>}
                     <TextInput labelText={t('password')} onChange={(e) => {
                         setFormData({ type: 'setPassword', data: e.target.value });
                     }} />
+                    {errorState === 'password' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter password</span>}
                     <TextInput labelText={t('re-password')} onChange={(e) => {
                         setFormData({ type: 'setGeneratedPassword', data: e.target.value });
                     }} />

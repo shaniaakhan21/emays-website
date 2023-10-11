@@ -15,11 +15,13 @@ import { checkUsernameValidity, setStageOneCreateStore,
 import { useDispatch, useSelector } from 'react-redux';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import CompletedMessageFragment from './Completed.message.fragment';
+import { validateObjectNullEmptyCheck } from '../../../../js/util/validateObject';
 
 const CreateRetailer = () => {
     const [translate] = useTranslation();
     const [step, setStep] = useState(0);
     const [state, setState] = useState({});
+    const [errorState, setErrorState] = useState(null);
 
     const dispatch = useDispatch();
     const selector = useSelector(newStoreSelectorMemoized);
@@ -27,22 +29,50 @@ const CreateRetailer = () => {
     const handleNext = async () => {
         if (step < 5) {
             if (step === 0) {
-                dispatch(setStageOneCreateStore(state));
+
+                const result = validateObjectNullEmptyCheck(state, ['addSix']);
+                if (result[0]) {
+                    setErrorState(null);
+                    dispatch(setStageOneCreateStore(state));
+                } else {
+                    setErrorState(result[1]);
+                }
 
             } else if (step === 1) {
-                const usernameBusinessAdminAvailability = 
-                await checkUsernameValidity({ username: state?.businessAdmin?.username });
-                const usernameManagerAvailability = 
-                await checkUsernameValidity({ username: state?.manager?.username });
-                if (usernameBusinessAdminAvailability.status && usernameManagerAvailability.status) {
-                    dispatch(setStageTwoCreateStore(state));
+
+                const result = validateObjectNullEmptyCheck(state, []);
+                if (result[0]) {
+                    const usernameBusinessAdminAvailability = 
+                        await checkUsernameValidity({ username: state?.businessAdmin?.adminUsername });
+                    const usernameManagerAvailability = 
+                        await checkUsernameValidity({ username: state?.manager?.managerUsername });
+                    if (usernameBusinessAdminAvailability.status && usernameManagerAvailability.status) {
+                        setErrorState(null);
+                        dispatch(setStageTwoCreateStore(state));
+                    }
+                    if (!usernameBusinessAdminAvailability.status) {
+                        setErrorState('adminUsernameReserved');
+                    }
+                    if (!usernameManagerAvailability.status) {
+                        setErrorState('managerUsernameReserved');
+                    }
+                } else {
+                    setErrorState(result[1]);
                 }
             } else if (step === 2) {
-                const usernameSystemAvailability = 
+
+                const result = validateObjectNullEmptyCheck(state, []);
+                if (result[0]) {
+                    const usernameSystemAvailability = 
                 await checkUsernameValidity({ username: state?.username });
-                if (usernameSystemAvailability.status) {
-                    dispatch(setStageThreeCreateStore(state));
+                    if (usernameSystemAvailability.status) {
+                        setErrorState(null);
+                        dispatch(setStageThreeCreateStore(state));
+                    } else {
+                        setErrorState('usernameReserved');
+                    }
                 }
+
             } else if (step === 3) {
                 dispatch(setStageOneCreateStore({}));
                 dispatch(setStageTwoCreateStore({}));
@@ -87,9 +117,9 @@ const CreateRetailer = () => {
                 />))}
             </ProgressIndicator>
             <Grid className='content'>
-                {step === 0 ? <CreateRetailerBasicInfo setState={setState} /> : null}
-                {step === 1 ? <CreateRetailerEmployeeInfo setState={setState} /> : null}
-                {step === 2 ? <CreateRetailerAccountInfo setState={setState} /> : null}
+                {step === 0 ? <CreateRetailerBasicInfo setState={setState} errorState={errorState} /> : null}
+                {step === 1 ? <CreateRetailerEmployeeInfo setState={setState} errorState={errorState} /> : null}
+                {step === 2 ? <CreateRetailerAccountInfo setState={setState} errorState={errorState}/> : null}
                 {/* {step === 3 ? <CreateRetailerNotes setState={setState} /> : null} */}
                 {step === 3 ? <CompletedMessageFragment setState={setState} /> : null}
                 
