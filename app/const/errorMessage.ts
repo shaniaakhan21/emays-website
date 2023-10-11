@@ -79,6 +79,8 @@ export const ADMIN_EXT_FIRST_NAME_REQUIRED = 'Please provide a valid admin first
 
 export const ADMIN_EXT_LAST_NAME_REQUIRED = 'Please provide a valid admin last name';
 
+export const ADMIN_EXT_PHONE_REQUIRED = 'Please provide a valid admin phone';
+
 export const ADMIN_EXT_USERNAME_REQUIRED = 'Please provide a valid admin username';
 
 export const ADMIN_EXT_PASSWORD_REQUIRED = 'Please provide a valid admin password';
@@ -86,6 +88,20 @@ export const ADMIN_EXT_PASSWORD_REQUIRED = 'Please provide a valid admin passwor
 export const ADMIN_EXT_EMAIL_REQUIRED = 'Please provide a valid email';
 
 export const ADMIN_EXT_ID_REQUIRED = 'Please provide a valid external system id';
+
+export const MANAGER_EXT_FIRST_NAME_REQUIRED = 'Please provide a valid admin first name';
+
+export const MANAGER_EXT_LAST_NAME_REQUIRED = 'Please provide a valid admin last name';
+
+export const MANAGER_EXT_PHONE_REQUIRED = 'Please provide a valid phone';
+
+export const MANAGER_EXT_USERNAME_REQUIRED = 'Please provide a valid admin username';
+
+export const MANAGER_EXT_PASSWORD_REQUIRED = 'Please provide a valid admin password';
+
+export const MANAGER_EXT_EMAIL_REQUIRED = 'Please provide a valid email';
+
+export const MANAGER_EXT_ID_REQUIRED = 'Please provide a valid external system id';
 
 export const EXTERNAL_SYSTEM_NAME_REQUIRED = 'Please provide a valid external system name';
 

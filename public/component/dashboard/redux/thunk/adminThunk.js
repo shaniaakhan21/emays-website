@@ -42,6 +42,8 @@ export const registerExternalSystem = createAsyncThunk('newStore/saveExternalSys
     }
 });
 
+// Register manager and Admin
+
 export const checkUsernameValidity = async (data) => {
     const authToken = getAuthToken();
     if (authToken) {

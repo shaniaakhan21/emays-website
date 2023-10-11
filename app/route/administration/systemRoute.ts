@@ -64,8 +64,8 @@ router.post(RoutePath.EXTERNAL_SYSTEMS, validateHeader, validateCreateExtSysRequ
         const externalSystem = req.body as IExternalSystem;
         const usernameValidity = await checkUsernameInCommon(externalSystem.extSysUsername);
         if (usernameValidity) {
-            await createExternalSystem(externalSystem);
-            res.sendStatus(HTTPSuccess.CREATED_CODE);
+            const data = await createExternalSystem(externalSystem);
+            res.status(HTTPSuccess.OK_CODE).json({ sysId: data.id });
         }
     })().catch(error => {
         const err = error as Error;

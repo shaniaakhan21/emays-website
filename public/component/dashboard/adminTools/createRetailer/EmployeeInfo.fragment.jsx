@@ -6,48 +6,48 @@ import { useTranslation } from 'react-i18next';
 import { Column, FileUploaderDropContainer, Grid, Heading, TextInput } from '@carbon/react';
 import GoogleMap from '../../../common/googleMap';
 
-const CreateRetailerEmployeeInfo = ({ setState }) => {
+const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
     const [translate] = useTranslation();
 
     const [state, setFormData] = useReducer((state, action) => {
         switch (action?.type) {
             case 'setManagerName':
-                return { ...state, manager: { ...state?.manager, name: action?.data } };
+                return { ...state, manager: { ...state?.manager, managerName: action?.data } };
             case 'setManagerEmail':
-                return { ...state, manager: { ...state?.manager, email: action?.data } };
+                return { ...state, manager: { ...state?.manager, managerEmail: action?.data } };
             case 'setManagerPhone':
-                return { ...state, manager: { ...state?.manager, phone: action?.data } };
+                return { ...state, manager: { ...state?.manager, managerPhone: action?.data } };
             case 'setManagerUsername':
-                return { ...state, manager: { ...state?.manager, username: action?.data } };
+                return { ...state, manager: { ...state?.manager, managerUsername: action?.data } };
             case 'setManagerPassword':
-                return { ...state, manager: { ...state?.manager, password: action?.data } };
+                return { ...state, manager: { ...state?.manager, managerPassword: action?.data } };
             case 'setBusinessAdminName':
-                return { ...state, businessAdmin: { ...state?.businessAdmin, name: action?.data } };
+                return { ...state, businessAdmin: { ...state?.businessAdmin, adminName: action?.data } };
             case 'setBusinessAdminEmail':
-                return { ...state, businessAdmin: { ...state?.businessAdmin, email: action?.data } };
+                return { ...state, businessAdmin: { ...state?.businessAdmin, adminEmail: action?.data } };
             case 'setBusinessAdminPhone':
-                return { ...state, businessAdmin: { ...state?.businessAdmin, phone: action?.data } };
+                return { ...state, businessAdmin: { ...state?.businessAdmin, adminPhone: action?.data } };
             case 'setBusinessAdminUsername':
-                return { ...state, businessAdmin: { ...state?.businessAdmin, username: action?.data } };
+                return { ...state, businessAdmin: { ...state?.businessAdmin, adminUsername: action?.data } };
             case 'setBusinessAdminPassword':
-                return { ...state, businessAdmin: { ...state?.businessAdmin, password: action?.data } };
+                return { ...state, businessAdmin: { ...state?.businessAdmin, adminPassword: action?.data } };
             default:
                 return { ...state };
         }
     }, {
         manager: {
-            name: '',
-            email: '',
-            phone: '',
-            username: '',
-            password: ''
+            managerName: '',
+            managerEmail: '',
+            managerPhone: '',
+            managerUsername: '',
+            managerPassword: ''
         },
         businessAdmin: {
-            name: '',
-            email: '',
-            phone: '',
-            username: '',
-            password: ''
+            adminName: '',
+            adminEmail: '',
+            adminPhone: '',
+            adminUsername: '',
+            adminPassword: ''
         }
     });
 
@@ -66,36 +66,72 @@ const CreateRetailerEmployeeInfo = ({ setState }) => {
                         <TextInput labelText={t('name')} onChange={(e) => {
                             setFormData({ type: 'setManagerName', data: e.target.value });
                         }} />
+                        {errorState === 'managerName' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter name</span>}
                         <TextInput labelText={t('email')} onChange={(e) => {
                             setFormData({ type: 'setManagerEmail', data: e.target.value });
                         }} />
+                        {errorState === 'managerEmail' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter email</span>}
                         <TextInput labelText={t('phone')} onChange={(e) => {
                             setFormData({ type: 'setManagerPhone', data: e.target.value });
                         }} />
+                        {errorState === 'managerPhone' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter phone</span>}
                         <TextInput labelText={t('username')} onChange={(e) => {
                             setFormData({ type: 'setManagerUsername', data: e.target.value });
                         }} />
+                        {errorState === 'managerUsername' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter username</span>}
+                        {errorState === 'managerUsernameReserved' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                This username already reserved</span>}
                         <TextInput labelText={t('password')} onChange={(e) => {
                             setFormData({ type: 'setManagerPassword', data: e.target.value });
                         }} />
+                        {errorState === 'managerPassword' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter password</span>}
                     </div>
                     <div className='em-card'>
                         <Heading className='sub-title'>{t('sub-title2')}</Heading>
                         <TextInput labelText={t('name')} onChange={(e) => {
                             setFormData({ type: 'setBusinessAdminName', data: e.target.value });
                         }} />
+                        {errorState === 'adminName' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter name</span>}
                         <TextInput labelText={t('email')} onChange={(e) => {
                             setFormData({ type: 'setBusinessAdminEmail', data: e.target.value });
                         }} />
+                        {errorState === 'adminEmail' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter email</span>}
                         <TextInput labelText={t('phone')} onChange={(e) => {
                             setFormData({ type: 'setBusinessAdminPhone', data: e.target.value });
                         }} />
+                        {errorState === 'adminPhone' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter phone</span>}
                         <TextInput labelText={t('username')} onChange={(e) => {
                             setFormData({ type: 'setBusinessAdminUsername', data: e.target.value });
                         }} />
+                        {errorState === 'adminUsername' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter username</span>}
+                        {errorState === 'adminUsernameReserved' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                This username already reserved</span>}
                         <TextInput labelText={t('password')} onChange={(e) => {
                             setFormData({ type: 'setBusinessAdminPassword', data: e.target.value });
                         }} />
+                        {errorState === 'adminPassword' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter password</span>}
                     </div>
                     {/* <div className='em-card'>
                         <Heading className='sub-title'>{t('sub-title3')}</Heading>

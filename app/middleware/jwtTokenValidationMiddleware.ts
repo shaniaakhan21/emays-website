@@ -26,8 +26,11 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
         (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_REDIRECTION}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.ADMIN_EXTERNAL_SYSTEM_USERS}`) &&
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.MANAGER_EXTERNAL_SYSTEM_USERS}`) &&
         // eslint-disable-next-line max-len
         (req.path !== `${config.ROUTE_PATH}${RoutePath.ADMIN_EXTERNAL_SYSTEM_USERS}${RoutePath.ADMIN_EXTERNAL_SYSTEM_USER_TOKEN}`) &&
+        // eslint-disable-next-line max-len
+        (req.path !== `${config.ROUTE_PATH}${RoutePath.MANAGER_EXTERNAL_SYSTEM_USERS}${RoutePath.MANAGER_EXTERNAL_SYSTEM_USER_TOKEN}`) &&
         (req.path !== `${config.ROUTE_PATH}/login`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.STRIPE}/checkout/complete`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.STRIPE}/webhook`) &&
