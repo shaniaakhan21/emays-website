@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { Column, FileUploaderDropContainer, Grid, Heading, TextInput } from '@carbon/react';
 import { setStoreLogo } from '../../../../js/util/SessionStorageUtil';
 
-const CreateRetailerBasicInfo = ({ setState }) => {
+const CreateRetailerBasicInfo = ({ setState, errorState }) => {
     const [translate] = useTranslation();
     
     const [selectedImageURL, setSelectedImageURL] = useState(null);
@@ -37,7 +37,7 @@ const CreateRetailerBasicInfo = ({ setState }) => {
         }
     }, {
         storeName: '',
-        storeLogo: {},
+        storeLogo: null,
         address: {
             addOne: '',
             addTwo: '',
@@ -73,7 +73,7 @@ const CreateRetailerBasicInfo = ({ setState }) => {
 
     useEffect(() => {
         setState((currentState) => { return { ...currentState, ...state }; } );
-    }, [state]);
+    }, [state, errorState]);
 
     const t = useCallback((key) => translate(`dashboard.adminTools.createRetailer.basic.${key}`), [translate]);
 
@@ -85,22 +85,40 @@ const CreateRetailerBasicInfo = ({ setState }) => {
                     <TextInput labelText={t('name')} onChange={(e) => {
                         setFormData({ type: 'setStoreName', data: e.target.value });
                     }} id='name' />
+                    {errorState === 'storeName' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter store name</span>}
                     <Heading className='sub-title'>{t('sub-title2')}</Heading>
                     <TextInput labelText={t('street')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineOne', data: e.target.value });
                     }} />
+                    {errorState === 'addOne' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter street</span>}
                     <TextInput labelText={t('number')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineTwo', data: e.target.value });
                     }} />
+                    {errorState === 'addTwo' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter number</span>}
                     <TextInput labelText={t('city')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineThree', data: e.target.value });
                     }} />
+                    {errorState === 'addThree' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter city</span>}
                     <TextInput labelText={t('country')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineFour', data: e.target.value });
                     }} />
+                    {errorState === 'addFour' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter country</span>}
                     <TextInput labelText={t('zip')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineFive', data: e.target.value });
                     }} />
+                    {errorState === 'addFive' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter zip code</span>}
                 </div>
             </Column>
             <Column lg={11} md={4} sm={4} xs={4}>
@@ -131,6 +149,9 @@ const CreateRetailerBasicInfo = ({ setState }) => {
                     </div>
                     <Heading className='sub-title'>{t('sub-title5')}</Heading>
                     <div className='map'>
+                        {errorState === 'storeLogo' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please add your logo</span>}
                         {/* <GoogleMap /> */}
                         {/* <GeoContainer 
                             appData={googleMapAPIKey}

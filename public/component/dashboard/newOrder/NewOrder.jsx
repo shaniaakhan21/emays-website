@@ -120,7 +120,7 @@ const NewOrder = ({ newOrderData }) => {
         setSubmitState(true);
         const isDataValid = validateObjectNullEmptyCheck(
             state, ['addFive', 'addSix', 'experience', 'deliveryInfo', 'serviceFee']);
-        if (isDataValid) {
+        if (isDataValid[0]) {
             dispatch(setNewOrderPhaseOneData(state));
             history.push('/dashboard/deliveryOrders');
         }

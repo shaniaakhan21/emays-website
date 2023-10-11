@@ -148,6 +148,21 @@ content-type: application/json
     "extSysPassword": "abCq2&!Ms"
 }
 
+----- Create manager user ------
+
+POST http://localhost:8080/api-dev/managerExternalSystem
+content-type: application/json
+
+{
+    "managerFirstName": "Thathsara",
+    "managerLastName": "Raviraj",
+    "managerUsername": "thathsaraAdmin4",
+    "managerPassword": "abCq2&!Ms",
+    "managerPhone": "1233533452345",
+    "managerEmail": "admin4@gmail.com",
+    "externalSystemId": "6504061d3615ae0e08a4a789"
+}
+
 ----- Create admin user ------
 
 POST http://localhost:8080/api-dev/adminExternalSystem
@@ -158,6 +173,7 @@ content-type: application/json
     "adminLastName": "Raviraj",
     "adminUsername": "thathsaraAdmin4",
     "adminPassword": "abCq2&!Ms",
+    "adminPhone": "1233533452345",
     "adminEmail": "admin4@gmail.com",
     "externalSystemId": "6504061d3615ae0e08a4a789"
 }
@@ -170,6 +186,7 @@ content-type: application/json
     "adminLastName": "Raviraj",
     "adminUsername": "thathadminuser3",
     "adminPassword": "abCq2&!Ms",
+    "adminPhone": "1233533452345",
     "adminEmail": "adminX1@gmail.com",
     "externalSystemId": "6504061d3615ae0e08a4a789"
 }

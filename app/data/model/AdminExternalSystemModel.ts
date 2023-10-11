@@ -26,6 +26,7 @@ export const saveAdminExternalSystemUser: CreateAdminExternalSystemFunc = async 
             adminFirstName: result.adminFirstName,
             adminLastName: result.adminLastName,
             adminUsername: result.adminUsername,
+            adminPhone: result.adminPhone,
             adminPassword: result.adminPassword,
             adminEmail: result.adminEmail,
             externalSystemId: result.externalSystemId
