@@ -1,13 +1,17 @@
-import React, { useCallback, useEffect, useReducer } from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 // SCSS
 
 import { Column, FileUploaderDropContainer, Grid, Heading, TextInput } from '@carbon/react';
 import GoogleMap from '../../../common/googleMap';
+import { useSelector } from 'react-redux';
+import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 
 const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
+
     const [translate] = useTranslation();
+    const selector = useSelector(newStoreSelectorMemoized);
 
     const [state, setFormData] = useReducer((state, action) => {
         switch (action?.type) {
@@ -55,6 +59,21 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
         setState((currentState) => { return { ...currentState, ...state }; } );
     }, [state]);
 
+    // Load the state from Redux
+    useState(() => {
+        setFormData({ type: 'setManagerName', data: selector?.phaseThreeData?.manager?.managerName });
+        setFormData({ type: 'setManagerEmail', data: selector?.phaseThreeData?.manager?.managerEmail });
+        setFormData({ type: 'setManagerPhone', data: selector?.phaseThreeData?.manager?.managerPhone });
+        setFormData({ type: 'setManagerUsername', data: selector?.phaseThreeData?.manager?.managerUsername });
+        setFormData({ type: 'setManagerPassword', data: selector?.phaseThreeData?.manager?.managerPassword });
+
+        setFormData({ type: 'setBusinessAdminName', data: selector?.phaseThreeData?.businessAdmin?.adminName });
+        setFormData({ type: 'setBusinessAdminEmail', data: selector?.phaseThreeData?.businessAdmin?.adminEmail });
+        setFormData({ type: 'setBusinessAdminPhone', data: selector?.phaseThreeData?.businessAdmin?.adminPhone });
+        setFormData({ type: 'setBusinessAdminUsername', data: selector?.phaseThreeData?.businessAdmin?.adminUsername });
+        setFormData({ type: 'setBusinessAdminPassword', data: selector?.phaseThreeData?.businessAdmin?.adminPassword });
+    }, []);
+
     const t = useCallback((key) => translate(`dashboard.adminTools.createRetailer.employee.${key}`), [translate]);
 
     return (
@@ -65,25 +84,33 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         <Heading className='sub-title'>{t('sub-title')}</Heading>
                         <TextInput labelText={t('name')} onChange={(e) => {
                             setFormData({ type: 'setManagerName', data: e.target.value });
-                        }} />
+                        }} 
+                        value = {state?.manager?.managerName}
+                        />
                         {errorState === 'managerName' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter name</span>}
                         <TextInput labelText={t('email')} onChange={(e) => {
                             setFormData({ type: 'setManagerEmail', data: e.target.value });
-                        }} />
+                        }} 
+                        value = {state?.manager?.managerEmail}
+                        />
                         {errorState === 'managerEmail' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter email</span>}
                         <TextInput labelText={t('phone')} onChange={(e) => {
                             setFormData({ type: 'setManagerPhone', data: e.target.value });
-                        }} />
+                        }} 
+                        value = {state?.manager?.managerPhone}
+                        />
                         {errorState === 'managerPhone' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
                         <TextInput labelText={t('username')} onChange={(e) => {
                             setFormData({ type: 'setManagerUsername', data: e.target.value });
-                        }} />
+                        }} 
+                        value = {state?.manager?.managerUsername}
+                        />
                         {errorState === 'managerUsername' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter username</span>}
@@ -92,7 +119,9 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                                 This username already reserved</span>}
                         <TextInput labelText={t('password')} onChange={(e) => {
                             setFormData({ type: 'setManagerPassword', data: e.target.value });
-                        }} />
+                        }} 
+                        value = {state?.manager?.managerPassword}
+                        />
                         {errorState === 'managerPassword' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter password</span>}
@@ -101,25 +130,33 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         <Heading className='sub-title'>{t('sub-title2')}</Heading>
                         <TextInput labelText={t('name')} onChange={(e) => {
                             setFormData({ type: 'setBusinessAdminName', data: e.target.value });
-                        }} />
+                        }} 
+                        value = {state?.businessAdmin?.adminName}
+                        />
                         {errorState === 'adminName' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter name</span>}
                         <TextInput labelText={t('email')} onChange={(e) => {
                             setFormData({ type: 'setBusinessAdminEmail', data: e.target.value });
-                        }} />
+                        }} 
+                        value = {state?.businessAdmin?.adminEmail}
+                        />
                         {errorState === 'adminEmail' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter email</span>}
                         <TextInput labelText={t('phone')} onChange={(e) => {
                             setFormData({ type: 'setBusinessAdminPhone', data: e.target.value });
-                        }} />
+                        }} 
+                        value = {state?.businessAdmin?.adminPhone}
+                        />
                         {errorState === 'adminPhone' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
                         <TextInput labelText={t('username')} onChange={(e) => {
                             setFormData({ type: 'setBusinessAdminUsername', data: e.target.value });
-                        }} />
+                        }} 
+                        value = {state?.businessAdmin?.adminUsername}
+                        />
                         {errorState === 'adminUsername' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter username</span>}
@@ -128,7 +165,9 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                                 This username already reserved</span>}
                         <TextInput labelText={t('password')} onChange={(e) => {
                             setFormData({ type: 'setBusinessAdminPassword', data: e.target.value });
-                        }} />
+                        }} 
+                        value = {state?.businessAdmin?.adminPassword}
+                        />
                         {errorState === 'adminPassword' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter password</span>}

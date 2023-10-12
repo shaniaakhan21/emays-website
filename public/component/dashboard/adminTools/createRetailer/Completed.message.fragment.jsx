@@ -20,7 +20,8 @@ const CompletedMessage = ({ setState }) => {
     const handleSave = () => {
         dispatch(registerExternalSystem({
             phaseOne: selector?.phaseOneData,
-            phaseThree: selector?.phaseThreeData
+            phaseThree: selector?.phaseThreeData,
+            phaseTwo: selector?.phaseTwoData
         }));
     };
 
@@ -43,13 +44,13 @@ const CompletedMessage = ({ setState }) => {
                             ${selector?.phaseOneData?.address?.addThree}` }</p>
                         <br></br>
                         <h5>Shop Email:</h5>
-                        <p> {selector?.phaseThreeData?.email}</p>
+                        <p> {selector?.phaseTwoData?.email}</p>
                         <br></br>
                         <h5>Username:</h5>
-                        <p> {selector?.phaseThreeData?.username}</p>
+                        <p> {selector?.phaseTwoData?.username}</p>
                         <br></br>
                         <h5>Password:</h5>
-                        <p> {selector?.phaseThreeData?.password}</p>
+                        <p> {selector?.phaseTwoData?.password}</p>
                         <br></br>
                         <Button className='next' onClick={handleSave} >Create</Button>
                     </div>
@@ -58,7 +59,7 @@ const CompletedMessage = ({ setState }) => {
                 <div>
                     {
                         // Success TODO: create a general component
-                        !(selector?.saveStatus?.isLoading) && (selector?.saveStatus?.result === true) && 
+                        !(selector?.saveStatus?.isLoading) && (selector?.saveStatus?.result?.resultStore?.sysId) && 
                         <div className='em-card'>
                             <Heading className='sub-title'>{t('sub-title')}</Heading>
                             <br></br>
@@ -68,11 +69,31 @@ const CompletedMessage = ({ setState }) => {
 
                     {   
                     // Error TODO: create a general component
-                        !(selector?.saveStatus?.isLoading) && (selector?.saveStatus?.result !== true) && 
+                        !(selector?.saveStatus?.isLoading) && (selector?.saveStatus?.result?.resultStore?.options) && 
                         <div className='em-card' style={ { color: 'red' } }>
-                            <Heading className='sub-title'>{t('error-header')}</Heading>
+                            <Heading className='sub-title'>{t('error.error-store')}</Heading>
                             <br></br>
-                            <h4>{selector?.saveStatus?.result?.description}</h4>
+                            <h4>{selector?.saveStatus?.result?.resultStore?.description}</h4>
+                        </div>
+                    }
+
+                    {   
+                    // Error TODO: create a general component
+                        !(selector?.saveStatus?.isLoading) && (selector?.saveStatus?.result?.resultAdmin?.options) && 
+                        <div className='em-card' style={ { color: 'red' } }>
+                            <Heading className='sub-title'>{t('error.error-admin')}</Heading>
+                            <br></br>
+                            <p>{selector?.saveStatus?.result?.resultAdmin?.description}</p>
+                        </div>
+                    }
+
+                    {   
+                    // Error TODO: create a general component
+                        !(selector?.saveStatus?.isLoading) && (selector?.saveStatus?.result?.resultManager?.options) && 
+                        <div className='em-card' style={ { color: 'red' } }>
+                            <Heading className='sub-title'>{t('error.error-manager')}</Heading>
+                            <br></br>
+                            <p>{selector?.saveStatus?.result?.resultManager?.description}</p>
                         </div>
                     }
                 </div>
