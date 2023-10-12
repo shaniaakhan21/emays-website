@@ -627,8 +627,12 @@
         "completed": {
           "summery": "Shop Summery",
           "sub-title": "Congratulations!",
-          "error-header": "Error Occurred",
-          "successMessage": "Store registration completed successfully."
+          "successMessage": "Store registration completed successfully.",
+          "error": {
+          "error-store": "Error Occurred",
+          "error-manager": "Error occurred in saving manager",
+          "error-admin": "Error occurred in saving admin"
+        }
         }
       },
       "createDriver": {

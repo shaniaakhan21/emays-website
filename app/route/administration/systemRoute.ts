@@ -29,6 +29,8 @@ import { getSuperUserToken } from '../../service/administration/superUserService
 import ServiceError from '../../type/error/ServiceError';
 import ErrorType from '../../const/errorType';
 import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../const/errorMessage';
+import { ManagerExternalSystemModel } from '../../data/model/ManagerExternalSystemModel';
+import { getManagerExternalSystemToken } from '../../service/administration/managerExternalSystemService';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -65,7 +67,7 @@ router.post(RoutePath.EXTERNAL_SYSTEMS, validateHeader, validateCreateExtSysRequ
         const usernameValidity = await checkUsernameInCommon(externalSystem.extSysUsername);
         if (usernameValidity) {
             const data = await createExternalSystem(externalSystem);
-            res.status(HTTPSuccess.OK_CODE).json({ sysId: data.id });
+            res.status(HTTPSuccess.OK_CODE).json({ data: { sysId: data.id } });
         }
     })().catch(error => {
         const err = error as Error;
@@ -163,7 +165,9 @@ router.post(requestTokenPathCommonLogin, validateHeader, validateUserTokenReques
         const isUsernameReservedInAdmin = await AdminExternalSystemModel.
             findOne({ 'adminUsername': requestBody.username }).exec();
         const isUsernameReservedInSuperUser = await SuperUserModel.findOne({ 'username': requestBody.username }).exec();
-        
+        const isUsernameReservedInManager = 
+            await ManagerExternalSystemModel.findOne({ 'managerUsername': requestBody.username }).exec();
+
         if (isUsernameReservedInExternalSystem) {
             const externalSystemLoginResult = await getExternalSystemToken(requestBody.username, requestBody.password);
             Logging.log(buildInfoMessageUserProcessCompleted(
@@ -181,6 +185,12 @@ router.post(requestTokenPathCommonLogin, validateHeader, validateUserTokenReques
             Logging.log(buildInfoMessageUserProcessCompleted(
                 'Request superuser login user token', requestBody.username), LogType.INFO);
             return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(superUserLoginResult));
+        } else if (isUsernameReservedInManager) {
+            const managerUserLoginResult = await getManagerExternalSystemToken(
+                requestBody.username, requestBody.password);
+            Logging.log(buildInfoMessageUserProcessCompleted(
+                'Request manager login user token', requestBody.username), LogType.INFO);
+            return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(managerUserLoginResult));
         }
         throw new ServiceError(ErrorType.UNAUTHORIZED, INVALID_CREDENTIALS_ERROR_MESSAGE, '', HTTPUserError.
             UNAUTHORIZED_CODE);
