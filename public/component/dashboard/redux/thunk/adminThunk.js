@@ -1,13 +1,22 @@
 'use strict';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { checkUsernameValidityForAccountCreation, saveExternalSystem } from '../../../../services/dashboard/systemInfo';
+import { checkUsernameValidityForAccountCreation,
+    saveAdminExternalSystem, saveExternalSystem,
+    saveManagerExternalSystem } from '../../../../services/dashboard/systemInfo';
 import { getAuthToken, getStoreImage } from '../../../../js/util/SessionStorageUtil';
 
 export const setStageOneCreateStore = createAsyncThunk('newStore/phaseOne', async (data, { getState }) => {
     const authToken = getState().loginState.token;
     if (authToken) {
         return data;
+    }
+});
+
+export const resetIsLoadingPhaseOne = createAsyncThunk('newStore/resetPhaseOne', async (data, { getState }) => {
+    const authToken = getState().loginState.token;
+    if (authToken) {
+        return true;
     }
 });
 
@@ -18,6 +27,13 @@ export const setStageTwoCreateStore = createAsyncThunk('newStore/phaseTwo', asyn
     }
 });
 
+export const resetIsLoadingPhaseTwo = createAsyncThunk('newStore/resetPhaseTwo', async (data, { getState }) => {
+    const authToken = getState().loginState.token;
+    if (authToken) {
+        return true;
+    }
+});
+
 export const setStageThreeCreateStore = createAsyncThunk('newStore/phaseThree', async (data, { getState }) => {
     const authToken = getState().loginState.token;
     if (authToken) {
@@ -25,24 +41,64 @@ export const setStageThreeCreateStore = createAsyncThunk('newStore/phaseThree', 
     }
 });
 
-export const registerExternalSystem = createAsyncThunk('newStore/saveExternalSystem', async (data, { getState }) => {
+export const resetIsLoadingPhaseThree = createAsyncThunk('newStore/resetPhaseThree', async (data, { getState }) => {
     const authToken = getState().loginState.token;
-    const appDataPrepared = {
-        extSysName: data?.phaseOne?.storeName,
-        extSysUsername: data?.phaseThree?.username,
-        extSysPassword: data?.phaseThree?.password,
-        extSysEmail: data?.phaseThree?.email,
-        extSysAddress: data?.phaseOne?.address,
-        extLogo: getStoreImage()
-
-    };
     if (authToken) {
-        const response = saveExternalSystem({ token: authToken, appData: appDataPrepared });
-        return response;
+        return true;
     }
 });
 
 // Register manager and Admin
+export const registerExternalSystem = createAsyncThunk('newStore/saveExternalSystem', async (data, { getState }) => {
+    const authToken = getState().loginState.token;
+    const appDataPreparedForStore = {
+        extSysName: data?.phaseOne?.storeName,
+        extSysUsername: data?.phaseTwo?.username,
+        extSysPassword: data?.phaseTwo?.password,
+        extSysEmail: data?.phaseTwo?.email,
+        extSysAddress: data?.phaseOne?.address,
+        extLogo: getStoreImage()
+
+    };
+    const appDataPreparedForAdmin = {
+        adminFirstName: data?.phaseThree?.businessAdmin?.adminName,
+        adminLastName: data?.phaseThree?.businessAdmin?.adminName,
+        adminUsername: data?.phaseThree?.businessAdmin?.adminUsername,
+        adminPassword: data?.phaseThree?.businessAdmin?.adminPassword,
+        adminPhone: data?.phaseThree?.businessAdmin?.adminPhone,
+        adminEmail: data?.phaseThree?.businessAdmin?.adminEmail,
+        externalSystemId: ''
+    };
+    const appDataPreparedForManager = {
+        managerFirstName: data?.phaseThree?.manager?.managerName,
+        managerLastName: data?.phaseThree?.manager?.managerName,
+        managerUsername: data?.phaseThree?.manager?.managerUsername,
+        managerPassword: data?.phaseThree?.manager?.managerPassword,
+        managerPhone: data?.phaseThree?.manager?.managerPhone,
+        managerEmail: data?.phaseThree?.manager?.managerEmail,
+        externalSystemId: ''
+    };
+    if (authToken) {
+        const response = await saveExternalSystem({ token: authToken, appData: appDataPreparedForStore });
+        const sysId = response?.sysId;
+        let resultManager;
+        let resultAdmin;
+        if (sysId) {
+            appDataPreparedForAdmin.externalSystemId = response?.sysId;
+            appDataPreparedForManager.externalSystemId = response?.sysId;
+            resultManager = 
+            await saveManagerExternalSystem({ token: authToken, appData: appDataPreparedForManager });
+            resultAdmin = 
+            await saveAdminExternalSystem({ token: authToken, appData: appDataPreparedForAdmin });
+        }
+        const finalResult = {
+            resultAdmin: resultAdmin,
+            resultManager: resultManager,
+            resultStore: response
+        };
+        return finalResult;
+    }
+});
 
 export const checkUsernameValidity = async (data) => {
     const authToken = getAuthToken();

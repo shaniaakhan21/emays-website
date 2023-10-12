@@ -1,18 +1,20 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { setStageOneCreateStore } from '../../redux/thunk/adminThunk';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // SCSS
 
 import { Column, FileUploaderDropContainer, Grid, Heading, TextInput } from '@carbon/react';
 import { setStoreLogo } from '../../../../js/util/SessionStorageUtil';
+import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 
 const CreateRetailerBasicInfo = ({ setState, errorState }) => {
     const [translate] = useTranslation();
     
     const [selectedImageURL, setSelectedImageURL] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
+    const selector = useSelector(newStoreSelectorMemoized);
 
     const [state, setFormData] = useReducer((state, action) => {
         switch (action?.type) {
@@ -47,6 +49,21 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
             addSix: ''
         }
     });
+
+    // Load the state from Redux
+    useState(() => {
+        setFormData({ type: 'setStoreName', data: selector?.phaseOneData?.storeName });
+        setFormData({ type: 'setAddressLineOne', data: selector?.phaseOneData?.address?.addOne });
+        setFormData({ type: 'setAddressLineTwo', data: selector?.phaseOneData?.address?.addTwo });
+        setFormData({ type: 'setAddressLineThree', data: selector?.phaseOneData?.address?.addThree });
+        setFormData({ type: 'setAddressLineFour', data: selector?.phaseOneData?.address?.addFour });
+        setFormData({ type: 'setAddressLineFive', data: selector?.phaseOneData?.address?.addFive });
+    }, []);
+
+    // When changing the state, update the parent state 
+    useEffect(() => {
+        setState((currentState) => { return { ...currentState, ...state }; } );
+    }, [state]);
 
     const handleFileChange = (event) => {
         const file = event?.dataTransfer?.files[0];
@@ -84,38 +101,50 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                     <Heading className='sub-title'>{t('sub-title')}</Heading>
                     <TextInput labelText={t('name')} onChange={(e) => {
                         setFormData({ type: 'setStoreName', data: e.target.value });
-                    }} id='name' />
+                    }} id='name' 
+                    value = {state?.storeName}
+                    />
                     {errorState === 'storeName' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter store name</span>}
                     <Heading className='sub-title'>{t('sub-title2')}</Heading>
                     <TextInput labelText={t('street')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineOne', data: e.target.value });
-                    }} />
+                    }} 
+                    value = {state?.address?.addOne}
+                    />
                     {errorState === 'addOne' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter street</span>}
                     <TextInput labelText={t('number')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineTwo', data: e.target.value });
-                    }} />
+                    }} 
+                    value = {state?.address?.addTwo}
+                    />
                     {errorState === 'addTwo' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter number</span>}
                     <TextInput labelText={t('city')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineThree', data: e.target.value });
-                    }} />
+                    }} 
+                    value = {state?.address?.addThree}
+                    />
                     {errorState === 'addThree' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter city</span>}
                     <TextInput labelText={t('country')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineFour', data: e.target.value });
-                    }} />
+                    }} 
+                    value = {state?.address?.addFour}
+                    />
                     {errorState === 'addFour' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter country</span>}
                     <TextInput labelText={t('zip')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineFive', data: e.target.value });
-                    }} />
+                    }} 
+                    value = {state?.address?.addFive}
+                    />
                     {errorState === 'addFive' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter zip code</span>}

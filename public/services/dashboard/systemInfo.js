@@ -37,6 +37,30 @@ export const saveExternalSystem = ({ token, appData }) => {
 };
 
 /**
+ * Save admin for external system system
+ * @param token {string}
+ * @param appData {object}
+ * @returns {Promise<undefined|*>}
+ */
+export const saveAdminExternalSystem = ({ token, appData }) => {
+    return httpUtil.post(`${apiBase}/adminExternalSystem`, {
+        'Authorization': `Bearer ${token}`
+    }, { ...appData });
+};
+
+/**
+ * Save manager for external system system
+ * @param token {string}
+ * @param appData {object}
+ * @returns {Promise<undefined|*>}
+ */
+export const saveManagerExternalSystem = ({ token, appData }) => {
+    return httpUtil.post(`${apiBase}/managerExternalSystem`, {
+        'Authorization': `Bearer ${token}`
+    }, { ...appData });
+};
+
+/**
  * Check username validity
  * @param token {string}
  * @param appData {object}
