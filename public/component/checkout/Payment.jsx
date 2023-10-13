@@ -71,9 +71,9 @@ const Payment = ({ open, setOpen }) => {
             const result = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
-                    // eslint-disable-next-line camelcase, capitalized-comments
+                    // eslint-disable-next-line camelcase, capitalized-comments, multiline-comment-style
                     // return_url: `${apiBase}/stripe/checkout/complete?userId=${open.uid}`
-                    return_url: `${window.location.protocol}//${window.location.host}`
+                    return_url: `${window.location.protocol}//${window.location.host}/#/paymentSuccess`
                 }
             });
             if (result.error) {
