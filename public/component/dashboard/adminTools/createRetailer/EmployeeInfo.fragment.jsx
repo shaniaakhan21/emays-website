@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-// SCSS
-
 import { Column, FileUploaderDropContainer, Grid, Heading, TextInput } from '@carbon/react';
 import GoogleMap from '../../../common/googleMap';
 import { useSelector } from 'react-redux';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
+import ContactNumberInput from '../../../common/ContactNumberInput';
 
 const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
 
@@ -98,11 +97,19 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         {errorState === 'managerEmail' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter email</span>}
-                        <TextInput labelText={t('phone')} onChange={(e) => {
+                        {errorState === 'emailInvalidManager' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter a valid email</span>}
+                        <br></br>
+                        <ContactNumberInput 
+                            actionFunc= {(value) => { setFormData({ type: 'setManagerPhone', data: value }); }}
+                            data = {state?.manager?.managerPhone || ''}
+                        />
+                        {/* <TextInput labelText={t('phone')} onChange={(e) => {
                             setFormData({ type: 'setManagerPhone', data: e.target.value });
                         }} 
                         value = {state?.manager?.managerPhone}
-                        />
+                        /> */}
                         {errorState === 'managerPhone' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
@@ -125,6 +132,11 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         {errorState === 'managerPassword' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter password</span>}
+                        {errorState === 'passwordInvalidManager' && 
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                            The password must consist of only uppercase letters, lowercase letters, digits,
+                             the specified special characters (@, $, !, %, *, ?) and must be at least 8 
+                             characters in length </span>}
                     </div>
                     <div className='em-card'>
                         <Heading className='sub-title'>{t('sub-title2')}</Heading>
@@ -144,10 +156,19 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         {errorState === 'adminEmail' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter email</span>}
-                        <TextInput labelText={t('phone')} onChange={(e) => {
+                        {errorState === 'emailInvalidAdmin' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter a valid email</span>}       
+                        {/* <TextInput labelText={t('phone')} onChange={(e) => {
                             setFormData({ type: 'setBusinessAdminPhone', data: e.target.value });
                         }} 
-                        value = {state?.businessAdmin?.adminPhone}
+                        value = {stat
+                            e?.businessAdmin?.adminPhone}
+                        /> */}
+                        <br></br>
+                        <ContactNumberInput 
+                            actionFunc= {(value) => { setFormData({ type: 'setBusinessAdminPhone', data: value }); }}
+                            data = {state?.businessAdmin?.adminPhone || ''}
                         />
                         {errorState === 'adminPhone' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
@@ -171,6 +192,10 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         {errorState === 'adminPassword' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter password</span>}
+                        {errorState === 'passwordInvalidAdmin' && <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                            The password must consist of only uppercase letters, lowercase letters, digits,
+                             the specified special characters (@, $, !, %, *, ?) and must be at least 8 
+                             characters in length </span>}
                     </div>
                     {/* <div className='em-card'>
                         <Heading className='sub-title'>{t('sub-title3')}</Heading>

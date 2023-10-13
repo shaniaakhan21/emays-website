@@ -76,6 +76,9 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
                     {errorState === 'email' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter email</span>}
+                    {errorState === 'emailInvalid' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter a valid email</span>}            
                     <TextInput labelText={t('password')} onChange={(e) => {
                         setFormData({ type: 'setPassword', data: e.target.value });
                     }}
@@ -84,6 +87,11 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
                     {errorState === 'password' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter password</span>}
+                    {errorState === 'passwordInvalid' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                            The password must consist of only uppercase letters, lowercase letters, digits,
+                             the specified special characters (@, $, !, %, *, ?) and must be at least 8 
+                             characters in length </span>}
                     <TextInput labelText={t('re-password')} onChange={(e) => {
                         setFormData({ type: 'setGeneratedPassword', data: e.target.value });
                     }} 

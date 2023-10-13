@@ -16,7 +16,7 @@ import { checkUsernameValidity, resetIsLoadingPhaseOne, resetIsLoadingPhaseThree
 import { useDispatch, useSelector } from 'react-redux';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import CompletedMessageFragment from './Completed.message.fragment';
-import { validateObjectNullEmptyCheck } from '../../../../js/util/validateObject';
+import { validateEmail, validateObjectNullEmptyCheck, validatePassword } from '../../../../js/util/validateObject';
 
 const CreateRetailer = () => {
     const [translate] = useTranslation();
@@ -41,11 +41,22 @@ const CreateRetailer = () => {
 
             } else if (step === 1) {
                 const result = validateObjectNullEmptyCheck(state, []);
-                console.log('------->>', result);
                 if (result[0]) {
                     const usernameSystemAvailability = 
                 await checkUsernameValidity({ username: state?.username });
                     if (usernameSystemAvailability.status) {
+                        // Check password
+                        const isValidPassword = validatePassword(state?.password);
+                        if (!isValidPassword) {
+                            setErrorState('passwordInvalid');
+                            return;
+                        }
+                        // Check email
+                        const isValidEmail = validateEmail(state?.email);
+                        if (!isValidEmail) {
+                            setErrorState('emailInvalid');
+                            return;
+                        }
                         setErrorState(null);
                         dispatch(setStageTwoCreateStore(state));
                     } else {
@@ -64,6 +75,29 @@ const CreateRetailer = () => {
                     const usernameManagerAvailability = 
                         await checkUsernameValidity({ username: state?.manager?.managerUsername });
                     if (usernameBusinessAdminAvailability.status && usernameManagerAvailability.status) {
+                        // Check password
+                        const isValidManagerPassword = validatePassword(state?.manager?.managerPassword);
+                        if (!isValidManagerPassword) {
+                            setErrorState('passwordInvalidManager');
+                            return;
+                        }
+                        const isValidAdminPassword = validatePassword(state?.businessAdmin?.adminPassword);
+                        if (!isValidAdminPassword) {
+                            setErrorState('passwordInvalidAdmin');
+                            return;
+                        }
+                        // Check email Admin
+                        const isValidEmailAdmin = validateEmail(state?.businessAdmin?.adminEmail);
+                        if (!isValidEmailAdmin) {
+                            setErrorState('emailInvalidAdmin');
+                            return;
+                        }
+                        // Check email Manager
+                        const isValidEmailManager = validateEmail(state?.manager?.managerEmail);
+                        if (!isValidEmailManager) {
+                            setErrorState('emailInvalidManager');
+                            return;
+                        }
                         setErrorState(null);
                         dispatch(setStageThreeCreateStore(state));
                     }

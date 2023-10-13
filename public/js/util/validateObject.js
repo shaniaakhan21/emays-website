@@ -34,3 +34,26 @@ export const validateObjectNullEmptyCheck = (object, skipItems) => {
     return [mainObjectValid];
 };
 
+/**
+ * Password validation
+ * @param {string} password 
+ * @returns 
+ */
+export const validatePassword = (password) => {
+    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    // Test the password against the pattern
+    const isValid = pattern.test(password);
+    return isValid;
+};
+
+/**
+ * Email validation
+ * @param {string} password 
+ * @returns 
+ */
+export const validateEmail = (password) => {
+    const pattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    // Test the password against the pattern
+    const isValid = pattern.test(password);
+    return isValid;
+};
