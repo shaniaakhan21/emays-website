@@ -1,3 +1,4 @@
+/* eslint-disable capitalized-comments */
 /* eslint-disable camelcase */
 import { Column, ComposedModal, Grid, ModalBody, ModalHeader } from '@carbon/react';
 import { createPortal } from 'react-dom';
@@ -23,6 +24,7 @@ import { makeCheckout, submitCheckout } from '../../services/stripe';
 import { useMessage } from '../common/messageCtx';
 import { publishableKey } from '../../js/const/stripe';
 import { apiBase } from '../../js/util/httpUtil';
+import { getAuthToken } from '../../js/util/SessionStorageUtil';
 
 const stripePromise = loadStripe(publishableKey);
 
@@ -68,12 +70,13 @@ const Payment = ({ open, setOpen }) => {
                 return;
             }
             console.log('redirection url is', `${window.location.protocol}//${window.location.host}`);
+            const token = getAuthToken();
             const result = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
-                    // eslint-disable-next-line camelcase, capitalized-comments, multiline-comment-style
                     // return_url: `${apiBase}/stripe/checkout/complete?userId=${open.uid}`
-                    return_url: `${window.location.protocol}//${window.location.host}/#/paymentSuccess`
+                    // eslint-disable-next-line max-len
+                    return_url: `${window.location.protocol}//${window.location.host}/#/paymentSuccess/${open.uid}/${token}`
                 }
             });
             if (result.error) {

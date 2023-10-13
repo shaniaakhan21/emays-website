@@ -4,23 +4,23 @@
 import { getAuthToken } from './SessionStorageUtil';
 import ResponseValidator from './responseValidator';
 
-export const apiBase = '/api-dev';
+export const apiBase = '/api';
 
 export class HTTPHelper {
-    static async get (uri, headers) {
+    static async get (uri, headers, token) {
         const response = await fetch(uri, {
             credentials: 'same-origin',
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${getAuthToken()}`,
+                'Authorization': `Bearer ${token ? token : getAuthToken()}`,
                 ...headers
             }
         });
         return ResponseValidator.validate(response);
     }
 
-    static async post (uri, headers, data = {}) {
+    static async post (uri, headers, data = {}, token) {
         const response = await fetch(uri, {
             method: 'POST',
             credentials: 'same-origin',

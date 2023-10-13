@@ -24,7 +24,11 @@ export const saveExternalSystem: CreateExternalSystemFunc = async (externalSyste
         const result = await extSysModel.save();
         const data: IExternalSystemDTO = {
             extSysEmail: result.extSysEmail,
-            extSysName: result.extSysName
+            extSysName: result.extSysName,
+            id: result._id as unknown as string,
+            extSysAddress: result.extSysAddress,
+            extLogo: result.extLogo,
+            extLogoContentType: result.extLogoContentType
         };
         return data;
     } catch (error) {

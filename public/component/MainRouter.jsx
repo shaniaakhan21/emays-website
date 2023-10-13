@@ -26,7 +26,7 @@ const MainRouter = () => {
                 <Router>
                     <Switch>
                         <Route path='/confirm' component={() => <Confirm />}></Route>
-                        <Route path='/paymentSuccess' component={() => <PaymentSuccessPage />}></Route>
+                        <Route path='/paymentSuccess/:id/:token' component={() => <PaymentSuccessPage />}></Route>
                         <Route path='/checkout' component={() => <Checkout />}></Route>
                         <Route path='/appointment' component={() => <Appointment/>}></Route>
                         <Route path='/retailer' component={() => <RetailerRouter />} />

@@ -7,9 +7,9 @@ export const makeCheckout = (uuid) => {
     return httpUtil.get(`${apiBase}/stripe/checkout?${params?.toString()}`, {});
 };
 
-export const submitCheckout = (id, data) => {
+export const submitCheckout = (id, token, data) => {
     const params = new URLSearchParams({
-        id
+        userId: id
     });
-    return httpUtil.post(`${apiBase}/stripe/checkout?${params?.toString()}`, {}, data);
+    return httpUtil.get(`${apiBase}/stripe/checkout/complete?${params?.toString()}`, {}, token);
 };

@@ -12,6 +12,7 @@ import { HTTPSuccess, HTTPUserError } from '../const/httpCode';
 import { IOrder, IOrderDTO, IPatchOrder } from '../type/orderType';
 import { successResponseBuilder } from '../util/responseBuilder';
 import {
+    allowedForClientRoleAndSuperAdminAndAdminOnly,
     allowedForClientRoleOnly,
     allowedForExternalSystemRoleOnly,
     validateCreateOrder,
@@ -22,6 +23,7 @@ import {
     validateParamUserId
 } from '../middleware/paramValidationMiddleware';
 import { createOrder, getOrderDetailsWithPagination, patchOrderDetailsByUserId,
+    retrieveOrderDetailsByOrderId,
     retrieveOrderDetailsByUserId } from '../service/orderService';
 import { AppRequest } from '../type/appRequestType';
 import { prepareRetailerDashboardSummary } from '../api/userAPI';
@@ -94,12 +96,39 @@ router.post(OrderRoutePath, allowedForClientRoleOnly, validateHeader, validateCr
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-router.get(`${OrderRoutePath}${PathParam.USER_ID}`, allowedForClientRoleOnly, validateHeader, validateParamUserId, (
-    req: Request, res: Response, next: NextFunction
+// eslint-disable-next-line max-len
+router.get(`${OrderRoutePath}${RoutePath.ORDER_BY_USER_ID}`, allowedForClientRoleOnly, validateHeader, validateParamUserId, (
+    req: express.Request<core.ParamsDictionary, any, any, { userId: string }>,
+    res: Response, next: NextFunction
 ): void => {
     (async () => {
-        const userId = req.params.userId;
+        const userId = req.query.userId;
         const orderDetail: IOrderDTO = await retrieveOrderDetailsByUserId(userId);
+        res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(orderDetail));
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, OrderRoutePath), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
+ * Get order by order id
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+// eslint-disable-next-line max-len
+router.get(`${OrderRoutePath}${RoutePath.ORDER_BY_ORDER_ID}${PathParam.ORDER_ID}`, allowedForClientRoleAndSuperAdminAndAdminOnly, validateHeader, (
+    req: express.Request<core.ParamsDictionary, any, any, { branchId: string }>,
+    res: Response, next: NextFunction
+): void => {
+    (async () => {
+        // Point:BranchId = StoreId
+        const storeId = req.query.branchId;
+        const orderId = req.params.orderId;
+        const orderDetail: IOrderDTO = await retrieveOrderDetailsByOrderId(storeId, orderId);
         res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(orderDetail));
     })().catch(error => {
         const err = error as Error;
@@ -140,14 +169,15 @@ router.patch(RoutePath.ORDERS + PathParam.USER_ID, validationsPatch, (
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-router.get(RoutePath.ORDERS, validateHeader, validateOrderDetailsPagination, (
-    req: express.Request<core.ParamsDictionary, any, any, { page: string, pageLimit: string }>
+router.get(`${RoutePath.ORDERS}${RoutePath.ORDER_BY_PAGINATION}`, validateHeader, validateOrderDetailsPagination, (
+    req: express.Request<core.ParamsDictionary, any, any, { page: string, pageLimit: string, storeId: string }>
     , res: Response, next: NextFunction): void => {
     const roles = (req as AppRequest).claims?.roles.join(',');
     (async () => {
         const page = parseInt(req.query.page);
         const pageLimit = parseInt(req.query.pageLimit);
-        const data = await getOrderDetailsWithPagination(page, pageLimit, roles as string);
+        const storeId = req.query.storeId;
+        const data = await getOrderDetailsWithPagination(page, pageLimit, roles as string, storeId);
         res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(data));
     })().catch(error => {
         const err = error as Error;

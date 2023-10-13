@@ -2,14 +2,14 @@
 /* eslint-disable max-len */
 'use strict';
 
-import { CreateOrderFunc, GetOrderDetailsWithPages, PatchOrderDetailsByUserIdFunc, RetrieveOrderByUserIdFunc, RetrieveOrdersByDeliveryStatusFunc } from '../type/orderServiceType';
+import { CreateOrderFunc, GetOrderDetailsWithPages, PatchOrderDetailsByUserIdFunc, RetrieveOrderByOrderIdFunc, RetrieveOrderByUserIdFunc, RetrieveOrdersByDeliveryStatusFunc } from '../type/orderServiceType';
 import { IOrder, IOrderDTO, IOrderPaginationDTO } from '../type/orderType';
 import { Logger } from '../log/logger';
 import { buildErrorMessage, buildInfoMessageMethodCall,
     buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
-import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus, getOrderDocumentSize, getOrderDetailDocumentsArrayByStartAndEndIndex } from '../data/model/OrderECommerceModel';
+import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus, getOrderDocumentSize, getOrderDetailDocumentsArrayByStartAndEndIndex, retrieveOrderByOrderId } from '../data/model/OrderECommerceModel';
 import { sendEmailForOrderCancellation, sendEmailForOrderingItems } from './emailService';
 import { config } from '../config/config';
 import { Order } from '../type/orderType';
@@ -151,6 +151,25 @@ export const retrieveOrderDetailsByUserId: RetrieveOrderByUserIdFunc = async (us
 };
 
 /**
+ * Retrieve order by order id
+ * @param {string} orderId Order id
+ * @returns {Promise<IOrder>} Promise with order data
+ */
+export const retrieveOrderDetailsByOrderId: RetrieveOrderByOrderIdFunc = async (storeId, orderId) => {
+    try {
+        const data = await retrieveOrderByOrderId(storeId, orderId);
+        Logging.log(buildInfoMessageUserProcessCompleted('Order retrieval', `Order Data:
+            ${JSON.stringify(data)}` ), LogType.INFO);
+        return data;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Retrieve Order'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
  * Retrieve order
  * @param {boolean} isDelivered delivery status
  * @returns {Promise<Array<IOrder>>} Promise with orders data
@@ -205,7 +224,7 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
  * @returns {Promise<Array<IOrderDTO>>} Promise with array of order data
  */
 export const getOrderDetailsWithPagination: GetOrderDetailsWithPages = async (page,
-    pageSize, role) => {
+    pageSize, role, branchId) => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get order pagination', role), LogType.INFO);
@@ -213,7 +232,7 @@ export const getOrderDetailsWithPagination: GetOrderDetailsWithPages = async (pa
         const endIndex = page * pageSize;
 
         const results: IOrderPaginationDTO = {};
-        const documentSize = await getOrderDocumentSize();
+        const documentSize = await getOrderDocumentSize(branchId);
         results.allPagesAvailable = Math.ceil(documentSize / pageSize);
         if (endIndex < documentSize) {
             results.next = {
@@ -228,7 +247,7 @@ export const getOrderDetailsWithPagination: GetOrderDetailsWithPages = async (pa
                 limit: pageSize
             };
         }
-        const orderData = await getOrderDetailDocumentsArrayByStartAndEndIndex(startIndex, pageSize);
+        const orderData = await getOrderDetailDocumentsArrayByStartAndEndIndex(startIndex, pageSize, branchId);
         results.pages = orderData;
         return results;
     } catch (error) {

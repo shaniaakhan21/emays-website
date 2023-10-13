@@ -207,7 +207,8 @@
       "cvv": "cvv",
       "button": "Pay now"
     },
-    "generate-password": "Generate Password"
+    "generate-password": "Generate Password",
+    "generate-password-label": "Password"
   },
   "checkout": {
     "book-appointment": {
@@ -236,6 +237,7 @@
       "header": "DELIVERY ADDRESS",
       "address": "Address"
     },
+    "not-in-service-area": "We are not serving your area",
     "delivery-info": "USER COMMENT",
     "submit-button": "CONTINUE",
     "save-changes": "SAVE NEW CHANGES",
@@ -553,7 +555,9 @@
         "address": "Delivery Address",
         "name": "Full Name",
         "email": "Email",
-        "tel": "Tel."
+        "tel": "Tel.",
+        "total": "Total",
+        "comment": "User Comment"
       },
       "items": {
         "title": "Items To be delivered",
@@ -599,13 +603,22 @@
           "paymentCurrency": "Payment Currency",
           "paymentCurrency-label": "Choose an option"
         },
+        "account": {
+          "sub-title": "Create User",
+          "username": "Username",
+          "email": "Email associated",
+          "password": "Password",
+          "re-password": "Retype password"
+        },
         "employee": {
           "sub-title": "Manager",
           "sub-title2": "Business Admin",
           "sub-title3": "Other",
           "name": "Name",
           "email": "Email",
-          "phone": "Phone Number"
+          "phone": "Phone Number",
+          "username": "Username",
+          "password": "Password"
         },
         "notes": {
           "sub-title": "Add Comment",
@@ -617,6 +630,16 @@
           "event": "Event",
           "download-log": "Download Activity Log",
           "sub-title3": "Comments"
+        },
+        "completed": {
+          "summery": "Shop Summery",
+          "sub-title": "Congratulations!",
+          "successMessage": "Store registration completed successfully.",
+          "error": {
+            "error-store": "Error Occurred",
+            "error-manager": "Error occurred in saving manager",
+            "error-admin": "Error occurred in saving admin"
+          }
         }
       },
       "createDriver": {

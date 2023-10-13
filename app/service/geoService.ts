@@ -9,6 +9,7 @@ import { buildErrorMessage, buildInfoMessageMethodCall,
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
 import { Client, AddressType, PlaceType2 } from '@googlemaps/google-maps-services-js';
 import { config } from '../config/config';
+import { dataflow } from 'googleapis/build/src/apis/dataflow';
 
 const Logging = Logger(__filename);
 
@@ -34,17 +35,19 @@ export const getServiceCostBasedOnGeoLocation: GetGeoBasedServiceCost = async (u
         const { data } = response;
         const addressComponents = data?.results?.[0]?.address_components || [];
         const localityType: AddressType = PlaceType2.locality;
-        const selectedCountry = (config.SYSTEM_AVAILABLE_GEO_LOCATIONS as
-            Array<{location: string, insideCost: number, outsideCost: number}>).
-            find(item => item.location === userData.area);
+        // const selectedCountry = (config.SYSTEM_AVAILABLE_GEO_LOCATIONS as
+        //     Array<{location: string, cost: number}>).
+        //     find(item => item.location === userData.area);
         const locality = addressComponents.find((component) => component.types.includes(localityType)
         );
-        const isUserInside: boolean = locality?.short_name === userData.area;
-        const fee = isUserInside ? selectedCountry?.insideCost : selectedCountry?.outsideCost;
-        const result = {
+        // const isUserInside: boolean = locality?.short_name === userData.area;
+        const foundCostRecord =  (config.SYSTEM_AVAILABLE_GEO_LOCATIONS as
+                Array<{location: string, cost: number}>).
+                find(item => item.location.toLowerCase() === locality?.short_name.toLocaleLowerCase());
+                const result = {
             area: locality?.short_name as string,
-            isInside: isUserInside,
-            serviceFee: fee as number
+            isInside: true,
+            serviceFee: foundCostRecord?.cost as number
         };
 
         Logging.log(buildInfoMessageUserProcessCompleted('Get geo based service cost', `Geo Data:

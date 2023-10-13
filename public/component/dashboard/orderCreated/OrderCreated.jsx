@@ -62,6 +62,14 @@ const OrderCreated = () => {
                         <label>{t('appointmentInfo.tel')}</label>
                         <p>{newOrderPhaseOneSelector?.phoneNumber}</p>
                     </div>
+                    <div className='field'>
+                        <label>{t('appointmentInfo.comment')}</label>
+                        <p>{newOrderPhaseOneSelector?.deliveryInfo}</p>
+                    </div>
+                    <div className='field'>
+                        <label>{t('appointmentInfo.total')}</label>
+                        <p>{newOrderPhaseTwoSelector?.total}</p>
+                    </div>
                 </div>
                 <div className='items-to-deliver'>
                     <Heading className='title'>
@@ -78,11 +86,6 @@ const OrderCreated = () => {
                               size={item?.size}
                               quantity={item?.quantity} />)}
                     </div>
-                    <Button>{t('items.button')}</Button>
-                </div>
-                <div className='comments'>
-                    <TextArea placeholder={t('comments.input-placeholder')} labelText={t('comments.input-label')} />
-                    <Printer />
                 </div>
             </div>
         </div>

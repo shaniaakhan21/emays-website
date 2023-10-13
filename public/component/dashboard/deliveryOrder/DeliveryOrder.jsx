@@ -37,10 +37,13 @@ const DeliveryOrder = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const getFinalCost = (serviceCharge = 0.00) => {
+        if (newOrderPhaseOneData.isLoading) {
+            console.log('Found');
+        }
+        const getFinalCost = (serviceCharge = newOrderPhaseOneData.serviceFee) => {
             const itemsTotal = orderInfo?.items?.reduce((acc, next) => {
                 return +acc + +next?.price; }, 0.00);
-            return +serviceCharge + +itemsTotal;
+            return (+serviceCharge + +itemsTotal).toFixed(2);
         };
         setOrderInfo({ type: 'setTotal', data: getFinalCost() });
     }, [newOrderPhaseOneData, orderInfo?.items, orderInfo?.total]);
@@ -101,7 +104,7 @@ const DeliveryOrder = () => {
                 {orderInfo?.items?.map((item, index) => <ShoppingItem
                     index={index}
                     itemName={item?.name}
-                    image={item?.FallBack}
+                    image={item?.image}
                     color={item?.color}
                     size={item?.size}
                     onDelete={() => {

@@ -61,7 +61,8 @@ export const getSuperUserToken: RequestSuperUserTokenFunc = async (username, pas
                     roles: Roles.SUPER as string,
                     id: superUserByUsername._id as unknown as string
                 };
-                const successResponse = { token: generateJWT(claims, JWT_TYPE.SHORT_LIVE)
+                const successResponse = { token: generateJWT(claims, JWT_TYPE.SHORT_LIVE),
+                    roles: Roles.SUPER
                 };
                 Logging.log(buildInfoMessageUserProcessCompleted('Get super user token', `Super USer Token:
                     ${JSON.stringify(successResponse.token)}` ), LogType.INFO);

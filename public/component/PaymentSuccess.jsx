@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import './paymentSuccess.css';
+import { useLocation, useParams } from 'react-router-dom';
+import { submitCheckout } from '../services/stripe';
 
 const PaymentSuccessPage = () => {
+    const location = useLocation();
+    const { id, token } = useParams();
+    console.log('location is', location.pathname, id, token);
+    useEffect(() => {
+        (async () => {
+            await submitCheckout(id, token);
+        })();
+    }, []);
     return (
         <div className='payment-success-container'>
             <div className='payment-success-heading'>

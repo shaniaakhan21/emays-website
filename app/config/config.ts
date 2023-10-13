@@ -123,7 +123,24 @@ export const config = {
         }
     },
     SYSTEM_AVAILABLE_GEO_LOCATIONS: SYSTEM_AVAILABLE_GEO_LOCATIONS || [
-        { location: 'Milan', insideCost: 1500, outsideCost: 2500 }
+        // 14.99€
+        { location: 'Milan', cost: 14.99 }, 
+        // 35€
+        { location: 'Pavia', cost: 35 },
+        // 60€
+        { location: 'Cremona', cost: 60 },
+        // 25€
+        { location: 'Monza', cost: 25 },
+        // 40€
+        { location: 'Bergamo', cost: 40 },
+        // 32€
+        { location: 'Lecco', cost: 32 },
+        // 40€
+        { location: 'Como', cost: 40 },
+        // 40€
+        { location: 'Varese', cost: 40 },
+        // 75€
+        { location: 'Turin', cost: 75 }
     ],
     SERVICE_CHARGE: SERVICE_CHARGE || 1200.00,
     STRIPE_SECRET_KEY: STRIPE_SECRET_KEY || 'sk_test_51MyGFvB7uMaHzfLgYAJMVDmQrAV6KkgMe3vV2UMq2w0MppsugqMg8uPodMwx89gpuOSDOqhXjVBAHEAYAwq5hAvi00M4DD8qRu',

@@ -14,7 +14,8 @@ class ResponseValidator {
         const result = await response.json();
         // Backend throws errors with the key error
         if (result.error) {
-            throw new BackendError(response.status, result?.error, result?.error);
+            // Check this with e-comers flow throw new BackendError(response.status, result?.error, result?.error);
+            return new BackendError(response.status, result?.error, result?.error);
         }
         return result.data;
     }

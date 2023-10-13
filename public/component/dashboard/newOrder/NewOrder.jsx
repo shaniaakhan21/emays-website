@@ -56,8 +56,6 @@ const NewOrder = ({ newOrderData }) => {
                     addFive: completeAddress[4],
                     addSix: completeAddress[5]
                 } };
-            case 'setServiceFee':
-                return { ...state, serviceFee: action?.data };
             case 'setAddressLineOne':
                 return { ...state, address: { ...state?.address, addOne: action?.data } };
             case 'setAddressLineTwo':
@@ -70,6 +68,10 @@ const NewOrder = ({ newOrderData }) => {
                 return { ...state, address: { ...state?.address, addFive: action?.data } };
             case 'setAddressLineSix':
                 return { ...state, address: { ...state?.address, addSix: action?.data } };
+            case 'setIsServiceAvailable':
+                return { ...state, isServiceAvailable: action?.data };
+            case 'setIsServiceFee':
+                return { ...state, serviceFee: action?.data };
             default:
                 return { ...state };
         }
@@ -92,7 +94,8 @@ const NewOrder = ({ newOrderData }) => {
             addFive: '',
             addSix: ''
         },
-        serviceFee: ''
+        isServiceAvailable: true,
+        serviceFee: null
     });
 
     const dispatch = useDispatch();
@@ -105,13 +108,19 @@ const NewOrder = ({ newOrderData }) => {
 
     // State service fee update from GeoContainer
     const updateServiceFee = (fee) => {
+        if (fee) {
+            setFormData({ type: 'setIsServiceAvailable', data: true });
+            setFormData({ type: 'setIsServiceFee', data: fee });
+        } else {
+            setFormData({ type: 'setIsServiceAvailable', data: false });
+        }
     };
 
     const submitForm = () => {
         setSubmitState(true);
         const isDataValid = validateObjectNullEmptyCheck(
             state, ['addFive', 'addSix', 'experience', 'deliveryInfo', 'serviceFee']);
-        if (isDataValid) {
+        if (isDataValid[0]) {
             dispatch(setNewOrderPhaseOneData(state));
             history.push('/dashboard/deliveryOrders');
         }
@@ -240,6 +249,8 @@ const NewOrder = ({ newOrderData }) => {
                                         setFormData({ type: 'setAddressLineOne', data: addOne });
                                     }}
                                     updateServiceFee={updateServiceFee} />
+                                { !state?.isServiceAvailable && 
+                                <p className='no-service-info'>Service not available for your area</p> }
                                 <br></br>
                                 <div className='textboxes-sec'>
                                     <div className='half-width'>
@@ -308,8 +319,11 @@ const NewOrder = ({ newOrderData }) => {
                         <div className='box-it'>
                             <p>{t('sub-head-03')}</p>
                             <br></br>
-                            <TextAreaCustom />
-                            <p className='sub-title margin-2'>{t('p-text')}</p>
+                            <TextAreaCustom onChange={
+                                (e) => setFormData({ type: 'setDelInfo',
+                                    data: e.target.value })
+                            }/>
+                            {/* <p className='sub-title margin-2'>{t('p-text')}</p> */}
                             <Button onClick={() =>
                             { submitForm(); }}>{t('button-text')}</Button>
                         </div>

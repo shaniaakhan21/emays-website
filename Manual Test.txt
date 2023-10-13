@@ -20,8 +20,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wO
     "firstName": "Thathsara",
     "lastName": "Raviraj",
     "phoneNumber": "07122658978",
-    "uid": "12345673410113",
-    "branchId": "12345673410113",
+    "uid": "12345673410500",
+    "branchId": "6504061d3615ae0e08a4a789",
     "date": "2023-03-16",
     "startTime": "19:00",
     "endTime": "21:00",
@@ -119,6 +119,17 @@ content-type: application/json
     "extSysEmail": "storeX@gmail.com"
 }
 
+
+POST https://emaysstyle.com/api/externalSystems
+content-type: application/json
+
+{
+    "extSysName": "Store-X",
+    "extSysUsername": "storeThath",
+    "extSysPassword": "abCq2&!Ms",
+    "extSysEmail": "storeX@gmail.com"
+}
+
 ----- Get auth token for external system ------
 
 POST http://localhost:8080/api-dev/externalSystems/systemToken
@@ -133,14 +144,66 @@ POST  https://emaysstyle.com/api/externalSystems/systemToken
 content-type: application/json
 
 {
-    "extSysUsername": "storex",
+    "extSysUsername": "storeThath",
     "extSysPassword": "abCq2&!Ms"
 }
-                                    
+
+----- Create manager user ------
+
+POST http://localhost:8080/api-dev/managerExternalSystem
+content-type: application/json
+
+{
+    "managerFirstName": "Thathsara",
+    "managerLastName": "Raviraj",
+    "managerUsername": "thathsaraAdmin4",
+    "managerPassword": "abCq2&!Ms",
+    "managerPhone": "1233533452345",
+    "managerEmail": "admin4@gmail.com",
+    "externalSystemId": "6504061d3615ae0e08a4a789"
+}
+
+----- Create admin user ------
+
+POST http://localhost:8080/api-dev/adminExternalSystem
+content-type: application/json
+
+{
+    "adminFirstName": "Thathsara",
+    "adminLastName": "Raviraj",
+    "adminUsername": "thathsaraAdmin4",
+    "adminPassword": "abCq2&!Ms",
+    "adminPhone": "1233533452345",
+    "adminEmail": "admin4@gmail.com",
+    "externalSystemId": "6504061d3615ae0e08a4a789"
+}
+
+POST https://emaysstyle.com/api/adminExternalSystem
+content-type: application/json
+
+{
+    "adminFirstName": "Thathsara",
+    "adminLastName": "Raviraj",
+    "adminUsername": "thathadminuser3",
+    "adminPassword": "abCq2&!Ms",
+    "adminPhone": "1233533452345",
+    "adminEmail": "adminX1@gmail.com",
+    "externalSystemId": "6504061d3615ae0e08a4a789"
+}
+
+----- Get auth token for admin user -----
+      
+POST http://localhost:8080/api-dev/adminExternalSystem/adminExternalSystemToken
+content-type: application/json
+
+{
+    "adminUsername": "thathadminuser4",
+    "adminPassword": "abCq2&!Ms"
+}               
 
 ----- Get service cost based on the coordinations ------
 
-GET http://localhost:8080/api-dev/geo/Milan/45.45638246318493/9.353985555977896
+GET	http://localhost:8080/api-dev/geo//34.1446973/-118.2597429
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0yOFQxNTo0NTozOC4wNTdaIiwiZXhwIjoxNjgwMDIxOTM4LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiI4Mzk4ODhmMC05NmU3LTRhOWItYjUwNC1kMDkyN2VlNzk1ZWEiLCJpYXQiOjE2ODAwMTgzMzh9.e0lnxxZRwyzJR2bOPucAuSqrmlYDJYyF-5IaApB1yfc
 content-type: application/json
 
@@ -189,11 +252,37 @@ content-type: application/json
 }
 
 
+------ Use common login to get token ----------
+
+POST http://localhost:8080/api-dev/login
+content-type: application/json
+
+{
+    "username": "thathsaraAdmin4",
+    "password": "abCq2&!Ms"
+}
+
+---- Get system info -------
+
+POST http://localhost:8080/api-dev/externalSystems/systemInfo
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wM1QxNTo0Mzo1Ni44NDRaIiwiZXhwIjoxNjk2MzUxNDM2LCJyb2xlcyI6WyJhZG1pbiJdLCJpZCI6IjY1MWMzNjQxMjZjNGI4OThiN2I0MjJkZiIsImlhdCI6MTY5NjM0NzgzNn0.Lg35KR80ESq41f0atpg0ChT4VflXlPiH_uPt-cYZJvo
+
+
 ----- Get user order pagination ------------
+
+GET http://localhost:8080/api-dev/orders?page=1&pageLimit=4&storeId=6504061d3615ae0e08a4a789
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNFQwNzoyMjozOC41MDhaIiwiZXhwIjoxNjk2NDA3NzU4LCJyb2xlcyI6WyJhZG1pbiJdLCJpZCI6IjY1MWMzNjQxMjZjNGI4OThiN2I0MjJkZiIsImlhdCI6MTY5NjQwNDE1OH0.d2SugJ5wclMI3htSMTGa4qR0-J5FUDFdyxWgKnByOOo
+
 
 GET http://localhost:8080/api-dev/orders?page=1&pageLimit=4
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yMVQxMzowNToxNS4xNDhaIiwiZXhwIjoxNjgyMDg1OTE1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJiNTA2NjQ2Ni0wNmIzLTQ2NzgtYjkwYS1iOGI5YTBmOWYwZjIiLCJpYXQiOjE2ODIwODIzMTV9.CAwD_RfYFEv89_r1crQQY_d32c7P_Jr6VJalo_mRMhc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNFQwNzoyMjozOC41MDhaIiwiZXhwIjoxNjk2NDA3NzU4LCJyb2xlcyI6WyJhZG1pbiJdLCJpZCI6IjY1MWMzNjQxMjZjNGI4OThiN2I0MjJkZiIsImlhdCI6MTY5NjQwNDE1OH0.d2SugJ5wclMI3htSMTGa4qR0-J5FUDFdyxWgKnByOOo
+
+GET http://localhost:8080/api-dev/orders/byOrderId/650803e5c53b6a587cf62d6a
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNlQwODozNDowNi41MzlaIiwiZXhwIjoxNjk2NTg0ODQ2LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MDQwNWU2MzYxNWFlMGUwOGE0YTc4MiIsImlhdCI6MTY5NjU4MTI0Nn0.B67LWPvk3xi2jxVn-Uhnszp_2wJpqV5gixyWsU13YKI
 
 ------ Create FAQ ------
 
