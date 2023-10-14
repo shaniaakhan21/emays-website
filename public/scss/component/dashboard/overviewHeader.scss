@@ -1,0 +1,24 @@
+.tile-box {
+    margin-right: 1%;
+    width: 30%;
+
+    .cds--tile {
+        background-color: white;
+    }
+}
+
+.grid-2 {
+    display: flex;
+    justify-content: flex-start;
+    width: 60%;
+    flex-direction: row-reverse;
+}
+
+.grid-1 {
+    width: 40%;
+}
+
+.header-content {
+    display: flex;
+    align-items: flex-end;
+}

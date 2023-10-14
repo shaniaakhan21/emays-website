@@ -224,7 +224,7 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
  * @returns {Promise<Array<IOrderDTO>>} Promise with array of order data
  */
 export const getOrderDetailsWithPagination: GetOrderDetailsWithPages = async (page,
-    pageSize, role, branchId) => {
+    pageSize, role, branchId, isCompleted) => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get order pagination', role), LogType.INFO);
@@ -232,7 +232,7 @@ export const getOrderDetailsWithPagination: GetOrderDetailsWithPages = async (pa
         const endIndex = page * pageSize;
 
         const results: IOrderPaginationDTO = {};
-        const documentSize = await getOrderDocumentSize(branchId);
+        const documentSize = await getOrderDocumentSize(branchId, isCompleted);
         results.allPagesAvailable = Math.ceil(documentSize / pageSize);
         if (endIndex < documentSize) {
             results.next = {
@@ -247,7 +247,7 @@ export const getOrderDetailsWithPagination: GetOrderDetailsWithPages = async (pa
                 limit: pageSize
             };
         }
-        const orderData = await getOrderDetailDocumentsArrayByStartAndEndIndex(startIndex, pageSize, branchId);
+        const orderData = await getOrderDetailDocumentsArrayByStartAndEndIndex(startIndex, pageSize, branchId, isCompleted);
         results.pages = orderData;
         return results;
     } catch (error) {

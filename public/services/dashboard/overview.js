@@ -22,6 +22,26 @@ export const loadOrders = ({ pageNumber, pageLimit, storeId, token }) => {
     }, {});
 };
 
+/*
+ * Load completed user orders with pagination
+ * @param pageNumber {number}
+ * @param pageLimit {number}
+ * @param storeId {string}
+ * @param token {string}
+ * @returns {Promise<undefined|*>}
+ */
+export const loadCompletedOrders = ({ pageNumber, pageLimit, storeId, token }) => {
+    if (storeId) {
+        // eslint-disable-next-line max-len
+        return httpUtil.get(`${apiBase}/orders/pagination?page=${pageNumber}&pageLimit=${pageLimit}&storeId=${storeId}&isCompleted=true`, {
+            'Authorization': `Bearer ${token}`
+        }, {});
+    }
+    return httpUtil.get(`${apiBase}/orders/pagination?page=${pageNumber}&pageLimit=${pageLimit}&isCompleted=true`, {
+        'Authorization': `Bearer ${token}`
+    }, {});
+};
+
 /**
  * Load user orders by order id
  * @param orderId {number}
