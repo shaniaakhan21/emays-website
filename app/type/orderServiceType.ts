@@ -21,12 +21,12 @@ export type RetrieveOrdersByDeliveryStatusFunc = (isDelivered: boolean) => Promi
 export type PatchOrderDetailsByUserIdFunc = (userId: string, patchData: IPatchOrder) => Promise<IOrderDTO>;
 
 export type GetOrderDetailsWithPages = (noOfPages: number, pageLimit: number,
-   role: string, branchId?: string) => Promise<IOrderPaginationDTO>;
+   role: string, branchId?: string, isCompleted?: boolean) => Promise<IOrderPaginationDTO>;
 
-export type GetOrderDocumentSize = (branchId?: string) => Promise<number>;
+export type GetOrderDocumentSize = (branchId?: string, isCompleted?: boolean) => Promise<number>;
 
 export type GetOrderDetailDocumentsArrayByStartAndEndIndex = (startIndex: number,
-    endIndex: number, branchId?: string) => Promise<Array<IOrderDTO>>;
+    endIndex: number, branchId?: string, isCompleted?: boolean) => Promise<Array<IOrderDTO>>;
 
 export type ServiceErrorBuilderFunc = (errorMessage: string) => void;
 

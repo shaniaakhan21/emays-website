@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Column, FileUploaderDropContainer, Grid, Heading, TextInput } from '@carbon/react';
 import { setStoreLogo } from '../../../../js/util/SessionStorageUtil';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
+import GoogleMap from '../../../common/googleMap';
 
 const CreateRetailerBasicInfo = ({ setState, errorState }) => {
     const [translate] = useTranslation();
@@ -181,7 +182,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                         {errorState === 'storeLogo' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please add your logo</span>}
-                        {/* <GoogleMap /> */}
+                        <GoogleMap />
                         {/* <GeoContainer 
                             appData={googleMapAPIKey}
                             updateAddress={({ addOne }) => {
