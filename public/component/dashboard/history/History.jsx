@@ -79,7 +79,7 @@ const History = ({ historyData, updateData }) => {
                         }} />
                     </div>
                     <div className='toBeDelivered'>
-                        <h2 className='title'>{t('toBeDelivered-title')}</h2>
+                        {/* <h2 className='title'>{t('toBeDelivered-title')}</h2> */}
                         <div className='items'>
                             {selectedRow?.map((item, index) => <ShoppingItem
                                 index={index}

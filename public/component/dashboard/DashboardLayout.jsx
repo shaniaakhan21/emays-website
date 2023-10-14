@@ -13,16 +13,19 @@ import AdminToolsRouter from './adminTools/AdminToolsRouter';
 import { Notification, View, ListDropdown
     , EventsAlt, ServerTime, NewTab, OperationsField } from '@carbon/icons-react';
 import { getAppInfoExe, getSystemInfoExe } from './redux/thunk/appInfoThunk';
-import { useDispatch } from 'react-redux';
-import { getOverviewData } from './redux/thunk/overviewThunk';
+import { useDispatch, useSelector } from 'react-redux';
+import { getOverviewData, getOverviewDataCompleted } from './redux/thunk/overviewThunk';
 import { HeaderContainer, SideNav, SideNavItems, SideNavLink
 } from '@carbon/react';
+import { loginSelectorMemoized } from './redux/selector/loginSelector';
 
 const DashboardLayout = () => {
 
     const [t] = useTranslation();
 
     const dispatch = useDispatch();
+
+    const loginStatusStore = useSelector(loginSelectorMemoized);
 
     const getActiveLinkStyle = (event) => {
         const anchorElements = document.querySelectorAll('nav ul li a');
@@ -41,6 +44,12 @@ const DashboardLayout = () => {
     const getOverviewDataWrapper = useCallback((pageNo, limit) => { 
         const data = { pageNumber: pageNo, pageLimit: limit };
         return dispatch(getOverviewData(data));
+    }, [dispatch]);
+
+    // History props
+    const getCompletedDataWrapper = useCallback((pageNo, limit) => { 
+        const data = { pageNumber: pageNo, pageLimit: limit };
+        return dispatch(getOverviewDataCompleted(data));
     }, [dispatch]);
 
     // New Order props
@@ -72,9 +81,9 @@ const DashboardLayout = () => {
                                         Overview
                                     </SideNavLink>
                                     <SideNavLink
-                                        renderIcon={NewTab}
-                                        href='/#/dashboard/newOrders'>
-                                        New Orders
+                                        renderIcon={ListDropdown}
+                                        href='/#/dashboard/deliveryOrders'>
+                                        Delivery Order
                                     </SideNavLink>
                                     {/* <SideNavLink
                                         renderIcon={ListDropdown}
@@ -92,10 +101,17 @@ const DashboardLayout = () => {
                                         History
                                     </SideNavLink>
                                     <SideNavLink
-                                        renderIcon={OperationsField}
-                                        href='/#/dashboard/adminTools'>
-                                        Admin Tools
+                                        renderIcon={NewTab}
+                                        href='/#/dashboard/newOrders'>
+                                        New Orders
                                     </SideNavLink>
+                                    {
+                                        loginStatusStore?.role === 'super' && <SideNavLink
+                                            renderIcon={OperationsField}
+                                            href='/#/dashboard/adminTools'>
+                                        Admin Tools
+                                        </SideNavLink>
+                                    }
                                 </SideNavItems>
                             </SideNav>
                         </>
@@ -116,17 +132,27 @@ const DashboardLayout = () => {
                                 <Overview />
                             </PaginationContainer>
                             }></Route>
-                        <Route exact path='/dashboard/deliveryOrders'
-                            component={() => <DeliveryOrder />}></Route>
                         <Route exact path='/dashboard/orders/created'
                             component={() => <OrderCreated />}></Route>
                         <Route exact path='/dashboard/customers'
                             component={() => <Customer />}></Route>
-                        <Route exact path='/dashboard/history'
+                        <Route exact path='/dashboard/deliveryOrders'
                             component={() => <PaginationContainer
                                 wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                                 // The method used for fetch pagination data
                                 getPaginationData={getOverviewDataWrapper}
+                                // The property name of the overview component
+                                resourceName={'deliveryOrderData'}
+                                // Enable pagination
+                                isPaginationEnabled={true}
+                            >
+                                <DeliveryOrder />
+                            </PaginationContainer>}></Route>
+                        <Route exact path='/dashboard/history'
+                            component={() => <PaginationContainer
+                                wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                // The method used for fetch pagination data
+                                getPaginationData={getCompletedDataWrapper}
                                 // The property name of the overview component
                                 resourceName={'historyData'}
                                 // Enable pagination
