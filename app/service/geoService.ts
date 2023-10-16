@@ -10,6 +10,7 @@ import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
 import { Client, AddressType, PlaceType2 } from '@googlemaps/google-maps-services-js';
 import { config } from '../config/config';
 import { dataflow } from 'googleapis/build/src/apis/dataflow';
+import { provideServiceAreasFunc } from '../type/adminExternalSystemServiceType';
 
 const Logging = Logger(__filename);
 
@@ -57,6 +58,26 @@ export const getServiceCostBasedOnGeoLocation: GetGeoBasedServiceCost = async (u
         const err = error as Error;
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, `Get geo based service cost for user ${userData.uid}`), LogType.ERROR);
+        throw error;
+    }
+};
+
+
+/**
+ * Provide area list
+ * @returns {Promise<ServiceAreasDTO>}
+ */
+export const provideServiceAreaList: provideServiceAreasFunc = () => {
+    try {
+        const areaList = 
+            ((config?.SYSTEM_AVAILABLE_GEO_LOCATIONS) as Array<{location: string}>)?.map((data) => data?.location);
+        const result = {
+            areas: areaList
+        };
+        return result;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Validate zip code'), LogType.ERROR);
         throw error;
     }
 };
