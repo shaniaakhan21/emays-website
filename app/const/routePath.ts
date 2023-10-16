@@ -34,7 +34,7 @@ export enum RoutePath {
     EMAIL_REMINDERS = '/emailReminders',
     LETS_TALK = '/letsTalk',
     FAQ = '/faq',
-    ZIP_CODE_VALIDATION = '/zipCodeValidation'
+    ZIP_CODE_VALIDATION = '/serviceAreas'
  }
 
 export enum PathParam {
