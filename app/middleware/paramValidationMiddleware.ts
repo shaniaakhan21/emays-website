@@ -22,7 +22,8 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     , TIME_ZONE_REQUIRED
     , USERNAME_REQUIRED, USER_FIRST_NAME_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH, USER_LAST_NAME_REQUIRED
     , USER_PHONE_NUMBER_REQUIRED, 
-    USER_UNAUTHORIZED } from '../const/errorMessage';
+    USER_UNAUTHORIZED, 
+    ZIP_CODE_REQUIRED } from '../const/errorMessage';
 import { Logger } from '../log/logger';
 import { buildErrorMessage } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
@@ -108,6 +109,24 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
             }).error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, ORDER_LIST_REQUIRED);
+            })         
+        }   
+    });
+    validateRequest(req, next, checkOrderParams);
+};
+
+/**
+ * Validate zip code
+ * @param req Request 
+ * @param res Response
+ * @param next NextFunction
+ */
+export const validateZipCode = (req: Request, res: Response, next: NextFunction) => {
+    const checkOrderParams = Joi.object({
+        body: {
+            zipCode: Joi.string().max(15).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ZIP_CODE_REQUIRED);
             })         
         }   
     });

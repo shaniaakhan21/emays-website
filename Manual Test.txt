@@ -317,3 +317,13 @@ GET http://localhost:8080/api-dev/faq
 GET http://localhost:8080/api-dev/orders/64590244ebaa6d3def34f526/summary
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yMVQxMzowNToxNS4xNDhaIiwiZXhwIjoxNjgyMDg1OTE1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJiNTA2NjQ2Ni0wNmIzLTQ2NzgtYjkwYS1iOGI5YTBmOWYwZjIiLCJpYXQiOjE2ODIwODIzMTV9.CAwD_RfYFEv89_r1crQQY_d32c7P_Jr6VJalo_mRMhc
+
+--------- ZIP CODE VALIDATION ------------
+
+POST http://localhost:8080/api-dev/zipCodeValidation
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0xNlQwNjoxMDo0Ny44MzJaIiwiZXhwIjoxNjk3NDQ3NDQ3LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTFiZTk4N2RmMzk1MzUzNzFkZmVjMzUiLCJpYXQiOjE2OTc0MzY2NDd9.XPnzgMWBol4osPII7PMRGKP0JRtD3lmVG4k6Y_Xz1W0
+
+{
+    "zipCode": "asdasd"
+}
