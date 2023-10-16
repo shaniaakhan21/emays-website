@@ -1,10 +1,12 @@
 'use strict';
 
 import { Router, Request, Response, NextFunction } from 'express';
-import { allowedForExternalSystemSuperUserAndAdminRolesOnly, validateCreateExtSysRequestBody,
+import { allowedForExternalSystemRoleOnly, allowedForExternalSystemSuperUserAndAdminRolesOnly,
+    validateCreateExtSysRequestBody,
     validateExternalSystemTokenRequestBody, validateHeader,
     validateUserTokenRequestBody, 
-    validateUsername } from '../../middleware/paramValidationMiddleware';
+    validateUsername, 
+    validateZipCode } from '../../middleware/paramValidationMiddleware';
 import { Logger } from '../../log/logger';
 import { RoutePath } from '../../const/routePath';
 import { buildErrorMessage, buildInfoMessageRouteHit
@@ -19,7 +21,8 @@ import { AppRequest } from '../../type/appRequestType';
 import { IJWTClaims } from '../../type/IJWTClaims';
 import { Roles } from '../../const/roles';
 import { getAdminExternalSystemByAdminAssociatedId,
-    getAdminExternalSystemToken } from '../../service/administration/adminExternalSystemService';
+    getAdminExternalSystemToken, validateZipCodeWithServiceAvailableAreas } 
+    from '../../service/administration/adminExternalSystemService';
 import { ICommonLoginCredentials } from '../../type/ICommonLogin';
 import { checkUsernameInCommon } from '../../service/administration/commonLoginService';
 import { ExternalSystemModel } from '../../data/model/ExternalSystemModel';
@@ -31,6 +34,7 @@ import ErrorType from '../../const/errorType';
 import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../const/errorMessage';
 import { ManagerExternalSystemModel } from '../../data/model/ManagerExternalSystemModel';
 import { getManagerExternalSystemToken } from '../../service/administration/managerExternalSystemService';
+import { IZipCodeValidation } from '../../type/IZipCodeValidate';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -194,6 +198,29 @@ router.post(requestTokenPathCommonLogin, validateHeader, validateUserTokenReques
         }
         throw new ServiceError(ErrorType.UNAUTHORIZED, INVALID_CREDENTIALS_ERROR_MESSAGE, '', HTTPUserError.
             UNAUTHORIZED_CODE);
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, requestTokenPathCommonLogin), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
+ * Zip code validation
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+const requestZipCodeValidation = 
+    `${RoutePath.ZIP_CODE_VALIDATION}`;
+router.post(requestZipCodeValidation, validateHeader, allowedForExternalSystemRoleOnly, validateZipCode, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => {
+        const requestBody = req.body as IZipCodeValidation;
+        Logging.log(buildInfoMessageRouteHit(req.path, requestBody.zipCode), LogType.INFO);
+        const status = await validateZipCodeWithServiceAvailableAreas(requestBody.zipCode);
+        return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(status));
     })().catch(error => {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, requestTokenPathCommonLogin), LogType.ERROR);
