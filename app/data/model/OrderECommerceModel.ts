@@ -180,18 +180,24 @@ export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocum
         let orderArray;
         // This assumed that Superuser can view orders without a storeId. We may have to split this method
         if (branchId && isCompleted === true) {
+            console.log('HErer--------->>> branchId and isCompleted');
             return await OrderECommerceModel.find({ $and: [
                 { branchId: branchId },
-                { isDelivered: isCompleted }] }).skip(startIndex).limit(limit).exec();
+                { isDelivered: true }] }).skip(startIndex).limit(limit).exec();
         } else if (branchId) {
             orderArray = await OrderECommerceModel.find({ branchId: branchId }).skip(startIndex).limit(limit).exec();
         } 
         // History page need this isCompleted flag
         else if (isCompleted === true) {
-            orderArray = await OrderECommerceModel.countDocuments({ isDelivered: isCompleted }).exec();
+            orderArray = await OrderECommerceModel.find({ isDelivered: true }).exec();
         }
-        orderArray = await OrderECommerceModel.find().skip(startIndex).limit(limit).exec();
-        const preparedOrderArray: Array<IOrderDTO> = orderArray.map(data => prepareUserDetailsToSend(data)); 
+
+        // If items are not available yet, get all result
+        if (!((orderArray as [])?.length > 0)) {
+            orderArray = await OrderECommerceModel.find().skip(startIndex).limit(limit).exec();
+        }
+       
+        const preparedOrderArray: Array<IOrderDTO> = (orderArray as []).map(data => prepareUserDetailsToSend(data)); 
         return preparedOrderArray;
     } catch (error) {
         const err = error as Error;
