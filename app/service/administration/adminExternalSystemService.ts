@@ -6,8 +6,7 @@ import { AdminExternalSystemModel, saveAdminExternalSystemUser } from '../../dat
 import { Logger } from '../../log/logger';
 import { CreateAdminExternalSystemFunc,
     GetAdminByIdFunc, GetExternalSystemByAdminIdFunc,
-    RequestAdminExternalSystemTokenFunc, 
-    ValidateZipCodeFunc } from '../../type/adminExternalSystemServiceType';
+    RequestAdminExternalSystemTokenFunc } from '../../type/adminExternalSystemServiceType';
 import { buildErrorMessage, buildInfoMessageMethodCall
     , buildInfoMessageUserProcessCompleted } from '../../util/logMessageBuilder';
 import { compareHash, hashPassword } from '../../util/passwordUtil';
@@ -135,23 +134,3 @@ export const getAdminExternalSystemByAdminAssociatedId: GetExternalSystemByAdmin
     }
 };
 
-/**
- * Validate zip code
- * @param {string} zipCode Zip[ code sent by client
- * @returns {Promise<IZipCodeValidationDTO>}
- */
-
-export const validateZipCodeWithServiceAvailableAreas: ValidateZipCodeFunc = async (zipCode) => {
-    try {
-        await new Promise((resolve, reject) => {
-            resolve(true);
-        });
-        return {
-            status: true
-        };
-    } catch (error) {
-        const err = error as Error;
-        Logging.log(buildErrorMessage(err, 'Validate zip code'), LogType.ERROR);
-        throw error;
-    }
-};
