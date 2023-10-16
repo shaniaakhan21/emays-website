@@ -33,7 +33,8 @@ export enum RoutePath {
     APP_INFO = '/appInfo',
     EMAIL_REMINDERS = '/emailReminders',
     LETS_TALK = '/letsTalk',
-    FAQ = '/faq'
+    FAQ = '/faq',
+    ZIP_CODE_VALIDATION = '/zipCodeValidation'
  }
 
 export enum PathParam {
