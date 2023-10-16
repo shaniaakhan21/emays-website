@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } fro
 import { useTranslation } from 'react-i18next';
 import ShoppingItem from '../../checkout/ShoppingItem';
 import StatusBox from '../../common/statusBox';
+import OverviewHeader from './component/Header';
 
 // SCSS
 import './../../../scss/component/retailer/overview.scss';
@@ -53,27 +54,7 @@ const Overview = ({ overviewData, updateData }) => {
 
     return (
         <>
-            {
-                overviewSelector.isLoading && tableRow ? <p>Loading...</p> : <div className='overview'>
-                    <div className='table'>
-                        <Table rows={tableRow} headers={headers} onRowClick={(item) => {
-                            setSelectedRow(item?.orderItems);
-                        }} />
-                    </div>
-                    <div className='toBeDelivered'>
-                        <h2 className='title'>{t('toBeDelivered-title')}</h2>
-                        <div className='items'>
-                            {selectedRow?.map((item, index) => <ShoppingItem
-                                index={index}
-                                itemName={item?.productName}
-                                image={item?.productImage}
-                                color={item?.productColor}
-                                size={'40'}
-                                quantity={item?.productQuantity} />)}
-                        </div>
-                    </div>
-                </div>
-            }
+            <OverviewHeader />
         </>
     );
 };

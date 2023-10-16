@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { appInfoSelectorMemoized } from '../redux/selector/appInfoSelector';
 import { validateObjectNullEmptyCheck } from '../../../js/util/validateObject';
 import { setNewOrderPhaseOneData } from '../redux/thunk/newOrderThunk';
+import ContactNumberInput from '../../common/ContactNumberInput';
 
 const NewOrder = ({ newOrderData }) => {
     const [translate] = useTranslation();
@@ -196,11 +197,17 @@ const NewOrder = ({ newOrderData }) => {
                                         <br></br>
                                         <p className='sub-title'>{t('text-box-02')}</p>
                                         <div>
-                                            <TextBoxCustom
+                                            <br></br>
+                                            <ContactNumberInput 
+                                                actionFunc= {(value) => 
+                                                { setFormData({ type: 'setPhone', data: value }); }}
+                                                data = {''}
+                                            />
+                                            {/* <TextBoxCustom
                                                 onChange={
                                                     (e) => setFormData({ type: 'setPhone', data: e.target.value })
                                                 }
-                                                placeholderText={t('Place-holder-02')} />
+                                                placeholderText={t('Place-holder-02')} /> */}
                                             {submitState && !state?.phoneNumber && 
                                             <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                                 Please provide contact number</span>}

@@ -2,6 +2,7 @@
 
 import { IAdminExternalSystem, IAdminExternalSystemDTO } from './IAdminExternalSystem';
 import { IExternalSystemDTO } from './IExternalSystem';
+import { IZipCodeValidationDTO } from './IZipCodeValidate';
 
 export type CreateAdminExternalSystemFunc = (admin: IAdminExternalSystem) => Promise<IAdminExternalSystemDTO>;
 
@@ -10,3 +11,6 @@ export type RequestAdminExternalSystemTokenFunc = (adminUsername: string, adminP
 export type GetAdminByIdFunc = (id: string) => Promise<IAdminExternalSystemDTO>;
 
 export type GetExternalSystemByAdminIdFunc = (id: string) => Promise<IExternalSystemDTO>;
+
+export type ValidateZipCodeFunc = (zipCode: string) => Promise<IZipCodeValidationDTO>;
+

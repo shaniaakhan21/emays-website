@@ -14,6 +14,7 @@ import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { prepareUserDetailsToSend } from '../../util/orderDetailBuilder';
 import OrderSchema from '../schema/OrderECommerceSchema';
+import { array } from 'joi';
 
 const Logging = Logger(__filename);
 
@@ -143,10 +144,19 @@ export const findOneAndUpdateIfExist: PatchOrderDetailsByUserIdFunc = async (use
  * Get order document size
  * @returns {integer} Returns integer size
  */
-export const getOrderDocumentSize: GetOrderDocumentSize = (storeBranchId) => {
+export const getOrderDocumentSize: GetOrderDocumentSize = (storeBranchId, isCompleted) => {
     try {
-        if (storeBranchId) {
+        // This assumed that Superuser can view orders without a storeId. We may have to split this method
+        if (storeBranchId && isCompleted === true) {
+            return OrderECommerceModel.countDocuments({ $and: [
+                { branchId: storeBranchId },
+                { isDelivered: isCompleted }] }).exec();
+        } else if (storeBranchId) {
             return OrderECommerceModel.countDocuments({ branchId: storeBranchId }).exec();
+        } 
+        // History page need this isCompleted flag
+        else if (isCompleted === true) {
+            return OrderECommerceModel.countDocuments({ isDelivered: isCompleted }).exec();
         }
         return OrderECommerceModel.countDocuments().exec();
     } catch (error) {
@@ -163,16 +173,24 @@ export const getOrderDocumentSize: GetOrderDocumentSize = (storeBranchId) => {
  * @returns {Array<IOrderDTO>} Returns order details array
  */
 export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocumentsArrayByStartAndEndIndex = async (
-    startIndex, limit, branchId
+    startIndex, limit, branchId, isCompleted
 ) => {
     try {
+
         let orderArray;
-        if (!branchId) {
-            orderArray = await OrderECommerceModel.find().skip(startIndex).limit(limit).exec();
-        } else {
+        // This assumed that Superuser can view orders without a storeId. We may have to split this method
+        if (branchId && isCompleted === true) {
+            return await OrderECommerceModel.find({ $and: [
+                { branchId: branchId },
+                { isDelivered: isCompleted }] }).skip(startIndex).limit(limit).exec();
+        } else if (branchId) {
             orderArray = await OrderECommerceModel.find({ branchId: branchId }).skip(startIndex).limit(limit).exec();
+        } 
+        // History page need this isCompleted flag
+        else if (isCompleted === true) {
+            orderArray = await OrderECommerceModel.countDocuments({ isDelivered: isCompleted }).exec();
         }
-        
+        orderArray = await OrderECommerceModel.find().skip(startIndex).limit(limit).exec();
         const preparedOrderArray: Array<IOrderDTO> = orderArray.map(data => prepareUserDetailsToSend(data)); 
         return preparedOrderArray;
     } catch (error) {
