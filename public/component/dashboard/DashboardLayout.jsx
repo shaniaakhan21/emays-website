@@ -19,6 +19,7 @@ import { HeaderContainer, SideNav, SideNavItems, SideNavLink
 } from '@carbon/react';
 import { loginSelectorMemoized } from './redux/selector/loginSelector';
 import { getCompletedOrderData } from './redux/thunk/completeOrderThunk';
+import AddItems from './addItem/AddItems';
 
 const DashboardLayout = () => {
 
@@ -127,6 +128,8 @@ const DashboardLayout = () => {
                             component={() => <OrderCreated />}></Route>
                         <Route exact path='/dashboard/customers'
                             component={() => <Customer />}></Route>
+                        <Route exact path='/dashboard/addItems'
+                            component={() => <AddItems />}></Route>
                         <Route exact path='/dashboard/deliveryOrders'
                             component={() => <PaginationContainer
                                 wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}

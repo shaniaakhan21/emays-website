@@ -9,13 +9,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { completeOrderSelectorMemoized } from '../redux/selector/completeOrderSelector';
 import ShoppingItem from '../../checkout/ShoppingItem';
 import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
+import OrderReview from '../orderReview/OrderReview';
 
 const History = ({ historyData, updateData }) => {
     const [translate] = useTranslation();
     const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
 
     const completedOrderSelector = useSelector(completeOrderSelectorMemoized);
-    const [selectedRow, setSelectedRow] = useState(null);
+    const [selectedRow, setSelectedRow] = useState({ basicInfo: null, itemsInfo: null });
     const [id, setSearchId] = useState(null);
 
     const dispatch = useDispatch();
@@ -29,6 +30,33 @@ const History = ({ historyData, updateData }) => {
         orderItems: [],
         status: <StatusBox status={'Pending to pickup'}/>
     }]);
+
+    const getFinalCost = (itemsInfo, serviceCharge) => {
+        const itemsTotal = itemsInfo?.reduce((acc, next) => {
+            return +acc + +next?.productCost; }, 0.00);
+        return (+serviceCharge + +itemsTotal).toFixed(2);
+    };
+
+    const prepareSelectedRowData = (item) => {
+        const itemSelected = completedOrderSelector?.data?.pages?.
+            find((order) => order?._id === item?.id);
+        if (itemSelected) {
+            const cost = getFinalCost(itemSelected?.orderItems, itemSelected?.serviceFee);
+            const preparedObject = { ...itemSelected };
+            const preparedItemsData = itemSelected?.orderItems?.map((item) => ({
+                itemName: item?.productName,
+                image: item?.productImage,
+                color: item?.productColor,
+                size: item?.productSize,
+                quantity: item?.productQuantity
+            }));
+            const itemsInfo = {
+                items: preparedItemsData,
+                total: cost
+            };
+            setSelectedRow((state) => ({ ...state, basicInfo: preparedObject, itemsInfo: itemsInfo }));
+        }
+    };
 
     const searchId = async (id) => {
         const data = await dispatch(getOrderDaDataById({ orderId: id }));
@@ -75,21 +103,20 @@ const History = ({ historyData, updateData }) => {
                 completedOrderSelector.isLoading && tableRow ? <p>Loading...</p> : <div className='overview'>
                     <div className='table'>
                         <Table rows={tableRow} headers={headers} onRowClick={(item) => {
-                            setSelectedRow(item?.orderItems);
+                            prepareSelectedRowData(item);
                         }} />
                     </div>
-                    <div className='toBeDelivered'>
-                        {/* <h2 className='title'>{t('toBeDelivered-title')}</h2> */}
-                        <div className='items'>
-                            {selectedRow?.map((item, index) => <ShoppingItem
-                                index={index}
-                                itemName={item?.productName}
-                                image={item?.productImage}
-                                color={item?.productColor}
-                                size={'40'}
-                                quantity={item?.productQuantity} />)}
-                        </div>
-                    </div>
+                </div>
+            }
+            <br></br>
+            {
+                <div className='items'>
+                    {(selectedRow?.basicInfo && selectedRow?.itemsInfo) &&
+                    <OrderReview basicInfo = {selectedRow?.basicInfo}
+                        itemsInfo = { selectedRow?.itemsInfo }
+                        infoTitle = {'Appointment'}
+                        itemsTitle = {'Delivered'}/>
+                    }
                 </div>
             }
         </>
