@@ -17,6 +17,8 @@ import calenderRoute from './app/route/calendarRoute';
 import orderRoute from './app/route/userOrderRoute';
 import customerRoutes from './app/route/customerRoute';
 import externalSystemRoute from './app/route/administration/systemRoute';
+import adminExternalSystemRoute from './app/route/administration/adminExternalSystemRoute';
+import managerExternalSystemRoute from './app/route/administration/managerExternalSystemRoute';
 import geoRoute from './app/route/geoRoute';
 import appInfoRoute from './app/route/appInfoRoute';
 import emailReminderRoute from './app/route/emailReminderRoute';
@@ -67,6 +69,8 @@ app.use(config.ROUTE_PATH, emailReminderRoute);
 app.use(config.ROUTE_PATH, superUserRoute);
 app.use(config.ROUTE_PATH, letsTalkRoute);
 app.use(config.ROUTE_PATH, faqRoute);
+app.use(config.ROUTE_PATH, adminExternalSystemRoute);
+app.use(config.ROUTE_PATH, managerExternalSystemRoute);
 app.use(customerRoutes);
 
 /*

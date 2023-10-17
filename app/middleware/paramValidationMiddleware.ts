@@ -4,22 +4,26 @@
 import { Request, Response, NextFunction } from 'express';
 import * as Joi from 'joi';
 import { validatorErrorBuilder } from '../util/serviceErrorBuilder';
-import { ADDRESS_REQUIRED, AREA_REQUIRED, BRANCH_ID_REQUIRED, CANCELLATION_STATUS_REQUIRED, CONTENT_TYPE_REQUIRED
+import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIRED,
+    ADMIN_EXT_ID_REQUIRED, ADMIN_EXT_LAST_NAME_REQUIRED, ADMIN_EXT_PASSWORD_REQUIRED,
+    ADMIN_EXT_PHONE_REQUIRED,
+    ADMIN_EXT_USERNAME_REQUIRED, AREA_REQUIRED, BRANCH_ID_REQUIRED, CANCELLATION_STATUS_REQUIRED, CONTENT_TYPE_REQUIRED
     , CREATED_TIME_CAN_NOT_MODIFY, DELIVERED_STATUS_REQUIRED, DELIVERY_INFO_REQUIRED
     , EMAIL_REQUIRED, EXPERIENCE_REQUIRED
     , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
     EXTERNAL_SYSTEM_PASSWORD_REQUIRED, EXTERNAL_SYSTEM_USERNAME_REQUIRED,
     EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY
-    , LATITUDE_REQUIRED, LONGITUDE_REQUIRED, ORDER_DATE_REQUIRED
+    , LATITUDE_REQUIRED, LONGITUDE_REQUIRED, MANAGER_EXT_PHONE_REQUIRED, ORDER_DATE_REQUIRED
     , ORDER_ID_REQUIRED_IN_PATH, ORDER_LIST_REQUIRED, ORDER_TIME_END_REQUIRED,
     ORDER_TIME_START_REQUIRED, PAGE_LIMIT_REQUIRED, PAGE_REQUIRED, PAYMENT_REFERENCE_REQUIRED
     , SERVICE_FEE_REQUIRED, SUPER_USER_EMAIL_REQUIRED,
     SUPER_USER_FIRST_NAME_REQUIRED, SUPER_USER_LAST_NAME_REQUIRED,
     SUPER_USER_PASSWORD_REQUIRED, SUPER_USER_USERNAME_REQUIRED
     , TIME_ZONE_REQUIRED
-    , USER_FIRST_NAME_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH, USER_LAST_NAME_REQUIRED
+    , USERNAME_REQUIRED, USER_FIRST_NAME_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH, USER_LAST_NAME_REQUIRED
     , USER_PHONE_NUMBER_REQUIRED, 
-    USER_UNAUTHORIZED } from '../const/errorMessage';
+    USER_UNAUTHORIZED, 
+    ZIP_CODE_REQUIRED } from '../const/errorMessage';
 import { Logger } from '../log/logger';
 import { buildErrorMessage } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
@@ -112,6 +116,24 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
 };
 
 /**
+ * Validate zip code
+ * @param req Request 
+ * @param res Response
+ * @param next NextFunction
+ */
+export const validateZipCode = (req: Request, res: Response, next: NextFunction) => {
+    const checkOrderParams = Joi.object({
+        body: {
+            zipCode: Joi.string().max(15).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ZIP_CODE_REQUIRED);
+            })         
+        }   
+    });
+    validateRequest(req, next, checkOrderParams);
+};
+
+/**
  * Check the request header params for create order
  * @param req Request 
  * @param res Response
@@ -154,12 +176,26 @@ export const allowedForExternalSystemRoleOnly = (req: Request, res: Response, ne
     validateRequest(req, next, validationCriteria);
 };
 
+// Validate only client role, super user allowed route
+export const allowedForClientRoleAndSuperAdminAndAdminOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().
+                valid(Roles.CLIENT, Roles.SUPER, Roles.ADMIN)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // Validate only external system, super user roles allowed route
-export const allowedForExternalSystemSuperUserRolesOnly = (req: Request, res: Response, next: NextFunction) => {
+export const allowedForExternalSystemSuperUserAndAdminRolesOnly = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
         claims: {
             roles: Joi.array().required().items(Joi.string()
-                .valid(Roles.EXTERNAL_SYSTEM, Roles.SUPER)).error((error) => {
+                .valid(Roles.EXTERNAL_SYSTEM, Roles.SUPER, Roles.ADMIN)).error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
             })
@@ -227,7 +263,20 @@ export const validateCreateExtSysRequestBody = (req: Request, res: Response, nex
             extSysEmail: Joi.string().required().max(50).email().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED);
-            })
+            }),
+            extSysAddress: Joi.object().keys({ 
+                // Street
+                addOne: Joi.string().required(),
+                // Portal number
+                addTwo: Joi.string().required(),
+                // City
+                addThree: Joi.string().required(),
+                // Country
+                addFour: Joi.string().required(),
+                // Zip / Postal code
+                addFive: Joi.string().required() }).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADDRESS_REQUIRED); })
         }
     });
     validateRequest(req, next, validationCriteria);
@@ -263,6 +312,84 @@ export const validateCreateSuperUserRequestBody = (req: Request, res: Response, 
     validateRequest(req, next, validationCriteria);
 };
 
+// Admin external system create request body validator
+export const validateAdminExternalSystemUserRequestBody = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        body: {
+            adminFirstName: Joi.string().required().max(50).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_FIRST_NAME_REQUIRED);
+            }),
+            adminLastName: Joi.string().required().max(50).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_LAST_NAME_REQUIRED);
+            }),
+            adminUsername: Joi.string().required().max(20).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_USERNAME_REQUIRED);
+            }),
+            adminPhone: Joi.string().required().max(20).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_PHONE_REQUIRED);
+            }),
+            adminPassword: Joi.string().required().max(50).pattern(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_PASSWORD_REQUIRED);
+            }),
+            adminEmail: Joi.string().required().max(50).email().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_EMAIL_REQUIRED);
+            }),
+            externalSystemId: Joi.string().required().max(50).pattern(
+                /^[0-9a-fA-F]{24}$/).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_ID_REQUIRED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Manger external system create request body validator
+export const validateManagerExternalSystemUserRequestBody = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        body: {
+            managerFirstName: Joi.string().required().max(50).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_FIRST_NAME_REQUIRED);
+            }),
+            managerLastName: Joi.string().required().max(50).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_LAST_NAME_REQUIRED);
+            }),
+            managerPhone: Joi.string().required().max(20).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, MANAGER_EXT_PHONE_REQUIRED);
+            }),
+            managerUsername: Joi.string().required().max(20).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_USERNAME_REQUIRED);
+            }),
+            managerPassword: Joi.string().required().max(50).pattern(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_PASSWORD_REQUIRED);
+            }),
+            managerEmail: Joi.string().required().max(50).email().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_EMAIL_REQUIRED);
+            }),
+            externalSystemId: Joi.string().required().max(50).pattern(
+                /^[0-9a-fA-F]{24}$/).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_ID_REQUIRED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // Validate request external system token 
 export const validateExternalSystemTokenRequestBody = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
@@ -278,6 +405,18 @@ export const validateExternalSystemTokenRequestBody = (req: Request, res: Respon
     validateRequest(req, next, validationCriteria);
 };
 
+// Validate username
+export const validateUsername = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        body: {
+            username: Joi.string().required().max(20).error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USERNAME_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // Validate request super user token 
 export const validateSuperUserTokenRequestBody = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
@@ -288,6 +427,36 @@ export const validateSuperUserTokenRequestBody = (req: Request, res: Response, n
             password: Joi.string().required().max(50).error((error) => { 
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, SUPER_USER_PASSWORD_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate request user token 
+export const validateUserTokenRequestBody = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        body: {
+            username: Joi.string().required().max(20).error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_USERNAME_REQUIRED); }),
+            password: Joi.string().required().max(50).error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SUPER_USER_PASSWORD_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate admin external system request token 
+export const validateAdminExternalSystemTokenRequestBody = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        body: {
+            adminUsername: Joi.string().required().max(20).error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_USERNAME_REQUIRED); }),
+            adminPassword: Joi.string().required().max(50).error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, ADMIN_EXT_PASSWORD_REQUIRED); })
         }
     });
     validateRequest(req, next, validationCriteria);
@@ -335,7 +504,7 @@ export const validateParamUserId = (req: Request, res: Response, next: NextFunct
 // Get service gee path param validation
 export const validateGeoBasedServiceFeePathParams = (req: Request, res: Response, next: NextFunction) => {
     const validLocations: Array<string> = (config.SYSTEM_AVAILABLE_GEO_LOCATIONS as
-         Array<{location: string, insideCost: number, outsideCost: number}>).map(c => c.location);
+         Array<{location: string, cost: number}>).map(c => c.location);
     const validationCriteria = Joi.object({
         params: {
             area: Joi.string().valid(

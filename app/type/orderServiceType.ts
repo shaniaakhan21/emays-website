@@ -8,22 +8,25 @@ export type CreateOrderFunc = (order: IOrder) => Promise<IOrderDTO>;
 
 export type CreateExternalSystemFunc = (externalSystem: IExternalSystem) => Promise<IExternalSystemDTO>;
 
-export type RequestExternalSystemTokenFunc = (extSysUsername: string, extSysPassword: string) => Promise<{token: string}>;
+export type RequestExternalSystemTokenFunc = (extSysUsername: string, extSysPassword: string) => Promise<{token: string, roles: string}>;
 
 export type GetExternalSystemByIdFunc = (id: string) => Promise<IExternalSystemDTO>;
 
 export type RetrieveOrderByUserIdFunc = (userId: string) => Promise<IOrderDTO>;
 
+export type RetrieveOrderByOrderIdFunc = (storeId: string, orderId: string) => Promise<IOrderDTO>;
+
 export type RetrieveOrdersByDeliveryStatusFunc = (isDelivered: boolean) => Promise<Array<IOrderDTO> | null>;
 
 export type PatchOrderDetailsByUserIdFunc = (userId: string, patchData: IPatchOrder) => Promise<IOrderDTO>;
 
-export type GetOrderDetailsWithPages = (noOfPages: number, pageLimit: number, role: string) => Promise<IOrderPaginationDTO>;
+export type GetOrderDetailsWithPages = (noOfPages: number, pageLimit: number,
+   role: string, branchId?: string, isCompleted?: boolean) => Promise<IOrderPaginationDTO>;
 
-export type GetOrderDocumentSize = () => Promise<number>;
+export type GetOrderDocumentSize = (branchId?: string, isCompleted?: boolean) => Promise<number>;
 
 export type GetOrderDetailDocumentsArrayByStartAndEndIndex = (startIndex: number,
-    endIndex: number) => Promise<Array<IOrderDTO>>;
+    endIndex: number, branchId?: string, isCompleted?: boolean) => Promise<Array<IOrderDTO>>;
 
 export type ServiceErrorBuilderFunc = (errorMessage: string) => void;
 

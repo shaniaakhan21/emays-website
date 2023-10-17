@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } fro
 import { useTranslation } from 'react-i18next';
 import ShoppingItem from '../../checkout/ShoppingItem';
 import StatusBox from '../../common/statusBox';
+import OverviewHeader from './component/Header';
 
 // SCSS
 import './../../../scss/component/retailer/overview.scss';
@@ -16,27 +17,29 @@ const Overview = ({ overviewData, updateData }) => {
     const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
 
     const overviewSelector = useSelector(overviewSelectorMemoized);
+    const [selectedRow, setSelectedRow] = useState(null);
 
     const [tableRow, setTableRow] = useState([{
-        id: '',
-        client: '',
-        amount: '',
-        date: '',
-        time: '',
+        id: '#CH0001',
+        client: 'GANCINI WATCH',
+        amount: '50,00',
+        date: '07-02-2023',
+        time: '10:00 AM',
         status: <StatusBox status={'Pending to pickup'}/>
     }]);
     
     useEffect(() => {
         updateData(overviewSelector);
-        const tableData = overviewSelector?.overviewState?.data?.pages?.map((data) => {
+        const tableData = overviewSelector?.data?.pages?.map((data) => {
         // eslint-disable-next-line no-multi-spaces, max-len
             const amount =  data?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
             return {
-                id: data?._id || '',
-                client: `${data?.firstName} ${data?.lastName}` || '',
-                amount: amount,
-                date: data?.date || '',
-                time: data?.createdAt || '',
+                id: data?._id || '#CH0001',
+                client: `${data?.firstName} ${data?.lastName}` || 'GANCINI WATCH',
+                amount: amount || '50,00',
+                date: data?.date || '07-02-2023',
+                time: data?.createdAt || '10:00 AM',
+                orderItems: data?.orderItems,
                 status: <StatusBox status={'Pending to pickup'}/>
             };
         });
@@ -51,25 +54,7 @@ const Overview = ({ overviewData, updateData }) => {
 
     return (
         <>
-            {
-                overviewSelector.isLoading && tableRow ? <p>Loading...</p> : <div className='overview'>
-                    <div className='table'>
-                        <Table rows={tableRow} headers={headers} />
-                    </div>
-                    <div className='toBeDelivered'>
-                        <h2 className='title'>{t('toBeDelivered-title')}</h2>
-                        <div className='items'>
-                            {overviewSelector?.overviewState?.data?.pages?.map((item, index) => <ShoppingItem
-                                index={1}
-                                itemName={'productName'}
-                                image={FallBack}
-                                color={'Red'}
-                                size={'40'}
-                                quantity={1} />)}
-                        </div>
-                    </div>
-                </div>
-            }
+            <OverviewHeader />
         </>
     );
 };

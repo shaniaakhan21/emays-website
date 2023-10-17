@@ -12,7 +12,38 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNS0xN1QxMjo1Njo1Ni4yMjRaIiwiZXhwIjoxNjg0MzMxODE2LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhYjJkM2Q2Mi01NDE3LTQ2ZTctOTE0OS01NTY0N2NlM2FkZTMiLCJpYXQiOjE2ODQzMjgyMTZ9.Ojflli-iolVCVpzYWPcIOQq2Q5JU45iMGmE0_Ur4fyk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNFQwNzozMDo1Mi4wMzRaIiwiZXhwIjoxNjk2NDA4MjUyLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJkOGVmZjY0Ny1kYmI5LTRiNzYtOWVjMC04YWUyMzE0MGNjYzkiLCJpYXQiOjE2OTY0MDQ2NTJ9.WqyrePXAtT7c58bUFIyQZQnu-s-xMMG1eWN69ZVaFNs
+
+{
+    "email": "thathsararaviraj@gmail.com",
+    "retailerEmail": "thathsararaviraj@gmail.com",
+    "firstName": "Thathsara",
+    "lastName": "Raviraj",
+    "phoneNumber": "07122658978",
+    "uid": "12345673410500",
+    "branchId": "6504061d3615ae0e08a4a789",
+    "date": "2023-03-16",
+    "startTime": "19:00",
+    "endTime": "21:00",
+    "experience": "Assist me, Tailoring, Inspire me",
+    "timeZone": "Asia/Dubai",
+    "deliveryInfo": "Please deliver on time",
+    "address": {
+        "addOne": "No 1",
+        "addTwo": "Subway",
+        "addThree": "Khalifa",
+        "addFour": "Dubai",
+        "addFive": "Test",
+        "addSix": "Test"
+    },
+    "serviceFee": "123",
+    "orderItems": [{"productName": "Denim shirt", "productColor": "blue", "productSize": "Large", "productQuantity": 2, "productCost": "10", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}, {"productName": "Denim Trouser", "productColor": "blue", "productSize": "Large", "productQuantity": 5, "productCost": "20", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}]
+}
+
+
+POST https://emaysstyle.com/api/orders
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wOS0yN1QyMTozMTo1OS42NTZaIiwiZXhwIjoxNjk1ODUzOTE5LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIzZmE4NGFmMy01NTJmLTQ2ZjAtODBlMS00NTMzNjMyZDlhNmIiLCJpYXQiOjE2OTU4NTAzMTl9.O9H0kUALOXuDrxrroqBeFi9pM85mOuCdSeid9jE8-DY
 
 {
     "email": "thathsararaviraj@gmail.com",
@@ -78,6 +109,27 @@ content-type: application/json
     "extSysEmail": "storeX@gmail.com"
 }
 
+POST https://emaysstyle.com/api/externalSystems
+content-type: application/json
+
+{
+    "extSysName": "Store-X",
+    "extSysUsername": "storex",
+    "extSysPassword": "abCq2&!Ms",
+    "extSysEmail": "storeX@gmail.com"
+}
+
+
+POST https://emaysstyle.com/api/externalSystems
+content-type: application/json
+
+{
+    "extSysName": "Store-X",
+    "extSysUsername": "storeThath",
+    "extSysPassword": "abCq2&!Ms",
+    "extSysEmail": "storeX@gmail.com"
+}
+
 ----- Get auth token for external system ------
 
 POST http://localhost:8080/api-dev/externalSystems/systemToken
@@ -88,10 +140,70 @@ content-type: application/json
     "extSysPassword": "abCq2&!Ms"
 }
 
+POST  https://emaysstyle.com/api/externalSystems/systemToken
+content-type: application/json
+
+{
+    "extSysUsername": "storeThath",
+    "extSysPassword": "abCq2&!Ms"
+}
+
+----- Create manager user ------
+
+POST http://localhost:8080/api-dev/managerExternalSystem
+content-type: application/json
+
+{
+    "managerFirstName": "Thathsara",
+    "managerLastName": "Raviraj",
+    "managerUsername": "thathsaraAdmin4",
+    "managerPassword": "abCq2&!Ms",
+    "managerPhone": "1233533452345",
+    "managerEmail": "admin4@gmail.com",
+    "externalSystemId": "6504061d3615ae0e08a4a789"
+}
+
+----- Create admin user ------
+
+POST http://localhost:8080/api-dev/adminExternalSystem
+content-type: application/json
+
+{
+    "adminFirstName": "Thathsara",
+    "adminLastName": "Raviraj",
+    "adminUsername": "thathsaraAdmin4",
+    "adminPassword": "abCq2&!Ms",
+    "adminPhone": "1233533452345",
+    "adminEmail": "admin4@gmail.com",
+    "externalSystemId": "6504061d3615ae0e08a4a789"
+}
+
+POST https://emaysstyle.com/api/adminExternalSystem
+content-type: application/json
+
+{
+    "adminFirstName": "Thathsara",
+    "adminLastName": "Raviraj",
+    "adminUsername": "thathadminuser3",
+    "adminPassword": "abCq2&!Ms",
+    "adminPhone": "1233533452345",
+    "adminEmail": "adminX1@gmail.com",
+    "externalSystemId": "6504061d3615ae0e08a4a789"
+}
+
+----- Get auth token for admin user -----
+      
+POST http://localhost:8080/api-dev/adminExternalSystem/adminExternalSystemToken
+content-type: application/json
+
+{
+    "adminUsername": "thathadminuser4",
+    "adminPassword": "abCq2&!Ms"
+}               
 
 ----- Get service cost based on the coordinations ------
 
-GET http://localhost:8080/api-dev/geo/Milan/45.45638246318493/9.353985555977896
+GET	http://localhost:8080/api-dev/geo//34.1446973/-118.2597429
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0yOFQxNTo0NTozOC4wNTdaIiwiZXhwIjoxNjgwMDIxOTM4LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiI4Mzk4ODhmMC05NmU3LTRhOWItYjUwNC1kMDkyN2VlNzk1ZWEiLCJpYXQiOjE2ODAwMTgzMzh9.e0lnxxZRwyzJR2bOPucAuSqrmlYDJYyF-5IaApB1yfc
 content-type: application/json
 
@@ -110,6 +222,17 @@ content-type: application/json
     "email": "abCq2&!Ms@gmail.com"
 }
 
+POST https://emaysstyle.com/api/superUsers 
+content-type: application/json
+
+{
+    "firstName": "emmanuel",
+    "lastName": "emmanuel",
+    "username": "thathsara",
+    "password": "abCq2&!Ms",
+    "email": "thath@gmail.com"
+}
+
 ------ Get super user token ----------
 
 POST http://localhost:8080/api-dev/superUsers/superUserToken
@@ -120,12 +243,46 @@ content-type: application/json
     "password": "abCq2&!Ms"
 }
 
+POST  https://emaysstyle.com/api/superUsers/superUserToken
+content-type: application/json
+
+{
+    "username": "emmanuel",
+    "password": "abCq2&!Ms"
+}
+
+
+------ Use common login to get token ----------
+
+POST http://localhost:8080/api-dev/login
+content-type: application/json
+
+{
+    "username": "thathsaraAdmin4",
+    "password": "abCq2&!Ms"
+}
+
+---- Get system info -------
+
+POST http://localhost:8080/api-dev/externalSystems/systemInfo
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wM1QxNTo0Mzo1Ni44NDRaIiwiZXhwIjoxNjk2MzUxNDM2LCJyb2xlcyI6WyJhZG1pbiJdLCJpZCI6IjY1MWMzNjQxMjZjNGI4OThiN2I0MjJkZiIsImlhdCI6MTY5NjM0NzgzNn0.Lg35KR80ESq41f0atpg0ChT4VflXlPiH_uPt-cYZJvo
+
 
 ----- Get user order pagination ------------
 
+GET http://localhost:8080/api-dev/orders?page=1&pageLimit=4&storeId=6504061d3615ae0e08a4a789
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNFQwNzoyMjozOC41MDhaIiwiZXhwIjoxNjk2NDA3NzU4LCJyb2xlcyI6WyJhZG1pbiJdLCJpZCI6IjY1MWMzNjQxMjZjNGI4OThiN2I0MjJkZiIsImlhdCI6MTY5NjQwNDE1OH0.d2SugJ5wclMI3htSMTGa4qR0-J5FUDFdyxWgKnByOOo
+
+
 GET http://localhost:8080/api-dev/orders?page=1&pageLimit=4
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yMVQxMzowNToxNS4xNDhaIiwiZXhwIjoxNjgyMDg1OTE1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJiNTA2NjQ2Ni0wNmIzLTQ2NzgtYjkwYS1iOGI5YTBmOWYwZjIiLCJpYXQiOjE2ODIwODIzMTV9.CAwD_RfYFEv89_r1crQQY_d32c7P_Jr6VJalo_mRMhc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNFQwNzoyMjozOC41MDhaIiwiZXhwIjoxNjk2NDA3NzU4LCJyb2xlcyI6WyJhZG1pbiJdLCJpZCI6IjY1MWMzNjQxMjZjNGI4OThiN2I0MjJkZiIsImlhdCI6MTY5NjQwNDE1OH0.d2SugJ5wclMI3htSMTGa4qR0-J5FUDFdyxWgKnByOOo
+
+GET http://localhost:8080/api-dev/orders/byOrderId/650803e5c53b6a587cf62d6a
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNlQwODozNDowNi41MzlaIiwiZXhwIjoxNjk2NTg0ODQ2LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MDQwNWU2MzYxNWFlMGUwOGE0YTc4MiIsImlhdCI6MTY5NjU4MTI0Nn0.B67LWPvk3xi2jxVn-Uhnszp_2wJpqV5gixyWsU13YKI
 
 ------ Create FAQ ------
 
@@ -160,3 +317,13 @@ GET http://localhost:8080/api-dev/faq
 GET http://localhost:8080/api-dev/orders/64590244ebaa6d3def34f526/summary
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yMVQxMzowNToxNS4xNDhaIiwiZXhwIjoxNjgyMDg1OTE1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJiNTA2NjQ2Ni0wNmIzLTQ2NzgtYjkwYS1iOGI5YTBmOWYwZjIiLCJpYXQiOjE2ODIwODIzMTV9.CAwD_RfYFEv89_r1crQQY_d32c7P_Jr6VJalo_mRMhc
+
+--------- ZIP CODE VALIDATION ------------
+
+POST http://localhost:8080/api-dev/zipCodeValidation
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0xNlQwNjoxMDo0Ny44MzJaIiwiZXhwIjoxNjk3NDQ3NDQ3LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTFiZTk4N2RmMzk1MzUzNzFkZmVjMzUiLCJpYXQiOjE2OTc0MzY2NDd9.XPnzgMWBol4osPII7PMRGKP0JRtD3lmVG4k6Y_Xz1W0
+
+{
+    "zipCode": "asdasd"
+}

@@ -24,164 +24,6 @@
         "description": "IN STORE SHOPPING EXPERIENCE NOW AT HOME Brought to you, by Emays."
       }
     },
-    "dashboard": {
-      "overview": {
-        "table": {
-          "id": "# Order",
-          "client": "Client",
-          "amount": "Amount Purchased",
-          "date": "Pick Up Date",
-          "time": "Time",
-          "status": "Status"
-        },
-        "toBeDelivered-title": "TO BE DELIVERED"
-      },
-      "login": {
-        "heading-retailer": "Retailer",
-        "button-text": "LOGIN",
-        "error": {
-          "invalid-username": "Invalid Username",
-          "invalid-password": "Invalid Password"
-        }
-      },
-      "navigation": {
-        "overview": "Overview",
-        "del-orders": "Delivery Orders",
-        "customers": "Customers",
-        "history": "History",
-        "new-orders": "New Orders",
-        "adminTools": "Admin Tools"
-      },
-      "deliveryOrders": {
-        "title": "Add products to be delivered",
-        "header-right": {
-          "title": "Items added"
-        },
-        "sub-title": "Please, scan the bar code or enter it manually",
-        "search": {
-          "input": {
-            "label": "Enter ASIN / Product ID",
-            "help-text": "Press enter to add item"
-          },
-          "button": "Scan item"
-        },
-        "scanModal": {
-          "title": "Scan code now",
-          "description": "Use the scanner to add the item automatically, close this modal on the X to finish the scan"
-        },
-        "submit": "Create order"
-      },
-      "orderCreated": {
-        "title": "Order Created",
-        "sub-title": "Emays are in charge now, relax :)",
-        "appointmentInfo": {
-          "title": "Appointment Booked",
-          "date": "Date",
-          "hour": "Hour",
-          "address": "Delivery Address",
-          "name": "Full Name",
-          "email": "Email",
-          "tel": "Tel."
-        },
-        "items": {
-          "title": "Items To be delivered",
-          "button": "See all items"
-        },
-        "comments": {
-          "input-label": "Comments",
-          "input-placeholder": "Comments about delivery, client and especial petitions"
-        }
-      },
-      "adminTools": {
-        "add-store-title": "Add new Store",
-        "add-store-subtitle": "Add a new retailer to the system",
-        "add-store-button": "Add new Retailer",
-        "add-driver-title": "Add new Driver",
-        "add-driver-subtitle": "This person is going to take items from the store to the client",
-        "add-driver-button": "Add new Driver",
-        "createRetailer": {
-          "banner": "Please, complete the information to continue",
-          "basic": {
-            "sub-title": "Public",
-            "name": "Store Name",
-            "sub-title2": "Shop Address",
-            "street": "Street / Avenue",
-            "number": "Number",
-            "city": "City",
-            "country": "Country",
-            "zip": "Zip Code",
-            "sub-title3": "Add Logo",
-            "upload": "Drag and drop files here or click to upload",
-            "sub-title4": "Your logo (uploaded)",
-            "sub-title5": "Click here to open maps"
-          },
-          "billing": {
-            "sub-title": "Billing",
-            "address": "Billing Address",
-            "email": "Accountant Email",
-            "sub-title2": "Bank Information",
-            "bank": "Bank Name",
-            "swift": "Swift Number",
-            "account": "Account Number",
-            "country": "Country",
-            "paymentCurrency": "Payment Currency",
-            "paymentCurrency-label": "Choose an option"
-          },
-          "employee": {
-            "sub-title": "Manager",
-            "sub-title2": "Business Admin",
-            "sub-title3": "Other",
-            "name": "Name",
-            "email": "Email",
-            "phone": "Phone Number"
-          },
-          "notes": {
-            "sub-title": "Add Comment",
-            "notes": "Comment here",
-            "notes-help": "Public",
-            "save-comment": "Save Comment",
-            "sub-title2": "Activity Log",
-            "date": "Date",
-            "event": "Event",
-            "download-log": "Download Activity Log",
-            "sub-title3": "Comments"
-          }
-        },
-        "createDriver": {
-          "banner": "Please, complete the information to continue",
-          "basic": {
-            "sub-title": "About you",
-            "name": "Name",
-            "lastname": "Last Name",
-            "phone": "Phone Number",
-            "city": "City",
-            "country": "Country",
-            "zip": "Zip Code"
-          },
-          "documents": {
-            "sub-title": "Driver License",
-            "number": "Number",
-            "carModel": "Car Model",
-            "carPlate": "Car Plate",
-            "sub-title2": "Upload documents",
-            "sub-title2-info": "(Format admitted jpg or png)",
-            "upload": "Drag and drop files here or click to upload"
-          },
-          "billing": {
-            "sub-title": "Billing",
-            "address": "Billing Address",
-            "email": "Accountant Email",
-            "sub-title2": "Bank Information",
-            "bank": "Bank Name",
-            "swift": "Swift Number",
-            "account": "Account Number",
-            "country": "Country",
-            "paymentCurrency": "Payment Currency",
-            "paymentCurrency-label": "Choose an option"
-          }
-        }
-      }
-    },
     "retailers": {
       "integration": {
         "title": "Platform with easy integration",
@@ -364,7 +206,9 @@
       "exp-year": "Anno di scadenza",
       "cvv": " cvv ",
       "button": "Paga ora"
-    }
+    },
+    "generate-password": "Generate Password",
+    "generate-password-label": "Password"
   },
   "checkout": {
     "book-appointment": {
@@ -393,6 +237,7 @@
       "header": "INDIRIZZO DI CONSEGNA",
       "address": "Indirizzo"
     },
+    "not-in-service-area": "Non serviamo la tua zona",
     "delivery-info": "COMMENTO UTENTE",
     "submit-button": "CONTINUA",
     "save-changes": "SALVA NUOVE MODIFICHE",
@@ -649,6 +494,9 @@
       "header-right": {
         "title": "Items added"
       },
+      "header-left": {
+        "title": "Total"
+      },
       "sub-title": "Please, scan the bar code or enter it manually",
       "search": {
         "input": {
@@ -700,7 +548,9 @@
         "address": "Delivery Address",
         "name": "Full Name",
         "email": "Email",
-        "tel": "Tel."
+        "tel": "Tel.",
+        "total": "Total",
+        "comment": "User Comment"
       },
       "items": {
         "title": "Items To be delivered",
@@ -746,11 +596,20 @@
           "paymentCurrency": "Payment Currency",
           "paymentCurrency-label": "Choose an option"
         },
+        "account": {
+          "sub-title": "Create User",
+          "username": "Username",
+          "email": "Email associated",
+          "password": "Password",
+          "re-password": "Retype password"
+        },
         "employee": {
           "sub-title": "Manager",
           "sub-title2": "Business Admin",
           "sub-title3": "Other",
           "name": "Name",
+          "username": "Username",
+          "password": "Password",
           "email": "Email",
           "phone": "Phone Number"
         },
@@ -764,6 +623,16 @@
           "event": "Event",
           "download-log": "Download Activity Log",
           "sub-title3": "Comments"
+        },
+        "completed": {
+          "summery": "Shop Summery",
+          "sub-title": "Congratulations!",
+          "successMessage": "Store registration completed successfully.",
+          "error": {
+          "error-store": "Error Occurred",
+          "error-manager": "Error occurred in saving manager",
+          "error-admin": "Error occurred in saving admin"
+        }
         }
       },
       "createDriver": {

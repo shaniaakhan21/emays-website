@@ -7,7 +7,6 @@ $carbon-md-max: 64em;   // 1024px
 .cds--wrapper {
   background-color: #231F20;
   height: 4rem;
-  position: fixed;
   z-index: 8000;
   top: 0;
   left: 0;
@@ -131,7 +130,6 @@ $carbon-md-max: 64em;   // 1024px
     display: flex;
     flex-direction: column;
     background-color: #231f20;
-    position: fixed;
     top: 4rem;
     width: 100%;
     padding: 1rem 0 2rem;

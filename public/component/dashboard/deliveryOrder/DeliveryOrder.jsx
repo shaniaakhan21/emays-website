@@ -1,67 +1,182 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import HistoryHeader from './component/header';
+import Table from '../../common/table';
+import StatusBox from '../../common/statusBox';
+import { Button } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
-import { Button, Heading, Modal, Tile } from '@carbon/react';
-import { Add, Close } from '@carbon/icons-react';
-import TextBoxCustom from '../../common/TextBoxCustom';
-import { useHistory } from 'react-router-dom';
-
-// SCSS
-import '../../../scss/component/retailer/deliveryOrders.scss';
-import ButtonCustom from '../../common/ButtonCustom';
+import RowDetails from './component/RowDetails';
+import '../../../scss/component/dashboard/deliveryOrder.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { overviewSelectorMemoized } from '../redux/selector/overviewSelector';
 import ShoppingItem from '../../checkout/ShoppingItem';
-import FallBack from '../../../icons/fallback.png';
+import { getOverviewDataById } from '../redux/thunk/overviewThunk';
+import HeaderPerRow from './component/headerPerRow';
 
-const DeliveryOrder = () => {
+const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     const [translate] = useTranslation();
-    const history = useHistory();
-    const [showScanModal, setShowScanModal] = useState(true);
+    const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
 
-    const t = useCallback((key) => translate(`dashboard.deliveryOrders.${key}`), [translate]);
+    const overviewSelector = useSelector(overviewSelectorMemoized);
+    const [id, setSearchId] = useState(null);
+    const dispatch = useDispatch();
 
+    const [tableRow, setTableRow] = useState([{
+        id: '#CH0001',
+        client: 'GANCINI WATCH',
+        amount: '50,00',
+        date: '07-02-2023',
+        time: '10:00 AM',
+        orderItems: [{ 
+            'productName': 'Denim shirt', 
+            'productColor': 'blue', 
+            'productSize': 'Large', 
+            'productQuantity': 2, 
+            'productCost': '10', 
+            'productImage': 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN', 
+            'productDeliveryInformation': 'extra information' }, 
+        { 'productName': 'Denim Trouser', 
+            'productColor': 'blue', 
+            'productSize': 'Large', 
+            'productQuantity': 5, 
+            'productCost': '20', 
+            'productImage': 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN', 
+            'productDeliveryInformation': 'extra information' }],
+        status: <StatusBox status={'Pending to pickup'} />
+    },
+        , {
+            id: 'CH0002',
+            client: 'Gertrude Pest',
+            amount: '€ 50,00',
+            date: '07-02.2023',
+            time: '10:00 am',
+            orderItems: [{ 
+                'productName': 'Denim shirt', 
+                'productColor': 'blue', 
+                'productSize': 'Large', 
+                'productQuantity': 2, 
+                'productCost': '10', 
+                'productImage': 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN', 
+                'productDeliveryInformation': 'extra information' }, 
+            { 'productName': 'Denim Trouser', 
+                'productColor': 'blue', 
+                'productSize': 'Large', 
+                'productQuantity': 5, 
+                'productCost': '20', 
+                'productImage': 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN', 
+                'productDeliveryInformation': 'extra information' }],
+            status: <StatusBox status={'Pending to pickup'} />
+        },
+        {
+            id: 'CH0003',
+            client: 'Gertrude Pest',
+            amount: '€ 50,00',
+            date: '07-02.2023',
+            time: '10:00 am',
+            orderItems: [{ 
+                'productName': 'Denim shirt', 
+                'productColor': 'blue', 
+                'productSize': 'Large', 
+                'productQuantity': 2, 
+                'productCost': '10', 
+                'productImage': 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN', 
+                'productDeliveryInformation': 'extra information' }, 
+            { 'productName': 'Denim Trouser', 
+                'productColor': 'blue', 
+                'productSize': 'Large', 
+                'productQuantity': 5, 
+                'productCost': '20', 
+                'productImage': 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN', 
+                'productDeliveryInformation': 'extra information' }],
+            status: <StatusBox status={'Pending to pickup'} />
+        },
+        {
+            id: 'CH0004',
+            client: 'Gertrude Pest',
+            amount: '€ 50,00',
+            date: '07-02.2023',
+            time: '10:00 am',
+            orderItems: [{ 
+                'productName': 'Denim shirt', 
+                'productColor': 'blue', 
+                'productSize': 'Large', 
+                'productQuantity': 2, 
+                'productCost': '10', 
+                'productImage': 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN', 
+                'productDeliveryInformation': 'extra information' }, 
+            { 'productName': 'Denim Trouser', 
+                'productColor': 'blue', 
+                'productSize': 'Large', 
+                'productQuantity': 5, 
+                'productCost': '20', 
+                'productImage': 'https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN', 
+                'productDeliveryInformation': 'extra information' }],
+            status: <StatusBox status={'Pending to pickup'} />
+        }
+
+    ]);
+
+    const searchId = async (id) => {
+        const data = await dispatch(getOverviewDataById({ orderId: id }));
+        // Set found row
+        setTableRow([...prepareTableRows([data?.payload])]);
+    };
+    
+    useEffect(() => {
+        updateData(overviewSelector);
+        const tableData = prepareTableRows(overviewSelector?.data?.pages);
+        if (tableData && tableData?.length > 0) {
+            setTableRow(tableData);
+        }
+    }, [overviewSelector]);
+
+    const prepareTableRows = (orderArray) => {
+        const tableData = orderArray?.map((data) => {
+            // eslint-disable-next-line no-multi-spaces, max-len
+            const amount =  data?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
+            return {
+                id: data?._id || '',
+                client: `${data?.firstName} ${data?.lastName}` || '',
+                amount: amount || '',
+                date: data?.date || '',
+                time: data?.createdAt || '',
+                orderItems: data?.orderItems,
+                status: <StatusBox status={'Pending to pickup'}/>
+            };
+        });
+        return tableData;
+    };
+
+    const headers = useMemo(
+        () => ['id', 'client', 'amount', 'date', 'time', 'status'].map(key => ({ key, header: t(`table.${key}`) })
+        ), [t]);
+    const [selectedRow, setSelectedRow] = useState(null);
+    const onRowClick = (row) => {
+        setSelectedRow(row);
+    };
+    const handleRowClick = (row) => {
+        setSelectedRow(row);
+        onRowClick(row);
+    };
+    
     return (
-        <div className='deliveryOrders'>
-            <div className='header'>
-                <div className='header-left'>
-                    <Heading className='title'>{t('title')}</Heading>
-                    <Heading className='sub-title'>{t('sub-title')}</Heading>
-                    <div className='search-bar'>
-                        <div className='input'>
-                            <TextBoxCustom size='lg' labelText={t('search.input.label')}
-                                helperText={t('search.input.help-text')}/>
-                            <Button iconDescription='Add' hasIconOnly renderIcon={() => <Add/>}/>
-                        </div>
-                        <Button renderIcon={() => <Add/>}>{t('search.button')}</Button>
+        <>
+            <br></br>
+            {overviewSelector.isLoading && tableRow ? (
+                <p>Loading...</p>
+            ) : (
+                <div className='overview'>
+                    <div className='table'>
+                        {selectedRow ? (
+                            <><HistoryHeader searchFunction={searchId} />
+                                <RowDetails row={selectedRow} headers={headers} tableRow={tableRow}/></>
+                        ) : (
+                            <><HeaderPerRow searchFunction={searchId} />
+                                <Table rows={tableRow} headers={headers} onRowClick={handleRowClick} /></>
+                        )}
                     </div>
                 </div>
-                <div className='header-right'>
-                    <Tile>
-                        <h5>{t('header-right.title')}</h5>
-                        <h2>6</h2>
-                    </Tile>
-                </div>
-            </div>
-            <div className='items'>
-                {showScanModal ? <div className='passive-modal'>
-                    <Close onClick={() => setShowScanModal(false)}/>
-                    <h2>{t('scanModal.title')}</h2>
-                    <h6>{t('scanModal.description')}</h6>
-                </div> : null}
-                {Array.of(1, 2, 3, 4, 5, 6, 7, 8, 9).map((item, index) => <ShoppingItem
-                    index={1}
-                    itemName={'productName'}
-                    image={FallBack}
-                    color={'Red'}
-                    size={'40'}
-                    onDelete={() => {
-                    }}
-                    quantity={index}
-                    price={'$10'}
-                />)}
-            </div>
-            <div className='buttons'>
-                <Button onClick={() => { history.push('/dashboard/orders/created'); }} size='2xl'>{t('submit')}</Button>
-            </div>
-        </div>
+            )}
+        </>
     );
 };
 

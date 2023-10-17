@@ -130,6 +130,7 @@
     .header-right {
       display: flex;
       align-items: flex-end;
+      padding: 3px;
 
       .cds--tile {
         height: 100%;
@@ -144,4 +145,5 @@
       }
     }
   }
+
 }

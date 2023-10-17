@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const PaginationLayout = styled.div`
     ${(props) => props.styles && css`
@@ -18,8 +19,12 @@ const Button = styled.button`
     background-color: white;
 `;
 
-const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getData,
-    isPaginationEnabled, children }) => {
+const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getPaginationData,
+    getInitialData, isPaginationEnabled, children }) => {
+
+    const { isSystemLoading } = useSelector((state) => ({
+        isSystemLoading: state?.appInfoState?.systemInfoState?.isLoading
+    }));
 
     const [state, setState] = useReducer((state, action) => {
         switch (action.type) {
@@ -32,13 +37,22 @@ const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getData,
         }
     }, {
         currentIndex: 0,
-        initialData: {}
+        initialData: {},
+        systemIsLoadStatus: true
     }
     );
 
     useEffect(() => {
-        getData(state.currentIndex + 1, 5);
-    }, [state.currentIndex]);
+        if (!isSystemLoading) {
+            if (getPaginationData) {
+                getPaginationData(state.currentIndex + 1, 5);
+            }
+            if (getInitialData) {
+                getInitialData();
+            }
+        }
+        
+    }, [state.currentIndex, isSystemLoading]);
 
     const changeIndex = (value) => {
         setState({ type: 'update-current-index', data: value });
@@ -51,7 +65,7 @@ const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getData,
     return (
         <>
             {
-                React.Children.map(children, child => {
+                !isSystemLoading && React.Children.map(children, child => {
                     if (React.isValidElement(child)) {
                         return React.cloneElement(child, { [resourceName]: state, updateData: updateInitialData });
                     }
@@ -60,7 +74,7 @@ const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getData,
             }
 
             {
-                isPaginationEnabled && <PaginationLayout styles={wrapperStyle}>
+                !isSystemLoading && isPaginationEnabled && <PaginationLayout styles={wrapperStyle}>
                     {
                         Array.from({ length: state.initialData?.data?.allPagesAvailable || 0 }, (element, index) => {
                             return <Button 
@@ -76,9 +90,11 @@ const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getData,
 PaginationContainer.propTypes = {
     fullLength: PropTypes.number,
     wrapperStyle: PropTypes.object,
-    getData: PropTypes.func,
+    getPaginationData: PropTypes.func,
     resourceName: PropTypes.string,
-    selector: PropTypes.object
+    getInitialData: PropTypes.func,
+    isPaginationEnabled: PropTypes.bool,
+    dependencies: PropTypes.array
 };
 
 export default React.memo(PaginationContainer);

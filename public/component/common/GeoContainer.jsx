@@ -18,40 +18,56 @@ const List = styled.ul`
     }
 `;
 
-const GeoContainer = ({ updateAddress, updateServiceFee }) => {
+const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
 
     const [t] = useTranslation();
     const [address, setAddress] = useState('');
     const [predictions, setPredictions] = useState([]);
     const [autocompleteService, setAutocompleteService] = useState(null);
     const [placeService, setPlaceService] = useState(null);
-    // Initialize google map API
+    // Initialize google map API. App Data will be passed by Store App.
     useEffect(() => {
-        (async () => {
-            let script;
-            const scripts = document.getElementsByTagName('script');
-            const mapsApiLoaded = Array.from(scripts).some(
-                (script) => script.src.includes('https://maps.googleapis.com/maps/api/js?key')
-            );
-            if (!mapsApiLoaded) {
-                const appInfo = await getAppInfo();
-                script = document.createElement('script');
-                script.src = `https://maps.googleapis.com/maps/api/js?key=${appInfo.googleMapAPIKey}&libraries=places`;
-                script.defer = true;
-                script.async = true;
-                script.onload = () => {
-                    setAutocompleteService(new window.google.maps.places.AutocompleteService());
-                    setPlaceService(new google.maps.places.PlacesService(document.createElement('div')));
-                };
-                document.head.appendChild(script);
-                return () => {
-                    document.head.removeChild(script);
+        loadServices();
+    }, [appData]); 
+
+    useEffect(() => {
+        loadServices();
+    }, []);
+
+    const loadServices = async () => {
+        let script;
+        const scripts = document.getElementsByTagName('script');
+        const mapsApiLoaded = Array.from(scripts).some(
+            (script) => script.src.includes('https://maps.googleapis.com/maps/api/js?key')
+        );
+        if (!mapsApiLoaded) {
+            let appInfo;
+            if (!appData) {
+                appInfo = await getAppInfo();
+            } else {
+                appInfo = {
+                    googleMapAPIKey: appData
                 };
             }
-        })().catch(error => {
-            return error;
-        });
-    }, []);
+            script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${appInfo.googleMapAPIKey}&libraries=places`;
+            script.defer = true;
+            script.async = true;
+            script.onload = () => {
+                setAutocompleteService(new window.google.maps.places.AutocompleteService());
+                setPlaceService(new google.maps.places.PlacesService(document.createElement('div')));
+            };
+            document.head.appendChild(script);
+            return () => {
+                document.head.removeChild(script);
+            };
+        } else if (mapsApiLoaded && !autocompleteService) {
+            setAutocompleteService(new window.google.maps.places.AutocompleteService());
+        } else if (mapsApiLoaded && !placeService) {
+            setPlaceService(new google.maps.places.PlacesService(document.createElement('div')));
+        }
+        
+    };
 
     const autoCompleteHandler = (event) => {
         setAddress(event.target.value);
@@ -65,7 +81,7 @@ const GeoContainer = ({ updateAddress, updateServiceFee }) => {
                 }
             );
         } else {
-            setPredictions([]);
+            setPredictions(['']);
         }
     };
 
@@ -76,7 +92,14 @@ const GeoContainer = ({ updateAddress, updateServiceFee }) => {
             updateAddress({ addOne: addOne ? addOne : '' });
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 const latLng = result.geometry.location;
-                const area = getRetailerData().retailerArea;
+                // If appData available, it means this is being called from Store app.
+
+                // TODO: later get the exact area passed by the wordpress widget here, But route doesn't use this.
+                let area = 'Milan';
+                if (!appData) {
+                    // So if not app data available means, this is being called by e-commerce. Use session storage.
+                    area = getRetailerData()?.retailerArea;
+                }
                 getServiceFee(area, latLng.lat(), latLng.lng()).then(data => {
                     const serviceFee = data.serviceFee;
                     setServiceCost(serviceFee);

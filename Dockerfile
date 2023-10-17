@@ -5,7 +5,7 @@ RUN  mkdir -p /home/node/app && chown -R node:node /home/node/app
 # change the current directory to app
 WORKDIR /home/node/app
 # copy important folders & files
-COPY --chown=node:node ["package.json", ".env.dev", "server.ts", "tsconfig.json", "vite.config.js", ".env-cmdrc.json", "app.ts", "yarn.lock", "./"]
+COPY --chown=node:node ["global-bundle.pem", "package.json", ".env.dev", "server.ts", "tsconfig.json", "vite.config.js", ".env-cmdrc.json", "app.ts", "yarn.lock", "./"]
 COPY --chown=node:node app ./app
 COPY --chown=node:node public ./public
 # change user
