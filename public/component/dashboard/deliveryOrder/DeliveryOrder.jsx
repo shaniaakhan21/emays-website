@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, useEffect } from 'react';
-import HistoryHeader from './component/header';
+import DOHeader from './component/header';
 import Table from '../../common/table';
 import StatusBox from '../../common/statusBox';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { inCompleteOrderSelectorMemoized } from '../redux/selector/inCompleteOrderSelector';
 import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
 import OrderReview from '../orderReview/OrderReview';
+import { storeSelectedOrder } from '../redux/thunk/selectedOrderThunk';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     const [translate] = useTranslation();
@@ -18,6 +20,8 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     const [id, setSearchId] = useState(null);
 
     const dispatch = useDispatch();
+
+    const history = useHistory();
 
     const [tableRow, setTableRow] = useState([{
         id: '',
@@ -52,7 +56,16 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
                 items: preparedItemsData,
                 total: cost
             };
-            setSelectedRow((state) => ({ ...state, basicInfo: preparedObject, itemsInfo: itemsInfo }));
+            const finalData = { ...selectedRow,
+                basicInfo: preparedObject,
+                itemsInfo: itemsInfo,
+                infoTitle: 'Appointment',
+                itemTitle: 'Items to be delivered',
+                headerType: 'DeliveryOrder',
+                selectedTableRow: [item] };
+            setSelectedRow((state) => (finalData));
+            dispatch(storeSelectedOrder(finalData));
+            history.push('/dashboard/selectedOrder');
         }
     };
 
@@ -98,7 +111,7 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
       
     return (
         <>
-            <HistoryHeader searchFunction={searchId}/>
+            <DOHeader searchFunction={searchId}/>
             <br></br>
             {
                 inCompletedOrderSelector.isLoading && tableRow ? <p>Loading...</p> : <div className='overview'>
@@ -107,17 +120,6 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
                             prepareSelectedRowData(item);
                         }} />
                     </div>
-                </div>
-            }
-            <br></br>
-            {
-                <div className='items'>
-                    {(selectedRow?.basicInfo && selectedRow?.itemsInfo) &&
-                    <OrderReview basicInfo = {selectedRow?.basicInfo}
-                        itemsInfo = { selectedRow?.itemsInfo }
-                        infoTitle = {'Appointment'}
-                        itemsTitle = {'Items to be delivered'}/>
-                    }
                 </div>
             }
         </>

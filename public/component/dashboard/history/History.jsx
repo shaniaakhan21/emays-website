@@ -3,13 +3,12 @@ import HistoryHeader from './component/header';
 import Table from '../../common/table';
 import StatusBox from '../../common/statusBox';
 import { useTranslation } from 'react-i18next';
-import RowDetails from './component/RowDetails';
 import '../../../scss/component/dashboard/history.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { completeOrderSelectorMemoized } from '../redux/selector/completeOrderSelector';
-import ShoppingItem from '../../checkout/ShoppingItem';
 import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
-import OrderReview from '../orderReview/OrderReview';
+import { storeSelectedOrder } from '../redux/thunk/selectedOrderThunk';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const History = ({ historyData, updateData }) => {
     const [translate] = useTranslation();
@@ -20,6 +19,8 @@ const History = ({ historyData, updateData }) => {
     const [id, setSearchId] = useState(null);
 
     const dispatch = useDispatch();
+
+    const history = useHistory();
     
     const [tableRow, setTableRow] = useState([{
         id: '',
@@ -54,7 +55,16 @@ const History = ({ historyData, updateData }) => {
                 items: preparedItemsData,
                 total: cost
             };
-            setSelectedRow((state) => ({ ...state, basicInfo: preparedObject, itemsInfo: itemsInfo }));
+            const finalData = { ...selectedRow,
+                basicInfo: preparedObject,
+                itemsInfo: itemsInfo,
+                infoTitle: 'Appointment',
+                itemTitle: 'Delivered',
+                headerType: 'History',
+                selectedTableRow: [item] };
+            setSelectedRow((state) => (finalData));
+            dispatch(storeSelectedOrder(finalData));
+            history.push('/dashboard/selectedOrder');
         }
     };
 
@@ -106,17 +116,6 @@ const History = ({ historyData, updateData }) => {
                             prepareSelectedRowData(item);
                         }} />
                     </div>
-                </div>
-            }
-            <br></br>
-            {
-                <div className='items'>
-                    {(selectedRow?.basicInfo && selectedRow?.itemsInfo) &&
-                    <OrderReview basicInfo = {selectedRow?.basicInfo}
-                        itemsInfo = { selectedRow?.itemsInfo }
-                        infoTitle = {'Appointment'}
-                        itemsTitle = {'Delivered'}/>
-                    }
                 </div>
             }
         </>
