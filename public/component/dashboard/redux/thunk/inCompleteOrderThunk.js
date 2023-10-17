@@ -3,7 +3,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { loadCompletedOrders, loadOrderById, loadOrders } from '../../../../services/dashboard/overview';
 
-export const getOverviewData = createAsyncThunk('overview/getOverviewData', async (data, { getState }) => {
+export const getInCompleteOrderData = createAsyncThunk('inCompleteOrder/getInCompleteOrderData', async (data, { getState }) => {
 
     const storeId = getState().appInfoState?.systemInfoState?.data?.id;
     const authToken = getState().loginState.token;
@@ -14,7 +14,8 @@ export const getOverviewData = createAsyncThunk('overview/getOverviewData', asyn
     }
 });
 
-export const getOverviewDataById = createAsyncThunk('overview/getOverviewDataById', async (data, { getState }) => {
+// This can be completed or inCompleted
+export const getOrderDaDataById = createAsyncThunk('inCompleteOrder/getInCompleteOrderDataById', async (data, { getState }) => {
 
     const storeId = getState().appInfoState?.systemInfoState?.data?.id;
     const authToken = getState().loginState.token;
@@ -26,14 +27,3 @@ export const getOverviewDataById = createAsyncThunk('overview/getOverviewDataByI
     }
 });
 
-export const getOverviewDataCompleted = createAsyncThunk('overview/getOverviewDataCompleted', async (data, { getState }) => {
-
-    const storeId = getState().appInfoState?.systemInfoState?.data?.id;
-    const authToken = getState().loginState.token;
-    const response = await loadCompletedOrders({ storeId: storeId, token: authToken,
-        pageNumber: data?.pageNumber
-        , pageLimit: data?.pageLimit });
-    if (response) {
-        return response;
-    }
-});

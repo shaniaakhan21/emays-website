@@ -7,16 +7,16 @@ import { useTranslation } from 'react-i18next';
 import RowDetails from './component/RowDetails';
 import '../../../scss/component/dashboard/deliveryOrder.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { overviewSelectorMemoized } from '../redux/selector/overviewSelector';
+import { inCompleteOrderSelectorMemoized } from '../redux/selector/inCompleteOrderSelector';
 import ShoppingItem from '../../checkout/ShoppingItem';
-import { getOverviewDataById } from '../redux/thunk/overviewThunk';
+import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
 import HeaderPerRow from './component/headerPerRow';
 
 const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     const [translate] = useTranslation();
     const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
 
-    const overviewSelector = useSelector(overviewSelectorMemoized);
+    const inCompletedOrderSelector = useSelector(inCompleteOrderSelectorMemoized);
     const [id, setSearchId] = useState(null);
     const dispatch = useDispatch();
 
@@ -122,12 +122,12 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     };
     
     useEffect(() => {
-        updateData(overviewSelector);
-        const tableData = prepareTableRows(overviewSelector?.data?.pages);
+        updateData(inCompletedOrderSelector);
+        const tableData = prepareTableRows(inCompletedOrderSelector?.data?.pages);
         if (tableData && tableData?.length > 0) {
             setTableRow(tableData);
         }
-    }, [overviewSelector]);
+    }, [inCompletedOrderSelector]);
 
     const prepareTableRows = (orderArray) => {
         const tableData = orderArray?.map((data) => {
@@ -161,7 +161,7 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     return (
         <>
             <br></br>
-            {overviewSelector.isLoading && tableRow ? (
+            {inCompletedOrderSelector.isLoading && tableRow ? (
                 <p>Loading...</p>
             ) : (
                 <div className='overview'>

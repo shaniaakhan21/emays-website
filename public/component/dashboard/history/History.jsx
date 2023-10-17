@@ -6,20 +6,20 @@ import { useTranslation } from 'react-i18next';
 import RowDetails from './component/RowDetails';
 import '../../../scss/component/dashboard/history.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { overviewSelectorMemoized } from '../redux/selector/overviewSelector';
+import { completeOrderSelectorMemoized } from '../redux/selector/completeOrderSelector';
 import ShoppingItem from '../../checkout/ShoppingItem';
-import { getOverviewDataById } from '../redux/thunk/overviewThunk';
+import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
 
 const History = ({ historyData, updateData }) => {
     const [translate] = useTranslation();
     const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
 
-    const overviewSelector = useSelector(overviewSelectorMemoized);
+    const completedOrderSelector = useSelector(completeOrderSelectorMemoized);
     const [selectedRow, setSelectedRow] = useState(null);
     const [id, setSearchId] = useState(null);
 
     const dispatch = useDispatch();
-
+    
     const [tableRow, setTableRow] = useState([{
         id: '',
         client: '',
@@ -31,7 +31,7 @@ const History = ({ historyData, updateData }) => {
     }]);
 
     const searchId = async (id) => {
-        const data = await dispatch(getOverviewDataById({ orderId: id }));
+        const data = await dispatch(getOrderDaDataById({ orderId: id }));
         // Set selected row items
         setSelectedRow(data?.payload?.orderItems);
         // Set found row
@@ -39,12 +39,12 @@ const History = ({ historyData, updateData }) => {
     };
     
     useEffect(() => {
-        updateData(overviewSelector);
-        const tableData = prepareTableRows(overviewSelector?.data?.pages);
+        updateData(completedOrderSelector);
+        const tableData = prepareTableRows(completedOrderSelector?.data?.pages);
         if (tableData && tableData?.length > 0) {
             setTableRow(tableData);
         }
-    }, [overviewSelector]);
+    }, [completedOrderSelector]);
 
     const prepareTableRows = (orderArray) => {
         const tableData = orderArray?.map((data) => {
@@ -72,7 +72,7 @@ const History = ({ historyData, updateData }) => {
             <HistoryHeader searchFunction={searchId}/>
             <br></br>
             {
-                overviewSelector.isLoading && tableRow ? <p>Loading...</p> : <div className='overview'>
+                completedOrderSelector.isLoading && tableRow ? <p>Loading...</p> : <div className='overview'>
                     <div className='table'>
                         <Table rows={tableRow} headers={headers} onRowClick={(item) => {
                             setSelectedRow(item?.orderItems);
