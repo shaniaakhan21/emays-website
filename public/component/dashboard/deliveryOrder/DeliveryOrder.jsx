@@ -3,19 +3,18 @@ import HistoryHeader from './component/header';
 import Table from '../../common/table';
 import StatusBox from '../../common/statusBox';
 import { useTranslation } from 'react-i18next';
-import RowDetails from './component/RowDetails';
 import '../../../scss/component/dashboard/deliveryOrder.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { inCompleteOrderSelectorMemoized } from '../redux/selector/inCompleteOrderSelector';
-import ShoppingItem from '../../checkout/ShoppingItem';
 import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
+import OrderReview from '../orderReview/OrderReview';
 
 const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     const [translate] = useTranslation();
     const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
 
     const inCompletedOrderSelector = useSelector(inCompleteOrderSelectorMemoized);
-    const [selectedRow, setSelectedRow] = useState(null);
+    const [selectedRow, setSelectedRow] = useState({ basicInfo: null, itemsInfo: null });
     const [id, setSearchId] = useState(null);
 
     const dispatch = useDispatch();
@@ -30,13 +29,43 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
         status: <StatusBox status={'Pending to pickup'}/>
     }]);
 
+    const getFinalCost = (itemsInfo, serviceCharge) => {
+        const itemsTotal = itemsInfo?.reduce((acc, next) => {
+            return +acc + +next?.productCost; }, 0.00);
+        return (+serviceCharge + +itemsTotal).toFixed(2);
+    };
+
+    const prepareSelectedRowData = (item) => {
+        const itemSelected = inCompletedOrderSelector?.data?.pages?.
+            find((order) => order?._id === item?.id);
+        if (itemSelected) {
+            const cost = getFinalCost(itemSelected?.orderItems, itemSelected?.serviceFee);
+            const preparedObject = { ...itemSelected };
+            const preparedItemsData = itemSelected?.orderItems?.map((item) => ({
+                itemName: item?.productName,
+                image: item?.productImage,
+                color: item?.productColor,
+                size: item?.productSize,
+                quantity: item?.productQuantity
+            }));
+            const itemsInfo = {
+                items: preparedItemsData,
+                total: cost
+            };
+            setSelectedRow((state) => ({ ...state, basicInfo: preparedObject, itemsInfo: itemsInfo }));
+        }
+    };
+
     const searchId = async (id) => {
         const data = await dispatch(getOrderDaDataById({ orderId: id }));
         // Set selected row items
-        setSelectedRow(data?.payload?.orderItems);
+        setSelectedRow(data?.payload);
         // Set found row
         setTableRow([...prepareTableRows([data?.payload])]);
     };
+
+    useEffect(() => {
+    }, [selectedRow]);
     
     useEffect(() => {
         updateData(inCompletedOrderSelector);
@@ -75,21 +104,20 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
                 inCompletedOrderSelector.isLoading && tableRow ? <p>Loading...</p> : <div className='overview'>
                     <div className='table'>
                         <Table rows={tableRow} headers={headers} onRowClick={(item) => {
-                            setSelectedRow(item?.orderItems);
+                            prepareSelectedRowData(item);
                         }} />
                     </div>
-                    <div className='toBeDelivered'>
-                        {/* <h2 className='title'>{t('toBeDelivered-title')}</h2> */}
-                        <div className='items'>
-                            {selectedRow?.map((item, index) => <ShoppingItem
-                                index={index}
-                                itemName={item?.productName}
-                                image={item?.productImage}
-                                color={item?.productColor}
-                                size={'40'}
-                                quantity={item?.productQuantity} />)}
-                        </div>
-                    </div>
+                </div>
+            }
+            <br></br>
+            {
+                <div className='items'>
+                    {(selectedRow?.basicInfo && selectedRow?.itemsInfo) &&
+                    <OrderReview basicInfo = {selectedRow?.basicInfo}
+                        itemsInfo = { selectedRow?.itemsInfo }
+                        infoTitle = {'Appointment'}
+                        itemsTitle = {'Items to be delivered'}/>
+                    }
                 </div>
             }
         </>
