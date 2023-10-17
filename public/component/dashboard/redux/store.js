@@ -5,6 +5,7 @@ import completeOrderReducer from './slice/completeOrderSlice';
 import appInfoReducer from './slice/appInfoSlice';
 import newOrderReducer from './slice/newOrderSlice';
 import newStoreReducer from './slice/adminSlice';
+import selectedOrderReducer from './slice/selectedOrderSlice';
 
 const store = configureStore({
     reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
         completeOrderState: completeOrderReducer,
         appInfoState: appInfoReducer,
         newOrderState: newOrderReducer,
-        newStoreState: newStoreReducer
+        newStoreState: newStoreReducer,
+        selectedOrderState: selectedOrderReducer
     }
 });
 

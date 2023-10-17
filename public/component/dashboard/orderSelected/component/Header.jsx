@@ -3,7 +3,7 @@ import Counts from '../../components/counts';
 import SearchComp from '../../components/searchComp';
 import '../../../../scss/component/dashboard/history.scss';
 
-const HistoryHeader = ({ searchFunction }) => {
+const OrderSelectedHeader = ({ searchFunction, headerComponents }) => {
     return (
         <>
             <div className='header-content'>
@@ -11,13 +11,13 @@ const HistoryHeader = ({ searchFunction }) => {
                     <SearchComp searchButtonClick={searchFunction} />
                 </div>
                 <div className='grid-2'>
-                    <Counts heading='Last 30 days' value='0 Orders' />
-                    <Counts heading='Avg Days' value={0} />
-                    <Counts heading='Completed' value={0} />
+                    {
+                        headerComponents
+                    }
                 </div>
             </div>
         </>
     );
 };
 
-export default React.memo(HistoryHeader);
+export default React.memo(OrderSelectedHeader);
