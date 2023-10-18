@@ -76,14 +76,17 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
     const prepareTableRows = (payload) => {
         // eslint-disable-next-line max-len
         const amount = payload?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
+        const date = new Date(payload?.createdAt);
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
         return {
             id: payload?._id || '',
             client: `${payload?.firstName} ${payload?.lastName}` || '',
-            amount: amount,
-            date: payload?.date || '',
-            time: payload?.createdAt || '',
+            amount: `€ ${amount}`,
+            date: payload?.date?.split('T')[0] || '',
+            time: `${hours}:${minutes}` || '',
             orderItems: payload?.orderItems,
-            status: <StatusBox status={'Pending to pickup'}/>
+            status: <StatusBox status={getOrderStatus({ isDelivered: payload?.isDelivered })}/>
         };
     };
     
