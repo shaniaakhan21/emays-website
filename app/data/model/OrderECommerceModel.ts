@@ -152,11 +152,17 @@ export const getOrderDocumentSize: GetOrderDocumentSize = (storeBranchId, isComp
                 { branchId: storeBranchId },
                 { isDelivered: isCompleted }] }).exec();
         } else if (storeBranchId) {
-            return OrderECommerceModel.countDocuments({ branchId: storeBranchId }).exec();
+            return OrderECommerceModel.countDocuments({ $and: [
+                { branchId: storeBranchId },
+                { isDelivered: false }] }).exec();
         } 
-        // History page need this isCompleted flag
+        // History page need this when Super User looks into
         else if (isCompleted === true) {
-            return OrderECommerceModel.countDocuments({ isDelivered: isCompleted }).exec();
+            return OrderECommerceModel.countDocuments({ isDelivered: true }).exec();
+        } 
+        // Delivery Order page need this when Super User looks into
+        else if (isCompleted === false) {
+            return OrderECommerceModel.countDocuments({ isDelivered: false }).exec();
         }
         return OrderECommerceModel.countDocuments().exec();
     } catch (error) {
@@ -180,7 +186,6 @@ export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocum
         let orderArray;
         // This assumed that Superuser can view orders without a storeId. We may have to split this method
         if (branchId && isCompleted === true) {
-            console.log('HErer--------->>> branchId and isCompleted');
             return await OrderECommerceModel.find({ $and: [
                 { branchId: branchId },
                 { isDelivered: true }] }).skip(startIndex).limit(limit).exec();
@@ -190,6 +195,9 @@ export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocum
         // History page need this isCompleted flag
         else if (isCompleted === true) {
             orderArray = await OrderECommerceModel.find({ isDelivered: true }).exec();
+        }
+        else if (isCompleted === false) {
+            orderArray = await OrderECommerceModel.find({ isDelivered: false }).exec();
         }
 
         // If items are not available yet, get all result

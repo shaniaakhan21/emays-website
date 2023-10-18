@@ -10,6 +10,7 @@ import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
 import OrderReview from '../orderReview/OrderReview';
 import { storeSelectedOrder } from '../redux/thunk/selectedOrderThunk';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { getOrderStatus } from '../../../js/util/stateBuilderUtil';
 
 const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     const [translate] = useTranslation();
@@ -30,7 +31,7 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
         date: '',
         time: '',
         orderItems: [],
-        status: <StatusBox status={'Pending to pickup'}/>
+        status: <StatusBox status={''}/>
     }]);
 
     const getFinalCost = (itemsInfo, serviceCharge) => {
@@ -92,14 +93,17 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
         const tableData = orderArray?.map((data) => {
             // eslint-disable-next-line no-multi-spaces, max-len
             const amount =  data?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
+            const date = new Date(data?.createdAt);
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
             return {
                 id: data?._id || '',
                 client: `${data?.firstName} ${data?.lastName}` || '',
-                amount: amount,
-                date: data?.date || '',
-                time: data?.createdAt || '',
+                amount: `€ ${amount}`,
+                date: data?.date?.split('T')[0] || '',
+                time: `${hours}:${minutes}` || '',
                 orderItems: data?.orderItems,
-                status: <StatusBox status={'Pending to pickup'}/>
+                status: <StatusBox status={getOrderStatus({ isDelivered: data?.isDelivered })}/>
             };
         });
         return tableData;

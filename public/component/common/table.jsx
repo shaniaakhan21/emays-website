@@ -8,6 +8,8 @@ import {
     Table as CarbonTable
 } from '@carbon/react';
 import React, { useState } from 'react';
+// SCSS
+import './../../scss/component/retailer/status-box.scss';
   
 const Table = ({ rows, headers, onRowClick, ...props }) => {
     const [selectedRow, setSelectedRow] = useState(null);
