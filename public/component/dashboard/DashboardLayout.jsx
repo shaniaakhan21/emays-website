@@ -172,7 +172,7 @@ const DashboardLayout = () => {
                             component={() => <PaginationContainer
                                 wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                                 // The method used for fetch pagination data
-                                getPaginationData={getOverviewDataWrapper}
+                                getPaginationData={getInCompletedOrderDataWrapper}
                                 // The property name of the overview component
                                 resourceName={'adminData'}
                                 // Enable pagination
