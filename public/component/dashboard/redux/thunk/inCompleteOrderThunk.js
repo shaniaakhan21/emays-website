@@ -1,13 +1,13 @@
 'use strict';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { loadCompletedOrders, loadOrderById, loadOrders } from '../../../../services/dashboard/overview';
+import { loadCompletedOrders, loadOrderById, loadOrdersCompleted } from '../../../../services/dashboard/overview';
 
 export const getInCompleteOrderData = createAsyncThunk('inCompleteOrder/getInCompleteOrderData', async (data, { getState }) => {
 
     const storeId = getState().appInfoState?.systemInfoState?.data?.id;
     const authToken = getState().loginState.token;
-    const response = await loadOrders({ pageNumber: data?.pageNumber
+    const response = await loadOrdersCompleted({ pageNumber: data?.pageNumber
         , pageLimit: data?.pageLimit, token: authToken, storeId: storeId });
     if (response) {
         return response;

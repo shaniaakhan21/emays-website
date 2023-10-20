@@ -12,7 +12,7 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNFQwNzozMDo1Mi4wMzRaIiwiZXhwIjoxNjk2NDA4MjUyLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJkOGVmZjY0Ny1kYmI5LTRiNzYtOWVjMC04YWUyMzE0MGNjYzkiLCJpYXQiOjE2OTY0MDQ2NTJ9.WqyrePXAtT7c58bUFIyQZQnu-s-xMMG1eWN69ZVaFNs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQxMDoyNDozMC43NzFaIiwiZXhwIjoxNjk3ODAxMDcwLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIxMTk4NWRmMy0zMWU2LTQ1NmYtODRjZi1hODRhMTViZTM2YjAiLCJpYXQiOjE2OTc3OTc0NzB9.dW2CvvsKzprOG-Hlh1ppejXMb5nAznjoaIi5t3lHRDU
 
 {
     "email": "thathsararaviraj@gmail.com",
@@ -20,7 +20,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
     "firstName": "Thathsara",
     "lastName": "Raviraj",
     "phoneNumber": "07122658978",
-    "uid": "12345673410500",
+    "uid": "12345673410501",
     "branchId": "6504061d3615ae0e08a4a789",
     "date": "2023-03-16",
     "startTime": "19:00",
@@ -41,9 +41,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
 }
 
 
-POST https://emaysstyle.com/api/orders
+POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wOS0yN1QyMTozMTo1OS42NTZaIiwiZXhwIjoxNjk1ODUzOTE5LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIzZmE4NGFmMy01NTJmLTQ2ZjAtODBlMS00NTMzNjMyZDlhNmIiLCJpYXQiOjE2OTU4NTAzMTl9.O9H0kUALOXuDrxrroqBeFi9pM85mOuCdSeid9jE8-DY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0xNlQxNjowNDo0MC44MjdaIiwiZXhwIjoxNjk3NDc1ODgwLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIzZGJhYTBlZi0wMmE4LTQzNWQtOGU1OS0xOTZkNzVmNWMyOWUiLCJpYXQiOjE2OTc0NzIyODB9.jDp_T9ol-LyzL9KHEQcjzVERAkAihMx1hkF6LI3AqEE
 
 {
     "email": "thathsararaviraj@gmail.com",
@@ -51,7 +51,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wO
     "firstName": "Thathsara",
     "lastName": "Raviraj",
     "phoneNumber": "07122658978",
-    "uid": "12345673410113",
+    "uid": "12345673410115",
     "branchId": "12345673410113",
     "date": "2023-03-16",
     "startTime": "19:00",
@@ -74,18 +74,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wO
 ----- Get order by user id----
 
 GET http://localhost:8080/api-dev/orders/0685641d-48c6-4636-b57c-b4760fbaeb63
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yNVQxNDoyMDoxNy40NTdaIiwiZXhwIjoxNjgyNDM2MDE3LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhYTY1NTE1Zi02YzdkLTQ1MTktODhhNi00NjJmNmIzMWVlMmEiLCJpYXQiOjE2ODI0MzI0MTd9.UOwKrNm4Cw_0qQN2wX1F7j8kFOBHMVKqNZpb9FJrDIQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNFQwNzozMDo1Mi4wMzRaIiwiZXhwIjoxNjk2NDA4MjUyLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJkOGVmZjY0Ny1kYmI5LTRiNzYtOWVjMC04YWUyMzE0MGNjYzkiLCJpYXQiOjE2OTY0MDQ2NTJ9.WqyrePXAtT7c58bUFIyQZQnu-s-xMMG1eWN69ZVaFNs
 content-type: application/json
 
 
------ Patch order by user id --------
+----- Patch order by user id --------12345673410500
 
-PATCH http://localhost:8080/api-dev/orders/0685641d-48c6-4636-b57c-b4760fbaeb63
+PATCH http://localhost:8080/api-dev/orders/12345673410501
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yNVQxNDoyMDoxNy40NTdaIiwiZXhwIjoxNjgyNDM2MDE3LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhYTY1NTE1Zi02YzdkLTQ1MTktODhhNi00NjJmNmIzMWVlMmEiLCJpYXQiOjE2ODI0MzI0MTd9.UOwKrNm4Cw_0qQN2wX1F7j8kFOBHMVKqNZpb9FJrDIQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQxMDoyNDozMC43NzFaIiwiZXhwIjoxNjk3ODAxMDcwLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIxMTk4NWRmMy0zMWU2LTQ1NmYtODRjZi1hODRhMTViZTM2YjAiLCJpYXQiOjE2OTc3OTc0NzB9.dW2CvvsKzprOG-Hlh1ppejXMb5nAznjoaIi5t3lHRDU
 
 {
-    "isCanceled": false
+    "isDelivered": true,
+    "deliveredDate": "2023-19-16T16:29:01.749Z"
 }
 
 
@@ -104,7 +105,7 @@ content-type: application/json
 
 {
     "extSysName": "Store-X",
-    "extSysUsername": "storex",
+    "extSysUsername": "storexy",
     "extSysPassword": "abCq2&!Ms",
     "extSysEmail": "storeX@gmail.com"
 }
@@ -254,7 +255,8 @@ content-type: application/json
 
 ------ Use common login to get token ----------
 
-POST http://localhost:8080/api-dev/login
+POST http://localhost:8080/api-dev/login                                                                                                                                                                                                                    
+
 content-type: application/json
 
 {
@@ -278,24 +280,27 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
 
 GET http://localhost:8080/api-dev/orders?page=1&pageLimit=4
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0xNlQxNTozODoxMi4zMTFaIiwiZXhwIjoxNjk3NDgxNDkyLCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTFiZTk4N2RmMzk1MzUzNzFkZmVjMzUiLCJpYXQiOjE2OTc0NzA2OTJ9.PuupMSuRvJo06DcpYPHy2gxIFx8_ET79r8U1CZw2wFs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQwNDo1NDowNC42NTNaIiwiZXhwIjoxNjk3NzgxMjQ0LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MjA0NGM5ZjNjZTJiZWVmMTQxZmQ4ZCIsImlhdCI6MTY5Nzc3NzY0NH0.t-qtiwVwWHPLqvFN4rCZUgY_PchiW2pb5UMbB0rCOVc
 
 GET http://localhost:8080/api-dev/orders/byOrderId/650803e5c53b6a587cf62d6a
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNlQwODozNDowNi41MzlaIiwiZXhwIjoxNjk2NTg0ODQ2LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MDQwNWU2MzYxNWFlMGUwOGE0YTc4MiIsImlhdCI6MTY5NjU4MTI0Nn0.B67LWPvk3xi2jxVn-Uhnszp_2wJpqV5gixyWsU13YKI
 
 
-GET http://localhost:8080/api-dev/orders/pagination?page=1&pageLimit=5&isCompleted=true
+GET http://localhost:8080/api-dev/orders/pagination?page=1&pageLimit=5&isCompleted=false
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0xNlQxNTo1NjozMS42MTVaIiwiZXhwIjoxNjk3NDgyNTkxLCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTIwNDMxYWYzY2UyYmVlZjE0MWZkODgiLCJpYXQiOjE2OTc0NzE3OTF9.4SbN-4ohEhOTw4NH0U6eYs8PdQKrDoIniZHGjYsvQvA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQwODowNjo0Ny4yNDBaIiwiZXhwIjoxNjk3NzkyODA3LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTY5Nzc4OTIwN30.jE1FTd8CodAXsxmYF5vd7CD1EJ7aw9CT4d56qqup5WE
 
+GET http://localhost:8080/api-dev/orders/pagination?page=1&pageLimit=5&isCompleted=false
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQwNDo1NDowNC42NTNaIiwiZXhwIjoxNjk3NzgxMjQ0LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MjA0NGM5ZjNjZTJiZWVmMTQxZmQ4ZCIsImlhdCI6MTY5Nzc3NzY0NH0.t-qtiwVwWHPLqvFN4rCZUgY_PchiW2pb5UMbB0rCOVc
 
 
 ------ Create FAQ ------
 
 PUT http://localhost:8080/api-dev/faq
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wNC0yMVQxMzowNToxNS4xNDhaIiwiZXhwIjoxNjgyMDg1OTE1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJiNTA2NjQ2Ni0wNmIzLTQ2NzgtYjkwYS1iOGI5YTBmOWYwZjIiLCJpYXQiOjE2ODIwODIzMTV9.CAwD_RfYFEv89_r1crQQY_d32c7P_Jr6VJalo_mRMhc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQxMzowOTo1OS4wNDhaIiwiZXhwIjoxNjk3ODEwOTk5LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJmMGEyZGRhYS05MWFiLTRjZmEtOTcwZS0zYTc4N2U4NDk0OGMiLCJpYXQiOjE2OTc4MDczOTl9.5KUsbKXllUxvcHSwmUrzA8QMraaYXEAPOrcPZL1MN_c
 
 {
     "question": "Test Question",
@@ -327,6 +332,40 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wN
 
 --------- AREAS VALIDATION ------------
 
-POST http://localhost:8080/api-dev/serviceAreas
+POST https://emaysstyle.com/api/serviceAreas
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0xNlQxMTo1OTo0Ny4wNjdaIiwiZXhwIjoxNjk3NDY4Mzg3LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTFiZTk4N2RmMzk1MzUzNzFkZmVjMzUiLCJpYXQiOjE2OTc0NTc1ODd9.vyozB8-jnaNBTkXrKAiAv5SGkR03-EAmaI69EzTSZrE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQxMjoxNDo0My44MzNaIiwiZXhwIjoxNjk3ODE0ODgzLCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTFiZTk4N2RmMzk1MzUzNzFkZmVjMzUiLCJpYXQiOjE2OTc4MDQwODN9.dZWinUe9P5aM5neNaZKYRXZzQ-SS5fjFKtRx9GFdh-Q
+
+
+---------- STATS ROUTES ---------------
+
+GET http://localhost:8080/api-dev/externalSystems/externalSystemsStatsHistory
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQwNDo0NDoyMi4zNzVaIiwiZXhwIjoxNjk3Nzg3ODYyLCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTIwNDMxYWYzY2UyYmVlZjE0MWZkODgiLCJpYXQiOjE2OTc3NzcwNjJ9.FCdaJz-FdYgqLVJ-ium0T8JaBnRG09TK0TOm1slHd48
+
+
+---------- STATS ROUTES ---------------
+
+DELETE http://localhost:8080/api-dev/orders/65324ac1f45bb35c4aebfa34
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQwOToyNTo0NS4wNDhaIiwiZXhwIjoxNjk3Nzk3NTQ1LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTY5Nzc5Mzk0NX0.PCDxeDidS_YGk0SOP-jh6QiBvFFyHKtFA_um5JUW7YM
+
+
+GET http://localhost:8080/api-dev/orders/pagination?page=1&pageLimit=5
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQxMzoxODoxMC4yMzZaIiwiZXhwIjoxNjk3ODExNDkwLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTY5NzgwNzg5MH0.6GvrOCdWDfI9gNf_UVz0l8har-eis0xQV7GUshaFiBs
+
+
+GET http://localhost:8080/api-dev/externalSystems/externalSystemsStatsHistory
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQxMzoxODoxMC4yMzZaIiwiZXhwIjoxNjk3ODExNDkwLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTY5NzgwNzg5MH0.6GvrOCdWDfI9gNf_UVz0l8har-eis0xQV7GUshaFiBs
+
+
+PATCH http://localhost:8080/api-dev/orders/12345673410501
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQxMzowOTo1OS4wNDhaIiwiZXhwIjoxNjk3ODEwOTk5LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJmMGEyZGRhYS05MWFiLTRjZmEtOTcwZS0zYTc4N2U4NDk0OGMiLCJpYXQiOjE2OTc4MDczOTl9.5KUsbKXllUxvcHSwmUrzA8QMraaYXEAPOrcPZL1MN_c
+
+{
+    "isDelivered": true,
+    "deliveredDate": "2023-09-16T16:29:01.749Z"
+}

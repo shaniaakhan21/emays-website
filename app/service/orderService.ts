@@ -2,14 +2,16 @@
 /* eslint-disable max-len */
 'use strict';
 
-import { CreateOrderFunc, GetOrderDetailsWithPages, PatchOrderDetailsByUserIdFunc, RetrieveOrderByOrderIdFunc, RetrieveOrderByUserIdFunc, RetrieveOrdersByDeliveryStatusFunc } from '../type/orderServiceType';
+import { CreateOrderFunc, DeleteOrderByOrderIdFunc, GetOrderDetailsWithPages, PatchOrderDetailsByUserIdFunc, RetrieveOrderByOrderIdFunc, RetrieveOrderByUserIdFunc, RetrieveOrdersByDeliveryStatusFunc } from '../type/orderServiceType';
 import { IOrder, IOrderDTO, IOrderPaginationDTO } from '../type/orderType';
 import { Logger } from '../log/logger';
 import { buildErrorMessage, buildInfoMessageMethodCall,
     buildInfoMessageUserProcessCompleted } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
-import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist, retrieveOrderByDeliveryStatus, getOrderDocumentSize, getOrderDetailDocumentsArrayByStartAndEndIndex, retrieveOrderByOrderId } from '../data/model/OrderECommerceModel';
+import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist,
+    deleteOrderById,
+    retrieveOrderByDeliveryStatus, getOrderDocumentSize, getOrderDetailDocumentsArrayByStartAndEndIndex, retrieveOrderByOrderId } from '../data/model/OrderECommerceModel';
 import { sendEmailForOrderCancellation, sendEmailForOrderingItems } from './emailService';
 import { config } from '../config/config';
 import { Order } from '../type/orderType';
@@ -17,6 +19,10 @@ import { generateJWT } from '../util/jwtUtil';
 import { Roles } from '../const/roles';
 import { IJWTBuildData, JWT_TYPE } from '../type/IJWTClaims';
 import { EMAIL_BOOKED, EMAIL_EDIT } from '../../public/js/const/SessionStorageConst';
+import ServiceError from '../type/error/ServiceError';
+import ErrorType from '../const/errorType';
+import { ERROR_DOCUMENT_NOT_FOUND, ORDER_NOT_FOUND_ERROR_MESSAGE } from '../const/errorMessage';
+import { HTTPUserError } from '../const/httpCode';
 
 const Logging = Logger(__filename);
 
@@ -115,6 +121,31 @@ export const createOrder: CreateOrderFunc = async (order) => {
 };
 
 /**
+ * Delete order by order id
+ * @param {string} orderId Order object
+ * @returns {Promise<IOrderDTO>} Promise with order total
+ */
+export const deleteOrderByIdGiven: DeleteOrderByOrderIdFunc = async (orderId) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Delete order by oder id', `order id: ${orderId}`), LogType.INFO);
+        const result = await deleteOrderById(orderId);
+        if (!result) {
+            throw new ServiceError(
+                ErrorType.ORDER_RETRIEVAL_ERROR, ORDER_NOT_FOUND_ERROR_MESSAGE, '', HTTPUserError.NOT_FOUND_CODE);
+        }
+        Logging.log(buildInfoMessageUserProcessCompleted('Delete order by oder id', `Order:
+                    ${JSON.stringify(result)}` ), LogType.INFO);
+        return result;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, `Delete order by id ${orderId}`), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
  * Retrieve order
  * @param {object} order Order object
  * @returns {Promise<number>} Promise with order total
@@ -201,6 +232,7 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Patch order basic data', `uid: ${userId}`), LogType.INFO);
+        patchOrder.deliveredDate = new Date(patchOrder.deliveredDate as unknown as string);
         const result = await findOneAndUpdateIfExist(userId, patchOrder);
         if (patchOrder.isCanceled) {
             // Send cancellation email

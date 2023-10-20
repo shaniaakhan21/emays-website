@@ -7,7 +7,8 @@ import { HTTPUserError } from '../../const/httpCode';
 import LogType from '../../const/logType';
 import { Logger } from '../../log/logger';
 import ServiceError from '../../type/error/ServiceError';
-import { CreateOrderFunc, GetOrderDetailDocumentsArrayByStartAndEndIndex,
+import { CreateOrderFunc, DeleteOrderByOrderIdFunc, GetCompletedOrderCount,
+    GetExternalSystemHistoryStatsFunc, GetOrderDetailDocumentsArrayByStartAndEndIndex,
     GetOrderDocumentSize, PatchOrderDetailsByUserIdFunc, RetrieveOrderByOrderIdFunc, RetrieveOrderByUserIdFunc
     , RetrieveOrdersByDeliveryStatusFunc } from '../../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../../type/orderType';
@@ -34,6 +35,22 @@ export const saveOrder: CreateOrderFunc = async (order) => {
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, 'Save Order Details'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Delete order by order id
+ * @param {string} order order id
+ * @returns {IOrder} Returns IOrder object
+ */
+export const deleteOrderById: DeleteOrderByOrderIdFunc = async (orderId) => {
+    try {
+        const result = await OrderECommerceModel.findByIdAndDelete({ _id: orderId }) as IOrder;
+        return result;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, `Delete Order by Id: ${orderId}`), LogType.ERROR);
         throw error;
     }
 };
@@ -142,6 +159,8 @@ export const findOneAndUpdateIfExist: PatchOrderDetailsByUserIdFunc = async (use
 
 /**
  * Get order document size
+ * @param {string} storeBranchId branch id
+ * @param {boolean} isCompleted is completed status
  * @returns {integer} Returns integer size
  */
 export const getOrderDocumentSize: GetOrderDocumentSize = (storeBranchId, isCompleted) => {
@@ -151,10 +170,13 @@ export const getOrderDocumentSize: GetOrderDocumentSize = (storeBranchId, isComp
             return OrderECommerceModel.countDocuments({ $and: [
                 { branchId: storeBranchId },
                 { isDelivered: isCompleted }] }).exec();
-        } else if (storeBranchId) {
+        } else if (storeBranchId && isCompleted === false) {
             return OrderECommerceModel.countDocuments({ $and: [
                 { branchId: storeBranchId },
                 { isDelivered: false }] }).exec();
+        } else if (storeBranchId) {
+            return OrderECommerceModel.countDocuments({ $and: [
+                { branchId: storeBranchId }] }).exec();
         } 
         // History page need this when Super User looks into
         else if (isCompleted === true) {
@@ -186,27 +208,43 @@ export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocum
         let orderArray;
         // This assumed that Superuser can view orders without a storeId. We may have to split this method
         if (branchId && isCompleted === true) {
-            return await OrderECommerceModel.find({ $and: [
+            orderArray = await OrderECommerceModel.find({ $and: [
                 { branchId: branchId },
                 { isDelivered: true }] }).skip(startIndex).limit(limit).exec();
+            const preparedOrderArray: Array<IOrderDTO> = 
+                (orderArray as []).map(data => prepareUserDetailsToSend(data)); 
+            return preparedOrderArray;
+        } else if (branchId && isCompleted === false) {
+            orderArray = await OrderECommerceModel.find({ $and: [
+                { branchId: branchId },
+                { isDelivered: false }] }).skip(startIndex).limit(limit).exec();
+            const preparedOrderArray: Array<IOrderDTO> = 
+                    (orderArray as []).map(data => prepareUserDetailsToSend(data)); 
+            return preparedOrderArray;
+        
         } else if (branchId) {
             orderArray = await OrderECommerceModel.find({ branchId: branchId }).skip(startIndex).limit(limit).exec();
+            const preparedOrderArray: Array<IOrderDTO> = 
+                (orderArray as []).map(data => prepareUserDetailsToSend(data)); 
+            return preparedOrderArray;
         } 
         // History page need this isCompleted flag
         else if (isCompleted === true) {
             orderArray = await OrderECommerceModel.find({ isDelivered: true }).exec();
+            const preparedOrderArray: Array<IOrderDTO> = 
+                (orderArray as []).map(data => prepareUserDetailsToSend(data)); 
+            return preparedOrderArray;
         }
         else if (isCompleted === false) {
             orderArray = await OrderECommerceModel.find({ isDelivered: false }).exec();
+            const preparedOrderArray: Array<IOrderDTO> = 
+                (orderArray as []).map(data => prepareUserDetailsToSend(data)); 
+            return preparedOrderArray;
         }
-
-        // If items are not available yet, get all result
-        if (!((orderArray as [])?.length > 0)) {
-            orderArray = await OrderECommerceModel.find().skip(startIndex).limit(limit).exec();
-        }
-       
+        orderArray = await OrderECommerceModel.find().skip(startIndex).limit(limit).exec();
         const preparedOrderArray: Array<IOrderDTO> = (orderArray as []).map(data => prepareUserDetailsToSend(data)); 
         return preparedOrderArray;
+        
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, 'Retrieve Orders array based on indexes'), LogType.ERROR);
@@ -214,3 +252,46 @@ export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocum
     }
 };
 
+/**
+ * Get completed orders
+ * @param {integer} startIndex start index
+ * @param {integer} endIndex end index
+ * @return 
+ */
+export const completedOrdersStat: GetCompletedOrderCount = async (duration, storeId) => {
+    try {
+        const aggregatePipeline: any[] = [
+            {
+                $match: {
+                    deliveredDate: {
+                        $lte: duration
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    count: { $sum: 1 }
+                }
+            }
+        ];
+    
+        if (storeId) {
+            // Add the branchId condition to the $match object if storeId is available
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            aggregatePipeline[0].$match.branchId = storeId;
+        }
+    
+        const result = await OrderECommerceModel.aggregate(aggregatePipeline).exec();
+        let count = 0;
+        if (result?.length > 0) {
+            count = (result[0] as { count: number }).count;
+        }
+        return count;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve Order size'), LogType.ERROR);
+        throw error;
+    }
+    
+};
