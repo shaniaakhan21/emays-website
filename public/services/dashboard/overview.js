@@ -10,14 +10,14 @@ import { apiBase, HTTPHelper as httpUtil } from '../../js/util/httpUtil';
  * @param token {string}
  * @returns {Promise<undefined|*>}
  */
-export const loadOrders = ({ pageNumber, pageLimit, storeId, token }) => {
+export const loadOrdersCompleted = ({ pageNumber, pageLimit, storeId, token }) => {
     if (storeId) {
         // eslint-disable-next-line max-len
-        return httpUtil.get(`${apiBase}/orders/pagination?page=${pageNumber}&pageLimit=${pageLimit}&storeId=${storeId}`, {
+        return httpUtil.get(`${apiBase}/orders/pagination?page=${pageNumber}&pageLimit=${pageLimit}&storeId=${storeId}&isCompleted=false`, {
             'Authorization': `Bearer ${token}`
         }, {});
     }
-    return httpUtil.get(`${apiBase}/orders/pagination?page=${pageNumber}&pageLimit=${pageLimit}`, {
+    return httpUtil.get(`${apiBase}/orders/pagination?page=${pageNumber}&pageLimit=${pageLimit}&isCompleted=false`, {
         'Authorization': `Bearer ${token}`
     }, {});
 };

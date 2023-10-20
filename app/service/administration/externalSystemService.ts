@@ -5,7 +5,8 @@ import { Roles } from '../../const/roles';
 import { ExternalSystemModel, saveExternalSystem } from '../../data/model/ExternalSystemModel';
 import { Logger } from '../../log/logger';
 import { CreateExternalSystemFunc, GetExternalSystemByIdFunc
-    , RequestExternalSystemTokenFunc } from '../../type/orderServiceType';
+    , GetExternalSystemDeliveryOrderStatsFunc, GetExternalSystemHistoryStatsFunc,
+    RequestExternalSystemTokenFunc } from '../../type/orderServiceType';
 import { buildErrorMessage, buildInfoMessageMethodCall
     , buildInfoMessageUserProcessCompleted } from '../../util/logMessageBuilder';
 import { compareHash, hashPassword } from '../../util/passwordUtil';
@@ -15,8 +16,11 @@ import { JWT_TYPE } from '../../type/IJWTClaims';
 import ServiceError from '../../type/error/ServiceError';
 import ErrorType from '../../const/errorType';
 import { HTTPUserError } from '../../const/httpCode';
-import { IExternalSystem, IExternalSystemDTO } from '../../type/IExternalSystem';
-import { INVALID_CREDENTIALS_ERROR_MESSAGE, SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
+import { IExternalSystemDTO } from '../../type/IExternalSystem';
+import { ERROR_DOCUMENT_NOT_FOUND, INVALID_CREDENTIALS_ERROR_MESSAGE,
+    SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
+import { IExternalSystemHistoryStatsDTO } from '../../type/IExternalSystemStats';
+import { completedOrdersStat } from '../../data/model/OrderECommerceModel';
 
 const Logging = Logger(__filename);
 
@@ -98,6 +102,66 @@ export const getExternalSystemById: GetExternalSystemByIdFunc = async (id) => {
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, 'Get external system by id'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get system history stats
+ * @param {TimePeriod} timePeriod
+ * @param {string} id External system id
+ * @returns {Promise<IExternalSystemDTO>}
+ */
+
+export const getExternalSystemHistoryStat: GetExternalSystemHistoryStatsFunc = async (timePeriod, id) => {
+    try {
+        console.log('-----DATE------', timePeriod);
+        Logging.log(buildInfoMessageMethodCall(
+            'Get external system history stats', `ext id: ${id as string}`), LogType.INFO);
+        const completed = await completedOrdersStat(timePeriod, id);
+        return {
+            completed: completed,
+            average: 12,
+            lastThirtyDays: 12
+        };
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Get external system history stats by id'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get system delivery order stats
+ * @param {TimePeriod} timePeriod
+ * @param {string} id External system id
+ * @returns {Promise<IExternalSystemDTO>}
+ */
+export const getExternalSystemDeliveryOrderStat: GetExternalSystemDeliveryOrderStatsFunc = async (timePeriod, id) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Get external system by id', `ext id: ${id as string}`), LogType.INFO);
+        const data = await new Promise((resolve, reject) => {
+            resolve({
+                completed: 12,
+                average: 12,
+                lastThirtyDays: 12,
+                activeOrders: 12
+            });
+        }) ;
+        if (data) {
+            return {
+                completed: 12,
+                average: 12,
+                lastThirtyDays: 12,
+                activeOrders: 12
+            };
+        } 
+        throw new ServiceError(
+            ErrorType.SYSTEM_RETRIEVAL_ERROR, ERROR_DOCUMENT_NOT_FOUND, '', HTTPUserError.NOT_FOUND_CODE);
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Get external system delivery order stats by id'), LogType.ERROR);
         throw error;
     }
 };

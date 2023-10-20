@@ -11,7 +11,9 @@ import { RoutePath } from '../../const/routePath';
 import { buildErrorMessage, buildInfoMessageRouteHit
     , buildInfoMessageUserProcessCompleted } from '../../util/logMessageBuilder';
 import LogType from '../../const/logType';
-import { getExternalSystemById } from '../../service/administration/externalSystemService';
+import { getExternalSystemById,
+    getExternalSystemDeliveryOrderStat,
+    getExternalSystemHistoryStat } from '../../service/administration/externalSystemService';
 import { IExternalSystem, IExternalSystemDTO, IExternalSystemLogin } from '../../type/IExternalSystem';
 import { createExternalSystem, getExternalSystemToken } from '../../service/administration/externalSystemService';
 import { HTTPSuccess, HTTPUserError } from '../../const/httpCode';
@@ -33,6 +35,7 @@ import ErrorType from '../../const/errorType';
 import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../const/errorMessage';
 import { ManagerExternalSystemModel } from '../../data/model/ManagerExternalSystemModel';
 import { getManagerExternalSystemToken } from '../../service/administration/managerExternalSystemService';
+import { TimePeriod } from '../../const/timePeriods';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -199,6 +202,48 @@ router.post(requestTokenPathCommonLogin, validateHeader, validateUserTokenReques
     })().catch(error => {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, requestTokenPathCommonLogin), LogType.ERROR);
+        next(error);
+    });
+});
+
+// ......STATS ROUTES......
+
+/**
+ * Get system history stats
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+const getSystemHistoryStats = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEMS_HISTORY_STATS}`;
+router.get(getSystemHistoryStats, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => {
+        const stats = await getExternalSystemHistoryStat(TimePeriod.LAST_MONTH);
+        return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(stats));
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, getSystemHistoryStats), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
+ * Get system delivery order stats
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+const getSystemDeliveryOrderStats = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEMS_DELIVERY_ORDER_STATS}`;
+router.get(getSystemDeliveryOrderStats, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => {
+        const stats = await getExternalSystemDeliveryOrderStat(TimePeriod.LAST_MONTH);
+        return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(stats));
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, getSystemDeliveryOrderStats), LogType.ERROR);
         next(error);
     });
 });
