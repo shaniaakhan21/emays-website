@@ -15,6 +15,7 @@ import {
     allowedForClientRoleAndSuperAdminAndAdminOnly,
     allowedForClientRoleOnly,
     allowedForExternalSystemRoleOnly,
+    allowedForSuperRoleOnly,
     validateCreateOrder,
     validateHeader
     ,
@@ -22,7 +23,7 @@ import {
     validateOrderPatchRequestBody,
     validateParamUserId
 } from '../middleware/paramValidationMiddleware';
-import { createOrder, getOrderDetailsWithPagination, patchOrderDetailsByUserId,
+import { createOrder, deleteOrderByIdGiven, getOrderDetailsWithPagination, patchOrderDetailsByUserId,
     retrieveOrderDetailsByOrderId,
     retrieveOrderDetailsByUserId } from '../service/orderService';
 import { AppRequest } from '../type/appRequestType';
@@ -178,9 +179,36 @@ router.get(`${RoutePath.ORDERS}${RoutePath.ORDER_BY_PAGINATION}`, validateHeader
         const page = parseInt(req.query.page);
         const pageLimit = parseInt(req.query.pageLimit);
         const storeId = req.query.storeId;
-        const status = req.query.isCompleted === 'true' ? true : false;
+        // eslint-disable-next-line no-nested-ternary
+        const status = req.query.isCompleted === 'true' ? true : 
+            req.query.isCompleted === 'false' ? false : undefined;
         const data = await getOrderDetailsWithPagination(page, pageLimit, roles as string, storeId, status);
         res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(data));
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, `Get orders uid: ${roles as string}`), LogType.ERROR);
+        next(error);
+    });
+
+});
+
+/**
+ * Delete order route
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+router.delete(`${RoutePath.ORDERS}${PathParam.ORDER_ID}`, validateHeader, allowedForSuperRoleOnly, (
+    req: express.Request<core.ParamsDictionary, any, any,
+     { page: string, pageLimit: string, storeId: string, isCompleted: string }>
+    , res: Response, next: NextFunction): void => {
+    const roles = (req as AppRequest).claims?.roles.join(',');
+    (async () => {
+        const pathParam = req.params as { [key: string]: string };
+        const orderId = pathParam?.orderId;
+        await deleteOrderByIdGiven(orderId);
+        res.sendStatus(HTTPSuccess.NO_CONTENT_CODE);
     })().catch(error => {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, `Get orders uid: ${roles as string}`), LogType.ERROR);

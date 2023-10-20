@@ -31,15 +31,21 @@ export interface IOrder {
         // Post code
         addSix: string
     },
+    isPrepared?: boolean,
+    preparedDate?: Date,
+    deliveredDate?: Date,
+    canceledDate?: Date,
     deliveryInfo: string,
     orderItems: Array<Order>,
     createdAt?: Date,
     isDelivered?: boolean,
     isDriverPicked?: boolean,
+    driverPickDate?: Date,
     isCanceled?: boolean,
     history?: Array<Date>,
     paymentRef?: string,
-    serviceFee: number
+    serviceFee: number,
+    payedDate?: Date
 }
 export interface IOrderDTO {
     _id?: ObjectId,
@@ -116,10 +122,20 @@ export interface IPatchOrder {
         // Post code
         addSix: string
     },
+    isPrepared?: boolean,
+    preparedDate?: Date,
+    deliveredDate?: Date,
+    canceledDate?: Date,
+    deliveryInfo?: string,
     createdAt?: Date,
+    isDelivered?: boolean,
+    isDriverPicked?: boolean,
+    driverPickDate?: Date,
+    isCanceled?: boolean,
     history?: Array<Date>,
     paymentRef?: string,
-    isCanceled?: boolean
+    serviceFee?: number,
+    payedDate?: Date
 }
 
 export interface IOrderPaginationDTO {
