@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import ButtonCustom from '../../../common/ButtonCustom';
 import CommonHead from '../../components/commonHead';
 
-const HistoryHeader = ({ searchFunction }) => {
+const DOHeader = ({ searchFunction }) => {
     const history = useHistory();
     return (
         <>
@@ -21,4 +21,4 @@ const HistoryHeader = ({ searchFunction }) => {
     );
 };
 
-export default React.memo(HistoryHeader);
+export default React.memo(DOHeader);

@@ -32,14 +32,20 @@ const OrderSchema = new Schema<IOrder>({
         type: Date,
         default: Date.now
     },
+    isPrepared: { type: Boolean, default: false },
+    preparedDate: { type: Date, default: null },
     isDelivered: { type: Boolean, default: false },
+    deliveredDate: { type: Date, default: null },
     isCanceled: { type: Boolean, default: false },
+    canceledDate: { type: Date, default: null },
     isDriverPicked: { type: Boolean, default: false },
+    driverPickDate: { type: Date, default: null },
     history: [{
         date: { type: Date, default: Date.now }
     }],
     paymentRef: { type: String, required: false },
-    serviceFee: { type: Number, require: false }
+    serviceFee: { type: Number, require: false },
+    payedDate: { type: Date, default: null }
 });
 
 export default OrderSchema;
