@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 'use strict';
 
 import { model } from 'mongoose';
@@ -7,15 +8,20 @@ import { HTTPUserError } from '../../const/httpCode';
 import LogType from '../../const/logType';
 import { Logger } from '../../log/logger';
 import ServiceError from '../../type/error/ServiceError';
-import { CreateOrderFunc, DeleteOrderByOrderIdFunc, GetCompletedOrderCount,
-    GetExternalSystemHistoryStatsFunc, GetOrderDetailDocumentsArrayByStartAndEndIndex,
+import { CreateOrderFunc, DeleteOrderByOrderIdFunc,
+    GetCompletedOrderCountByDurationAndStoreIdFunc, GetAllOrderCountByDurationAndStoreIdFunc,
+    GetOrderDetailDocumentsArrayByStartAndEndIndex,
     GetOrderDocumentSize, PatchOrderDetailsByUserIdFunc, RetrieveOrderByOrderIdFunc, RetrieveOrderByUserIdFunc
-    , RetrieveOrdersByDeliveryStatusFunc } from '../../type/orderServiceType';
+    , RetrieveOrdersByDeliveryStatusFunc, 
+    GetActiveOrdersCountByStoreIdFunc } from '../../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { prepareUserDetailsToSend } from '../../util/orderDetailBuilder';
 import OrderSchema from '../schema/OrderECommerceSchema';
 import { array } from 'joi';
+import DurationUtil from '../../util/durationUtil';
+import { TimePeriod } from '../../const/timePeriods';
+import { integer } from 'aws-sdk/clients/cloudfront';
 
 const Logging = Logger(__filename);
 
@@ -253,19 +259,108 @@ export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocum
 };
 
 /**
- * Get completed orders
- * @param {integer} startIndex start index
- * @param {integer} endIndex end index
- * @return 
+ * Get completed orders by delivered date and given duration
+ * @param {integer} durationType type of duration
+ * @param {string} storeId end index
+ * @return {integer} count
  */
-export const completedOrdersStat: GetCompletedOrderCount = async (duration, storeId) => {
+export const getCompletedOrdersCountByDurationAndStoreId: GetCompletedOrderCountByDurationAndStoreIdFunc = async (durationType, storeId) => {
     try {
+        const duration = DurationUtil.getDuration(durationType);
         const aggregatePipeline: any[] = [
             {
                 $match: {
                     deliveredDate: {
                         $lte: duration
                     }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    count: { $sum: 1 }
+                }
+            }
+        ];
+    
+        if (storeId) {
+            // Add the branchId condition to the $match object if storeId is available
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            aggregatePipeline[0].$match.branchId = storeId;
+        }
+    
+        const result = await OrderECommerceModel.aggregate(aggregatePipeline).exec();
+        let count = 0;
+        if (result?.length > 0) {
+            count = (result[0] as { count: number }).count;
+        }
+        return count;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve Order size'), LogType.ERROR);
+        throw error;
+    }
+    
+};
+
+/**
+ * Get all kind of orders by order date duration and store id
+ * @param {integer} durationType type of duration
+ * @param {string} storeId end index
+ * @return {integer} count
+ */
+export const getAllOrderCountByDurationAndStoreId: GetAllOrderCountByDurationAndStoreIdFunc = async (durationType, storeId) => {
+    try {
+        const duration = DurationUtil.getDuration(durationType);
+        const aggregatePipeline: any[] = [
+            {
+                $match: {
+                    date: {
+                        $lte: duration
+                    }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    count: { $sum: 1 }
+                }
+            }
+        ];
+    
+        if (storeId) {
+            // Add the branchId condition to the $match object if storeId is available
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            aggregatePipeline[0].$match.branchId = storeId;
+        }
+    
+        const result = await OrderECommerceModel.aggregate(aggregatePipeline).exec();
+        let count = 0;
+        if (result?.length > 0) {
+            count = (result[0] as { count: number }).count;
+        }
+        return count;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve Order size'), LogType.ERROR);
+        throw error;
+    }
+    
+};
+
+/**
+ * Get active orders by order date and given duration
+ * @param {integer} durationType type of duration
+ * @param {string} storeId end index
+ * @return {integer} count
+ */
+export const getActiveOrdersCountByStoreId: GetActiveOrdersCountByStoreIdFunc = async (storeId) => {
+    try {
+        const aggregatePipeline: any[] = [
+            {
+                $match: {
+                    deliveredDate: null,
+                    isDelivered: false
                 }
             },
             {

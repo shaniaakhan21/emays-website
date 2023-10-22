@@ -9,7 +9,7 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     ADMIN_EXT_PHONE_REQUIRED,
     ADMIN_EXT_USERNAME_REQUIRED, AREA_REQUIRED, BRANCH_ID_REQUIRED, CANCELLATION_STATUS_REQUIRED, CONTENT_TYPE_REQUIRED
     , CREATED_TIME_CAN_NOT_MODIFY, DELIVERED_STATUS_REQUIRED, DELIVERY_INFO_REQUIRED
-    , EMAIL_REQUIRED, EXPERIENCE_REQUIRED
+    , DURATION_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
     , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
     EXTERNAL_SYSTEM_PASSWORD_REQUIRED, EXTERNAL_SYSTEM_USERNAME_REQUIRED,
     EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY
@@ -517,6 +517,18 @@ export const validateGeoBasedServiceFeePathParams = (req: Request, res: Response
             long: Joi.number().required().error((error) => { 
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, LONGITUDE_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate stat route
+export const validateStatRouteParams = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        query: {
+            durationType: Joi.number().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DURATION_REQUIRED); })
         }
     });
     validateRequest(req, next, validationCriteria);

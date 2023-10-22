@@ -21,6 +21,8 @@ import { loginSelectorMemoized } from './redux/selector/loginSelector';
 import { getCompletedOrderData } from './redux/thunk/completeOrderThunk';
 import AddItems from './addItem/AddItems';
 import OrderSelected from './orderSelected/OrderSelected';
+import { getHistoryStatsData } from './redux/thunk/historyStatsThunk';
+import { getDeliveryOrderStatsData } from './redux/thunk/deliveryOrderThunk';
 
 const DashboardLayout = () => {
 
@@ -48,11 +50,17 @@ const DashboardLayout = () => {
         const data = { pageNumber: pageNo, pageLimit: limit };
         return dispatch(getInCompleteOrderData(data));
     }, [dispatch]);
+    const getInitialDataDeliveryOrder = useCallback(() => {
+        return dispatch(getDeliveryOrderStatsData());
+    }, [dispatch]);
 
     // History props
     const getCompletedOrderDataWrapper = useCallback((pageNo, limit) => { 
         const data = { pageNumber: pageNo, pageLimit: limit };
         return dispatch(getCompletedOrderData(data));
+    }, [dispatch]);
+    const getInitialDataHistory = useCallback(() => {
+        return dispatch(getHistoryStatsData());
     }, [dispatch]);
 
     // New Order props
@@ -142,6 +150,7 @@ const DashboardLayout = () => {
                                 resourceName={'deliveryOrderData'}
                                 // Enable pagination
                                 isPaginationEnabled={true}
+                                getInitialData={getInitialDataDeliveryOrder}
                             >
                                 <DeliveryOrder />
                             </PaginationContainer>}></Route>
@@ -154,6 +163,7 @@ const DashboardLayout = () => {
                                 resourceName={'historyData'}
                                 // Enable pagination
                                 isPaginationEnabled={true}
+                                getInitialData={getInitialDataHistory}
                             >
                                 <History />
                             </PaginationContainer>}></Route>

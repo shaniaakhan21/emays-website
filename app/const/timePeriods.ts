@@ -1,10 +1,10 @@
 'use strict';
 
-const date = new Date();
-
 export enum TimePeriod {
-    LAST_MONTH = new Date().setMonth(date.getMonth() - 1),
-    LAST_THREE_MONTH = new Date().setMonth(date.getMonth() - 3),
-    LAST_YEAR = new Date().setMonth(date.getMonth() - 12)
+    MONTH_A_GO = 1,
+    THREE_MONTH_A_GO = 2,
+    SIX_MONTH_A_GO = 3,
+    YEAR_A_GO = 4,
+    THIRTY_DAYS_A_GO = 5
 }
 

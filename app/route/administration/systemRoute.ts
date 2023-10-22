@@ -1,9 +1,12 @@
 'use strict';
 
+import * as express from 'express';
+import * as core from 'express-serve-static-core';
 import { Router, Request, Response, NextFunction } from 'express';
 import { allowedForExternalSystemSuperUserAndAdminRolesOnly,
     validateCreateExtSysRequestBody,
     validateExternalSystemTokenRequestBody, validateHeader,
+    validateStatRouteParams,
     validateUserTokenRequestBody, 
     validateUsername } from '../../middleware/paramValidationMiddleware';
 import { Logger } from '../../log/logger';
@@ -36,6 +39,8 @@ import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../const/errorMessage';
 import { ManagerExternalSystemModel } from '../../data/model/ManagerExternalSystemModel';
 import { getManagerExternalSystemToken } from '../../service/administration/managerExternalSystemService';
 import { TimePeriod } from '../../const/timePeriods';
+import DurationUtil from '../../util/durationUtil';
+import { integer } from 'aws-sdk/clients/cloudfront';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -216,10 +221,13 @@ router.post(requestTokenPathCommonLogin, validateHeader, validateUserTokenReques
  * @returns {void}
  */
 const getSystemHistoryStats = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEMS_HISTORY_STATS}`;
-router.get(getSystemHistoryStats, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, (
-    req: Request, res: Response, next: NextFunction): void => {
+// eslint-disable-next-line max-len
+router.get(getSystemHistoryStats, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, validateStatRouteParams, (
+    req: express.Request<core.ParamsDictionary, any, any,
+    { durationType: string }>, res: Response, next: NextFunction): void => {
     (async () => {
-        const stats = await getExternalSystemHistoryStat(TimePeriod.LAST_MONTH);
+        const periodTypeValue = +req?.query?.durationType;
+        const stats = await getExternalSystemHistoryStat(DurationUtil.getPeriodType(periodTypeValue));
         return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(stats));
     })().catch(error => {
         const err = error as Error;
@@ -239,7 +247,7 @@ const getSystemDeliveryOrderStats = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EX
 router.get(getSystemDeliveryOrderStats, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, (
     req: Request, res: Response, next: NextFunction): void => {
     (async () => {
-        const stats = await getExternalSystemDeliveryOrderStat(TimePeriod.LAST_MONTH);
+        const stats = await getExternalSystemDeliveryOrderStat(TimePeriod.MONTH_A_GO);
         return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(stats));
     })().catch(error => {
         const err = error as Error;
