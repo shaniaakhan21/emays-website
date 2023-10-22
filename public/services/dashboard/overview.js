@@ -60,3 +60,42 @@ export const loadOrderById = ({ orderId, storeId, token }) => {
         'Authorization': `Bearer ${token}`
     }, {});
 };
+
+/**
+ * Load order history stats by order id
+ * @param orderId {number}
+ * @param storeId {string}
+ * @param token {string}
+ * @returns {Promise<undefined|*>}
+ */
+export const loadHistoryStatsByStoreIdAndDuration = ({ durationType, storeId, token }) => {
+    if (storeId) {
+        // Point: branchId = storeId in our system
+        return httpUtil.get(`${apiBase}/externalSystems/externalSystemsStatsHistory?durationType=${durationType}`, {
+            'Authorization': `Bearer ${token}`
+        }, {});
+    }
+    return httpUtil.get(`${apiBase}/externalSystems/externalSystemsStatsHistory?durationType=${durationType}`, {
+        'Authorization': `Bearer ${token}`
+    }, {});
+};
+
+/**
+ * Load order history stats by order id
+ * @param orderId {number}
+ * @param storeId {string}
+ * @param token {string}
+ * @returns {Promise<undefined|*>}
+ */
+export const loadDeliveryOrderStatsByStoreIdAndDuration = ({ durationType, storeId, token }) => {
+    if (storeId) {
+        // Point: branchId = storeId in our system
+        // eslint-disable-next-line max-len
+        return httpUtil.get(`${apiBase}/externalSystems/externalSystemsStatsDeliveryOrder?durationType=${durationType}`, {
+            'Authorization': `Bearer ${token}`
+        }, {});
+    }
+    return httpUtil.get(`${apiBase}/externalSystems/externalSystemsStatsDeliveryOrder?durationType=${durationType}`, {
+        'Authorization': `Bearer ${token}`
+    }, {});
+};

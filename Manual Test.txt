@@ -12,7 +12,7 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQxMDoyNDozMC43NzFaIiwiZXhwIjoxNjk3ODAxMDcwLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIxMTk4NWRmMy0zMWU2LTQ1NmYtODRjZi1hODRhMTViZTM2YjAiLCJpYXQiOjE2OTc3OTc0NzB9.dW2CvvsKzprOG-Hlh1ppejXMb5nAznjoaIi5t3lHRDU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMlQxNDo0MDo0OC44NzFaIiwiZXhwIjoxNjk3OTg5MjQ4LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIyM2U1ZjdjZS01MGIyLTRiNWItOWFhYy0xMmU0N2UwNTkwZDIiLCJpYXQiOjE2OTc5ODU2NDh9.8HpuxJMF3W2u0oqNcYVl8MzzVChp_xHPID0TjrE2w5o
 
 {
     "email": "thathsararaviraj@gmail.com",
@@ -20,7 +20,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
     "firstName": "Thathsara",
     "lastName": "Raviraj",
     "phoneNumber": "07122658978",
-    "uid": "12345673410501",
+    "uid": "12345673410503",
     "branchId": "6504061d3615ae0e08a4a789",
     "date": "2023-03-16",
     "startTime": "19:00",
@@ -353,17 +353,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
 
 GET http://localhost:8080/api-dev/orders/pagination?page=1&pageLimit=5
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQxMzoxODoxMC4yMzZaIiwiZXhwIjoxNjk3ODExNDkwLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTY5NzgwNzg5MH0.6GvrOCdWDfI9gNf_UVz0l8har-eis0xQV7GUshaFiBs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMlQxMTo0OTo0Ni4yMzlaIiwiZXhwIjoxNjk3OTg2MTg2LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTIwNDMxYWYzY2UyYmVlZjE0MWZkODgiLCJpYXQiOjE2OTc5NzUzODZ9.vNNDYFLKGQ3aW-LZ9vc1yTsW1jod3-drA4F7q0eurkg
 
 
-GET http://localhost:8080/api-dev/externalSystems/externalSystemsStatsHistory
+GET http://localhost:8080/api-dev/externalSystems/externalSystemsStatsHistory?durationType=1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQxMzoxODoxMC4yMzZaIiwiZXhwIjoxNjk3ODExNDkwLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTY5NzgwNzg5MH0.6GvrOCdWDfI9gNf_UVz0l8har-eis0xQV7GUshaFiBs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMlQxMTo0OTo0Ni4yMzlaIiwiZXhwIjoxNjk3OTg2MTg2LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTIwNDMxYWYzY2UyYmVlZjE0MWZkODgiLCJpYXQiOjE2OTc5NzUzODZ9.vNNDYFLKGQ3aW-LZ9vc1yTsW1jod3-drA4F7q0eurkg
+
+GET http://localhost:8080/api-dev/externalSystems/externalSystemsStatsDeliveryOrder?durationType=1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMlQxMTo0OTo0Ni4yMzlaIiwiZXhwIjoxNjk3OTg2MTg2LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTIwNDMxYWYzY2UyYmVlZjE0MWZkODgiLCJpYXQiOjE2OTc5NzUzODZ9.vNNDYFLKGQ3aW-LZ9vc1yTsW1jod3-drA4F7q0eurkg
+
 
 
 PATCH http://localhost:8080/api-dev/orders/12345673410501
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQxMzowOTo1OS4wNDhaIiwiZXhwIjoxNjk3ODEwOTk5LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJmMGEyZGRhYS05MWFiLTRjZmEtOTcwZS0zYTc4N2U4NDk0OGMiLCJpYXQiOjE2OTc4MDczOTl9.5KUsbKXllUxvcHSwmUrzA8QMraaYXEAPOrcPZL1MN_c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMVQxMDowNzoyMS45MjdaIiwiZXhwIjoxNjk3ODkzNjQxLCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTIwNDMxYWYzY2UyYmVlZjE0MWZkODgiLCJpYXQiOjE2OTc4ODI4NDF9.odIptSQloAsbB-0iz1QtQOfwlTT45OmPEhyqyIf_xI8
 
 {
     "isDelivered": true,

@@ -19,8 +19,9 @@ import { HTTPUserError } from '../../const/httpCode';
 import { IExternalSystemDTO } from '../../type/IExternalSystem';
 import { ERROR_DOCUMENT_NOT_FOUND, INVALID_CREDENTIALS_ERROR_MESSAGE,
     SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
-import { IExternalSystemHistoryStatsDTO } from '../../type/IExternalSystemStats';
-import { completedOrdersStat } from '../../data/model/OrderECommerceModel';
+import { getActiveOrdersCountByStoreId, getAllOrderCountByDurationAndStoreId,
+    getCompletedOrdersCountByDurationAndStoreId } from '../../data/model/OrderECommerceModel';
+import { TimePeriod } from '../../const/timePeriods';
 
 const Logging = Logger(__filename);
 
@@ -115,14 +116,21 @@ export const getExternalSystemById: GetExternalSystemByIdFunc = async (id) => {
 
 export const getExternalSystemHistoryStat: GetExternalSystemHistoryStatsFunc = async (timePeriod, id) => {
     try {
-        console.log('-----DATE------', timePeriod);
         Logging.log(buildInfoMessageMethodCall(
             'Get external system history stats', `ext id: ${id as string}`), LogType.INFO);
-        const completed = await completedOrdersStat(timePeriod, id);
+        const completed = await getCompletedOrdersCountByDurationAndStoreId(timePeriod, id);
+        
+        const currentDate = new Date();
+        const lastMonthStartDate = new Date();
+        lastMonthStartDate.setMonth(currentDate.getMonth() - 1);
+        const daysInLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+
+        const lastThirtyDayAllOrders = 
+            await getAllOrderCountByDurationAndStoreId(TimePeriod.THIRTY_DAYS_A_GO, id);
         return {
             completed: completed,
-            average: 12,
-            lastThirtyDays: 12
+            average: completed / daysInLastMonth,
+            lastThirtyDays: lastThirtyDayAllOrders
         };
     } catch (error) {
         const err = error as Error;
@@ -140,23 +148,23 @@ export const getExternalSystemHistoryStat: GetExternalSystemHistoryStatsFunc = a
 export const getExternalSystemDeliveryOrderStat: GetExternalSystemDeliveryOrderStatsFunc = async (timePeriod, id) => {
     try {
         Logging.log(buildInfoMessageMethodCall(
-            'Get external system by id', `ext id: ${id as string}`), LogType.INFO);
-        const data = await new Promise((resolve, reject) => {
-            resolve({
-                completed: 12,
-                average: 12,
-                lastThirtyDays: 12,
-                activeOrders: 12
-            });
-        }) ;
-        if (data) {
-            return {
-                completed: 12,
-                average: 12,
-                lastThirtyDays: 12,
-                activeOrders: 12
-            };
-        } 
+            'Get external system delivery orders stats by id', `ext id: ${id as string}`), LogType.INFO);
+        const completed = await getCompletedOrdersCountByDurationAndStoreId(timePeriod, id);
+        
+        const currentDate = new Date();
+        const lastMonthStartDate = new Date();
+        lastMonthStartDate.setMonth(currentDate.getMonth() - 1);
+        const daysInLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+
+        const lastThirtyDayAllOrders = 
+            await getAllOrderCountByDurationAndStoreId(TimePeriod.THIRTY_DAYS_A_GO, id);
+        const activeOrders = await getActiveOrdersCountByStoreId(id);
+        return {
+            completed: completed,
+            average: completed / daysInLastMonth,
+            lastThirtyDays: lastThirtyDayAllOrders,
+            activeOrders: activeOrders
+        };
         throw new ServiceError(
             ErrorType.SYSTEM_RETRIEVAL_ERROR, ERROR_DOCUMENT_NOT_FOUND, '', HTTPUserError.NOT_FOUND_CODE);
     } catch (error) {
