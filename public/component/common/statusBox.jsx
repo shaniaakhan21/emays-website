@@ -1,8 +1,16 @@
+import {
+    TableHead,
+    TableRow,
+    TableHeader, TableBody, TableCell, DataTable, Table as CarbonTable
+} from '@carbon/react';
 import React from 'react';
-import PropTypes from 'prop-types';
+
+// SCSS
 import './../../scss/component/retailer/status-box.scss';
 import PropTypes from 'prop-types';
+import { ARCHIVED, ITEMS_TO_BE_RETURNED, NEW_ORDER, ON_DELIVERY, PENDING_TO_PICKUP } from '../../js/const/OrderStatus';
 
+// Components
 const statusToClass = {
     'pending-pick-up': 'pending-pick-up',
     'new-order': 'new-order',
@@ -31,19 +39,9 @@ const getText = (status) => {
 } ;
 
 const StatusBox = ({ status }) => {
-    const statusClass = statusToClass[status] || 'default-status';
-    const backgroundColor = statusToBackgroundColor[status] || 'transparent';
-
-    const style = {
-        backgroundColor: backgroundColor
-    };
-
     const text = getText(status);
     return (
-        <div className={`status-box 
-        ${status === 'Ready to pick up' ? 'ready-to-pick-up' : 'pending-to-pickup'}`} style={style}>
-            {text}
-        </div>
+        <div className={`status-box ${statusToClass[status]}`}>{text}</div>
     );
 };
 
