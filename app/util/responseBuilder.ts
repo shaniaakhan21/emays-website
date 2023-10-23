@@ -1,7 +1,7 @@
 'use strict';
 
 import { IExternalSystemDTO } from '../type/IExternalSystem';
-import { IExternalSystemHistoryStatsDTO } from '../type/IExternalSystemStats';
+import { IExternalSystemHistoryStatsDTO, IExternalSystemOverviewStatsDTO } from '../type/IExternalSystemStats';
 import { ServiceAreasDTO } from '../type/IServiceAreas';
 import { ISystemInfoResponse } from '../type/customResponseType';
 import { IGeoTypeDTO } from '../type/geoType';
@@ -32,6 +32,7 @@ export const successResponseBuilder: SuccessResponseBuilderFunc<IOrderDTO |
     ISystemInfoResponse |
     ServiceAreasDTO | 
     IExternalSystemHistoryStatsDTO |
+    IExternalSystemOverviewStatsDTO |
      IGeoTypeDTO > = (data) => {
          return { data: data };
      };

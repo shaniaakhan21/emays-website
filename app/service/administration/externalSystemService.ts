@@ -6,6 +6,7 @@ import { ExternalSystemModel, saveExternalSystem } from '../../data/model/Extern
 import { Logger } from '../../log/logger';
 import { CreateExternalSystemFunc, GetExternalSystemByIdFunc
     , GetExternalSystemDeliveryOrderStatsFunc, GetExternalSystemHistoryStatsFunc,
+    GetExternalSystemOverviewStatsFunc,
     RequestExternalSystemTokenFunc } from '../../type/orderServiceType';
 import { buildErrorMessage, buildInfoMessageMethodCall
     , buildInfoMessageUserProcessCompleted } from '../../util/logMessageBuilder';
@@ -17,11 +18,13 @@ import ServiceError from '../../type/error/ServiceError';
 import ErrorType from '../../const/errorType';
 import { HTTPUserError } from '../../const/httpCode';
 import { IExternalSystemDTO } from '../../type/IExternalSystem';
-import { ERROR_DOCUMENT_NOT_FOUND, INVALID_CREDENTIALS_ERROR_MESSAGE,
+import { INVALID_CREDENTIALS_ERROR_MESSAGE,
     SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
-import { getActiveOrdersCountByStoreId, getAllOrderCountByDurationAndStoreId,
-    getCompletedOrdersCountByDurationAndStoreId } from '../../data/model/OrderECommerceModel';
+import { getActiveOrdersCountByDurationAndStoreId, getAllOrderCountByDurationAndStoreId,
+    getCompletedOrdersCountByDurationAndStoreId, 
+    getRevenueByDurationAndStoreId } from '../../data/model/OrderECommerceModel';
 import { TimePeriod } from '../../const/timePeriods';
+import DurationUtil from '../../util/durationUtil';
 
 const Logging = Logger(__filename);
 
@@ -126,7 +129,7 @@ export const getExternalSystemHistoryStat: GetExternalSystemHistoryStatsFunc = a
         const daysInLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
 
         const lastThirtyDayAllOrders = 
-            await getAllOrderCountByDurationAndStoreId(TimePeriod.THIRTY_DAYS_A_GO, id);
+            await getCompletedOrdersCountByDurationAndStoreId(TimePeriod.THIRTY_DAYS_A_GO, id);
         return {
             completed: completed,
             average: completed / daysInLastMonth,
@@ -152,24 +155,49 @@ export const getExternalSystemDeliveryOrderStat: GetExternalSystemDeliveryOrderS
         const completed = await getCompletedOrdersCountByDurationAndStoreId(timePeriod, id);
         
         const currentDate = new Date();
-        const lastMonthStartDate = new Date();
-        lastMonthStartDate.setMonth(currentDate.getMonth() - 1);
         const daysInLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
 
-        const lastThirtyDayAllOrders = 
-            await getAllOrderCountByDurationAndStoreId(TimePeriod.THIRTY_DAYS_A_GO, id);
-        const activeOrders = await getActiveOrdersCountByStoreId(id);
+        const lastThirtyDayActiveOrders = 
+            await getActiveOrdersCountByDurationAndStoreId(TimePeriod.THIRTY_DAYS_A_GO, id);
+        const activeOrders = await getActiveOrdersCountByDurationAndStoreId(timePeriod, id);
         return {
             completed: completed,
-            average: completed / daysInLastMonth,
-            lastThirtyDays: lastThirtyDayAllOrders,
+            average: activeOrders / daysInLastMonth,
+            lastThirtyDays: lastThirtyDayActiveOrders,
             activeOrders: activeOrders
         };
-        throw new ServiceError(
-            ErrorType.SYSTEM_RETRIEVAL_ERROR, ERROR_DOCUMENT_NOT_FOUND, '', HTTPUserError.NOT_FOUND_CODE);
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, 'Get external system delivery order stats by id'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get system delivery order stats
+ * @param {TimePeriod} timePeriod
+ * @param {string} id External system id
+ * @returns {Promise<IExternalSystemDTO>}
+ */
+export const getExternalSystemOverviewStat: GetExternalSystemOverviewStatsFunc = async (timePeriod, id) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Get external system overview stats by id', `ext id: ${id as string}`), LogType.INFO);
+        const allOrders = await getAllOrderCountByDurationAndStoreId(timePeriod, id);
+        
+        const currentDate = new Date();
+        const timeDifference = currentDate.getTime() - DurationUtil.getDuration(timePeriod).getTime();
+        const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+        const revenue = await getRevenueByDurationAndStoreId(timePeriod, id);
+        return {
+            noOfOrders: allOrders,
+            average: allOrders / daysDifference,
+            totalRevenue: revenue || 0
+        };
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Get external system overview stats by id'), LogType.ERROR);
         throw error;
     }
 };

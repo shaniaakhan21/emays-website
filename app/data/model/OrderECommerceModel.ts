@@ -12,8 +12,9 @@ import { CreateOrderFunc, DeleteOrderByOrderIdFunc,
     GetCompletedOrderCountByDurationAndStoreIdFunc, GetAllOrderCountByDurationAndStoreIdFunc,
     GetOrderDetailDocumentsArrayByStartAndEndIndex,
     GetOrderDocumentSize, PatchOrderDetailsByUserIdFunc, RetrieveOrderByOrderIdFunc, RetrieveOrderByUserIdFunc
-    , RetrieveOrdersByDeliveryStatusFunc, 
-    GetActiveOrdersCountByStoreIdFunc } from '../../type/orderServiceType';
+    , RetrieveOrdersByDeliveryStatusFunc,
+    GetActiveOrdersCountByDurationAndStoreIdFunc, 
+    GetRevenueByDurationAndStoreIdFunc } from '../../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { prepareUserDetailsToSend } from '../../util/orderDetailBuilder';
@@ -349,18 +350,22 @@ export const getAllOrderCountByDurationAndStoreId: GetAllOrderCountByDurationAnd
 };
 
 /**
- * Get active orders by order date and given duration
+ * Get active orders by store id and given duration
  * @param {integer} durationType type of duration
  * @param {string} storeId end index
  * @return {integer} count
  */
-export const getActiveOrdersCountByStoreId: GetActiveOrdersCountByStoreIdFunc = async (storeId) => {
+export const getActiveOrdersCountByDurationAndStoreId: GetActiveOrdersCountByDurationAndStoreIdFunc = async (durationType, storeId) => {
     try {
+        const duration = DurationUtil.getDuration(durationType);
         const aggregatePipeline: any[] = [
             {
                 $match: {
                     deliveredDate: null,
-                    isDelivered: false
+                    isDelivered: false,
+                    date: {
+                        $lte: duration
+                    }
                 }
             },
             {
@@ -389,4 +394,51 @@ export const getActiveOrdersCountByStoreId: GetActiveOrdersCountByStoreIdFunc = 
         throw error;
     }
     
+};
+
+/**
+ * Get revenue / sum if service fee of completed orders
+ * @param {integer} durationType type of duration
+ * @param {string} storeId end index
+ * @return {integer} serviceFee Sum
+ */
+export const getRevenueByDurationAndStoreId: GetRevenueByDurationAndStoreIdFunc = async (durationType, storeId) => {
+    try {
+        const duration = DurationUtil.getDuration(durationType);
+        const aggregatePipeline: any[] = [
+            {
+                $match: {
+                    isDelivered: true, 
+                    deliveredDate: { $lte: duration }
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    count: { $sum: 1 },
+                    totalRevenue: { $sum: '$serviceFee' }
+                }
+            }
+        ];
+    
+        if (storeId) {
+            // Add the branchId condition to the $match object if storeId is available
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            aggregatePipeline[0].$match.branchId = storeId;
+        }
+    
+        const result = await OrderECommerceModel.aggregate(aggregatePipeline).exec();
+        let count = 0;
+        let totalRevenue = 0;
+        if (result?.length > 0) {
+            count = (result[0] as { count: number }).count;
+            totalRevenue = (result[0] as { totalRevenue: number }).totalRevenue;
+        }
+    
+        return totalRevenue;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve revenue'), LogType.ERROR);
+        throw error;
+    }
 };

@@ -22,3 +22,10 @@
     display: flex;
     align-items: flex-end;
 }
+
+.time-duration {
+    padding:40px;
+    .cds--dropdown__wrapper {
+        width: 350px;
+    }
+}

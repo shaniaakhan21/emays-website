@@ -2,7 +2,8 @@
 
 import { createSlice } from '@reduxjs/toolkit';
 import { getHistoryStatsData } from '../thunk/historyStatsThunk';
-import { getDeliveryOrderStatsData } from '../thunk/deliveryOrderThunk';
+import { getDeliveryOrderStatsData } from '../thunk/deliveryOrderStatsThunk';
+import { getOverviewStatsData } from '../thunk/overviewStatsThunk';
     
 const initialState = {
     historyStatsState: {
@@ -10,6 +11,10 @@ const initialState = {
         data: {}
     },
     deliveryOrderStatsState: {
+        isLoading: true,
+        data: {}
+    },
+    overviewStatsState: {
         isLoading: true,
         data: {}
     }
@@ -34,6 +39,13 @@ const statsSlice = createSlice({
         });
         builder.addCase(getDeliveryOrderStatsData.pending, (state, action) => {
             state.deliveryOrderStatsState.isLoading = true;
+        });
+        builder.addCase(getOverviewStatsData.fulfilled, (state, action) => {
+            state.overviewStatsState.data = action.payload;
+            state.overviewStatsState.isLoading = false;
+        });
+        builder.addCase(getOverviewStatsData.pending, (state, action) => {
+            state.overviewStatsState.isLoading = true;
         });
     }
 });

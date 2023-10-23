@@ -23,6 +23,7 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     , USERNAME_REQUIRED, USER_FIRST_NAME_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH, USER_LAST_NAME_REQUIRED
     , USER_PHONE_NUMBER_REQUIRED, 
     USER_UNAUTHORIZED, 
+    VALID_STORE_ID_REQUIRED, 
     ZIP_CODE_REQUIRED } from '../const/errorMessage';
 import { Logger } from '../log/logger';
 import { buildErrorMessage } from '../util/logMessageBuilder';
@@ -528,7 +529,10 @@ export const validateStatRouteParams = (req: Request, res: Response, next: NextF
         query: {
             durationType: Joi.number().required().error((error) => { 
                 const err = error as Error | unknown;
-                return validatorErrorBuilder(err as Error, DURATION_REQUIRED); })
+                return validatorErrorBuilder(err as Error, DURATION_REQUIRED); }),
+            storeId: Joi.string().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, VALID_STORE_ID_REQUIRED); })
         }
     });
     validateRequest(req, next, validationCriteria);

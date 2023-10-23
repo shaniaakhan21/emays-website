@@ -14,9 +14,8 @@ export interface IExternalSystemDeliveryOrderStatsDTO {
 }
 
 export interface IExternalSystemOverviewStatsDTO {
-    noOfOderCurrentMonth: number,
-    avgTickets: number,
-    lastThirtyDays: number,
-    activeOrders: number
+    noOfOrders: number,
+    average: number,
+    totalRevenue: number
 }
 

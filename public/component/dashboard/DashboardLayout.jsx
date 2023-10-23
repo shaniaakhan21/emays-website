@@ -22,7 +22,8 @@ import { getCompletedOrderData } from './redux/thunk/completeOrderThunk';
 import AddItems from './addItem/AddItems';
 import OrderSelected from './orderSelected/OrderSelected';
 import { getHistoryStatsData } from './redux/thunk/historyStatsThunk';
-import { getDeliveryOrderStatsData } from './redux/thunk/deliveryOrderThunk';
+import { getDeliveryOrderStatsData } from './redux/thunk/deliveryOrderStatsThunk';
+import { getOverviewStatsData } from './redux/thunk/overviewStatsThunk';
 
 const DashboardLayout = () => {
 
@@ -66,6 +67,9 @@ const DashboardLayout = () => {
     // New Order props
     const getNewOrderDataWrapper = useCallback(() => { 
         return dispatch(getAppInfoExe());
+    }, [dispatch]);
+    const getInitialDataOverview = useCallback(() => {
+        return dispatch(getOverviewStatsData({ durationType: 1 }));
     }, [dispatch]);
 
     return (
@@ -131,7 +135,14 @@ const DashboardLayout = () => {
                 <div className='content-section'>
                     <Switch>
                         <Route exact path='/dashboard/overview'
-                            component={() => <Overview />
+                            component={() => <PaginationContainer
+                                wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                // The property name of the overview component
+                                resourceName={'overviewData'}
+                                // Enable pagination
+                                isPaginationEnabled={false}
+                                getInitialData={getInitialDataOverview}
+                            ><Overview /></PaginationContainer>
                             }></Route>
                         <Route exact path='/dashboard/orders/created'
                             component={() => <OrderCreated />}></Route>
