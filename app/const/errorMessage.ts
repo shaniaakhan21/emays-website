@@ -137,6 +137,8 @@ export const LATITUDE_REQUIRED = 'Please provide a valid latitude';
 
 export const DURATION_REQUIRED = 'Please provide a valid duration';
 
+export const VALID_STORE_ID_REQUIRED = 'Please provide a valid store Id';
+
 export const LONGITUDE_REQUIRED = 'Please provide a valid longitude';
 
 export const INVALID_RECAPTCHA_ERROR_MESSAGE = 'Recaptcha validation failed';
