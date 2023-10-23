@@ -71,7 +71,8 @@ export const loadOrderById = ({ orderId, storeId, token }) => {
 export const loadHistoryStatsByStoreIdAndDuration = ({ durationType, storeId, token }) => {
     if (storeId) {
         // Point: branchId = storeId in our system
-        return httpUtil.get(`${apiBase}/externalSystems/externalSystemsStatsHistory?durationType=${durationType}`, {
+        // eslint-disable-next-line max-len
+        return httpUtil.get(`${apiBase}/externalSystems/externalSystemsStatsHistory?durationType=${durationType}&storeId=${storeId}`, {
             'Authorization': `Bearer ${token}`
         }, {});
     }
@@ -91,11 +92,31 @@ export const loadDeliveryOrderStatsByStoreIdAndDuration = ({ durationType, store
     if (storeId) {
         // Point: branchId = storeId in our system
         // eslint-disable-next-line max-len
-        return httpUtil.get(`${apiBase}/externalSystems/externalSystemsStatsDeliveryOrder?durationType=${durationType}`, {
+        return httpUtil.get(`${apiBase}/externalSystems/externalSystemsStatsDeliveryOrder?durationType=${durationType}&storeId=${storeId}`, {
             'Authorization': `Bearer ${token}`
         }, {});
     }
     return httpUtil.get(`${apiBase}/externalSystems/externalSystemsStatsDeliveryOrder?durationType=${durationType}`, {
+        'Authorization': `Bearer ${token}`
+    }, {});
+};
+
+/**
+ * Load order overview stats by order id
+ * @param orderId {number}
+ * @param storeId {string}
+ * @param token {string}
+ * @returns {Promise<undefined|*>}
+ */
+export const loadOverviewOrderStatsByStoreIdAndDuration = ({ durationType, storeId, token }) => {
+    if (storeId) {
+        // Point: branchId = storeId in our system
+        // eslint-disable-next-line max-len
+        return httpUtil.get(`${apiBase}/externalSystems/externalSystemsStatsOverview?durationType=${durationType}&storeId=${storeId}`, {
+            'Authorization': `Bearer ${token}`
+        }, {});
+    }
+    return httpUtil.get(`${apiBase}/externalSystems/externalSystemsStatsOverview?durationType=${durationType}`, {
         'Authorization': `Bearer ${token}`
     }, {});
 };
