@@ -409,7 +409,7 @@ export const getRevenueByDurationAndStoreId: GetRevenueByDurationAndStoreIdFunc 
             {
                 $match: {
                     isDelivered: true, 
-                    deliveredDate: { $lte: duration }
+                    deliveredDate: { $gte: duration }
                 }
             },
             {

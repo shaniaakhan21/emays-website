@@ -4,9 +4,10 @@ import inCompleteOrderReducer from './slice/inCompleteOrderSlice';
 import completeOrderReducer from './slice/completeOrderSlice';
 import appInfoReducer from './slice/appInfoSlice';
 import newOrderReducer from './slice/newOrderSlice';
-import newStoreReducer from './slice/adminSlice';
+import newStoreReducer from './slice/storeRegisterSlice';
 import selectedOrderReducer from './slice/selectedOrderSlice';
 import statsReducer from './slice/statsSlice';
+import newDriverReducer from './slice/driverRegisterSlice';
 
 const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
         appInfoState: appInfoReducer,
         newOrderState: newOrderReducer,
         newStoreState: newStoreReducer,
+        newDriverState: newDriverReducer,
         selectedOrderState: selectedOrderReducer,
         statsState: statsReducer
     }

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Column, FileUploaderDropContainer, Grid, Heading, TextArea, TextInput } from '@carbon/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
-import { registerExternalSystem } from '../../redux/thunk/adminThunk';
+import { registerExternalSystem } from '../../redux/thunk/newStoreThunk';
 
 const CompletedMessage = ({ setState }) => {
     const [translate] = useTranslation();

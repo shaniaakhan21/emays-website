@@ -5,4 +5,9 @@
     .item-row {
         padding-bottom: 30px;
     }
+
+    .button-order-prepared {
+        display: flex;
+        flex-direction: row-reverse;
+    }
 }

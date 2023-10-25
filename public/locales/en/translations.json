@@ -473,8 +473,8 @@
         "id": "# Order",
         "client": "Client",
         "amount": "Amount Purchased",
-        "date": "Pick Up Date",
-        "time": "Time",
+        "date": "Delivery Date",
+        "time": "Delivery Time",
         "status": "Status"
       },
       "toBeDelivered-title": "TO BE DELIVERED"
@@ -646,8 +646,8 @@
         "banner": "Please, complete the information to continue",
         "basic": {
           "sub-title": "About you",
-          "name": "Name",
-          "lastname": "Last Name",
+          "firstName": "First Name",
+          "lastName": "Last Name",
           "phone": "Phone Number",
           "city": "City",
           "country": "Country",
