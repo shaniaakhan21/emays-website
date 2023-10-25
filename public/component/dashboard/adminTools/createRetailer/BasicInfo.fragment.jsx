@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { setStageOneCreateStore } from '../../redux/thunk/adminThunk';
+import { setStageOneCreateStore } from '../../redux/thunk/newStoreThunk';
 import { useDispatch, useSelector } from 'react-redux';
 
 // SCSS

@@ -3,7 +3,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { registerExternalSystem, resetIsLoadingPhaseOne, resetIsLoadingPhaseThree,
     resetIsLoadingPhaseTwo, setStageOneCreateStore,
-    setStageThreeCreateStore, setStageTwoCreateStore } from '../thunk/adminThunk';
+    setStageThreeCreateStore, setStageTwoCreateStore } from '../thunk/newStoreThunk';
     
 const initialState = {
     phaseOneData: {

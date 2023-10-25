@@ -4,9 +4,9 @@ import { Heading } from '@carbon/react';
 import ShoppingItem from '../../checkout/ShoppingItem';
 
 // SCSS
-import '../../../scss/component/retailer/orderReview.scss';
+import '../../../scss/component/retailer/orderReviewDeliveryOrder.scss';
 
-const OrderReview = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
+const OrderReviewDeliveryOrder = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
     const [translate] = useTranslation();
     const t = useCallback((key) => translate(`dashboard.orderCreated.${key}`), [translate]);
@@ -73,4 +73,4 @@ const OrderReview = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
     );
 };
 
-export default OrderReview;
+export default OrderReviewDeliveryOrder;

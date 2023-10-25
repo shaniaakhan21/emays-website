@@ -7,7 +7,6 @@ import '../../../scss/component/dashboard/deliveryOrder.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { inCompleteOrderSelectorMemoized } from '../redux/selector/inCompleteOrderSelector';
 import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
-import OrderReview from '../orderReview/OrderReview';
 import { storeSelectedOrder } from '../redux/thunk/selectedOrderThunk';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { getOrderStatus } from '../../../js/util/stateBuilderUtil';

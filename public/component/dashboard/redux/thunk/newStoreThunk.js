@@ -6,6 +6,8 @@ import { checkUsernameValidityForAccountCreation,
     saveManagerExternalSystem } from '../../../../services/dashboard/systemInfo';
 import { getAuthToken, getStoreImage } from '../../../../js/util/SessionStorageUtil';
 
+// -----------------CREATE STORE-------------------
+
 export const setStageOneCreateStore = createAsyncThunk('newStore/phaseOne', async (data, { getState }) => {
     const authToken = getState().loginState.token;
     if (authToken) {
