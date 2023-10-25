@@ -12,7 +12,7 @@ import CreateRetailerAccountInfo from './AccountInfo.fragment';
 import CreateRetailerNotes from './Notes.fragment';
 import { checkUsernameValidity, resetIsLoadingPhaseOne, resetIsLoadingPhaseThree,
     resetIsLoadingPhaseTwo, setStageOneCreateStore,
-    setStageThreeCreateStore, setStageTwoCreateStore } from '../../redux/thunk/adminThunk';
+    setStageThreeCreateStore, setStageTwoCreateStore } from '../../redux/thunk/newStoreThunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import CompletedMessageFragment from './Completed.message.fragment';

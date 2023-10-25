@@ -7,11 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { selectedOrderSelectorMemoized } from '../redux/selector/selectedOrderSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import HistoryHeader from '../history/component/header';
-import DOHeader from '../deliveryOrder/component/header';
+import DOSelectedOrderHeader from '../deliveryOrder/component/selectedHeader';
 
 // SCSS
 import '../../../scss/component/dashboard/selectedItem.scss';
 import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
+import ButtonCustom from '../../common/ButtonCustom';
 
 const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
@@ -101,7 +102,7 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
                     }
                     {
                         selectedOrderSelector?.data?.headerType === 'DeliveryOrder' && 
-                        <DOHeader searchFunction={searchId}/>
+                        <DOSelectedOrderHeader data = {selectedOrderSelector?.data?.selectedTableRow}/>
                     }
                     {/* <OrderSelectedHeader searchFunction={searchId} 
                         headerComponents={selectedOrderSelector?.data?.headerComponents}/> */}
@@ -144,6 +145,23 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
                     }
                 </div>
             </div>
+            {
+                selectedOrderSelector?.data?.headerType === 'DeliveryOrder' && 
+                <div className='button-order-prepared'>
+                    <ButtonCustom
+                        text={'Mark ready to pick up'}
+                        action={() => {}}
+                        customStyle={{
+                            width: '500px',
+                            marginTop: '25px',
+                            marginBottom: '15px',
+                            padding: '1%',
+                            backgroundColor: '#24a148',
+                            color: 'white'
+                        }}
+                    />
+                </div>
+            }
         </div>
     );
 };

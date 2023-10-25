@@ -99,7 +99,8 @@ const History = ({ historyData, updateData }) => {
                 date: data?.date?.split('T')[0] || '',
                 time: `${hours}:${minutes}` || '',
                 orderItems: data?.orderItems,
-                status: <StatusBox status={getOrderStatus({ isDelivered: data?.isDelivered })}/>
+                status: data?.isDelivered ? 
+                    <StatusBox status={getOrderStatus({ isDelivered: data?.isDelivered })}/> : ''
             };
         });
         return tableData;

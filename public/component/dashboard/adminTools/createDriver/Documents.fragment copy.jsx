@@ -12,7 +12,7 @@ const CreateDriverDocuments = ({ setState }) => {
         setState((prevState) => ({
             ...prevState,
             [e.target.id]: e.target.value
-        })); 
+        }));
     }, [setState]);
 
     const t = useCallback((key) => translate(`dashboard.adminTools.createDriver.documents.${key}`), [translate]);
