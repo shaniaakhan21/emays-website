@@ -5,7 +5,9 @@ import { Roles } from '../../const/roles';
 import { ExternalSystemModel, saveExternalSystem } from '../../data/model/ExternalSystemModel';
 import { Logger } from '../../log/logger';
 import { CreateExternalSystemFunc, GetExternalSystemByIdFunc
-    , RequestExternalSystemTokenFunc } from '../../type/orderServiceType';
+    , GetExternalSystemDeliveryOrderStatsFunc, GetExternalSystemHistoryStatsFunc,
+    GetExternalSystemOverviewStatsFunc,
+    RequestExternalSystemTokenFunc } from '../../type/orderServiceType';
 import { buildErrorMessage, buildInfoMessageMethodCall
     , buildInfoMessageUserProcessCompleted } from '../../util/logMessageBuilder';
 import { compareHash, hashPassword } from '../../util/passwordUtil';
@@ -15,8 +17,14 @@ import { JWT_TYPE } from '../../type/IJWTClaims';
 import ServiceError from '../../type/error/ServiceError';
 import ErrorType from '../../const/errorType';
 import { HTTPUserError } from '../../const/httpCode';
-import { IExternalSystem, IExternalSystemDTO } from '../../type/IExternalSystem';
-import { INVALID_CREDENTIALS_ERROR_MESSAGE, SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
+import { IExternalSystemDTO } from '../../type/IExternalSystem';
+import { INVALID_CREDENTIALS_ERROR_MESSAGE,
+    SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
+import { getActiveOrdersCountByDurationAndStoreId, getAllOrderCountByDurationAndStoreId,
+    getCompletedOrdersCountByDurationAndStoreId, 
+    getRevenueByDurationAndStoreId } from '../../data/model/OrderECommerceModel';
+import { TimePeriod } from '../../const/timePeriods';
+import DurationUtil from '../../util/durationUtil';
 
 const Logging = Logger(__filename);
 
@@ -98,6 +106,98 @@ export const getExternalSystemById: GetExternalSystemByIdFunc = async (id) => {
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, 'Get external system by id'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get system history stats
+ * @param {TimePeriod} timePeriod
+ * @param {string} id External system id
+ * @returns {Promise<IExternalSystemDTO>}
+ */
+
+export const getExternalSystemHistoryStat: GetExternalSystemHistoryStatsFunc = async (timePeriod, id) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Get external system history stats', `ext id: ${id as string}`), LogType.INFO);
+        const completed = await getCompletedOrdersCountByDurationAndStoreId(timePeriod, id);
+        
+        const currentDate = new Date();
+        const lastMonthStartDate = new Date();
+        lastMonthStartDate.setMonth(currentDate.getMonth() - 1);
+        const daysInLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+
+        const lastThirtyDayAllOrders = 
+            await getCompletedOrdersCountByDurationAndStoreId(TimePeriod.THIRTY_DAYS_A_GO, id);
+        return {
+            completed: completed,
+            average: completed / daysInLastMonth,
+            lastThirtyDays: lastThirtyDayAllOrders
+        };
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Get external system history stats by id'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get system delivery order stats
+ * @param {TimePeriod} timePeriod
+ * @param {string} id External system id
+ * @returns {Promise<IExternalSystemDTO>}
+ */
+export const getExternalSystemDeliveryOrderStat: GetExternalSystemDeliveryOrderStatsFunc = async (timePeriod, id) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Get external system delivery orders stats by id', `ext id: ${id as string}`), LogType.INFO);
+        const completed = await getCompletedOrdersCountByDurationAndStoreId(timePeriod, id);
+        
+        const currentDate = new Date();
+        const daysInLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+
+        const lastThirtyDayActiveOrders = 
+            await getActiveOrdersCountByDurationAndStoreId(TimePeriod.THIRTY_DAYS_A_GO, id);
+        const activeOrders = await getActiveOrdersCountByDurationAndStoreId(timePeriod, id);
+        return {
+            completed: completed,
+            average: activeOrders / daysInLastMonth,
+            lastThirtyDays: lastThirtyDayActiveOrders,
+            activeOrders: activeOrders
+        };
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Get external system delivery order stats by id'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get system delivery order stats
+ * @param {TimePeriod} timePeriod
+ * @param {string} id External system id
+ * @returns {Promise<IExternalSystemDTO>}
+ */
+export const getExternalSystemOverviewStat: GetExternalSystemOverviewStatsFunc = async (timePeriod, id) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Get external system overview stats by id', `ext id: ${id as string}`), LogType.INFO);
+        const allOrders = await getAllOrderCountByDurationAndStoreId(timePeriod, id);
+        
+        const currentDate = new Date();
+        const timeDifference = currentDate.getTime() - DurationUtil.getDuration(timePeriod).getTime();
+        const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+
+        const revenue = await getRevenueByDurationAndStoreId(timePeriod, id);
+        return {
+            noOfOrders: allOrders,
+            average: allOrders / daysDifference,
+            totalRevenue: revenue || 0
+        };
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Get external system overview stats by id'), LogType.ERROR);
         throw error;
     }
 };

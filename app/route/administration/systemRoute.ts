@@ -1,18 +1,23 @@
 'use strict';
 
+import * as express from 'express';
+import * as core from 'express-serve-static-core';
 import { Router, Request, Response, NextFunction } from 'express';
-import { allowedForExternalSystemRoleOnly, allowedForExternalSystemSuperUserAndAdminRolesOnly,
+import { allowedForExternalSystemSuperUserAndAdminRolesOnly,
     validateCreateExtSysRequestBody,
     validateExternalSystemTokenRequestBody, validateHeader,
+    validateStatRouteParams,
     validateUserTokenRequestBody, 
-    validateUsername, 
-    validateZipCode } from '../../middleware/paramValidationMiddleware';
+    validateUsername } from '../../middleware/paramValidationMiddleware';
 import { Logger } from '../../log/logger';
 import { RoutePath } from '../../const/routePath';
 import { buildErrorMessage, buildInfoMessageRouteHit
     , buildInfoMessageUserProcessCompleted } from '../../util/logMessageBuilder';
 import LogType from '../../const/logType';
-import { getExternalSystemById } from '../../service/administration/externalSystemService';
+import { getExternalSystemById,
+    getExternalSystemDeliveryOrderStat,
+    getExternalSystemHistoryStat, 
+    getExternalSystemOverviewStat } from '../../service/administration/externalSystemService';
 import { IExternalSystem, IExternalSystemDTO, IExternalSystemLogin } from '../../type/IExternalSystem';
 import { createExternalSystem, getExternalSystemToken } from '../../service/administration/externalSystemService';
 import { HTTPSuccess, HTTPUserError } from '../../const/httpCode';
@@ -21,7 +26,7 @@ import { AppRequest } from '../../type/appRequestType';
 import { IJWTClaims } from '../../type/IJWTClaims';
 import { Roles } from '../../const/roles';
 import { getAdminExternalSystemByAdminAssociatedId,
-    getAdminExternalSystemToken, validateZipCodeWithServiceAvailableAreas } 
+    getAdminExternalSystemToken } 
     from '../../service/administration/adminExternalSystemService';
 import { ICommonLoginCredentials } from '../../type/ICommonLogin';
 import { checkUsernameInCommon } from '../../service/administration/commonLoginService';
@@ -34,7 +39,7 @@ import ErrorType from '../../const/errorType';
 import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../const/errorMessage';
 import { ManagerExternalSystemModel } from '../../data/model/ManagerExternalSystemModel';
 import { getManagerExternalSystemToken } from '../../service/administration/managerExternalSystemService';
-import { IZipCodeValidation } from '../../type/IZipCodeValidate';
+import DurationUtil from '../../util/durationUtil';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -205,25 +210,76 @@ router.post(requestTokenPathCommonLogin, validateHeader, validateUserTokenReques
     });
 });
 
+// ......STATS ROUTES......
+
 /**
- * Zip code validation
+ * Get system history stats
  * @param {Request} req Request object
  * @param {Response} res Response object
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-const requestZipCodeValidation = 
-    `${RoutePath.ZIP_CODE_VALIDATION}`;
-router.post(requestZipCodeValidation, validateHeader, allowedForExternalSystemRoleOnly, validateZipCode, (
-    req: Request, res: Response, next: NextFunction): void => {
+const getSystemHistoryStats = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEMS_HISTORY_STATS}`;
+// eslint-disable-next-line max-len
+router.get(getSystemHistoryStats, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, validateStatRouteParams, (
+    req: express.Request<core.ParamsDictionary, any, any,
+    { durationType: string, storeId: string }>, res: Response, next: NextFunction): void => {
     (async () => {
-        const requestBody = req.body as IZipCodeValidation;
-        Logging.log(buildInfoMessageRouteHit(req.path, requestBody.zipCode), LogType.INFO);
-        const status = await validateZipCodeWithServiceAvailableAreas(requestBody.zipCode);
-        return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(status));
+        const periodTypeValue = +req?.query?.durationType;
+        const storeId = req?.query?.storeId;
+        const stats = await getExternalSystemHistoryStat(DurationUtil.getPeriodType(periodTypeValue), storeId);
+        return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(stats));
     })().catch(error => {
         const err = error as Error;
-        Logging.log(buildErrorMessage(err, requestTokenPathCommonLogin), LogType.ERROR);
+        Logging.log(buildErrorMessage(err, getSystemHistoryStats), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
+ * Get system delivery order stats
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+const getSystemDeliveryOrderStats = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEMS_DELIVERY_ORDER_STATS}`;
+// eslint-disable-next-line max-len
+router.get(getSystemDeliveryOrderStats, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, validateStatRouteParams, (
+    req: express.Request<core.ParamsDictionary, any, any,
+    { durationType: string, storeId: string }>, res: Response, next: NextFunction): void => {
+    (async () => {
+        const periodTypeValue = +req?.query?.durationType;
+        const storeId = req?.query?.storeId;
+        const stats = await getExternalSystemDeliveryOrderStat(periodTypeValue, storeId);
+        return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(stats));
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, getSystemDeliveryOrderStats), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
+ * Get overview order stats
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+const getOverviewOrderStats = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEMS_OVERVIEW_STATS}`;
+// eslint-disable-next-line max-len
+router.get(getOverviewOrderStats, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, validateStatRouteParams, (
+    req: express.Request<core.ParamsDictionary, any, any,
+    { durationType: string, storeId: string }>, res: Response, next: NextFunction): void => {
+    (async () => {
+        const periodTypeValue = +req?.query?.durationType;
+        const storeId = req?.query?.storeId;
+        const stats = await getExternalSystemOverviewStat(periodTypeValue, storeId);
+        return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(stats));
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, getSystemDeliveryOrderStats), LogType.ERROR);
         next(error);
     });
 });

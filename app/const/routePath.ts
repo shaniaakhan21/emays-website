@@ -17,6 +17,10 @@ export enum RoutePath {
     USERS = '/users',
     RETAILER_UI = '/retailer',
     EXTERNAL_SYSTEMS = '/externalSystems',
+    EXTERNAL_SYSTEMS_HISTORY_STATS = '/externalSystemsStatsHistory',
+    EXTERNAL_SYSTEMS_DELIVERY_ORDER_STATS = '/externalSystemsStatsDeliveryOrder',
+    EXTERNAL_SYSTEMS_OVERVIEW_STATS = '/externalSystemsStatsOverview',
+    EXTERNAL_SYSTEMS_OVERVIEW = '/externalSystemsStatsOverview',
     EXTERNAL_SYSTEM_TOKEN = '/systemToken',
     EXTERNAL_SYSTEM_INFO = '/systemInfo',
     USERNAME_VALIDITY= '/usernameValidity',
@@ -34,7 +38,7 @@ export enum RoutePath {
     EMAIL_REMINDERS = '/emailReminders',
     LETS_TALK = '/letsTalk',
     FAQ = '/faq',
-    ZIP_CODE_VALIDATION = '/zipCodeValidation'
+    ZIP_CODE_VALIDATION = '/serviceAreas'
  }
 
 export enum PathParam {

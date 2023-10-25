@@ -7,12 +7,14 @@ import { buildErrorMessage, buildInfoMessageRouteHit }
     from '../util/logMessageBuilder';
 import { PathParam, RoutePath } from '../const/routePath';
 import { HTTPSuccess } from '../const/httpCode';
-import { allowedForClientRoleAndSuperAdminAndAdminOnly, validateGeoBasedServiceFeePathParams,
+import { allowedForClientRoleAndSuperAdminAndAdminOnly, allowedForExternalSystemRoleOnly,
+    validateGeoBasedServiceFeePathParams,
     validateHeader } from '../middleware/paramValidationMiddleware';
 import { AppRequest } from '../type/appRequestType';
 import { IGeoType, IGeoTypeDTO } from '../type/geoType';
-import { getServiceCostBasedOnGeoLocation } from '../service/geoService';
+import { getServiceCostBasedOnGeoLocation, provideServiceAreaList } from '../service/geoService';
 import { successResponseBuilder } from '../util/responseBuilder';
+import { ServiceAreasDTO } from '../type/IServiceAreas';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -52,5 +54,29 @@ router.get(
             next(error);
         });
     });
+
+/**
+ * Zip code validation
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+const requestZipCodeValidation = 
+`${RoutePath.ZIP_CODE_VALIDATION}`;
+router.post(requestZipCodeValidation, validateHeader, allowedForExternalSystemRoleOnly, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => {
+        Logging.log(buildInfoMessageRouteHit(req.path, 'service areas'), LogType.INFO);
+        const status: ServiceAreasDTO = await new Promise((resolve, reject) => {
+            resolve(provideServiceAreaList());
+        });
+        return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(status));
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, requestZipCodeValidation), LogType.ERROR);
+        next(error);
+    });
+});
 
 export default router;

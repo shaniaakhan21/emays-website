@@ -9,7 +9,7 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     ADMIN_EXT_PHONE_REQUIRED,
     ADMIN_EXT_USERNAME_REQUIRED, AREA_REQUIRED, BRANCH_ID_REQUIRED, CANCELLATION_STATUS_REQUIRED, CONTENT_TYPE_REQUIRED
     , CREATED_TIME_CAN_NOT_MODIFY, DELIVERED_STATUS_REQUIRED, DELIVERY_INFO_REQUIRED
-    , EMAIL_REQUIRED, EXPERIENCE_REQUIRED
+    , DURATION_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
     , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
     EXTERNAL_SYSTEM_PASSWORD_REQUIRED, EXTERNAL_SYSTEM_USERNAME_REQUIRED,
     EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY
@@ -23,6 +23,7 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     , USERNAME_REQUIRED, USER_FIRST_NAME_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH, USER_LAST_NAME_REQUIRED
     , USER_PHONE_NUMBER_REQUIRED, 
     USER_UNAUTHORIZED, 
+    VALID_STORE_ID_REQUIRED, 
     ZIP_CODE_REQUIRED } from '../const/errorMessage';
 import { Logger } from '../log/logger';
 import { buildErrorMessage } from '../util/logMessageBuilder';
@@ -517,6 +518,21 @@ export const validateGeoBasedServiceFeePathParams = (req: Request, res: Response
             long: Joi.number().required().error((error) => { 
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, LONGITUDE_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate stat route
+export const validateStatRouteParams = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        query: {
+            durationType: Joi.number().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DURATION_REQUIRED); }),
+            storeId: Joi.string().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, VALID_STORE_ID_REQUIRED); })
         }
     });
     validateRequest(req, next, validationCriteria);

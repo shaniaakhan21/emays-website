@@ -3,11 +3,32 @@
 .status-box {
   padding: 0.4rem 0;
   border-radius: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
 
   &.pending-pick-up {
-    background-color: #D0E2FF;
-    color: #0043CE;
+    background-color: #E685B5;
+    color: #000000;
+  }
+
+  &.new-order {
+    background-color: #198754;
+    color: #ffffff;
+  }
+
+  &.items-to-be-return {
+    background-color: #FFC107;
+    color: #000000;
+  }
+
+  &.on-delivery {
+    background-color: #6EA8FE;
+    color: #000000;
+  }
+
+  &.archived {
+    background-color: #E0E0E0;
+    color: #5f5555;
   }
 }
-
-

@@ -1,0 +1,8 @@
+.selected-item-container {
+    display: flex;
+    flex-direction: column;
+
+    .item-row {
+        padding-bottom: 30px;
+    }
+}
