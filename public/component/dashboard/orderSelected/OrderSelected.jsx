@@ -13,6 +13,7 @@ import DOSelectedOrderHeader from '../deliveryOrder/component/selectedHeader';
 import '../../../scss/component/dashboard/selectedItem.scss';
 import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
 import ButtonCustom from '../../common/ButtonCustom';
+import OrderReviewHorizontal from '../orderReview/OrderReviewHorizontal';
 
 const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
@@ -130,7 +131,7 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
                     { 
                         // Selected row
                         !isSearchPerformed && selectedOrderSelector?.data && 
-                        <OrderReview basicInfo = {selectedOrderSelector?.data?.basicInfo}
+                        <OrderReviewHorizontal basicInfo = {selectedOrderSelector?.data?.basicInfo}
                             itemsInfo = {selectedOrderSelector?.data?.itemsInfo}
                             infoTitle = {selectedOrderSelector?.data?.infoTitle}
                             itemsTitle = {selectedOrderSelector?.data?.itemTitle}/>
@@ -138,7 +139,7 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
                     {
                         // Search result
                         isSearchPerformed &&
-                        <OrderReview basicInfo={selectedRow?.basicInfo}
+                        <OrderReviewHorizontal basicInfo={selectedRow?.basicInfo}
                             itemsInfo={selectedRow?.itemsInfo}
                             infoTitle={'Appointment'}
                             itemsTitle={'Items'} />

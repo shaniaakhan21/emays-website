@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import '../../../../scss/component/dashboard/historySelectedHeader.scss';
 import { useSelector } from 'react-redux';
-import { statsSelectorMemoized } from '../../redux/selector/statsSelector';
 import { Tile } from '@carbon/react';
 import moment from 'moment';
+import { selectedOrderSelectorMemoized } from '../../redux/selector/selectedOrderSelector';
 
 const DOSelectedOrderHeader = ({ data }) => {
 
@@ -16,21 +16,17 @@ const DOSelectedOrderHeader = ({ data }) => {
         setDateTime(preparedDate);
     }, []);
 
-    const selector = useSelector(statsSelectorMemoized);
-    const [state, setState] = useState(null);
+    const selector = useSelector(selectedOrderSelectorMemoized);
 
     useEffect(() => {
-        if (!selector?.deliveryOrderStatsState?.isLoading) {
-            setState(selector?.deliveryOrderStatsState?.data);
-        }
-    }, [selector?.deliveryOrderStatsState?.isLoading]);
+    }, [selector?.isLoading]);
     return (
         <>
             <div className='header-content'>
                 <div className='grid-1'>
                 </div>
                 {
-                    state && 
+                    !selector?.isLoading && 
                     <div className='grid-2'>
                         <Tile className='banner-three'>
                             <div>
@@ -46,7 +42,7 @@ const DOSelectedOrderHeader = ({ data }) => {
                                 <h5 className='main-header'>Order Total</h5>
                             </div>
                             <div>
-                                <h3 className='value'>{data[0]?.amount}</h3>
+                                <h3 className='value'>€ {selector?.data?.itemsInfo?.total}</h3>
                             </div>
                         </Tile>
 
