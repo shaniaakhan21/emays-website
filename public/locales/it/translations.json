@@ -468,7 +468,7 @@
         "client": "Client",
         "amount": "Amount Purchased",
         "date": "Delivery Date",
-        "time": "Delivery Time",
+        "time": "Time",
         "status": "Status"
       },
       "toBeDelivered-title": "TO BE DELIVERED"
