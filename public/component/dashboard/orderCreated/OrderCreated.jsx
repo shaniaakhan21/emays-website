@@ -4,11 +4,10 @@ import { Heading } from '@carbon/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { newOrderPhaseOneSelectorMemoized } from '../redux/selector/newOrderSelector';
 import { newOrderPhaseTwoSelectorMemoized } from '../redux/selector/newOrderSelector';
-import OrderReview from '../orderReview/OrderReview';
+import OrderReviewVertical from '../orderReview/OrderReviewVertical';
 
 // SCSS
 import '../../../scss/component/retailer/orderCreated.scss';
-import ShoppingItem from '../../checkout/ShoppingItem';
 
 const OrderCreated = () => {
     const [translate] = useTranslation();
@@ -24,7 +23,7 @@ const OrderCreated = () => {
                 <Heading className='sub-title'>{t('sub-title')}</Heading>
             </div>
             {
-                <OrderReview basicInfo = {newOrderPhaseOneSelector} itemsInfo = {newOrderPhaseTwoSelector}
+                <OrderReviewVertical basicInfo = {newOrderPhaseOneSelector} itemsInfo = {newOrderPhaseTwoSelector}
                     infoTitle = {'Appointment'}
                     itemsTitle = {'Items to be delivered'}/>
             }
