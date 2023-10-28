@@ -1,0 +1,22 @@
+.em-card-container {
+    display: flex;
+    .fiscal-1 {
+        flex: 1;
+    }
+    .fiscal-2 {
+        flex: 2;
+        display: flex;
+        flex-direction: row;
+        .section-one {
+            flex: 1;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .section-two {
+            flex: 1;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-left: 10px;
+        }
+    }
+}
