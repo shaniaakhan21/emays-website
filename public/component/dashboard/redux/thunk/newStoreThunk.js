@@ -29,6 +29,13 @@ export const setStageTwoCreateStore = createAsyncThunk('newStore/phaseTwo', asyn
     }
 });
 
+export const setStageTwoFiscalCreateStore = createAsyncThunk('newStore/phaseTwoFiscal', async (data, { getState }) => {
+    const authToken = getState().loginState.token;
+    if (authToken) {
+        return data;
+    }
+});
+
 export const resetIsLoadingPhaseTwo = createAsyncThunk('newStore/resetPhaseTwo', async (data, { getState }) => {
     const authToken = getState().loginState.token;
     if (authToken) {

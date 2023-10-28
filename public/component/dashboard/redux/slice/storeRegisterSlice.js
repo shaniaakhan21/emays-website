@@ -3,13 +3,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { registerExternalSystem, resetIsLoadingPhaseOne, resetIsLoadingPhaseThree,
     resetIsLoadingPhaseTwo, setStageOneCreateStore,
-    setStageThreeCreateStore, setStageTwoCreateStore } from '../thunk/newStoreThunk';
+    setStageThreeCreateStore, setStageTwoCreateStore, setStageTwoFiscalCreateStore } from '../thunk/newStoreThunk';
     
 const initialState = {
     phaseOneData: {
         isLoading: true
     },
     phaseTwoData: {
+        isLoading: true
+    },
+    phaseTwoFiscalData: {
         isLoading: true
     },
     phaseThreeData: {
@@ -39,6 +42,13 @@ const newStoreSlice = createSlice({
         });
         builder.addCase(setStageTwoCreateStore.pending, (state, action) => {
             state.phaseTwoData.isLoading = true;
+        });
+        builder.addCase(setStageTwoFiscalCreateStore.pending, (state, action) => {
+            state.phaseTwoFiscalData.isLoading = true;
+        });
+        builder.addCase(setStageTwoFiscalCreateStore.fulfilled, (state, action) => {
+            state.phaseTwoFiscalData = action.payload;
+            state.phaseTwoFiscalData.isLoading = false;
         });
         builder.addCase(setStageThreeCreateStore.fulfilled, (state, action) => {
             state.phaseThreeData = action.payload;

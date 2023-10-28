@@ -7,6 +7,7 @@ import { Column, Heading, TextInput } from '@carbon/react';
 import GeneratePassword from '../../../common/GeneratePassword';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import { useSelector } from 'react-redux';
+import TextBoxPassword from '../../../common/TextBoxPassword';
 
 const CreateRetailerAccountInfo = ({ setState, errorState }) => {
 
@@ -79,10 +80,18 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
                     {errorState === 'emailInvalid' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter a valid email</span>}            
-                    <TextInput labelText={t('password')} onChange={(e) => {
+                    {/* <TextInput labelText={t('password')} onChange={(e) => {
                         setFormData({ type: 'setPassword', data: e.target.value });
                     }}
                     value = {state?.password}
+                    /> */}
+                    <TextBoxPassword
+                        onChange={(e) => {
+                            setFormData({ type: 'setPassword', data: e.target.value });
+                        }}
+                        labelText='Password'
+                        hidePasswordLabel='Hide password'
+                        customStyle={{ width: '100%' }}
                     />
                     {errorState === 'password' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
@@ -92,15 +101,17 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
                             The password must consist of only uppercase letters, lowercase letters, digits,
                              the specified special characters (@, $, !, %, *, ?) and must be at least 8 
                              characters in length </span>}
-                    <TextInput labelText={t('re-password')} onChange={(e) => {
-                        setFormData({ type: 'setGeneratedPassword', data: e.target.value });
-                    }} 
-                    value = {state?.generatedPassword}
+                    <TextBoxPassword
+                        onChange={(e) => {
+                            setFormData({ type: 'setGeneratedPassword', data: e.target.value });
+                        }}
+                        labelText='Re-enter Password'
+                        hidePasswordLabel='Hide password'
+                        customStyle={{ width: '100%' }}
                     />
                     { state?.password !== state?.generatedPassword && 
                     <span style={{ 'color': 'red', 'font-size': '12px' }}>
                     Both password fields should be similar</span> }
-                    {/* <GeneratePassword onChangeFunc={onChangePasswordGeneration}/> */}
                 </div>
             </div>
         </Column>
