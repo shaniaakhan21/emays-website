@@ -584,6 +584,13 @@
           "sub-title4": "Your logo (uploaded)",
           "sub-title5": "Click here to open maps"
         },
+        "fiscal": {
+          "subtitle-fiscal": "Fiscal Information",
+          "subtitle-company-address": "Company Address",
+          "company-name": "Company Name",
+          "fiscal-number": "VAT / Fiscal Number",
+          "phone-number": "Phone NUmber"
+        },
         "billing": {
           "sub-title": "Billing",
           "address": "Billing Address",
@@ -597,7 +604,7 @@
           "paymentCurrency-label": "Choose an option"
         },
         "account": {
-          "sub-title": "Create User",
+          "sub-title": "Create Store Account",
           "username": "Username",
           "email": "Email associated",
           "password": "Password",

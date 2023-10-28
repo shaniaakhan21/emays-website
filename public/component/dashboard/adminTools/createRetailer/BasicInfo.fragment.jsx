@@ -170,6 +170,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                                 onAddFiles={(e) => { handleFileChange(e); }}
                                 onChange={e => { console.log('onChange', e); } }
                                 tabIndex={0}
+                                style = {{ width: '300px' }}
                             />
                         </div>
                         <div className='preview'>
