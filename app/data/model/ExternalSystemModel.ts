@@ -28,7 +28,8 @@ export const saveExternalSystem: CreateExternalSystemFunc = async (externalSyste
             id: result._id as unknown as string,
             extSysAddress: result.extSysAddress,
             extLogo: result.extLogo,
-            extLogoContentType: result.extLogoContentType
+            extLogoContentType: result.extLogoContentType,
+            fiscalInfo: result.fiscalInfo
         };
         return data;
     } catch (error) {

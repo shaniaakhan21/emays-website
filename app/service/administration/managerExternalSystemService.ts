@@ -127,6 +127,7 @@ export const getManagerExternalSystemByManagerAssociatedId: GetExternalSystemByM
             extSysEmail: externalSystemInfo.extSysEmail,
             extSysName: externalSystemInfo.extSysName,
             extSysAddress: externalSystemInfo.extSysAddress,
+            fiscalInfo: externalSystemInfo.fiscalInfo,
             id: externalSystemInfo.id
         };
         if (preparedData) {
