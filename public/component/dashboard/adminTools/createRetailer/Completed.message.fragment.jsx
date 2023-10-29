@@ -17,14 +17,6 @@ const CompletedMessage = ({ setState }) => {
     useEffect(() => {
     }, [newStoreSelectorMemoized]);
 
-    const handleSave = () => {
-        dispatch(registerExternalSystem({
-            phaseOne: selector?.phaseOneData,
-            phaseThree: selector?.phaseThreeData,
-            phaseTwo: selector?.phaseTwoData
-        }));
-    };
-
     const t = useCallback((key) => translate(`dashboard.adminTools.createRetailer.completed.${key}`), [translate]);
 
     return (
@@ -36,23 +28,22 @@ const CompletedMessage = ({ setState }) => {
                         <Heading className='sub-title'>{t('summery')}</Heading>
                         <br></br>
                         <h5>Shop Name:</h5>
-                        <p> {selector?.phaseOneData?.storeName}</p>
+                        <p> {selector?.phaseTwoData?.storeName}</p>
                         <br></br>
                         <h5>Shop Address:</h5>
-                        <p> {`${selector?.phaseOneData?.address?.addOne}, 
-                            ${selector?.phaseOneData?.address?.addTwo}, 
-                            ${selector?.phaseOneData?.address?.addThree}` }</p>
+                        <p> {`${selector?.phaseTwoData?.address?.addOne}, 
+                            ${selector?.phaseTwoData?.address?.addTwo}, 
+                            ${selector?.phaseTwoData?.address?.addThree}` }</p>
                         <br></br>
                         <h5>Shop Email:</h5>
-                        <p> {selector?.phaseTwoData?.email}</p>
+                        <p> {selector?.phaseOneData?.email}</p>
                         <br></br>
                         <h5>Username:</h5>
-                        <p> {selector?.phaseTwoData?.username}</p>
+                        <p> {selector?.phaseOneData?.username}</p>
                         <br></br>
                         <h5>Password:</h5>
-                        <p> {selector?.phaseTwoData?.password}</p>
+                        <p> {selector?.phaseOneData?.password}</p>
                         <br></br>
-                        <Button className='next' onClick={handleSave} >Create</Button>
                     </div>
                     }
                 </div>

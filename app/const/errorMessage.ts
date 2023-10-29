@@ -111,6 +111,8 @@ export const EXTERNAL_SYSTEM_PASSWORD_REQUIRED = 'Please provide a valid externa
 
 export const EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED = 'Please provide a valid external system contact email';
 
+export const EXTERNAL_SYSTEM_FISCAL_INFO_REQUIRED = 'Please provide a valid external system fiscal information';
+
 export const EXTERNAL_SYSTEM_CONTACT_NUMBER_REQUIRED = 'Please provide a valid external system contact number';
 
 export const EXT_SYSTEM_USERNAME_REQUIRED = 'please provide a valid username';

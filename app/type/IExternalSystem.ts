@@ -24,6 +24,15 @@ export interface IExternalSystem {
         addFour: string,
         // Zip Code
         addFive: string
+    },
+    fiscalInfo: {
+        companyName: string,
+        fiscalNumber: string,
+        companyPhone: string,
+        street: string,
+        zip: string,
+        city: string,
+        country: string
     }
 }
 
@@ -45,6 +54,15 @@ export interface IExternalSystemDTO {
         // Zip Code
         addFive: string
     },
+    fiscalInfo: {
+        companyName: string,
+        fiscalNumber: string,
+        companyPhone: string,
+        street: string,
+        zip: string,
+        city: string,
+        country: string
+    }
 }
 
 export interface IExternalSystemLogin {

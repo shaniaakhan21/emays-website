@@ -265,6 +265,25 @@ export const validateCreateExtSysRequestBody = (req: Request, res: Response, nex
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED);
             }),
+            fiscalInfo: Joi.object().keys({ 
+                // Registered name
+                companyName: Joi.string().required(),
+                // Fiscal number
+                fiscalNumber: Joi.string().required(),
+                // Company phone
+                companyPhone: Joi.string().required(),
+                // Street
+                street: Joi.string().required(),
+                // Zip / Postal code
+                zip: Joi.string().required(),
+                // City
+                city: Joi.string().required(),
+                // Country
+                country: Joi.string().required()
+            }).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED);
+            }),
             extSysAddress: Joi.object().keys({ 
                 // Street
                 addOne: Joi.string().required(),

@@ -11,6 +11,7 @@ const ExternalSystemSchema = new Schema<IExternalSystem>({
     extSysAddress: { type: Object, required: true },
     extLogo: { type: Buffer },
     extLogoContentType: { type: String },
+    fiscalInfo: { type: Object, required: true },
     paymentMethod: { type: String, required: true, enum: Object.values(PaymentMethod), default: PaymentMethod.POPUP }
 });
 

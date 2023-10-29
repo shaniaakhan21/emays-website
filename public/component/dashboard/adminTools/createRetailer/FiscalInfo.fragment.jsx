@@ -9,6 +9,7 @@ import '../../../../scss/component/dashboard/adminTools/fiscalInfo.scss';
 import { Column, FileUploaderDropContainer, Grid, Heading, TextInput } from '@carbon/react';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import ContactNumberInput from '../../../common/ContactNumberInput';
+import GoogleMap from '../../../common/googleMap';
 
 const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
     const [translate] = useTranslation();
@@ -25,21 +26,36 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 return { ...state, fiscalNumber: action?.data };
             case 'setCompanyPhone':
                 return { ...state, companyPhone: action?.data };
+            case 'setStreet':
+                return { ...state, street: action?.data };
+            case 'setZip':
+                return { ...state, zip: action?.data };
+            case 'setCity':
+                return { ...state, city: action?.data };
+            case 'setCountry':
+                return { ...state, country: action?.data };
             default:
                 return { ...state };
         }
     }, {
         companyName: '',
         fiscalNumber: '',
-        phoneNumber: '',
-        companyPhone: ''
+        companyPhone: '',
+        street: '',
+        zip: '',
+        city: '',
+        country: ''
     });
 
     // Load the state from Redux
     useState(() => {
         setFormData({ type: 'setCompanyName', data: selector?.phaseTwoFiscalData?.companyName });
         setFormData({ type: 'setFiscalNumber', data: selector?.phaseTwoFiscalData?.fiscalNumber });
-        setFormData({ type: 'setPhoneNumber', data: selector?.phaseTwoFiscalData?.phoneNumber });
+        setFormData({ type: 'setCompanyPhone', data: selector?.phaseTwoFiscalData?.companyPhone });
+        setFormData({ type: 'setStreet', data: selector?.phaseTwoFiscalData?.street });
+        setFormData({ type: 'setZip', data: selector?.phaseTwoFiscalData?.zip });
+        setFormData({ type: 'setCity', data: selector?.phaseTwoFiscalData?.city });
+        setFormData({ type: 'setCountry', data: selector?.phaseTwoFiscalData?.country });
     }, []);
 
     // When changing the state, update the parent state 
@@ -60,7 +76,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 <TextInput labelText={t('company-name')} onChange={(e) => {
                     setFormData({ type: 'setCompanyName', data: e.target.value });
                 }}
-                value = {state?.storeName}
+                value = {state?.companyName}
                 />
                 {errorState === 'companyName' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
@@ -83,28 +99,53 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
             </div>
-            <div className='em-card fiscal-2'>
-                <div className='section-one'>
-                    <Heading className='sub-title'>{t('subtitle-company-address')}</Heading>
-                    <TextInput labelText={t('company-name')} onChange={(e) => {
-                        setFormData({ type: 'setCompanyName', data: e.target.value });
-                    }}
-                    value = {state?.storeName}
-                    />
-                    {errorState === 'companyName' &&
+            <div className='em-card right-container'>
+                <div className='fiscal-2'>
+                    <div className='section-one'>
+                        <Heading className='sub-title'>{t('subtitle-company-address')}</Heading>
+                        <TextInput labelText={t('street')} onChange={(e) => {
+                            setFormData({ type: 'setStreet', data: e.target.value });
+                        }}
+                        value = {state?.street}
+                        />
+                        {errorState === 'street' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
-                                Please enter company name</span>}
+                                Please enter street</span>}
+                        <TextInput labelText={t('zip')} onChange={(e) => {
+                            setFormData({ type: 'setZip', data: e.target.value });
+                        }}
+                        value = {state?.zip}
+                        />
 
+                    </div>
+                    <div className='section-two'>
+                        <br></br>
+                        <TextInput labelText={t('city')} onChange={(e) => {
+                            setFormData({ type: 'setCity', data: e.target.value });
+                        }}
+                        value = {state?.city}
+                        />
+                        {errorState === 'city' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter city</span>}
+                        <TextInput labelText={t('country')} onChange={(e) => {
+                            setFormData({ type: 'setCountry', data: e.target.value });
+                        }}
+                        value = {state?.country}
+                        />
+                        {errorState === 'country' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter country</span>}
+                    </div>
                 </div>
-                <div className='section-two'>
+                <br></br>
+                <div className='map'>
+                    <Heading className='sub-title'>Click here to open maps</Heading>
                     <br></br>
-                    <TextInput labelText={t('company-name')} onChange={(e) => {
-                        setFormData({ type: 'setCompanyName', data: e.target.value });
-                    }}
-                    value = {state?.storeName}
-                    />
+                    <GoogleMap />
                 </div>
             </div>
+            
         </div>
     );
 };

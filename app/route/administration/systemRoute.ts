@@ -130,6 +130,8 @@ router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUser
             extSysAddress: {
                 addOne: '', addTwo: '', addThree: '', addFour: '', addFive: ''
             },
+            fiscalInfo: { companyName: '', fiscalNumber: '',
+                companyPhone: '', street: '', zip: '', city: '', country: '' },
             extLogo: undefined,
             extLogoContentType: ''
         };

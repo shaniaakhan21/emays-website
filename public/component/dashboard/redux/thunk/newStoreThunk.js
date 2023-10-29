@@ -43,6 +43,13 @@ export const resetIsLoadingPhaseTwo = createAsyncThunk('newStore/resetPhaseTwo',
     }
 });
 
+export const resetIsLoadingPhaseTwoFiscal = createAsyncThunk('newStore/resetPhaseTwoFiscal', async (data, { getState }) => {
+    const authToken = getState().loginState.token;
+    if (authToken) {
+        return true;
+    }
+});
+
 export const setStageThreeCreateStore = createAsyncThunk('newStore/phaseThree', async (data, { getState }) => {
     const authToken = getState().loginState.token;
     if (authToken) {
@@ -61,12 +68,13 @@ export const resetIsLoadingPhaseThree = createAsyncThunk('newStore/resetPhaseThr
 export const registerExternalSystem = createAsyncThunk('newStore/saveExternalSystem', async (data, { getState }) => {
     const authToken = getState().loginState.token;
     const appDataPreparedForStore = {
-        extSysName: data?.phaseOne?.storeName,
-        extSysUsername: data?.phaseTwo?.username,
-        extSysPassword: data?.phaseTwo?.password,
-        extSysEmail: data?.phaseTwo?.email,
-        extSysAddress: data?.phaseOne?.address,
-        extLogo: getStoreImage()
+        extSysName: data?.phaseTwo?.storeName,
+        extSysUsername: data?.phaseOne?.username,
+        extSysPassword: data?.phaseOne?.password,
+        extSysEmail: data?.phaseOne?.email,
+        extSysAddress: data?.phaseTwo?.address,
+        extLogo: getStoreImage(),
+        fiscalInfo: data?.phaseTwoFiscal
 
     };
     const appDataPreparedForAdmin = {

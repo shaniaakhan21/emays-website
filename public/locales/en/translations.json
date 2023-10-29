@@ -596,7 +596,11 @@
           "subtitle-company-address": "Company Address",
           "company-name": "Company Name",
           "fiscal-number": "VAT / Fiscal Number",
-          "phone-number": "Phone NUmber"
+          "phone-number": "Phone Number",
+          "street": "Street / Avenue",
+          "city": "City",
+          "zip": "Zip code",
+          "country": "Country"
         },
         "billing": {
           "sub-title": "Billing",
