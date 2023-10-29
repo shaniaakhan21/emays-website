@@ -11,8 +11,8 @@ import CreateRetailerBankInfo from './BankInfo.fragment';
 import CreateRetailerEmployeeInfo from './EmployeeInfo.fragment';
 import CreateRetailerAccountInfo from './AccountInfo.fragment';
 import CreateRetailerNotes from './Notes.fragment';
-import { checkUsernameValidity, resetIsLoadingPhaseOne, resetIsLoadingPhaseThree,
-    resetIsLoadingPhaseTwo, setStageOneCreateStore,
+import { checkUsernameValidity, registerExternalSystem, resetIsLoadingPhaseOne, resetIsLoadingPhaseThree,
+    resetIsLoadingPhaseTwo, resetIsLoadingPhaseTwoFiscal, setStageOneCreateStore,
     setStageThreeCreateStore, setStageTwoCreateStore,
     setStageTwoFiscalCreateStore } from '../../redux/thunk/newStoreThunk';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,7 +32,6 @@ const CreateRetailer = () => {
     const handleNext = async () => {
         if (step < 5) {
             if (step === 0) {
-
                 const result = validateObjectNullEmptyCheck(state, []);
                 if (result[0]) {
                     const usernameSystemAvailability = 
@@ -68,11 +67,20 @@ const CreateRetailer = () => {
                     setErrorState(result[1]);
                 }
             } else if (step === 2) {
-                dispatch(setStageTwoFiscalCreateStore(state));
+                const result = validateObjectNullEmptyCheck(state, []);
+                if (result[0]) {
+                    setErrorState(null);
+                    dispatch(setStageTwoFiscalCreateStore(state));
+                } else {
+                    setErrorState(result[1]);
+                }
             } else if (step === 3) {
 
                 const result = validateObjectNullEmptyCheck(state, []);
                 if (result[0]) {
+                    if (state?.businessAdmin?.adminUsername === state?.manager?.managerUsername) {
+                        setErrorState('adminUsernameReserved');
+                    }
                     const usernameBusinessAdminAvailability = 
                         await checkUsernameValidity({ username: state?.businessAdmin?.adminUsername });
                     const usernameManagerAvailability = 
@@ -143,42 +151,50 @@ const CreateRetailer = () => {
     const goBack = async () => {
         if (step === 3) {
             await dispatch(resetIsLoadingPhaseThree());
+            setStep((s) => s - 1);
         } else if (step === 2) {
-            await dispatch(resetIsLoadingPhaseTwo());
+            await dispatch(resetIsLoadingPhaseTwoFiscal());
+            setStep((s) => s - 1);
         } else if (step === 1) {
+            await dispatch(resetIsLoadingPhaseTwo());
+            setStep((s) => s - 1);
+        } else if (step === 0) {
             await dispatch(resetIsLoadingPhaseOne());
+            setStep((s) => s - 1);
         }
-        setStep((s) => s - 1);
+    };
+
+    const handleSave = () => {
+        dispatch(registerExternalSystem({
+            phaseOne: selector?.phaseOneData,
+            phaseThree: selector?.phaseThreeData,
+            phaseTwo: selector?.phaseTwoData,
+            phaseTwoFiscal: selector?.phaseTwoFiscalData
+        }));
     };
 
     const t = useCallback((key) => translate(`dashboard.adminTools.createRetailer.${key}`), [translate]);
 
     return (
         <div className='createRetailer'>
-            
-            {
-                step > 0 && 
-                <>
-                    <div className='banner'>
-                        <Store className='icon' />
-                        <div className='title'>{t('banner')}</div>
-                    </div>
-                    <ProgressIndicator>
-                        {[
-                            'Account',
-                            'Basic Info',
-                            'Fiscal Info',
-                            'Directory',
-                            'Summery'
-                        ].map((item, index) => (<ProgressStep
-                            key={index}
-                            complete={(step) > index}
-                            current={(step) === index}
-                            label={item}
-                        />))}
-                    </ProgressIndicator>
-                </>
-            }
+            <div className='banner'>
+                <Store className='icon' />
+                <div className='title'>{t('banner')}</div>
+            </div>
+            <ProgressIndicator>
+                {[
+                    'Account',
+                    'Basic Info',
+                    'Fiscal Info',
+                    'Directory',
+                    'Summery'
+                ].map((item, index) => (<ProgressStep
+                    key={index}
+                    complete={(step) > index}
+                    current={(step) === index}
+                    label={item}
+                />))}
+            </ProgressIndicator>
             <Grid className='content'>
                 {step === 0 ? <CreateRetailerAccountInfo setState={setState} errorState={errorState}/> : null}
                 {step === 1 ? <CreateRetailerBasicInfo setState={setState} errorState={errorState} /> : null}
@@ -194,6 +210,10 @@ const CreateRetailer = () => {
                 {
                     (step !== 4) && 
                     <Button className='next' onClick={handleNext} renderIcon={() => <ArrowRight />}>Next</Button>
+                }
+                {
+                    (step === 4) && 
+                    <Button className='next' onClick={handleSave} >Create</Button>
                 }
             </Grid>
         </div>

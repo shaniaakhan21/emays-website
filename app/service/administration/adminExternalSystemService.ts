@@ -120,7 +120,8 @@ export const getAdminExternalSystemByAdminAssociatedId: GetExternalSystemByAdmin
             extSysEmail: externalSystemInfo.extSysEmail,
             extSysName: externalSystemInfo.extSysName,
             extSysAddress: externalSystemInfo.extSysAddress,
-            id: externalSystemInfo.id
+            id: externalSystemInfo.id,
+            fiscalInfo: externalSystemInfo.fiscalInfo
         };
         if (preparedData) {
             return preparedData;
