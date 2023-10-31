@@ -645,7 +645,7 @@
         "completed": {
           "summery": "Shop Summery",
           "sub-title": "Congratulations!",
-          "successMessage": "Store registration completed successfully.",
+          "successMessage": "Store registration has been completed successfully.",
           "error": {
             "error-store": "Error Occurred",
             "error-manager": "Error occurred in saving manager",

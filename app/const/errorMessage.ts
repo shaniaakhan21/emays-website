@@ -61,6 +61,8 @@ export const DRIVER_PICKED_STATUS_REQUIRED = 'Please provide valid driver picked
 
 export const DELIVERED_STATUS_REQUIRED = 'Please provide valid delivery status';
 
+export const PREPARED_STATUS_REQUIRED = 'Please provide valid prepared status';
+
 export const ADDRESS_REQUIRED = 'Please provide a valid address';
 
 export const CREATED_TIME_CAN_NOT_MODIFY = 'You can not patch the created time';

@@ -31,6 +31,7 @@ export const prepareUserDetailsToSend: PrepareDetailsToSendFunc = (order) => {
         deliveryInfo: order?.deliveryInfo,
         isDelivered: order?.isDelivered,
         isDriverPicked: order?.isDriverPicked,
+        isPrepared: order?.isPrepared,
         isCanceled: order?.isCanceled,
         serviceFee: order?.serviceFee,
         branchId: order?.branchId

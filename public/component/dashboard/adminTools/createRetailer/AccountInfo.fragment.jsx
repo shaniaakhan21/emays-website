@@ -36,9 +36,9 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
 
     // Load the state from Redux
     useState(() => {
-        setFormData({ type: 'setUsername', data: selector?.phaseTwoData?.username });
-        setFormData({ type: 'setEmail', data: selector?.phaseTwoData?.email });
-        setFormData({ type: 'setPassword', data: selector?.phaseTwoData?.password });
+        setFormData({ type: 'setUsername', data: selector?.phaseOneData?.username });
+        setFormData({ type: 'setEmail', data: selector?.phaseOneData?.email });
+        setFormData({ type: 'setPassword', data: selector?.phaseOneData?.password });
         setFormData({ type: 'setGeneratedPassword', data: selector?.phaseTwoData?.generatedPassword });
     }, []);
 
@@ -92,6 +92,7 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
                         labelText='Password'
                         hidePasswordLabel='Hide password'
                         customStyle={{ width: '100%' }}
+                        value = {state?.password}
                     />
                     {errorState === 'password' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>

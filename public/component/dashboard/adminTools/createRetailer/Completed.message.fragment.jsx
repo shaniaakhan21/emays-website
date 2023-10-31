@@ -6,7 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { Button, Column, FileUploaderDropContainer, Grid, Heading, TextArea, TextInput } from '@carbon/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
-import { registerExternalSystem } from '../../redux/thunk/newStoreThunk';
+import { registerExternalSystem, resetAllStoreCreationData, resetIsLoadingPhaseOne,
+    resetIsLoadingPhaseThree, resetIsLoadingPhaseTwo,
+    resetIsLoadingPhaseTwoFiscal } from '../../redux/thunk/newStoreThunk';
 
 const CompletedMessage = ({ setState }) => {
     const [translate] = useTranslation();
@@ -15,6 +17,11 @@ const CompletedMessage = ({ setState }) => {
     const [saved, setSaved] = useState(false);
 
     useEffect(() => {
+        if (!(selector?.saveStatus?.isLoading) && (selector?.saveStatus?.result?.resultStore?.sysId)) {
+            setTimeout(async () => {
+                await dispatch(resetAllStoreCreationData());
+            }, 3000);
+        }
     }, [newStoreSelectorMemoized]);
 
     const t = useCallback((key) => translate(`dashboard.adminTools.createRetailer.completed.${key}`), [translate]);

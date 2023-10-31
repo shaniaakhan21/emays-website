@@ -21,9 +21,11 @@ import {
     ,
     validateOrderDetailsPagination,
     validateOrderPatchRequestBody,
+    validateParamOrderId,
     validateParamUserId
 } from '../middleware/paramValidationMiddleware';
-import { createOrder, deleteOrderByIdGiven, getOrderDetailsWithPagination, patchOrderDetailsByUserId,
+import { createOrder, deleteOrderByIdGiven, getOrderDetailsWithPagination,
+    patchOrderDetailsByOrderId, patchOrderDetailsByUserId,
     retrieveOrderDetailsByOrderId,
     retrieveOrderDetailsByUserId } from '../service/orderService';
 import { AppRequest } from '../type/appRequestType';
@@ -145,9 +147,9 @@ router.get(`${OrderRoutePath}${RoutePath.ORDER_BY_ORDER_ID}${PathParam.ORDER_ID}
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-const validationsPatch = [allowedForClientRoleOnly, validateHeader
+const validationsPatchByUserId = [allowedForClientRoleAndSuperAdminAndAdminOnly, validateHeader
     , validateParamUserId, validateOrderPatchRequestBody];
-router.patch(RoutePath.ORDERS + PathParam.USER_ID, validationsPatch, (
+router.patch(RoutePath.ORDERS + PathParam.USER_ID, validationsPatchByUserId, (
     req: Request, res: Response, next: NextFunction): void => {
     const pathParamUserId = req.params.userId;
     const patchOrder = req.body as IPatchOrder;
@@ -159,6 +161,31 @@ router.patch(RoutePath.ORDERS + PathParam.USER_ID, validationsPatch, (
     })().catch(error => {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, `Patch order for uid: ${pathParamUserId}`), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
+ * Order patch route by orderId
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+const validationsPatchByOrderId = [allowedForClientRoleAndSuperAdminAndAdminOnly, validateHeader
+    , validateParamOrderId, validateOrderPatchRequestBody];
+router.patch(RoutePath.PATCH_ORDER + PathParam.ORDER_ID, validationsPatchByOrderId, (
+    req: Request, res: Response, next: NextFunction): void => {
+    const pathParamOrderId = req.params.orderId;
+    const patchOrder = req.body as IPatchOrder;
+    (async () => {
+        Logging.log(buildInfoMessageRouteHit(req.path, `orderId: ${pathParamOrderId}`), LogType.INFO);
+        await patchOrderDetailsByOrderId(pathParamOrderId, patchOrder);
+        Logging.log(buildInfoMessageUserProcessCompleted('Patch order', pathParamOrderId), LogType.INFO);
+        return res.sendStatus(HTTPSuccess.NO_CONTENT_CODE);
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, `Patch order for uid: ${pathParamOrderId}`), LogType.ERROR);
         next(error);
     });
 });

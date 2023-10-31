@@ -53,17 +53,17 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
 
     // Load the state from Redux
     useState(() => {
-        setFormData({ type: 'setStoreName', data: selector?.phaseOneData?.storeName });
-        setFormData({ type: 'setAddressLineOne', data: selector?.phaseOneData?.address?.addOne });
-        setFormData({ type: 'setAddressLineTwo', data: selector?.phaseOneData?.address?.addTwo });
-        setFormData({ type: 'setAddressLineThree', data: selector?.phaseOneData?.address?.addThree });
-        setFormData({ type: 'setAddressLineFour', data: selector?.phaseOneData?.address?.addFour });
-        setFormData({ type: 'setAddressLineFive', data: selector?.phaseOneData?.address?.addFive });
+        setFormData({ type: 'setStoreName', data: selector?.phaseTwoData?.storeName });
+        setFormData({ type: 'setAddressLineOne', data: selector?.phaseTwoData?.address?.addOne });
+        setFormData({ type: 'setAddressLineTwo', data: selector?.phaseTwoData?.address?.addTwo });
+        setFormData({ type: 'setAddressLineThree', data: selector?.phaseTwoData?.address?.addThree });
+        setFormData({ type: 'setAddressLineFour', data: selector?.phaseTwoData?.address?.addFour });
+        setFormData({ type: 'setAddressLineFive', data: selector?.phaseTwoData?.address?.addFive });
     }, []);
 
     // When changing the state, update the parent state 
     useEffect(() => {
-        setState((currentState) => { return { ...currentState, ...state }; } );
+        setState((currentState) => { return state; } );
     }, [state]);
 
     const handleFileChange = (event) => {
@@ -90,7 +90,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
     };
 
     useEffect(() => {
-        setState((currentState) => { return { ...currentState, ...state }; } );
+        setState((currentState) => { return state; } );
     }, [state, errorState]);
 
     const t = useCallback((key) => translate(`dashboard.adminTools.createRetailer.basic.${key}`), [translate]);

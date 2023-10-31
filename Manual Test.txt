@@ -12,7 +12,7 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMlQxNDo0MDo0OC44NzFaIiwiZXhwIjoxNjk3OTg5MjQ4LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIyM2U1ZjdjZS01MGIyLTRiNWItOWFhYy0xMmU0N2UwNTkwZDIiLCJpYXQiOjE2OTc5ODU2NDh9.8HpuxJMF3W2u0oqNcYVl8MzzVChp_xHPID0TjrE2w5o
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQwODozMjowOS4zNDFaIiwiZXhwIjoxNjk4NzQ0NzI5LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhMzJhZjMzNC05N2M5LTQ4MzAtOTllNC04ODgyOTMwMWM4MjAiLCJpYXQiOjE2OTg3NDExMjl9.5hk7pC3E0Xhf5uaAl2mqpv1IQSSj7DqqB-hM6I24xRs
 
 {
     "email": "thathsararaviraj@gmail.com",
@@ -20,39 +20,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
     "firstName": "Thathsara",
     "lastName": "Raviraj",
     "phoneNumber": "07122658978",
-    "uid": "12345673410503",
+    "uid": "12345673410507",
     "branchId": "6504061d3615ae0e08a4a789",
-    "date": "2023-03-16",
-    "startTime": "19:00",
-    "endTime": "21:00",
-    "experience": "Assist me, Tailoring, Inspire me",
-    "timeZone": "Asia/Dubai",
-    "deliveryInfo": "Please deliver on time",
-    "address": {
-        "addOne": "No 1",
-        "addTwo": "Subway",
-        "addThree": "Khalifa",
-        "addFour": "Dubai",
-        "addFive": "Test",
-        "addSix": "Test"
-    },
-    "serviceFee": "123",
-    "orderItems": [{"productName": "Denim shirt", "productColor": "blue", "productSize": "Large", "productQuantity": 2, "productCost": "10", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}, {"productName": "Denim Trouser", "productColor": "blue", "productSize": "Large", "productQuantity": 5, "productCost": "20", "productImage": "https://drive.google.com/uc?export=view&id=1ozS_QYosuRRkw4vG6cRH2DhkvWNHG6nN", "productDeliveryInformation": "extra information"}]
-}
-
-
-POST http://localhost:8080/api-dev/orders
-content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0xNlQxNjowNDo0MC44MjdaIiwiZXhwIjoxNjk3NDc1ODgwLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIzZGJhYTBlZi0wMmE4LTQzNWQtOGU1OS0xOTZkNzVmNWMyOWUiLCJpYXQiOjE2OTc0NzIyODB9.jDp_T9ol-LyzL9KHEQcjzVERAkAihMx1hkF6LI3AqEE
-
-{
-    "email": "thathsararaviraj@gmail.com",
-    "retailerEmail": "thathsararaviraj@gmail.com",
-    "firstName": "Thathsara",
-    "lastName": "Raviraj",
-    "phoneNumber": "07122658978",
-    "uid": "12345673410115",
-    "branchId": "12345673410113",
     "date": "2023-03-16",
     "startTime": "19:00",
     "endTime": "21:00",
@@ -80,15 +49,13 @@ content-type: application/json
 
 ----- Patch order by user id --------12345673410500
 
-PATCH http://localhost:8080/api-dev/orders/12345673410501
+PATCH http://localhost:8080/api-dev/patch/orders/6540c3fa145f2819e09df278
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQxMDoyNDozMC43NzFaIiwiZXhwIjoxNjk3ODAxMDcwLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiIxMTk4NWRmMy0zMWU2LTQ1NmYtODRjZi1hODRhMTViZTM2YjAiLCJpYXQiOjE2OTc3OTc0NzB9.dW2CvvsKzprOG-Hlh1ppejXMb5nAznjoaIi5t3lHRDU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQwOTo1ODowNC4xNzlaIiwiZXhwIjoxNjk4NzQ5ODg0LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1NDBiYzRmMTUzM2MwNDE4ZjdhYzcxNiIsImlhdCI6MTY5ODc0NjI4NH0.rDZJPY4Da3haeG6_RX3rDdvLjyqbohdXa_mLBQgWG4g
 
 {
-    "isDelivered": true,
-    "deliveredDate": "2023-19-16T16:29:01.749Z"
+    "isPrepared": false
 }
-
 
 ------ Launch email ---------
 http://localhost:8080/api-dev/launchMail?launchType=emailBooked&uuid=12345673481&authToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0wMy0xNVQwNDo0NDowNS43NDVaIiwiZXhwIjoxNjc4ODkxNDQ1LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJjMjdjOWYxMi04OWQ2LTRmMTUtYmJiMy0wYmZmZmY2MzMwMWIiLCJpYXQiOjE2Nzg4NTU0NDV9.zSa5uzJ7xYjJuZBe6wm8chDQMJ6TU7dy1UsWgDVtX7I
@@ -105,43 +72,30 @@ content-type: application/json
 
 {
     "extSysName": "Store-X",
-    "extSysUsername": "storexy",
-    "extSysPassword": "abCq2&!Ms",
-    "extSysEmail": "storeX@gmail.com"
-}
-
-POST https://emaysstyle.com/api/externalSystems
-content-type: application/json
-
-{
-    "extSysName": "Store-X",
-    "extSysUsername": "storex",
-    "extSysPassword": "abCq2&!Ms",
-    "extSysEmail": "storeX@gmail.com"
-}
-
-
-POST https://emaysstyle.com/api/externalSystems
-content-type: application/json
-
-{
-    "extSysName": "Store-X",
     "extSysUsername": "storeThath",
     "extSysPassword": "abCq2&!Ms",
-    "extSysEmail": "storeX@gmail.com"
+    "extSysEmail": "storeX@gmail.com",
+    "extSysAddress": {
+        "addOne": "tt",
+        "addTwo": "sss",
+        "addThree": "fff",
+        "addFour": "sdf",
+        "addFive": "ASD"
+    },
+    "fiscalInfo": {
+        "companyName": "Company X",
+        "fiscalNumber": "00006",
+        "companyPhone": "009234545",
+        "street": "galle rd",
+        "zip": "0001",
+        "city": "Lkxa",
+        "country": "Sl"
+    }
 }
 
 ----- Get auth token for external system ------
 
 POST http://localhost:8080/api-dev/externalSystems/systemToken
-content-type: application/json
-
-{
-    "extSysUsername": "storex",
-    "extSysPassword": "abCq2&!Ms"
-}
-
-POST  https://emaysstyle.com/api/externalSystems/systemToken
 content-type: application/json
 
 {
@@ -223,17 +177,6 @@ content-type: application/json
     "email": "abCq2&!Ms@gmail.com"
 }
 
-POST https://emaysstyle.com/api/superUsers 
-content-type: application/json
-
-{
-    "firstName": "emmanuel",
-    "lastName": "emmanuel",
-    "username": "thathsara",
-    "password": "abCq2&!Ms",
-    "email": "thath@gmail.com"
-}
-
 ------ Get super user token ----------
 
 POST http://localhost:8080/api-dev/superUsers/superUserToken
@@ -268,7 +211,7 @@ content-type: application/json
 
 POST http://localhost:8080/api-dev/externalSystems/systemInfo
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wM1QxNTo0Mzo1Ni44NDRaIiwiZXhwIjoxNjk2MzUxNDM2LCJyb2xlcyI6WyJhZG1pbiJdLCJpZCI6IjY1MWMzNjQxMjZjNGI4OThiN2I0MjJkZiIsImlhdCI6MTY5NjM0NzgzNn0.Lg35KR80ESq41f0atpg0ChT4VflXlPiH_uPt-cYZJvo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQwODozNTo1My43MTFaIiwiZXhwIjoxNjk4NzQ0OTUzLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1NDBiYzRmMTUzM2MwNDE4ZjdhYzcxNiIsImlhdCI6MTY5ODc0MTM1M30.-ohSaXSwgF7hBn9OAxI34wltEQgmDNT-MI-OENVtk1I
 
 
 ----- Get user order pagination ------------
@@ -280,7 +223,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
 
 GET http://localhost:8080/api-dev/orders?page=1&pageLimit=4
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQwNDo1NDowNC42NTNaIiwiZXhwIjoxNjk3NzgxMjQ0LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MjA0NGM5ZjNjZTJiZWVmMTQxZmQ4ZCIsImlhdCI6MTY5Nzc3NzY0NH0.t-qtiwVwWHPLqvFN4rCZUgY_PchiW2pb5UMbB0rCOVc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQwODozNTo1My43MTFaIiwiZXhwIjoxNjk4NzQ0OTUzLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1NDBiYzRmMTUzM2MwNDE4ZjdhYzcxNiIsImlhdCI6MTY5ODc0MTM1M30.-ohSaXSwgF7hBn9OAxI34wltEQgmDNT-MI-OENVtk1I
 
 GET http://localhost:8080/api-dev/orders/byOrderId/650803e5c53b6a587cf62d6a
 content-type: application/json
@@ -346,14 +289,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
 
 ---------- STATS ROUTES ---------------
 
-DELETE http://localhost:8080/api-dev/orders/65324ac1f45bb35c4aebfa34
+DELETE http://localhost:8080/api-dev/orders/6540c059da00c272854f74ff
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMFQwOToyNTo0NS4wNDhaIiwiZXhwIjoxNjk3Nzk3NTQ1LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTY5Nzc5Mzk0NX0.PCDxeDidS_YGk0SOP-jh6QiBvFFyHKtFA_um5JUW7YM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQwODo0MDozNy44OTJaIiwiZXhwIjoxNjk4NzQ1MjM3LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1NDBiYzRmMTUzM2MwNDE4ZjdhYzcxNiIsImlhdCI6MTY5ODc0MTYzN30._ai2OCKUrixbj0xwtoO8l38VS8NWJeevwAMm_aLwhEg
 
 
 GET http://localhost:8080/api-dev/orders/pagination?page=1&pageLimit=5
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMlQxMTo0OTo0Ni4yMzlaIiwiZXhwIjoxNjk3OTg2MTg2LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTIwNDMxYWYzY2UyYmVlZjE0MWZkODgiLCJpYXQiOjE2OTc5NzUzODZ9.vNNDYFLKGQ3aW-LZ9vc1yTsW1jod3-drA4F7q0eurkg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQwODo0ODo1OS4zOTVaIiwiZXhwIjoxNjk4NzQ1NzM5LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTY5ODc0MjEzOX0.LlasLpNGRocwwdGqSagRb0Ip8Fd6vKve6K7_s_RB25g
 
 
 GET http://localhost:8080/api-dev/externalSystems/externalSystemsStatsHistory?durationType=1
@@ -362,7 +305,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
 
 GET http://localhost:8080/api-dev/externalSystems/externalSystemsStatsDeliveryOrder?durationType=1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMlQxMTo0OTo0Ni4yMzlaIiwiZXhwIjoxNjk3OTg2MTg2LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTIwNDMxYWYzY2UyYmVlZjE0MWZkODgiLCJpYXQiOjE2OTc5NzUzODZ9.vNNDYFLKGQ3aW-LZ9vc1yTsW1jod3-drA4F7q0eurkg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQwODo0ODo1OS4zOTVaIiwiZXhwIjoxNjk4NzQ1NzM5LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTY5ODc0MjEzOX0.LlasLpNGRocwwdGqSagRb0Ip8Fd6vKve6K7_s_RB25g
 
 
 
