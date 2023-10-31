@@ -10,6 +10,7 @@ export enum RoutePath {
     LAUNCH_MAIL = '/launchMail',
     DEV_LAUNCH = '/devLaunch',
     ORDERS= '/orders',
+    PATCH_ORDER = '/patch/orders',
     ORDER_BY_USER_ID = '/byUserId',
     ORDER_BY_ORDER_ID = '/byOrderId',
     ORDER_BY_PAGINATION = '/pagination',

@@ -80,6 +80,7 @@ const CreateRetailer = () => {
                 if (result[0]) {
                     if (state?.businessAdmin?.adminUsername === state?.manager?.managerUsername) {
                         setErrorState('adminUsernameReserved');
+                        return;
                     }
                     const usernameBusinessAdminAvailability = 
                         await checkUsernameValidity({ username: state?.businessAdmin?.adminUsername });
@@ -121,11 +122,6 @@ const CreateRetailer = () => {
                 } else {
                     setErrorState(result[1]);
                 }
-
-            } else if (step === 4) {
-                dispatch(setStageOneCreateStore({}));
-                dispatch(setStageTwoCreateStore({}));
-                dispatch(setStageThreeCreateStore({}));
             }
         }
     };
@@ -149,17 +145,25 @@ const CreateRetailer = () => {
     }, [selector]);
 
     const goBack = async () => {
-        if (step === 3) {
+        if (step === 4) {
             await dispatch(resetIsLoadingPhaseThree());
+            setState({});
+            setStep((s) => s - 1);
+        } else if (step === 3) {
+            await dispatch(resetIsLoadingPhaseThree());
+            setState({});
             setStep((s) => s - 1);
         } else if (step === 2) {
             await dispatch(resetIsLoadingPhaseTwoFiscal());
+            setState({});
             setStep((s) => s - 1);
         } else if (step === 1) {
             await dispatch(resetIsLoadingPhaseTwo());
+            setState({});
             setStep((s) => s - 1);
         } else if (step === 0) {
             await dispatch(resetIsLoadingPhaseOne());
+            setState({});
             setStep((s) => s - 1);
         }
     };

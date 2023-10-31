@@ -60,11 +60,11 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
 
     // When changing the state, update the parent state 
     useEffect(() => {
-        setState((currentState) => { return { ...currentState, ...state }; } );
+        setState((currentState) => { return state; } );
     }, [state]);
 
     useEffect(() => {
-        setState((currentState) => { return { ...currentState, ...state }; } );
+        setState((currentState) => { return state; } );
     }, [state, errorState]);
 
     const t = useCallback((key) => translate(`dashboard.adminTools.createRetailer.fiscal.${key}`), [translate]);
@@ -116,7 +116,9 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         }}
                         value = {state?.zip}
                         />
-
+                        {errorState === 'zip' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter zip</span>}
                     </div>
                     <div className='section-two'>
                         <br></br>
