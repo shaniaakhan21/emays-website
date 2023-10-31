@@ -2,7 +2,7 @@
 /* eslint-disable max-len */
 'use strict';
 
-import { CreateOrderFunc, DeleteOrderByOrderIdFunc, GetOrderDetailsWithPages, PatchOrderDetailsByUserIdFunc, RetrieveOrderByOrderIdFunc, RetrieveOrderByUserIdFunc, RetrieveOrdersByDeliveryStatusFunc } from '../type/orderServiceType';
+import { CreateOrderFunc, DeleteOrderByOrderIdFunc, GetOrderDetailsWithPages, PatchOrderDetailsByOrderIdFunc, PatchOrderDetailsByUserIdFunc, RetrieveOrderByOrderIdFunc, RetrieveOrderByUserIdFunc, RetrieveOrdersByDeliveryStatusFunc } from '../type/orderServiceType';
 import { IOrder, IOrderDTO, IOrderPaginationDTO } from '../type/orderType';
 import { Logger } from '../log/logger';
 import { buildErrorMessage, buildInfoMessageMethodCall,
@@ -11,7 +11,7 @@ import LogType from '../const/logType';
 import { serviceErrorBuilder } from '../util/serviceErrorBuilder';
 import { saveOrder, retrieveOrderByUserId, findOneAndUpdateIfExist,
     deleteOrderById,
-    retrieveOrderByDeliveryStatus, getOrderDocumentSize, getOrderDetailDocumentsArrayByStartAndEndIndex, retrieveOrderByOrderId } from '../data/model/OrderECommerceModel';
+    retrieveOrderByDeliveryStatus, getOrderDocumentSize, getOrderDetailDocumentsArrayByStartAndEndIndex, retrieveOrderByOrderId, findOneAndUpdateIfExistByOrderId } from '../data/model/OrderECommerceModel';
 import { sendEmailForOrderCancellation, sendEmailForOrderingItems } from './emailService';
 import { config } from '../config/config';
 import { Order } from '../type/orderType';
@@ -232,8 +232,38 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Patch order basic data', `uid: ${userId}`), LogType.INFO);
-        patchOrder.deliveredDate = new Date(patchOrder.deliveredDate as unknown as string);
+        if (patchOrder?.deliveredDate) {
+            patchOrder.deliveredDate = new Date(patchOrder.deliveredDate as unknown as string);
+        }
         const result = await findOneAndUpdateIfExist(userId, patchOrder);
+        if (patchOrder.isCanceled) {
+            // Send cancellation email
+            await sendOrderCancellationMail(result as IOrder);
+        }
+        Logging.log(buildInfoMessageUserProcessCompleted('Patch order basic data', `Order Data:
+            ${JSON.stringify(result)}` ), LogType.INFO);
+        return result;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Patch Order'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Patch order
+ * @param {string} userId Order id
+ * @returns {Promise<IOrderDTO>} Promise with order data
+ */
+export const patchOrderDetailsByOrderId: PatchOrderDetailsByOrderIdFunc = async (orderId, patchOrder) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Patch order basic data', `or: ${orderId}`), LogType.INFO);
+        if (patchOrder?.deliveredDate) {
+            patchOrder.deliveredDate = new Date(patchOrder.deliveredDate as unknown as string);
+        }
+        const result = await findOneAndUpdateIfExistByOrderId(orderId, patchOrder);
         if (patchOrder.isCanceled) {
             // Send cancellation email
             await sendOrderCancellationMail(result as IOrder);
@@ -280,6 +310,7 @@ export const getOrderDetailsWithPagination: GetOrderDetailsWithPages = async (pa
             };
         }
         const orderData = await getOrderDetailDocumentsArrayByStartAndEndIndex(startIndex, pageSize, branchId, isCompleted);
+        console.log('------>>', orderData);
         results.pages = orderData;
         return results;
     } catch (error) {

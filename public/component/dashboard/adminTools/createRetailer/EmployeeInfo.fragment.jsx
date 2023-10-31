@@ -6,6 +6,7 @@ import GoogleMap from '../../../common/googleMap';
 import { useSelector } from 'react-redux';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import ContactNumberInput from '../../../common/ContactNumberInput';
+import TextBoxPassword from '../../../common/TextBoxPassword';
 
 const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
 
@@ -124,10 +125,13 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         {errorState === 'managerUsernameReserved' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 This username already reserved</span>}
-                        <TextInput labelText={t('password')} onChange={(e) => {
-                            setFormData({ type: 'setManagerPassword', data: e.target.value });
-                        }} 
-                        value = {state?.manager?.managerPassword}
+                        <TextBoxPassword
+                            onChange={(e) => {
+                                setFormData({ type: 'setManagerPassword', data: e.target.value });
+                            }}
+                            labelText={t('password')}
+                            hidePasswordLabel='Hide password'
+                            customStyle={{ width: '100%' }}
                         />
                         {errorState === 'managerPassword' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
@@ -184,10 +188,13 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         {errorState === 'adminUsernameReserved' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 This username already reserved</span>}
-                        <TextInput labelText={t('password')} onChange={(e) => {
-                            setFormData({ type: 'setBusinessAdminPassword', data: e.target.value });
-                        }} 
-                        value = {state?.businessAdmin?.adminPassword}
+                        <TextBoxPassword
+                            onChange={(e) => {
+                                setFormData({ type: 'setBusinessAdminPassword', data: e.target.value });
+                            }}
+                            labelText={t('password')}
+                            hidePasswordLabel='Hide password'
+                            customStyle={{ width: '100%' }}
                         />
                         {errorState === 'adminPassword' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>

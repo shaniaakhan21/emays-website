@@ -82,8 +82,9 @@ export interface IOrderDTO {
     history?: Array<Date>,
     isDelivered?: boolean,
     isDriverPicked?: boolean,
+    isPrepared?: boolean,
     isCanceled?: boolean,
-    paymentRef?: string
+    paymentRef?: string,
     terminalPaymentRef?: string,
     serviceFee: number
 }

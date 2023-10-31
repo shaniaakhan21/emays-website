@@ -117,6 +117,13 @@ export const registerExternalSystem = createAsyncThunk('newStore/saveExternalSys
     }
 });
 
+export const resetAllStoreCreationData = createAsyncThunk('newStore/resetAll', async (data, { getState }) => {
+    const authToken = getState().loginState.token;
+    if (authToken) {
+        return true;
+    }
+});
+
 export const checkUsernameValidity = async (data) => {
     const authToken = getAuthToken();
     if (authToken) {

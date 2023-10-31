@@ -14,6 +14,9 @@ import '../../../scss/component/dashboard/selectedItem.scss';
 import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
 import ButtonCustom from '../../common/ButtonCustom';
 import OrderReviewHorizontal from '../orderReview/OrderReviewHorizontal';
+import { patchOrderByOrderId } from '../../../services/dashboard/order';
+import { getOrderStatus } from '../../../js/util/stateBuilderUtil';
+import { changeStatusSelectedOrder } from '../redux/thunk/selectedOrderThunk';
 
 const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
@@ -25,7 +28,7 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
     const dispatch = useDispatch();
 
     useEffect(() => {
-    }, [selectedOrderSelector]);
+    }, [selectedOrderSelector?.isLoading]);
 
     const headers = useMemo(
         () => ['id', 'client', 'amount', 'date', 'time', 'status'].map(key => ({ key, header: t(`table.${key}`) })
@@ -88,7 +91,8 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
             date: payload?.date?.split('T')[0] || '',
             time: `${hours}:${minutes}` || '',
             orderItems: payload?.orderItems,
-            status: <StatusBox status={getOrderStatus({ isDelivered: payload?.isDelivered })}/>
+            status: <StatusBox status={getOrderStatus({ isDelivered: data?.isDelivered,
+                isPrepared: data?.isPrepared })}/>
         };
     };
     
@@ -151,13 +155,20 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
                 <div className='button-order-prepared'>
                     <ButtonCustom
                         text={'Mark ready to pick up'}
-                        action={() => {}}
+                        disabled = {selectedOrderSelector?.data?.basicInfo?.isPrepared ? true : false }
+                        action={() => {
+                            dispatch(changeStatusSelectedOrder({ orderId: selectedOrderSelector?.data?.basicInfo?._id,
+                                patchData: {
+                                    isPrepared: true 
+                                } }));
+                        }}
                         customStyle={{
                             width: '500px',
                             marginTop: '25px',
                             marginBottom: '15px',
                             padding: '1%',
-                            backgroundColor: '#24a148',
+                            backgroundColor: `${selectedOrderSelector?.data?.basicInfo?.isPrepared ?
+                                'rgb(196, 196, 196)' : '#24a148'}`,
                             color: 'white'
                         }}
                     />

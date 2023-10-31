@@ -26,6 +26,8 @@ export type RetrieveOrdersByDeliveryStatusFunc = (isDelivered: boolean) => Promi
 
 export type PatchOrderDetailsByUserIdFunc = (userId: string, patchData: IPatchOrder) => Promise<IOrderDTO>;
 
+export type PatchOrderDetailsByOrderIdFunc = (orderId: string, patchData: IPatchOrder) => Promise<IOrderDTO>;
+
 export type GetOrderDetailsWithPages = (noOfPages: number, pageLimit: number,
    role: string, branchId?: string, isCompleted?: boolean) => Promise<IOrderPaginationDTO>;
 

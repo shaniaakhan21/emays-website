@@ -1,7 +1,7 @@
 'use strict';
 
 import { createSlice } from '@reduxjs/toolkit';
-import { storeSelectedOrder } from '../thunk/selectedOrderThunk';
+import { changeStatusSelectedOrder, storeSelectedOrder } from '../thunk/selectedOrderThunk';
     
 const initialState = {
     isLoading: true,
@@ -20,6 +20,14 @@ const selectedOrderSlice = createSlice({
         });
         builder.addCase(storeSelectedOrder.pending, (state, action) => {
             state.isLoading = true;
+        });
+        builder.addCase(changeStatusSelectedOrder.pending, (state, action) => {
+            state.isLoading = true;
+        });
+        builder.addCase(changeStatusSelectedOrder.fulfilled, (state, action) => {
+            state.data.selectedTableRow[0].status.props.status = 'pending-pick-up';
+            state.data.basicInfo.isPrepared = action?.payload?.patchedStatus;
+            state.isLoading = false;
         });
     }
 });

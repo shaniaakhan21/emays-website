@@ -10,7 +10,7 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     ADMIN_EXT_USERNAME_REQUIRED, AREA_REQUIRED, BRANCH_ID_REQUIRED, CANCELLATION_STATUS_REQUIRED, CONTENT_TYPE_REQUIRED
     , CREATED_TIME_CAN_NOT_MODIFY, DELIVERED_STATUS_REQUIRED, DELIVERY_INFO_REQUIRED
     , DURATION_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
-    , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
+    , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_FISCAL_INFO_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
     EXTERNAL_SYSTEM_PASSWORD_REQUIRED, EXTERNAL_SYSTEM_USERNAME_REQUIRED,
     EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY
     , LATITUDE_REQUIRED, LONGITUDE_REQUIRED, MANAGER_EXT_PHONE_REQUIRED, ORDER_DATE_REQUIRED
@@ -282,7 +282,7 @@ export const validateCreateExtSysRequestBody = (req: Request, res: Response, nex
                 country: Joi.string().required()
             }).required().error((error) => {
                 const err = error as Error | unknown;
-                return validatorErrorBuilder(err as Error, EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED);
+                return validatorErrorBuilder(err as Error, EXTERNAL_SYSTEM_FISCAL_INFO_REQUIRED);
             }),
             extSysAddress: Joi.object().keys({ 
                 // Street
@@ -609,6 +609,9 @@ export const validateOrderPatchRequestBody = (req: Request, res: Response, next:
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, CANCELLATION_STATUS_REQUIRED); }),
             isDelivered: Joi.boolean().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DELIVERED_STATUS_REQUIRED); }),
+            isPrepared: Joi.boolean().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, DELIVERED_STATUS_REQUIRED); }),
             serviceFee: Joi.number().error((error) => {

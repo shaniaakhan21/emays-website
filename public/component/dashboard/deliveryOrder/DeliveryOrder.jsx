@@ -102,7 +102,8 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
                 date: data?.date?.split('T')[0] || '',
                 time: `${hours}:${minutes}` || '',
                 orderItems: data?.orderItems,
-                status: <StatusBox status={getOrderStatus({ isDelivered: data?.isDelivered })}/>
+                status: <StatusBox status={getOrderStatus({ isDelivered: data?.isDelivered,
+                    isPrepared: data?.isPrepared })}/>
             };
         });
         return tableData;
