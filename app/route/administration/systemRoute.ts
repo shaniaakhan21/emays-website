@@ -40,6 +40,8 @@ import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../const/errorMessage';
 import { ManagerExternalSystemModel } from '../../data/model/ManagerExternalSystemModel';
 import { getManagerExternalSystemToken } from '../../service/administration/managerExternalSystemService';
 import DurationUtil from '../../util/durationUtil';
+import { DriverModel } from '../../data/model/DriverModel';
+import { getDriverToken } from '../../service/administration/driverExternalSystemService';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -178,6 +180,8 @@ router.post(requestTokenPathCommonLogin, validateHeader, validateUserTokenReques
         const isUsernameReservedInSuperUser = await SuperUserModel.findOne({ 'username': requestBody.username }).exec();
         const isUsernameReservedInManager = 
             await ManagerExternalSystemModel.findOne({ 'managerUsername': requestBody.username }).exec();
+        const isUsernameReservedInDriver = 
+            await DriverModel.findOne({ 'driverUsername': requestBody.username }).exec();
 
         if (isUsernameReservedInExternalSystem) {
             const externalSystemLoginResult = await getExternalSystemToken(requestBody.username, requestBody.password);
@@ -202,6 +206,12 @@ router.post(requestTokenPathCommonLogin, validateHeader, validateUserTokenReques
             Logging.log(buildInfoMessageUserProcessCompleted(
                 'Request manager login user token', requestBody.username), LogType.INFO);
             return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(managerUserLoginResult));
+        } else if (isUsernameReservedInDriver) {
+            const driverLoginResult = await getDriverToken(
+                requestBody.username, requestBody.password);
+            Logging.log(buildInfoMessageUserProcessCompleted(
+                'Request driver login user token', requestBody.username), LogType.INFO);
+            return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(driverLoginResult));
         }
         throw new ServiceError(ErrorType.UNAUTHORIZED, INVALID_CREDENTIALS_ERROR_MESSAGE, '', HTTPUserError.
             UNAUTHORIZED_CODE);

@@ -29,6 +29,38 @@ export const RESOURCE_FOUND_AT_THIS_URL_MESSAGE = 'Resource found at the URL';
 
 export const EMAIL_REQUIRED = 'Email required';
 
+export const DRIVER_FIRST_NAME_REQUIRED = 'Driver first name required';
+
+export const DRIVER_LAST_NAME_REQUIRED = 'Driver last name required';
+
+export const DRIVER_CONTACT_NUMBER_REQUIRED = 'Driver contact number required';
+
+export const DRIVER_CITY_REQUIRED = 'Driver city required';
+
+export const DRIVER_COUNTRY_REQUIRED = 'Driver country required';
+
+export const DRIVER_ZIP_CODE_REQUIRED = 'Driver zip code required';
+
+export const DRIVER_LICENSE_NUMBER_REQUIRED = 'Driver license number required';
+
+export const DRIVER_CAR_MODEL_REQUIRED = 'Driver car model required';
+
+export const DRIVER_BILLING_ADDRESS_REQUIRED = 'Driver billing address required';
+
+export const DRIVER_BILLING_EMAIL_REQUIRED = 'Driver billing email required';
+
+export const DRIVER_BILLING_BANK_NAME_REQUIRED = 'Driver billing bank name required';
+
+export const DRIVER_BILLING_ACCOUNT_NUMBER_REQUIRED = 'Driver billing bank account number required';
+
+export const DRIVER_BILLING_ACCOUNT_SWIFT_NUMBER_REQUIRED = 'Driver billing bank account swift number required';
+
+export const DRIVER_BILLING_ACCOUNT_COUNTRY_REQUIRED = 'Driver billing bank account country required';
+
+export const DRIVER_USERNAME_REQUIRED = 'Driver username required';
+
+export const DRIVER_PASSWORD_REQUIRED = 'Driver password required';
+
 export const USER_FIRST_NAME_REQUIRED = 'User first name required';
 
 export const USER_LAST_NAME_REQUIRED = 'User last name required';
