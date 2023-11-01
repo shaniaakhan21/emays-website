@@ -3,7 +3,7 @@
 import * as express from 'express';
 import * as core from 'express-serve-static-core';
 import { Router, Request, Response, NextFunction } from 'express';
-import { allowedForExternalSystemSuperUserAndAdminRolesOnly,
+import { allowedForExternalSystemSuperUserAndAdminANDManagerRolesOnly,
     validateCreateExtSysRequestBody,
     validateExternalSystemTokenRequestBody, validateHeader,
     validateStatRouteParams,
@@ -120,7 +120,7 @@ router.post(requestExtSysTokenPath, validateHeader, validateExternalSystemTokenR
  * @returns {void}
  */
 const getSystemInfoPath = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEM_INFO}`;
-router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, (
+router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUserAndAdminANDManagerRolesOnly, (
     req: Request, res: Response, next: NextFunction): void => {
     (async () => { 
         const claims = (req as AppRequest).claims as unknown as IJWTClaims;
@@ -233,7 +233,7 @@ router.post(requestTokenPathCommonLogin, validateHeader, validateUserTokenReques
  */
 const getSystemHistoryStats = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEMS_HISTORY_STATS}`;
 // eslint-disable-next-line max-len
-router.get(getSystemHistoryStats, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, validateStatRouteParams, (
+router.get(getSystemHistoryStats, validateHeader, allowedForExternalSystemSuperUserAndAdminANDManagerRolesOnly, validateStatRouteParams, (
     req: express.Request<core.ParamsDictionary, any, any,
     { durationType: string, storeId: string }>, res: Response, next: NextFunction): void => {
     (async () => {
@@ -257,7 +257,7 @@ router.get(getSystemHistoryStats, validateHeader, allowedForExternalSystemSuperU
  */
 const getSystemDeliveryOrderStats = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEMS_DELIVERY_ORDER_STATS}`;
 // eslint-disable-next-line max-len
-router.get(getSystemDeliveryOrderStats, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, validateStatRouteParams, (
+router.get(getSystemDeliveryOrderStats, validateHeader, allowedForExternalSystemSuperUserAndAdminANDManagerRolesOnly, validateStatRouteParams, (
     req: express.Request<core.ParamsDictionary, any, any,
     { durationType: string, storeId: string }>, res: Response, next: NextFunction): void => {
     (async () => {
@@ -281,7 +281,7 @@ router.get(getSystemDeliveryOrderStats, validateHeader, allowedForExternalSystem
  */
 const getOverviewOrderStats = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEMS_OVERVIEW_STATS}`;
 // eslint-disable-next-line max-len
-router.get(getOverviewOrderStats, validateHeader, allowedForExternalSystemSuperUserAndAdminRolesOnly, validateStatRouteParams, (
+router.get(getOverviewOrderStats, validateHeader, allowedForExternalSystemSuperUserAndAdminANDManagerRolesOnly, validateStatRouteParams, (
     req: express.Request<core.ParamsDictionary, any, any,
     { durationType: string, storeId: string }>, res: Response, next: NextFunction): void => {
     (async () => {
