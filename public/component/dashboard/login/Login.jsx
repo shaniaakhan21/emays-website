@@ -23,11 +23,11 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                         <img src={LOGO} height={'100px'} width={'130px'} alt='EMAYS' />
                     </div>
                 </div>
-                <div className='cds--col'>
+                {/* <div className='cds--col'>
                     <div className='retailer-head'>
                         <h3>{t('dashboard.login.heading-retailer')}</h3>
                     </div>
-                </div>
+                </div> */}
             </div>
             <div className='cds--row'>
                 <div className='cds--col text-container'>

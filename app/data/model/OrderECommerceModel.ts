@@ -173,7 +173,6 @@ export const findOneAndUpdateIfExist: PatchOrderDetailsByUserIdFunc = async (use
 export const findOneAndUpdateIfExistByOrderId: PatchOrderDetailsByOrderIdFunc = async (orderId, patchData) => {
     try {
         const currentOrderData = await OrderECommerceModel.findOne({ '_id': orderId }).exec();
-        console.log('--ORDER FOUND--->>>', currentOrderData);
         if (currentOrderData) {
             currentOrderData.history?.push( new Date());
             const filteredData = prepareUserDetailsToSend(currentOrderData);

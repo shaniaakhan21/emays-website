@@ -30,7 +30,6 @@ const CreateDriver = () => {
         if (step < 5) {
             if (step === 0) {
                 const result = validateObjectNullEmptyCheck(state, ['']);
-                console.log('--------->>', result);
                 if (result[0]) {
                     setErrorState(null);
                     dispatch(setStageOneCreateDriver(state));
