@@ -129,7 +129,6 @@ const DashboardLayout = () => {
                                         </SideNavLink>
                                     }
                                     
-
                                     {/* NEW ORDER */}
                                     {
                                         (loginStatusStore?.role === 'super' || 
@@ -142,7 +141,8 @@ const DashboardLayout = () => {
 
                                     {/* ADMIN TOOLS */}
                                     {
-                                        loginStatusStore?.role === 'super' && <SideNavLink
+                                        (loginStatusStore?.role === 'super' || 
+                                        loginStatusStore?.role === 'external_system') && <SideNavLink
                                             renderIcon={OperationsField}
                                             href='/#/dashboard/adminTools'>
                                         Admin Tools
