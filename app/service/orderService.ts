@@ -310,7 +310,6 @@ export const getOrderDetailsWithPagination: GetOrderDetailsWithPages = async (pa
             };
         }
         const orderData = await getOrderDetailDocumentsArrayByStartAndEndIndex(startIndex, pageSize, branchId, isCompleted);
-        console.log('------>>', orderData);
         results.pages = orderData;
         return results;
     } catch (error) {

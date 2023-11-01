@@ -90,16 +90,25 @@ const DashboardLayout = () => {
                                 href='#main-content'
                                 onSideNavBlur={onClickSideNavExpand}>
                                 <SideNavItems>
-                                    <SideNavLink
-                                        renderIcon={View}
-                                        href='/#/dashboard/overview'>
+
+                                    {/* OVERVIEW */}
+                                    {
+                                        loginStatusStore?.role === 'super' && <SideNavLink
+                                            renderIcon={View}
+                                            href='/#/dashboard/overview'>
                                         Overview
-                                    </SideNavLink>
-                                    <SideNavLink
-                                        renderIcon={ListDropdown}
-                                        href='/#/dashboard/deliveryOrders'>
+                                        </SideNavLink>
+                                    }
+
+                                    {/* DELIVERY ORDER */}
+                                    {
+                                        loginStatusStore?.role === 'super' && <SideNavLink
+                                            renderIcon={ListDropdown}
+                                            href='/#/dashboard/deliveryOrders'>
                                         Delivery Order
-                                    </SideNavLink>
+                                        </SideNavLink>
+                                    }
+                                    
                                     {/* <SideNavLink
                                         renderIcon={ListDropdown}
                                         href='/#/dashboard/deliveryOrders'>
@@ -110,16 +119,28 @@ const DashboardLayout = () => {
                                         href='/#/dashboard/customers'>
                                         Customers
                                     </SideNavLink> */}
-                                    <SideNavLink
-                                        renderIcon={ServerTime}
-                                        href='/#/dashboard/history'>
+
+                                    {/* HISTORY */}
+                                    {
+                                        loginStatusStore?.role === 'super' && <SideNavLink
+                                            renderIcon={ServerTime}
+                                            href='/#/dashboard/history'>
                                         History
-                                    </SideNavLink>
-                                    <SideNavLink
-                                        renderIcon={NewTab}
-                                        href='/#/dashboard/newOrders'>
+                                        </SideNavLink>
+                                    }
+                                    
+
+                                    {/* NEW ORDER */}
+                                    {
+                                        (loginStatusStore?.role === 'super' || 
+                                        loginStatusStore?.role === 'external_system') && <SideNavLink
+                                            renderIcon={NewTab}
+                                            href='/#/dashboard/newOrders'>
                                         New Orders
-                                    </SideNavLink>
+                                        </SideNavLink>
+                                    }
+
+                                    {/* ADMIN TOOLS */}
                                     {
                                         loginStatusStore?.role === 'super' && <SideNavLink
                                             renderIcon={OperationsField}

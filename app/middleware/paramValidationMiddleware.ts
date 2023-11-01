@@ -9,7 +9,13 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     ADMIN_EXT_PHONE_REQUIRED,
     ADMIN_EXT_USERNAME_REQUIRED, AREA_REQUIRED, BRANCH_ID_REQUIRED, CANCELLATION_STATUS_REQUIRED, CONTENT_TYPE_REQUIRED
     , CREATED_TIME_CAN_NOT_MODIFY, DELIVERED_STATUS_REQUIRED, DELIVERY_INFO_REQUIRED
-    , DURATION_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
+    , DRIVER_BILLING_ACCOUNT_COUNTRY_REQUIRED, 
+    DRIVER_BILLING_ACCOUNT_NUMBER_REQUIRED, DRIVER_BILLING_ACCOUNT_SWIFT_NUMBER_REQUIRED,
+    DRIVER_BILLING_ADDRESS_REQUIRED, DRIVER_BILLING_BANK_NAME_REQUIRED, 
+    DRIVER_BILLING_EMAIL_REQUIRED, DRIVER_CAR_MODEL_REQUIRED, DRIVER_CITY_REQUIRED,
+    DRIVER_CONTACT_NUMBER_REQUIRED, DRIVER_COUNTRY_REQUIRED, DRIVER_FIRST_NAME_REQUIRED, DRIVER_LAST_NAME_REQUIRED,
+    DRIVER_LICENSE_NUMBER_REQUIRED, DRIVER_PASSWORD_REQUIRED, DRIVER_USERNAME_REQUIRED, DRIVER_ZIP_CODE_REQUIRED,
+    DURATION_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
     , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_FISCAL_INFO_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
     EXTERNAL_SYSTEM_PASSWORD_REQUIRED, EXTERNAL_SYSTEM_USERNAME_REQUIRED,
     EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY
@@ -117,6 +123,82 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
 };
 
 /**
+ * Check register driver params
+ * @param req Request 
+ * @param res Response
+ * @param next NextFunction
+ */
+export const validateCreateDriver = (req: Request, res: Response, next: NextFunction) => {
+    const checkOrderParams = Joi.object({
+        body: {
+            firstName: Joi.string().max(50).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DRIVER_FIRST_NAME_REQUIRED); }),
+            lastName: Joi.string().max(50).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DRIVER_LAST_NAME_REQUIRED); }),
+            phoneNumber: Joi.string().max(15).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DRIVER_CONTACT_NUMBER_REQUIRED); }),
+            address: Joi.object().keys({
+                city: Joi.string().max(50).required().error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_CITY_REQUIRED); }),
+                country: Joi.string().max(50).required().error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_COUNTRY_REQUIRED); }),
+                zipCode: Joi.string().max(15).required().error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_ZIP_CODE_REQUIRED); })
+            }),
+            license: Joi.object().keys({
+                licenseNumber: Joi.string().max(15).required().error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_LICENSE_NUMBER_REQUIRED); }),
+                carModel: Joi.string().max(15).required().error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_CAR_MODEL_REQUIRED); }) 
+            }),
+            billing: Joi.object().keys({
+                address: Joi.string().max(120).required().error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_BILLING_ADDRESS_REQUIRED); }),
+                email: Joi.string().required().max(50).email().error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_BILLING_EMAIL_REQUIRED);
+                }),
+                bankName: Joi.string().required().max(50).error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_BILLING_BANK_NAME_REQUIRED);
+                }),
+                accountNumber: Joi.string().required().max(50).error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_BILLING_ACCOUNT_NUMBER_REQUIRED);
+                }),
+                swiftNumber: Joi.string().required().max(50).error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_BILLING_ACCOUNT_SWIFT_NUMBER_REQUIRED);
+                }),
+                country: Joi.string().required().max(50).error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_BILLING_ACCOUNT_COUNTRY_REQUIRED);
+                })
+            }),
+            driverUsername: Joi.string().required().max(20).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DRIVER_USERNAME_REQUIRED);
+            }),
+            driverPassword: Joi.string().required().max(50).pattern(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DRIVER_PASSWORD_REQUIRED);
+            })
+        }
+    });
+    validateRequest(req, next, checkOrderParams);
+};
+
+/**
  * Validate zip code
  * @param req Request 
  * @param res Response
@@ -210,32 +292,6 @@ export const allowedForSuperRoleOnly = (req: Request, res: Response, next: NextF
     const validationCriteria = Joi.object({
         claims: {
             roles: Joi.array().required().items(Joi.string().valid(Roles.SUPER)).error((error) => {
-                const err = error as Error | unknown;
-                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
-            })
-        }
-    });
-    validateRequest(req, next, validationCriteria);
-};
-
-// Validate only retailer role allowed route
-export const allowedForRetailerRoleOnly = (req: Request, res: Response, next: NextFunction) => {
-    const validationCriteria = Joi.object({
-        claims: {
-            roles: Joi.array().required().items(Joi.string().valid(Roles.RETAILER)).error((error) => {
-                const err = error as Error | unknown;
-                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
-            })
-        }
-    });
-    validateRequest(req, next, validationCriteria);
-};
-
-// Validate only assistant role allowed route
-export const allowedForAssistantRoleOnly = (req: Request, res: Response, next: NextFunction) => {
-    const validationCriteria = Joi.object({
-        claims: {
-            roles: Joi.array().required().items(Joi.string().valid(Roles.ASSISTANT)).error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
             })

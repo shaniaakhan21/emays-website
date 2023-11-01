@@ -129,29 +129,8 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
                         }
                     </div>
                 </div>
-            </div>
-            <div className={'item-row selected-item-items'}>
-                <div>
-                    { 
-                        // Selected row
-                        !isSearchPerformed && selectedOrderSelector?.data && 
-                        <OrderReviewHorizontal basicInfo = {selectedOrderSelector?.data?.basicInfo}
-                            itemsInfo = {selectedOrderSelector?.data?.itemsInfo}
-                            infoTitle = {selectedOrderSelector?.data?.infoTitle}
-                            itemsTitle = {selectedOrderSelector?.data?.itemTitle}/>
-                    }
-                    {
-                        // Search result
-                        isSearchPerformed &&
-                        <OrderReviewHorizontal basicInfo={selectedRow?.basicInfo}
-                            itemsInfo={selectedRow?.itemsInfo}
-                            infoTitle={'Appointment'}
-                            itemsTitle={'Items'} />
-                    }
-                </div>
-            </div>
-            {
-                selectedOrderSelector?.data?.headerType === 'DeliveryOrder' && 
+                {
+                    selectedOrderSelector?.data?.headerType === 'DeliveryOrder' && 
                 <div className='button-order-prepared'>
                     <ButtonCustom
                         text={'Mark ready to pick up'}
@@ -173,7 +152,28 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
                         }}
                     />
                 </div>
-            }
+                }
+            </div>
+            <div className={'item-row selected-item-items'}>
+                <div>
+                    { 
+                        // Selected row
+                        !isSearchPerformed && selectedOrderSelector?.data && 
+                        <OrderReviewHorizontal basicInfo = {selectedOrderSelector?.data?.basicInfo}
+                            itemsInfo = {selectedOrderSelector?.data?.itemsInfo}
+                            infoTitle = {selectedOrderSelector?.data?.infoTitle}
+                            itemsTitle = {selectedOrderSelector?.data?.itemTitle}/>
+                    }
+                    {
+                        // Search result
+                        isSearchPerformed &&
+                        <OrderReviewHorizontal basicInfo={selectedRow?.basicInfo}
+                            itemsInfo={selectedRow?.itemsInfo}
+                            infoTitle={'Appointment'}
+                            itemsTitle={'Items'} />
+                    }
+                </div>
+            </div>
         </div>
     );
 };

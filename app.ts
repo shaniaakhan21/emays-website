@@ -14,6 +14,7 @@ import { config } from './app/config/config';
 import healthRoute from './app/route/healthRoute';
 import launchRoute from './app/route/launchRoute';
 import calenderRoute from './app/route/calendarRoute';
+import driverRoute from './app/route/administration/driverRoute';
 import orderRoute from './app/route/userOrderRoute';
 import customerRoutes from './app/route/customerRoute';
 import externalSystemRoute from './app/route/administration/systemRoute';
@@ -71,6 +72,7 @@ app.use(config.ROUTE_PATH, letsTalkRoute);
 app.use(config.ROUTE_PATH, faqRoute);
 app.use(config.ROUTE_PATH, adminExternalSystemRoute);
 app.use(config.ROUTE_PATH, managerExternalSystemRoute);
+app.use(config.ROUTE_PATH, driverRoute);
 app.use(customerRoutes);
 
 /*

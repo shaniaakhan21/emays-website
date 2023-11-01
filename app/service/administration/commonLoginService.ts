@@ -13,6 +13,8 @@ import { USERNAME_RESERVED } from '../../const/errorMessage';
 import { CreateLoginFunc } from '../../type/commonLoginServiceType';
 import { AdminExternalSystemModel } from '../../data/model/AdminExternalSystemModel';
 import { SuperUserModel } from '../../data/model/SuperUserModel';
+import { ManagerExternalSystemModel } from '../../data/model/ManagerExternalSystemModel';
+import { DriverModel } from '../../data/model/DriverModel';
 
 const Logging = Logger(__filename);
 
@@ -30,9 +32,13 @@ export const checkUsernameInCommon: CreateLoginFunc = async (username) => {
         const isUsernameReservedInExternalSystem = await ExternalSystemModel.
             findOne({ 'extSysUsername': username }).exec();
         const isUsernameReservedInAdmin = await AdminExternalSystemModel.findOne({ 'adminUsername': username }).exec();
+        const isUsernameReservedInManager = 
+            await ManagerExternalSystemModel.findOne({ 'managerUsername': username }).exec();
+        const isUsernameReservedInDriver = await DriverModel.findOne({ 'driverUsername': username }).exec();
         const isUsernameReservedInSuperUser = await SuperUserModel.findOne({ 'username': username }).exec();
         
-        if (isUsernameReservedInAdmin || isUsernameReservedInExternalSystem || isUsernameReservedInSuperUser) {
+        if (isUsernameReservedInAdmin || isUsernameReservedInExternalSystem || isUsernameReservedInSuperUser || 
+            isUsernameReservedInManager || isUsernameReservedInDriver) {
             throw new ServiceError(
                 ErrorType.DATABASE_ERROR, USERNAME_RESERVED, '', HTTPUserError
                     .CONFLICT_ERROR_CODE);

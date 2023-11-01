@@ -309,7 +309,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
 
 
 
-PATCH http://localhost:8080/api-dev/orders/12345673410501
+PATCH https://emaysstyle.com/api/orders/12345673410501
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0yMVQxMDowNzoyMS45MjdaIiwiZXhwIjoxNjk3ODkzNjQxLCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTIwNDMxYWYzY2UyYmVlZjE0MWZkODgiLCJpYXQiOjE2OTc4ODI4NDF9.odIptSQloAsbB-0iz1QtQOfwlTT45OmPEhyqyIf_xI8
 
@@ -317,3 +317,61 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
     "isDelivered": true,
     "deliveredDate": "2023-09-16T16:29:01.749Z"
 }
+
+
+PATCH https://emaysstyle.com/api/patch/orders/65149f8b53638a1254c05983
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQxMToxMDozNy42MjJaIiwiZXhwIjoxNjk4NzU0MjM3LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTY5ODc1MDYzN30.0msgq5vE_PM8eDJbine99UcTwS0Yixm8R1j2NC08gew
+
+{
+    "isPrepared": false
+}
+
+PATCH http://localhost:8080/api-dev/patch/orders/6540c3aa145f2819e09df26c
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQxMjo1Njo0OS4wNzJaIiwiZXhwIjoxNjk4NzYwNjA5LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1NDBiYzRmMTUzM2MwNDE4ZjdhYzcxNiIsImlhdCI6MTY5ODc1NzAwOX0.vObsNKpRAn-xcXzs1flV0tIZ9Zb6a3h2AEKgJVIcxR4
+
+{
+    "isDelivered": true,
+    "deliveredDate": "2023-09-16T16:29:01.749Z"
+}
+
+
+-------- DRIVER REGISTER -----------
+
+POST http://localhost:8080/api-dev/drivers
+content-type: application/json
+
+{
+    "firstName": "Driver X",
+    "lastName": "y",
+    "phoneNumber": "123234234",
+    "address": {
+        "city": "galle",
+        "country": "SL",
+        "zipCode": "001"
+    },
+    "license": {
+        "licenseNumber": "L01",
+        "carModel": "md"
+    },
+    "billing": {
+        "address": "no 01,  galle",
+        "email": "thath@gmail.com",
+        "bankName": "AL Z",
+        "accountNumber": "009221243",
+        "swiftNumber": "lkjo12903",
+        "country": "Srilanka"
+    },
+    "driverUsername": "kfjsdoff",
+    "driverPassword": "abCq2&!Ms"
+}
+
+POST http://localhost:8080/api-dev/login                                                                                                                                                                                                                    
+content-type: application/json
+
+{
+    "username": "kfjsdoff",
+    "password": "abCq2&!Ms"
+}
+
