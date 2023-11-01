@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import React, { useCallback, useEffect } from 'react';
 import { HashRouter as Router, Switch, Route } from 'react-router-dom';
 import Customer from './customer/Customer';
@@ -24,6 +25,9 @@ import OrderSelected from './orderSelected/OrderSelected';
 import { getHistoryStatsData } from './redux/thunk/historyStatsThunk';
 import { getDeliveryOrderStatsData } from './redux/thunk/deliveryOrderStatsThunk';
 import { getOverviewStatsData } from './redux/thunk/overviewStatsThunk';
+import { DriverDeliveryOrder } from './adminTools/driver/DeliveryOrder';
+import { DriverHistory } from './adminTools/driver/History';
+import { UnAuthorized } from './adminTools/UnAuthorized';
 
 const DashboardLayout = () => {
 
@@ -93,7 +97,10 @@ const DashboardLayout = () => {
 
                                     {/* OVERVIEW */}
                                     {
-                                        loginStatusStore?.role === 'super' && <SideNavLink
+                                        (loginStatusStore?.role === 'super' || 
+                                        loginStatusStore?.role === 'admin' || 
+                                        loginStatusStore?.role === 'manager' || 
+                                        loginStatusStore?.role === 'external_system') && <SideNavLink
                                             renderIcon={View}
                                             href='/#/dashboard/overview'>
                                         Overview
@@ -102,7 +109,10 @@ const DashboardLayout = () => {
 
                                     {/* DELIVERY ORDER */}
                                     {
-                                        loginStatusStore?.role === 'super' && <SideNavLink
+                                        (loginStatusStore?.role === 'super' ||
+                                        loginStatusStore?.role === 'admin' || 
+                                        loginStatusStore?.role === 'manager' || 
+                                        loginStatusStore?.role === 'external_system') && <SideNavLink
                                             renderIcon={ListDropdown}
                                             href='/#/dashboard/deliveryOrders'>
                                         Delivery Order
@@ -122,7 +132,10 @@ const DashboardLayout = () => {
 
                                     {/* HISTORY */}
                                     {
-                                        loginStatusStore?.role === 'super' && <SideNavLink
+                                        (loginStatusStore?.role === 'super' || 
+                                        loginStatusStore?.role === 'admin' || 
+                                        loginStatusStore?.role === 'manager' || 
+                                        loginStatusStore?.role === 'external_system') && <SideNavLink
                                             renderIcon={ServerTime}
                                             href='/#/dashboard/history'>
                                         History
@@ -132,6 +145,8 @@ const DashboardLayout = () => {
                                     {/* NEW ORDER */}
                                     {
                                         (loginStatusStore?.role === 'super' || 
+                                        loginStatusStore?.role === 'admin' || 
+                                        loginStatusStore?.role === 'manager' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
                                             renderIcon={NewTab}
                                             href='/#/dashboard/newOrders'>
@@ -148,6 +163,24 @@ const DashboardLayout = () => {
                                         Admin Tools
                                         </SideNavLink>
                                     }
+
+                                    {/* ----------- DRIVER ROUTES ----------- */}
+
+                                    {
+                                        loginStatusStore?.role === 'driver' && <SideNavLink
+                                            renderIcon={ListDropdown}
+                                            href='/#/dashboard/driver/deliveryOrders'>
+                                        Delivery Order
+                                        </SideNavLink>
+                                    }
+
+                                    {
+                                        loginStatusStore?.role === 'driver' && <SideNavLink
+                                            renderIcon={ServerTime}
+                                            href='/#/dashboard/driver/history'>
+                                       History
+                                        </SideNavLink>
+                                    }
                                 </SideNavItems>
                             </SideNav>
                         </>
@@ -155,75 +188,165 @@ const DashboardLayout = () => {
                 />
                 <div className='content-section'>
                     <Switch>
-                        <Route exact path='/dashboard/overview'
-                            component={() => <PaginationContainer
-                                wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                                // The property name of the overview component
-                                resourceName={'overviewData'}
-                                // Enable pagination
-                                isPaginationEnabled={false}
-                                getInitialData={getInitialDataOverview}
-                            ><Overview /></PaginationContainer>
-                            }></Route>
-                        <Route exact path='/dashboard/orders/created'
-                            component={() => <OrderCreated />}></Route>
-                        <Route exact path='/dashboard/customers'
-                            component={() => <Customer />}></Route>
-                        <Route exact path='/dashboard/selectedOrder'
-                            component={() => <OrderSelected />}></Route>
-                        <Route exact path='/dashboard/addItems'
-                            component={() => <AddItems />}></Route>
-                        <Route exact path='/dashboard/deliveryOrders'
-                            component={() => <PaginationContainer
-                                wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                                // The method used for fetch pagination data
-                                getPaginationData={getInCompletedOrderDataWrapper}
-                                // The property name of the overview component
-                                resourceName={'deliveryOrderData'}
-                                // Enable pagination
-                                isPaginationEnabled={true}
-                                getInitialData={getInitialDataDeliveryOrder}
-                            >
-                                <DeliveryOrder />
-                            </PaginationContainer>}></Route>
-                        <Route exact path='/dashboard/history'
-                            component={() => <PaginationContainer
-                                wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                                // The method used for fetch pagination data
-                                getPaginationData={getCompletedOrderDataWrapper}
-                                // The property name of the overview component
-                                resourceName={'historyData'}
-                                // Enable pagination
-                                isPaginationEnabled={true}
-                                getInitialData={getInitialDataHistory}
-                            >
-                                <History />
-                            </PaginationContainer>}></Route>
-                        <Route exact path='/dashboard/newOrders'
-                            component={() => <PaginationContainer
-                                wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                                // The method used for fetch data
-                                getInitialData={getNewOrderDataWrapper}
-                                // The property name of the overview component
-                                resourceName={'newOrderData'}
-                            >
-                                <NewOrder />
-                            </PaginationContainer>
-                            }></Route>
-                        <Route path='/dashboard/adminTools'
-                            component={() => <PaginationContainer
-                                wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-                                // The method used for fetch pagination data
-                                getPaginationData={getInCompletedOrderDataWrapper}
-                                // The property name of the overview component
-                                resourceName={'adminData'}
-                                // Enable pagination
-                                isPaginationEnabled={true}
-                            >
-                                <AdminToolsRouter />
-                            </PaginationContainer>}></Route>
+
+                        {
+                            (loginStatusStore?.role === 'super' || 
+                            loginStatusStore?.role === 'admin' || 
+                            loginStatusStore?.role === 'manager' || 
+                                loginStatusStore?.role === 'external_system') && <Route exact path='/dashboard/overview'
+                                component={() => <PaginationContainer
+                                    wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                    // The property name of the overview component
+                                    resourceName={'overviewData'}
+                                    // Enable pagination
+                                    isPaginationEnabled={false}
+                                    getInitialData={getInitialDataOverview}
+                                ><Overview /></PaginationContainer>
+                                }></Route>
+                        }
+
+                        {
+                            (loginStatusStore?.role === 'super' || 
+                            loginStatusStore?.role === 'admin' || 
+                            loginStatusStore?.role === 'manager' || 
+                                loginStatusStore?.role === 'external_system') &&  
+                                <Route exact path='/dashboard/orders/created'
+                                    component={() => <OrderCreated />}></Route>
+                        }
+
+                        {
+                            (loginStatusStore?.role === 'super' || 
+                            loginStatusStore?.role === 'admin' || 
+                            loginStatusStore?.role === 'manager' || 
+                                loginStatusStore?.role === 'external_system') && 
+                                <Route exact path='/dashboard/customers'
+                                    component={() => <Customer />}></Route>
+                        }
+                        
+                        {
+                            (loginStatusStore?.role === 'super' || 
+                            loginStatusStore?.role === 'admin' || 
+                            loginStatusStore?.role === 'manager' || 
+                                loginStatusStore?.role === 'external_system') &&
+                                <Route exact path='/dashboard/selectedOrder'
+                                    component={() => <OrderSelected />}></Route>
+                        }
+
+                        {
+                            (loginStatusStore?.role === 'super' || 
+                            loginStatusStore?.role === 'admin' || 
+                            loginStatusStore?.role === 'manager' || 
+                                loginStatusStore?.role === 'external_system') && <Route exact path='/dashboard/addItems'
+                                component={() => <AddItems />}></Route>
+                        }
+                        
+                        {
+                            (loginStatusStore?.role === 'super' || 
+                             loginStatusStore?.role === 'admin' || 
+                             loginStatusStore?.role === 'manager' || 
+                                 loginStatusStore?.role === 'external_system') && 
+                                 <Route exact path='/dashboard/deliveryOrders'
+                                     component={() => <PaginationContainer
+                                         wrapperStyle={{ display: 'flex',
+                                             alignItems: 'center', justifyContent: 'center' }}
+                                         // The method used for fetch pagination data
+                                         getPaginationData={getInCompletedOrderDataWrapper}
+                                         // The property name of the overview component
+                                         resourceName={'deliveryOrderData'}
+                                         // Enable pagination
+                                         isPaginationEnabled={true}
+                                         getInitialData={getInitialDataDeliveryOrder}
+                                     >
+                                         <DeliveryOrder />
+                                     </PaginationContainer>}></Route>
+                        }
+                        
+                        {
+                            (loginStatusStore?.role === 'super' || 
+                            loginStatusStore?.role === 'admin' || 
+                            loginStatusStore?.role === 'manager' || 
+                                loginStatusStore?.role === 'external_system') && <Route exact path='/dashboard/history'
+                                component={() => <PaginationContainer
+                                    wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                    // The method used for fetch pagination data
+                                    getPaginationData={getCompletedOrderDataWrapper}
+                                    // The property name of the overview component
+                                    resourceName={'historyData'}
+                                    // Enable pagination
+                                    isPaginationEnabled={true}
+                                    getInitialData={getInitialDataHistory}
+                                >
+                                    <History />
+                                </PaginationContainer>}></Route>
+                        }
+                    
+                        {
+                            (loginStatusStore?.role === 'super' || 
+                            loginStatusStore?.role === 'admin' || 
+                            loginStatusStore?.role === 'manager' || 
+                                loginStatusStore?.role === 'external_system') && 
+                                <Route exact path='/dashboard/newOrders'
+                                    component={() => <PaginationContainer
+                                        wrapperStyle={{ display: 'flex',
+                                            alignItems: 'center', justifyContent: 'center' }}
+                                        // The method used for fetch data
+                                        getInitialData={getNewOrderDataWrapper}
+                                        // The property name of the overview component
+                                        resourceName={'newOrderData'}
+                                    >
+                                        <NewOrder />
+                                    </PaginationContainer>
+                                    }></Route>
+                        }
+                        
+                        {
+                            loginStatusStore?.role === 'super' &&
+                                    <Route path='/dashboard/adminTools'
+                                        component={() => <PaginationContainer
+                                            wrapperStyle={{ display: 'flex',
+                                                alignItems: 'center', justifyContent: 'center' }}
+                                            // The method used for fetch pagination data
+                                            getPaginationData={getInCompletedOrderDataWrapper}
+                                            // The property name of the overview component
+                                            resourceName={'adminData'}
+                                            // Enable pagination
+                                            isPaginationEnabled={true}
+                                        >
+                                            <AdminToolsRouter />
+                                        </PaginationContainer>}></Route> 
+                        }
+                        
+                        {
+                            (loginStatusStore?.role === 'super' || 
+                            loginStatusStore?.role === 'admin' || 
+                            loginStatusStore?.role === 'manager' || 
+                                loginStatusStore?.role === 'external_system') && 
+                                <Route path='/dashboard'
+                                    component={() => <Overview />}></Route>
+                        }
+
+                        {/* ----------- DRIVER ROUTES ----------- */}
+
+                        {
+                            (loginStatusStore?.role === 'driver') && 
+                            <Route exact path='/dashboard/driver/deliveryOrders'
+                                component={() => <DriverDeliveryOrder />}></Route>
+                        }
+                        
+                        {
+                            (loginStatusStore?.role === 'driver') && 
+                            <Route exact path='/dashboard/driver/history'
+                                component={() => <DriverHistory />}></Route>
+                        }
+                
+                        {
+                            (loginStatusStore?.role === 'driver') && 
+                                <Route path='/dashboard'
+                                    component={() => <DriverDeliveryOrder />}></Route>
+                        }
+
                         <Route path='/dashboard'
-                            component={() => <Overview />}></Route>
+                            component={() => <UnAuthorized />}></Route>
                     </Switch>
                 </div>
             </div>
