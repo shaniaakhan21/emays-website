@@ -4,7 +4,7 @@ export interface DevLaunchTemplateData {
     environment: string
 }
 
-export interface LaunchRequestBody {
+export interface LaunchRequest {
     productName: string,
     productColor: string,
     productSize: number,
@@ -13,6 +13,14 @@ export interface LaunchRequestBody {
     productImage: string,
     productDeliveryInformation: string,
     area: string 
+}
+
+export interface LaunchRequestBody {
+    products: string
+}
+
+export interface LaunchRequestConverted {
+    products: Array<LaunchRequest>
 }
 
 export interface LaunchUIContext {
