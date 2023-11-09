@@ -99,7 +99,14 @@ export const getExternalSystemById: GetExternalSystemByIdFunc = async (id) => {
             'Get external system by id', `ext id: ${id}`), LogType.INFO);
         const data = await ExternalSystemModel.findById(id) as IExternalSystemDTO;
         if (data) {
-            return data;
+            const preparedData: IExternalSystemDTO = {
+                extSysName: data?.extSysName,
+                extSysEmail: data?.extSysEmail,
+                extSysAddress: data?.extSysAddress,
+                fiscalInfo: data?.fiscalInfo,
+                id: data?.id
+            };
+            return preparedData;
         } 
         throw new ServiceError(
             ErrorType.SYSTEM_RETRIEVAL_ERROR, SYSTEM_NOT_FOUND_ERROR_MESSAGE, '', HTTPUserError.NOT_FOUND_CODE);
@@ -183,12 +190,12 @@ export const getExternalSystemOverviewStat: GetExternalSystemOverviewStatsFunc =
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get external system overview stats by id', `ext id: ${id as string}`), LogType.INFO);
+        console.log('------>>>', timePeriod, id);
         const allOrders = await getAllOrderCountByDurationAndStoreId(timePeriod, id);
         
         const currentDate = new Date();
         const timeDifference = currentDate.getTime() - DurationUtil.getDuration(timePeriod).getTime();
         const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-
         const revenue = await getRevenueByDurationAndStoreId(timePeriod, id);
         return {
             noOfOrders: allOrders,

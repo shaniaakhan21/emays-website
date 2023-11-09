@@ -10,6 +10,8 @@ export type RequestAdminExternalSystemTokenFunc = (adminUsername: string, adminP
 
 export type GetAdminByIdFunc = (id: string) => Promise<IAdminExternalSystemDTO>;
 
+export type GetAdminByExtSysIdFunc = (id: string) => Promise<Array<IAdminExternalSystemDTO>>;
+
 export type GetExternalSystemByAdminIdFunc = (id: string) => Promise<IExternalSystemDTO>;
 
 export type provideServiceAreasFunc = () => ServiceAreasDTO;
