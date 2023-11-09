@@ -123,6 +123,8 @@ export const ADMIN_EXT_EMAIL_REQUIRED = 'Please provide a valid email';
 
 export const ADMIN_EXT_ID_REQUIRED = 'Please provide a valid external system id';
 
+export const ADMIN_NOT_FOUND_ERROR = 'Admin not found error';
+
 export const MANAGER_EXT_FIRST_NAME_REQUIRED = 'Please provide a valid admin first name';
 
 export const MANAGER_EXT_LAST_NAME_REQUIRED = 'Please provide a valid admin last name';

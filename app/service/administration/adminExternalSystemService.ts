@@ -5,6 +5,7 @@ import { Roles } from '../../const/roles';
 import { AdminExternalSystemModel, saveAdminExternalSystemUser } from '../../data/model/AdminExternalSystemModel';
 import { Logger } from '../../log/logger';
 import { CreateAdminExternalSystemFunc,
+    GetAdminByExtSysIdFunc,
     GetAdminByIdFunc, GetExternalSystemByAdminIdFunc,
     RequestAdminExternalSystemTokenFunc } from '../../type/adminExternalSystemServiceType';
 import { buildErrorMessage, buildInfoMessageMethodCall
@@ -17,7 +18,8 @@ import ServiceError from '../../type/error/ServiceError';
 import ErrorType from '../../const/errorType';
 import { HTTPUserError } from '../../const/httpCode';
 import { IAdminExternalSystem } from '../../type/IAdminExternalSystem';
-import { INVALID_CREDENTIALS_ERROR_MESSAGE, SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
+import { ADMIN_NOT_FOUND_ERROR, INVALID_CREDENTIALS_ERROR_MESSAGE,
+    SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
 import { getExternalSystemById } from './externalSystemService';
 import { IExternalSystemDTO } from '../../type/IExternalSystem';
 
@@ -97,6 +99,29 @@ export const getAdminExternalSystemById: GetAdminByIdFunc = async (id) => {
         } 
         throw new ServiceError(
             ErrorType.SYSTEM_RETRIEVAL_ERROR, SYSTEM_NOT_FOUND_ERROR_MESSAGE, '', HTTPUserError.NOT_FOUND_CODE);
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Get admin external system by id'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get admin by external system id
+ * @param {string} id External system id
+ * @returns {Promise<IAdminExternalSystem>}
+ */
+export const getAdminByExternalSystemId: GetAdminByExtSysIdFunc = async (id) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Get admin by id', `system id: ${id}`), LogType.INFO);
+        const data = await AdminExternalSystemModel.find({ 'externalSystemId': id }).exec();
+        if (data) {
+
+            return data;
+        } 
+        throw new ServiceError(
+            ErrorType.ADMIN_RETRIEVAL_ERROR, ADMIN_NOT_FOUND_ERROR, '', HTTPUserError.NOT_FOUND_CODE);
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, 'Get admin external system by id'), LogType.ERROR);

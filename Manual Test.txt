@@ -43,7 +43,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
 ----- Get order by user id----
 
 GET http://localhost:8080/api-dev/orders/0685641d-48c6-4636-b57c-b4760fbaeb63
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0wNFQwNzozMDo1Mi4wMzRaIiwiZXhwIjoxNjk2NDA4MjUyLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJkOGVmZjY0Ny1kYmI5LTRiNzYtOWVjMC04YWUyMzE0MGNjYzkiLCJpYXQiOjE2OTY0MDQ2NTJ9.WqyrePXAtT7c58bUFIyQZQnu-s-xMMG1eWN69ZVaFNs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0wOFQxMToyNToyOS4xNzdaIiwiZXhwIjoxNjk5NDQ2MzI5LCJyb2xlcyI6WyJkcml2ZXIiXSwiaWQiOiI2NTQyMTlhNDBhOWEzZjNmZmM5MWU2YjIiLCJpYXQiOjE2OTk0NDI3Mjl9.MGxNrvGgq5BVH6NPybIpMj0ByKbqBlnhRPPElPO0v-4
 content-type: application/json
 
 
@@ -67,7 +67,7 @@ http://localhost:8080/api-dev/googleCalender?uuid=12345673481&authToken=eyJhbGci
 
 ------ Create external system ----------
 
-POST http://localhost:8080/api-dev/externalSystems
+POST https://emaysstyle.com/api/externalSystems
 content-type: application/json
 
 {
@@ -120,17 +120,21 @@ content-type: application/json
 
 ----- Create admin user ------
 
+GET http://localhost:8080/api-dev/adminExternalSystem/externalSystems/6540b6511533c0418f7ac708
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0wOFQxMToyNToyOS4xNzdaIiwiZXhwIjoxNjk5NDQ2MzI5LCJyb2xlcyI6WyJkcml2ZXIiXSwiaWQiOiI2NTQyMTlhNDBhOWEzZjNmZmM5MWU2YjIiLCJpYXQiOjE2OTk0NDI3Mjl9.MGxNrvGgq5BVH6NPybIpMj0ByKbqBlnhRPPElPO0v-4
+
 POST http://localhost:8080/api-dev/adminExternalSystem
 content-type: application/json
 
 {
     "adminFirstName": "Thathsara",
     "adminLastName": "Raviraj",
-    "adminUsername": "thathsaraAdmin4",
+    "adminUsername": "thasfsf5",
     "adminPassword": "abCq2&!Ms",
     "adminPhone": "1233533452345",
-    "adminEmail": "admin4@gmail.com",
-    "externalSystemId": "6504061d3615ae0e08a4a789"
+    "adminEmail": "admadasdin4@gmail.com",
+    "externalSystemId": "6540b6511533c0418f7ac708"
 }
 
 POST https://emaysstyle.com/api/adminExternalSystem
@@ -198,8 +202,7 @@ content-type: application/json
 
 ------ Use common login to get token ----------
 
-POST http://localhost:8080/api-dev/login                                                                                                                                                                                                                    
-
+POST http://localhost:8080/api-dev/login
 content-type: application/json
 
 {
@@ -211,7 +214,11 @@ content-type: application/json
 
 POST http://localhost:8080/api-dev/externalSystems/systemInfo
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQwODozNTo1My43MTFaIiwiZXhwIjoxNjk4NzQ0OTUzLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1NDBiYzRmMTUzM2MwNDE4ZjdhYzcxNiIsImlhdCI6MTY5ODc0MTM1M30.-ohSaXSwgF7hBn9OAxI34wltEQgmDNT-MI-OENVtk1I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0wN1QwODoyOTowMi4yNjlaIiwiZXhwIjoxNjk5MzQ5MzQyLCJyb2xlcyI6WyJkcml2ZXIiXSwiaWQiOiI2NTQyMTlhNDBhOWEzZjNmZmM5MWU2YjIiLCJpYXQiOjE2OTkzNDU3NDJ9.ipwkYDGiZj8yP7orX_3Q7Yp9-nVTDdsv_WjHBlY0T0I
+
+GET http://localhost:8080/api-dev/externalSystems/6540b6511533c0418f7ac708
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0wN1QxMTo1NzoyNi4zMDZaIiwiZXhwIjoxNjk5MzYxODQ2LCJyb2xlcyI6WyJkcml2ZXIiXSwiaWQiOiI2NTQyMTlhNDBhOWEzZjNmZmM5MWU2YjIiLCJpYXQiOjE2OTkzNTgyNDZ9.56aVMecGubbcDNgHYcTp2U9-BfE3OGsQ7R4bOamxLb4
 
 
 ----- Get user order pagination ------------
@@ -327,13 +334,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
     "isPrepared": false
 }
 
-PATCH http://localhost:8080/api-dev/patch/orders/6540c3aa145f2819e09df26c
+PATCH http://localhost:8080/api-dev/patch/orders/6540c416145f2819e09df280
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQxMjo1Njo0OS4wNzJaIiwiZXhwIjoxNjk4NzYwNjA5LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1NDBiYzRmMTUzM2MwNDE4ZjdhYzcxNiIsImlhdCI6MTY5ODc1NzAwOX0.vObsNKpRAn-xcXzs1flV0tIZ9Zb6a3h2AEKgJVIcxR4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0wN1QxMDowNzozNi40MDVaIiwiZXhwIjoxNjk5MzU1MjU2LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTY5OTM1MTY1Nn0.lD7zMjhSUKwV06d2lKqJMComkagQ7QC21rBGgUd8B1E
 
 {
-    "isDelivered": true,
-    "deliveredDate": "2023-09-16T16:29:01.749Z"
+    "branchId": "6540b6511533c0418f7ac708"
 }
 
 

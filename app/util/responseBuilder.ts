@@ -1,5 +1,6 @@
 'use strict';
 
+import { IAdminExternalSystemDTO } from '../type/IAdminExternalSystem';
 import { IExternalSystemDTO } from '../type/IExternalSystem';
 import { IExternalSystemHistoryStatsDTO, IExternalSystemOverviewStatsDTO } from '../type/IExternalSystemStats';
 import { ServiceAreasDTO } from '../type/IServiceAreas';
@@ -33,6 +34,7 @@ export const successResponseBuilder: SuccessResponseBuilderFunc<IOrderDTO |
     ServiceAreasDTO | 
     IExternalSystemHistoryStatsDTO |
     IExternalSystemOverviewStatsDTO |
+    IAdminExternalSystemDTO |
      IGeoTypeDTO > = (data) => {
          return { data: data };
      };

@@ -25,9 +25,11 @@ import OrderSelected from './orderSelected/OrderSelected';
 import { getHistoryStatsData } from './redux/thunk/historyStatsThunk';
 import { getDeliveryOrderStatsData } from './redux/thunk/deliveryOrderStatsThunk';
 import { getOverviewStatsData } from './redux/thunk/overviewStatsThunk';
-import { DriverDeliveryOrder } from './adminTools/driver/DeliveryOrder';
+import DriverDeliveryOrder from './adminTools/driver/DeliveryOrder';
 import { DriverHistory } from './adminTools/driver/History';
 import { UnAuthorized } from './adminTools/UnAuthorized';
+import DriverOrderSelected from './orderSelected/DriverOrderSelected';
+import DriverSelectItems from './orderSelected/DriverSelectItems';
 
 const DashboardLayout = () => {
 
@@ -181,6 +183,7 @@ const DashboardLayout = () => {
                                        History
                                         </SideNavLink>
                                     }
+
                                 </SideNavItems>
                             </SideNav>
                         </>
@@ -330,13 +333,37 @@ const DashboardLayout = () => {
                         {
                             (loginStatusStore?.role === 'driver') && 
                             <Route exact path='/dashboard/driver/deliveryOrders'
-                                component={() => <DriverDeliveryOrder />}></Route>
+                                component={() => <PaginationContainer
+                                    wrapperStyle={{ display: 'flex',
+                                        alignItems: 'center', justifyContent: 'center' }}
+                                    // The method used for fetch pagination data
+                                    getPaginationData={getInCompletedOrderDataWrapper}
+                                    // The property name of the overview component
+                                    resourceName={'driverDeliveryOrderData'}
+                                    // Enable pagination
+                                    isPaginationEnabled={true}
+                                    getInitialData={getInitialDataDeliveryOrder}
+                                >
+                                    <DriverDeliveryOrder />
+                                </PaginationContainer>}></Route>
                         }
                         
                         {
                             (loginStatusStore?.role === 'driver') && 
                             <Route exact path='/dashboard/driver/history'
                                 component={() => <DriverHistory />}></Route>
+                        }
+
+                        {
+                            (loginStatusStore?.role === 'driver') &&
+                                <Route exact path='/dashboard/driverSelectedOrder'
+                                    component={() => <DriverOrderSelected />}></Route>
+                        }
+                        
+                        {
+                            (loginStatusStore?.role === 'driver') &&
+                                <Route exact path='/dashboard/driverSelectItems'
+                                    component={() => <DriverSelectItems />}></Route>
                         }
                 
                         {

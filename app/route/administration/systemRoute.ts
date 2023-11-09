@@ -1,16 +1,18 @@
+/* eslint-disable max-lines */
 'use strict';
 
 import * as express from 'express';
 import * as core from 'express-serve-static-core';
 import { Router, Request, Response, NextFunction } from 'express';
 import { allowedForExternalSystemSuperUserAndAdminANDManagerRolesOnly,
+    allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverRolesOnly,
     validateCreateExtSysRequestBody,
     validateExternalSystemTokenRequestBody, validateHeader,
     validateStatRouteParams,
     validateUserTokenRequestBody, 
     validateUsername } from '../../middleware/paramValidationMiddleware';
 import { Logger } from '../../log/logger';
-import { RoutePath } from '../../const/routePath';
+import { PathParam, RoutePath } from '../../const/routePath';
 import { buildErrorMessage, buildInfoMessageRouteHit
     , buildInfoMessageUserProcessCompleted } from '../../util/logMessageBuilder';
 import LogType from '../../const/logType';
@@ -120,7 +122,7 @@ router.post(requestExtSysTokenPath, validateHeader, validateExternalSystemTokenR
  * @returns {void}
  */
 const getSystemInfoPath = `${RoutePath.EXTERNAL_SYSTEMS}${RoutePath.EXTERNAL_SYSTEM_INFO}`;
-router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUserAndAdminANDManagerRolesOnly, (
+router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverRolesOnly, (
     req: Request, res: Response, next: NextFunction): void => {
     (async () => { 
         const claims = (req as AppRequest).claims as unknown as IJWTClaims;
@@ -146,6 +148,33 @@ router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUser
         } else if (claims.roles.includes(Roles.ADMIN)) {
             externalSystemInfo = await getAdminExternalSystemByAdminAssociatedId(claims.id);
         }
+
+        Logging.log(buildInfoMessageUserProcessCompleted(
+            'Request external system info', claims.id), LogType.INFO);
+        res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(externalSystemInfo));
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, getSystemInfoPath), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
+ * Get system info by system id
+ * @param {Request} req Request object
+ * @param {Response} res Response object
+ * @param {NextFunction} next Next middleware function
+ * @returns {void}
+ */
+const getSystemInfoPathBySysId = `${RoutePath.EXTERNAL_SYSTEMS}${PathParam.STORE_ID}`;
+// eslint-disable-next-line max-len
+router.get(getSystemInfoPathBySysId, validateHeader, allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverRolesOnly, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => { 
+        const claims = (req as AppRequest).claims as unknown as IJWTClaims;
+        Logging.log(buildInfoMessageRouteHit(req.path, claims.id), LogType.INFO);
+        const storeId: string = req.params.storeId;
+        const externalSystemInfo = await getExternalSystemById(storeId);
 
         Logging.log(buildInfoMessageUserProcessCompleted(
             'Request external system info', claims.id), LogType.INFO);
@@ -285,13 +314,15 @@ router.get(getOverviewOrderStats, validateHeader, allowedForExternalSystemSuperU
     req: express.Request<core.ParamsDictionary, any, any,
     { durationType: string, storeId: string }>, res: Response, next: NextFunction): void => {
     (async () => {
+        console.log('----------->>>', req?.query);
         const periodTypeValue = +req?.query?.durationType;
         const storeId = req?.query?.storeId;
         const stats = await getExternalSystemOverviewStat(periodTypeValue, storeId);
         return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(stats));
     })().catch(error => {
+        console.log('ERROR----', error);
         const err = error as Error;
-        Logging.log(buildErrorMessage(err, getSystemDeliveryOrderStats), LogType.ERROR);
+        Logging.log(buildErrorMessage(err, getOverviewOrderStats), LogType.ERROR);
         next(error);
     });
 });

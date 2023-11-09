@@ -1,0 +1,115 @@
+.content-vertical {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row !important;
+
+    > div {
+      flex: 1;
+      padding:0 1rem;
+
+      > .title {
+        font-family: 'IBM Plex Sans';
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 28px;
+        letter-spacing: 0;
+        text-align: left;
+        margin-bottom: 1rem;
+      }
+    }
+
+    .items-to-deliver {
+      .list {
+        max-height: calc(100vh - 220px);
+        overflow-y: auto;
+        padding: 0 1rem;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        .container {
+          padding-right: 20px;
+        }
+      }
+
+      button {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
+    .comments {
+      > svg {
+        width: 28px;
+        height: 28px;
+        margin-top: 2rem;
+        cursor: pointer;
+      }
+    }
+
+    .appointment-info {
+      .date-time {
+        display: flex;
+        flex-direction: row;
+
+        > div {
+          flex: 1;
+        }
+      }
+
+      .field {
+        margin-bottom: 1rem;
+
+        > label {
+          font-family: 'IBM Plex Sans';
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 22px;
+          letter-spacing: 0;
+          text-align: left;
+        }
+
+        > p {
+          margin-top: 0.2rem;
+          font-family: 'IBM Plex Sans';
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 20px;
+          text-align: left;
+        }
+      }
+    }
+
+    .store-info {
+      padding-top: 20px;
+      .date-time {
+        display: flex;
+        flex-direction: row;
+
+        > div {
+          flex: 1;
+        }
+      }
+
+      .field {
+        margin-bottom: 1rem;
+
+        > label {
+          font-family: 'IBM Plex Sans';
+          font-size: 16px;
+          font-weight: 600;
+          line-height: 22px;
+          letter-spacing: 0;
+          text-align: left;
+        }
+
+        > p {
+          margin-top: 0.2rem;
+          font-family: 'IBM Plex Sans';
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 20px;
+          text-align: left;
+        }
+      }
+    }
+  }
