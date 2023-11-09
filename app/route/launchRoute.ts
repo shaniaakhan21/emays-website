@@ -4,7 +4,8 @@
 import * as express from 'express';
 import { RoutePath } from '../const/routePath';
 import { Logger } from '../log/logger';
-import { DataToRender, DevLaunchTemplateData, LaunchRequestBody, LaunchUIContext } from '../type/ILaunchContext';
+import { DataToRender, DevLaunchTemplateData, LaunchRequest, LaunchRequestBody,
+    LaunchRequestConverted, LaunchUIContext } from '../type/ILaunchContext';
 import { authorizeLaunchRoute, buildAppLaunchPath, getJWTForSession } from '../api/launchAPI';
 import { config } from '../config/config';
 import * as core from 'express-serve-static-core';
@@ -134,8 +135,9 @@ router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Re
     (async () => {
         authorizeLaunchRoute(req, res, next);
         Logging.log(buildInfoMessageRouteHit(req.path, 'launch ui'), LogType.INFO);
-        const requestBody: LaunchRequestBody = req.body as LaunchRequestBody;
-
+        const requestBody = req.body as LaunchRequestBody;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const converted = JSON.parse(requestBody.products.replace(/\\/g, '')) as LaunchRequestConverted;
         // Get token for the session
         const uuid: string = uuidv4();
         const sessionToken: string = getJWTForSession(uuid);
@@ -148,18 +150,8 @@ router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Re
         const cleanedUserData = stringifyUserData.replace(/\\/g, '');
 
         // TODO: remove this and take product payload from the request directly using req.body.productList
-        const launchTemplateData: Array<LaunchUIContext> = [{
-            productName: requestBody.productName,
-            productColor: requestBody.productColor,
-            productSize: requestBody.productSize,
-            productQuantity: requestBody.productQuantity,
-            productCost: requestBody.productCost,
-            productImage: requestBody.productImage,
-            productDeliveryInformation: requestBody.productDeliveryInformation
-        }];
-        const stringify = JSON.stringify(launchTemplateData);
+        const stringify = JSON.stringify(converted.products);
         const cleanedProduct = stringify.replace(/\\/g, '');
-
         // TODO: remove this and take retailer payload from the request directly using req.body.retailer
         const retailerData = {
             // eslint-disable-next-line max-len

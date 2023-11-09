@@ -38,6 +38,9 @@ export interface IOrder {
     deliveryInfo: string,
     orderItems: Array<Order>,
     createdAt?: Date,
+    isDriverApproved?: boolean,
+    driverApprovedDate?: Date,
+    driverId?: string,
     isDelivered?: boolean,
     isDriverPicked?: boolean,
     driverPickDate?: Date,
@@ -80,13 +83,18 @@ export interface IOrderDTO {
     orderItems: Array<Order>,
     createdAt?: Date,
     history?: Array<Date>,
+    driverId?: string,
+    isDriverApproved?: boolean,
+    driverApprovedDate?: Date,
     isDelivered?: boolean,
     isDriverPicked?: boolean,
+    driverPickDate?: Date,
     isPrepared?: boolean,
     isCanceled?: boolean,
     paymentRef?: string,
     terminalPaymentRef?: string,
-    serviceFee: number
+    serviceFee: number,
+    branchId?: string 
 }
 
 export interface Order {
@@ -125,10 +133,13 @@ export interface IPatchOrder {
     },
     isPrepared?: boolean,
     preparedDate?: Date,
+    driverId?: string,
     deliveredDate?: Date,
     canceledDate?: Date,
     deliveryInfo?: string,
     createdAt?: Date,
+    isDriverApproved?: boolean,
+    driverApprovedDate?: Date,
     isDelivered?: boolean,
     isDriverPicked?: boolean,
     driverPickDate?: Date,

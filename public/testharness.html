@@ -33,6 +33,21 @@
                 document.getElementById('authToken').value = token;
             }
         }
+        const formDataArr = [{
+                retailerEmail: "thath@gmail.com",
+                productName: "ABC",
+                productQuantity: "5",
+                productColor: "red",
+                productCost: "100",
+                productSize: "2",
+                productImage: "",
+                productDeliveryInformation: "this is needed"
+            }
+            ];
+            const finalData = {
+                products: formDataArr,
+            }
+            const stringified = JSON.stringify(finalData).replace(/"/g, '\\"');
         selectBox.addEventListener('change', (event) => {
             const selectedLaunchType = event?.target?.value;
             switch (selectedLaunchType) {
@@ -73,6 +88,7 @@
                     <label for="productDeliveryInformation">Product Delivery Information</label><br>
                     <input type="text" id="productDeliveryInformation" name="productDeliveryInformation" value="need immediately" required><br><br>
 
+                    <input type="hidden" id="products" name="products" value="${stringified}" required><br><br>
                     <input type="submit" value="Submit">
                     </form>
                     `;
@@ -104,6 +120,7 @@
                     break;
             }
             document.getElementById('container').innerHTML = form;
+            document.getElementById('products').value = stringified;
         });
     </script>
 </body>

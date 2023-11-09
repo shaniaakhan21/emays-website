@@ -15,6 +15,7 @@ import {
     allowedForClientRoleAndSuperAdminAndAdminOnly,
     allowedForClientRoleOnly,
     allowedForExternalSystemRoleOnly,
+    allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverRolesOnly,
     allowedForSuperRoleOnly,
     validateCreateOrder,
     validateHeader
@@ -172,7 +173,7 @@ router.patch(RoutePath.ORDERS + PathParam.USER_ID, validationsPatchByUserId, (
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-const validationsPatchByOrderId = [allowedForClientRoleAndSuperAdminAndAdminOnly, validateHeader
+const validationsPatchByOrderId = [allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverRolesOnly, validateHeader
     , validateParamOrderId, validateOrderPatchRequestBody];
 router.patch(RoutePath.PATCH_ORDER + PathParam.ORDER_ID, validationsPatchByOrderId, (
     req: Request, res: Response, next: NextFunction): void => {

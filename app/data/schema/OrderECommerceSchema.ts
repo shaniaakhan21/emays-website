@@ -40,6 +40,9 @@ const OrderSchema = new Schema<IOrder>({
     canceledDate: { type: Date, default: null },
     isDriverPicked: { type: Boolean, default: false },
     driverPickDate: { type: Date, default: null },
+    isDriverApproved: { type: Boolean, default: false },
+    driverApprovedDate: { type: Date, default: null },
+    driverId: { type: String, required: false },
     history: [{
         date: { type: Date, default: Date.now }
     }],
