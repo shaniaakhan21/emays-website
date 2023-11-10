@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 'use strict';
 /* eslint camelcase: 0 */
 
@@ -10,10 +11,12 @@ import LogType from '../const/logType';
 import { Logger } from '../log/logger';
 import * as core from 'express-serve-static-core';
 import {
+    buildAccountLinkPath,
     buildCheckoutPath,
     buildCompleteCheckoutPath,
     createStripeLocation, createStripeReader,
-    handleStripeWebhookEvent, listStripeLocations, listStripeReaders
+    handleStripeWebhookEvent, listStripeLocations, listStripeReaders,
+    discoverReader
 } from '../api/stripeAPI';
 import Stripe from 'stripe';
 import {
@@ -24,6 +27,42 @@ import {
 } from '../util/stripe';
 
 const Logging = Logger(__filename);
+
+router.get(`${RoutePath.STRIPE}/linkAccount`, (
+    req: express.Request<core.ParamsDictionary, any, any, { uuid: string }>,
+    res: express.Response,
+    next: express.NextFunction
+) => {
+    (async () => {
+        // Todo: Validate JWT
+
+        const data = await buildAccountLinkPath();
+
+        res.json({ data });
+    })().catch((error) => {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'stripe Checkout'), LogType.ERROR);
+        next(error);
+    });
+});
+
+router.get(`${RoutePath.STRIPE}/discoverReader`, (
+    req: express.Request<core.ParamsDictionary, any, any, { uuid: string }>,
+    res: express.Response,
+    next: express.NextFunction
+) => {
+    (async () => {
+        // Todo: Validate JWT
+
+        const data = await discoverReader();
+
+        res.json({ data });
+    })().catch((error) => {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'stripe Checkout'), LogType.ERROR);
+        next(error);
+    });
+});
 
 router.get(`${RoutePath.STRIPE}/checkout`, (
     req: express.Request<core.ParamsDictionary, any, any, { uuid: string }>,
@@ -101,8 +140,8 @@ router.post(`${RoutePath.STRIPE}/terminal/reader`, (
     next: express.NextFunction
 ) => {
     (async () => {
-        await createStripeReader(req.body);
-        res.json('OK');
+        const stripeReader = await createStripeReader(req.body);
+        res.json({ stripeReader });
     })().catch((error) => {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'stripe terminal reader create'), LogType.ERROR);
@@ -171,12 +210,12 @@ router.post(`${RoutePath.STRIPE}/terminal/processOrderPayment`, (
 });
 
 router.post(`${RoutePath.STRIPE}/terminal/test/success`, (
-    req: express.Request<core.ParamsDictionary, any, { paymentId: string }, any>,
+    req: express.Request<core.ParamsDictionary, any, { terminalId: string }, any>,
     res: express.Response,
     next: express.NextFunction
 ) => {
     (async () => {
-        const data = await simulateTerminalOrderPaymentSuccess(req.body.paymentId);
+        const data = await simulateTerminalOrderPaymentSuccess(req.body.terminalId);
         res.json({ data });
     })().catch((error) => {
         const errorObject: Error = error as Error;

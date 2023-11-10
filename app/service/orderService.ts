@@ -232,7 +232,7 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Patch order basic data', `uid: ${userId}`), LogType.INFO);
-        patchOrder.deliveredDate = new Date(patchOrder.deliveredDate as unknown as string);
+        // PatchOrder.deliveredDate = new Date(patchOrder.deliveredDate as unknown as string);
         const result = await findOneAndUpdateIfExist(userId, patchOrder);
         if (patchOrder.isCanceled) {
             // Send cancellation email

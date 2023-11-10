@@ -44,6 +44,7 @@ const StripeProvider = ({ open, setOpen }) => {
     }, [initialRender]);
 
     if (!data?.client_secret) { return null; }
+    console.log('data regarding payment is', data);
 
     return (
         <Elements stripe={stripePromise} options={{

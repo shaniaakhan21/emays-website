@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 'use strict';
 
 import LogType from '../const/logType';
@@ -9,11 +12,13 @@ import {
     captureTerminalPayment,
     confirmOrderServiceFeePayment,
     createLocation, createReader,
+    initiateAccountLink,
     initiateOrderServiceFeePayment, initiateOrderTerminalPayment,
     listLocations, listReaders
 } from '../util/stripe';
 import Stripe from 'stripe';
 import { IOrderDTO } from '../type/orderType';
+import { APIList } from 'googleapis/build/src/apis';
 
 const Logging = Logger(__filename);
 
@@ -27,6 +32,28 @@ export const buildCheckoutPath = async (uuid: string): Promise<Stripe.Response<S
         Logging.log(buildInfoMessageMethodCall(
             'Generate stripe checkout info', `User Id: ${uuid}`), LogType.INFO);
         return initiateOrderServiceFeePayment(uuid);
+    } catch (error) {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'Generate stripe checkout info'), LogType.ERROR);
+        throw error;
+    }
+};
+
+export const discoverReader = async () => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'discover Reader', 'id'), LogType.INFO);
+        return listReaders();
+    } catch (error) {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'Generate stripe checkout info'), LogType.ERROR);
+        throw error;
+    }
+};
+
+export const buildAccountLinkPath = async () => {
+    try {
+        return initiateAccountLink();
     } catch (error) {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'Generate stripe checkout info'), LogType.ERROR);
@@ -150,6 +177,7 @@ export const handleStripeWebhookEvent = async (event: Stripe.Event) => {
         switch (event.type) {
             case 'terminal.reader.action_succeeded':
                 const paymentIntent = event.data.object as Stripe.PaymentIntent;
+                console.log('webhook called when the payment suceeded');
                 const order = await retrieveOrderDetailsByUserId(paymentIntent.metadata.uid);
                 await captureTerminalPayment(paymentIntent.id);
                 order.terminalPayment = true;
