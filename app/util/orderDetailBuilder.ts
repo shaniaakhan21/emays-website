@@ -9,7 +9,7 @@ import { PrepareDetailsToSendArrayFunc, PrepareDetailsToSendFunc } from '../type
  * @returns {IOrderDTO}  Data to send
  */
 export const prepareUserDetailsToSend: PrepareDetailsToSendFunc = (order) => {
-    const filteredData = {
+    const filteredData: IOrderDTO = {
         _id: order._id,
         payed: order.payed,
         uid: order?.uid,
@@ -31,6 +31,10 @@ export const prepareUserDetailsToSend: PrepareDetailsToSendFunc = (order) => {
         deliveryInfo: order?.deliveryInfo,
         isDelivered: order?.isDelivered,
         isDriverPicked: order?.isDriverPicked,
+        isDriverApproved: order?.isDriverApproved,
+        driverPickDate: order?.driverPickDate,
+        driverId: order?.driverId,
+        driverApprovedDate: order?.driverApprovedDate,
         isPrepared: order?.isPrepared,
         isCanceled: order?.isCanceled,
         serviceFee: order?.serviceFee,

@@ -550,7 +550,13 @@
         "email": "Email",
         "tel": "Tel.",
         "total": "Total",
-        "comment": "User Comment"
+        "comment": "User Comment",
+        "storeAddress": "Store to pick up items",
+        "storeName": "Store name",
+        "storePhone": "Store phone number",
+        "storeSalesAssistant": "Store sales assistant",
+        "phoneNumber": "Phone number",
+        "quantityItems": "Quantity of items"
       },
       "items": {
         "title": "Items To be delivered",

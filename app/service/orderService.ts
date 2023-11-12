@@ -263,6 +263,18 @@ export const patchOrderDetailsByOrderId: PatchOrderDetailsByOrderIdFunc = async 
         if (patchOrder?.deliveredDate) {
             patchOrder.deliveredDate = new Date(patchOrder.deliveredDate as unknown as string);
         }
+        if (patchOrder?.isPrepared) {
+            patchOrder.preparedDate = new Date();
+        }
+        if (patchOrder?.isDriverApproved) {
+            patchOrder.driverApprovedDate = new Date();
+        }
+        if (patchOrder?.isDriverPicked) {
+            patchOrder.driverPickDate = new Date();
+        }
+        if (patchOrder?.isDelivered) {
+            patchOrder.deliveredDate = new Date();
+        }
         const result = await findOneAndUpdateIfExistByOrderId(orderId, patchOrder);
         if (patchOrder.isCanceled) {
             // Send cancellation email

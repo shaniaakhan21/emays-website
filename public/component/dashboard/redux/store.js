@@ -6,6 +6,7 @@ import appInfoReducer from './slice/appInfoSlice';
 import newOrderReducer from './slice/newOrderSlice';
 import newStoreReducer from './slice/storeRegisterSlice';
 import selectedOrderReducer from './slice/selectedOrderSlice';
+import driverSelectedOrderReducer from './slice/driverSelectedOrderSlice';
 import statsReducer from './slice/statsSlice';
 import newDriverReducer from './slice/driverRegisterSlice';
 
@@ -19,6 +20,7 @@ const store = configureStore({
         newStoreState: newStoreReducer,
         newDriverState: newDriverReducer,
         selectedOrderState: selectedOrderReducer,
+        driverSelectedOrderState: driverSelectedOrderReducer,
         statsState: statsReducer
     }
 });
