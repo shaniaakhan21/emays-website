@@ -9,7 +9,7 @@
 
 .grid-2 {
     display: flex;
-    justify-content: flex-start;
+    justify-content: flex-end!important;
     width: 60%;
     flex-direction: row-reverse;
 }
@@ -21,10 +21,11 @@
 .header-content {
     display: flex;
     align-items: flex-end;
+    justify-content: flex-end;
 }
 
 .time-duration {
-    padding:40px;
+    padding:40px 0px;
     .cds--dropdown__wrapper {
         width: 350px;
     }

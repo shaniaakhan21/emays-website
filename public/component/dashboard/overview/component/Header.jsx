@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { statsSelectorMemoized } from '../../redux/selector/statsSelector';
 import DropDownCustom from '../../../common/DropdownCustom';
 import { getOverviewStatsData } from '../../redux/thunk/overviewStatsThunk';
+import CommonHead from '../../components/commonHead';
 
 const OverviewHeader = ({ searchFunction }) => {
 
@@ -24,6 +25,7 @@ const OverviewHeader = ({ searchFunction }) => {
     
     return (
         <>
+            <CommonHead/>
             <div className='time-duration'>
                 <DropDownCustom
                     key={1}

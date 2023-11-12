@@ -1,0 +1,88 @@
+.driver-history-box{
+  margin-top: 5rem!important;
+
+  .wrap-products{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    max-height: 900px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  .head{
+    font-size: 1.4rem;
+    margin-left: 6%;
+  }
+
+  .styl-pay{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    width: 55%;
+    margin-left: 6%;
+
+    .pay-h2{
+      width: 55%;
+    }
+
+    .pay-h2-amount{
+      width: 37%;
+    }
+  }
+}
+
+.ItemContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  width: 38%;
+
+  .cds--checkbox-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .cds--checkbox-label:before{
+      width: 2rem;
+      height: 2rem;
+      border: 2px solid #161616;
+    }
+
+    .cds--checkbox-label:after {
+      top: 0.2rem;
+      left: 0.4375rem;
+      width: 1.5rem;
+      height: 0.7rem;
+    }
+  }
+
+  .wrap-two{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    .styl-img{
+      width: 50%;
+
+      img{
+        width: 100%;
+      }
+    }
+
+    .text-styl{
+      display: flex;
+      flex-direction: column;
+      justify-content:space-between;
+      margin-left: 3%;
+
+      h5{
+        font-size: larger;
+      }
+
+      .quantity{
+        margin-bottom: 9%;
+      }
+    }
+  }
+}

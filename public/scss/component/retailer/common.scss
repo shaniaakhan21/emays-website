@@ -14,3 +14,14 @@
 .bg {
   background: #231F20;
 }
+
+.Retail-header{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 1%;
+
+  img{
+    margin-right: 1%;
+  }
+}

@@ -17,6 +17,7 @@ import OrderReviewHorizontal from '../orderReview/OrderReviewHorizontal';
 import { patchOrderByOrderId } from '../../../services/dashboard/order';
 import { getOrderStatus } from '../../../js/util/stateBuilderUtil';
 import { changeStatusSelectedOrder } from '../redux/thunk/selectedOrderThunk';
+import CommonHead from '../components/commonHead';
 
 const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
@@ -99,6 +100,7 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
     return (
 
         <div className={'selected-item-container'}>
+            <CommonHead/>
             <div className={'item-row selected-item-header'}>
                 <div>
                     {

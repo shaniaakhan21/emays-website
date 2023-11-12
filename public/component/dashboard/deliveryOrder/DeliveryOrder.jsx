@@ -10,6 +10,7 @@ import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
 import { storeSelectedOrder } from '../redux/thunk/selectedOrderThunk';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { getOrderStatus } from '../../../js/util/stateBuilderUtil';
+import CommonHead from '../components/commonHead';
 
 const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     const [translate] = useTranslation();
@@ -115,6 +116,7 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
       
     return (
         <>
+            <CommonHead/>
             <DOHeader searchFunction={searchId}/>
             <br></br>
             {

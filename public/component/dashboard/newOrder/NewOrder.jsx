@@ -17,6 +17,7 @@ import { appInfoSelectorMemoized } from '../redux/selector/appInfoSelector';
 import { validateObjectNullEmptyCheck } from '../../../js/util/validateObject';
 import { setNewOrderPhaseOneData } from '../redux/thunk/newOrderThunk';
 import ContactNumberInput from '../../common/ContactNumberInput';
+import CommonHead from '../components/commonHead';
 
 const NewOrder = ({ newOrderData }) => {
     const [translate] = useTranslation();
@@ -129,6 +130,8 @@ const NewOrder = ({ newOrderData }) => {
 
     return (
         <>
+            <CommonHead/>
+            <br />
             <div className='newOrders'>
                 <div className='header'>
                     <Heading className='title'>{t('title')}</Heading>

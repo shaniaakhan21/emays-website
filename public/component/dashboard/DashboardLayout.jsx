@@ -88,7 +88,6 @@ const DashboardLayout = () => {
                             <SideNav
                                 className='dash-side-nav'
                                 aria-label='Side navigation'
-                                isRail
                                 expanded={isSideNavExpanded}
                                 onOverlayClick={onClickSideNavExpand}
                                 href='#main-content'
@@ -101,7 +100,6 @@ const DashboardLayout = () => {
                                         loginStatusStore?.role === 'admin' || 
                                         loginStatusStore?.role === 'manager' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
-                                            renderIcon={View}
                                             href='/#/dashboard/overview'>
                                         Overview
                                         </SideNavLink>
@@ -113,7 +111,6 @@ const DashboardLayout = () => {
                                         loginStatusStore?.role === 'admin' || 
                                         loginStatusStore?.role === 'manager' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
-                                            renderIcon={ListDropdown}
                                             href='/#/dashboard/deliveryOrders'>
                                         Delivery Order
                                         </SideNavLink>
@@ -136,7 +133,6 @@ const DashboardLayout = () => {
                                         loginStatusStore?.role === 'admin' || 
                                         loginStatusStore?.role === 'manager' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
-                                            renderIcon={ServerTime}
                                             href='/#/dashboard/history'>
                                         History
                                         </SideNavLink>
@@ -148,7 +144,6 @@ const DashboardLayout = () => {
                                         loginStatusStore?.role === 'admin' || 
                                         loginStatusStore?.role === 'manager' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
-                                            renderIcon={NewTab}
                                             href='/#/dashboard/newOrders'>
                                         New Orders
                                         </SideNavLink>
@@ -158,7 +153,6 @@ const DashboardLayout = () => {
                                     {
                                         (loginStatusStore?.role === 'super' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
-                                            renderIcon={OperationsField}
                                             href='/#/dashboard/adminTools'>
                                         Admin Tools
                                         </SideNavLink>
@@ -168,7 +162,6 @@ const DashboardLayout = () => {
 
                                     {
                                         loginStatusStore?.role === 'driver' && <SideNavLink
-                                            renderIcon={ListDropdown}
                                             href='/#/dashboard/driver/deliveryOrders'>
                                         Delivery Order
                                         </SideNavLink>
@@ -176,7 +169,6 @@ const DashboardLayout = () => {
 
                                     {
                                         loginStatusStore?.role === 'driver' && <SideNavLink
-                                            renderIcon={ServerTime}
                                             href='/#/dashboard/driver/history'>
                                        History
                                         </SideNavLink>
@@ -334,7 +326,7 @@ const DashboardLayout = () => {
                         }
                         
                         {
-                            (loginStatusStore?.role === 'driver') && 
+                            (loginStatusStore?.role === 'admin') && 
                             <Route exact path='/dashboard/driver/history'
                                 component={() => <DriverHistory />}></Route>
                         }

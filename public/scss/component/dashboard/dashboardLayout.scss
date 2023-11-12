@@ -5,7 +5,7 @@ $carbon-md-max: 64em;   // 1024px
 .dashboard-template {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     @media screen and (max-width: $carbon-sm-max) {
         .cds--progress-step:not(.cds--progress-step--current) {
             display: none;
@@ -17,13 +17,23 @@ $carbon-md-max: 64em;   // 1024px
     }
 
     .dash-side-nav {
+        .cds--side-nav__items{
+            padding: 0!important;
+        }
         .cds--side-nav__item {
             border: 1px solid #e3e3e3;
-            height: 40px;
+            height: 47px;
             .cds--side-nav__link {
-                height: 40px;
+                height: 47px;
             }
         }
+    }
+
+    .cds--side-nav{
+        background-color: #f0f0f0;
+        position: relative;
+        top: 87px;
+        height: fit-content!important;
     }
 
     .dashboard-nav-section {
@@ -31,7 +41,7 @@ $carbon-md-max: 64em;   // 1024px
         margin-right: 2rem;
 
         nav {
-            background-color: #FaFaFa;
+            background-color: #F4F4F4;
             transition: 0.2s ease-in-out all;
             width: 12rem;
 
@@ -85,7 +95,8 @@ $carbon-md-max: 64em;   // 1024px
         flex: 1;
         margin-top: 1rem;
         max-width: 80%;
-
+        margin-right: 2%;
+        margin-bottom: 4%;
         @media (max-width: $carbon-sm-max) {
             max-width: 70%;
         }
@@ -93,7 +104,7 @@ $carbon-md-max: 64em;   // 1024px
 }
 
 main.retailer-dashboard {
-    background: #F5F5F5;
+    background: #FAFAFA;
     position: fixed;
     top: 0;
     left: 0;
