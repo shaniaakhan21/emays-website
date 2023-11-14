@@ -61,6 +61,8 @@ export const DRIVER_USERNAME_REQUIRED = 'Driver username required';
 
 export const DRIVER_PASSWORD_REQUIRED = 'Driver password required';
 
+export const DRIVER_NOT_FOUND_ERROR_MESSAGE = 'Driver not found';
+
 export const USER_FIRST_NAME_REQUIRED = 'User first name required';
 
 export const USER_LAST_NAME_REQUIRED = 'User last name required';

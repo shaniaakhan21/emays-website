@@ -26,6 +26,7 @@ export interface IDriver {
 }
 
 export interface IDriverDTO {
+    id?: string,
     firstName: string,
     lastName: string,
     phoneNumber: string,

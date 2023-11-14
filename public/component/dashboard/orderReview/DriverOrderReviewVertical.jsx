@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Heading } from '@carbon/react';
 
@@ -8,9 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { driverSelectedOrderSelectorMemoized } from '../redux/selector/driverSelectedOrderSelector';
 import ButtonCustom from '../../common/ButtonCustom';
 import { changeStatusSelectedOrder } from '../redux/thunk/driverSelectedOrderThunk';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
+    const history = useHistory();
     const [translate] = useTranslation();
     const dispatch = useDispatch();
     const t = useCallback((key) => translate(`dashboard.orderCreated.${key}`), [translate]);

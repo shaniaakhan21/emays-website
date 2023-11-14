@@ -15,7 +15,9 @@ import { CreateOrderFunc, DeleteOrderByOrderIdFunc,
     , RetrieveOrdersByDeliveryStatusFunc,
     GetActiveOrdersCountByDurationAndStoreIdFunc, 
     GetRevenueByDurationAndStoreIdFunc, 
-    PatchOrderDetailsByOrderIdFunc } from '../../type/orderServiceType';
+    PatchOrderDetailsByOrderIdFunc, 
+    GetCompletedOrdersByStartAndEndIndexAndDriverId, 
+    GetCompletedOrderDocumentSizeByDriverId } from '../../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { prepareUserDetailsToSend } from '../../util/orderDetailBuilder';
@@ -284,6 +286,48 @@ export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocum
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, 'Retrieve Orders array based on indexes'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get completed order document size by driver id
+ * @param {string} driverId driver id
+ * @returns {integer} Returns integer size
+ */
+export const getCompletedOrderDocumentSizeByDriverId: GetCompletedOrderDocumentSizeByDriverId = (driverId) => {
+    try {
+        return OrderECommerceModel.countDocuments({ $and: [
+            { driverId: driverId, isDelivered: true }] }).exec();
+    
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve Order document size'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get completed order documents by driver id and start and end index
+ * @param {integer} startIndex start index
+ * @param {integer} endIndex end index
+ * @param {integer} driverId driver id
+ * @returns {Array<IOrderDTO>} Returns order details array
+ */
+export const getCompletedOrdersByStartAndEndIndexAndDriverId: GetCompletedOrdersByStartAndEndIndexAndDriverId = async (
+    startIndex, limit, driverId
+) => {
+    try {
+        const orderArray = await OrderECommerceModel.find({ $and: [
+            { driverId: driverId },
+            { isDelivered: true }] }).skip(startIndex).limit(limit).exec();
+        const preparedOrderArray: Array<IOrderDTO> = 
+            (orderArray as []).map(data => prepareUserDetailsToSend(data)); 
+        return preparedOrderArray;
+        
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve Order history based on indexes and driver id'), LogType.ERROR);
         throw error;
     }
 };

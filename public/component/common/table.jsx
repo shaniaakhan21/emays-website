@@ -32,6 +32,7 @@ const Table = ({ rows, headers, onRowClick, ...props }) => {
                 <TableBody>
                     {rows?.map((row) => (
                         <TableRow
+                            style={{ backgroundColor: row?.isGreenHighlighted ? '#c6dfcd' : '' }}
                             key={row.id}
                             onClick={() => handleRowClick(row)}
                             className={selectedRow === row ? 'selected-row' : ''}

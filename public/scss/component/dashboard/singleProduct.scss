@@ -1,0 +1,46 @@
+.single-product {
+    display: flex;
+    height: 150px;
+    flex-direction: row;
+    padding-bottom: 20px;
+    width: 450px;
+
+    .text-style {
+        padding-left: 20px;
+        h5 {
+            text-transform: uppercase;
+            padding-bottom: 10px;
+        }
+    }
+    .wrap-two {
+        display: flex;
+        .style-img {
+            img {
+                height: 130px;
+                width: 80px;
+            }
+        }
+    }
+    .checkbox {
+        margin-left: auto;
+        display: flex;
+        .cds--checkbox-wrapper {
+            justify-content: center;
+            align-content: center;
+
+            .cds--checkbox-label:before{
+                width: 1.5rem;
+                height: 1.5rem;
+                border: 2px solid #161616;
+              }
+          
+            .cds--checkbox-label:after {
+                top: 0.3rem;
+                left: 0.4375rem;
+                width: 1.1rem;
+                height: 0.5rem;
+            }
+          
+        }
+    }
+}

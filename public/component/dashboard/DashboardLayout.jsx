@@ -30,6 +30,7 @@ import { DriverHistory } from './adminTools/driver/History';
 import { UnAuthorized } from './adminTools/UnAuthorized';
 import DriverOrderSelected from './orderSelected/DriverOrderSelected';
 import DriverSelectItems from './orderSelected/DriverSelectItems';
+import { getDriverHistoryData } from './redux/thunk/driverHistoryThunk';
 
 const DashboardLayout = () => {
 
@@ -76,6 +77,12 @@ const DashboardLayout = () => {
     }, [dispatch]);
     const getInitialDataOverview = useCallback(() => {
         return dispatch(getOverviewStatsData({ durationType: 1 }));
+    }, [dispatch]);
+    
+    // History driver
+    const getDriverHistoryDataWrapper = useCallback((pageNo, limit) => { 
+        const data = { pageNumber: pageNo, pageLimit: limit, driverId: loginStatusStore?.userInfo?.id };
+        return dispatch(getDriverHistoryData(data));
     }, [dispatch]);
 
     return (
@@ -158,8 +165,7 @@ const DashboardLayout = () => {
 
                                     {/* ADMIN TOOLS */}
                                     {
-                                        (loginStatusStore?.role === 'super' || 
-                                        loginStatusStore?.role === 'external_system') && <SideNavLink
+                                        (loginStatusStore?.role === 'super') && <SideNavLink
                                             renderIcon={OperationsField}
                                             href='/#/dashboard/adminTools'>
                                         Admin Tools
@@ -351,7 +357,17 @@ const DashboardLayout = () => {
                         {
                             (loginStatusStore?.role === 'driver') && 
                             <Route exact path='/dashboard/driver/history'
-                                component={() => <DriverHistory />}></Route>
+                                component={() => <PaginationContainer
+                                    wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                    // The method used for fetch pagination data
+                                    getPaginationData={getDriverHistoryDataWrapper}
+                                    // The property name of the overview component
+                                    resourceName={'historyData'}
+                                    // Enable pagination
+                                    isPaginationEnabled={true}
+                                >
+                                    <DriverHistory />
+                                </PaginationContainer>}></Route>
                         }
 
                         {
@@ -364,6 +380,12 @@ const DashboardLayout = () => {
                             (loginStatusStore?.role === 'driver') &&
                                 <Route exact path='/dashboard/driverSelectItems'
                                     component={() => <DriverSelectItems />}></Route>
+                        }
+
+                        {
+                            (loginStatusStore?.role === 'driver') &&
+                                <Route exact path='/dashboard/selectedOrder'
+                                    component={() => <OrderSelected />}></Route>
                         }
                 
                         {
