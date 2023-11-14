@@ -12,7 +12,7 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQwODozMjowOS4zNDFaIiwiZXhwIjoxNjk4NzQ0NzI5LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJhMzJhZjMzNC05N2M5LTQ4MzAtOTllNC04ODgyOTMwMWM4MjAiLCJpYXQiOjE2OTg3NDExMjl9.5hk7pC3E0Xhf5uaAl2mqpv1IQSSj7DqqB-hM6I24xRs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0xMFQwOToxMDo1My4yMjBaIiwiZXhwIjoxNjk5NjExMDUzLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJlODk3MTAwZi02YzMwLTRlNTktOTYxOS03MDFjYWIyOGE4YzMiLCJpYXQiOjE2OTk2MDc0NTN9.lzzWQpQgzJv5LAoUF1CZn13NKmfdVIdRNty_uXiksi4
 
 {
     "email": "thathsararaviraj@gmail.com",
@@ -20,8 +20,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
     "firstName": "Thathsara",
     "lastName": "Raviraj",
     "phoneNumber": "07122658978",
-    "uid": "12345673410507",
-    "branchId": "6504061d3615ae0e08a4a789",
+    "uid": "12345673410508",
+    "branchId": "654cb79ea2ed5a08d5cbde8b",
     "date": "2023-03-16",
     "startTime": "19:00",
     "endTime": "21:00",
@@ -49,7 +49,7 @@ content-type: application/json
 
 ----- Patch order by user id --------12345673410500
 
-PATCH http://localhost:8080/api-dev/patch/orders/6540c3fa145f2819e09df278
+PATCH http://localhost:8080/api-dev/patch/orders/654cb8b3a2ed5a08d5cbdeab
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQwOTo1ODowNC4xNzlaIiwiZXhwIjoxNjk4NzQ5ODg0LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1NDBiYzRmMTUzM2MwNDE4ZjdhYzcxNiIsImlhdCI6MTY5ODc0NjI4NH0.rDZJPY4Da3haeG6_RX3rDdvLjyqbohdXa_mLBQgWG4g
 
@@ -67,7 +67,7 @@ http://localhost:8080/api-dev/googleCalender?uuid=12345673481&authToken=eyJhbGci
 
 ------ Create external system ----------
 
-POST https://emaysstyle.com/api/externalSystems
+POST http://localhost:8080/api-dev/externalSystems
 content-type: application/json
 
 {
@@ -115,7 +115,7 @@ content-type: application/json
     "managerPassword": "abCq2&!Ms",
     "managerPhone": "1233533452345",
     "managerEmail": "admin4@gmail.com",
-    "externalSystemId": "6504061d3615ae0e08a4a789"
+    "externalSystemId": "654cb79ea2ed5a08d5cbde8b"
 }
 
 ----- Create admin user ------
@@ -134,7 +134,7 @@ content-type: application/json
     "adminPassword": "abCq2&!Ms",
     "adminPhone": "1233533452345",
     "adminEmail": "admadasdin4@gmail.com",
-    "externalSystemId": "6540b6511533c0418f7ac708"
+    "externalSystemId": "654cb79ea2ed5a08d5cbde8b"
 }
 
 POST https://emaysstyle.com/api/adminExternalSystem
@@ -314,6 +314,9 @@ GET http://localhost:8080/api-dev/externalSystems/externalSystemsStatsDeliveryOr
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQwODo0ODo1OS4zOTVaIiwiZXhwIjoxNjk4NzQ1NzM5LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTY5ODc0MjEzOX0.LlasLpNGRocwwdGqSagRb0Ip8Fd6vKve6K7_s_RB25g
 
+GET http://localhost:8080/api-dev/externalSystems/externalSystemsStatsOverview?durationType=3&storeId=654cb79ea2ed5a08d5cbde8b
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0wOVQxMTowNzozNC4xODBaIiwiZXhwIjoxNjk5NTM4ODU0LCJyb2xlcyI6WyJleHRlcm5hbF9zeXN0ZW0iXSwiaWQiOiI2NTRjYjc5ZWEyZWQ1YTA4ZDVjYmRlOGIiLCJpYXQiOjE2OTk1MjgwNTR9._Qf1BWbbWOiThIzbTv46kpG2ZUozeCFMVdTaSj7_pUs
 
 
 PATCH https://emaysstyle.com/api/orders/12345673410501
@@ -380,4 +383,18 @@ content-type: application/json
     "username": "kfjsdoff",
     "password": "abCq2&!Ms"
 }
+
+-------- GET DRIVER -----------
+
+GET http://localhost:8080/api-dev/drivers/driverInfo
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0xMFQwNjo1ODoxMi4yOTlaIiwiZXhwIjoxNjk5NjAzMDkyLCJyb2xlcyI6WyJkcml2ZXIiXSwiaWQiOiI2NTRjYjdmOGEyZWQ1YTA4ZDVjYmRlYTciLCJpYXQiOjE2OTk1OTk0OTJ9.FgqTw0D7uu52NizRcnVvMx6RkwFfmWhi3au2bEE139c
+
+------- GET DRIVER HISTORY -------------
+
+GET http://localhost:8080/api-dev/drivers/driverHistory/654cb7f8a2ed5a08d5cbdea7?page=1&pageLimit=5
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0xMFQxMzozNTo1Mi41ODBaIiwiZXhwIjoxNjk5NjI2OTUyLCJyb2xlcyI6WyJkcml2ZXIiXSwiaWQiOiI2NTRjYjdmOGEyZWQ1YTA4ZDVjYmRlYTciLCJpYXQiOjE2OTk2MjMzNTJ9.dZ80J4SP45mOYJClvczPn35xeRGW4knAU2tPrvkfH-4
+
+
 
