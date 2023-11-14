@@ -7,6 +7,7 @@ import StatusBox from '../../../common/statusBox';
 import Table from '../../../common/table';
 import { getOrderStatus } from '../../../../js/util/stateBuilderUtil';
 import { storeSelectedOrder } from '../../redux/thunk/driverSelectedOrderThunk';
+import { loginSelectorMemoized } from '../../redux/selector/loginSelector';
 
 const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
 
@@ -14,6 +15,7 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
     const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
 
     const inCompletedOrderSelector = useSelector(inCompleteOrderSelectorMemoized);
+    const loginInfoSelector = useSelector(loginSelectorMemoized);
     const [selectedRow, setSelectedRow] = useState({ basicInfo: null, itemsInfo: null });
     const [id, setSearchId] = useState(null);
 
@@ -48,7 +50,8 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
                 image: item?.productImage,
                 color: item?.productColor,
                 size: item?.productSize,
-                quantity: item?.productQuantity
+                quantity: item?.productQuantity,
+                productCost: item?.productCost
             }));
             const itemsInfo = {
                 items: preparedItemsData,
@@ -63,12 +66,7 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
                 selectedTableRow: [item] };
             setSelectedRow((state) => (finalData));
             dispatch(storeSelectedOrder(finalData));
-            history.push('/dashboard/driverSelectedOrder');
         }
-    };
-
-    const prepareSelectItems = () => {
-        history.push('/dashboard/driverSelectItems');
     };
 
     useEffect(() => {
@@ -82,7 +80,6 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
     }, [inCompletedOrderSelector]);
 
     const prepareTableRows = (orderArray) => {
-        console.log('=====>>>', orderArray);
         const tableData = orderArray?.map((data) => {
             // eslint-disable-next-line no-multi-spaces, max-len
             const amount =  data?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
@@ -91,6 +88,7 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
             const minutes = date.getMinutes();
             return {
                 id: data?._id || '',
+                isGreenHighlighted: data?.driverId === loginInfoSelector?.userInfo?.id,
                 client: `${data?.firstName} ${data?.lastName}` || '',
                 amount: `€ ${amount}`,
                 date: data?.date?.split('T')[0] || '',
@@ -117,13 +115,13 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
                 inCompletedOrderSelector.isLoading && tableRow ? <p>Loading...</p> : <div className='overview'>
                     <div className='table'>
                         <Table rows={tableRow} headers={headers} onRowClick={(item) => {
-                            console.log('-----', item?.status?.props?.status);
-                            console.log('-----', item);
+                            prepareSelectedRowData(item);
                             if (item?.status?.props?.status === 'pending-pick-up') {
-                                prepareSelectedRowData(item);
+                                history.push('/dashboard/driverSelectedOrder');
                             }
-                            if (item?.status?.props?.status === 'items-to-be-return') {
-                                prepareSelectItems();
+                            if (item?.status?.props?.status === 'items-to-be-return' && 
+                            loginInfoSelector.userInfo.id === item?.driverId) {
+                                history.push('/dashboard/driverSelectItems');
                             }
                         }} />
                     </div>

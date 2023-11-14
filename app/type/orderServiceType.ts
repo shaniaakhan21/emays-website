@@ -33,8 +33,16 @@ export type GetOrderDetailsWithPages = (noOfPages: number, pageLimit: number,
 
 export type GetOrderDocumentSize = (branchId?: string, isCompleted?: boolean) => Promise<number>;
 
+export type GetCompletedOrderDocumentSizeByDriverId = (driverId?: string) => Promise<number>;
+
 export type GetOrderDetailDocumentsArrayByStartAndEndIndex = (startIndex: number,
     endIndex: number, branchId?: string, isCompleted?: boolean) => Promise<Array<IOrderDTO>>;
+
+export type GetCompletedOrdersByStartAndEndIndexAndDriverId = (startIndex: number,
+    endIndex: number, driverId: string) => Promise<Array<IOrderDTO>>;
+
+export type GetCompletedOrdersByDriverId = (startIndex: number,
+    endIndex: number, driverId: string) => Promise<IOrderPaginationDTO>;
 
 export type ServiceErrorBuilderFunc = (errorMessage: string) => void;
 

@@ -1,7 +1,8 @@
 'use strict';
 
 import { createSlice } from '@reduxjs/toolkit';
-import { getAdminByStoreId, getStoreInformationByStoreId, storeSelectedOrder } from '../thunk/driverSelectedOrderThunk';
+import { changeStatusSelectedOrder, getAdminByStoreId,
+    getStoreInformationByStoreId, storeSelectedOrder } from '../thunk/driverSelectedOrderThunk';
     
 const initialState = {
     orderInfo: {

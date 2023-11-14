@@ -7,7 +7,8 @@ import { AUTH_TOKEN } from '../../../../js/const/SessionStorageConst';
 const initialState = {
     token: '',
     isSuccess: false,
-    role: ''
+    role: '',
+    userInfo: {}
 };
 
 const loginSlice = createSlice({
@@ -26,6 +27,7 @@ const loginSlice = createSlice({
             state.isSuccess = true;
             state.token = action.payload.token;
             state.role = action.payload.roles;
+            state.userInfo = action.payload.userInfo;
             // By setting this token to session storage, we can consumes methods in e-commerce.
             sessionStorage.setItem(AUTH_TOKEN, action.payload.token);
         });
