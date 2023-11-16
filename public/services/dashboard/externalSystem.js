@@ -10,7 +10,7 @@ import { apiBase, HTTPHelper as httpUtil } from '../../js/util/httpUtil';
  */
 export const getStoreInfoByStoreId = ({ storeId, token }) => {
     if (storeId && token) {
-        return httpUtil.get(`${apiBase}/externalSystems/${storeId}`, {
+        return httpUtil.post(`${apiBase}/stores/${storeId}`, {
             'Authorization': `Bearer ${token}`
         });
     }

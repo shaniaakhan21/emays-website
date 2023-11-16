@@ -37,6 +37,7 @@ export interface IExternalSystem {
 }
 
 export interface IExternalSystemDTO {
+    _id?: string,
     extSysName: string,
     extSysEmail: string,
     id: string,

@@ -1,28 +1,44 @@
-
-// SCSS
-import { useSelector } from 'react-redux';
-import '../../../scss/component/dashboard/driverSelectItems.scss';
+import { useState, useReducer, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { driverSelectedOrderSelectorMemoized } from '../redux/selector/driverSelectedOrderSelector';
 import { SingleProduct } from './SingleProduct';
-import { useState } from 'react';
+import { driverSelectFinal } from '../redux/thunk/driverFinalSelectThunk';
+
+// SCSS
+import '../../../scss/component/dashboard/driverSelectItems.scss';
+import ButtonCustom from '../../common/ButtonCustom';
 
 const DriverSelectItems = () => {
 
     const [selectedProducts, setSelectedProducts] = useState([]);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+    }, [driverSelectedOrderSelectorMemoized]);
+
+    useEffect(() => {
+        dispatch(driverSelectFinal(selectedProducts));
+    }, [selectedProducts]);
 
     const selectItems = (index, isSelected) => {
         const item = { ...orderInfo[index] };
         item['index'] = index;
         if (isSelected) {
             setSelectedProducts((items) => {
-                const isPresent = items.find((itemCurrent) => (itemCurrent.index === index)).length > 0 ? true : false;
+                let isPresent = false;
+                if (items) {
+                    const found = selectedProducts?.find((itemCurrent) => (+itemCurrent.index === +index));
+                    // eslint-disable-next-line no-nested-ternary
+                    isPresent = found ? (found.length > 0) ? true : false : false;
+                }
                 if (!isPresent) {
                     return [...items, item];
                 }
             });
         } else {
             setSelectedProducts((items) => {
-                const removedArray = items.map((itemCurrent) => (itemCurrent.index !== index));
+                console.log('index', +index);
+                const removedArray = items?.filter((itemCurrent) => (+itemCurrent.index !== +index));
                 return removedArray;
             });
         }
@@ -58,9 +74,26 @@ const DriverSelectItems = () => {
 
                     <div className='pay-h2-amount'>
                         <h2>€ {selectedProducts.reduce((acc, next) => {
-                            console.log(next);
-                            return +acc + +next?.productCost; }, 0.00)} </h2>
+                            return +acc + ((+next?.productCost) * next?.quantity); }, 0.00)} </h2>
                     </div>
+                </div>
+                <div className='action-button'>
+                    <ButtonCustom
+                        text={'Go to payment >'}
+                        action={() => {
+                            dispatch(changeStatusSelectedOrder({ orderId: orderInfo?.basicInfo?._id,
+                                patchData: {
+                                    isDriverApproved: true 
+                                } }));
+                        }}
+                        customStyle={{
+                            width: '180px',
+                            marginTop: '25px',
+                            marginBottom: '15px',
+                            padding: '1%',
+                            color: 'white'
+                        }}
+                    />
                 </div>
             </div> : <p>Loading...</p>
     );

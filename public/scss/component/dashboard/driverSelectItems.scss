@@ -17,4 +17,8 @@
     overflow-x: auto;
     column-gap: 150px;
   }
+  .action-button {
+    display: flex;
+    justify-content: flex-end;
+  }
 }

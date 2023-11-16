@@ -104,7 +104,7 @@ export const getExternalSystemById: GetExternalSystemByIdFunc = async (id) => {
                 extSysEmail: data?.extSysEmail,
                 extSysAddress: data?.extSysAddress,
                 fiscalInfo: data?.fiscalInfo,
-                id: data?.id
+                id: data?._id?.toString() as string
             };
             return preparedData;
         } 
@@ -190,7 +190,6 @@ export const getExternalSystemOverviewStat: GetExternalSystemOverviewStatsFunc =
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get external system overview stats by id', `ext id: ${id as string}`), LogType.INFO);
-        console.log('------>>>', timePeriod, id);
         const allOrders = await getAllOrderCountByDurationAndStoreId(timePeriod, id);
         
         const currentDate = new Date();

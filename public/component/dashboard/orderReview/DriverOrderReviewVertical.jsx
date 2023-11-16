@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Heading } from '@carbon/react';
-
-// SCSS
-import '../../../scss/component/retailer/driverOrderReviewVertical.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { driverSelectedOrderSelectorMemoized } from '../redux/selector/driverSelectedOrderSelector';
 import ButtonCustom from '../../common/ButtonCustom';
 import { changeStatusSelectedOrder } from '../redux/thunk/driverSelectedOrderThunk';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+
+// SCSS
+import '../../../scss/component/retailer/driverOrderReviewVertical.scss';
 
 const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
