@@ -10,7 +10,7 @@ export const SingleProduct = ({ itemIndex, text, image,
 
     const handleChange = (event) => {
         const index = checkBoxRef.current.getAttribute('data-index');
-        const isChecked = checkBoxRef.current.getAttribute('data-index');
+        const isChecked = checkBoxRef.current.checked;
         manageItems(index, isChecked);
     };
       
