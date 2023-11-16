@@ -18,6 +18,7 @@ export enum RoutePath {
     USERS = '/users',
     RETAILER_UI = '/retailer',
     EXTERNAL_SYSTEMS = '/externalSystems',
+    EXTERNAL_SYSTEMS_STORES = '/stores',
     EXTERNAL_SYSTEMS_HISTORY_STATS = '/externalSystemsStatsHistory',
     EXTERNAL_SYSTEMS_DELIVERY_ORDER_STATS = '/externalSystemsStatsDeliveryOrder',
     EXTERNAL_SYSTEMS_OVERVIEW_STATS = '/externalSystemsStatsOverview',

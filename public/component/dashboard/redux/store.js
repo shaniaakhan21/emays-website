@@ -10,6 +10,7 @@ import driverSelectedOrderReducer from './slice/driverSelectedOrderSlice';
 import statsReducer from './slice/statsSlice';
 import newDriverReducer from './slice/driverRegisterSlice';
 import driverHistoryReducer from './slice/driverHistorySlice';
+import driverFinalSelectionReducer from './slice/driverFinalSelectionSlice';
 
 const store = configureStore({
     reducer: {
@@ -21,6 +22,7 @@ const store = configureStore({
         newStoreState: newStoreReducer,
         newDriverState: newDriverReducer,
         driverHistoryState: driverHistoryReducer,
+        driverFinalSelectionState: driverFinalSelectionReducer,
         selectedOrderState: selectedOrderReducer,
         driverSelectedOrderState: driverSelectedOrderReducer,
         statsState: statsReducer

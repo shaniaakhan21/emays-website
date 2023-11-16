@@ -166,9 +166,9 @@ router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUser
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-const getSystemInfoPathBySysId = `${RoutePath.EXTERNAL_SYSTEMS}${PathParam.STORE_ID}`;
+const getSystemInfoPathBySysId = `${RoutePath.EXTERNAL_SYSTEMS_STORES}${PathParam.STORE_ID}`;
 // eslint-disable-next-line max-len
-router.get(getSystemInfoPathBySysId, validateHeader, allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverRolesOnly, (
+router.post(getSystemInfoPathBySysId, validateHeader, allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverRolesOnly, (
     req: Request, res: Response, next: NextFunction): void => {
     (async () => { 
         const claims = (req as AppRequest).claims as unknown as IJWTClaims;
@@ -314,13 +314,11 @@ router.get(getOverviewOrderStats, validateHeader, allowedForExternalSystemSuperU
     req: express.Request<core.ParamsDictionary, any, any,
     { durationType: string, storeId: string }>, res: Response, next: NextFunction): void => {
     (async () => {
-        console.log('----------->>>', req?.query);
         const periodTypeValue = +req?.query?.durationType;
         const storeId = req?.query?.storeId;
         const stats = await getExternalSystemOverviewStat(periodTypeValue, storeId);
         return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(stats));
     })().catch(error => {
-        console.log('ERROR----', error);
         const err = error as Error;
         Logging.log(buildErrorMessage(err, getOverviewOrderStats), LogType.ERROR);
         next(error);
