@@ -45,10 +45,16 @@ const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getPagina
     useEffect(() => {
         if (!isSystemLoading) {
             if (getPaginationData) {
-                getPaginationData(state.currentIndex + 1, 5);
+                (async () => {
+                    const data = await getPaginationData(state.currentIndex + 1, 5);
+                    setState({ type: 'update-initial-data', data: data.payload });
+                })();
+                
             }
             if (getInitialData) {
-                getInitialData();
+                (async () => {
+                    await getInitialData();
+                })();
             }
         }
         
@@ -76,9 +82,9 @@ const PaginationContainer = ({ fullLength, wrapperStyle, resourceName, getPagina
             {
                 !isSystemLoading && isPaginationEnabled && <PaginationLayout styles={wrapperStyle}>
                     {
-                        Array.from({ length: state.initialData?.data?.allPagesAvailable || 0 }, (element, index) => {
+                        Array.from({ length: state.initialData?.allPagesAvailable || 0 }, (element, index) => {
                             return <Button 
-                                onClick={() => { changeIndex(index); }} key={index}>{index}</Button>;
+                                onClick={() => { changeIndex(index); }} key={index}>{index + 1}</Button>;
                         })
                     }
                 </PaginationLayout>

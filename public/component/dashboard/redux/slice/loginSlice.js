@@ -1,7 +1,7 @@
 'use strict';
 
 import { createSlice } from '@reduxjs/toolkit';
-import { loginExe } from '../thunk/loginThunk';
+import { loginExe, logoutExe } from '../thunk/loginThunk';
 import { AUTH_TOKEN } from '../../../../js/const/SessionStorageConst';
     
 const initialState = {
@@ -32,6 +32,13 @@ const loginSlice = createSlice({
             sessionStorage.setItem(AUTH_TOKEN, action.payload.token);
         });
         builder.addCase(loginExe.pending, (state, action) => {
+            state.isSuccess = false;
+        });
+        builder.addCase(logoutExe.fulfilled, (state, action) => {
+            sessionStorage.setItem(AUTH_TOKEN, '');
+            state.token = '';
+            state.role = '';
+            state.userInfo = {};
             state.isSuccess = false;
         });
     }

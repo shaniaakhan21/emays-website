@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../../scss/component/dashboard/login.scss';
 import LOGO from '../../../images/Dashboard/EMAYS-LOGO.svg'; 
 import TextBoxCustom from '../../common/TextBoxCustom';
