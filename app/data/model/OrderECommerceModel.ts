@@ -268,13 +268,13 @@ export const getOrderDetailDocumentsArrayByStartAndEndIndex: GetOrderDetailDocum
         } 
         // History page need this isCompleted flag
         else if (isCompleted === true) {
-            orderArray = await OrderECommerceModel.find({ isDelivered: true }).exec();
+            orderArray = await OrderECommerceModel.find({ isDelivered: true }).skip(startIndex).limit(limit).exec();
             const preparedOrderArray: Array<IOrderDTO> = 
                 (orderArray as []).map(data => prepareUserDetailsToSend(data)); 
             return preparedOrderArray;
         }
         else if (isCompleted === false) {
-            orderArray = await OrderECommerceModel.find({ isDelivered: false }).exec();
+            orderArray = await OrderECommerceModel.find({ isDelivered: false }).skip(startIndex).limit(limit).exec();
             const preparedOrderArray: Array<IOrderDTO> = 
                 (orderArray as []).map(data => prepareUserDetailsToSend(data)); 
             return preparedOrderArray;

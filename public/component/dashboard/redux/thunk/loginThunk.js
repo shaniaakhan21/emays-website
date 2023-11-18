@@ -17,3 +17,6 @@ export const loginExe = createAsyncThunk('login/loginExe', async (data) => {
     }
 });
 
+export const logoutExe = createAsyncThunk('login/logOutExe', async (data) => {
+    return true;
+});

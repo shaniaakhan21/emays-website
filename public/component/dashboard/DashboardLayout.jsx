@@ -12,7 +12,7 @@ import OrderCreated from './orderCreated/OrderCreated';
 import PaginationContainer from '../common/PaginationContainer';
 import AdminToolsRouter from './adminTools/AdminToolsRouter';
 import { Notification, View, ListDropdown
-    , EventsAlt, ServerTime, NewTab, OperationsField } from '@carbon/icons-react';
+    , EventsAlt, ServerTime, NewTab, OperationsField, Logout } from '@carbon/icons-react';
 import { getAppInfoExe, getSystemInfoExe } from './redux/thunk/appInfoThunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { getInCompleteOrderData } from './redux/thunk/inCompleteOrderThunk';
@@ -31,6 +31,8 @@ import { UnAuthorized } from './adminTools/UnAuthorized';
 import DriverOrderSelected from './orderSelected/DriverOrderSelected';
 import DriverSelectItems from './orderSelected/DriverSelectItems';
 import { getDriverHistoryData } from './redux/thunk/driverHistoryThunk';
+import { LogoutFunc } from './login/Logout';
+import { Payment } from './adminTools/driver/Payment';
 
 const DashboardLayout = () => {
 
@@ -190,6 +192,15 @@ const DashboardLayout = () => {
                                         </SideNavLink>
                                     }
 
+                                    {/* LOGOUT FOR ALL*/}
+                                    {
+                                        <SideNavLink
+                                            renderIcon={Logout}
+                                            href='/#/dashboard/logout'>
+                                        Logout
+                                        </SideNavLink>
+                                    }
+
                                 </SideNavItems>
                             </SideNav>
                         </>
@@ -197,6 +208,10 @@ const DashboardLayout = () => {
                 />
                 <div className='content-section'>
                     <Switch>
+                        {
+                            <Route path='/dashboard/logout'
+                                component={() => <LogoutFunc />}></Route>
+                        }
 
                         {
                             (loginStatusStore?.role === 'super' || 
@@ -204,7 +219,8 @@ const DashboardLayout = () => {
                             loginStatusStore?.role === 'manager' || 
                                 loginStatusStore?.role === 'external_system') && <Route exact path='/dashboard/overview'
                                 component={() => <PaginationContainer
-                                    wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                    wrapperStyle={{ display: 'flex', alignItems: 'center',
+                                        justifyContent: 'center', paddingTop: '50px' }}
                                     // The property name of the overview component
                                     resourceName={'overviewData'}
                                     // Enable pagination
@@ -253,11 +269,11 @@ const DashboardLayout = () => {
                             (loginStatusStore?.role === 'super' || 
                              loginStatusStore?.role === 'admin' || 
                              loginStatusStore?.role === 'manager' || 
-                                 loginStatusStore?.role === 'external_system') && 
+                             loginStatusStore?.role === 'external_system') && 
                                  <Route exact path='/dashboard/deliveryOrders'
                                      component={() => <PaginationContainer
                                          wrapperStyle={{ display: 'flex',
-                                             alignItems: 'center', justifyContent: 'center' }}
+                                             alignItems: 'center', justifyContent: 'center', paddingTop: '50px' }}
                                          // The method used for fetch pagination data
                                          getPaginationData={getInCompletedOrderDataWrapper}
                                          // The property name of the overview component
@@ -276,7 +292,8 @@ const DashboardLayout = () => {
                             loginStatusStore?.role === 'manager' || 
                                 loginStatusStore?.role === 'external_system') && <Route exact path='/dashboard/history'
                                 component={() => <PaginationContainer
-                                    wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                    wrapperStyle={{ display: 'flex', alignItems: 'center',
+                                        justifyContent: 'center', paddingTop: '50px' }}
                                     // The method used for fetch pagination data
                                     getPaginationData={getCompletedOrderDataWrapper}
                                     // The property name of the overview component
@@ -297,7 +314,7 @@ const DashboardLayout = () => {
                                 <Route exact path='/dashboard/newOrders'
                                     component={() => <PaginationContainer
                                         wrapperStyle={{ display: 'flex',
-                                            alignItems: 'center', justifyContent: 'center' }}
+                                            alignItems: 'center', justifyContent: 'center', paddingTop: '50px' }}
                                         // The method used for fetch data
                                         getInitialData={getNewOrderDataWrapper}
                                         // The property name of the overview component
@@ -313,7 +330,7 @@ const DashboardLayout = () => {
                                     <Route path='/dashboard/adminTools'
                                         component={() => <PaginationContainer
                                             wrapperStyle={{ display: 'flex',
-                                                alignItems: 'center', justifyContent: 'center' }}
+                                                alignItems: 'center', justifyContent: 'center', paddingTop: '50px' }}
                                             // The method used for fetch pagination data
                                             getPaginationData={getInCompletedOrderDataWrapper}
                                             // The property name of the overview component
@@ -341,7 +358,7 @@ const DashboardLayout = () => {
                             <Route exact path='/dashboard/driver/deliveryOrders'
                                 component={() => <PaginationContainer
                                     wrapperStyle={{ display: 'flex',
-                                        alignItems: 'center', justifyContent: 'center' }}
+                                        alignItems: 'center', justifyContent: 'center', paddingTop: '50px' }}
                                     // The method used for fetch pagination data
                                     getPaginationData={getInCompletedOrderDataWrapper}
                                     // The property name of the overview component
@@ -358,7 +375,8 @@ const DashboardLayout = () => {
                             (loginStatusStore?.role === 'driver') && 
                             <Route exact path='/dashboard/driver/history'
                                 component={() => <PaginationContainer
-                                    wrapperStyle={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                                    wrapperStyle={{ display: 'flex', alignItems: 'center',
+                                        justifyContent: 'center', paddingTop: '50px' }}
                                     // The method used for fetch pagination data
                                     getPaginationData={getDriverHistoryDataWrapper}
                                     // The property name of the overview component
@@ -386,6 +404,12 @@ const DashboardLayout = () => {
                             (loginStatusStore?.role === 'driver') &&
                                 <Route exact path='/dashboard/selectedOrder'
                                     component={() => <OrderSelected />}></Route>
+                        }
+
+                        {
+                            (loginStatusStore?.role === 'driver') && 
+                                <Route path='/dashboard/driver/payment'
+                                    component={() => <Payment />}></Route>
                         }
                 
                         {

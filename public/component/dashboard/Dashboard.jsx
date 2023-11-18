@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import LoginWrapper from './login/LoginWrapper';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import RetailerLogin from './login/Login';
 import { loginSelectorMemoized } from './redux/selector/loginSelector';
 import DashboardLayout from './DashboardLayout';
 
 const Dashboard = () => {
 
+    const dispatch = useDispatch();
     const loginStatusStore = useSelector(loginSelectorMemoized);
 
     useEffect(() => {
