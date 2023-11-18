@@ -20,7 +20,7 @@ const Table = ({ rows, headers, onRowClick, ...props }) => {
     };
   
     return (
-        <div>
+        <div className='main-table'>
             <CarbonTable {...props}>
                 <TableHead>
                     <TableRow>
