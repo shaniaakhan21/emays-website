@@ -287,6 +287,21 @@ export const allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverRolesOn
     validateRequest(req, next, validationCriteria);
 };
 
+// Validate only external system, super user, admin, manager, driver, client roles allowed route
+export const allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverClientRolesOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string()
+                // eslint-disable-next-line max-len
+                .valid(Roles.EXTERNAL_SYSTEM, Roles.SUPER, Roles.ADMIN, Roles.MANAGER, Roles.DRIVER, Roles.CLIENT)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // Validate only external system, super user roles allowed route
 export const allowedForExternalSystemSuperUserAndAdminANDManagerRolesOnly = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({

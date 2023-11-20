@@ -15,6 +15,7 @@ import {
     allowedForClientRoleAndSuperAdminAndAdminOnly,
     allowedForClientRoleOnly,
     allowedForExternalSystemRoleOnly,
+    allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverClientRolesOnly,
     allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverRolesOnly,
     allowedForSuperRoleOnly,
     validateCreateOrder,
@@ -148,7 +149,8 @@ router.get(`${OrderRoutePath}${RoutePath.ORDER_BY_ORDER_ID}${PathParam.ORDER_ID}
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-const validationsPatchByUserId = [allowedForClientRoleAndSuperAdminAndAdminOnly, validateHeader
+const validationsPatchByUserId = [
+    allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverClientRolesOnly, validateHeader
     , validateParamUserId, validateOrderPatchRequestBody];
 router.patch(RoutePath.ORDERS + PathParam.USER_ID, validationsPatchByUserId, (
     req: Request, res: Response, next: NextFunction): void => {
