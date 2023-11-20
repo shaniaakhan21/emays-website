@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 'use strict';
 
 import LogType from '../const/logType';
@@ -9,11 +12,13 @@ import {
     captureTerminalPayment,
     confirmOrderServiceFeePayment,
     createLocation, createReader,
+    initiateAccountLink,
     initiateOrderServiceFeePayment, initiateOrderTerminalPayment,
-    listLocations, listReaders
+    listLocations, listReaders, checkPaymentIntentStatusFunction
 } from '../util/stripe';
 import Stripe from 'stripe';
 import { IOrderDTO } from '../type/orderType';
+import { APIList } from 'googleapis/build/src/apis';
 
 const Logging = Logger(__filename);
 
@@ -27,6 +32,28 @@ export const buildCheckoutPath = async (uuid: string): Promise<Stripe.Response<S
         Logging.log(buildInfoMessageMethodCall(
             'Generate stripe checkout info', `User Id: ${uuid}`), LogType.INFO);
         return initiateOrderServiceFeePayment(uuid);
+    } catch (error) {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'Generate stripe checkout info'), LogType.ERROR);
+        throw error;
+    }
+};
+
+export const discoverReader = async () => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'discover Reader', 'id'), LogType.INFO);
+        return listReaders();
+    } catch (error) {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'Generate stripe checkout info'), LogType.ERROR);
+        throw error;
+    }
+};
+
+export const buildAccountLinkPath = async () => {
+    try {
+        return initiateAccountLink();
     } catch (error) {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'Generate stripe checkout info'), LogType.ERROR);
@@ -153,7 +180,10 @@ export const handleStripeWebhookEvent = async (event: Stripe.Event) => {
                 const order = await retrieveOrderDetailsByUserId(paymentIntent.metadata.uid);
                 await captureTerminalPayment(paymentIntent.id);
                 order.terminalPayment = true;
-                await patchOrderDetailsByUserId(paymentIntent.metadata.uid, order);
+                await patchOrderDetailsByUserId(paymentIntent.metadata.uid, order); 
+                break;
+            case 'payment_intent.succeeded':
+                console.log('webhook called when the payment suceeded');
                 break;
             default:
                 break;
@@ -175,6 +205,18 @@ export const createTerminalPaymentIntent = async (uid: string) => {
     try {
         Logging.log(buildInfoMessageMethodCall('Create payment intent for terminal order payment', uid), LogType.INFO);
         const paymentIntent = await initiateOrderTerminalPayment(uid);
+        return paymentIntent;
+    } catch (error) {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'Create payment intent for terminal order payment'), LogType.ERROR);
+        throw error;
+    }
+};
+
+export const checkPaymentIntentStatus = async (paymentIntentId: string) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall('polling server for payment intent', paymentIntentId), LogType.INFO);
+        const paymentIntent = await checkPaymentIntentStatusFunction( paymentIntentId );
         return paymentIntent;
     } catch (error) {
         const errorObject: Error = error as Error;

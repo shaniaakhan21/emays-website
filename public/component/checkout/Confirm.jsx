@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+/* eslint-disable camelcase */
+/* eslint-disable max-lines */
 import { useCallback, useEffect, useState } from 'react';
 import { Grid, Column } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
@@ -23,6 +26,7 @@ import { saveOrder, updateOrder } from '../../services/order';
 import { useMessage } from '../common/messageCtx';
 import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
 import LoadingIndicator from '../LoadingIndicator';
+import { apiBase, HTTPHelper as httpUtil } from '../../js/util/httpUtil';
 
 const Confirm = () => {
 
@@ -33,6 +37,11 @@ const Confirm = () => {
     const [productData, setProductData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
+    const [reader, setReaders] = useState([]);
+    const [terminalForPayment, setTerminalForPayment] = useState(null);
+    const [paymentIntent, setPaymentIntent] = useState(null);
+    const [presentCardFlag, setPresentCardFlag] = useState(false);
+    const [paymentStatus, setPaymentStatus] = useState(null);
 
     const [state, setState] = useSessionState(CHECKOUT_INFO);
     const [open, setOpen] = useState();
@@ -42,10 +51,113 @@ const Confirm = () => {
         const productData = getProductList();
         setProductData(productData);
     }, []);
+    useEffect(() => {
+        const pollForUpdates = async () => {
+            // Make a request to the server to check for updates
+            console.log('calling polling', paymentIntent);
+            if (paymentIntent && Object.keys(errors).length === 0)
+            {
+                await httpUtil.post(`${apiBase}/stripe/check_paymentIntent_status`, {}, { paymentIntentId: paymentIntent.id })
+                    .then(response => {
+                        setPaymentStatus({ status: response.status });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching payment status:', error);
+                    });
+            }
+            
+        };
+    
+        const intervalId = setInterval(pollForUpdates, 5000);
+    
+        return () => {
+            // Clear the interval when the component unmounts
+            clearInterval(intervalId);
+        };
+    }, [paymentIntent, errors]);
+
+    const linkAccount = async () => {
+        
+        await httpUtil.get(`${apiBase}/stripe/linkAccount`, {})
+            .then((res) => {
+                console.log('data from link acount is', res);
+                const linkElement = document.createElement('a');
+                linkElement.textContent = 'Click to visit external website';
+                linkElement.href = `${res}`;
+                linkElement.target = '_blank'; 
+                const autoClickLink = () => {
+                    const event = new MouseEvent('click', {
+                        view: window,
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    linkElement.dispatchEvent(event);
+                };
+                document.body.appendChild(linkElement);
+                autoClickLink();
+            });
+    };
+
+    const getReaders = async () => {
+        await httpUtil.get(`${apiBase}/stripe/terminal/reader`, {})
+            .then((result) => {
+                console.log('result from discover reader is', result.data );
+                setReaders(result.data);
+            });
+    };
+    const getLocations = async () => {
+        await httpUtil.get(`${apiBase}/stripe/terminal/location`, {})
+            .then((result) => {
+                console.log('result from location reader is', result.data );
+                setReaders(result.data);
+            });
+    };
+    const createReader = async () => {
+        await httpUtil.post(`${apiBase}/stripe/terminal/reader`, {}, {
+            registration_code: 'simulated-wpe',
+            location: 'tml_FUl4Hw7W3oty54',
+            label: 'Italy Location Reader'
+        })
+            .then((result) => {
+                console.log('result from create reader is', result );
+            });
+    };
+    const collectTerminalPayment = async () => {
+        const uid = getUserData().uid;
+        console.log('payment will be taken by terminal', terminalForPayment);
+        const terminalPaymentIntent = await httpUtil.post(`${apiBase}/stripe/terminal/createOrderPayment`, {}, { uid });
+        if (terminalPaymentIntent)
+        {
+            const showOrder = await httpUtil.post(`${apiBase}/stripe/terminal/showOrderPayment`, {}, { uid, terminalId: terminalForPayment.id });
+            console.log('show order is', showOrder, terminalPaymentIntent);
+            if (showOrder.status === 'online')
+            {
+                console.log('show Order success now proceeding to payment');
+                const paymentStatus = await httpUtil.post(`${apiBase}/stripe/terminal/processOrderPayment`, {}, { uid, terminalId: terminalForPayment.id });
+                if (paymentStatus)
+                {
+                    setPaymentIntent(terminalPaymentIntent);
+                    setPresentCardFlag(true);
+                }
+            }
+        };
+    };
+
+    const presentCardFunc = async () => {
+        const cardPayment = await httpUtil.post(`${apiBase}/stripe/terminal/test/success`, {}, { terminalId: terminalForPayment.id });
+        console.log('card presented', cardPayment);
+        if (cardPayment.action.status === 'failed')
+        {
+            setPaymentStatus({ status: 'Card Declined' });
+            setErrors({ msg: 'card Declined' });
+        }
+        setPresentCardFlag(false);
+    };
 
     const submit = useCallback(async () => {
         try {
             setLoading(true);
+
             const commonData = {
                 uid: getUserData().uid,
                 retailerEmail: getRetailerData().retailerEmail,
@@ -106,6 +218,8 @@ const Confirm = () => {
             setLoading(false);
         }
     }, [state, productData]);
+
+    console.log('payment status is', paymentStatus);
 
     return (
         <>
@@ -263,6 +377,18 @@ const Confirm = () => {
                                 paddingLeft: '40px'
                             }}
                         />
+                        <button onClick={() => { linkAccount(); }}>Link Account</button>
+                        <button onClick={() => { getLocations(); }}>Discover Locations</button>
+                        <button onClick={() => { getReaders(); }}>Discover Reader</button>
+                        <button onClick={() => { createReader(); }}>Create Reader</button>
+                        <button disabled={terminalForPayment ? false : true} onClick={() => { collectTerminalPayment(); }}>Collect Payment</button>
+                        <button disabled={presentCardFlag ? false : true} onClick={() => { presentCardFunc(); }}>Present Card</button>
+                        <div>{paymentStatus?.status}</div>
+                        {
+                            reader ? <ul>{
+                                reader.map((read) => <li onClick={() => { setTerminalForPayment(read); }}>{read.label}</li>)
+                            }</ul> : <></>
+                        }
 
                     </div>
                 </Column>) : (<Column lg={8} md={8} sm={4} xs={4} className='loading-indicator'>
