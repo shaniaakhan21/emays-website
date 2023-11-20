@@ -42,13 +42,14 @@ const OrderSchema = new Schema<IOrder>({
     driverPickDate: { type: Date, default: null },
     isDriverApproved: { type: Boolean, default: false },
     driverApprovedDate: { type: Date, default: null },
-    driverId: { type: String, required: false },
+    driverId: { type: String, required: false, default: '' },
     history: [{
         date: { type: Date, default: Date.now }
     }],
-    paymentRef: { type: String, required: false },
-    serviceFee: { type: Number, require: false },
-    payedDate: { type: Date, default: null }
+    paymentRef: { type: String, required: false, default: '' },
+    serviceFee: { type: Number, require: false, default: 0 },
+    payedDate: { type: Date, default: null },
+    driverSelectedItems: { type: Array, required: false, default: [] }
 });
 
 export default OrderSchema;

@@ -1,4 +1,4 @@
-import EmaysLogo from '../../../../images/Dashboard/EmaysLogo.svg';
+import EmaysLogo from '../../../../images/Dashboard/EMAYSLOGO.svg';
 import '../../../../scss/component/driver/payment.scss';
 import TextBoxCustom from '../../../common/TextBoxCustom';
 import DropDownCustom from '../../../common/DropdownCustom';

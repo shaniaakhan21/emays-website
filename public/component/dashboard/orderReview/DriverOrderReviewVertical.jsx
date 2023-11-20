@@ -9,6 +9,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 // SCSS
 import '../../../scss/component/retailer/driverOrderReviewVertical.scss';
+import { loginSelectorMemoized } from '../redux/selector/loginSelector';
 
 const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
@@ -17,6 +18,7 @@ const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle
     const dispatch = useDispatch();
     const t = useCallback((key) => translate(`dashboard.orderCreated.${key}`), [translate]);
     const selectedOrderSelector = useSelector(driverSelectedOrderSelectorMemoized);
+    const loggedInUser = useSelector(loginSelectorMemoized);
     const systemInfo = selectedOrderSelector?.storeInfo;
     const orderInfo = selectedOrderSelector?.orderInfo;
     const adminInfo = selectedOrderSelector?.adminInfo;
@@ -91,6 +93,7 @@ const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle
                     action={() => {
                         dispatch(changeStatusSelectedOrder({ orderId: orderInfo?.basicInfo?._id,
                             patchData: {
+                                driverId: loggedInUser?.userInfo?.id,
                                 isDriverApproved: true 
                             } }));
                     }}
