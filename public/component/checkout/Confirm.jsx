@@ -42,7 +42,6 @@ const Confirm = () => {
     const [paymentIntent, setPaymentIntent] = useState(null);
     const [presentCardFlag, setPresentCardFlag] = useState(false);
     const [paymentStatus, setPaymentStatus] = useState(null);
-
     const [state, setState] = useSessionState(CHECKOUT_INFO);
     const [open, setOpen] = useState();
 
@@ -151,6 +150,78 @@ const Confirm = () => {
             setPaymentStatus({ status: 'Card Declined' });
             setErrors({ msg: 'card Declined' });
         }
+        setPresentCardFlag(false);
+    };
+
+    const linkAccount = async () => {
+        
+        await httpUtil.get(`${apiBase}/stripe/linkAccount`, {})
+            .then((res) => {
+                console.log('data from link acount is', res);
+                const linkElement = document.createElement('a');
+                linkElement.textContent = 'Click to visit external website';
+                linkElement.href = `${res}`;
+                linkElement.target = '_blank'; 
+                const autoClickLink = () => {
+                    const event = new MouseEvent('click', {
+                        view: window,
+                        bubbles: true,
+                        cancelable: true
+                    });
+                    linkElement.dispatchEvent(event);
+                };
+                document.body.appendChild(linkElement);
+                autoClickLink();
+            });
+    };
+
+    const getReaders = async () => {
+        await httpUtil.get(`${apiBase}/stripe/terminal/reader`, {})
+            .then((result) => {
+                console.log('result from discover reader is', result.data );
+                setReaders(result.data);
+            });
+    };
+    const getLocations = async () => {
+        await httpUtil.get(`${apiBase}/stripe/terminal/location`, {})
+            .then((result) => {
+                console.log('result from location reader is', result.data );
+                setReaders(result.data);
+            });
+    };
+    const createReader = async () => {
+        await httpUtil.post(`${apiBase}/stripe/terminal/reader`, {}, {
+            registration_code: 'simulated-wpe',
+            location: 'tml_FUl4Hw7W3oty54',
+            label: 'Italy Location Reader'
+        })
+            .then((result) => {
+                console.log('result from create reader is', result );
+            });
+    };
+    const collectTerminalPayment = async () => {
+        const uid = getUserData().uid;
+        console.log('payment will be taken by terminal', terminalForPayment);
+        const terminalPaymentIntent = await httpUtil.post(`${apiBase}/stripe/terminal/createOrderPayment`, {}, { uid });
+        if (terminalPaymentIntent)
+        {
+            const showOrder = await httpUtil.post(`${apiBase}/stripe/terminal/showOrderPayment`, {}, { uid, terminalId: terminalForPayment.id });
+            console.log('show order is', showOrder);
+            if (showOrder.status === 'online')
+            {
+                console.log('show Order success now proceeding to payment');
+                const paymentStatus = await httpUtil.post(`${apiBase}/stripe/terminal/processOrderPayment`, {}, { uid, terminalId: terminalForPayment.id });
+                if (paymentStatus)
+                {
+                    setPresentCardFlag(true);
+                }
+            }
+        };
+    };
+
+    const presentCardFunc = async () => {
+        const cardPayment = await httpUtil.post(`${apiBase}/stripe/terminal/test/success`, {}, { terminalId: terminalForPayment.id });
+        console.log('card presented', cardPayment);
         setPresentCardFlag(false);
     };
 

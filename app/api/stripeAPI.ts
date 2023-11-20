@@ -177,6 +177,7 @@ export const handleStripeWebhookEvent = async (event: Stripe.Event) => {
         switch (event.type) {
             case 'terminal.reader.action_succeeded':
                 const paymentIntent = event.data.object as Stripe.PaymentIntent;
+                console.log('webhook called when the payment suceeded');
                 const order = await retrieveOrderDetailsByUserId(paymentIntent.metadata.uid);
                 await captureTerminalPayment(paymentIntent.id);
                 order.terminalPayment = true;
