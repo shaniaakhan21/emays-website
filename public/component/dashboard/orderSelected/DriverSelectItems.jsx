@@ -7,11 +7,13 @@ import { driverSelectFinal } from '../redux/thunk/driverFinalSelectThunk';
 // SCSS
 import '../../../scss/component/dashboard/driverSelectItems.scss';
 import ButtonCustom from '../../common/ButtonCustom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const DriverSelectItems = () => {
 
     const [selectedProducts, setSelectedProducts] = useState([]);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     useEffect(() => {
     }, [driverSelectedOrderSelectorMemoized]);
@@ -81,10 +83,7 @@ const DriverSelectItems = () => {
                     <ButtonCustom
                         text={'Go to payment >'}
                         action={() => {
-                            dispatch(changeStatusSelectedOrder({ orderId: orderInfo?.basicInfo?._id,
-                                patchData: {
-                                    isDriverApproved: true 
-                                } }));
+                            history.push('/dashboard/driver/payment');
                         }}
                         customStyle={{
                             width: '180px',

@@ -48,7 +48,8 @@ export interface IOrder {
     history?: Array<Date>,
     paymentRef?: string,
     serviceFee: number,
-    payedDate?: Date
+    payedDate?: Date,
+    driverSelectedItems?: Array<Order>
 }
 export interface IOrderDTO {
     _id?: ObjectId,
@@ -94,7 +95,8 @@ export interface IOrderDTO {
     paymentRef?: string,
     terminalPaymentRef?: string,
     serviceFee: number,
-    branchId?: string 
+    branchId?: string,
+    driverSelectedItems?: Array<Order>
 }
 
 export interface Order {
@@ -147,7 +149,8 @@ export interface IPatchOrder {
     history?: Array<Date>,
     paymentRef?: string,
     serviceFee?: number,
-    payedDate?: Date
+    payedDate?: Date,
+    driverSelectedItems?: Array<Order>
 }
 
 export interface IOrderPaginationDTO {
