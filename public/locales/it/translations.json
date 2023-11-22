@@ -156,7 +156,8 @@
     "warning": "Warning",
     "message": {
       "change-location-warning": "You have changed the area that you provided before. But still you can change it.",
-      "change-location-error": "We are not available in the selected area."
+      "change-location-error": "We are not available in the selected area.",
+      "success-update": "Update completed successfully"
     }
   },
   "common": {
