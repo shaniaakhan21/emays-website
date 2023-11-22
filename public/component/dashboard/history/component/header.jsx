@@ -28,7 +28,7 @@ const HistoryHeader = ({ searchFunction }) => {
                     <Counts heading='Last 30 days' 
                         value={`${state?.lastThirtyDays || 0} Orders`} />
                     <Counts heading='Avg orders per day' 
-                        value={(state?.average).toFixed(2) || 0} />
+                        value={(state?.average)?.toFixed(2) || 0} />
                     <Counts heading='Completed' 
                         value={state?.completed || 0} />
                 </div>

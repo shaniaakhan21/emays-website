@@ -12,7 +12,7 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0xMFQwOToxMDo1My4yMjBaIiwiZXhwIjoxNjk5NjExMDUzLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJlODk3MTAwZi02YzMwLTRlNTktOTYxOS03MDFjYWIyOGE4YzMiLCJpYXQiOjE2OTk2MDc0NTN9.lzzWQpQgzJv5LAoUF1CZn13NKmfdVIdRNty_uXiksi4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0xNlQxMzoyNTowNy41ODlaIiwiZXhwIjoxNzAwMTQ0NzA3LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJmODQyZWE3Zi0zYzk4LTQyY2EtYmJmYi0zZWViNmQzYTc1YjQiLCJpYXQiOjE3MDAxNDExMDd9.lfjp-puDaVYKbbObNJZ0sdv0Qr_-RfvwiPOzaCrEZg4
 
 {
     "email": "thathsararaviraj@gmail.com",
@@ -20,7 +20,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
     "firstName": "Thathsara",
     "lastName": "Raviraj",
     "phoneNumber": "07122658978",
-    "uid": "12345673410508",
+    "uid": "12345673410515",
     "branchId": "654cb79ea2ed5a08d5cbde8b",
     "date": "2023-03-16",
     "startTime": "19:00",
@@ -296,9 +296,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
 
 ---------- STATS ROUTES ---------------
 
-DELETE http://localhost:8080/api-dev/orders/6540c059da00c272854f74ff
+DELETE https://emaysstyle.com/api/orders/65560e572a9a5de78aa04c73
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMC0zMVQwODo0MDozNy44OTJaIiwiZXhwIjoxNjk4NzQ1MjM3LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1NDBiYzRmMTUzM2MwNDE4ZjdhYzcxNiIsImlhdCI6MTY5ODc0MTYzN30._ai2OCKUrixbj0xwtoO8l38VS8NWJeevwAMm_aLwhEg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0xOVQxNzoxODo1My4xNzdaIiwiZXhwIjoxNzAwNDE3OTMzLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTcwMDQxNDMzM30.KK-B5YGolWHW8n_v6GY4JCOQdwvjMPs3egL8P03sDaE
 
 
 GET http://localhost:8080/api-dev/orders/pagination?page=1&pageLimit=5

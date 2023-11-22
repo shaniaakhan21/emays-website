@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getRetailerData, setServiceCost } from '../../js/util/SessionStorageUtil';
+import { getRetailerData, getSelectedLaunchArea, setServiceCost } from '../../js/util/SessionStorageUtil';
 import { getAppInfo, getServiceFee } from '../../services/geo';
 import TextBoxCustom from './TextBoxCustom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { useMessage } from './messageCtx';
 
 const GeoSearchContainer = styled.div`
     padding-top: 20px;
@@ -25,6 +26,7 @@ const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
     const [predictions, setPredictions] = useState([]);
     const [autocompleteService, setAutocompleteService] = useState(null);
     const [placeService, setPlaceService] = useState(null);
+    const pushAlert = useMessage();
     // Initialize google map API. App Data will be passed by Store App.
     useEffect(() => {
         loadServices();
@@ -70,11 +72,11 @@ const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
     };
 
     const autoCompleteHandler = (event) => {
-        setAddress(event.target.value);
-        if (autocompleteService && event.target.value) {
-            autocompleteService.getPlacePredictions(
+        setAddress(event?.target?.value);
+        if (autocompleteService && event?.target?.value) {
+            autocompleteService?.getPlacePredictions(
                 {
-                    input: event.target.value,
+                    input: event?.target?.value,
                     types: ['address']
                 }, (predictions) => {
                     setPredictions(predictions);
@@ -86,24 +88,42 @@ const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
     };
 
     const selectPredictionHandler = (prediction) => {
-        setAddress(prediction.description);
+        setAddress(prediction?.description);
         placeService.getDetails({ placeId: prediction['place_id'] }, function (result, status) {
-            const [addOne] = prediction.description.split(', ');
+            const [addOne] = prediction?.description?.split(', ');
             updateAddress({ addOne: addOne ? addOne : '' });
-            if (status === google.maps.places.PlacesServiceStatus.OK) {
-                const latLng = result.geometry.location;
+            if (status === google?.maps?.places?.PlacesServiceStatus?.OK) {
+                const latLng = result?.geometry?.location;
                 // If appData available, it means this is being called from Store app.
 
                 // TODO: later get the exact area passed by the wordpress widget here, But route doesn't use this.
-                let area = 'Milan';
-                if (!appData) {
-                    // So if not app data available means, this is being called by e-commerce. Use session storage.
-                    area = getRetailerData()?.retailerArea;
+                const launchArea = getSelectedLaunchArea();
+                let area = result?.vicinity;
+                if (launchArea.toLocaleLowerCase() !== area) {
+                    pushAlert({
+                        kind: 'warning',
+                        title: t('statusMessage.warning'),
+                        subtitle: t('statusMessage.message.change-location-warning')
+                    });
                 }
-                getServiceFee(area, latLng.lat(), latLng.lng()).then(data => {
-                    const serviceFee = data.serviceFee;
+                if (!appData) {
+                    /*
+                     * So if not app data available means, this is being called by e-commerce. Use session storage.
+                     * area = getRetailerData()?.retailerArea;
+                     */
+                }
+                getServiceFee(area, latLng?.lat(), latLng?.lng())?.then((data, error) => {
+                    const serviceFee = data?.serviceFee;
                     setServiceCost(serviceFee);
                     updateServiceFee(serviceFee);
+                }).catch((error) => {
+                    setServiceCost(null);
+                    updateServiceFee(null);
+                    pushAlert({
+                        kind: 'error',
+                        title: t('statusMessage.error'),
+                        subtitle: t('statusMessage.message.change-location-error')
+                    });
                 });
             }
         });
@@ -117,12 +137,12 @@ const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
                 customStyle={{ width: '100%' }}
                 value={address} onChange={autoCompleteHandler}
             />
-            {predictions.length > 0 && (
+            { predictions && predictions?.length > 0 && (
                 <List>
-                    {predictions.map((prediction) => (
+                    {predictions?.map((prediction) => (
                         <li
-                            key={prediction.place_id} onClick={() => selectPredictionHandler(prediction)}>
-                            {prediction.description}
+                            key={prediction?.place_id} onClick={() => selectPredictionHandler(prediction)}>
+                            {prediction?.description}
                         </li>
                     ))}
                 </List>

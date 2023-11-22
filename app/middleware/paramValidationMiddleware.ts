@@ -609,7 +609,7 @@ export const validateParamUserId = (req: Request, res: Response, next: NextFunct
 // Get service gee path param validation
 export const validateGeoBasedServiceFeePathParams = (req: Request, res: Response, next: NextFunction) => {
     const validLocations: Array<string> = (config.SYSTEM_AVAILABLE_GEO_LOCATIONS as
-         Array<{location: string, cost: number}>).map(c => c.location);
+         Array<{location: string, apiName: string, cost: number}>).map(c => c.apiName);
     const validationCriteria = Joi.object({
         params: {
             area: Joi.string().valid(

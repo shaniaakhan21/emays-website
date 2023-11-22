@@ -14,12 +14,15 @@ class LaunchParamBuilder {
 
     retailerData: string;
 
+    selectedLaunchArea: string;
+
     constructor (launchType: LaunchType) { 
         this.launchType = launchType;
         this.token = '';
         this.productList = '';
         this.userData = '';
         this.retailerData = '';
+        this.selectedLaunchArea = '';
 
     }
 
@@ -43,13 +46,19 @@ class LaunchParamBuilder {
         return this;
     }
 
+    makeSelectedLaunchArea (selectedLaunchArea: string) {
+        this.selectedLaunchArea = selectedLaunchArea;
+        return this;
+    }
+
     build () {
         return {
             token: this.token,
             productList: this.productList,
             launchType: this.launchType,
             userData: this.userData,
-            retailerData: this.retailerData
+            retailerData: this.retailerData,
+            selectedLaunchArea: this.selectedLaunchArea
         };
     }
 

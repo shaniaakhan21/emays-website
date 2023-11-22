@@ -26,7 +26,7 @@ export const useMessage = () => {
         context.setShowAlert((ca) => [...ca, alert]);
         setTimeout(() => {
             context.setShowAlert((ca) => ca.filter((a) => a.id !== alert.id));
-        }, timeout ?? 3000);
+        }, timeout ?? 5000);
     };
 
     if (context === undefined) {
