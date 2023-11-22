@@ -1,28 +1,30 @@
-import OrderReview from '../orderReview/OrderReview';
 import StatusBox from '../../common/statusBox';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import OrderSelectedHeader from './component/Header';
 import Table from '../../common/table';
 import { useTranslation } from 'react-i18next';
 import { selectedOrderSelectorMemoized } from '../redux/selector/selectedOrderSelector';
 import { useDispatch, useSelector } from 'react-redux';
 import HistoryHeader from '../history/component/header';
 import DOSelectedOrderHeader from '../deliveryOrder/component/selectedHeader';
-
-// SCSS
-import '../../../scss/component/dashboard/selectedItem.scss';
 import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
 import ButtonCustom from '../../common/ButtonCustom';
 import OrderReviewHorizontal from '../orderReview/OrderReviewHorizontal';
-import { patchOrderByOrderId } from '../../../services/dashboard/order';
 import { getOrderStatus } from '../../../js/util/stateBuilderUtil';
 import { changeStatusSelectedOrder } from '../redux/thunk/selectedOrderThunk';
+import { loginSelectorMemoized } from '../redux/selector/loginSelector';
+import { useMessage } from '../../common/messageCtx';
+
+// SCSS
+import '../../../scss/component/dashboard/selectedItem.scss';
 
 const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
     const [translate] = useTranslation();
+    const pushAlert = useMessage();
     const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
+    const [m] = useTranslation();
     const selectedOrderSelector = useSelector(selectedOrderSelectorMemoized);
+    const loginStatusSelector = useSelector(loginSelectorMemoized);
     const [selectedRow, setSelectedRow] = useState({ basicInfo: null, itemsInfo: null });
     const [isSearchPerformed, setIsSearchPerformed] = useState(false);
     const dispatch = useDispatch();
@@ -43,6 +45,16 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
         orderItems: [],
         status: <StatusBox status={'Pending to pickup'}/>
     }]);
+
+    const getReadyToPickUpButtonDisabledStatus = () => {
+        if (selectedOrderSelector?.data?.basicInfo?.isPrepared) {
+            return true;
+        } else if (loginStatusSelector?.role !== 'external_system') {
+            return true;
+        } 
+        return false;
+        
+    };
 
     const getFinalCost = (itemsInfo, serviceCharge) => {
         const itemsTotal = itemsInfo?.reduce((acc, next) => {
@@ -95,6 +107,13 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
                 isPrepared: data?.isPrepared })}/>
         };
     };
+
+    const changeStatus = useCallback(() => {
+        return dispatch(changeStatusSelectedOrder({ orderId: selectedOrderSelector?.data?.basicInfo?._id,
+            patchData: {
+                isPrepared: true 
+            } }));
+    });
     
     return (
 
@@ -134,12 +153,17 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
                 <div className='button-order-prepared'>
                     <ButtonCustom
                         text={'Mark ready to pick up'}
-                        disabled = {selectedOrderSelector?.data?.basicInfo?.isPrepared ? true : false }
-                        action={() => {
-                            dispatch(changeStatusSelectedOrder({ orderId: selectedOrderSelector?.data?.basicInfo?._id,
-                                patchData: {
-                                    isPrepared: true 
-                                } }));
+                        disabled = {getReadyToPickUpButtonDisabledStatus()
+                        }
+                        action={async () => {
+                            const result = await changeStatus();
+                            if (result?.payload?.patchedStatus) {
+                                pushAlert({
+                                    kind: 'success',
+                                    title: m('statusMessage.success'),
+                                    subtitle: m('statusMessage.message.success-update')
+                                });
+                            }
                         }}
                         customStyle={{
                             width: '500px',
