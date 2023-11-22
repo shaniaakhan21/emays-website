@@ -124,23 +124,23 @@ export const config = {
     },
     SYSTEM_AVAILABLE_GEO_LOCATIONS: SYSTEM_AVAILABLE_GEO_LOCATIONS || [
         // 14.99€
-        { location: 'Milan', cost: 14.99 }, 
+        { location: 'Milan', apiName: 'Milano', cost: 14.99 }, 
         // 35€
-        { location: 'Pavia', cost: 35 },
+        { location: 'Pavia', apiName: 'Pavia', cost: 35 },
         // 60€
-        { location: 'Cremona', cost: 60 },
+        { location: 'Cremona', apiName: 'Cremona', cost: 60 },
         // 25€
-        { location: 'Monza', cost: 25 },
+        { location: 'Monza', apiName: 'Monza', cost: 25 },
         // 40€
-        { location: 'Bergamo', cost: 40 },
+        { location: 'Bergamo', apiName: 'Bergamo', cost: 40 },
         // 32€
-        { location: 'Lecco', cost: 32 },
+        { location: 'Lecco', apiName: 'Lecco', cost: 32 },
         // 40€
-        { location: 'Como', cost: 40 },
+        { location: 'Como', apiName: 'Como', cost: 40 },
         // 40€
-        { location: 'Varese', cost: 40 },
+        { location: 'Varese', apiName: 'Varese', cost: 40 },
         // 75€
-        { location: 'Turin', cost: 75 }
+        { location: 'Turin', apiName: 'Torino', cost: 75 }
     ],
     SERVICE_CHARGE: SERVICE_CHARGE || 1200.00,
     STRIPE_SECRET_KEY: STRIPE_SECRET_KEY || '',

@@ -4,6 +4,8 @@ export const USERNAME_RESERVED = 'Username already reserved';
 
 export const ORDER_NOT_FOUND_ERROR_MESSAGE = 'Couldn\'t find order';
 
+export const CAN_NOT_FIND_SELECTED_AREA = 'Can not find user selected area in launch';
+
 export const ORDER_NOT_ACTIVE = 'You have canceled the order';
 
 export const USER_UNAUTHORIZED = 'Invalid auth token';
