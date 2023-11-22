@@ -16,7 +16,8 @@ export interface LaunchRequest {
 }
 
 export interface LaunchRequestBody {
-    products: string
+    products: string,
+    selectedArea: string
 }
 
 export interface LaunchRequestConverted {
@@ -34,6 +35,6 @@ export interface LaunchUIContext {
 }
 
 export interface DataToRender {
-    'productList': string,
+    productList: string,
     token: string
 }

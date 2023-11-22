@@ -150,11 +150,21 @@
       }
     }
   },
+  "statusMessage": {
+    "error": "Error",
+    "success": "Success",
+    "warning": "Warning",
+    "message": {
+      "change-location-warning": "You have changed the area that you provided before. But still you can change it.",
+      "change-location-error": "We are not available in the selected area."
+    }
+  },
   "common": {
     "nav-customers": "CUSTOMERS",
     "nav-retailers": "RETAILERS",
     "error": "Error",
     "success": "Success",
+    "warning": "Warning",
     "success-message": "Appointment created successfully!",
     "confirm-privacy-policy": "Please confirm the privacy policy",
     "lets-talk-form": {

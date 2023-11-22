@@ -9,6 +9,7 @@ This repository consists of a React UI and its Immediate Backend.
 - ES-Lint
 - Vite Bundler
 - React
+- Redux Echosystem
 - Carbon/React
 - Node Express
 - TypeScript
@@ -37,7 +38,7 @@ This repository consists of a React UI and its Immediate Backend.
 | 3     | > yarn watch-ui OR yarn watch-server | These commands will run the build and re-start. |
 | 4     | > yarn dev-start | This command will run the development server. |
 | 5     | > docker run --name mongodb -p 27017:27017 -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=123456 mongo:4.4.6 | This command can be used to spin up a mongo container in your local docker. Then change the config value MONGODB_HOST to container_ip. |
-| 5     | run application launcher | Register external system user by following the "Manual Test" and get system token. Hit localhost:8080/api-dev/devLaunch on the browser. Use the token you got and launch the system. |
+| 6     | run application launcher | Register external system user by following the "Manual Test" and get system token. Hit localhost:8080/api-dev/devLaunch on the browser. Use the token you got and launch the system. Also, you can find the APIs to create Users in the same file. Using those credentials you can access Dashboard. http://localhost:8080/#/dashboard |
 
 # Steps to run with Docker-Compose
 | Step  | Instructions                                | Description                                                                                               |
@@ -55,9 +56,8 @@ This repository consists of a React UI and its Immediate Backend.
 # Dev guide
 - make sure your Node version is >=14
 - fix all ES-Lint issue before commit the code (auto check has been enabled with git hooks)
-- implement new unit tests for BFF functions and check unit test issues before commit (auto check will be enabled soon) 
-- integrate Jest Snapshot unit test cases for finalized UI components
 - focus about proper error handling for business logic in frontend and backend
+- follow the existing development pattern that already have followed in the code to maintain the proper code structure
 - follow design patterns at first place
 
 # Manual deployment steps

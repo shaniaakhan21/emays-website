@@ -23,10 +23,10 @@ import { v4 as uuidv4 } from 'uuid';
 import LaunchParamBuilder from '../util/LaunchParamBuilder';
 import { LaunchType } from '../type/ILaunchPayload';
 import { ErrorTemplateMessage } from '../const/errorTemplateMessage';
-import { allowedForClientRoleOnly, allowedForExternalSystemRoleOnly } from '../middleware/paramValidationMiddleware';
+import { allowedForExternalSystemRoleOnly } from '../middleware/paramValidationMiddleware';
 import ServiceError from '../type/error/ServiceError';
 import ErrorType from '../const/errorType';
-import { ORDER_NOT_ACTIVE } from '../const/errorMessage';
+import { CAN_NOT_FIND_SELECTED_AREA, ORDER_NOT_ACTIVE } from '../const/errorMessage';
 import { HTTPUserError } from '../const/httpCode';
 import * as OrderService from '../service/orderService';
 import { prepareUserPayload } from '../api/userAPI';
@@ -136,6 +136,11 @@ router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Re
         authorizeLaunchRoute(req, res, next);
         Logging.log(buildInfoMessageRouteHit(req.path, 'launch ui'), LogType.INFO);
         const requestBody = req.body as LaunchRequestBody;
+        const selectedArea = requestBody.selectedArea;
+        if (!selectedArea) {
+            throw new ServiceError(
+                ErrorType.LAUNCH_ERROR, CAN_NOT_FIND_SELECTED_AREA, '', HTTPUserError.NOT_FOUND_CODE);
+        }
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const converted = JSON.parse(requestBody.products.replace(/\\/g, '')) as LaunchRequestConverted;
         // Get token for the session
@@ -164,7 +169,6 @@ router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Re
         const cleanedRetailerData = stringifyRetailerData.replace(/\\/g, '');
 
         const paramBuilder = new LaunchParamBuilder(LaunchType.PRODUCT_LAUNCH);
-
         const productData: DataToRender = { 'productList': cleanedProduct, token: sessionToken };
         Logging.log(buildInfoMessageUserProcessCompleted('Launch UI app', `order: 
             ${JSON.stringify(productData)}` ), LogType.INFO);
@@ -172,6 +176,7 @@ router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Re
         const applicationPath: string = await buildAppLaunchPath(config.UI_APP_ENTRY_POINT);
         return res.render(applicationPath, paramBuilder
             .makeAuthentic(sessionToken).makeProductPayload(cleanedProduct)
+            .makeSelectedLaunchArea(selectedArea)
             .makeUserPayload(cleanedUserData).makeRetailerPayload(cleanedRetailerData).build());
 
     })().catch((error) => {

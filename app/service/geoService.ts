@@ -43,7 +43,7 @@ export const getServiceCostBasedOnGeoLocation: GetGeoBasedServiceCost = async (u
         );
         // const isUserInside: boolean = locality?.short_name === userData.area;
         const foundCostRecord =  (config.SYSTEM_AVAILABLE_GEO_LOCATIONS as
-                Array<{location: string, cost: number}>).
+                Array<{location: string, apiName: string, cost: number}>).
                 find(item => item.location.toLowerCase() === locality?.short_name.toLocaleLowerCase());
                 const result = {
             area: locality?.short_name as string,

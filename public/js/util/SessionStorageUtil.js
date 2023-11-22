@@ -1,7 +1,7 @@
 'use strict';
 
 import { AUTH_TOKEN, PRODUCT_LIST, ADDRESS, LAUNCH_TYPE, USER_DATA,
-    RETAILER_DATA, SERVICE_COST, STORE_IMAGE } from '../const/SessionStorageConst';
+    RETAILER_DATA, SERVICE_COST, STORE_IMAGE, SELECTED_LAUNCH_AREA } from '../const/SessionStorageConst';
 
 const getItem = (key) => {
     const itemsAsString = sessionStorage.getItem(key);
@@ -60,6 +60,10 @@ export const setLaunchType = (launchType) => {
 
 export const setAuthToken = (data) => {
     return sessionStorage.setItem(LAUNCH_TYPE, data);
+};
+
+export const getSelectedLaunchArea = () => {
+    return sessionStorage.getItem(SELECTED_LAUNCH_AREA);
 };
 
 export const getAuthToken = () => {
