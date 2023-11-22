@@ -2,11 +2,11 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { driverSelectedOrderSelectorMemoized } from '../redux/selector/driverSelectedOrderSelector';
 import { useDispatch, useSelector } from 'react-redux';
+import DriverOrderReviewVertical from '../orderReview/DriverOrderReviewVertical';
+import { getAdminByStoreId, getStoreInformationByStoreId } from '../redux/thunk/driverSelectedOrderThunk';
 
 // SCSS
 import '../../../scss/component/dashboard/selectedItem.scss';
-import DriverOrderReviewVertical from '../orderReview/DriverOrderReviewVertical';
-import { getAdminByStoreId, getStoreInformationByStoreId } from '../redux/thunk/driverSelectedOrderThunk';
 
 const DriverOrderSelected = () => {
 

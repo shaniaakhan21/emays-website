@@ -6,22 +6,33 @@ import { driverSelectedOrderSelectorMemoized } from '../redux/selector/driverSel
 import ButtonCustom from '../../common/ButtonCustom';
 import { changeStatusSelectedOrder } from '../redux/thunk/driverSelectedOrderThunk';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useMessage } from '../../common/messageCtx';
+import { loginSelectorMemoized } from '../redux/selector/loginSelector';
 
 // SCSS
 import '../../../scss/component/retailer/driverOrderReviewVertical.scss';
-import { loginSelectorMemoized } from '../redux/selector/loginSelector';
 
 const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
     const history = useHistory();
+    const pushAlert = useMessage();
     const [translate] = useTranslation();
     const dispatch = useDispatch();
+    const [m] = useTranslation();
     const t = useCallback((key) => translate(`dashboard.orderCreated.${key}`), [translate]);
     const selectedOrderSelector = useSelector(driverSelectedOrderSelectorMemoized);
     const loggedInUser = useSelector(loginSelectorMemoized);
     const systemInfo = selectedOrderSelector?.storeInfo;
     const orderInfo = selectedOrderSelector?.orderInfo;
     const adminInfo = selectedOrderSelector?.adminInfo;
+
+    const changeStatus = useCallback(() => {
+        return dispatch(changeStatusSelectedOrder({ orderId: orderInfo?.basicInfo?._id,
+            patchData: {
+                driverId: loggedInUser?.userInfo?.id,
+                isDriverApproved: true 
+            } }));
+    });
 
     return (
         <div className='content-vertical'>
@@ -90,12 +101,16 @@ const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle
                 </div>
                 <ButtonCustom
                     text={'Mark on my way'}
-                    action={() => {
-                        dispatch(changeStatusSelectedOrder({ orderId: orderInfo?.basicInfo?._id,
-                            patchData: {
-                                driverId: loggedInUser?.userInfo?.id,
-                                isDriverApproved: true 
-                            } }));
+                    action={async () => {
+                        const result = await changeStatus();
+                        if (result?.payload?.patchedStatus) {
+                            pushAlert({
+                                kind: 'success',
+                                title: m('statusMessage.success'),
+                                subtitle: m('statusMessage.message.success-update')
+                            });
+                            history.push('/dashboard');
+                        }
                     }}
                     customStyle={{
                         width: '180px',

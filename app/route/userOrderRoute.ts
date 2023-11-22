@@ -125,7 +125,7 @@ router.get(`${OrderRoutePath}${RoutePath.ORDER_BY_USER_ID}`, allowedForClientRol
  * @returns {void}
  */
 // eslint-disable-next-line max-len
-router.get(`${OrderRoutePath}${RoutePath.ORDER_BY_ORDER_ID}${PathParam.ORDER_ID}`, allowedForClientRoleAndSuperAdminAndAdminOnly, validateHeader, (
+router.get(`${OrderRoutePath}${RoutePath.ORDER_BY_ORDER_ID}${PathParam.ORDER_ID}`, allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverRolesOnly, validateHeader, (
     req: express.Request<core.ParamsDictionary, any, any, { branchId: string }>,
     res: Response, next: NextFunction
 ): void => {
