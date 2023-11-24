@@ -1,0 +1,15 @@
+.result-account-creation {
+    display: flex;
+    flex-direction: row;
+    .left {
+        flex: 1;
+        padding-top: 30px;
+    }
+    .right {
+        flex: 1;
+        padding-top: 30px;
+    }
+    .copy-button {
+        padding-top: 30px;
+    }
+}
