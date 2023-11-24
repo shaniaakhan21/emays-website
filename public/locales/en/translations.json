@@ -157,7 +157,9 @@
     "message": {
       "change-location-warning": "You have changed the area that you provided before. But still you can change it.",
       "change-location-error": "We are not available in the selected area.",
-      "success-update": "Update completed successfully"
+      "success-update": "Update completed successfully.",
+      "accounts-creation-success": "Store, Admin and Manager accounts created successfully.",
+      "data-copied": "Information copied successfully."
     }
   },
   "common": {

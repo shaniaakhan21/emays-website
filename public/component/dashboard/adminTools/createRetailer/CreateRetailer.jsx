@@ -2,15 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Store, ArrowRight } from '@carbon/icons-react';
 import { Button, Grid, ProgressIndicator, ProgressStep } from '@carbon/react';
-
-// SCSS
-import '../../../../scss/component/dashboard/adminTools/createRetailer.scss';
 import CreateRetailerBasicInfo from './BasicInfo.fragment';
 import CreateRetailerFiscalInfo from './FiscalInfo.fragment';
-import CreateRetailerBankInfo from './BankInfo.fragment';
 import CreateRetailerEmployeeInfo from './EmployeeInfo.fragment';
 import CreateRetailerAccountInfo from './AccountInfo.fragment';
-import CreateRetailerNotes from './Notes.fragment';
 import { checkUsernameValidity, registerExternalSystem, resetIsLoadingPhaseOne, resetIsLoadingPhaseThree,
     resetIsLoadingPhaseTwo, resetIsLoadingPhaseTwoFiscal, setStageOneCreateStore,
     setStageThreeCreateStore, setStageTwoCreateStore,
@@ -19,6 +14,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import CompletedMessageFragment from './Completed.message.fragment';
 import { validateEmail, validateObjectNullEmptyCheck, validatePassword } from '../../../../js/util/validateObject';
+
+// SCSS
+import '../../../../scss/component/dashboard/adminTools/createRetailer.scss';
 
 const CreateRetailer = () => {
     const [translate] = useTranslation();
@@ -52,7 +50,7 @@ const CreateRetailer = () => {
                         setErrorState(null);
                         dispatch(setStageOneCreateStore(state));
                     } else {
-                        setErrorState('usernameReserved');
+                        setErrorState(usernameSystemAvailability?.error);
                     }
                 } else {
                     setErrorState(result[1]);
@@ -114,10 +112,10 @@ const CreateRetailer = () => {
                         dispatch(setStageThreeCreateStore(state));
                     }
                     if (!usernameBusinessAdminAvailability.status) {
-                        setErrorState('adminUsernameReserved');
+                        setErrorState(usernameBusinessAdminAvailability?.error);
                     }
                     if (!usernameManagerAvailability.status) {
-                        setErrorState('managerUsernameReserved');
+                        setErrorState(usernameManagerAvailability?.error);
                     }
                 } else {
                     setErrorState(result[1]);

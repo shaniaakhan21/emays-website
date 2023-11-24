@@ -1,15 +1,13 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { setStageOneCreateStore } from '../../redux/thunk/newStoreThunk';
-import { useDispatch, useSelector } from 'react-redux';
-
-// SCSS
-import '../../../../scss/component/dashboard/adminTools/fiscalInfo.scss';
-
-import { Column, FileUploaderDropContainer, Grid, Heading, TextInput } from '@carbon/react';
+import { useSelector } from 'react-redux';
+import { Heading, TextInput } from '@carbon/react';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import ContactNumberInput from '../../../common/ContactNumberInput';
 import GoogleMap from '../../../common/googleMap';
+
+// SCSS
+import '../../../../scss/component/dashboard/adminTools/fiscalInfo.scss';
 
 const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
     const [translate] = useTranslation();
