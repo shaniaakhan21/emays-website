@@ -88,6 +88,9 @@ const newStoreSlice = createSlice({
 
             state.phaseThreeData = {};
             state.phaseThreeData.isLoading = true;
+
+            state.saveStatus = {};
+            state.isLoading = true;
         });
     }
 });

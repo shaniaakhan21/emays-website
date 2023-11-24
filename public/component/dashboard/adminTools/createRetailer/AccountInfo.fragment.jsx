@@ -66,9 +66,12 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
                     {errorState === 'username' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter username</span>}
-                    {errorState === 'usernameReserved' &&
+                    {errorState === 'Username already reserved' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 This username already reserved</span>}
+                    {errorState === 'Some error occurred' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Some error occurred</span>}
                     <TextInput labelText={t('email')} onChange={(e) => {
                         setFormData({ type: 'setEmail', data: e.target.value });
                     }} 

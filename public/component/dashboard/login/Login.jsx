@@ -42,8 +42,8 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                                 }
                                 updateFormData( { ...formData, username: event.target.value });
                             }}
-                            labelText='Account Email'
-                            placeholderText='email@example.com'
+                            labelText='Account Username'
+                            placeholderText='username'
                             name='account-email'
                             customStyle={{ width: '313px' }}
                         />

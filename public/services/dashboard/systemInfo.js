@@ -1,5 +1,6 @@
 'use strict';
 
+import { validateUsername, validateUsernameErrorBuilder } from '../../js/util/errorBuilder';
 import { apiBase, HTTPHelper as httpUtil } from '../../js/util/httpUtil';
 
 /**
@@ -69,5 +70,9 @@ export const saveManagerExternalSystem = ({ token, appData }) => {
 export const checkUsernameValidityForAccountCreation = ({ token, appData }) => {
     return httpUtil.post(`${apiBase}/externalSystems/usernameValidity`, {
         'Authorization': `Bearer ${token}`
-    }, { ...appData });
+    }, { ...appData }).catch((error) => {
+        return {
+            error: validateUsernameErrorBuilder(error?.message)
+        };
+    });
 };

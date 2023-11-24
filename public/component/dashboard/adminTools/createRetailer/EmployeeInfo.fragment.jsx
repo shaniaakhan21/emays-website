@@ -122,9 +122,12 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         {errorState === 'managerUsername' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter username</span>}
-                        {errorState === 'managerUsernameReserved' &&
+                        {errorState === 'Username already reserved' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 This username already reserved</span>}
+                        {errorState === 'Some error occurred' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Some error occurred</span>}
                         <TextBoxPassword
                             onChange={(e) => {
                                 setFormData({ type: 'setManagerPassword', data: e.target.value });
@@ -185,9 +188,12 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         {errorState === 'adminUsername' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter username</span>}
-                        {errorState === 'adminUsernameReserved' &&
+                        {errorState === 'Username already reserved' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 This username already reserved</span>}
+                        {errorState === 'Some error occurred' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Some error occurred</span>}
                         <TextBoxPassword
                             onChange={(e) => {
                                 setFormData({ type: 'setBusinessAdminPassword', data: e.target.value });
