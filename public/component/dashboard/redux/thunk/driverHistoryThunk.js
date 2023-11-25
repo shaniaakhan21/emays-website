@@ -1,7 +1,7 @@
 'use strict';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getDriverHistoryInfo, test } from '../../../../services/dashboard/driver';
+import { getDriverHistoryInfo } from '../../../../services/dashboard/driver';
 
 export const getDriverHistoryData = createAsyncThunk('driverHistory/getHistory', async (data, { getState }) => {
     const authToken = getState().loginState.token;
