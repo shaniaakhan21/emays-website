@@ -49,11 +49,11 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
     const getReadyToPickUpButtonDisabledStatus = () => {
         if (selectedOrderSelector?.data?.basicInfo?.isPrepared) {
             return true;
-        } else if (loginStatusSelector?.role !== 'external_system') {
+        } else if (loginStatusSelector?.role === 'driver' ||
+            loginStatusSelector?.role === 'client' || loginStatusSelector?.role === 'super') {
             return true;
         } 
         return false;
-        
     };
 
     const getFinalCost = (itemsInfo, serviceCharge) => {

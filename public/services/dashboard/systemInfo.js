@@ -1,6 +1,6 @@
 'use strict';
 
-import { validateUsername, validateUsernameErrorBuilder } from '../../js/util/errorBuilder';
+import { validateUsernameErrorBuilder } from '../../js/util/errorBuilder';
 import { apiBase, HTTPHelper as httpUtil } from '../../js/util/httpUtil';
 
 /**
