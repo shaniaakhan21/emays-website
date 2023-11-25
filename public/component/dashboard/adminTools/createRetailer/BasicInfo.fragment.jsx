@@ -176,13 +176,13 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                         <div className='preview'>
                             <Heading className='sub-title'>{t('sub-title4')}</Heading>
                             <img height={'150px'} width={'200px'} src={selectedImageURL} alt='preview' />
+                            {errorState === 'storeLogo' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please add your logo</span>}
                         </div>
                     </div>
                     <Heading className='sub-title'>{t('sub-title5')}</Heading>
                     <div className='map'>
-                        {errorState === 'storeLogo' &&
-                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
-                                Please add your logo</span>}
                         <GoogleMap />
                         {/* <GeoContainer 
                             appData={googleMapAPIKey}
