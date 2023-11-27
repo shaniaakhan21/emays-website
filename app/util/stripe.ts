@@ -1,54 +1,84 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable max-len */
+/* eslint-disable multiline-comment-style */
+/* eslint-disable capitalized-comments */
 /* eslint camelcase: 0 */
 import Stripe from 'stripe';
 import { config } from '../config/config';
 import * as orderService from '../service/orderService';
 import { calculateServiceFee } from '../service/orderService';
 
-const stripe = new Stripe(config.STRIPE_SECRET_KEY, {
+// eslint-disable-next-line max-len
+const stripe = new Stripe('sk_test_51MyGFvB7uMaHzfLgYAJMVDmQrAV6KkgMe3vV2UMq2w0MppsugqMg8uPodMwx89gpuOSDOqhXjVBAHEAYAwq5hAvi00M4DD8qRu', {
     apiVersion: '2022-11-15'
 });
 
-export const initiateOrderServiceFeePayment = async (userId: string) => {
+export const initiateOrderServiceFeePayment = async (userId: string, serviceFee: number) => {
     const order = await orderService.retrieveOrderDetailsByUserId(userId);
     if (!order) {
         throw new Error('Order not found');
     }
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: calculateServiceFee(order),
+        // eslint-disable-next-line max-len
+        amount: serviceFee * 100,
         currency: 'eur',
-        automatic_payment_methods: {
-            enabled: true
-        }
+        // automatic_payment_methods: {
+        //     enabled: true
+        // }
+        // application_fee_amount: order.serviceFee * 100,
+        payment_method_types: ['card', 'ideal', 'sepa_debit']
+        // transfer_data: {
+        //     destination: 'acct_1O9QU3BLOZerdFWG'
+        // } 
     });
     order.paymentRef = paymentIntent.id;
     await orderService.patchOrderDetailsByUserId(userId, order);
     return paymentIntent;
 };
 
-export const initiateOrderTerminalPayment = async (userId: string) => {
-    const order = await orderService.retrieveOrderDetailsByUserId(userId);
+export const initiateAccountLink = async () => {
+    const account = await stripe.accounts.create({
+        type: 'standard'
+    });
+    console.log('accountId is', account.id);
+    const accountLink = await stripe.accountLinks.create({
+        account: `${account.id}`,
+        refresh_url: `http://localhost:8080/#/connectStripe/${account.id}/refresh`,
+        return_url: `http://localhost:8080/#/connectStripe/${account.id}/return`,
+        type: 'account_onboarding'
+    });
+    return accountLink.url;
+};
+
+export const initiateOrderTerminalPayment = async (orderId: string, storeId: string) => {
+    const order = await orderService.retrieveOrderDetailsByOrderId(storeId, orderId);
     if (!order) {
         throw new Error('Order not found');
     }
     const amount = order.orderItems.reduce((acc, item) => acc + (item.productQuantity * parseInt(item.productCost)), 0);
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: amount,
+        amount: amount * 100,
         currency: 'eur',
-        automatic_payment_methods: {
-            enabled: true
-        },
-        capture_method: 'manual',
+        // automatic_payment_methods: {
+        //     enabled: true
+        // },
+        payment_method_types: ['card_present'],
+        capture_method: 'automatic',
+        application_fee_amount: (0.1 * amount) * 100,
         metadata: {
-            uid: userId
+            orderId
+        },
+        transfer_data: {
+            destination: 'acct_1O8IwqLLKNgX8Xew'  
         }
     });
-    order.terminalPaymentRef = paymentIntent.id;
-    await orderService.patchOrderDetailsByUserId(userId, order);
+    order.paymentRef = paymentIntent.id;
+    await orderService.patchOrderDetailsByOrderId(orderId, order);
     return paymentIntent;
 };
 
-export const showTerminalOrderInfo = async (terminalId: string, userId: string) => {
-    const order = await orderService.retrieveOrderDetailsByUserId(userId);
+export const showTerminalOrderInfo = async (terminalId: string, orderId: string, storeId: string ) => {
+    const order = await orderService.retrieveOrderDetailsByOrderId(storeId, orderId);
     if (!order) {
         throw new Error('Order not found');
     }
@@ -71,16 +101,16 @@ export const showTerminalOrderInfo = async (terminalId: string, userId: string) 
     return reader;
 };
 
-export const processTerminalOrder = async (terminalId: string, userId: string) => {
-    const order = await orderService.retrieveOrderDetailsByUserId(userId);
+export const processTerminalOrder = async (terminalId: string, orderId: string, storeId: string) => {
+    const order = await orderService.retrieveOrderDetailsByOrderId(storeId, orderId);
     if (!order) {
         throw new Error('Order not found');
     }
-    if (!order.terminalPaymentRef) {
+    if (!order.paymentRef) {
         throw new Error('Order terminal payment intent not found');
     }
     const reader = await stripe.terminal.readers.processPaymentIntent(
-        terminalId, { payment_intent: order.terminalPaymentRef }
+        terminalId, { payment_intent: order.paymentRef }
     );
     return reader;
 };
@@ -116,6 +146,16 @@ export const confirmOrderServiceFeePayment = async (userId: string) => {
     if (!order.paymentRef) {
         throw new Error('Payment reference not found');
     }
+    // const transfer = await stripe.transfers.create({
+    //     amount: order.orderItems.reduce((acc, item) => acc + (item.productQuantity * parseInt(item.productCost)), 0) * 100,
+    //     currency: 'eur',
+    //     destination: 'acct_1O55JwCGQ8QDOLxm'
+    // });
+    // if (!transfer)
+    // {
+    //     throw new Error('payment not transfered to store');
+    // }
+    
     return stripe.paymentIntents.retrieve(order.paymentRef);
 };
 
@@ -145,4 +185,7 @@ export const retrieveTerminalPayment = async (paymentIntentId: string) => {
 
 export const captureTerminalPayment = async (paymentIntentId: string) => {
     return stripe.paymentIntents.capture(paymentIntentId);
+};
+export const checkPaymentIntentStatusFunction = async (paymentIntentId: string) => {
+    return stripe.paymentIntents.retrieve(paymentIntentId);
 };

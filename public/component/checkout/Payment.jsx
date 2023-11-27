@@ -1,3 +1,5 @@
+/* eslint-disable capitalized-comments */
+/* eslint-disable camelcase */
 import { Column, ComposedModal, Grid, ModalBody, ModalHeader } from '@carbon/react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
@@ -22,16 +24,17 @@ import { makeCheckout, submitCheckout } from '../../services/stripe';
 import { useMessage } from '../common/messageCtx';
 import { publishableKey } from '../../js/const/stripe';
 import { apiBase } from '../../js/util/httpUtil';
+import { getAuthToken } from '../../js/util/SessionStorageUtil';
 
 const stripePromise = loadStripe(publishableKey);
 
-const StripeProvider = ({ open, setOpen }) => {
+const StripeProvider = ({ open, setOpen, serviceFee }) => {
 
     const [data, setData] = useState(undefined);
 
     const initialRender = useCallback(async () => {
         if (open) {
-            const res = await makeCheckout(open.uid);
+            const res = await makeCheckout(open.uid, serviceFee);
             setData(res);
         }
     }, [open]);
@@ -66,11 +69,13 @@ const Payment = ({ open, setOpen }) => {
             if (!stripe || !elements) {
                 return;
             }
+            const token = getAuthToken();
             const result = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
-                    // eslint-disable-next-line camelcase
-                    return_url: `${apiBase}/stripe/checkout/complete?userId=${open.uid}`
+                    // return_url: `${apiBase}/stripe/checkout/complete?userId=${open.uid}`
+                    // eslint-disable-next-line max-len
+                    return_url: `${window.location.protocol}//${window.location.host}/#/paymentSuccess/${open.uid}/${token}`
                 }
             });
             if (result.error) {
