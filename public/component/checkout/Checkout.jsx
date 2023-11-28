@@ -31,7 +31,6 @@ import useSessionState from '../../js/util/useSessionState';
 import timeframes from '../../../app/const/timeframes';
 import LoadingIndicator from '../LoadingIndicator';
 import GeoContainer from '../common/GeoContainer';
-import ConfirmDialog from '../common/ConfirmDialog';
 import FallBack from '../../icons/fallback.png';
 import ShoppingItem from './ShoppingItem';
 import { useMessage } from '../common/messageCtx';

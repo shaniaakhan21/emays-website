@@ -180,6 +180,7 @@ export const handleStripeWebhookEvent = async (event: Stripe.Event) => {
                 const paymentIntent = event.data.object as Stripe.PaymentIntent;
                 console.log('webhook called when the payment suceeded');
                 const order = await retrieveOrderDetailsByUserId(paymentIntent.metadata.uid);
+                console.log('----Payment---->>>', order);
                 await captureTerminalPayment(paymentIntent.id);
                 order.terminalPayment = true;
                 await patchOrderDetailsByUserId(paymentIntent.metadata.uid, order); 

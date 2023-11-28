@@ -30,6 +30,8 @@ import { CAN_NOT_FIND_SELECTED_AREA, ORDER_NOT_ACTIVE } from '../const/errorMess
 import { HTTPUserError } from '../const/httpCode';
 import * as OrderService from '../service/orderService';
 import { prepareUserPayload } from '../api/userAPI';
+import { AppRequest } from '../type/appRequestType';
+import { IJWTClaims } from '../type/IJWTClaims';
 
 const router = express.Router();
 
@@ -154,16 +156,16 @@ router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Re
         const stringifyUserData = JSON.stringify(onlyUidWithUserData);
         const cleanedUserData = stringifyUserData.replace(/\\/g, '');
 
-        // TODO: remove this and take product payload from the request directly using req.body.productList
         const stringify = JSON.stringify(converted.products);
         const cleanedProduct = stringify.replace(/\\/g, '');
-        // TODO: remove this and take retailer payload from the request directly using req.body.retailer
+        const claims = (req as AppRequest).claims as unknown as IJWTClaims;
         const retailerData = {
             // eslint-disable-next-line max-len
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
             retailerEmail: req.body?.retailerEmail,
-            retailerArea: 'Milan',
-            branchId: '1231456'
+            // We enter user first selected area as retailer area for this order.
+            retailerArea: selectedArea,
+            branchId: claims.id
         };
         const stringifyRetailerData = JSON.stringify(retailerData);
         const cleanedRetailerData = stringifyRetailerData.replace(/\\/g, '');

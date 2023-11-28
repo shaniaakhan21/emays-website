@@ -1,19 +1,17 @@
 
 /* eslint-disable max-len */
-import EmaysLogo from '../../../../images/Dashboard/EmaysLogo.svg';
+import EmaysLogo from '../../../../images/Dashboard/EMAYSLOGO.svg';
 import '../../../../scss/component/driver/payment.scss';
 import TextBoxCustom from '../../../common/TextBoxCustom';
 import DropDownCustom from '../../../common/DropdownCustom';
 import { Button } from '@carbon/react';
-import { useEffect, useState } from 'react';
-import { apiBase, HTTPHelper as httpUtil } from '../../../../js/util/httpUtil';
-import { getUserData, getRetailerData } from '../../../../js/util/SessionStorageUtil';
+import { useEffect } from 'react';
 import { getReaderExe, collectPaymentExe, cardPresentExe, serverWebhookExe } from '../../redux/thunk/stripeThunk';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTerminal, setCardFlag } from '../../redux/slice/stripeSlice';
+import { setTerminal } from '../../redux/slice/stripeSlice';
 export const Payment = () => {
     const dispatch = useDispatch();
-    const { reader, myTerminalForPayment, myPaymentIntent, cardFlag, myPaymentStaus, myError } = useSelector((state) => ( { reader: state.stripePaymentState.reader,
+    const { reader, myPaymentIntent, cardFlag, myError } = useSelector((state) => ( { reader: state.stripePaymentState.reader,
         myTerminalForPayment: state.stripePaymentState.terminalForPayment,
         myPaymentIntent: state.stripePaymentState.terminalPaymentIntent,
         cardFlag: state.stripePaymentState.cardFlag,

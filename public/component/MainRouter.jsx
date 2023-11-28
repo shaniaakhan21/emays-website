@@ -15,7 +15,7 @@ import RetailerRouter from './retailer/Router';
 import { MessageProvider } from './common/messageCtx';
 import { DashboardContainer } from './dashboard/DashboardContainer';
 import PaymentSuccessPage from './PaymentSuccess';
-import ConnectStripeAccount from './connectStripeAccount';
+import ConnectStripeAccount from './ConnectStripeAccount';
 
 // Util
 
