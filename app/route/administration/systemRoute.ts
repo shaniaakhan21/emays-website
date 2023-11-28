@@ -6,7 +6,9 @@ import * as core from 'express-serve-static-core';
 import { Router, Request, Response, NextFunction } from 'express';
 import { allowedForExternalSystemSuperUserAndAdminANDManagerRolesOnly,
     allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverRolesOnly,
+    allowedForSuperRoleOnly,
     validateCreateExtSysRequestBody,
+    validateExtSysId,
     validateExternalSystemTokenRequestBody, validateHeader,
     validateStatRouteParams,
     validateUserTokenRequestBody, 
@@ -19,8 +21,10 @@ import LogType from '../../const/logType';
 import { getExternalSystemById,
     getExternalSystemDeliveryOrderStat,
     getExternalSystemHistoryStat, 
-    getExternalSystemOverviewStat } from '../../service/administration/externalSystemService';
-import { IExternalSystem, IExternalSystemDTO, IExternalSystemLogin } from '../../type/IExternalSystem';
+    getExternalSystemOverviewStat, 
+    patchExternalSystemBySystemId } from '../../service/administration/externalSystemService';
+import { IExternalSystem, IExternalSystemDTO,
+    IExternalSystemLogin, IPatchExternalSystem } from '../../type/IExternalSystem';
 import { createExternalSystem, getExternalSystemToken } from '../../service/administration/externalSystemService';
 import { HTTPSuccess, HTTPUserError } from '../../const/httpCode';
 import { successResponseBuilder } from '../../util/responseBuilder';
@@ -90,6 +94,26 @@ router.post(RoutePath.EXTERNAL_SYSTEMS, validateHeader, validateCreateExtSysRequ
 });
 
 /**
+ * Patch external system
+ */
+const validatePatch = [allowedForSuperRoleOnly, validateHeader, validateExtSysId];
+router.patch(RoutePath.EXTERNAL_SYSTEMS + PathParam.EXTERNAL_SYSTEM_ID, ...validatePatch, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => {
+        Logging.log(buildInfoMessageRouteHit(req.path, ''), LogType.INFO);
+        const patchExtSystem = req.body as IPatchExternalSystem;
+        const pathParamExtSysId = req.params.externalSystemId;
+        await patchExternalSystemBySystemId(pathParamExtSysId, patchExtSystem);
+        Logging.log(buildInfoMessageUserProcessCompleted('Patch external system', pathParamExtSysId), LogType.INFO);
+        return res.sendStatus(HTTPSuccess.NO_CONTENT_CODE);
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, RoutePath.EXTERNAL_SYSTEMS), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
  * Get auth token for external system 
  * @param {Request} req Request object
  * @param {Response} res Response object
@@ -137,7 +161,8 @@ router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUser
             fiscalInfo: { companyName: '', fiscalNumber: '',
                 companyPhone: '', street: '', zip: '', city: '', country: '' },
             extLogo: undefined,
-            extLogoContentType: ''
+            extLogoContentType: '',
+            extStripeAccountId: ''
         };
         if (claims.roles.includes(Roles.EXTERNAL_SYSTEM)) {
             externalSystemInfo = await getExternalSystemById(claims.id);

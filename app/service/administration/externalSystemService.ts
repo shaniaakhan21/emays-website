@@ -2,11 +2,12 @@
 
 import LogType from '../../const/logType';
 import { Roles } from '../../const/roles';
-import { ExternalSystemModel, saveExternalSystem } from '../../data/model/ExternalSystemModel';
+import { ExternalSystemModel, findOneAndUpdateIfExist, saveExternalSystem } from '../../data/model/ExternalSystemModel';
 import { Logger } from '../../log/logger';
 import { CreateExternalSystemFunc, GetExternalSystemByIdFunc
     , GetExternalSystemDeliveryOrderStatsFunc, GetExternalSystemHistoryStatsFunc,
     GetExternalSystemOverviewStatsFunc,
+    PatchExternalSystemsBySystemIdFunc,
     RequestExternalSystemTokenFunc } from '../../type/orderServiceType';
 import { buildErrorMessage, buildInfoMessageMethodCall
     , buildInfoMessageUserProcessCompleted } from '../../util/logMessageBuilder';
@@ -48,6 +49,27 @@ export const createExternalSystem: CreateExternalSystemFunc = async (externalSys
         const err = error as Error;
         serviceErrorBuilder(err.message);
         Logging.log(buildErrorMessage(err, 'Create external system'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Patch external system
+ * @param {IExternalSystem} externalSystem
+ * @returns {Promise<IExternalSystemDTO>}
+ */
+export const patchExternalSystemBySystemId: PatchExternalSystemsBySystemIdFunc = async (extSysId, patchData) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Patch ext system basic data', `uid: ${extSysId}`), LogType.INFO);
+        const result = await findOneAndUpdateIfExist(extSysId, patchData);
+        Logging.log(buildInfoMessageUserProcessCompleted('Patch ext system data', `External System Data:
+           ${JSON.stringify(result)}` ), LogType.INFO);
+        return result;
+    } catch (error) {
+        const err = error as Error;
+        serviceErrorBuilder(err.message);
+        Logging.log(buildErrorMessage(err, 'Patch External System'), LogType.ERROR);
         throw error;
     }
 };
@@ -104,7 +126,8 @@ export const getExternalSystemById: GetExternalSystemByIdFunc = async (id) => {
                 extSysEmail: data?.extSysEmail,
                 extSysAddress: data?.extSysAddress,
                 fiscalInfo: data?.fiscalInfo,
-                id: data?._id?.toString() as string
+                id: data?._id?.toString() as string,
+                extStripeAccountId: data?.extStripeAccountId
             };
             return preparedData;
         } 
