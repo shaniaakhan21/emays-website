@@ -259,7 +259,21 @@ export const allowedForExternalSystemRoleOnly = (req: Request, res: Response, ne
     validateRequest(req, next, validationCriteria);
 };
 
-// Validate only client role, super user allowed route
+// Validate only client role, admin, manager,store, super user allowed route
+export const allowedForClientRoleAndSuperAdminAndAdminAndManagerAndStoreOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().
+                valid(Roles.CLIENT, Roles.SUPER, Roles.ADMIN, Roles.MANAGER, Roles.EXTERNAL_SYSTEM)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate only client role, admin, super user allowed route
 export const allowedForClientRoleAndSuperAdminAndAdminOnly = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
         claims: {

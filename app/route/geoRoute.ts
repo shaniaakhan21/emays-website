@@ -7,7 +7,7 @@ import { buildErrorMessage, buildInfoMessageRouteHit }
     from '../util/logMessageBuilder';
 import { PathParam, RoutePath } from '../const/routePath';
 import { HTTPSuccess } from '../const/httpCode';
-import { allowedForClientRoleAndSuperAdminAndAdminOnly, allowedForExternalSystemRoleOnly,
+import { allowedForClientRoleAndSuperAdminAndAdminAndManagerAndStoreOnly, allowedForExternalSystemRoleOnly,
     validateGeoBasedServiceFeePathParams,
     validateHeader } from '../middleware/paramValidationMiddleware';
 import { AppRequest } from '../type/appRequestType';
@@ -28,7 +28,7 @@ const GeoRoutePath: string = RoutePath.GEO;
  * @param {NextFunction} next Next middleware function
  * @returns {void}
  */
-const middleware = [allowedForClientRoleAndSuperAdminAndAdminOnly,
+const middleware = [allowedForClientRoleAndSuperAdminAndAdminAndManagerAndStoreOnly,
     validateHeader, validateGeoBasedServiceFeePathParams];
 router.get(
     `${GeoRoutePath}${PathParam.AREA_NAME}${PathParam.AREA_LATITUDE}${PathParam.AREA_LONGITUDE}`, middleware, (
