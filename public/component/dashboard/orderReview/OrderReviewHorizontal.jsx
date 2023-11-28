@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Heading } from '@carbon/react';
-import ShoppingItem from '../../checkout/ShoppingItem';
+import ShoppingItem from '../../checkout/ShoppingItemDashboard';
 
 // SCSS
 import '../../../scss/component/retailer/orderReviewHorizontal.scss';
@@ -26,7 +26,8 @@ const OrderReviewHorizontal = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) 
                   image={item?.image}
                   color={item?.color}
                   size={item?.size}
-                  quantity={item?.quantity} />)}
+                  quantity={item?.quantity}
+                  price={item?.productCost} />)}
                 </div>
             </div>
             <div className='appointment-info'>

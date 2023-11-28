@@ -35,8 +35,8 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
 
     const getFinalCost = (itemsInfo, serviceCharge) => {
         const itemsTotal = itemsInfo?.reduce((acc, next) => {
-            return +acc + +next?.productCost; }, 0.00);
-        return (+serviceCharge + +itemsTotal).toFixed(2);
+            return +acc + (+next?.productCost * next?.productQuantity); }, 0.00);
+        return (+itemsTotal).toFixed(2);
     };
 
     const prepareSelectedRowData = (item) => {
@@ -50,7 +50,8 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
                 image: item?.productImage,
                 color: item?.productColor,
                 size: item?.productSize,
-                quantity: item?.productQuantity
+                quantity: item?.productQuantity,
+                productCost: item?.productCost
             }));
             const itemsInfo = {
                 items: preparedItemsData,
