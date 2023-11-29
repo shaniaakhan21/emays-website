@@ -15,7 +15,7 @@ import {
     createLocation, createReader,
     initiateAccountLink,
     initiateOrderServiceFeePayment, initiateOrderTerminalPayment,
-    listLocations, listReaders, checkPaymentIntentStatusFunction
+    listLocations, listReaders, checkPaymentIntentStatusFunction, setTerminalPaymentStatus
 } from '../util/stripe';
 import Stripe from 'stripe';
 import { IOrderDTO } from '../type/orderType';
@@ -224,6 +224,18 @@ export const checkPaymentIntentStatus = async (paymentIntentId: string) => {
     } catch (error) {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'Create payment intent for terminal order payment'), LogType.ERROR);
+        throw error;
+    }
+};
+
+export const terminalPaymentComplete = async (orderId: string, storeId: string) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall('terminal payment succeeded', orderId), LogType.INFO);
+        const terminalOrderStatus = await setTerminalPaymentStatus( orderId, storeId );
+        return terminalOrderStatus;
+    } catch (error) {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'terminal order payment Complete'), LogType.ERROR);
         throw error;
     }
 };

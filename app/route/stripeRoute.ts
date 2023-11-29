@@ -17,7 +17,8 @@ import {
     createStripeLocation, createStripeReader,
     handleStripeWebhookEvent, listStripeLocations, listStripeReaders,
     discoverReader,
-    checkPaymentIntentStatus
+    checkPaymentIntentStatus,
+    terminalPaymentComplete
 } from '../api/stripeAPI';
 import Stripe from 'stripe';
 import {
@@ -251,6 +252,21 @@ router.post(`${RoutePath.STRIPE}/check_paymentIntent_status`, (
     })().catch((error) => {
         const errorObject: Error = error as Error;
         Logging.log(buildErrorMessage(errorObject, 'stripe terminal reader create'), LogType.ERROR);
+        next(error);
+    });
+});
+
+router.post(`${RoutePath.STRIPE}/terminalPaymentComplete`, (
+    req: express.Request<core.ParamsDictionary, any, { orderId: string, storeId: string }, any>,
+    res: express.Response,
+    next: express.NextFunction
+) => {
+    (async () => {
+        const data = await terminalPaymentComplete(req.body.orderId, req.body.storeId);
+        res.json({ data });
+    })().catch((error) => {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'set terminal payment complete'), LogType.ERROR);
         next(error);
     });
 });

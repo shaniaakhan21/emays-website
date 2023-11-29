@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable max-len */
 /* eslint-disable multiline-comment-style */
@@ -6,6 +8,7 @@
 import Stripe from 'stripe';
 import { config } from '../config/config';
 import * as orderService from '../service/orderService';
+import { getExternalSystemById } from '../service/administration/externalSystemService';
 import { calculateServiceFee } from '../service/orderService';
 
 // eslint-disable-next-line max-len
@@ -56,6 +59,8 @@ export const initiateOrderTerminalPayment = async (orderId: string, storeId: str
         throw new Error('Order not found');
     }
     const amount = order.orderItems.reduce((acc, item) => acc + (item.productQuantity * parseInt(item.productCost)), 0);
+    const store = await getExternalSystemById(storeId);
+    console.log('store is', store);
     const paymentIntent = await stripe.paymentIntents.create({
         amount: amount * 100,
         currency: 'eur',
@@ -69,7 +74,7 @@ export const initiateOrderTerminalPayment = async (orderId: string, storeId: str
             orderId
         },
         transfer_data: {
-            destination: 'acct_1O8IwqLLKNgX8Xew'  
+            destination: store.extStripeAccountId as string
         }
     });
     order.paymentRef = paymentIntent.id;
@@ -188,4 +193,15 @@ export const captureTerminalPayment = async (paymentIntentId: string) => {
 };
 export const checkPaymentIntentStatusFunction = async (paymentIntentId: string) => {
     return stripe.paymentIntents.retrieve(paymentIntentId);
+};
+export const setTerminalPaymentStatus = async (orderId: string, storeId: string) => {
+    const order = await orderService.retrieveOrderDetailsByOrderId(storeId, orderId);
+    if (!order) {
+        throw new Error('Order not found');
+    }
+    order.payed = true;
+    order.isDelivered = true;
+    await orderService.patchOrderDetailsByOrderId(orderId, order);
+    return order;
+
 };

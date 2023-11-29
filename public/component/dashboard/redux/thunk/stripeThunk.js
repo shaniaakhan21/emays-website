@@ -1,5 +1,6 @@
+/* eslint-disable max-len */
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getReader, collectTerminalPayment, presentCardFunc, pollForUpdates } from '../../../../services/stripe';
+import { getReader, collectTerminalPayment, presentCardFunc, pollForUpdates, setTerminalOrderStatus } from '../../../../services/stripe';
 
 export const getReaderExe = createAsyncThunk('stripe/getReader', async () => {
     const reader = await getReader();
@@ -37,6 +38,9 @@ export const serverWebhookExe = createAsyncThunk('stripe/serverWebhook', async (
         console.log('server status from webexe', serverStatus);
         if (serverStatus && serverStatus.status === 'succeeded')
         {
+            const orderId = getState().driverSelectedOrderState.orderInfo.basicInfo._id;
+            const storeId = getState().driverSelectedOrderState.orderInfo.basicInfo.branchId;
+            const order = await setTerminalOrderStatus(orderId, storeId);
             clearInterval(data.intervalId);
         }
         return serverStatus;

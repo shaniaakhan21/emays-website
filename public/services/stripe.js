@@ -68,3 +68,10 @@ export const pollForUpdates = async (PaymentIntent, intervalId) => {
     return serverWebhook;
     
 };
+
+export const setTerminalOrderStatus = async (orderId, storeId) => {
+    // Make a request to the server to check for updates
+    const terminalOrder = await httpUtil.post(`${apiBase}/stripe/terminalPaymentComplete`, {}, { orderId, storeId });
+    return terminalOrder;
+    
+};
