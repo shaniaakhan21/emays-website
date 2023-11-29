@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Heading } from '@carbon/react';
-import ShoppingItem from '../../checkout/ShoppingItem';
+import ShoppingItem from '../../checkout/ShoppingItemDashboard';
 
 // SCSS
 import '../../../scss/component/retailer/orderReview.scss';

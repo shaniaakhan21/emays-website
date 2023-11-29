@@ -25,7 +25,7 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     , SERVICE_FEE_REQUIRED, SUPER_USER_EMAIL_REQUIRED,
     SUPER_USER_FIRST_NAME_REQUIRED, SUPER_USER_LAST_NAME_REQUIRED,
     SUPER_USER_PASSWORD_REQUIRED, SUPER_USER_USERNAME_REQUIRED
-    , TIME_ZONE_REQUIRED
+    , SYSTEM_ID_REQUIRED_IN_PATH, TIME_ZONE_REQUIRED
     , USERNAME_REQUIRED, USER_FIRST_NAME_REQUIRED, USER_ID_REQUIRED, USER_ID_REQUIRED_IN_PATH, USER_LAST_NAME_REQUIRED
     , USER_PHONE_NUMBER_REQUIRED, 
     USER_UNAUTHORIZED, 
@@ -259,7 +259,21 @@ export const allowedForExternalSystemRoleOnly = (req: Request, res: Response, ne
     validateRequest(req, next, validationCriteria);
 };
 
-// Validate only client role, super user allowed route
+// Validate only client role, admin, manager,store, super user allowed route
+export const allowedForClientRoleAndSuperAdminAndAdminAndManagerAndStoreOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().
+                valid(Roles.CLIENT, Roles.SUPER, Roles.ADMIN, Roles.MANAGER, Roles.EXTERNAL_SYSTEM)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate only client role, admin, super user allowed route
 export const allowedForClientRoleAndSuperAdminAndAdminOnly = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
         claims: {
@@ -601,6 +615,18 @@ export const validateParamUserId = (req: Request, res: Response, next: NextFunct
             userId: Joi.string().required().error((error) => { 
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, USER_ID_REQUIRED_IN_PATH); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Ext sys id as parameter validation middleware 
+export const validateExtSysId = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        params: {
+            externalSystemId: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SYSTEM_ID_REQUIRED_IN_PATH); })
         }
     });
     validateRequest(req, next, validationCriteria);

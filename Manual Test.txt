@@ -12,7 +12,7 @@ GET http://localhost:8080/api-dev/health
 
 POST http://localhost:8080/api-dev/orders
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0xNlQxMzoyNTowNy41ODlaIiwiZXhwIjoxNzAwMTQ0NzA3LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiJmODQyZWE3Zi0zYzk4LTQyY2EtYmJmYi0zZWViNmQzYTc1YjQiLCJpYXQiOjE3MDAxNDExMDd9.lfjp-puDaVYKbbObNJZ0sdv0Qr_-RfvwiPOzaCrEZg4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0yMFQxMTowMjoxMC4xMjFaIiwiZXhwIjoxNzAwNDgxNzMwLCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiI4MGQwNjNhMC00ZTE0LTRjODctYWM2ZS02MGVjOGI0N2NlZDIiLCJpYXQiOjE3MDA0NzgxMzB9.AKpZTcJUc62ofuHhEpmRts62OmAlpuWblpbbC-Ucd-Y
 
 {
     "email": "thathsararaviraj@gmail.com",
@@ -72,9 +72,10 @@ content-type: application/json
 
 {
     "extSysName": "Store-X",
-    "extSysUsername": "storeThath",
+    "extSysUsername": "storeThathT",
     "extSysPassword": "abCq2&!Ms",
-    "extSysEmail": "storeX@gmail.com",
+    "extSysEmail": "storeXT@gmail.com",
+    "extStripeAccountId": "test",
     "extSysAddress": {
         "addOne": "tt",
         "addTwo": "sss",
@@ -91,6 +92,14 @@ content-type: application/json
         "city": "Lkxa",
         "country": "Sl"
     }
+}
+
+PATCH http://localhost:8080/api-dev/externalSystems/6565e2bf731fa6fa5551dd45
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0yOFQxMjo1NjoxMy41NjBaIiwiZXhwIjoxNzAxMTc5NzczLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1NGNiN2Q3YTJlZDVhMDhkNWNiZGVhMCIsImlhdCI6MTcwMTE3NjE3M30.fovChuvfRq0Romh14mvoLsE1qp_PCbffOiaPbflyMQ8
+
+{
+    "extStripeAccountId": "Test IDDDD"
 }
 
 ----- Get auth token for external system ------
@@ -156,7 +165,7 @@ POST http://localhost:8080/api-dev/adminExternalSystem/adminExternalSystemToken
 content-type: application/json
 
 {
-    "adminUsername": "thathadminuser4",
+    "adminUsername": "thathadminuser3",
     "adminPassword": "abCq2&!Ms"
 }               
 

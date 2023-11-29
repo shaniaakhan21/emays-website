@@ -99,7 +99,7 @@ const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
                 // TODO: later get the exact area passed by the wordpress widget here, But route doesn't use this.
                 const launchArea = getSelectedLaunchArea();
                 let area = result?.vicinity;
-                if (launchArea.toLocaleLowerCase() !== area) {
+                if (launchArea && launchArea.toLocaleLowerCase() !== area) {
                     pushAlert({
                         kind: 'warning',
                         title: t('statusMessage.warning'),

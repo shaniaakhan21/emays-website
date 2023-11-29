@@ -1,0 +1,34 @@
+.payment-success-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Adjust the height as needed */
+  }
+  
+  .payment-success-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  .payment-success-icon {
+    font-size: 48px;
+    color: #00cc00; /* Green color for the checkmark */
+    margin-bottom: 24px;
+  }
+  
+  .payment-success-button button {
+    background-color: #007bff; /* Blue color for the button */
+    color: #fff;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .payment-success-button button:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+  }
+  

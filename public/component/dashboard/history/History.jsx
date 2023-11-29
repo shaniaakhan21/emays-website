@@ -50,7 +50,8 @@ const History = ({ historyData, updateData }) => {
                 image: item?.productImage,
                 color: item?.productColor,
                 size: item?.productSize,
-                quantity: item?.productQuantity
+                quantity: item?.productQuantity,
+                productCost: item?.productCost
             }));
             const itemsInfo = {
                 items: preparedItemsData,

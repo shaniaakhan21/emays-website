@@ -4,6 +4,8 @@ export const USERNAME_RESERVED = 'Username already reserved';
 
 export const ORDER_NOT_FOUND_ERROR_MESSAGE = 'Couldn\'t find order';
 
+export const EXY_SYS_NOT_FOUND_ERROR_MESSAGE = 'Couldn\'t find external system';
+
 export const CAN_NOT_FIND_SELECTED_AREA = 'Can not find user selected area in launch';
 
 export const ORDER_NOT_ACTIVE = 'You have canceled the order';
@@ -22,6 +24,8 @@ export const PAGE_LIMIT_REQUIRED = 'Please check page limit';
 export const PAGE_REQUIRED = 'Please check page';
 
 export const USER_ID_REQUIRED_IN_PATH = 'Please check user id in the request path';
+
+export const SYSTEM_ID_REQUIRED_IN_PATH = 'Please check external system id in the request path';
 
 export const CONTENT_TYPE_REQUIRED = 'Please check content-type in the request heder';
 
