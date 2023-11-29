@@ -65,7 +65,7 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                                     updateError({ ...error, passwordError: true });
                                 }
                                 updateFormData( { ...formData, password: event.target.value }); } }
-                            labelText='Password'
+                            labelText='Account Password'
                             hidePasswordLabel='Hide password'
                             customStyle={{ width: '313px' }}
                         />
