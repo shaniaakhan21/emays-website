@@ -494,7 +494,7 @@
     },
     "login": {
       "heading-retailer": "Retailer",
-      "button-text": "LOGIN",
+      "button-text": "Log In",
       "error": {
         "invalid-username": "Invalid Username",
         "invalid-password": "Invalid Password"
