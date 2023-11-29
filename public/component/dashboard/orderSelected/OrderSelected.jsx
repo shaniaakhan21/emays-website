@@ -71,7 +71,9 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
             image: item?.productImage,
             color: item?.productColor,
             size: item?.productSize,
-            quantity: item?.productQuantity
+            quantity: item?.productQuantity,
+            productCost: item?.productCost
+
         }));
         const itemsInfo = {
             items: preparedItemsData,

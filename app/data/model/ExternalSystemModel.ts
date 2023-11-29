@@ -4,9 +4,14 @@ import { model } from 'mongoose';
 import LogType from '../../const/logType';
 import { Logger } from '../../log/logger';
 import { IExternalSystem, IExternalSystemDTO } from '../../type/IExternalSystem';
-import { CreateExternalSystemFunc } from '../../type/orderServiceType';
+import { CreateExternalSystemFunc, PatchExternalSystemsBySystemIdFunc } from '../../type/orderServiceType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import ExternalSystemSchema from '../schema/ExternalSystemSchema';
+import ServiceError from '../../type/error/ServiceError';
+import ErrorType from '../../const/errorType';
+import { EXY_SYS_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
+import { HTTPUserError } from '../../const/httpCode';
+import { prepareUserDetailsToSend } from '../../util/externalSystemDetailBuilder';
 
 const Logging = Logger(__filename);
 
@@ -27,9 +32,10 @@ export const saveExternalSystem: CreateExternalSystemFunc = async (externalSyste
             extSysName: result.extSysName,
             id: result._id as unknown as string,
             extSysAddress: result.extSysAddress,
-            extLogo: result.extLogo,
+            extLogo: result?.extLogo,
             extLogoContentType: result.extLogoContentType,
-            fiscalInfo: result.fiscalInfo
+            fiscalInfo: result.fiscalInfo,
+            extStripeAccountId: result?.extStripeAccountId
         };
         return data;
     } catch (error) {
@@ -39,3 +45,35 @@ export const saveExternalSystem: CreateExternalSystemFunc = async (externalSyste
     }
 };
 
+/**
+ * Get external system object by system id and update it.
+ * @param {string} systemId system Id
+ * @returns {IOrderDTO} Returns IOrderDTO object
+ */
+export const findOneAndUpdateIfExist: PatchExternalSystemsBySystemIdFunc = async (extSysId, patchData) => {
+    try {
+        const currentExtSysData = await ExternalSystemModel.findOne({ '_id': extSysId }).exec();
+        if (currentExtSysData) {
+            const preparedData = prepareUserDetailsToSend(currentExtSysData);
+            const updatedSystem = { ...preparedData, ...patchData } as IExternalSystem;
+            const filter = {
+                _id: currentExtSysData._id
+            };
+            await ExternalSystemModel.updateOne(filter, updatedSystem);
+            const data: IExternalSystemDTO = {
+                extSysName: updatedSystem?.extSysName,
+                extSysEmail: updatedSystem?.extSysEmail,
+                fiscalInfo: updatedSystem?.fiscalInfo,
+                extSysAddress: updatedSystem?.extSysAddress
+            };
+            return data;
+        }
+        throw new ServiceError(
+            ErrorType.EXTERNAL_SYSTEM_UPDATE_ERROR, EXY_SYS_NOT_FOUND_ERROR_MESSAGE, '', HTTPUserError
+                .UNPROCESSABLE_ENTITY_CODE);
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, `Patch external system by system id ${extSysId}`), LogType.ERROR);
+        throw error;
+    }
+};

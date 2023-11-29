@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+/* eslint-disable camelcase */
+/* eslint-disable max-lines */
 import { useCallback, useEffect, useState } from 'react';
 import { Grid, Column } from '@carbon/react';
 import { useHistory } from 'react-router-dom';
@@ -5,6 +8,7 @@ import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
 import Payment from './Payment';
+import StripeProvider from './Payment';
 
 // SCSS
 import '../../scss/component/checkout/confirm.scss';
@@ -32,7 +36,6 @@ const Confirm = () => {
     const [productData, setProductData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
-
     const [state, setState] = useSessionState(CHECKOUT_INFO);
     const [open, setOpen] = useState();
 
@@ -41,16 +44,18 @@ const Confirm = () => {
         const productData = getProductList();
         setProductData(productData);
     }, []);
-
+    
     const submit = useCallback(async () => {
         try {
             setLoading(true);
+
             const commonData = {
                 uid: getUserData().uid,
                 retailerEmail: getRetailerData().retailerEmail,
                 branchId: getRetailerData().branchId,
                 timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-                orderItems: productData
+                orderItems: productData,
+                serviceFee: 0
             };
             const { locked, options, ...rest } = state;
             const errors = [
@@ -108,7 +113,8 @@ const Confirm = () => {
 
     return (
         <>
-            <Payment open={open} setOpen={setOpen} />
+            {/* <Payment open={open} setOpen={setOpen} /> */}
+            <StripeProvider open={open} setOpen={setOpen} serviceFee={getServiceCost()} />
             <Grid className='landing-page'>
                 <Column lg={16} md={16} sm={16} xs={16} className='logo'>
                     <img src={Emays} alt='The Emays logo' />

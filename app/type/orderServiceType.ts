@@ -2,7 +2,7 @@
 
 import { integer } from 'aws-sdk/clients/cloudfront';
 import OrderServiceError from './error/ServiceError';
-import { IExternalSystem, IExternalSystemDTO } from './IExternalSystem';
+import { IExternalSystem, IExternalSystemDTO, IPatchExternalSystem } from './IExternalSystem';
 import { IExternalSystemDeliveryOrderStatsDTO, IExternalSystemHistoryStatsDTO,
     IExternalSystemOverviewStatsDTO } from './IExternalSystemStats';
 import { IOrder, IOrderDTO, IOrderPaginationDTO, IPatchOrder } from './orderType';
@@ -13,6 +13,8 @@ export type CreateOrderFunc = (order: IOrder) => Promise<IOrderDTO>;
 export type DeleteOrderByOrderIdFunc = (id: string) => Promise<unknown | IOrder>;
 
 export type CreateExternalSystemFunc = (externalSystem: IExternalSystem) => Promise<IExternalSystemDTO>;
+
+export type PatchExternalSystemsBySystemIdFunc = (systemId: string, patchData: IPatchExternalSystem) => Promise<IExternalSystemDTO>;
 
 export type RequestExternalSystemTokenFunc = (extSysUsername: string, extSysPassword: string) => Promise<{token: string, roles: string}>;
 
