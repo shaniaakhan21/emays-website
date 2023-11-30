@@ -11,8 +11,6 @@ import { useTranslation } from 'react-i18next';
 import OrderCreated from './orderCreated/OrderCreated';
 import PaginationContainer from '../common/PaginationContainer';
 import AdminToolsRouter from './adminTools/AdminToolsRouter';
-import { Notification, View, ListDropdown
-    , EventsAlt, ServerTime, NewTab, OperationsField, Logout } from '@carbon/icons-react';
 import { getAppInfoExe, getSystemInfoExe } from './redux/thunk/appInfoThunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { getInCompleteOrderData } from './redux/thunk/inCompleteOrderThunk';
@@ -34,6 +32,9 @@ import { getDriverHistoryData } from './redux/thunk/driverHistoryThunk';
 import { LogoutFunc } from './login/Logout';
 import { Payment } from './adminTools/driver/Payment';
 import { MessageProvider } from '../common/messageCtx';
+import EmaysLogo from '../../images/Dashboard/EMAYSLOGO.svg';
+import { DashboardIconCustom, LogOutIconCustom, OrderDetailsIconCustom,
+    TaskAddIconCustom, TimeIconCustom, ToolBoxCustom } from '../icons/CustomIcons';
 
 const DashboardLayout = () => {
 
@@ -106,6 +107,9 @@ const DashboardLayout = () => {
                                     onOverlayClick={onClickSideNavExpand}
                                     href='#main-content'
                                     onSideNavBlur={onClickSideNavExpand}>
+                                    <div className='nav-image'>
+                                        <img src={EmaysLogo}/>
+                                    </div>
                                     <SideNavItems>
 
                                         {/* OVERVIEW */}
@@ -114,7 +118,7 @@ const DashboardLayout = () => {
                                         loginStatusStore?.role === 'admin' || 
                                         loginStatusStore?.role === 'manager' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
-                                                renderIcon={View}
+                                                renderIcon={DashboardIconCustom}
                                                 href='/#/dashboard/overview'>
                                         Overview
                                             </SideNavLink>
@@ -126,9 +130,9 @@ const DashboardLayout = () => {
                                         loginStatusStore?.role === 'admin' || 
                                         loginStatusStore?.role === 'manager' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
-                                                renderIcon={ListDropdown}
+                                                renderIcon={OrderDetailsIconCustom}
                                                 href='/#/dashboard/deliveryOrders'>
-                                        Delivery Order
+                                        Delivery Orders
                                             </SideNavLink>
                                         }
                                     
@@ -143,34 +147,34 @@ const DashboardLayout = () => {
                                         Customers
                                     </SideNavLink> */}
 
-                                        {/* HISTORY */}
-                                        {
-                                            (loginStatusStore?.role === 'super' || 
-                                        loginStatusStore?.role === 'admin' || 
-                                        loginStatusStore?.role === 'manager' || 
-                                        loginStatusStore?.role === 'external_system') && <SideNavLink
-                                                renderIcon={ServerTime}
-                                                href='/#/dashboard/history'>
-                                        History
-                                            </SideNavLink>
-                                        }
-                                    
                                         {/* NEW ORDER */}
                                         {
                                             (loginStatusStore?.role === 'super' || 
                                         loginStatusStore?.role === 'admin' || 
                                         loginStatusStore?.role === 'manager' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
-                                                renderIcon={NewTab}
+                                                renderIcon={TaskAddIconCustom}
                                                 href='/#/dashboard/newOrders'>
-                                        New Orders
+                                        Add New Orders
+                                            </SideNavLink>
+                                        }
+
+                                        {/* HISTORY */}
+                                        {
+                                            (loginStatusStore?.role === 'super' || 
+                                        loginStatusStore?.role === 'admin' || 
+                                        loginStatusStore?.role === 'manager' || 
+                                        loginStatusStore?.role === 'external_system') && <SideNavLink
+                                                renderIcon={TimeIconCustom}
+                                                href='/#/dashboard/history'>
+                                        Order History
                                             </SideNavLink>
                                         }
 
                                         {/* ADMIN TOOLS */}
                                         {
                                             (loginStatusStore?.role === 'super') && <SideNavLink
-                                                renderIcon={OperationsField}
+                                                renderIcon={ToolBoxCustom}
                                                 href='/#/dashboard/adminTools'>
                                         Admin Tools
                                             </SideNavLink>
@@ -180,7 +184,7 @@ const DashboardLayout = () => {
 
                                         {
                                             loginStatusStore?.role === 'driver' && <SideNavLink
-                                                renderIcon={ListDropdown}
+                                                renderIcon={OrderDetailsIconCustom}
                                                 href='/#/dashboard/driver/deliveryOrders'>
                                         Delivery Order
                                             </SideNavLink>
@@ -188,16 +192,17 @@ const DashboardLayout = () => {
 
                                         {
                                             loginStatusStore?.role === 'driver' && <SideNavLink
-                                                renderIcon={ServerTime}
+                                                renderIcon={TimeIconCustom}
                                                 href='/#/dashboard/driver/history'>
-                                       History
+                                       Order History
                                             </SideNavLink>
                                         }
 
                                         {/* LOGOUT FOR ALL*/}
                                         {
                                             <SideNavLink
-                                                renderIcon={Logout}
+                                                className={'log-out'}
+                                                renderIcon={LogOutIconCustom}
                                                 href='/#/dashboard/logout'>
                                         Logout
                                             </SideNavLink>

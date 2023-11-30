@@ -119,7 +119,7 @@ export const config = {
             BOOK_CALENDER_REDIRECTION_PATH: 'http://localhost:8080/api-dev/googleCalender'
         },
         MAP: {
-            API_KEY: GOOGLE_MAP_API_KEY || ''
+            API_KEY: GOOGLE_MAP_API_KEY || 'AIzaSyDjayD_IqUBxw-Zroz15PF1t69HRMsMoDA'
         }
     },
     SYSTEM_AVAILABLE_GEO_LOCATIONS: SYSTEM_AVAILABLE_GEO_LOCATIONS || [
