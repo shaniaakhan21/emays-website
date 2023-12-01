@@ -99,7 +99,7 @@ content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0yOFQxMjo1NjoxMy41NjBaIiwiZXhwIjoxNzAxMTc5NzczLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1NGNiN2Q3YTJlZDVhMDhkNWNiZGVhMCIsImlhdCI6MTcwMTE3NjE3M30.fovChuvfRq0Romh14mvoLsE1qp_PCbffOiaPbflyMQ8
 
 {
-    "extStripeAccountId": "Test IDDDD"
+    "extStripeAccountId": "acct_1O8IwqLLKNgX8Xew"
 }
 
 ----- Get auth token for external system ------

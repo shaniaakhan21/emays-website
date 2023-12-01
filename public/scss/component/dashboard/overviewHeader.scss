@@ -1,31 +1,42 @@
-.tile-box {
-    margin-right: 1%;
-    width: 30%;
-
-    .cds--tile {
-        background-color: white;
-    }
-}
-
-.grid-2 {
-    display: flex;
-    justify-content: flex-start;
-    width: 60%;
-    flex-direction: row-reverse;
-}
-
-.grid-1 {
-    width: 40%;
-}
 
 .header-content {
     display: flex;
-    align-items: flex-end;
+    margin-top: 50px;
+    h5 {
+        font-size: 16px;
+    }
+    h2 {
+        font-size: 28px;
+        padding-top: 20px;
+    }
+
+    .grid-2 {
+        display: flex;
+        justify-content: left;
+        flex-direction: row-reverse;
+        width: 100%;
+    
+        .tile-box {
+            margin-right: 1%;
+            width: auto;
+            p, span, a, h1, h2, h3, h4, h5, h6, input, button, .cds--btn {
+                font-family: "IBM Plex Sans";
+            }
+            .cds--tile {
+                background-color: white;
+            }
+        }
+    
+    }
 }
 
 .time-duration {
-    padding:40px;
     .cds--dropdown__wrapper {
-        width: 350px;
+        width: fit-content;
+        padding-left: 15px;
+        padding-top: 30px;
+    }
+    .cds--list-box__menu {
+        width: 256px;
     }
 }

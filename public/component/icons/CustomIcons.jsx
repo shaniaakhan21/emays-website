@@ -2,7 +2,7 @@ import { Dashboard, Logout, OrderDetails, TaskAdd, Time, ToolBox } from '@carbon
 
 export const LogOutIconCustom = ({ style }) => {
     return (
-        <Logout style={ { fill: 'red', width: '20px', height: '18px', ...style } }></Logout>
+        <Logout style={ { fill: '#DA1E23', width: '20px', height: '18px', ...style } }></Logout>
     );
 };
 
