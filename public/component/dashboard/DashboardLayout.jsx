@@ -155,7 +155,7 @@ const DashboardLayout = () => {
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
                                                 renderIcon={TaskAddIconCustom}
                                                 href='/#/dashboard/newOrders'>
-                                        Add New Orders
+                                        Add New Order
                                             </SideNavLink>
                                         }
 
