@@ -23,9 +23,9 @@ import { INVALID_CREDENTIALS_ERROR_MESSAGE,
     SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
 import { getActiveOrdersCountByDurationAndStoreId, getAllOrderCountByDurationAndStoreId,
     getCompletedOrdersCountByDurationAndStoreId, 
-    getRevenueByDurationAndStoreId } from '../../data/model/OrderECommerceModel';
+    getOverviewAllOrderCountByDurationAndStoreId, 
+    getRevenueForOverviewByDurationAndStoreId } from '../../data/model/OrderECommerceModel';
 import { TimePeriod } from '../../const/timePeriods';
-import DurationUtil from '../../util/durationUtil';
 
 const Logging = Logger(__filename);
 
@@ -213,15 +213,13 @@ export const getExternalSystemOverviewStat: GetExternalSystemOverviewStatsFunc =
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get external system overview stats by id', `ext id: ${id as string}`), LogType.INFO);
-        const allOrders = await getAllOrderCountByDurationAndStoreId(timePeriod, id);
-        
-        const currentDate = new Date();
-        const timeDifference = currentDate.getTime() - DurationUtil.getDuration(timePeriod).getTime();
-        const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const revenue = await getRevenueByDurationAndStoreId(timePeriod, id);
+        const allOrders = await getOverviewAllOrderCountByDurationAndStoreId(timePeriod, id);
+        const revenue = await getRevenueForOverviewByDurationAndStoreId(timePeriod, id);
+        // TODO: get the Stripe commission using stipe APIs according the given date range and add to the revenue
         return {
             noOfOrders: allOrders,
-            average: allOrders / daysDifference,
+            // This is the average ticket price
+            average: allOrders === 0 ? 0 : (revenue / allOrders),
             totalRevenue: revenue || 0
         };
     } catch (error) {

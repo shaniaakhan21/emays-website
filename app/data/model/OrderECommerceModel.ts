@@ -17,15 +17,15 @@ import { CreateOrderFunc, DeleteOrderByOrderIdFunc,
     GetRevenueByDurationAndStoreIdFunc, 
     PatchOrderDetailsByOrderIdFunc, 
     GetCompletedOrdersByStartAndEndIndexAndDriverId, 
-    GetCompletedOrderDocumentSizeByDriverId } from '../../type/orderServiceType';
+    GetCompletedOrderDocumentSizeByDriverId, 
+    GetRevenueOverviewByDurationAndStoreIdFunc, 
+    GetOverviewAllOrderCountByDurationAndStoreIdFunc } from '../../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { prepareUserDetailsToSend } from '../../util/orderDetailBuilder';
 import OrderSchema from '../schema/OrderECommerceSchema';
-import { array } from 'joi';
 import DurationUtil from '../../util/durationUtil';
-import { TimePeriod } from '../../const/timePeriods';
-import { integer } from 'aws-sdk/clients/cloudfront';
+import { TimePeriodOverview } from '../../const/timePeriods';
 
 const Logging = Logger(__filename);
 
@@ -390,7 +390,7 @@ export const getAllOrderCountByDurationAndStoreId: GetAllOrderCountByDurationAnd
             {
                 $match: {
                     date: {
-                        $lte: duration
+                        $gte: duration
                     }
                 }
             },
@@ -401,6 +401,94 @@ export const getAllOrderCountByDurationAndStoreId: GetAllOrderCountByDurationAnd
                 }
             }
         ];
+    
+        if (storeId) {
+            // Add the branchId condition to the $match object if storeId is available
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            aggregatePipeline[0].$match.branchId = storeId;
+        }
+    
+        const result = await OrderECommerceModel.aggregate(aggregatePipeline).exec();
+        let count = 0;
+        if (result?.length > 0) {
+            count = (result[0] as { count: number }).count;
+        }
+        return count;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve Order size'), LogType.ERROR);
+        throw error;
+    }
+    
+};
+
+/**
+ * Get all order count for Overview
+ * @param {integer} durationType type of duration
+ * @param {string} storeId end index
+ * @return {integer} count
+ */
+export const getOverviewAllOrderCountByDurationAndStoreId: GetOverviewAllOrderCountByDurationAndStoreIdFunc = async (durationType, storeId) => {
+    try {
+        let aggregatePipeline: any[];
+        switch (durationType) {
+            case TimePeriodOverview.CURRENT_MONTH:
+            case TimePeriodOverview.LAST_NINETY_DAYS: 
+                const startDate = DurationUtil.getDurationOverview(durationType);
+                aggregatePipeline = [
+                    {
+                        $match: {
+                            isDelivered: true, 
+                            createdAt: { $gte: startDate }
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            count: { $sum: 1 },
+                            totalRevenue: { $sum: '$serviceFee' }
+                        }
+                    }
+                ];
+                break;
+            case TimePeriodOverview.PAST_MONTH:
+                const startDateLastMonth = DurationUtil.getStartDateLastMonth();
+                const endDateLastMonth = DurationUtil.getEndDateLastMonth();
+                aggregatePipeline = [
+                    {
+                        $match: {
+                            isDelivered: true, 
+                            deliveredDate: { $gte: startDateLastMonth, $lte: endDateLastMonth }
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            count: { $sum: 1 },
+                            totalRevenue: { $sum: '$serviceFee' }
+                        }
+                    }
+                ];
+                break;
+            case TimePeriodOverview.ALL:
+            default:
+                console.log('All Time');
+                aggregatePipeline = [
+                    {
+                        $match: {
+                            isDelivered: true
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            count: { $sum: 1 },
+                            totalRevenue: { $sum: '$serviceFee' }
+                        }
+                    }
+                ];
+                break;
+        }
     
         if (storeId) {
             // Add the branchId condition to the $match object if storeId is available
@@ -493,6 +581,95 @@ export const getRevenueByDurationAndStoreId: GetRevenueByDurationAndStoreIdFunc 
                 }
             }
         ];
+    
+        if (storeId) {
+            // Add the branchId condition to the $match object if storeId is available
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            aggregatePipeline[0].$match.branchId = storeId;
+        }
+    
+        const result = await OrderECommerceModel.aggregate(aggregatePipeline).exec();
+        let count = 0;
+        let totalRevenue = 0;
+        if (result?.length > 0) {
+            count = (result[0] as { count: number }).count;
+            totalRevenue = (result[0] as { totalRevenue: number }).totalRevenue;
+        }
+    
+        return totalRevenue;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve revenue'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get revenue for overview based on the duration type
+ * @param {integer} durationType type of duration
+ * @param {string} storeId end index
+ * @return {integer} serviceFee Sum
+ */
+export const getRevenueForOverviewByDurationAndStoreId: GetRevenueOverviewByDurationAndStoreIdFunc = async (durationType, storeId) => {
+    try {
+        let aggregatePipeline: any[];
+        switch (durationType) {
+            case TimePeriodOverview.CURRENT_MONTH:
+            case TimePeriodOverview.LAST_NINETY_DAYS: 
+                const startDate = DurationUtil.getDurationOverview(durationType);
+                aggregatePipeline = [
+                    {
+                        $match: {
+                            isDelivered: true, 
+                            createdAt: { $gte: startDate }
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            count: { $sum: 1 },
+                            totalRevenue: { $sum: '$serviceFee' }
+                        }
+                    }
+                ];
+                break;
+            case TimePeriodOverview.PAST_MONTH:
+                const startDateLastMonth = DurationUtil.getStartDateLastMonth();
+                const endDateLastMonth = DurationUtil.getEndDateLastMonth();
+                aggregatePipeline = [
+                    {
+                        $match: {
+                            isDelivered: true, 
+                            deliveredDate: { $gte: startDateLastMonth, $lte: endDateLastMonth }
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            count: { $sum: 1 },
+                            totalRevenue: { $sum: '$serviceFee' }
+                        }
+                    }
+                ];
+                break;
+            case TimePeriodOverview.ALL:
+            default:
+                aggregatePipeline = [
+                    {
+                        $match: {
+                            isDelivered: true
+                        }
+                    },
+                    {
+                        $group: {
+                            _id: null,
+                            count: { $sum: 1 },
+                            totalRevenue: { $sum: '$serviceFee' }
+                        }
+                    }
+                ];
+                break;
+        }
     
         if (storeId) {
             // Add the branchId condition to the $match object if storeId is available

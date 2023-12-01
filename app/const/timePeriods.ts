@@ -8,3 +8,9 @@ export enum TimePeriod {
     THIRTY_DAYS_A_GO = 5
 }
 
+export enum TimePeriodOverview {
+    CURRENT_MONTH = 1,
+    PAST_MONTH = 2,
+    LAST_NINETY_DAYS = 3,
+    ALL = 4
+}
