@@ -23,9 +23,10 @@ import { INVALID_CREDENTIALS_ERROR_MESSAGE,
     SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
 import { getActiveOrdersCountByDurationAndStoreId, getAllOrderCountByDurationAndStoreId,
     getCompletedOrdersCountByDurationAndStoreId, 
+    getOrdersDeliveryOrderPage, 
     getOverviewAllOrderCountByDurationAndStoreId, 
     getRevenueForOverviewByDurationAndStoreId } from '../../data/model/OrderECommerceModel';
-import { TimePeriod } from '../../const/timePeriods';
+import { TimePeriod, TimePeriodDeliveryOrder } from '../../const/timePeriods';
 
 const Logging = Logger(__filename);
 
@@ -182,19 +183,19 @@ export const getExternalSystemDeliveryOrderStat: GetExternalSystemDeliveryOrderS
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get external system delivery orders stats by id', `ext id: ${id as string}`), LogType.INFO);
-        const completed = await getCompletedOrdersCountByDurationAndStoreId(timePeriod, id);
+        const activeLastThirtyDays = 
+        await getOrdersDeliveryOrderPage(TimePeriodDeliveryOrder.LAST_THIRTY_DAYS, false, id);
         
-        const currentDate = new Date();
-        const daysInLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+        const completedAllTime = 
+        await getOrdersDeliveryOrderPage(TimePeriodDeliveryOrder.LAST_THIRTY_DAYS, true, id);
 
-        const lastThirtyDayActiveOrders = 
-            await getActiveOrdersCountByDurationAndStoreId(TimePeriod.THIRTY_DAYS_A_GO, id);
-        const activeOrders = await getActiveOrdersCountByDurationAndStoreId(timePeriod, id);
+        const activeAllTime = 
+        await getOrdersDeliveryOrderPage(TimePeriodDeliveryOrder.ALL, false, id);
         return {
-            completed: completed,
-            average: activeOrders / daysInLastMonth,
-            lastThirtyDays: lastThirtyDayActiveOrders,
-            activeOrders: activeOrders
+            completed: completedAllTime,
+            average: activeLastThirtyDays / 30,
+            lastThirtyDays: activeLastThirtyDays,
+            activeOrders: activeAllTime
         };
     } catch (error) {
         const err = error as Error;

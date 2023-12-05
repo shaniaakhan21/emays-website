@@ -14,3 +14,8 @@ export enum TimePeriodOverview {
     LAST_NINETY_DAYS = 3,
     ALL = 4
 }
+
+export enum TimePeriodDeliveryOrder {
+    LAST_THIRTY_DAYS = 1,
+    ALL = 2
+}
