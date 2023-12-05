@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Heading } from '@carbon/react';
 import ShoppingItem from '../../checkout/ShoppingItemDashboard';
+import moment from 'moment';
 
 // SCSS
 import '../../../scss/component/retailer/orderReviewHorizontal.scss';
@@ -33,11 +34,12 @@ const OrderReviewHorizontal = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) 
             <div className='appointment-info'>
                 <Heading className='title'>{infoTitle}</Heading>
                 <div className='date-time'>
-                    <div className='field'>
+                    <div className='field date'>
                         <label>{t('appointmentInfo.date')}</label>
-                        <p>{basicInfo?.date ? basicInfo?.date?.split('T')[0] : basicInfo?.date}</p>
+                        <p>{moment(basicInfo?.date ?
+                            basicInfo?.date?.split('T')[0] : basicInfo?.date).format('ddd DD, MMMM, YYYY')}</p>
                     </div>
-                    <div className='field'>
+                    <div className='field time'>
                         <label>{t('appointmentInfo.hour')}</label>
                         <p>{`${basicInfo?.startTime}-${basicInfo?.endTime}`}</p>
                     </div>

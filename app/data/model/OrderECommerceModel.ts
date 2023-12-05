@@ -19,13 +19,14 @@ import { CreateOrderFunc, DeleteOrderByOrderIdFunc,
     GetCompletedOrdersByStartAndEndIndexAndDriverId, 
     GetCompletedOrderDocumentSizeByDriverId, 
     GetRevenueOverviewByDurationAndStoreIdFunc, 
-    GetOverviewAllOrderCountByDurationAndStoreIdFunc } from '../../type/orderServiceType';
+    GetOverviewAllOrderCountByDurationAndStoreIdFunc, 
+    GetOrdersCountDeliveryOrder } from '../../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { prepareUserDetailsToSend } from '../../util/orderDetailBuilder';
 import OrderSchema from '../schema/OrderECommerceSchema';
 import DurationUtil from '../../util/durationUtil';
-import { TimePeriodOverview } from '../../const/timePeriods';
+import { TimePeriodDeliveryOrder, TimePeriodOverview } from '../../const/timePeriods';
 
 const Logging = Logger(__filename);
 
@@ -378,6 +379,59 @@ export const getCompletedOrdersCountByDurationAndStoreId: GetCompletedOrderCount
 };
 
 /**
+ * Get Order Count Delivery Order
+ * @param {integer} durationType type of duration
+ * @param {string} storeId end index
+ * @return {integer} count
+ */
+export const getOrdersDeliveryOrderPage: GetOrdersCountDeliveryOrder = async (durationType, isCompleted, storeId) => {
+    try {
+        let aggregatePipeline: any[];
+        switch (durationType) {
+            case TimePeriodDeliveryOrder.LAST_THIRTY_DAYS:
+                const startDate = DurationUtil.getDurationDeliveryOrders(durationType);
+                aggregatePipeline = [
+                    {
+                        $match: {
+                            isDelivered: isCompleted, 
+                            createdAt: { $gte: startDate }
+                        }
+                    }
+                ];
+                break;
+            case TimePeriodDeliveryOrder.ALL:
+            default:
+                aggregatePipeline = [
+                    {
+                        $match: {
+                            isDelivered: isCompleted
+                        }
+                    }
+                ];
+                break;
+        }
+    
+        if (storeId) {
+            // Add the branchId condition to the $match object if storeId is available
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            aggregatePipeline[0].$match.branchId = storeId;
+        }
+    
+        const result = await OrderECommerceModel.aggregate(aggregatePipeline).exec();
+        let count = 0;
+        if (result?.length > 0) {
+            count = result?.length;
+        }
+        return count;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Retrieve Order size'), LogType.ERROR);
+        throw error;
+    }
+    
+};
+
+/**
  * Get all kind of orders by order date duration and store id
  * @param {integer} durationType type of duration
  * @param {string} storeId end index
@@ -472,7 +526,6 @@ export const getOverviewAllOrderCountByDurationAndStoreId: GetOverviewAllOrderCo
                 break;
             case TimePeriodOverview.ALL:
             default:
-                console.log('All Time');
                 aggregatePipeline = [
                     {
                         $match: {
