@@ -66,6 +66,7 @@
           line-height: 22px;
           letter-spacing: 0;
           text-align: left;
+          color: #232323
         }
 
         > p {
@@ -77,5 +78,12 @@
           text-align: left;
         }
       }
+
+    .field.date {
+      flex: 1
+    }
+    .field.time {
+      flex: 5
+    }
     }
   }

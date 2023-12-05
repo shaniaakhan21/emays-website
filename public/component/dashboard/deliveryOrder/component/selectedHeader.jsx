@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../../../../scss/component/dashboard/historySelectedHeader.scss';
+import '../../../../scss/component/dashboard/selectedHeader.scss';
 import { useSelector } from 'react-redux';
 import { Tile } from '@carbon/react';
 import moment from 'moment';
@@ -8,12 +8,22 @@ import { selectedOrderSelectorMemoized } from '../../redux/selector/selectedOrde
 const DOSelectedOrderHeader = ({ data }) => {
 
     const [dateTime, setDateTime] = useState('');
+    const [amountState, setAmount] = useState('');
 
     useEffect(() => {
         const dateArray = data[0]?.date?.split('-');
         const time = moment(data[0]?.time, 'HH:mm').format('hh:mm A');
         const preparedDate = `${dateArray[2]}/${dateArray[1]}/${dateArray[0]} - ${time}`;
         setDateTime(preparedDate);
+
+        const amount = selector?.data?.itemsInfo?.total;
+        let amountWithComma;
+        if (amount && amount.toString().includes('.')) {
+            amountWithComma = `${amount.split('.')[0]},${amount.split('.')[1]}`;
+        } else {
+            amountWithComma = `${amount},00`;
+        }
+        setAmount(amountWithComma);
     }, []);
 
     const selector = useSelector(selectedOrderSelectorMemoized);
@@ -22,32 +32,30 @@ const DOSelectedOrderHeader = ({ data }) => {
     }, [selector?.isLoading]);
     return (
         <>
-            <div className='header-content'>
-                <div className='grid-1'>
-                </div>
+            <div className='header-content-selected'>
                 {
                     !selector?.isLoading && 
                     <div className='grid-2'>
-                        <Tile className='banner-three'>
-                            <div>
-                                <h5 className='main-header'>Delivery time</h5>
-                            </div>
-                            <div>
-                                <h3 className='value'>{dateTime}</h3>
-                            </div>
+                        <Tile className='banner-one'>
+                            <h5>New Customer!</h5>
                         </Tile>
 
                         <Tile className='banner-two'>
                             <div>
-                                <h5 className='main-header'>Order Total</h5>
+                                <h5 className='main-header'>Total Order</h5>
                             </div>
                             <div>
-                                <h3 className='value'>€ {selector?.data?.itemsInfo?.total}</h3>
+                                <h3 className='value'>€ {amountState}</h3>
                             </div>
                         </Tile>
 
-                        <Tile className='banner-one'>
-                            <h5>New Customer!</h5>
+                        <Tile className='banner-three'>
+                            <div>
+                                <h5 className='main-header'>Appointment Time & Date</h5>
+                            </div>
+                            <div>
+                                <h3 className='value'>{dateTime}</h3>
+                            </div>
                         </Tile>
                     </div>
                 }

@@ -43,6 +43,7 @@ const OverviewHeader = ({ searchFunction }) => {
             <div className='time-duration'>
                 <DropDownCustom
                     key={1}
+                    label = {'Current Month'}
                     onChange={(e) => {
                         const duration = e.selectedItem?.id;
                         setType(duration);
@@ -53,7 +54,7 @@ const OverviewHeader = ({ searchFunction }) => {
                         'All Time']?.map((value, k) => ({ id: (+k + 1), text: `${value}` }))}
                 />
             </div>
-            <div className='header-content'>
+            <div className='header-content-overview'>
                 {
                     state &&
                     <div className='grid-2'>

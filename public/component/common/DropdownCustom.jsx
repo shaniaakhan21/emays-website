@@ -4,12 +4,12 @@ import { Dropdown } from '@carbon/react';
 const DropDownCustom = ({ items, customStyle, ...props }) => {
     return (
         <Dropdown
-            {...props}
             id='default'
             label='Choose an option'
             items={items}
             style={customStyle}
             itemToString={(item) => (item ? item.text : '')}
+            {...props}
         />
     );
 };

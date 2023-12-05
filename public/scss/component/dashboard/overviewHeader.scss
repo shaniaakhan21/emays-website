@@ -1,5 +1,5 @@
 
-.header-content {
+.header-content-overview {
     display: flex;
     margin-top: 50px;
     h5 {
@@ -12,7 +12,7 @@
 
     .grid-2 {
         display: flex;
-        justify-content: left;
+        justify-content: flex-end !important;
         flex-direction: row-reverse;
         width: 100%;
     

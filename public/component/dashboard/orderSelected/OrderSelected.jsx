@@ -169,7 +169,7 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
                         }}
                         customStyle={{
                             width: '500px',
-                            marginTop: '25px',
+                            marginTop: '33px',
                             marginBottom: '15px',
                             padding: '1%',
                             backgroundColor: `${selectedOrderSelector?.data?.basicInfo?.isPrepared ?
