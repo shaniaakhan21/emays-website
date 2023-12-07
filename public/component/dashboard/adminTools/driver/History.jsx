@@ -103,7 +103,7 @@ export const DriverHistory = () => {
         <>
             {
                 completedOrderSelector.isLoading && tableRow ? <p>Loading...</p> : <div className='overview'>
-                    <div className='table'>
+                    <div className='table' style={{ paddingTop: '20px' }}>
                         <Table rows={tableRow} headers={headers} onRowClick={(item) => {
                             prepareSelectedRowData(item);
                         }} />
