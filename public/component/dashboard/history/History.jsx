@@ -132,7 +132,7 @@ const History = ({ historyData, updateData }) => {
         ), [t]);
       
     return (
-        <>
+        <div className='history'>
             <HistoryHeader searchFunction={searchId}/>
             <br></br>
             {
@@ -144,7 +144,7 @@ const History = ({ historyData, updateData }) => {
                     </div>
                 </div>
             }
-        </>
+        </div>
     );
 };
 
