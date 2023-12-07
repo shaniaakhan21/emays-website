@@ -16,6 +16,7 @@ import { useMessage } from '../../common/messageCtx';
 
 // SCSS
 import '../../../scss/component/dashboard/selectedItem.scss';
+import moment from 'moment';
 
 const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
@@ -56,15 +57,19 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
         return false;
     };
 
-    const getFinalCost = (itemsInfo, serviceCharge) => {
+    const getFinalCost = (itemsInfo) => {
         const itemsTotal = itemsInfo?.reduce((acc, next) => {
             return +acc + +next?.productCost; }, 0.00);
-        return (+serviceCharge + +itemsTotal).toFixed(2);
+        return (+itemsTotal).toFixed(2);
     };
 
+    const getSelectedOrderInfo = useCallback((id) => { 
+        return dispatch(getOrderDaDataById({ orderId: id }));
+    }, [dispatch]);
+
     const searchId = async (id) => {
-        const itemSearched = await dispatch(getOrderDaDataById({ orderId: id }));
-        const cost = getFinalCost(itemSearched?.payload?.orderItems, itemSearched?.serviceFee);
+        const itemSearched = await getSelectedOrderInfo(id);
+        const cost = getFinalCost(itemSearched?.payload?.orderItems);
         const preparedObject = { ...itemSearched?.payload };
         const preparedItemsData = itemSearched?.payload?.orderItems?.map((item) => ({
             itemName: item?.productName,
@@ -95,18 +100,27 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
     const prepareTableRows = (payload) => {
         // eslint-disable-next-line max-len
         const amount = payload?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
+        
+        let amountWithComma;
+        if (amount && amount.toString().includes('.')) {
+            amountWithComma = `${amount.split('.')[0]},${amount.split('.')[1]}`;
+        } else {
+            amountWithComma = `${amount},00`;
+        }
         const date = new Date(payload?.createdAt);
         const hours = date.getHours();
         const minutes = date.getMinutes();
         return {
             id: payload?._id || '',
             client: `${payload?.firstName} ${payload?.lastName}` || '',
-            amount: `€ ${amount}`,
-            date: payload?.date?.split('T')[0] || '',
+            amount: `€ ${amountWithComma}`,
+            date: moment(payload?.date?.split('T')[0]).format('DD-MM-YYYY') || '',
             time: `${hours}:${minutes}` || '',
             orderItems: payload?.orderItems,
-            status: <StatusBox status={getOrderStatus({ isDelivered: data?.isDelivered,
-                isPrepared: data?.isPrepared })}/>
+            status: <StatusBox status={getOrderStatus({ isDelivered: payload?.isDelivered,
+                isDriverPicked: payload?.isDriverPicked,
+                isDriverApproved: payload?.isDriverApproved,
+                isPrepared: payload?.isPrepared })}/>
         };
     };
 

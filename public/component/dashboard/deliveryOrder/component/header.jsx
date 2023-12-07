@@ -19,7 +19,7 @@ const DOHeader = ({ searchFunction }) => {
     }, [selector?.deliveryOrderStatsState?.isLoading]);
     return (
         <>
-            <div className='header-content'>
+            <div className='header-content-delivery-order'>
                 <div className='grid-1'>
                     {/* <SearchComp searchButtonClick={searchFunction} /> */}
                     <div className='button'>

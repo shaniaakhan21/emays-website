@@ -3,24 +3,29 @@
 
     .cds--text-input__field-outer-wrapper {
         justify-content: flex-end;
+        width: 257px;
+        height: 50px;
+        input {
+            height: 50px;
+        }
     }
 }
 
-.header-content-delivery-order {
+.header-content-history {
+    margin-top: 32px;
     display: flex;
-    align-items: flex-end;
+    align-items: flex-start;
+    height: 118px;
 
     .grid-1 {
-        height: 118px;
         display: flex;
-        width: 100%;
         justify-content: flex-end;
-        margin-top: 32px;
+        width: auto !important;
         .customBTN {
             background: black !important;
             display: flex !important;
             padding: 0 !important;
-            width: 21% !important;
+            width: 93px !important;
             flex-direction: row !important;
             justify-content: space-evenly !important;
             align-items: center !important;
@@ -32,14 +37,23 @@
                 box-shadow: inset 0 0 0 1px var(--cds-button-focus-color, var(--cds-focus, #231F20)), inset 0 0 0 2px var(--cds-background, #ffffff);
             }
         }
+    }
+
+    .grid-2 {
+        padding-left: 61px !important;
+        width: auto !important;
+        height: inherit !important;
 
         .tile-box {
             margin-right: 1%;
             width: auto;
-
+    
             .cds--tile {
                 background-color: #ffffff;
                 height: 100%;
+                h2 {
+                    padding-top: 20px;
+                }
             }
         }
     }

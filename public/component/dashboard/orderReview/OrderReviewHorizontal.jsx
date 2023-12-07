@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Heading } from '@carbon/react';
 import ShoppingItem from '../../checkout/ShoppingItemDashboard';
@@ -11,6 +11,19 @@ const OrderReviewHorizontal = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) 
 
     const [translate] = useTranslation();
     const t = useCallback((key) => translate(`dashboard.orderCreated.${key}`), [translate]);
+    const [total, setTotal] = useState('0,00');
+
+    useEffect(() => {
+        const amount =  
+            itemsInfo?.items?.reduce((acc, current) => acc + (current?.quantity * current?.productCost), 0) || '';
+        let amountWithComma;
+        if (amount && amount.toString().includes('.')) {
+            amountWithComma = `${amount.split('.')[0]},${amount.split('.')[1]}`;
+        } else {
+            amountWithComma = `${amount},00`;
+        }
+        setTotal(amountWithComma);
+    });
 
     return (
         <div className='content-horizontal'>
@@ -69,7 +82,7 @@ const OrderReviewHorizontal = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) 
                 </div>
                 <div className='field'>
                     <label>{t('appointmentInfo.total')}</label>
-                    <p>€ {itemsInfo?.total}</p>
+                    <p>€ {total}</p>
                 </div>
             </div>
         </div>
