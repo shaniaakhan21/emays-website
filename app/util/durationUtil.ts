@@ -1,4 +1,4 @@
-import { TimePeriod, TimePeriodDeliveryOrder, TimePeriodOverview } from '../const/timePeriods';
+import { TimePeriod, TimePeriodDeliveryOrder, TimePeriodHistory, TimePeriodOverview } from '../const/timePeriods';
 
 export default class DurationUtil {
 
@@ -53,6 +53,17 @@ export default class DurationUtil {
     static getDurationDeliveryOrders (duration: TimePeriodDeliveryOrder) {
         switch (duration) {
             case TimePeriodDeliveryOrder.LAST_THIRTY_DAYS:
+            default:
+                const currentDate = new Date();
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+                return thirtyDaysAgo;
+        }
+    }
+
+    static getDurationHistory (duration: TimePeriodHistory) {
+        switch (duration) {
+            case TimePeriodHistory.LAST_THIRTY_DAYS:
             default:
                 const currentDate = new Date();
                 const thirtyDaysAgo = new Date();

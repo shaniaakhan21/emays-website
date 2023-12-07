@@ -291,9 +291,8 @@ router.get(getSystemHistoryStats, validateHeader, allowedForExternalSystemSuperU
     req: express.Request<core.ParamsDictionary, any, any,
     { durationType: string, storeId: string }>, res: Response, next: NextFunction): void => {
     (async () => {
-        const periodTypeValue = +req?.query?.durationType;
         const storeId = req?.query?.storeId;
-        const stats = await getExternalSystemHistoryStat(DurationUtil.getPeriodType(periodTypeValue), storeId);
+        const stats = await getExternalSystemHistoryStat(storeId);
         return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(stats));
     })().catch(error => {
         const err = error as Error;
@@ -315,9 +314,8 @@ router.get(getSystemDeliveryOrderStats, validateHeader, allowedForExternalSystem
     req: express.Request<core.ParamsDictionary, any, any,
     { durationType: string, storeId: string }>, res: Response, next: NextFunction): void => {
     (async () => {
-        const periodTypeValue = +req?.query?.durationType;
         const storeId = req?.query?.storeId;
-        const stats = await getExternalSystemDeliveryOrderStat(periodTypeValue, storeId);
+        const stats = await getExternalSystemDeliveryOrderStat(storeId);
         return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(stats));
     })().catch(error => {
         const err = error as Error;

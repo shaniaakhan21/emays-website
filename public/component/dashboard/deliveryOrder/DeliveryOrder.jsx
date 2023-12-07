@@ -111,6 +111,8 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
                 time: `${hours}:${minutes}` || '',
                 orderItems: data?.orderItems,
                 status: <StatusBox status={getOrderStatus({ isDelivered: data?.isDelivered,
+                    isDriverPicked: data?.isDriverPicked,
+                    isDriverApproved: data?.isDriverApproved,
                     isPrepared: data?.isPrepared })}/>
             };
         });
