@@ -24,9 +24,10 @@ import { INVALID_CREDENTIALS_ERROR_MESSAGE,
 import { getActiveOrdersCountByDurationAndStoreId, getAllOrderCountByDurationAndStoreId,
     getCompletedOrdersCountByDurationAndStoreId, 
     getOrdersDeliveryOrderPage, 
+    getOrdersHistoryPage, 
     getOverviewAllOrderCountByDurationAndStoreId, 
     getRevenueForOverviewByDurationAndStoreId } from '../../data/model/OrderECommerceModel';
-import { TimePeriod, TimePeriodDeliveryOrder } from '../../const/timePeriods';
+import { TimePeriod, TimePeriodDeliveryOrder, TimePeriodHistory } from '../../const/timePeriods';
 
 const Logging = Logger(__filename);
 
@@ -148,23 +149,17 @@ export const getExternalSystemById: GetExternalSystemByIdFunc = async (id) => {
  * @returns {Promise<IExternalSystemDTO>}
  */
 
-export const getExternalSystemHistoryStat: GetExternalSystemHistoryStatsFunc = async (timePeriod, id) => {
+export const getExternalSystemHistoryStat: GetExternalSystemHistoryStatsFunc = async (id) => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get external system history stats', `ext id: ${id as string}`), LogType.INFO);
-        const completed = await getCompletedOrdersCountByDurationAndStoreId(timePeriod, id);
-        
-        const currentDate = new Date();
-        const lastMonthStartDate = new Date();
-        lastMonthStartDate.setMonth(currentDate.getMonth() - 1);
-        const daysInLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+        const completedAllTime = await getOrdersHistoryPage(TimePeriodHistory.ALL, true, id);
+        const completedLastThirtyDays = await getOrdersHistoryPage(TimePeriodHistory.LAST_THIRTY_DAYS, true, id);
 
-        const lastThirtyDayAllOrders = 
-            await getCompletedOrdersCountByDurationAndStoreId(TimePeriod.THIRTY_DAYS_A_GO, id);
         return {
-            completed: completed,
-            average: completed / daysInLastMonth,
-            lastThirtyDays: lastThirtyDayAllOrders
+            completed: completedAllTime,
+            average: completedLastThirtyDays / 30,
+            lastThirtyDays: completedLastThirtyDays
         };
     } catch (error) {
         const err = error as Error;
@@ -179,7 +174,7 @@ export const getExternalSystemHistoryStat: GetExternalSystemHistoryStatsFunc = a
  * @param {string} id External system id
  * @returns {Promise<IExternalSystemDTO>}
  */
-export const getExternalSystemDeliveryOrderStat: GetExternalSystemDeliveryOrderStatsFunc = async (timePeriod, id) => {
+export const getExternalSystemDeliveryOrderStat: GetExternalSystemDeliveryOrderStatsFunc = async (id) => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get external system delivery orders stats by id', `ext id: ${id as string}`), LogType.INFO);

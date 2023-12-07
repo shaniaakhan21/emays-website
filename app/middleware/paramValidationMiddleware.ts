@@ -657,9 +657,6 @@ export const validateGeoBasedServiceFeePathParams = (req: Request, res: Response
 export const validateStatRouteParams = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
         query: {
-            durationType: Joi.number().required().error((error) => { 
-                const err = error as Error | unknown;
-                return validatorErrorBuilder(err as Error, DURATION_REQUIRED); }),
             storeId: Joi.string().error((error) => { 
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, VALID_STORE_ID_REQUIRED); })
