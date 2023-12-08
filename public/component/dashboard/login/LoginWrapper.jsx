@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import RetailerLogin from './Login';
 import { loginExe } from '../redux/thunk/loginThunk';
 import { useDispatch } from 'react-redux';
+import { useMessage } from '../../common/messageCtx';
+import { useTranslation } from 'react-i18next';
+import { getAuthToken } from '../../../js/util/SessionStorageUtil';
 
 const LoginWrapperLayout = styled.div`
     ${(props) => props.styles && css`
@@ -18,13 +21,27 @@ LoginWrapperLayout.propTypes = {
 const LoginWrapper = ({ loginComponent: LoginComponent, uri, wrapperStyle }) => {
 
     const dispatch = useDispatch();
+    const pushAlert = useMessage();
+    const [t] = useTranslation();
+
+    const login = useCallback((username, password) => { 
+        const data = { dispatch: dispatch, username: username, password: password };
+        return dispatch(loginExe(data));
+    }, [dispatch]);
 
     const exeLogin = async ({
         username,
         password
     }) => {
-        const data = { dispatch: dispatch, username: username, password: password };
-        dispatch(loginExe(data));
+        const result = await login(username, password);
+        if (result?.error?.message) {
+            pushAlert({
+                kind: 'error',
+                title: t('statusMessage.error'),
+                subtitle: result?.error?.message
+            });
+        }
+
     };
     
     return (

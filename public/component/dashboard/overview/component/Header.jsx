@@ -10,6 +10,7 @@ const OverviewHeader = ({ searchFunction }) => {
 
     const selector = useSelector(statsSelectorMemoized);
     const [state, setState] = useState(null);
+    const [type, setType] = useState(1);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -21,28 +22,46 @@ const OverviewHeader = ({ searchFunction }) => {
     const reloadStats = (value) => {
         dispatch(getOverviewStatsData({ durationType: value }));
     };
+
+    const getRevSuffix = (type) => {
+        switch (type) {
+            case 1: 
+                return 'this Month';
+            case 2:
+                return 'past Month';
+            case 3: 
+                return 'last 90 Days';
+            case 4:
+                return 'all Time';
+            default:
+                return 'this Month';
+        }
+    };
     
     return (
         <>
             <div className='time-duration'>
                 <DropDownCustom
                     key={1}
+                    label = {'Current Month'}
                     onChange={(e) => {
                         const duration = e.selectedItem?.id;
+                        setType(duration);
                         reloadStats(duration);
                     }}
-                    items={['Three months a go',
-                        'Six months a go',
-                        'Year a go']?.map((value, k) => ({ id: (+k + 1), text: `${value}` }))}
+                    items={['Current Month', 'Past Month',
+                        'Last 90 Days',
+                        'All Time']?.map((value, k) => ({ id: (+k + 1), text: `${value}` }))}
                 />
             </div>
-            <div className='header-content'>
+            <div className='header-content-overview'>
                 {
                     state &&
                     <div className='grid-2'>
-                        <Counts heading='Total revenue' value={`€ ${state?.totalRevenue}`} />
-                        <Counts heading='Average ticket' value={(state?.average).toFixed(2) || 0} />
-                        <Counts heading='No of orders' value={state?.noOfOrders} />
+                        <Counts heading='No. orders' value={state?.noOfOrders} />
+                        <Counts heading='Average ticket' value={`€ ${(state?.average).toFixed(2)}`} />
+                        <Counts heading={`Total revenue ${getRevSuffix(type)}`} 
+                            value={`€ ${(state?.totalRevenue).toFixed(2)}`} />
                     </div>
                 }
             </div>

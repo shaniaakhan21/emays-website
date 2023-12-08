@@ -10,6 +10,7 @@ import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
 import { storeSelectedOrder } from '../redux/thunk/selectedOrderThunk';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { getOrderStatus } from '../../../js/util/stateBuilderUtil';
+import moment from 'moment';
 
 const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     const [translate] = useTranslation();
@@ -93,17 +94,25 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
         const tableData = orderArray?.map((data) => {
             // eslint-disable-next-line no-multi-spaces, max-len
             const amount =  data?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
+            let amountWithComma;
+            if (amount && amount.toString().includes('.')) {
+                amountWithComma = `${amount.split('.')[0]},${amount.split('.')[1]}`;
+            } else {
+                amountWithComma = `${amount},00`;
+            }
             const date = new Date(data?.createdAt);
             const hours = date.getHours();
             const minutes = date.getMinutes();
             return {
                 id: data?._id || '',
                 client: `${data?.firstName} ${data?.lastName}` || '',
-                amount: `€ ${amount}`,
-                date: data?.date?.split('T')[0] || '',
+                amount: `€ ${amountWithComma}`,
+                date: moment(data?.date?.split('T')[0]).format('DD-MM-YYYY') || '',
                 time: `${hours}:${minutes}` || '',
                 orderItems: data?.orderItems,
                 status: <StatusBox status={getOrderStatus({ isDelivered: data?.isDelivered,
+                    isDriverPicked: data?.isDriverPicked,
+                    isDriverApproved: data?.isDriverApproved,
                     isPrepared: data?.isPrepared })}/>
             };
         });
@@ -115,7 +124,7 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
         ), [t]);
       
     return (
-        <>
+        <div className='delivery-order'>
             <DOHeader searchFunction={searchId}/>
             <br></br>
             {
@@ -127,7 +136,7 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
                     </div>
                 </div>
             }
-        </>
+        </div>
     );
 };
 

@@ -11,12 +11,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setTerminal } from '../../redux/slice/stripeSlice';
 export const Payment = () => {
     const dispatch = useDispatch();
-    const { reader, myPaymentIntent, cardFlag, myError } = useSelector((state) => ( { reader: state.stripePaymentState.reader,
+    // TODO: Lets have separate selectors and remove this....
+    const { reader, myPaymentIntent, cardFlag, myError, total, count } = useSelector((state) => ( { reader: state.stripePaymentState.reader,
         myTerminalForPayment: state.stripePaymentState.terminalForPayment,
         myPaymentIntent: state.stripePaymentState.terminalPaymentIntent,
         cardFlag: state.stripePaymentState.cardFlag,
         myPaymentStaus: state.stripePaymentState.paymentStatus,
-        myError: state.stripePaymentState.error
+        // Do not set errors to the state. Handle where the error occurs
+        myError: state.stripePaymentState.error,
+        total: state?.driverFinalSelectionState?.finalSelection || [],
+        count: state?.driverFinalSelectionState?.finalSelection?.length || 0
     } ) );
 
     useEffect(() => {
@@ -34,6 +38,14 @@ export const Payment = () => {
             clearInterval(intervalId);
         };
     }, [myPaymentIntent, myError]);
+
+    const calculatePrice = (selectedProducts) => {
+        if (selectedProducts.length > 0) {
+            return selectedProducts.reduce((acc, next) => {
+                return +acc + ((+next?.productCost) * next?.quantity); }, 0.00);
+        }
+        return 0;
+    };
 
     useEffect(() => {
         dispatch(getReaderExe());
@@ -54,10 +66,10 @@ export const Payment = () => {
                         <br></br>
                         <div>
                             <TextBoxCustom
-                                placeholderText='€ 50.00' className='font-cst'/>
+                                placeholderText={`€ ${ calculatePrice(total) }`} className='font-cst'/>
                         </div>
                         <div className='columns top-b'>
-                            <div><p>10</p></div>
+                            <div><p>{count}</p></div>
                             <div><p>Items</p></div>
                         </div>
                         <div>
@@ -73,11 +85,11 @@ export const Payment = () => {
                         <br></br>
                         <div className='columns border-b'>
                             <div><p>Subtotal</p></div>
-                            <div><p>€ 50.00</p></div>
+                            <div><p>{`€ ${calculatePrice(total)}`}</p></div>
                         </div>
                         <div className='columns top-b'>
                             <div><p>Total due</p></div>
-                            <div><p>€ 50.00</p></div>
+                            <div><p>{`€ ${calculatePrice(total)}`}</p></div>
                         </div>
                     </div>
                     <div className='w-here equi-dist'>

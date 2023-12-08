@@ -62,7 +62,7 @@ export const config = {
     JSON_WEB_TOKEN_SECRET: JSON_WEB_TOKEN_SECRET || 'secret123',
     ERROR_TEMPLATE: ERROR_TEMPLATE || '/template/error-template.html',
     DB: {
-        MONGO_URL: MONGO_URL || 'mongodb://localhost:27017/emays_service_db'
+        MONGO_URL: MONGO_URL || 'mongodb://root:123456@172.17.0.2:27017/emays_service_db?authSource=admin'
     },
     AWS_SES: {
         AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
@@ -119,7 +119,7 @@ export const config = {
             BOOK_CALENDER_REDIRECTION_PATH: 'http://localhost:8080/api-dev/googleCalender'
         },
         MAP: {
-            API_KEY: GOOGLE_MAP_API_KEY || ''
+            API_KEY: GOOGLE_MAP_API_KEY || 'AIzaSyDjayD_IqUBxw-Zroz15PF1t69HRMsMoDA'
         }
     },
     SYSTEM_AVAILABLE_GEO_LOCATIONS: SYSTEM_AVAILABLE_GEO_LOCATIONS || [

@@ -23,9 +23,11 @@ import { INVALID_CREDENTIALS_ERROR_MESSAGE,
     SYSTEM_NOT_FOUND_ERROR_MESSAGE } from '../../const/errorMessage';
 import { getActiveOrdersCountByDurationAndStoreId, getAllOrderCountByDurationAndStoreId,
     getCompletedOrdersCountByDurationAndStoreId, 
-    getRevenueByDurationAndStoreId } from '../../data/model/OrderECommerceModel';
-import { TimePeriod } from '../../const/timePeriods';
-import DurationUtil from '../../util/durationUtil';
+    getOrdersDeliveryOrderPage, 
+    getOrdersHistoryPage, 
+    getOverviewAllOrderCountByDurationAndStoreId, 
+    getRevenueForOverviewByDurationAndStoreId } from '../../data/model/OrderECommerceModel';
+import { TimePeriod, TimePeriodDeliveryOrder, TimePeriodHistory } from '../../const/timePeriods';
 
 const Logging = Logger(__filename);
 
@@ -147,23 +149,17 @@ export const getExternalSystemById: GetExternalSystemByIdFunc = async (id) => {
  * @returns {Promise<IExternalSystemDTO>}
  */
 
-export const getExternalSystemHistoryStat: GetExternalSystemHistoryStatsFunc = async (timePeriod, id) => {
+export const getExternalSystemHistoryStat: GetExternalSystemHistoryStatsFunc = async (id) => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get external system history stats', `ext id: ${id as string}`), LogType.INFO);
-        const completed = await getCompletedOrdersCountByDurationAndStoreId(timePeriod, id);
-        
-        const currentDate = new Date();
-        const lastMonthStartDate = new Date();
-        lastMonthStartDate.setMonth(currentDate.getMonth() - 1);
-        const daysInLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+        const completedAllTime = await getOrdersHistoryPage(TimePeriodHistory.ALL, true, id);
+        const completedLastThirtyDays = await getOrdersHistoryPage(TimePeriodHistory.LAST_THIRTY_DAYS, true, id);
 
-        const lastThirtyDayAllOrders = 
-            await getCompletedOrdersCountByDurationAndStoreId(TimePeriod.THIRTY_DAYS_A_GO, id);
         return {
-            completed: completed,
-            average: completed / daysInLastMonth,
-            lastThirtyDays: lastThirtyDayAllOrders
+            completed: completedAllTime,
+            average: completedLastThirtyDays / 30,
+            lastThirtyDays: completedLastThirtyDays
         };
     } catch (error) {
         const err = error as Error;
@@ -178,23 +174,23 @@ export const getExternalSystemHistoryStat: GetExternalSystemHistoryStatsFunc = a
  * @param {string} id External system id
  * @returns {Promise<IExternalSystemDTO>}
  */
-export const getExternalSystemDeliveryOrderStat: GetExternalSystemDeliveryOrderStatsFunc = async (timePeriod, id) => {
+export const getExternalSystemDeliveryOrderStat: GetExternalSystemDeliveryOrderStatsFunc = async (id) => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get external system delivery orders stats by id', `ext id: ${id as string}`), LogType.INFO);
-        const completed = await getCompletedOrdersCountByDurationAndStoreId(timePeriod, id);
+        const activeLastThirtyDays = 
+        await getOrdersDeliveryOrderPage(TimePeriodDeliveryOrder.LAST_THIRTY_DAYS, false, id);
         
-        const currentDate = new Date();
-        const daysInLastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0).getDate();
+        const completedAllTime = 
+        await getOrdersDeliveryOrderPage(TimePeriodDeliveryOrder.LAST_THIRTY_DAYS, true, id);
 
-        const lastThirtyDayActiveOrders = 
-            await getActiveOrdersCountByDurationAndStoreId(TimePeriod.THIRTY_DAYS_A_GO, id);
-        const activeOrders = await getActiveOrdersCountByDurationAndStoreId(timePeriod, id);
+        const activeAllTime = 
+        await getOrdersDeliveryOrderPage(TimePeriodDeliveryOrder.ALL, false, id);
         return {
-            completed: completed,
-            average: activeOrders / daysInLastMonth,
-            lastThirtyDays: lastThirtyDayActiveOrders,
-            activeOrders: activeOrders
+            completed: completedAllTime,
+            average: activeLastThirtyDays / 30,
+            lastThirtyDays: activeLastThirtyDays,
+            activeOrders: activeAllTime
         };
     } catch (error) {
         const err = error as Error;
@@ -213,15 +209,13 @@ export const getExternalSystemOverviewStat: GetExternalSystemOverviewStatsFunc =
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Get external system overview stats by id', `ext id: ${id as string}`), LogType.INFO);
-        const allOrders = await getAllOrderCountByDurationAndStoreId(timePeriod, id);
-        
-        const currentDate = new Date();
-        const timeDifference = currentDate.getTime() - DurationUtil.getDuration(timePeriod).getTime();
-        const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-        const revenue = await getRevenueByDurationAndStoreId(timePeriod, id);
+        const allOrders = await getOverviewAllOrderCountByDurationAndStoreId(timePeriod, id);
+        const revenue = await getRevenueForOverviewByDurationAndStoreId(timePeriod, id);
+        // TODO: get the Stripe commission using stipe APIs according the given date range and add to the revenue
         return {
             noOfOrders: allOrders,
-            average: allOrders / daysDifference,
+            // This is the average ticket price
+            average: allOrders === 0 ? 0 : (revenue / allOrders),
             totalRevenue: revenue || 0
         };
     } catch (error) {

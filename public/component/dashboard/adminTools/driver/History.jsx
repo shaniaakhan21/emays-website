@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { getOrderStatus } from '../../../../js/util/stateBuilderUtil';
 import { storeSelectedOrder } from '../../redux/thunk/selectedOrderThunk';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import moment from 'moment';
 
 export const DriverHistory = () => {
 
@@ -42,11 +43,13 @@ export const DriverHistory = () => {
                 id: data?._id || '',
                 client: `${data?.firstName} ${data?.lastName}` || '',
                 amount: `€ ${amount}`,
-                date: data?.date?.split('T')[0] || '',
+                date: moment(data?.date?.split('T')[0]).format('DD-MM-YYYY') || '',
                 time: `${hours}:${minutes}` || '',
                 orderItems: data?.orderItems,
                 status: data?.isDelivered ? 
                     <StatusBox status={getOrderStatus({ isDelivered: data?.isDelivered,
+                        isDriverPicked: data?.isDriverPicked,
+                        isDriverApproved: data?.isDriverApproved,
                         isPrepared: data?.isPrepared })}/> : ''
             };
         });
@@ -100,7 +103,7 @@ export const DriverHistory = () => {
         <>
             {
                 completedOrderSelector.isLoading && tableRow ? <p>Loading...</p> : <div className='overview'>
-                    <div className='table'>
+                    <div className='table' style={{ paddingTop: '20px' }}>
                         <Table rows={tableRow} headers={headers} onRowClick={(item) => {
                             prepareSelectedRowData(item);
                         }} />

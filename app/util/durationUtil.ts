@@ -1,4 +1,4 @@
-import { TimePeriod } from '../const/timePeriods';
+import { TimePeriod, TimePeriodDeliveryOrder, TimePeriodHistory, TimePeriodOverview } from '../const/timePeriods';
 
 export default class DurationUtil {
 
@@ -33,6 +33,45 @@ export default class DurationUtil {
         }
     }
 
+    static getDurationOverview (duration: TimePeriodOverview) {
+        const today = new Date();
+        switch (duration) {
+            case TimePeriodOverview.CURRENT_MONTH: 
+                const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1, 0, 0, 0, 0);
+                return startOfMonth;
+            case TimePeriodOverview.LAST_NINETY_DAYS:
+                const currentDate = new Date();
+                const ninetyDaysAgo = new Date();
+                ninetyDaysAgo.setDate(currentDate.getDate() - 90);
+                return ninetyDaysAgo;
+            default:
+                const startOfMonthDefault = new Date(today.getFullYear(), today.getMonth(), 1, 0, 0, 0, 0);
+                return startOfMonthDefault;
+        }
+    }
+
+    static getDurationDeliveryOrders (duration: TimePeriodDeliveryOrder) {
+        switch (duration) {
+            case TimePeriodDeliveryOrder.LAST_THIRTY_DAYS:
+            default:
+                const currentDate = new Date();
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+                return thirtyDaysAgo;
+        }
+    }
+
+    static getDurationHistory (duration: TimePeriodHistory) {
+        switch (duration) {
+            case TimePeriodHistory.LAST_THIRTY_DAYS:
+            default:
+                const currentDate = new Date();
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(currentDate.getDate() - 30);
+                return thirtyDaysAgo;
+        }
+    }
+
     static getPeriodType (duration: number) {
         switch (duration) {
             case 1:
@@ -49,6 +88,23 @@ export default class DurationUtil {
                 return TimePeriod.YEAR_A_GO;
         }
     }
+
+    static getStartDateLastMonth = () => {
+        const today = new Date();
+        const firstDayThisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        const lastMonth = new Date(firstDayThisMonth);
+        lastMonth.setMonth(firstDayThisMonth.getMonth() - 1);
+        return lastMonth;
+    }
+
+    static getEndDateLastMonth = () => {
+        const today = new Date();
+        const firstDayThisMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        const lastMonth = new Date(firstDayThisMonth);
+        lastMonth.setMonth(firstDayThisMonth.getMonth() - 1);
+        const lastDayLastMonth = new Date(lastMonth.getFullYear(), lastMonth.getMonth() + 1, 0);
+        return lastDayLastMonth;
+    };
 
 }
 

@@ -1,6 +1,9 @@
 .selected-item-container {
     display: flex;
     flex-direction: column;
+    p, span, a, h1, h2, h3, h4, h5, h6, input, button, td .cds--btn {
+        font-family: "IBM Plex Sans" !important;
+    }
 
     .item-row {
         padding-bottom: 30px;

@@ -20,7 +20,7 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
             <div className='cds--row'>
                 <div className='cds--col'>
                     <div className='image-container'>
-                        <img src={LOGO} height={'100px'} width={'130px'} alt='EMAYS' />
+                        <img src={LOGO} height={'140px'} width={'144px'} alt='EMAYS' />
                     </div>
                 </div>
                 {/* <div className='cds--col'>
@@ -42,7 +42,7 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                                 }
                                 updateFormData( { ...formData, username: event.target.value });
                             }}
-                            labelText='Account Username'
+                            labelText='Username'
                             placeholderText='username'
                             name='account-email'
                             customStyle={{ width: '313px' }}
@@ -67,6 +67,7 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                                 updateFormData( { ...formData, password: event.target.value }); } }
                             labelText='Password'
                             hidePasswordLabel='Hide password'
+                            placeholderText='**********'
                             customStyle={{ width: '313px' }}
                         />
                         {error.passwordError && 
@@ -92,7 +93,7 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
                                 });
                             }} className='submit'
                         text={t('dashboard.login.button-text')}
-                        customStyle={ { width: '313px', background: '#525252' }}
+                        customStyle={ { width: '288px', background: '#525252' }}
                         />
                     </div>
                 </div>

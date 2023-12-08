@@ -1,6 +1,5 @@
 import React from 'react';
 import { Tile } from '@carbon/react';
-import '../../../scss/component/dashboard/history.scss';
 
 const Counts = ({ heading, value }) => {
     return (

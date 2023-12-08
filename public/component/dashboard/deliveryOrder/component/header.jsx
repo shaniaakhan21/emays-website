@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Counts from '../../components/counts';
-import SearchComp from '../../components/searchComp';
-import '../../../../scss/component/dashboard/history.scss';
+import '../../../../scss/component/dashboard/deliveryOrderHeader.scss';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import ButtonCustom from '../../../common/ButtonCustom';
 import { useSelector } from 'react-redux';
@@ -20,32 +19,35 @@ const DOHeader = ({ searchFunction }) => {
     }, [selector?.deliveryOrderStatsState?.isLoading]);
     return (
         <>
-            <div className='header-content'>
+            <div className='header-content-delivery-order'>
                 <div className='grid-1'>
                     {/* <SearchComp searchButtonClick={searchFunction} /> */}
-                    <ButtonCustom
-                        text={'Create New Delivery +'}
-                        action={() => { history.push('/dashboard/newOrders'); }}
-                        type={'secondary'}
-                        customStyle={{
-                            minWidth: '24vw',
-                            marginTop: '25px',
-                            marginBottom: '15px',
-                            alignContent: 'center',
-                            justifyContent: 'center',
-                            padding: '1%'
-                        }}
-                    />
-                </div>
-                {
-                    state && 
-                    <div className='grid-2'>
-                        <Counts heading='Last 30 days' value={`${state?.lastThirtyDays || 0} Orders`} />
-                        <Counts heading='Avg orders per day' value={(state?.average)?.toFixed(2) || 0} />
-                        <Counts heading='Completed' value={state?.completed || 0} />
-                        <Counts heading='Active Orders' value={state?.activeOrders || 0} />
+                    <div className='button'>
+                        <ButtonCustom
+                            text={'Create New delivery Order +'}
+                            action={() => { history.push('/dashboard/newOrders'); }}
+                            type={'secondary'}
+                            customStyle={{
+                                minWidth: '250px',
+                                alignContent: 'center',
+                                justifyContent: 'center',
+                                minHeight: '118px',
+                                padding: '1%',
+                                marginRight: '33px'
+                            }}
+                        />
                     </div>
-                }
+                    {
+                        state && 
+                    <>
+                        <Counts heading='Active Orders' value={state?.activeOrders || 0} />
+                        <Counts heading='Orders Completed' value={state?.completed || 0} />
+                        <Counts heading='Avg. orders per day' value={(state?.average)?.toFixed(2) || 0} />
+                        <Counts heading='Last 30 days' value={`${state?.lastThirtyDays || 0} Orders`} />
+                    </>
+                    }
+                </div>
+                
             </div>
         </>
     );

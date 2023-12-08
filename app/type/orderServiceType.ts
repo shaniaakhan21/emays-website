@@ -6,7 +6,7 @@ import { IExternalSystem, IExternalSystemDTO, IPatchExternalSystem } from './IEx
 import { IExternalSystemDeliveryOrderStatsDTO, IExternalSystemHistoryStatsDTO,
     IExternalSystemOverviewStatsDTO } from './IExternalSystemStats';
 import { IOrder, IOrderDTO, IOrderPaginationDTO, IPatchOrder } from './orderType';
-import { TimePeriod } from '../const/timePeriods';
+import { TimePeriod, TimePeriodDeliveryOrder, TimePeriodHistory, TimePeriodOverview } from '../const/timePeriods';
 
 export type CreateOrderFunc = (order: IOrder) => Promise<IOrderDTO>;
 
@@ -50,16 +50,24 @@ export type ServiceErrorBuilderFunc = (errorMessage: string) => void;
 
 export type ValidatorErrorBuilderFunc = (error: Error, errorMessage: string) => OrderServiceError;
 
-export type GetExternalSystemHistoryStatsFunc = (timePeriod: TimePeriod, storeId?: string) => Promise<IExternalSystemHistoryStatsDTO>;
+export type GetExternalSystemHistoryStatsFunc = (storeId?: string) => Promise<IExternalSystemHistoryStatsDTO>;
 
-export type GetExternalSystemDeliveryOrderStatsFunc = (timePeriod: TimePeriod, storeId?: string) => Promise<IExternalSystemDeliveryOrderStatsDTO>;
+export type GetExternalSystemDeliveryOrderStatsFunc = (toreId?: string) => Promise<IExternalSystemDeliveryOrderStatsDTO>;
 
-export type GetExternalSystemOverviewStatsFunc = (timePeriod: TimePeriod, storeId?: string) => Promise<IExternalSystemOverviewStatsDTO>;
+export type GetExternalSystemOverviewStatsFunc = (timePeriod: TimePeriodOverview, storeId?: string) => Promise<IExternalSystemOverviewStatsDTO>;
 
 export type GetCompletedOrderCountByDurationAndStoreIdFunc = (timePeriod: TimePeriod, storeId?: string) => Promise<integer>;
 
+export type GetOrdersCountDeliveryOrder = (timePeriod: TimePeriodDeliveryOrder, isCompleted: boolean, storeId?: string) => Promise<integer>;
+
+export type GetOrdersCountHistory = (timePeriod: TimePeriodHistory, isCompleted: boolean, storeId?: string) => Promise<integer>;
+
 export type GetAllOrderCountByDurationAndStoreIdFunc = (timePeriod: TimePeriod, storeId?: string) => Promise<integer>;
+
+export type GetOverviewAllOrderCountByDurationAndStoreIdFunc = (timePeriod: TimePeriodOverview, storeId?: string) => Promise<integer>;
 
 export type GetActiveOrdersCountByDurationAndStoreIdFunc = (timePeriod: TimePeriod, storeId?: string) => Promise<integer>;
 
 export type GetRevenueByDurationAndStoreIdFunc = (timePeriod: TimePeriod, storeId?: string) => Promise<integer>;
+
+export type GetRevenueOverviewByDurationAndStoreIdFunc = (timePeriod: TimePeriodOverview, storeId?: string) => Promise<integer>;
