@@ -54,7 +54,7 @@ const DashboardLayout = () => {
         const UL = document.querySelector('nav ul');
         UL.addEventListener('click', getActiveLinkStyle);
         dispatch(getSystemInfoExe());
-        return () => UL.removeEventListener('click', getComputedStyle);
+        return () => UL.removeEventListener('click', getActiveLinkStyle);
     }, []);
 
     // Delivery Order props
@@ -286,6 +286,8 @@ const DashboardLayout = () => {
                                          // The property name of the overview component
                                          resourceName={'deliveryOrderData'}
                                          // Enable pagination
+                                         pageLength={7}
+                                         noOfVisibleButtons={5}
                                          isPaginationEnabled={true}
                                          getInitialData={getInitialDataDeliveryOrder}
                                      >
@@ -307,6 +309,8 @@ const DashboardLayout = () => {
                                         resourceName={'historyData'}
                                         // Enable pagination
                                         isPaginationEnabled={true}
+                                        pageLength={7}
+                                        noOfVisibleButtons={5}
                                         getInitialData={getInitialDataHistory}
                                     >
                                         <History />
@@ -371,6 +375,8 @@ const DashboardLayout = () => {
                                     resourceName={'driverDeliveryOrderData'}
                                     // Enable pagination
                                     isPaginationEnabled={true}
+                                    pageLength={7}
+                                    noOfVisibleButtons={5}
                                 >
                                     <DriverDeliveryOrder />
                                 </PaginationContainer>}></Route>
@@ -388,6 +394,8 @@ const DashboardLayout = () => {
                                     resourceName={'historyData'}
                                     // Enable pagination
                                     isPaginationEnabled={true}
+                                    pageLength={7}
+                                    noOfVisibleButtons={5}
                                 >
                                     <DriverHistory />
                                 </PaginationContainer>}></Route>
@@ -429,6 +437,8 @@ const DashboardLayout = () => {
                                         resourceName={'driverDeliveryOrderData'}
                                         // Enable pagination
                                         isPaginationEnabled={true}
+                                        pageLength={7}
+                                        noOfVisibleButtons={5}
                                     >
                                         <DriverDeliveryOrder />
                                     </PaginationContainer>}></Route>
