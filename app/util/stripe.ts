@@ -53,12 +53,12 @@ export const initiateAccountLink = async () => {
     return accountLink.url;
 };
 
-export const initiateOrderTerminalPayment = async (orderId: string, storeId: string) => {
+export const initiateOrderTerminalPayment = async (orderId: string, storeId: string, orderAmount: number) => {
     const order = await orderService.retrieveOrderDetailsByOrderId(storeId, orderId);
     if (!order) {
         throw new Error('Order not found');
     }
-    const amount = order.orderItems.reduce((acc, item) => acc + (item.productQuantity * parseInt(item.productCost)), 0);
+    const amount = orderAmount;
     const store = await getExternalSystemById(storeId);
     console.log('store is', store);
     const paymentIntent = await stripe.paymentIntents.create({

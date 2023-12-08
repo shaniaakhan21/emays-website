@@ -204,10 +204,10 @@ export const handleStripeWebhookEvent = async (event: Stripe.Event) => {
  * @returns Promise<Stripe.PaymentIntent> Stripe payment intent
  */
 
-export const createTerminalPaymentIntent = async (orderId: string, storeId: string ) => {
+export const createTerminalPaymentIntent = async (orderId: string, storeId: string, orderAmount?: number ) => {
     try {
         Logging.log(buildInfoMessageMethodCall('Create payment intent for terminal order payment', orderId), LogType.INFO);
-        const paymentIntent = await initiateOrderTerminalPayment(storeId, orderId);
+        const paymentIntent = await initiateOrderTerminalPayment(storeId, orderId, orderAmount ?? 0 );
         return paymentIntent;
     } catch (error) {
         const errorObject: Error = error as Error;
