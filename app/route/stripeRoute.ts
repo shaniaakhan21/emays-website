@@ -257,12 +257,13 @@ router.post(`${RoutePath.STRIPE}/check_paymentIntent_status`, (
 });
 
 router.post(`${RoutePath.STRIPE}/terminalPaymentComplete`, (
-    req: express.Request<core.ParamsDictionary, any, { orderId: string, storeId: string }, any>,
+    // eslint-disable-next-line max-len
+    req: express.Request<core.ParamsDictionary, any, { orderId: string, storeId: string, finalSelection: any [] }, any>,
     res: express.Response,
     next: express.NextFunction
 ) => {
     (async () => {
-        const data = await terminalPaymentComplete(req.body.orderId, req.body.storeId);
+        const data = await terminalPaymentComplete(req.body.orderId, req.body.storeId, req.body.finalSelection);
         res.json({ data });
     })().catch((error) => {
         const errorObject: Error = error as Error;

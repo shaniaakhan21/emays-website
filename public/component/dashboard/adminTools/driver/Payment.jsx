@@ -12,7 +12,7 @@ import { setTerminal } from '../../redux/slice/stripeSlice';
 export const Payment = () => {
     const dispatch = useDispatch();
     // TODO: Lets have separate selectors and remove this....
-    const { reader, myPaymentIntent, cardFlag, myError, total, count } = useSelector((state) => ( { reader: state.stripePaymentState.reader,
+    const { reader, myPaymentIntent, cardFlag, myError, total, count, paymentStatus } = useSelector((state) => ( { reader: state.stripePaymentState.reader,
         myTerminalForPayment: state.stripePaymentState.terminalForPayment,
         myPaymentIntent: state.stripePaymentState.terminalPaymentIntent,
         cardFlag: state.stripePaymentState.cardFlag,
@@ -20,7 +20,8 @@ export const Payment = () => {
         // Do not set errors to the state. Handle where the error occurs
         myError: state.stripePaymentState.error,
         total: state?.driverFinalSelectionState?.finalSelection || [],
-        count: state?.driverFinalSelectionState?.finalSelection?.length || 0
+        count: state?.driverFinalSelectionState?.finalSelection?.length || 0,
+        paymentStatus: state?.stripePaymentState?.paymentStatus ? state?.stripePaymentState?.paymentStatus.status : null
     } ) );
 
     useEffect(() => {
@@ -32,12 +33,18 @@ export const Payment = () => {
             }
             
         }, 5000);
+
+        if (paymentStatus === 'Payment Successful')
+        {
+            console.log('payment success attr');
+            history.push('/dashboard/driver/history');
+        }
     
         return () => {
             // Clear the interval when the component unmounts
             clearInterval(intervalId);
         };
-    }, [myPaymentIntent, myError]);
+    }, [myPaymentIntent, myError, paymentStatus]);
 
     const calculatePrice = (selectedProducts) => {
         if (selectedProducts.length > 0) {

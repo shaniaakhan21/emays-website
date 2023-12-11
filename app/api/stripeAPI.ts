@@ -228,10 +228,10 @@ export const checkPaymentIntentStatus = async (paymentIntentId: string) => {
     }
 };
 
-export const terminalPaymentComplete = async (orderId: string, storeId: string) => {
+export const terminalPaymentComplete = async (orderId: string, storeId: string, finalSelection: any []) => {
     try {
         Logging.log(buildInfoMessageMethodCall('terminal payment succeeded', orderId), LogType.INFO);
-        const terminalOrderStatus = await setTerminalPaymentStatus( orderId, storeId );
+        const terminalOrderStatus = await setTerminalPaymentStatus( orderId, storeId, finalSelection);
         return terminalOrderStatus;
     } catch (error) {
         const errorObject: Error = error as Error;
