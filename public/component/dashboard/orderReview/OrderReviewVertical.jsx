@@ -2,6 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Heading } from '@carbon/react';
 import ShoppingItem from '../../checkout/ShoppingItemDashboard';
+import moment from 'moment';
 
 // SCSS
 import '../../../scss/component/retailer/orderReviewVertical.scss';
@@ -18,7 +19,9 @@ const OrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) =>
                 <div className='date-time'>
                     <div className='field'>
                         <label>{t('appointmentInfo.date')}</label>
-                        <p>{basicInfo?.date ? basicInfo?.date?.split('T')[0] : basicInfo?.date}</p>
+                        <p>{basicInfo?.date ? 
+                            moment(basicInfo?.date?.split('T')[0]).format('ddd DD, MMMM, YYYY') ||
+                             '' : basicInfo?.date}</p>
                     </div>
                     <div className='field'>
                         <label>{t('appointmentInfo.hour')}</label>
