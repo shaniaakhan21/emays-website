@@ -7,7 +7,7 @@ const PaginationLayout = styled.div`
     ${(props) => props.styles && css`
         ${(props) => props.styles}
     `}
-
+    padding-bottom: 50px;
     .active {
         background-color: black;
         color: white;

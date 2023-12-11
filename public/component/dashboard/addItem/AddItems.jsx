@@ -45,7 +45,14 @@ const AddItems = () => {
                 return +acc + +next?.price; }, 0.00);
             return (+serviceCharge + +itemsTotal).toFixed(2);
         };
-        setOrderInfo({ type: 'setTotal', data: getFinalCost() });
+        const cost = getFinalCost();
+        let amountWithComma;
+        if (cost && cost.toString().includes('.')) {
+            amountWithComma = `${cost.split('.')[0]},${cost.split('.')[1]}`;
+        } else {
+            amountWithComma = `${cost},00`;
+        }
+        setOrderInfo({ type: 'setTotal', data: amountWithComma });
     }, [newOrderPhaseOneData, orderInfo?.items, orderInfo?.total]);
 
     const submitData = () => {
@@ -85,7 +92,7 @@ const AddItems = () => {
                 <div className='header-right'>
                     <Tile>
                         <h5>{t('header-left.title')}</h5>
-                        <h2>{orderInfo?.total}</h2>
+                        <h2>{`€ ${orderInfo?.total}`}</h2>
                     </Tile>
                 </div>
                 <div className='header-right'>
