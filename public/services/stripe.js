@@ -29,8 +29,8 @@ export const getReader = async () => {
     return res;
 };
 
-export const collectTerminalPayment = async (terminalId, orderId, storeId) => {
-    const terminalPaymentIntent = await httpUtil.post(`${apiBase}/stripe/terminal/createOrderPayment`, {}, { orderId, storeId });
+export const collectTerminalPayment = async (terminalId, orderId, storeId, orderAmount) => {
+    const terminalPaymentIntent = await httpUtil.post(`${apiBase}/stripe/terminal/createOrderPayment`, {}, { orderId, storeId, orderAmount });
     if (terminalPaymentIntent)
     {
         const showOrder = await httpUtil.post(`${apiBase}/stripe/terminal/showOrderPayment`, {}, { orderId, storeId, terminalId });

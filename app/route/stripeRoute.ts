@@ -167,12 +167,12 @@ router.get(`${RoutePath.STRIPE}/terminal/reader`, (
 });
 
 router.post(`${RoutePath.STRIPE}/terminal/createOrderPayment`, (
-    req: express.Request<core.ParamsDictionary, any, { orderId: string, storeId: string }, any>,
+    req: express.Request<core.ParamsDictionary, any, { orderId: string, storeId: string, orderAmount: number }, any>,
     res: express.Response,
     next: express.NextFunction
 ) => {
     (async () => {
-        const data = await initiateOrderTerminalPayment(req.body.orderId, req.body.storeId);
+        const data = await initiateOrderTerminalPayment(req.body.orderId, req.body.storeId, req.body.orderAmount);
         res.json({ data });
     })().catch((error) => {
         const errorObject: Error = error as Error;
