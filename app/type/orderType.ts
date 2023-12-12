@@ -96,7 +96,8 @@ export interface IOrderDTO {
     terminalPaymentRef?: string,
     serviceFee: number,
     branchId?: string,
-    driverSelectedItems?: Array<Order>
+    driverSelectedItems?: Array<Order>,
+    payedDate?: Date
 }
 
 export interface Order {

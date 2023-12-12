@@ -69,9 +69,9 @@ export const pollForUpdates = async (PaymentIntent, intervalId) => {
     
 };
 
-export const setTerminalOrderStatus = async (orderId, storeId) => {
+export const setTerminalOrderStatus = async (orderId, storeId, finalSelection) => {
     // Make a request to the server to check for updates
-    const terminalOrder = await httpUtil.post(`${apiBase}/stripe/terminalPaymentComplete`, {}, { orderId, storeId });
+    const terminalOrder = await httpUtil.post(`${apiBase}/stripe/terminalPaymentComplete`, {}, { orderId, storeId, finalSelection });
     return terminalOrder;
     
 };

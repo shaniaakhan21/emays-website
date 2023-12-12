@@ -41,7 +41,8 @@ export const serverWebhookExe = createAsyncThunk('stripe/serverWebhook', async (
         {
             const orderId = getState().driverSelectedOrderState.orderInfo.basicInfo._id;
             const storeId = getState().driverSelectedOrderState.orderInfo.basicInfo.branchId;
-            const order = await setTerminalOrderStatus(orderId, storeId);
+            const driverFinalSelection = getState().driverFinalSelectionState.finalSelection;
+            const order = await setTerminalOrderStatus(orderId, storeId, driverFinalSelection);
             clearInterval(data.intervalId);
         }
         return serverStatus;
