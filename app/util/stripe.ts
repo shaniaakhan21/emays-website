@@ -194,13 +194,15 @@ export const captureTerminalPayment = async (paymentIntentId: string) => {
 export const checkPaymentIntentStatusFunction = async (paymentIntentId: string) => {
     return stripe.paymentIntents.retrieve(paymentIntentId);
 };
-export const setTerminalPaymentStatus = async (orderId: string, storeId: string) => {
+export const setTerminalPaymentStatus = async (orderId: string, storeId: string, finalSelection: any []) => {
     const order = await orderService.retrieveOrderDetailsByOrderId(storeId, orderId);
     if (!order) {
         throw new Error('Order not found');
     }
     order.payed = true;
     order.isDelivered = true;
+    order.driverSelectedItems = finalSelection;
+    order.payedDate = new Date();
     await orderService.patchOrderDetailsByOrderId(orderId, order);
     return order;
 
