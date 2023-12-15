@@ -1,7 +1,8 @@
 'use strict';
 
 import { AUTH_TOKEN, PRODUCT_LIST, ADDRESS, LAUNCH_TYPE, USER_DATA,
-    RETAILER_DATA, SERVICE_COST, STORE_IMAGE, SELECTED_LAUNCH_AREA } from '../const/SessionStorageConst';
+    RETAILER_DATA, SERVICE_COST, STORE_IMAGE, SELECTED_LAUNCH_AREA,
+    LICENSE_DOCUMENT } from '../const/SessionStorageConst';
 
 const getItem = (key) => {
     const itemsAsString = sessionStorage.getItem(key);
@@ -113,6 +114,10 @@ export const getServiceCost = () => {
 
 export const setStoreLogo = (file) => {
     sessionStorage.setItem(STORE_IMAGE, file);
+};
+
+export const setLicenseDocument = (file) => {
+    sessionStorage.setItem(LICENSE_DOCUMENT, file);
 };
 
 export const getStoreImage = () => {

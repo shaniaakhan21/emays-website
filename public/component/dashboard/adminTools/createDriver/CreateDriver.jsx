@@ -9,7 +9,8 @@ import CreateDriverBasicInfo from './BasicInfo.fragment';
 import CreateDriverDocuments from './Documents.fragment';
 import CreateDriverBillingInformation from './BillingInformation.fragment';
 import { validateObjectNullEmptyCheck } from '../../../../js/util/validateObject';
-import { setStageOneCreateDriver } from '../../redux/thunk/newDriverThunk';
+import { resetIsLoadingPhaseOne, resetIsLoadingPhaseThree,
+    resetIsLoadingPhaseTwo, setStageOneCreateDriver, setStageTwoCreateDriver } from '../../redux/thunk/newDriverThunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { newDriverSelectorMemoized } from '../../redux/selector/newDriverSelector';
 
@@ -37,9 +38,26 @@ const CreateDriver = () => {
                     setErrorState(result[1]);
                 }
             } else if (step === 1) {
-
+                const result = validateObjectNullEmptyCheck(state, ['']);
+                if (result[0]) {
+                    setErrorState(null);
+                    dispatch(setStageTwoCreateDriver(state));
+                } else {
+                    setErrorState(result[1]);
+                }
             } else if (step === 2) {
-
+                const result = validateObjectNullEmptyCheck(state, ['']);
+                if (result[0]) {
+                    setErrorState(null);
+                    const isValidAccountEmail = validateEmail(state?.billingEmail);
+                    if (!isValidAccountEmail) {
+                        setErrorState('billingEmailInvalid');
+                        return;
+                    }
+                    dispatch(setStageThreeCreateDriver(state));
+                } else {
+                    setErrorState(result[1]);
+                }
             }
         }
     }, [step, state]);
@@ -101,7 +119,7 @@ const CreateDriver = () => {
                     <Button kind='tertiary' className='back' onClick={goBack}>Back</Button>
                 }
                 {
-                    (step !== 2) && 
+                    (step !== 3) && 
                     <Button className='next' onClick={handleNext} renderIcon={() => <ArrowRight />}>Next</Button>
                 }
             </Grid>

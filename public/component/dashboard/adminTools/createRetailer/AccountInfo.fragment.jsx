@@ -54,7 +54,7 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
     const t = useCallback((key) => translate(`dashboard.adminTools.createRetailer.account.${key}`), [translate]);
 
     return (
-        <Column lg={16} md={16} sm={8} xs={8}>
+        <Column className={'retailer-account-info-left'} lg={16} md={16} sm={8} xs={8}>
             <div className='grid-3'>
                 <div className='em-card'>
                     <Heading className='sub-title'>{t('sub-title')}</Heading>
@@ -72,6 +72,7 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
                     {errorState === 'Some error occurred' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Some error occurred</span>}
+                    <br />
                     <TextInput labelText={t('email')} onChange={(e) => {
                         setFormData({ type: 'setEmail', data: e.target.value });
                     }} 
@@ -88,6 +89,7 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
                     }}
                     value = {state?.password}
                     /> */}
+                    <br />
                     <TextBoxPassword
                         onChange={(e) => {
                             setFormData({ type: 'setPassword', data: e.target.value });
@@ -105,6 +107,7 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
                             The password must consist of only uppercase letters, lowercase letters, digits,
                              the specified special characters (@, $, !, %, *, ?) and must be at least 8 
                              characters in length </span>}
+                    <br />
                     <TextBoxPassword
                         onChange={(e) => {
                             setFormData({ type: 'setGeneratedPassword', data: e.target.value });

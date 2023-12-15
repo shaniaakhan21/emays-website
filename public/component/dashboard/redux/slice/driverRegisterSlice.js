@@ -1,7 +1,8 @@
 'use strict';
 
 import { createSlice } from '@reduxjs/toolkit';
-import { setStageOneCreateDriver } from '../thunk/newDriverThunk';
+import { resetIsLoadingPhaseThree, setStageOneCreateDriver,
+    setStageThreeCreateDriver, setStageTwoCreateDriver } from '../thunk/newDriverThunk';
 import { resetIsLoadingPhaseOne, resetIsLoadingPhaseTwo } from '../thunk/newDriverThunk';
 
 const initialState = {
@@ -29,11 +30,22 @@ const newDriverSlice = createSlice({
             state.phaseOneData = action.payload;
             state.phaseOneData.isLoading = false;
         });
+        builder.addCase(setStageTwoCreateDriver.fulfilled, (state, action) => {
+            state.phaseTwoData = action.payload;
+            state.phaseTwoData.isLoading = false;
+        });
+        builder.addCase(setStageThreeCreateDriver.fulfilled, (state, action) => {
+            state.phaseThreeData = action.payload;
+            state.phaseThreeData.isLoading = false;
+        });
         builder.addCase(resetIsLoadingPhaseOne.fulfilled, (state, action) => {
             state.phaseOneData.isLoading = true;
         });
         builder.addCase(resetIsLoadingPhaseTwo.fulfilled, (state, action) => {
             state.phaseTwoData.isLoading = true;
+        });
+        builder.addCase(resetIsLoadingPhaseThree.fulfilled, (state, action) => {
+            state.phaseThreeData.isLoading = true;
         });
         
     }

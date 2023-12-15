@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { Heading, TextInput } from '@carbon/react';
+import { Heading, TextInput, Column } from '@carbon/react';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import ContactNumberInput from '../../../common/ContactNumberInput';
 import GoogleMap from '../../../common/googleMap';
@@ -68,8 +68,8 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
     const t = useCallback((key) => translate(`dashboard.adminTools.createRetailer.fiscal.${key}`), [translate]);
 
     return (
-        <div className='em-card-container'>
-            <div className='em-card fiscal-1'>
+        <>
+            <Column className='em-card fiscal-1' lg={5} md={4} sm={4} xs={4}>
                 <Heading className='sub-title'>{t('subtitle-fiscal')}</Heading>
                 <TextInput labelText={t('company-name')} onChange={(e) => {
                     setFormData({ type: 'setCompanyName', data: e.target.value });
@@ -79,6 +79,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 {errorState === 'companyName' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter company name</span>}
+                <br />
 
                 <TextInput labelText={t('fiscal-number')} onChange={(e) => {
                     setFormData({ type: 'setFiscalNumber', data: e.target.value });
@@ -96,8 +97,8 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 {errorState === 'companyPhone' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
-            </div>
-            <div className='em-card right-container'>
+            </Column>
+            <Column className='em-card right-container' lg={11} md={4} sm={4} xs={4}>
                 <div className='fiscal-2'>
                     <div className='section-one'>
                         <Heading className='sub-title'>{t('subtitle-company-address')}</Heading>
@@ -109,6 +110,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         {errorState === 'street' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter street</span>}
+                        <br />
                         <TextInput labelText={t('zip')} onChange={(e) => {
                             setFormData({ type: 'setZip', data: e.target.value });
                         }}
@@ -117,6 +119,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         {errorState === 'zip' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter zip</span>}
+                        <br />
                     </div>
                     <div className='section-two'>
                         <br></br>
@@ -128,6 +131,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         {errorState === 'city' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter city</span>}
+                        <br />
                         <TextInput labelText={t('country')} onChange={(e) => {
                             setFormData({ type: 'setCountry', data: e.target.value });
                         }}
@@ -144,9 +148,9 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                     <br></br>
                     <GoogleMap />
                 </div>
-            </div>
+            </Column>
             
-        </div>
+        </>
     );
 };
 

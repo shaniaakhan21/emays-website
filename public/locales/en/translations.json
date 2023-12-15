@@ -662,7 +662,7 @@
           "sub-title3": "Comments"
         },
         "completed": {
-          "summery": "Shop Summery",
+          "summery": "Shop Summary",
           "sub-title": "Congratulations!",
           "successMessage": "Store registration has been completed successfully.",
           "error": {
@@ -690,6 +690,7 @@
           "carPlate": "Car Plate",
           "sub-title2": "Upload documents",
           "sub-title2-info": "(Format admitted jpg or png)",
+          "sub-title3": "Selected document",
           "upload": "Drag and drop files here or click to upload"
         },
         "billing": {

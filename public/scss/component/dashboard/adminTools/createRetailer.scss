@@ -3,6 +3,7 @@ $carbon-sm-max: 42.5em; // 680px
 $carbon-md-max: 64em;   // 1024px
 
 .createRetailer {
+
   .cds--text-area {
     min-width: 5rem;
     width: 100%;
@@ -51,14 +52,23 @@ $carbon-md-max: 64em;   // 1024px
     padding: 0 0 4rem;
     margin-bottom: 1rem;
 
+    .retailer-account-info-left {
+      margin-left: 0px;
+    }
+
+    .retailer-basic-info-right {
+      margin-right: 0px;
+    }
+
+    .retailer-basic-info-left {
+      margin-left: 0px;
+    }
+
     .grid-2  {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       column-gap: 1.5rem;
       padding-bottom: 10px;
-      img {
-        border: 2px solid black;
-      }
     }
 
     .grid-3  {
@@ -85,6 +95,10 @@ $carbon-md-max: 64em;   // 1024px
       align-items: center;
       justify-content: center;
       padding-left:85px;
+
+      img {
+        max-width: 550px;
+      }
 
       .sub-title {
         color: #00000033;
