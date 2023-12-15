@@ -11,6 +11,20 @@ export const setStageOneCreateDriver = createAsyncThunk('newDriver/phaseOne', as
     }
 });
 
+export const setStageTwoCreateDriver = createAsyncThunk('newDriver/phaseTwo', async (data, { getState }) => {
+    const authToken = getState().loginState.token;
+    if (authToken) {
+        return data;
+    }
+});
+
+export const setStageThreeCreateDriver = createAsyncThunk('newDriver/phaseThree', async (data, { getState }) => {
+    const authToken = getState().loginState.token;
+    if (authToken) {
+        return data;
+    }
+});
+
 export const resetIsLoadingPhaseOne = createAsyncThunk('newStore/resetPhaseOne', async (data, { getState }) => {
     const authToken = getState().loginState.token;
     if (authToken) {

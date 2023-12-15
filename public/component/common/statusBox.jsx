@@ -41,7 +41,8 @@ const getText = (status) => {
 const StatusBox = ({ status }) => {
     const text = getText(status);
     return (
-        <div className={`status-box ${statusToClass[status]}`}>{text}</div>
+        status ? <div className={`status-box ${statusToClass[status]}`}>{text}</div> :
+            <></>
     );
 };
 

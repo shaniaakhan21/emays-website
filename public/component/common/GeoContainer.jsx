@@ -100,11 +100,13 @@ const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
                 const launchArea = getSelectedLaunchArea();
                 let area = result?.vicinity;
                 if (launchArea && launchArea.toLocaleLowerCase() !== area) {
-                    pushAlert({
-                        kind: 'warning',
-                        title: t('statusMessage.warning'),
-                        subtitle: t('statusMessage.message.change-location-warning')
-                    });
+                    /*
+                     * PushAlert({
+                     *     kind: 'warning',
+                     *     title: t('statusMessage.warning'),
+                     *     subtitle: t('statusMessage.message.change-location-warning')
+                     * });
+                     */
                 }
                 if (!appData) {
                     /*

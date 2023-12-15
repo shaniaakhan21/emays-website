@@ -189,7 +189,7 @@ const CreateRetailer = () => {
                     'Basic Info',
                     'Fiscal Info',
                     'Directory',
-                    'Summery'
+                    'Summary'
                 ].map((item, index) => (<ProgressStep
                     key={index}
                     complete={(step) > index}

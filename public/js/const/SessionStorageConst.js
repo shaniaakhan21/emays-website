@@ -25,5 +25,6 @@ export const CUSTOMER_UI = 'customerUI';
 
 export const SERVICE_COST = 'serviceCost';
 export const STORE_IMAGE = 'storeImage';
+export const LICENSE_DOCUMENT = 'licenseDocument';
 
 export const SELECTED_LAUNCH_AREA = 'selectedLaunchArea';

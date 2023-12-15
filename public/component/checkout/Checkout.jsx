@@ -97,6 +97,14 @@ const Checkout = () => {
             setErrors(errors);
             return;
         }
+        if (!state?.serviceFee && !state?.serviceFee > 0) {
+            pushAlert({
+                kind: 'error',
+                title: t('statusMessage.error'),
+                subtitle: t('statusMessage.message.change-location-error')
+            });
+            return;
+        }
         setLoading(true);
         setTimeout(() => {
             setState(cs => ({ ...cs, locked: true }));

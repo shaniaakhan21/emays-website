@@ -53,112 +53,141 @@ const CompletedMessage = ({ setState }) => {
         });
     };
 
+    const copyStoreAndPushAlert = () => {
+        const text = `Store Username: ${selector?.phaseOneData?.username}, 
+                     Store Password: ${selector?.phaseOneData?.password}`;     
+        navigator.clipboard.writeText(text);
+        pushAlert({
+            kind: 'success',
+            title: m('statusMessage.success'),
+            subtitle: m('statusMessage.message.data-copied')
+        });
+    };
+
+    const copyManagerAndPushAlert = () => {
+        const text = `Manager Username: ${selector?.phaseThreeData?.manager?.managerUsername}, 
+                     Manager Password: ${selector?.phaseThreeData?.manager?.managerPassword}`;     
+        navigator.clipboard.writeText(text);
+        pushAlert({
+            kind: 'success',
+            title: m('statusMessage.success'),
+            subtitle: m('statusMessage.message.data-copied')
+        });
+    };
+
+    const copyAdminAndPushAlert = () => {
+        const text = `Admin Username: ${selector?.phaseThreeData?.businessAdmin?.adminUsername}, 
+                     Admin Password: ${selector?.phaseThreeData?.businessAdmin?.adminPassword}`;     
+        navigator.clipboard.writeText(text);
+        pushAlert({
+            kind: 'success',
+            title: m('statusMessage.success'),
+            subtitle: m('statusMessage.message.data-copied')
+        });
+    };
+
     return (
         <>
-            <Column lg={16} md={16} sm={16} xs={16}>
-                <div>
-                    { !saved && !selector?.phaseThreeData?.isLoading &&
-                    <div className='em-card result-account-creation'>
-                        <Heading className='sub-title'>{t('summery')}</Heading>
-                        <br></br>
-                        <div className='left'>
-                            <h5>Shop Name:</h5>
-                            <p> {selector?.phaseTwoData?.storeName}</p>
-                            <br></br>
-                            <h5>Shop Address:</h5>
-                            <p> {`${selector?.phaseTwoData?.address?.addOne}, 
-                            ${selector?.phaseTwoData?.address?.addTwo}, 
-                            ${selector?.phaseTwoData?.address?.addThree}` }</p>
-                            <br></br>
-                            <h5>Shop Email:</h5>
-                            <p> {selector?.phaseOneData?.email}</p>
-                            <br></br>
-                            <h5>Username:</h5>
-                            <p> {selector?.phaseOneData?.username}</p>
-                            <br></br>
-                            <h5>Password:</h5>
-                            <p> {'*****'}</p>
-                            <br></br>
-                        </div>
-                        <div className='right'>
-                            <h5>Admin Username:</h5>
-                            <p> {selector?.phaseThreeData?.businessAdmin?.adminUsername}</p>
-                            <br></br>
-                            <h5>Admin Password:</h5>
-                            <p> {'*****'}</p>
-                            <h5>Manager Username:</h5>
-                            <p> {selector?.phaseThreeData?.manager?.managerUsername}</p>
-                            <br></br>
-                            <h5>Manager Password:</h5>
-                            <p> {'*****'}</p>
-                            <br></br>
-                        </div>
-                        <div className='copy-button'>
-                            <Button
-                                onClick={() => { 
-                                    copyAndPushAlert();
-                                }}
-                                kind={'secondary'}
-                                customStyle={{
-                                    minWidth: '24vw',
-                                    marginTop: '25px',
-                                    marginBottom: '15px',
-                                    alignContent: 'center',
-                                    justifyContent: 'center',
-                                    padding: '1%'
-                                }}
-                            >
-                                <Copy />
-                            </Button>
-                        </div>
-                    </div>
-                    }
-                    <div>
-                        {
-                        // Success TODO: create a general component
-                            !(selector?.saveStatus?.isLoading) && (selector?.saveStatus?.result?.resultStore?.sysId) && 
-                        <div className='em-card'>
-                            <Heading className='sub-title'>{t('sub-title')}</Heading>
-                            <br></br>
-                            <h4>{t('successMessage')}</h4>
-                        </div>
-                        }
-
-                        {   
-                            // Error TODO: create a general component
-                            !(selector?.saveStatus?.isLoading) &&
-                             (selector?.saveStatus?.result?.resultStore?.options) && 
-                        <div className='em-card' style={ { color: 'red' } }>
-                            <Heading className='sub-title'>{t('error.error-store')}</Heading>
-                            <br></br>
-                            <h4>{selector?.saveStatus?.result?.resultStore?.description}</h4>
-                        </div>
-                        }
-
-                        {   
-                            // Error TODO: create a general component
-                            !(selector?.saveStatus?.isLoading) &&
-                             (selector?.saveStatus?.result?.resultAdmin?.options) && 
-                        <div className='em-card' style={ { color: 'red' } }>
-                            <Heading className='sub-title'>{t('error.error-admin')}</Heading>
-                            <br></br>
-                            <p>{selector?.saveStatus?.result?.resultAdmin?.description}</p>
-                        </div>
-                        }
-
-                        {   
-                            // Error TODO: create a general component
-                            !(selector?.saveStatus?.isLoading) &&
-                             (selector?.saveStatus?.result?.resultManager?.options) && 
-                        <div className='em-card' style={ { color: 'red' } }>
-                            <Heading className='sub-title'>{t('error.error-manager')}</Heading>
-                            <br></br>
-                            <p>{selector?.saveStatus?.result?.resultManager?.description}</p>
-                        </div>
-                        }
-                    </div>
+            <Column className={'info'} lg={16} md={16} sm={16} xs={16}>
+                <div className='container'>
+                    {
+                        !saved && !selector?.phaseThreeData?.isLoading &&
+                            <div className='em-card result-account-creation'>
+                                <div className='text'>
+                                    <h5>Store Account</h5>
+                                    <p> {selector?.phaseOneData?.username}</p>
+                                </div>
+                                <div className='text'>
+                                    <h5>Password</h5>
+                                    <p> ******</p>
+                                </div>
+                                <div className='button'>
+                                    <button
+                                        onClick={() => { 
+                                            copyStoreAndPushAlert();
+                                        }}
+                                        className='button-copy'
+                                    >Copy
+                                        <Copy style={{ 'marginLeft': '35px' }}/>
+                                    </button>
+                                </div>
+                                
+                            </div>
+                    } 
                 </div>
             </Column>
+            <Column className={'info'} lg={16} md={16} sm={16} xs={16}>
+                <div className='container'>
+                    {
+                        !saved && !selector?.phaseThreeData?.isLoading &&
+                            <div className='em-card result-account-creation'>
+                                <div className='text'>
+                                    <h5>Store Manager Account</h5>
+                                    <p> {selector?.phaseThreeData?.manager?.managerUsername}</p>
+                                </div>
+                                <div className='text'>
+                                    <h5>Password</h5>
+                                    <p> ******</p>
+                                </div>
+                                <div className='button'>
+                                    <button
+                                        onClick={() => { 
+                                            copyManagerAndPushAlert();
+                                        }}
+                                        className='button-copy'
+                                    >Copy
+                                        <Copy style={{ 'marginLeft': '35px' }}/>
+                                    </button>
+                                </div>
+                                
+                            </div>
+                    } 
+                </div>
+            </Column>
+            <Column className={'info'} lg={16} md={16} sm={16} xs={16}>
+                <div className='container'>
+                    {
+                        !saved && !selector?.phaseThreeData?.isLoading &&
+                            <div className='em-card result-account-creation'>
+                                <div className='text'>
+                                    <h5>Store Admin Account</h5>
+                                    <p> {selector?.phaseThreeData?.businessAdmin?.adminUsername}</p>
+                                </div>
+                                <div className='text'>
+                                    <h5>Password</h5>
+                                    <p> ******</p>
+                                </div>
+                                <div className='button'>
+                                    <button
+                                        onClick={() => { 
+                                            copyAdminAndPushAlert();
+                                        }}
+                                        className='button-copy'
+                                    >Copy
+                                        <Copy style={{ 'marginLeft': '35px' }}/>
+                                    </button>
+                                </div>
+                                
+                            </div>
+                    } 
+                </div>
+            </Column>
+            {
+
+                <Column className={'info'} lg={16} md={16} sm={16} xs={16}>
+                    <div className='container'>
+                        {
+                            !(selector?.saveStatus?.isLoading) &&
+                            (selector?.saveStatus?.result?.resultManager?.options) &&
+                            <div className='em-card' style={{ color: 'red' }}>
+                                <Heading className='sub-title'>{t('error.error-manager')}</Heading>
+                                <br></br>
+                                <p>{selector?.saveStatus?.result?.resultManager?.description}</p>
+                            </div>
+                        }
+                    </div>
+                </Column>
+            }
         </>
     );
 };
