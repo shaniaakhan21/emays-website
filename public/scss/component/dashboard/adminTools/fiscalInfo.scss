@@ -1,32 +1,29 @@
-.em-card-container {
+.fiscal-1 {
+    flex: 1;
+    height: 400px;
+}
+.right-container {
     display: flex;
-    width: max-content;
-    .fiscal-1 {
-        flex: 1;
-        height: 400px;
-    }
-    .right-container {
+    flex: 2;
+    flex-direction: column;
+    margin-left: 20px;
+    padding: 10px;
+    .fiscal-2 {
         display: flex;
-        flex: 2;
-        flex-direction: column;
-        margin-left: 20px;
-        .fiscal-2 {
-            display: flex;
-            flex-direction: row;
-            .section-one {
-                flex: 1;
-                padding-left: 10px;
-                padding-right: 10px;
-            }
-            .section-two {
-                flex: 1;
-                padding-left: 10px;
-                padding-right: 10px;
-            }
-        }
-        .map {
+        flex-direction: row;
+        .section-one {
+            flex: 1;
             padding-left: 10px;
             padding-right: 10px;
         }
+        .section-two {
+            flex: 1;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+    }
+    .map {
+        padding-left: 10px;
+        padding-right: 10px;
     }
 }

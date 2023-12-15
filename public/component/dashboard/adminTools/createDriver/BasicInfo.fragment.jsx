@@ -63,6 +63,7 @@ const CreateDriverBasicInfo = ({ setState, errorState }) => {
                     {errorState === 'lastName' &&
                     <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter last name</span>}
+                    <br />
                     <ContactNumberInput
                         actionFunc= {(value) => { setFormData({ type: 'setPhoneNumber', data: value }); }}
                         data = {state?.phoneNumber || ''}

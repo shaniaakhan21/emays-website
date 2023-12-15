@@ -13,9 +13,10 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) => <GoogleMapLib
 </GoogleMapLib>
 ));
 
-const GoogleMap = () => (<MyMapComponent
+const GoogleMap = (googleMapAPIKey) => (<MyMapComponent
     isMarkerShown
-    googleMapURL='https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places'
+    // eslint-disable-next-line max-len
+    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleMapAPIKey}&v=3.exp&libraries=geometry,drawing,places`}
     loadingElement={<div style={{ height: '100%' }} />}
     containerElement={<div style={{ height: '400px' }} />}
     mapElement={<div style={{ height: '100%' }} />}

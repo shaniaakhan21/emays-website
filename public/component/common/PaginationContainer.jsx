@@ -8,9 +8,12 @@ const PaginationLayout = styled.div`
         ${(props) => props.styles}
     `}
     padding-bottom: 50px;
-    .active {
-        background-color: black;
-        color: white;
+    .button-outer {
+        display: inline-flex;
+        .active {
+            background-color: black;
+            color: white;
+        }
     }
 `;
 
@@ -76,9 +79,15 @@ const PaginationContainer = ({ pageLength = 5, noOfVisibleButtons = 5, wrapperSt
                 })();
             }
 
-            const buttonContainer = document.querySelector('.pagination');
-            buttonContainer.addEventListener('click', getActiveButtonStyle);
-            return () => buttonContainer.removeEventListener('click', getActiveButtonStyle);
+            const buttonContainer = document.querySelector('.pagination .button-outer');
+            if (buttonContainer) {
+                buttonContainer.addEventListener('click', getActiveButtonStyle);
+            }
+            return () => {
+                if (buttonContainer) {
+                    return buttonContainer.removeEventListener('click', getActiveButtonStyle);
+                }
+            };
         }
         
     }, [state.currentIndex, isSystemLoading]);
@@ -92,9 +101,14 @@ const PaginationContainer = ({ pageLength = 5, noOfVisibleButtons = 5, wrapperSt
     };
 
     const getActiveButtonStyle = (event) => {
-        const buttons = document.querySelectorAll('.pagination button');
-        buttons.forEach(button => button.classList.remove('active'));
-        event.target.closest('button').classList.add('active');
+        const buttons = document.querySelectorAll('.button-outer button');
+        if (buttons) {
+            buttons.forEach(button => button.classList.remove('active'));
+        }
+        const target = event?.target;
+        if (target) {
+            event.target.closest('button').classList.add('active');
+        }
     };
     
     return (
@@ -110,50 +124,51 @@ const PaginationContainer = ({ pageLength = 5, noOfVisibleButtons = 5, wrapperSt
 
             {
                 !isSystemLoading && isPaginationEnabled && <PaginationLayout styles={wrapperStyle}>
-                    {/* Prev button logic. */}
-                    { state.startDisplayIndex > 0 && <Button
-                        onClick = {() => {
-                            const prevIndex = state.currentIndex - 1;
-                            const buttons = document.querySelectorAll('.pagination button');
-                            buttons.forEach(button => button.classList.remove('active'));
-                            buttons.forEach(button => {
-                                if (+button.getAttribute('data-index') === +prevIndex) {
-                                    button.classList.add('active');
+                    <div className='button-outer'>
+                        {/* Prev button logic. */}
+                        { state.startDisplayIndex > 0 && <Button
+                            onClick = {() => {
+                                const prevIndex = state.currentIndex - 1;
+                                const buttons = document.querySelectorAll('.pagination button');
+                                buttons.forEach(button => button.classList.remove('active'));
+                                buttons.forEach(button => {
+                                    if (+button.getAttribute('data-index') === +prevIndex) {
+                                        button.classList.add('active');
+                                    }
+                                });
+                                changeIndex(prevIndex);
+                                setState({ type: 'update-start-display-index', data: state.startDisplayIndex - 1 });
+                                setState({ type: 'update-end-display-index', data: state.endDisplayIndex - 1 });
+                            }}>{'<'}</Button>
+                        }
+
+                        {/* Visible buttons logic. */}
+                        {
+                            (() => {
+                                const totalPages = state.initialData?.allPagesAvailable || 0;
+                                const buttons = [];
+                                const maxLength = totalPages > state.endDisplayIndex ?
+                                    state.endDisplayIndex : totalPages - 1;
+                                for (let index = state.startDisplayIndex; index <= maxLength; index++) {
+                                    buttons.push(
+                                        <Button
+                                            key={index}
+                                            className={index === state.currentIndex ? 'active' : ''}
+                                            data-index={index}
+                                            onClick={() => { changeIndex(index); }}
+                                        >
+                                            {index + 1}
+                                        </Button>
+                                    );
                                 }
-                            });
-                            changeIndex(prevIndex);
-                            setState({ type: 'update-start-display-index', data: state.startDisplayIndex - 1 });
-                            setState({ type: 'update-end-display-index', data: state.endDisplayIndex - 1 });
-                        }}>{'<'}</Button>
-                    }
 
-                    {/* Visible buttons logic. */}
-                    {
-                        (() => {
-                            const totalPages = state.initialData?.allPagesAvailable || 0;
-                            const buttons = [];
-                            const maxLength = totalPages > state.endDisplayIndex ?
-                                state.endDisplayIndex : totalPages - 1;
-                            for (let index = state.startDisplayIndex; index <= maxLength; index++) {
-                                buttons.push(
-                                    <Button
-                                        key={index}
-                                        className={index === state.currentIndex ? 'active' : ''}
-                                        data-index={index}
-                                        onClick={() => { changeIndex(index); }}
-                                    >
-                                        {index + 1}
-                                    </Button>
-                                );
-                            }
+                                return buttons;
+                            })()
+                        }
 
-                            return buttons;
-                        })()
-                    }
-
-                    {/* Next button logic. */}
-                    {
-                        state.endDisplayIndex < (state.initialData?.allPagesAvailable - 1) && 
+                        {/* Next button logic. */}
+                        {
+                            state.endDisplayIndex < (state.initialData?.allPagesAvailable - 1) && 
                         <Button 
                             onClick = {() => {
                                 const nextIndex = state.currentIndex + 1;
@@ -168,7 +183,8 @@ const PaginationContainer = ({ pageLength = 5, noOfVisibleButtons = 5, wrapperSt
                                 setState({ type: 'update-start-display-index', data: state.startDisplayIndex + 1 });
                                 setState({ type: 'update-end-display-index', data: state.endDisplayIndex + 1 });
                             }}>{'>'}</Button>
-                    }
+                        }
+                    </div>
                 </PaginationLayout>
             }
         </div>

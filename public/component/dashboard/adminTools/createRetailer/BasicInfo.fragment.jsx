@@ -1,14 +1,12 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { setStageOneCreateStore } from '../../redux/thunk/newStoreThunk';
-import { useDispatch, useSelector } from 'react-redux';
-
-// SCSS
-
+import { useSelector } from 'react-redux';
+import { useMessage } from '../../../common/messageCtx'; 
 import { Column, FileUploaderDropContainer, Grid, Heading, TextInput } from '@carbon/react';
 import { setStoreLogo } from '../../../../js/util/SessionStorageUtil';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import GoogleMap from '../../../common/googleMap';
+import { getAppInfo } from '../../../../services/geo';
 
 const CreateRetailerBasicInfo = ({ setState, errorState }) => {
     const [translate] = useTranslation();
@@ -16,7 +14,9 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
     const [selectedImageURL, setSelectedImageURL] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const selector = useSelector(newStoreSelectorMemoized);
+    const pushAlert = useMessage();
 
+    const [mapAPIKey, setMapAPIKey] = useState('');
     const [state, setFormData] = useReducer((state, action) => {
         switch (action?.type) {
             case 'setStoreName':
@@ -34,7 +34,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
             case 'setAddressLineFive':
                 return { ...state, address: { ...state?.address, addFive: action?.data } };
             case 'setAddressLineSix':
-                return { ...state, address: { ...state?.address, addSix: action?.data } };;
+                return { ...state, address: { ...state?.address, addSix: action?.data } };
             default:
                 return { ...state };
         }
@@ -64,14 +64,24 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
     // When changing the state, update the parent state 
     useEffect(() => {
         setState((currentState) => { return state; } );
+        (async () => {
+            const appInfo = await getAppInfo();
+            setMapAPIKey(appInfo?.googleMapAPIKey);
+        })();
+        
     }, [state]);
 
     const handleFileChange = (event) => {
-        const file = event?.dataTransfer?.files[0];
+        const file = event?.dataTransfer?.files[0] || event?.target?.files[0];
         if (file) {
             const maxSize = 200 * 1024;
             if (file.size > maxSize) {
                 console.log('Image size exceeds 200KB. Please choose a smaller image.');
+                pushAlert({
+                    kind: 'error',
+                    title: 'Selected image is too large.',
+                    subtitle: 'The image size should less than 400KB.'
+                });
                 event.target.value = '';
                 setSelectedFile(null);
                 return;
@@ -97,7 +107,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
 
     return (
         <>
-            <Column lg={5} md={4} sm={4} xs={4}>
+            <Column className={'retailer-basic-info-left'} lg={5} md={4} sm={4} xs={4}>
                 <div className='em-card'>
                     <Heading className='sub-title'>{t('sub-title')}</Heading>
                     <TextInput labelText={t('name')} onChange={(e) => {
@@ -108,6 +118,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                     {errorState === 'storeName' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter store name</span>}
+                    <br />
                     <Heading className='sub-title'>{t('sub-title2')}</Heading>
                     <TextInput labelText={t('street')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineOne', data: e.target.value });
@@ -117,6 +128,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                     {errorState === 'addOne' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter street</span>}
+                    <br />
                     <TextInput labelText={t('number')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineTwo', data: e.target.value });
                     }} 
@@ -125,6 +137,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                     {errorState === 'addTwo' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter number</span>}
+                    <br />
                     <TextInput labelText={t('city')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineThree', data: e.target.value });
                     }} 
@@ -133,6 +146,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                     {errorState === 'addThree' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter city</span>}
+                    <br />
                     <TextInput labelText={t('country')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineFour', data: e.target.value });
                     }} 
@@ -141,6 +155,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                     {errorState === 'addFour' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter country</span>}
+                    <br />
                     <TextInput labelText={t('zip')} onChange={(e) => {
                         setFormData({ type: 'setAddressLineFive', data: e.target.value });
                     }} 
@@ -151,7 +166,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                                 Please enter zip code</span>}
                 </div>
             </Column>
-            <Column lg={11} md={4} sm={4} xs={4}>
+            <Column className={'retailer-basic-info-right'} lg={11} md={4} sm={4} xs={4}>
                 <div className='em-card'>
                     <div className='grid-2'>
                         <div>
@@ -175,15 +190,16 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                         </div>
                         <div className='preview'>
                             <Heading className='sub-title'>{t('sub-title4')}</Heading>
-                            <img height={'150px'} width={'200px'} src={selectedImageURL} alt='preview' />
+                            <img src={selectedImageURL}/>
                             {errorState === 'storeLogo' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please add your logo</span>}
+                            <br />
                         </div>
                     </div>
                     <Heading className='sub-title'>{t('sub-title5')}</Heading>
                     <div className='map'>
-                        <GoogleMap />
+                        <GoogleMap mapAPIKey={mapAPIKey}/>
                         {/* <GeoContainer 
                             appData={googleMapAPIKey}
                             updateAddress={({ addOne }) => {

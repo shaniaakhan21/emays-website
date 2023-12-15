@@ -8,6 +8,9 @@ import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import ContactNumberInput from '../../../common/ContactNumberInput';
 import TextBoxPassword from '../../../common/TextBoxPassword';
 
+// SCSS
+import '../../../../scss/component/dashboard/adminTools/employeeInfo.scss';
+
 const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
 
     const [translate] = useTranslation();
@@ -78,139 +81,141 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
 
     return (
         <>
-            <Column lg={16} md={8} sm={8} xs={8}>
-                <div className='grid-3'>
-                    <div className='em-card'>
-                        <Heading className='sub-title'>{t('sub-title')}</Heading>
-                        <TextInput labelText={t('name')} onChange={(e) => {
-                            setFormData({ type: 'setManagerName', data: e.target.value });
-                        }} 
-                        value = {state?.manager?.managerName}
-                        />
-                        {errorState === 'managerName' &&
+            <Column className={'left-section'} lg={8} md={8} sm={8} xs={16}>
+                <div className={'em-card section-one'}>
+                    <Heading className='sub-title'>{t('sub-title')}</Heading>
+                    <TextInput labelText={t('name')} onChange={(e) => {
+                        setFormData({ type: 'setManagerName', data: e.target.value });
+                    }} 
+                    value = {state?.manager?.managerName}
+                    />
+                    {errorState === 'managerName' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter name</span>}
-                        <TextInput labelText={t('email')} onChange={(e) => {
-                            setFormData({ type: 'setManagerEmail', data: e.target.value });
-                        }} 
-                        value = {state?.manager?.managerEmail}
-                        />
-                        {errorState === 'managerEmail' &&
+                    <TextInput labelText={t('email')} onChange={(e) => {
+                        setFormData({ type: 'setManagerEmail', data: e.target.value });
+                    }} 
+                    value = {state?.manager?.managerEmail}
+                    />
+                    {errorState === 'managerEmail' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter email</span>}
-                        {errorState === 'emailInvalidManager' &&
+                    {errorState === 'emailInvalidManager' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter a valid email</span>}
-                        <br></br>
-                        <ContactNumberInput 
-                            actionFunc= {(value) => { setFormData({ type: 'setManagerPhone', data: value }); }}
-                            data = {state?.manager?.managerPhone || ''}
-                        />
-                        {/* <TextInput labelText={t('phone')} onChange={(e) => {
+                    <br></br>
+                    <ContactNumberInput 
+                        actionFunc= {(value) => { setFormData({ type: 'setManagerPhone', data: value }); }}
+                        data = {state?.manager?.managerPhone || ''}
+                    />
+                    {/* <TextInput labelText={t('phone')} onChange={(e) => {
                             setFormData({ type: 'setManagerPhone', data: e.target.value });
                         }} 
                         value = {state?.manager?.managerPhone}
                         /> */}
-                        {errorState === 'managerPhone' &&
+                    {errorState === 'managerPhone' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
-                        <TextInput labelText={t('username')} onChange={(e) => {
-                            setFormData({ type: 'setManagerUsername', data: e.target.value });
-                        }} 
-                        value = {state?.manager?.managerUsername}
-                        />
-                        {errorState === 'managerUsername' &&
+                    <TextInput labelText={t('username')} onChange={(e) => {
+                        setFormData({ type: 'setManagerUsername', data: e.target.value });
+                    }} 
+                    value = {state?.manager?.managerUsername}
+                    />
+                    {errorState === 'managerUsername' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter username</span>}
-                        {errorState === 'Username already reserved' &&
+                    {errorState === 'Username already reserved' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 This username already reserved</span>}
-                        {errorState === 'Some error occurred' &&
+                    {errorState === 'Some error occurred' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Some error occurred</span>}
-                        <TextBoxPassword
-                            onChange={(e) => {
-                                setFormData({ type: 'setManagerPassword', data: e.target.value });
-                            }}
-                            labelText={t('password')}
-                            hidePasswordLabel='Hide password'
-                            customStyle={{ width: '100%' }}
-                        />
-                        {errorState === 'managerPassword' &&
+                    <TextBoxPassword
+                        onChange={(e) => {
+                            setFormData({ type: 'setManagerPassword', data: e.target.value });
+                        }}
+                        labelText={t('password')}
+                        hidePasswordLabel='Hide password'
+                        customStyle={{ width: '100%' }}
+                    />
+                    {errorState === 'managerPassword' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter password</span>}
-                        {errorState === 'passwordInvalidManager' && 
+                    {errorState === 'passwordInvalidManager' && 
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             The password must consist of only uppercase letters, lowercase letters, digits,
                              the specified special characters (@, $, !, %, *, ?) and must be at least 8 
                              characters in length </span>}
-                    </div>
-                    <div className='em-card'>
-                        <Heading className='sub-title'>{t('sub-title2')}</Heading>
-                        <TextInput labelText={t('name')} onChange={(e) => {
-                            setFormData({ type: 'setBusinessAdminName', data: e.target.value });
-                        }} 
-                        value = {state?.businessAdmin?.adminName}
-                        />
-                        {errorState === 'adminName' &&
+                </div>
+            </Column>
+            <Column className={'right-section'} lg={8} md={8} sm={8} xs={16}>
+                <div className={'em-card section-two'}>
+                    <Heading className='sub-title'>{t('sub-title2')}</Heading>
+                    <TextInput labelText={t('name')} onChange={(e) => {
+                        setFormData({ type: 'setBusinessAdminName', data: e.target.value });
+                    }} 
+                    value = {state?.businessAdmin?.adminName}
+                    />
+                    {errorState === 'adminName' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter name</span>}
-                        <TextInput labelText={t('email')} onChange={(e) => {
-                            setFormData({ type: 'setBusinessAdminEmail', data: e.target.value });
-                        }} 
-                        value = {state?.businessAdmin?.adminEmail}
-                        />
-                        {errorState === 'adminEmail' &&
+                    <TextInput labelText={t('email')} onChange={(e) => {
+                        setFormData({ type: 'setBusinessAdminEmail', data: e.target.value });
+                    }} 
+                    value = {state?.businessAdmin?.adminEmail}
+                    />
+                    {errorState === 'adminEmail' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter email</span>}
-                        {errorState === 'emailInvalidAdmin' &&
+                    {errorState === 'emailInvalidAdmin' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter a valid email</span>}       
-                        {/* <TextInput labelText={t('phone')} onChange={(e) => {
+                    {/* <TextInput labelText={t('phone')} onChange={(e) => {
                             setFormData({ type: 'setBusinessAdminPhone', data: e.target.value });
                         }} 
                         value = {stat
                             e?.businessAdmin?.adminPhone}
                         /> */}
-                        <br></br>
-                        <ContactNumberInput 
-                            actionFunc= {(value) => { setFormData({ type: 'setBusinessAdminPhone', data: value }); }}
-                            data = {state?.businessAdmin?.adminPhone || ''}
-                        />
-                        {errorState === 'adminPhone' &&
+                    <br></br>
+                    <ContactNumberInput 
+                        actionFunc= {(value) => { setFormData({ type: 'setBusinessAdminPhone', data: value }); }}
+                        data = {state?.businessAdmin?.adminPhone || ''}
+                    />
+                    {errorState === 'adminPhone' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
-                        <TextInput labelText={t('username')} onChange={(e) => {
-                            setFormData({ type: 'setBusinessAdminUsername', data: e.target.value });
-                        }} 
-                        value = {state?.businessAdmin?.adminUsername}
-                        />
-                        {errorState === 'adminUsername' &&
+                    <TextInput labelText={t('username')} onChange={(e) => {
+                        setFormData({ type: 'setBusinessAdminUsername', data: e.target.value });
+                    }} 
+                    value = {state?.businessAdmin?.adminUsername}
+                    />
+                    {errorState === 'adminUsername' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter username</span>}
-                        {errorState === 'Username already reserved' &&
+                    {errorState === 'Username already reserved' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 This username already reserved</span>}
-                        {errorState === 'Some error occurred' &&
+                    {errorState === 'Some error occurred' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Some error occurred</span>}
-                        <TextBoxPassword
-                            onChange={(e) => {
-                                setFormData({ type: 'setBusinessAdminPassword', data: e.target.value });
-                            }}
-                            labelText={t('password')}
-                            hidePasswordLabel='Hide password'
-                            customStyle={{ width: '100%' }}
-                        />
-                        {errorState === 'adminPassword' &&
+                    <TextBoxPassword
+                        onChange={(e) => {
+                            setFormData({ type: 'setBusinessAdminPassword', data: e.target.value });
+                        }}
+                        labelText={t('password')}
+                        hidePasswordLabel='Hide password'
+                        customStyle={{ width: '100%' }}
+                    />
+                    {errorState === 'adminPassword' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter password</span>}
-                        {errorState === 'passwordInvalidAdmin' && <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                    {errorState === 'passwordInvalidAdmin' && <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             The password must consist of only uppercase letters, lowercase letters, digits,
                              the specified special characters (@, $, !, %, *, ?) and must be at least 8 
                              characters in length </span>}
-                    </div>
-                    {/* <div className='em-card'>
+                </div>
+            </Column>
+            {/* <div className='em-card'>
                         <Heading className='sub-title'>{t('sub-title3')}</Heading>
                         {[
                             'name',
@@ -220,8 +225,6 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                             <TextInput key={idx} labelText={t(item)} onChange={onChange} id={item} />
                         ))}
                     </div> */}
-                </div>
-            </Column>
         </>
     );
 };
