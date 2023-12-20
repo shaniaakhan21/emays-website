@@ -8,9 +8,12 @@ import GoogleMap from '../../../common/googleMap';
 
 // SCSS
 import '../../../../scss/component/dashboard/adminTools/fiscalInfo.scss';
+import { getAppInfo } from '../../../../services/geo';
+import GoogleMapWithSearchBar from '../../../common/googleMapWithSearchComponent';
 
 const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
     const [translate] = useTranslation();
+    const [mapAPIKey, setMapAPIKey] = useState('');
     
     const [selectedImageURL, setSelectedImageURL] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
@@ -59,6 +62,10 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
     // When changing the state, update the parent state 
     useEffect(() => {
         setState((currentState) => { return state; } );
+        (async () => {
+            const appInfo = await getAppInfo();
+            setMapAPIKey(appInfo?.googleMapAPIKey);
+        })();
     }, [state]);
 
     useEffect(() => {
@@ -144,9 +151,12 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 </div>
                 <br></br>
                 <div className='map'>
-                    <Heading className='sub-title'>Click here to open maps</Heading>
-                    <br></br>
-                    <GoogleMap />
+                    <a onClick={() => {
+                        window.open('https://www.google.com/maps/place/45.464664,9.188540');
+                    }}><Heading className='sub-title'>{t('sub-title5')}</Heading></a>
+                    {
+                        <GoogleMapWithSearchBar googleMapAPIKey={mapAPIKey} />
+                    }
                 </div>
             </Column>
             
