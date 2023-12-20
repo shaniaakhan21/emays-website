@@ -5,8 +5,8 @@ import { useMessage } from '../../../common/messageCtx';
 import { Column, FileUploaderDropContainer, Grid, Heading, TextInput } from '@carbon/react';
 import { setStoreLogo } from '../../../../js/util/SessionStorageUtil';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
-import GoogleMap from '../../../common/googleMap';
 import { getAppInfo } from '../../../../services/geo';
+import GoogleMapWithSearchBar from '../../../common/googleMapWithSearchComponent';
 
 const CreateRetailerBasicInfo = ({ setState, errorState }) => {
     const [translate] = useTranslation();
@@ -197,14 +197,13 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                             <br />
                         </div>
                     </div>
-                    <Heading className='sub-title'>{t('sub-title5')}</Heading>
                     <div className='map'>
-                        <GoogleMap mapAPIKey={mapAPIKey}/>
-                        {/* <GeoContainer 
-                            appData={googleMapAPIKey}
-                            updateAddress={({ addOne }) => {
-                                setFormData({ type: 'setAddressLineOne', data: addOne });
-                            }}/> */}
+                        <a onClick={() => {
+                            window.open('https://www.google.com/maps/place/45.464664,9.188540');
+                        }}><Heading className='sub-title'>{t('sub-title5')}</Heading></a>
+                        {
+                            <GoogleMapWithSearchBar googleMapAPIKey={mapAPIKey} />
+                        }
                     </div>
                 </div>
             </Column>

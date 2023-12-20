@@ -86,7 +86,11 @@ $carbon-md-max: 64em;   // 1024px
     }
 
     .map {
-      margin-top: 1.5rem;
+      // margin-top: 1.5rem;
+      a {
+        color: black;
+        text-decoration: underline;
+      }
     }
 
     .preview {

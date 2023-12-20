@@ -9,8 +9,10 @@ import { useEffect } from 'react';
 import { getReaderExe, collectPaymentExe, cardPresentExe, serverWebhookExe } from '../../redux/thunk/stripeThunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTerminal } from '../../redux/slice/stripeSlice';
+import { useHistory } from 'react-router-dom';
 export const Payment = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     // TODO: Lets have separate selectors and remove this....
     const { reader, myPaymentIntent, cardFlag, myError, total, count, paymentStatus } = useSelector((state) => ( { reader: state.stripePaymentState.reader,
         myTerminalForPayment: state.stripePaymentState.terminalForPayment,

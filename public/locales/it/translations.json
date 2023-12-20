@@ -156,7 +156,7 @@
     "warning": "Warning",
     "message": {
       "change-location-warning": "You have changed the area that you provided before. But still you can change it.",
-      "change-location-error": "Address is our of reach. We're located in Lombardy area, Italy. Please change delivery address.",
+      "change-location-error": "Address is out of reach. We're located in Lombardy area, Italy. Please change delivery address.",
       "success-update": "Update completed successfully.",
       "accounts-creation-success": "Store, Admin and Manager accounts created successfully.",
       "data-copied": "Information copied successfully."
@@ -323,7 +323,7 @@
       "first-name": "Nome",
       "last-name": "Cognome",
       "phone-number": "Numero di telefono",
-      "e-mail": "e-mail"
+      "email": "e-mail"
     },
     "submit-button": "CONFERMA DETTAGLI",
     "loading-description": "Prenotazione appuntamento, ricerca assistente personale"
@@ -612,7 +612,8 @@
           "street": "Street / Avenue",
           "city": "City",
           "zip": "Zip code",
-          "country": "Country"
+          "country": "Country",
+          "sub-title5": "Click here to open maps"
         },
         "billing": {
           "sub-title": "Billing",
