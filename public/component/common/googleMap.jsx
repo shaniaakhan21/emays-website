@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap as GoogleMapLib, Marker } from 'react-google-maps';
 
 // Add map styles after api keys acquired
@@ -7,19 +7,29 @@ const mapStyle = [{ 'featureType': 'administrative', 'elementType': 'all', 'styl
 
 const MyMapComponent = withScriptjs(withGoogleMap((props) => <GoogleMapLib
     defaultZoom={8}
-    defaultCenter={{ lat: -34.397, lng: 150.644 }}
+    defaultCenter={ props?.latLan ? { lat: props.latLan.lat, lng: props.latLan.lan } :
+        { lat: 45.464664, lng: 9.188540 }}
 >
-    {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
+    {props.isMarkerShown && props?.latLan && <Marker position={{ lat: props?.latLan?.lat,
+        lng: props?.latLan?.lan }} />}
 </GoogleMapLib>
 ));
 
-const GoogleMap = (googleMapAPIKey) => (<MyMapComponent
-    isMarkerShown
-    // eslint-disable-next-line max-len
-    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${googleMapAPIKey}&v=3.exp&libraries=geometry,drawing,places`}
-    loadingElement={<div style={{ height: '100%' }} />}
-    containerElement={<div style={{ height: '400px' }} />}
-    mapElement={<div style={{ height: '100%' }} />}
-/>);
+const GoogleMap = (props) => { 
+
+    const [key, setKey] = useState(0);
+    useEffect(() => {
+        setKey((prevKey) => prevKey + 1);
+    }, [props?.latLan]);
+    return props?.mapAPIKey && <MyMapComponent
+        key={key}
+        latLan={props?.latLan}
+        isMarkerShown
+        // eslint-disable-next-line max-len
+        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${props?.mapAPIKey}`}
+        loadingElement={<div style={{ height: '100%' }} />}
+        containerElement={<div style={{ height: '400px' }} />}
+        mapElement={<div style={{ height: '100%' }} />}
+    />; };
 
 export default GoogleMap;
