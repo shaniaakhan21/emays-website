@@ -6,6 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { Column, FileUploaderDropContainer, Heading, TextInput } from '@carbon/react';
 import { useMessage } from '../../../common/messageCtx';
 import { setLicenseDocument } from '../../../../js/util/SessionStorageUtil';
+import { newDriverSelectorMemoized } from '../../redux/selector/newDriverSelector';
+import { useSelector } from 'react-redux';
 
 const CreateDriverDocuments = ({ setState, errorState }) => {
     const [translate] = useTranslation();
@@ -34,8 +36,17 @@ const CreateDriverDocuments = ({ setState, errorState }) => {
     });
 
     useEffect(() => {
-        setState((currentState) => { return { ...currentState, ...state }; } );
+        setState((currentState) => { return { ...currentState, ...state }; });
     }, [state]);
+
+    const selector = useSelector(newDriverSelectorMemoized);
+    // Load the state from Redux
+    useState(() => {
+        setFormData({ type: 'setLicenseNumber', data: selector?.phaseTwoData?.licenseNumber });
+        setFormData({ type: 'setCarModel', data: selector?.phaseTwoData?.carModel });
+        setFormData({ type: 'setCarPlate', data: selector?.phaseTwoData?.carPlate });
+        setFormData({ type: 'setLicenseDoc', data: selector?.phaseTwoData?.licenseDoc });
+    }, []);
 
     const handleFileChange = (event) => {
         const file = event?.dataTransfer?.files[0] || event?.target?.files[0];
@@ -57,42 +68,44 @@ const CreateDriverDocuments = ({ setState, errorState }) => {
             setFormData({ type: 'setLicenseDoc', data: imageUrl });
             setLicenseDocument(file);
 
-        }         
+        }
     };
 
     const t = useCallback((key) => translate(`dashboard.adminTools.createDriver.documents.${key}`), [translate]);
 
     return (
         <>
-            <Column lg={5} md={4} sm={8} xs={8}>
-                <TextInput labelText={t('number')} onChange={(e) => {
-                    setFormData({ type: 'setLicenseNumber', data: e.target.value });
-                }} id='licenseNumber' 
-                value = {state?.licenseNumber}
-                />
-                {errorState === 'licenseNumber' &&
+            <Column className={'driver-document-left'} lg={5} md={4} sm={8} xs={8}>
+                <div className='em-card'>
+                    <TextInput labelText={t('number')} onChange={(e) => {
+                        setFormData({ type: 'setLicenseNumber', data: e.target.value });
+                    }} id='licenseNumber'
+                    value={state?.licenseNumber}
+                    />
+                    {errorState === 'licenseNumber' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter number</span>}
-
-                <TextInput labelText={t('carModel')} onChange={(e) => {
-                    setFormData({ type: 'setCarModel', data: e.target.value });
-                }} id='carModel' 
-                value = {state?.carModel}
-                />
-                {errorState === 'carModel' &&
-                    <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                    <br />
+                    <TextInput labelText={t('carModel')} onChange={(e) => {
+                        setFormData({ type: 'setCarModel', data: e.target.value });
+                    }} id='carModel'
+                    value={state?.carModel}
+                    />
+                    {errorState === 'carModel' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter car model</span>}
-
-                <TextInput labelText={t('carPlate')} onChange={(e) => {
-                    setFormData({ type: 'setCarPlate', data: e.target.value });
-                }} id='carPlate' 
-                value = {state?.carPlate}
-                />
-                {errorState === 'carPlate' &&
-                    <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                    <br />
+                    <TextInput labelText={t('carPlate')} onChange={(e) => {
+                        setFormData({ type: 'setCarPlate', data: e.target.value });
+                    }} id='carPlate'
+                    value={state?.carPlate}
+                    />
+                    {errorState === 'carPlate' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter car plate</span>}
+                </div>
             </Column>
-            <Column lg={11} md={4} sm={8} xs={8}>
+            <Column className={'driver-document-right'} lg={11} md={4} sm={8} xs={8}>
                 <div className='em-card'>
                     <div>
                         <Heading className='sub-title'>
@@ -112,17 +125,17 @@ const CreateDriverDocuments = ({ setState, errorState }) => {
                             multiple
                             name=''
                             onAddFiles={(e) => { handleFileChange(e); }}
-                            onChange={e => { console.log('onChange', e); } }
+                            onChange={e => { console.log('onChange', e); }}
                             tabIndex={0}
-                            style = {{ width: '300px' }}
+                            style={{ width: '300px' }}
                         />
                     </div>
                     <div className='preview'>
                         <Heading className='sub-title'>{t('sub-title3')}</Heading><br />
-                        <img height={'150px'} width={'200px'} src={selectedImageURL} alt='preview' />
+                        <img height={'350px'} width={'300px'} src={state?.licenseDoc} alt='preview' />
                         <br />
                         {errorState === 'licenseDoc' &&
-                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                            <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please add license document</span>}
                     </div>
                 </div>

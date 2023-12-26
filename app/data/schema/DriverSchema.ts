@@ -11,6 +11,7 @@ const DriverSchema = new Schema<IDriver>({
     license: { type: Object, required: true },
     billing: { type: Object, required: true },
     driverPassword: { type: String, required: true },
+    driverEmail: { type: String, required: true },
     driverUsername: { type: String, required: true }
 });
 

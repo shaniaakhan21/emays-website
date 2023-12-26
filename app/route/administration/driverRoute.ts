@@ -32,8 +32,9 @@ router.post(registerDriver, validateHeader, validateCreateDriver, (
         const usernameValidity = await checkUsernameInCommon(requestBody.driverUsername);
         
         if (usernameValidity) {
-            await createDriver(requestBody);
-            return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder({ status: true }));
+            const driver = await createDriver(requestBody);
+            return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder(
+                { status: true, id: driver?.id as string }));
         }
         return res.status(HTTPSuccess.OK_CODE).json(successResponseBuilder({ status: false }));
     })().catch(error => {

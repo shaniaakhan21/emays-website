@@ -12,9 +12,11 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     , DRIVER_BILLING_ACCOUNT_COUNTRY_REQUIRED, 
     DRIVER_BILLING_ACCOUNT_NUMBER_REQUIRED, DRIVER_BILLING_ACCOUNT_SWIFT_NUMBER_REQUIRED,
     DRIVER_BILLING_ADDRESS_REQUIRED, DRIVER_BILLING_BANK_NAME_REQUIRED, 
-    DRIVER_BILLING_EMAIL_REQUIRED, DRIVER_CAR_MODEL_REQUIRED, DRIVER_CITY_REQUIRED,
-    DRIVER_CONTACT_NUMBER_REQUIRED, DRIVER_COUNTRY_REQUIRED, DRIVER_FIRST_NAME_REQUIRED, DRIVER_LAST_NAME_REQUIRED,
-    DRIVER_LICENSE_NUMBER_REQUIRED, DRIVER_PASSWORD_REQUIRED, DRIVER_USERNAME_REQUIRED, DRIVER_ZIP_CODE_REQUIRED,
+    DRIVER_BILLING_EMAIL_REQUIRED, DRIVER_CAR_MODEL_REQUIRED, DRIVER_CAR_PLATE_REQUIRED, DRIVER_CITY_REQUIRED,
+    DRIVER_CONTACT_NUMBER_REQUIRED, DRIVER_COUNTRY_REQUIRED, DRIVER_EMAIL_REQUIRED,
+    DRIVER_FIRST_NAME_REQUIRED, DRIVER_LAST_NAME_REQUIRED,
+    DRIVER_LICENSE_NUMBER_REQUIRED, DRIVER_PASSWORD_REQUIRED, DRIVER_PAYMENT_CURRENCY_REQUIRED,
+    DRIVER_USERNAME_REQUIRED, DRIVER_ZIP_CODE_REQUIRED,
     DURATION_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
     , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_FISCAL_INFO_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
     EXTERNAL_SYSTEM_PASSWORD_REQUIRED, EXTERNAL_SYSTEM_USERNAME_REQUIRED,
@@ -157,7 +159,10 @@ export const validateCreateDriver = (req: Request, res: Response, next: NextFunc
                     return validatorErrorBuilder(err as Error, DRIVER_LICENSE_NUMBER_REQUIRED); }),
                 carModel: Joi.string().max(15).required().error((error) => {
                     const err = error as Error | unknown;
-                    return validatorErrorBuilder(err as Error, DRIVER_CAR_MODEL_REQUIRED); }) 
+                    return validatorErrorBuilder(err as Error, DRIVER_CAR_MODEL_REQUIRED); }),
+                carPlate: Joi.string().max(15).required().error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_CAR_PLATE_REQUIRED); })
             }),
             billing: Joi.object().keys({
                 address: Joi.string().max(120).required().error((error) => {
@@ -174,6 +179,10 @@ export const validateCreateDriver = (req: Request, res: Response, next: NextFunc
                 accountNumber: Joi.string().required().max(50).error((error) => {
                     const err = error as Error | unknown;
                     return validatorErrorBuilder(err as Error, DRIVER_BILLING_ACCOUNT_NUMBER_REQUIRED);
+                }),
+                paymentCurrency: Joi.string().required().max(10).error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, DRIVER_PAYMENT_CURRENCY_REQUIRED);
                 }),
                 swiftNumber: Joi.string().required().max(50).error((error) => {
                     const err = error as Error | unknown;
@@ -192,6 +201,10 @@ export const validateCreateDriver = (req: Request, res: Response, next: NextFunc
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, DRIVER_PASSWORD_REQUIRED);
+            }),
+            driverEmail: Joi.string().required().max(50).email().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, DRIVER_EMAIL_REQUIRED);
             })
         }
     });
