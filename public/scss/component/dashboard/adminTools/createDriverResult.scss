@@ -1,0 +1,72 @@
+.info {
+    p, span, a, h1, h2, h3, h4, h5, h6, input, button, .cds--btn {
+        font-family: "IBM Plex Sans";
+    }
+    display: flex;
+    justify-content: center;
+    padding-top: 21px;
+    .container {
+        height: 120px;
+        .text {
+            width: 199px;
+        }
+        button {
+            width: 113px;
+            height: 48px;
+            background-color: #39393939;
+        }
+        .button-copy {
+            display: inline-flex;
+            font-size: 14px;
+            padding: 10px;
+            border-radius: 0px;
+            color: white;
+            background-color: black;
+            border: 1px solid;
+            width: 113px;
+            padding-left: 14px;
+            padding-top: 13px;;
+        }
+        button:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+
+.create-retailer-info {
+    display: flex;
+    justify-content: center;
+    .info {
+        width: 530px;
+    }
+}
+
+.result-account-creation {
+    display: flex;
+    flex-direction: row;
+
+
+
+    .left {
+        flex: 1;
+        padding-top: 30px;
+    }
+    .right {
+        flex: 1;
+        padding-top: 30px;
+    }
+    .copy-button-container {
+        .button-copy {
+            display: inline-flex;
+            padding: 10px;
+            border-radius: 0px;
+            color: white;
+            background-color: black;
+            border: 1px solid;
+        }
+        button:hover {
+            cursor: pointer;
+        }
+    }
+}

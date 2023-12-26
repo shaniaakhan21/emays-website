@@ -124,3 +124,7 @@ export const getStoreImage = () => {
     return sessionStorage.getItem(STORE_IMAGE);
 };
 
+export const getLicenseDocument = () => {
+    return sessionStorage.getItem(LICENSE_DOCUMENT);
+};
+

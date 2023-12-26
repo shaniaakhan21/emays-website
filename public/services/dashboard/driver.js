@@ -14,3 +14,14 @@ export const getDriverHistoryInfo = ({ page,
     });
 };
 
+/**
+ * Save driver
+ * @param token {string}
+ * @param appData {object}
+ * @returns {Promise<undefined|*>}
+ */
+export const saveDriver = ({ token, appData }) => {
+    return httpUtil.post(`${apiBase}/drivers`, {
+        'Authorization': `Bearer ${token}`
+    }, { ...appData });
+};

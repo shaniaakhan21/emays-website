@@ -675,6 +675,12 @@
       },
       "createDriver": {
         "banner": "Please, complete the information to continue",
+        "credentials": {
+          "sub-title": "Create User",
+          "username": "Username",
+          "password": "Password",
+          "email": "Email associated"
+        },
         "basic": {
           "sub-title": "About you",
           "firstName": "First Name",
@@ -705,6 +711,14 @@
           "country": "Country",
           "paymentCurrency": "Payment Currency",
           "paymentCurrency-label": "Choose an option"
+        },
+        "completed": {
+          "summery": "Driver Summary",
+          "sub-title": "Congratulations!",
+          "successMessage": "Store registration has been completed successfully.",
+          "error": {
+            "error-driver": "Error Occurred"
+          }
         }
       }
     }

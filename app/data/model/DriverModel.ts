@@ -28,7 +28,8 @@ export const saveDriver: CreateDriverFunc = async (driver) => {
             phoneNumber: result.phoneNumber,
             address: result.address,
             license: result.license,
-            billing: result.billing
+            billing: result.billing,
+            id: result._id as unknown as string
         };
         return data;
     } catch (error) {
