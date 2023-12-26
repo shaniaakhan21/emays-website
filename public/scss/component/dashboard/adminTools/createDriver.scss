@@ -1,5 +1,33 @@
 
 .createDriver {
+
+  .driver-document-left {
+    margin-left: 0px !important;
+    margin-right: 20px;
+  }
+  .driver-document-right {
+    margin-left: 20px;
+    margin-right: 0px !important;
+  }
+
+  .driver-billing-info-left {
+    margin-left: 0px !important;
+    margin-right: 20px;
+  }
+
+  .driver-billing-info-right {
+    margin-left: 20px;
+    margin-right: 0px !important;
+  }
+
+  .cds--css-grid {
+    max-width: 100%;
+    margin-left: 0px !important;
+    // .cds--css-grid-column {
+    //   margin-left: 0px !important;
+    // }
+  }
+  
   .banner {
     display: flex;
     flex-direction: row;
@@ -58,6 +86,7 @@
 
       .info {
         color: #A3A3A3;
+        display: inline;
       }
     }
 

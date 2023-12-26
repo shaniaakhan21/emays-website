@@ -51,13 +51,19 @@ export const DRIVER_LICENSE_NUMBER_REQUIRED = 'Driver license number required';
 
 export const DRIVER_CAR_MODEL_REQUIRED = 'Driver car model required';
 
+export const DRIVER_CAR_PLATE_REQUIRED = 'Driver car plate required';
+
 export const DRIVER_BILLING_ADDRESS_REQUIRED = 'Driver billing address required';
 
 export const DRIVER_BILLING_EMAIL_REQUIRED = 'Driver billing email required';
 
+export const DRIVER_EMAIL_REQUIRED = 'Driver email required';
+
 export const DRIVER_BILLING_BANK_NAME_REQUIRED = 'Driver billing bank name required';
 
 export const DRIVER_BILLING_ACCOUNT_NUMBER_REQUIRED = 'Driver billing bank account number required';
+
+export const DRIVER_PAYMENT_CURRENCY_REQUIRED = 'Driver payment currency required';
 
 export const DRIVER_BILLING_ACCOUNT_SWIFT_NUMBER_REQUIRED = 'Driver billing bank account swift number required';
 

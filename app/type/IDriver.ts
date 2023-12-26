@@ -11,7 +11,9 @@ export interface IDriver {
     },
     license: {
         licenseNumber: string,
-        carModel: string
+        carModel: string,
+        carPlate: string,
+        licenseDoc: object
     }
     billing: {
         address: string,
@@ -19,10 +21,12 @@ export interface IDriver {
         bankName: string,
         accountNumber: string,
         swiftNumber: string,
+        paymentCurrency: string,
         country: string
     },
     driverUsername: string,
-    driverPassword: string
+    driverPassword: string,
+    driverEmail: string
 }
 
 export interface IDriverDTO {
@@ -48,5 +52,6 @@ export interface IDriverDTO {
         country: string
     },
     driverUsername?: string,
-    driverPassword?: string
+    driverPassword?: string,
+    driverEmail?: string
 }

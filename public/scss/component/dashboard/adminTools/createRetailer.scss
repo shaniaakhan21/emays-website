@@ -4,6 +4,15 @@ $carbon-md-max: 64em;   // 1024px
 
 .createRetailer {
 
+  .cds--css-grid {
+    max-width: 100%;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    .cds--css-grid-column {
+      //margin-left: 0px !important;
+    }
+  }
+
   .cds--text-area {
     min-width: 5rem;
     width: 100%;
@@ -54,10 +63,12 @@ $carbon-md-max: 64em;   // 1024px
 
     .retailer-account-info-left {
       margin-left: 0px;
+      padding-right: 16px;
     }
 
     .retailer-basic-info-right {
       margin-right: 0px;
+      padding-left: 16px;
     }
 
     .retailer-basic-info-left {
@@ -101,7 +112,8 @@ $carbon-md-max: 64em;   // 1024px
       padding-left:85px;
 
       img {
-        max-width: 550px;
+        max-width: 250px;
+        max-height: 200px;
       }
 
       .sub-title {

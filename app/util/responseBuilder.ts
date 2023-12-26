@@ -29,6 +29,7 @@ export const successResponseBuilder: SuccessResponseBuilderFunc<IOrderDTO |
     {token: string} |
     {googleMapAPIKey: string} |
     {status: boolean} |
+    {status: boolean, id: string} |
     IExternalSystemDTO |
     IOrderPaginationDTO |
     ISystemInfoResponse |
