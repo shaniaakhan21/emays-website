@@ -23,6 +23,16 @@ export const PAGE_LIMIT_REQUIRED = 'Please check page limit';
 
 export const PAGE_REQUIRED = 'Please check page';
 
+export const PAYMENT_STRIPE_UUID_REQUIRED = 'Please provide the UUID';
+
+export const PAYMENT_STRIPE_AMOUNT_REQUIRED = 'Please provide the amount';
+
+export const CREATE_PAYMENT_ORDER_ID_REQUIRED = 'Please provide the order id';
+
+export const CREATE_PAYMENT_STORE_ID_REQUIRED = 'Please provide the store id';
+
+export const CREATE_PAYMENT_ORDER_AMOUNT_REQUIRED = 'Please provide the order amount';
+
 export const USER_ID_REQUIRED_IN_PATH = 'Please check user id in the request path';
 
 export const SYSTEM_ID_REQUIRED_IN_PATH = 'Please check external system id in the request path';
