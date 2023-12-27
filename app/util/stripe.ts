@@ -60,7 +60,6 @@ export const initiateOrderTerminalPayment = async (orderId: string, storeId: str
     }
     const amount = orderAmount;
     const store = await getExternalSystemById(storeId);
-    console.log('store is', store);
     const paymentIntent = await stripe.paymentIntents.create({
         amount: amount * 100,
         currency: 'eur',
