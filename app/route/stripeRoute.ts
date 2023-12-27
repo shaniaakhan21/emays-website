@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 'use strict';
 /* eslint camelcase: 0 */
@@ -27,6 +28,10 @@ import {
     processTerminalOrder,
     showTerminalOrderInfo, simulateTerminalOrderPaymentFailure, simulateTerminalOrderPaymentSuccess
 } from '../util/stripe';
+import { allowedForDriverAndClientRoleOnly, allowedForDriverRoleOnly,
+    validateCheckoutCompleteParams, validateCheckoutParams,
+    validateCreatePaymentParams,
+    validateHeader } from '../middleware/paramValidationMiddleware';
 
 const Logging = Logger(__filename);
 
@@ -48,16 +53,17 @@ router.get(`${RoutePath.STRIPE}/linkAccount`, (
     });
 });
 
-router.get(`${RoutePath.STRIPE}/discoverReader`, (
-    req: express.Request<core.ParamsDictionary, any, any, { uuid: string }>,
+/**
+ * Discover Stripe readers
+ */
+const validationDiscover = [validateHeader, allowedForDriverRoleOnly];
+router.get(`${RoutePath.STRIPE}/discoverReader`, [...validationDiscover], (
+    req: express.Request,
     res: express.Response,
     next: express.NextFunction
 ) => {
     (async () => {
-        // Todo: Validate JWT
-
         const data = await discoverReader();
-
         res.json({ data });
     })().catch((error) => {
         const errorObject: Error = error as Error;
@@ -66,15 +72,17 @@ router.get(`${RoutePath.STRIPE}/discoverReader`, (
     });
 });
 
-router.get(`${RoutePath.STRIPE}/checkout`, (
+/**
+ * Stripe payment initialization
+ */
+const validationsCheckout = [validateHeader, allowedForDriverAndClientRoleOnly, validateCheckoutParams];
+router.get(`${RoutePath.STRIPE}/checkout`, [...validationsCheckout], (
     req: express.Request<core.ParamsDictionary, any, any, { uuid: string, serviceFee: number }>,
     res: express.Response,
     next: express.NextFunction
 ) => {
     (async () => {
-        // Todo: Validate JWT
         const data = await buildCheckoutPath(req.query.uuid, req.query.serviceFee);
-
         res.json({ data });
     })().catch((error) => {
         const errorObject: Error = error as Error;
@@ -83,7 +91,11 @@ router.get(`${RoutePath.STRIPE}/checkout`, (
     });
 });
 
-router.get(`${RoutePath.STRIPE}/checkout/complete`, (
+/**
+ * Stripe payment complete
+ */
+const validateCheckoutComplete = [validateHeader, allowedForDriverAndClientRoleOnly, validateCheckoutCompleteParams];
+router.get(`${RoutePath.STRIPE}/checkout/complete`, [...validateCheckoutComplete], (
     req: express.Request<core.ParamsDictionary, any, any, {
         payment_intent_client_secret: string,
         userId: string,
@@ -95,9 +107,7 @@ router.get(`${RoutePath.STRIPE}/checkout/complete`, (
     next: express.NextFunction
 ) => {
     (async () => {
-        // Todo: Validate JWT
         await buildCompleteCheckoutPath(req.query.payment_intent, req.query.userId, req.query.serviceFee);
-
         res.json('ORDER COMPLETED');
     })().catch((error) => {
         const errorObject: Error = error as Error;
@@ -166,7 +176,11 @@ router.get(`${RoutePath.STRIPE}/terminal/reader`, (
     });
 });
 
-router.post(`${RoutePath.STRIPE}/terminal/createOrderPayment`, (
+/**
+ * Create the POS machine payment
+ */
+const validateCreateOrderPayment = [validateHeader, allowedForDriverRoleOnly, validateCreatePaymentParams];
+router.post(`${RoutePath.STRIPE}/terminal/createOrderPayment`, [...validateCreateOrderPayment], (
     req: express.Request<core.ParamsDictionary, any, { orderId: string, storeId: string, orderAmount: number }, any>,
     res: express.Response,
     next: express.NextFunction

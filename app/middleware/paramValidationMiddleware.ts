@@ -8,7 +8,9 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     ADMIN_EXT_ID_REQUIRED, ADMIN_EXT_LAST_NAME_REQUIRED, ADMIN_EXT_PASSWORD_REQUIRED,
     ADMIN_EXT_PHONE_REQUIRED,
     ADMIN_EXT_USERNAME_REQUIRED, AREA_REQUIRED, BRANCH_ID_REQUIRED, CANCELLATION_STATUS_REQUIRED, CONTENT_TYPE_REQUIRED
-    , CREATED_TIME_CAN_NOT_MODIFY, DELIVERED_STATUS_REQUIRED, DELIVERY_INFO_REQUIRED
+    , CREATED_TIME_CAN_NOT_MODIFY, CREATE_PAYMENT_ORDER_AMOUNT_REQUIRED,
+    CREATE_PAYMENT_ORDER_ID_REQUIRED, CREATE_PAYMENT_STORE_ID_REQUIRED, DELIVERED_STATUS_REQUIRED,
+    DELIVERY_INFO_REQUIRED
     , DRIVER_BILLING_ACCOUNT_COUNTRY_REQUIRED, 
     DRIVER_BILLING_ACCOUNT_NUMBER_REQUIRED, DRIVER_BILLING_ACCOUNT_SWIFT_NUMBER_REQUIRED,
     DRIVER_BILLING_ADDRESS_REQUIRED, DRIVER_BILLING_BANK_NAME_REQUIRED, 
@@ -24,7 +26,7 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     , LATITUDE_REQUIRED, LONGITUDE_REQUIRED, MANAGER_EXT_PHONE_REQUIRED, ORDER_DATE_REQUIRED
     , ORDER_ID_REQUIRED_IN_PATH, ORDER_LIST_REQUIRED, ORDER_TIME_END_REQUIRED,
     ORDER_TIME_START_REQUIRED, PAGE_LIMIT_REQUIRED, PAGE_REQUIRED, PAYMENT_REFERENCE_REQUIRED
-    , SERVICE_FEE_REQUIRED, SUPER_USER_EMAIL_REQUIRED,
+    , PAYMENT_STRIPE_AMOUNT_REQUIRED, PAYMENT_STRIPE_UUID_REQUIRED, SERVICE_FEE_REQUIRED, SUPER_USER_EMAIL_REQUIRED,
     SUPER_USER_FIRST_NAME_REQUIRED, SUPER_USER_LAST_NAME_REQUIRED,
     SUPER_USER_PASSWORD_REQUIRED, SUPER_USER_USERNAME_REQUIRED
     , SYSTEM_ID_REQUIRED_IN_PATH, TIME_ZONE_REQUIRED
@@ -259,6 +261,19 @@ export const allowedForClientRoleOnly = (req: Request, res: Response, next: Next
     validateRequest(req, next, validationCriteria);
 };
 
+// Validate only driver role allowed route
+export const allowedForDriverAndClientRoleOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().valid(Roles.DRIVER, Roles.CLIENT)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
 // Validate only external system role allowed route
 export const allowedForExternalSystemRoleOnly = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
@@ -348,6 +363,19 @@ export const allowedForSuperRoleOnly = (req: Request, res: Response, next: NextF
     const validationCriteria = Joi.object({
         claims: {
             roles: Joi.array().required().items(Joi.string().valid(Roles.SUPER)).error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
+            })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate only driver role allowed route
+export const allowedForDriverRoleOnly = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        claims: {
+            roles: Joi.array().required().items(Joi.string().valid(Roles.DRIVER)).error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, USER_UNAUTHORIZED);
             })
@@ -522,7 +550,55 @@ export const validateManagerExternalSystemUserRequestBody = (req: Request, res: 
     validateRequest(req, next, validationCriteria);
 };
 
-// Validate request external system token 
+// Validate checkout params
+export const validateCheckoutParams = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        query: {
+            uuid: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, PAYMENT_STRIPE_UUID_REQUIRED); }),
+            serviceFee: Joi.number().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, PAYMENT_STRIPE_AMOUNT_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate create payment for the order
+export const validateCreatePaymentParams = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        body: {
+            orderId: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, CREATE_PAYMENT_ORDER_ID_REQUIRED); }),
+            storeId: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, CREATE_PAYMENT_STORE_ID_REQUIRED); }),
+            orderAmount: Joi.number().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, CREATE_PAYMENT_ORDER_AMOUNT_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate checkout complete params
+export const validateCheckoutCompleteParams = (req: Request, res: Response, next: NextFunction) => {
+    const validationCriteria = Joi.object({
+        query: {
+            userId: Joi.string().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, PAYMENT_STRIPE_UUID_REQUIRED); }),
+            serviceFee: Joi.number().required().error((error) => { 
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, PAYMENT_STRIPE_AMOUNT_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, validationCriteria);
+};
+
+// Validate checkout request
 export const validateExternalSystemTokenRequestBody = (req: Request, res: Response, next: NextFunction) => {
     const validationCriteria = Joi.object({
         body: {
