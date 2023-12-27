@@ -359,7 +359,7 @@ export const sendEmailReminderToCustomerOnDeliveryDay: SendEmailReminderToCustom
     } catch (error) {
         const err = error as Error;
         serviceErrorBuilder(err.message);
-        Logging.log(buildErrorMessage(err, 'Send Email by Lambda'), LogType.ERROR);
+        Logging.log(buildErrorMessage(err, 'Send Email by scheduler'), LogType.ERROR);
     }
 };
 
@@ -423,7 +423,7 @@ export const sendEmailReminderToRetailerBeforeDriverPick: SendEmailReminderToRet
     } catch (error) {
         const err = error as Error;
         serviceErrorBuilder(err.message);
-        Logging.log(buildErrorMessage(err, 'Send Email by Lambda'), LogType.ERROR);
+        Logging.log(buildErrorMessage(err, 'Send Email by scheduler'), LogType.ERROR);
     }
 };
 
