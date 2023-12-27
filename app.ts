@@ -32,6 +32,7 @@ import ServiceError from './app/type/error/ServiceError';
 import { connectToMongoDB } from './app/data/db/connector';
 import letsTalkRoute from './app/route/letsTalkRoute';
 import faqRoute from './app/route/faqRoute';
+import { emailScheduler } from './app/service/schedulerEmailService';
 
 // Parses incoming requests with JSON payloads (body-parser)
 app.use(express.json());
@@ -44,6 +45,9 @@ app.use(express.urlencoded({ extended: true }));
 })().catch(error => {
     process.exit(1);
 });
+
+// Start reminding email scheduler
+emailScheduler();
 
 // Static Files through /dist path since we have multiple versions
 app.use(config.STATIC_FILES_LOCATION, express.static(__dirname + config.UI_VERSIONS_LOCATION));

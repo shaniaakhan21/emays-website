@@ -65,11 +65,12 @@ export const config = {
         MONGO_URL: MONGO_URL || 'mongodb://root:123456@172.17.0.2:27017/emays_service_db?authSource=admin'
     },
     AWS_SES: {
-        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || '',
-        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '',
-        AWS_REGION: AWS_REGION || 'us-east-2',
-        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || 'thathsararaviraj@gmail.com'
+        AWS_SES_ACCESS_KEY: AWS_SES_ACCESS_KEY || 'AKIARTWJSQERXNUOO6P6',
+        AWS_SES_SECRET_KEY: AWS_SES_SECRET_KEY || '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',
+        AWS_REGION: AWS_REGION || 'eu-west-1',
+        AWS_SOURCE_EMAIL: AWS_SOURCE_EMAIL || 'system@emaysstyle.com'
     },
+    EMAIL_REMINDERS_SCHEDULING: '30 00 * * *',
     EMAIL_TEMPLATE: {
         CUSTOMER_EMAIL_TEMPLATE: CUSTOMER_EMAIL_TEMPLATE || '/template/customer/temp-customer-email.html',
         RETAILER_EMAIL_TEMPLATE: RETAILER_EMAIL_TEMPLATE || '/template/retailer/temp-retailer-email.html',
