@@ -106,10 +106,9 @@ export const config = {
     GOOGLE: {
         OAUTH2: {
             CLIENT: {
-                CLIENT_ID: GOOGLE_AUTH_CLIENT_ID ||
-                    '',
-                CLIENT_SECRET: GOOGLE_AUTH_CLIENT_SECRET || '',
-                REDIRECTION_URL: GOOGLE_AUTH_REDIRECTION_URL || 'http://localhost:8080/api-dev/redirectGoogleAccess'
+                CLIENT_ID: GOOGLE_AUTH_CLIENT_ID || '8912263962-gj8l7t93rvu1fnu164f32677f2v47jol.apps.googleusercontent.com',
+                CLIENT_SECRET: GOOGLE_AUTH_CLIENT_SECRET || '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',
+                REDIRECTION_URL: GOOGLE_AUTH_REDIRECTION_URL || 'https://emaysstyle.com/api/redirectGoogleAccess'
             },
             SCOPE: GOOGLE_AUTH_SCOPE || 'https://www.googleapis.com/auth/calendar'
         },
@@ -117,7 +116,7 @@ export const config = {
             SUMMERY: GOOGLE_CALENDER_TASK_SUMMERY || 'Emays Order Arrival',
             DESCRIPTION: GOOGLE_CALENDER_TASK_DESCRIPTION ||
                 'This event has been created by Emays System to remind you about your order arrival',
-            BOOK_CALENDER_REDIRECTION_PATH: 'http://localhost:8080/api-dev/googleCalender'
+            BOOK_CALENDER_REDIRECTION_PATH: 'https://emaysstyle.com/api/googleCalender'
         },
         MAP: {
             API_KEY: GOOGLE_MAP_API_KEY || 'AIzaSyDnBgw1GwjiMwOXKujnP_1cGRPOmxT-okE'
