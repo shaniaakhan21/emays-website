@@ -6,7 +6,7 @@ import { Logger } from '../../log/logger';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { IAdminExternalSystem } from '../../type/IAdminExternalSystem';
 import AdminExternalSystemSchema from '../schema/AdminExternalSystemSchema';
-import { CreateAdminExternalSystemFunc } from '../../type/adminExternalSystemServiceType';
+import { CreateAdminExternalSystemFunc, DeleteAdminsBySystemIdFunc } from '../../type/adminExternalSystemServiceType';
 
 const Logging = Logger(__filename);
 
@@ -35,6 +35,22 @@ export const saveAdminExternalSystemUser: CreateAdminExternalSystemFunc = async 
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, 'Create Admin External System'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Delete admins by system id
+ * @param {string} extSysId external system id
+ * @returns {Array<IAdminExternalSystemDTO>} Returns extSysId
+ */
+export const deleteAdminsBySystemId: DeleteAdminsBySystemIdFunc = async (extSysId) => {
+    try {
+        const result = await AdminExternalSystemModel.deleteMany({ externalSystemId: extSysId });
+        return result;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, `Deleted Admins by system id: ${extSysId}`), LogType.ERROR);
         throw error;
     }
 };

@@ -12,9 +12,15 @@ export type CreateOrderFunc = (order: IOrder) => Promise<IOrderDTO>;
 
 export type DeleteOrderByOrderIdFunc = (id: string) => Promise<unknown | IOrder>;
 
+export type DeleteOrdersBySystemIdFunc = (id: string) => Promise<unknown | Array<IOrder>>;
+
 export type CreateExternalSystemFunc = (externalSystem: IExternalSystem) => Promise<IExternalSystemDTO>;
 
+export type GetAllExternalSystemsFunc = () => Promise<Array<IExternalSystemDTO>>;
+
 export type PatchExternalSystemsBySystemIdFunc = (systemId: string, patchData: IPatchExternalSystem) => Promise<IExternalSystemDTO>;
+
+export type DeleteExternalSystemsBySystemIdFunc = (systemId: string) => Promise<IExternalSystemDTO>;
 
 export type RequestExternalSystemTokenFunc = (extSysUsername: string, extSysPassword: string) => Promise<{token: string, roles: string}>;
 

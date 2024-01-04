@@ -146,8 +146,7 @@ export const getAdminExternalSystemByAdminAssociatedId: GetExternalSystemByAdmin
             extSysName: externalSystemInfo.extSysName,
             extSysAddress: externalSystemInfo.extSysAddress,
             id: externalSystemInfo.id,
-            fiscalInfo: externalSystemInfo.fiscalInfo,
-            extStripeAccountId: externalSystemInfo?.extStripeAccountId
+            fiscalInfo: externalSystemInfo.fiscalInfo
         };
         if (preparedData) {
             return preparedData;

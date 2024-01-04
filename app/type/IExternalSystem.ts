@@ -1,6 +1,7 @@
 'use strict';
 
 import { ObjectId } from 'mongoose';
+import { CurrencyType } from '../const/currencyType';
 
 export enum PaymentMethod {
     POPUP = 'POPUP',
@@ -15,7 +16,6 @@ export interface IExternalSystem {
     extSysEmail: string,
     paymentMethod: PaymentMethod,
     extLogo?: Buffer,
-    extStripeAccountId?: string,
     extLogoContentType?: string,
     extSysAddress: {
         // Street
@@ -36,7 +36,9 @@ export interface IExternalSystem {
         street: string,
         zip: string,
         city: string,
-        country: string
+        country: string,
+        currencyType: CurrencyType,
+        extStripeAccountId: string
     }
 }
 
@@ -47,7 +49,6 @@ export interface IPatchExternalSystem {
     extSysEmail?: string,
     paymentMethod?: PaymentMethod,
     extLogo?: Buffer,
-    extStripeAccountId?: string,
     extLogoContentType?: string,
     extSysAddress?: {
         // Street
@@ -68,7 +69,9 @@ export interface IPatchExternalSystem {
         street: string,
         zip: string,
         city: string,
-        country: string
+        country: string,
+        currencyType: CurrencyType,
+        extStripeAccountId: string
     }
 }
 
@@ -79,7 +82,6 @@ export interface IExternalSystemDTO {
     id?: string,
     extLogo?: Buffer,
     extLogoContentType?: string,
-    extStripeAccountId?: string,
     extSysAddress: {
         // Street
         addOne: string,
@@ -99,7 +101,9 @@ export interface IExternalSystemDTO {
         street: string,
         zip: string,
         city: string,
-        country: string
+        country: string,
+        currencyType: CurrencyType,
+        extStripeAccountId: string
     }
 }
 

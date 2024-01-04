@@ -51,7 +51,9 @@ export const createOrder: CreateOrderFunc = async (order) => {
             address: order.address,
             orderItems: order.orderItems,
             deliveryInfo: order.deliveryInfo,
-            serviceFee: order.serviceFee
+            serviceFee: order.serviceFee,
+            currencyType: order.currencyType,
+            serviceArea: order.serviceArea
         };
         const data = await saveOrder(orderExtracted);
         Logging.log(buildInfoMessageUserProcessCompleted('Order insertion', `Order Data:
@@ -352,7 +354,9 @@ const sendOrderCancellationMail = async (order: IOrder) => {
             address: order.address,
             orderItems: order.orderItems,
             deliveryInfo: order.deliveryInfo,
-            serviceFee: order.serviceFee
+            serviceFee: order.serviceFee,
+            currencyType: order.currencyType,
+            serviceArea: order.serviceArea
         };
         const finalCost = getFinalCost(config.SERVICE_CHARGE as number, orderExtracted.orderItems);
         await sendEmailForOrderCancellation(
