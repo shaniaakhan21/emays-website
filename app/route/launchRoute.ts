@@ -30,7 +30,7 @@ import { CAN_NOT_FIND_SELECTED_AREA, ORDER_NOT_ACTIVE } from '../const/errorMess
 import { HTTPUserError } from '../const/httpCode';
 import * as OrderService from '../service/orderService';
 import { prepareUserPayload } from '../api/userAPI';
-import { AppRequest } from '../type/appRequestType';
+import { AppRequest, AppRequestStoreCurrency } from '../type/appRequestType';
 import { IJWTClaims } from '../type/IJWTClaims';
 
 const router = express.Router();
@@ -135,7 +135,7 @@ router.get(RoutePath.DEV_LAUNCH, (req: express.Request, res: express.Response): 
 router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Request,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
-        authorizeLaunchRoute(req, res, next);
+        await authorizeLaunchRoute(req, res, next);
         Logging.log(buildInfoMessageRouteHit(req.path, 'launch ui'), LogType.INFO);
         const requestBody = req.body as LaunchRequestBody;
         const selectedArea = requestBody.selectedArea;
@@ -165,7 +165,8 @@ router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Re
             retailerEmail: req.body?.retailerEmail,
             // We enter user first selected area as retailer area for this order.
             retailerArea: selectedArea,
-            branchId: claims.id
+            branchId: claims.id,
+            currency: (req as AppRequestStoreCurrency)?.currencyType
         };
         const stringifyRetailerData = JSON.stringify(retailerData);
         const cleanedRetailerData = stringifyRetailerData.replace(/\\/g, '');
@@ -197,7 +198,7 @@ router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Re
 router.post(RoutePath.LAUNCH_ADD, (req: express.Request,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
-        authorizeLaunchRoute(req, res, next);
+        await authorizeLaunchRoute(req, res, next);
         Logging.log(buildInfoMessageRouteHit(req.path, 'launch add ui'), LogType.INFO);
         const { uid, ...requestBody } = req.body as { uid: string } & LaunchRequestBody;
 
@@ -261,7 +262,7 @@ router.post(RoutePath.LAUNCH_ADD, (req: express.Request,
 router.post(RoutePath.LAUNCH_UPDATE, (req: express.Request,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
-        authorizeLaunchRoute(req, res, next);
+        await authorizeLaunchRoute(req, res, next);
         Logging.log(buildInfoMessageRouteHit(req.path, 'launch update ui'), LogType.INFO);
         const { uid, ...requestBody } = req.body as { uid: string } & LaunchRequestBody;
 

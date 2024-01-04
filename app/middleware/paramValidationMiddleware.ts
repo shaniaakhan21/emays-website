@@ -9,7 +9,8 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     ADMIN_EXT_PHONE_REQUIRED,
     ADMIN_EXT_USERNAME_REQUIRED, AREA_REQUIRED, BRANCH_ID_REQUIRED, CANCELLATION_STATUS_REQUIRED, CONTENT_TYPE_REQUIRED
     , CREATED_TIME_CAN_NOT_MODIFY, CREATE_PAYMENT_ORDER_AMOUNT_REQUIRED,
-    CREATE_PAYMENT_ORDER_ID_REQUIRED, CREATE_PAYMENT_STORE_ID_REQUIRED, DELIVERED_STATUS_REQUIRED,
+    CREATE_PAYMENT_ORDER_ID_REQUIRED, CREATE_PAYMENT_STORE_ID_REQUIRED, CURRENCY_TYPE_REQUIRED,
+    DELIVERED_STATUS_REQUIRED,
     DELIVERY_INFO_REQUIRED
     , DRIVER_BILLING_ACCOUNT_COUNTRY_REQUIRED, 
     DRIVER_BILLING_ACCOUNT_NUMBER_REQUIRED, DRIVER_BILLING_ACCOUNT_SWIFT_NUMBER_REQUIRED,
@@ -26,7 +27,8 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     , LATITUDE_REQUIRED, LONGITUDE_REQUIRED, MANAGER_EXT_PHONE_REQUIRED, ORDER_DATE_REQUIRED
     , ORDER_ID_REQUIRED_IN_PATH, ORDER_LIST_REQUIRED, ORDER_TIME_END_REQUIRED,
     ORDER_TIME_START_REQUIRED, PAGE_LIMIT_REQUIRED, PAGE_REQUIRED, PAYMENT_REFERENCE_REQUIRED
-    , PAYMENT_STRIPE_AMOUNT_REQUIRED, PAYMENT_STRIPE_UUID_REQUIRED, SERVICE_FEE_REQUIRED, SUPER_USER_EMAIL_REQUIRED,
+    , PAYMENT_STRIPE_AMOUNT_REQUIRED, PAYMENT_STRIPE_UUID_REQUIRED, SERVICE_AREA_REQUIRED,
+    SERVICE_FEE_REQUIRED, SUPER_USER_EMAIL_REQUIRED,
     SUPER_USER_FIRST_NAME_REQUIRED, SUPER_USER_LAST_NAME_REQUIRED,
     SUPER_USER_PASSWORD_REQUIRED, SUPER_USER_USERNAME_REQUIRED
     , SYSTEM_ID_REQUIRED_IN_PATH, TIME_ZONE_REQUIRED
@@ -40,6 +42,7 @@ import { buildErrorMessage } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { config } from '../config/config';
 import { Roles } from '../const/roles';
+import { CurrencyType } from '../const/currencyType';
 
 const Logging = Logger(__filename);
 
@@ -94,6 +97,13 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
             serviceFee: Joi.number().required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, SERVICE_FEE_REQUIRED); }),
+            currencyType: Joi.string().valid(CurrencyType.AED, CurrencyType.EURO, CurrencyType.USD).
+                required().error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, CURRENCY_TYPE_REQUIRED); }),
+            serviceArea: Joi.string().required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, SERVICE_AREA_REQUIRED); }),
             address: Joi.object().keys({ 
                 // Street
                 addOne: Joi.string().required(),
@@ -419,7 +429,11 @@ export const validateCreateExtSysRequestBody = (req: Request, res: Response, nex
                 // City
                 city: Joi.string().required(),
                 // Country
-                country: Joi.string().required()
+                country: Joi.string().required(),
+                // Shopify ID
+                extStripeAccountId: Joi.string().required(),
+                // Currency Type
+                currencyType: Joi.string().valid(CurrencyType.AED, CurrencyType.EURO, CurrencyType.USD).required()
             }).required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, EXTERNAL_SYSTEM_FISCAL_INFO_REQUIRED);

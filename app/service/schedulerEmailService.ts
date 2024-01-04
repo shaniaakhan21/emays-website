@@ -62,7 +62,9 @@ export const dailyReminder: DailyReminder = async () => {
                         address: order.address,
                         orderItems: order.orderItems,
                         deliveryInfo: order.deliveryInfo,
-                        serviceFee: order.serviceFee
+                        serviceFee: order.serviceFee,
+                        currencyType: order.currencyType,
+                        serviceArea: order.serviceArea
                     };
                     // Send to customer
                     (async () => {
@@ -117,7 +119,9 @@ export const dailyReminder: DailyReminder = async () => {
                         address: order.address,
                         orderItems: order.orderItems,
                         deliveryInfo: order.deliveryInfo,
-                        serviceFee: order.serviceFee
+                        serviceFee: order.serviceFee,
+                        currencyType: order.currencyType,
+                        serviceArea: order.serviceArea
                     };
                     // Send to retailer
                     const finalCost = getFinalCost(config.SERVICE_CHARGE as number, orderExtracted.orderItems);

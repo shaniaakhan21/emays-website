@@ -12,7 +12,6 @@ import { HTTPSuccess, HTTPUserError } from '../const/httpCode';
 import { IOrder, IOrderDTO, IPatchOrder } from '../type/orderType';
 import { successResponseBuilder } from '../util/responseBuilder';
 import {
-    allowedForClientRoleAndSuperAdminAndAdminOnly,
     allowedForClientRoleOnly,
     allowedForExternalSystemRoleOnly,
     allowedForExternalSystemSuperUserAndAdminAndManagerAndDriverClientRolesOnly,

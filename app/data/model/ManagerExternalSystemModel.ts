@@ -6,7 +6,8 @@ import { Logger } from '../../log/logger';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { IManagerExternalSystem } from '../../type/IManagerExternalSystem';
 import ManagerExternalSystemSchema from '../schema/ManagerExternalSystemSchema';
-import { CreateManagerExternalSystemFunc } from '../../type/managerExternalSystemServiceType';
+import { CreateManagerExternalSystemFunc, DeleteManagersBySystemIdFunc }
+    from '../../type/managerExternalSystemServiceType';
 
 const Logging = Logger(__filename);
 
@@ -39,3 +40,18 @@ export const saveManagerExternalSystemUser: CreateManagerExternalSystemFunc = as
     }
 };
 
+/**
+ * Delete managers by system id
+ * @param {string} extSysId branch / extSys ID
+ * @returns { Array<IManagerExternalSystemDTO>} Returns Array<IManagerExternalSystemDTO>>
+ */
+export const deleteManagersBySystemId: DeleteManagersBySystemIdFunc = async (extSysId) => {
+    try {
+        const result = await ManagerExternalSystemModel.deleteMany({ externalSystemId: extSysId });
+        return result;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, `Deleted Managers by system id: ${extSysId}`), LogType.ERROR);
+        throw error;
+    }
+};

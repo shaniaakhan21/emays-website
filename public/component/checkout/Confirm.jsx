@@ -18,7 +18,7 @@ import Emays from '../../logo/emays-logo-white.png';
 import EditIcon from '../../icons/edit.svg';
 
 // Util
-import { getProductList, getServiceCost } from '../../js/util/SessionStorageUtil';
+import { getProductList, getSelectedLaunchArea, getServiceCost } from '../../js/util/SessionStorageUtil';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
@@ -55,7 +55,9 @@ const Confirm = () => {
                 branchId: getRetailerData().branchId,
                 timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
                 orderItems: productData,
-                serviceFee: 0
+                serviceFee: 0,
+                serviceArea: getSelectedLaunchArea(),
+                currencyType: getRetailerData().currency
             };
             const { locked, options, ...rest } = state;
             const errors = [

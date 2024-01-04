@@ -18,7 +18,7 @@ import { PathParam, RoutePath } from '../../const/routePath';
 import { buildErrorMessage, buildInfoMessageRouteHit
     , buildInfoMessageUserProcessCompleted } from '../../util/logMessageBuilder';
 import LogType from '../../const/logType';
-import { getExternalSystemById,
+import { deleteExternalSystemAndItsRelatedRecordsBySystemId, getAllExtSystems, getExternalSystemById,
     getExternalSystemDeliveryOrderStat,
     getExternalSystemHistoryStat, 
     getExternalSystemOverviewStat, 
@@ -45,9 +45,9 @@ import ErrorType from '../../const/errorType';
 import { INVALID_CREDENTIALS_ERROR_MESSAGE } from '../../const/errorMessage';
 import { ManagerExternalSystemModel } from '../../data/model/ManagerExternalSystemModel';
 import { getManagerExternalSystemToken } from '../../service/administration/managerExternalSystemService';
-import DurationUtil from '../../util/durationUtil';
 import { DriverModel } from '../../data/model/DriverModel';
 import { getDriverToken } from '../../service/administration/driverExternalSystemService';
+import { CurrencyType } from '../../const/currencyType';
 
 const router = Router();
 const Logging = Logger(__filename);
@@ -94,6 +94,43 @@ router.post(RoutePath.EXTERNAL_SYSTEMS, validateHeader, validateCreateExtSysRequ
 });
 
 /**
+ * Register external system
+ */
+router.post(RoutePath.EXTERNAL_SYSTEMS, validateHeader, validateCreateExtSysRequestBody, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => {
+        Logging.log(buildInfoMessageRouteHit(req.path, ''), LogType.INFO);
+        const externalSystem = req.body as IExternalSystem;
+        const usernameValidity = await checkUsernameInCommon(externalSystem.extSysUsername);
+        if (usernameValidity) {
+            const data = await createExternalSystem(externalSystem);
+            res.status(HTTPSuccess.OK_CODE).json({ data: { sysId: data.id } });
+        }
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, RoutePath.EXTERNAL_SYSTEMS), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
+ * Get all external systems
+ * TODO: later covert this to a pagination
+ */
+router.get(`${RoutePath.EXTERNAL_SYSTEMS}/all`, validateHeader, allowedForSuperRoleOnly, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => {
+        Logging.log(buildInfoMessageRouteHit(req.path, ''), LogType.INFO);
+        const data = await getAllExtSystems();
+        res.status(HTTPSuccess.OK_CODE).json({ data: data });
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, RoutePath.EXTERNAL_SYSTEMS), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
  * Patch external system
  */
 const validatePatch = [allowedForSuperRoleOnly, validateHeader, validateExtSysId];
@@ -106,6 +143,28 @@ router.patch(RoutePath.EXTERNAL_SYSTEMS + PathParam.EXTERNAL_SYSTEM_ID, ...valid
         await patchExternalSystemBySystemId(pathParamExtSysId, patchExtSystem);
         Logging.log(buildInfoMessageUserProcessCompleted('Patch external system', pathParamExtSysId), LogType.INFO);
         return res.sendStatus(HTTPSuccess.NO_CONTENT_CODE);
+    })().catch(error => {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, RoutePath.EXTERNAL_SYSTEMS), LogType.ERROR);
+        next(error);
+    });
+});
+
+/**
+ * Delete external system
+ */
+const validateDelete = [allowedForSuperRoleOnly, validateHeader, validateExtSysId];
+router.delete(RoutePath.EXTERNAL_SYSTEMS + PathParam.EXTERNAL_SYSTEM_ID, ...validateDelete, (
+    req: Request, res: Response, next: NextFunction): void => {
+    (async () => {
+        Logging.log(buildInfoMessageRouteHit(req.path, ''), LogType.INFO);
+        const pathParamExtSysId = req.params.externalSystemId;
+        const data = await deleteExternalSystemAndItsRelatedRecordsBySystemId(pathParamExtSysId);
+        Logging.log(buildInfoMessageUserProcessCompleted('Deleted external system', pathParamExtSysId), LogType.INFO);
+        if (data) {
+            return res.sendStatus(HTTPSuccess.NO_CONTENT_CODE);
+        }
+        return res.sendStatus(HTTPUserError.NOT_FOUND_CODE);
     })().catch(error => {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, RoutePath.EXTERNAL_SYSTEMS), LogType.ERROR);
@@ -159,10 +218,10 @@ router.post(getSystemInfoPath, validateHeader, allowedForExternalSystemSuperUser
                 addOne: '', addTwo: '', addThree: '', addFour: '', addFive: ''
             },
             fiscalInfo: { companyName: '', fiscalNumber: '',
-                companyPhone: '', street: '', zip: '', city: '', country: '' },
+                companyPhone: '', street: '', zip: '', city: '', country: '',
+                currencyType: CurrencyType?.DEFAULT, extStripeAccountId: '' },
             extLogo: undefined,
-            extLogoContentType: '',
-            extStripeAccountId: ''
+            extLogoContentType: ''
         };
         if (claims.roles.includes(Roles.EXTERNAL_SYSTEM)) {
             externalSystemInfo = await getExternalSystemById(claims.id);
