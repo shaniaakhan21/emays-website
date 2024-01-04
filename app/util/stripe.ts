@@ -73,7 +73,7 @@ export const initiateOrderTerminalPayment = async (orderId: string, storeId: str
             orderId
         },
         transfer_data: {
-            destination: store.fiscalInfo.extStripeAccountId as string
+            destination: store.fiscalInfo.extStripeAccountId
         }
     });
     order.paymentRef = paymentIntent.id;
