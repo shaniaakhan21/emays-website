@@ -109,6 +109,10 @@ export const DELIVERY_INFO_REQUIRED = 'Please provide delivery information ';
 
 export const SERVICE_FEE_REQUIRED = 'Please provide service fee ';
 
+export const CURRENCY_TYPE_REQUIRED = 'Please provide currency type';
+
+export const SERVICE_AREA_REQUIRED = 'Please provide service area';
+
 export const PAYMENT_REFERENCE_REQUIRED = 'Please provide an valid payment reference';
 
 export const CANCELLATION_STATUS_REQUIRED = 'Please provide a valid cancellation status';

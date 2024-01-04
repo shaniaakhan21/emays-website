@@ -10,6 +10,7 @@ import GoogleMap from '../../../common/googleMap';
 import '../../../../scss/component/dashboard/adminTools/fiscalInfo.scss';
 import { getAppInfo } from '../../../../services/geo';
 import GoogleMapWithSearchBar from '../../../common/googleMapWithSearchComponent';
+import DropDownCustom from '../../../common/DropdownCustom';
 
 const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
     const [translate] = useTranslation();
@@ -25,6 +26,10 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 return { ...state, companyName: action?.data };
             case 'setFiscalNumber':
                 return { ...state, fiscalNumber: action?.data };
+            case 'setStripeId':
+                return { ...state, extStripeAccountId: action?.data };
+            case 'setCurrencyType':
+                return { ...state, currencyType: action?.data };
             case 'setCompanyPhone':
                 return { ...state, companyPhone: action?.data };
             case 'setStreet':
@@ -45,7 +50,9 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
         street: '',
         zip: '',
         city: '',
-        country: ''
+        country: '',
+        extStripeAccountId: '',
+        currencyType: ''
     });
 
     // Load the state from Redux
@@ -57,6 +64,8 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
         setFormData({ type: 'setZip', data: selector?.phaseTwoFiscalData?.zip });
         setFormData({ type: 'setCity', data: selector?.phaseTwoFiscalData?.city });
         setFormData({ type: 'setCountry', data: selector?.phaseTwoFiscalData?.country });
+        setFormData({ type: 'setStripeId', data: selector?.phaseTwoFiscalData?.extStripeAccountId });
+        setFormData({ type: 'setCurrencyType', data: selector?.phaseTwoFiscalData?.currencyType });
     }, []);
 
     // When changing the state, update the parent state 
@@ -104,6 +113,36 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 {errorState === 'companyPhone' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
+                <br/>
+                <TextInput labelText={t('stripe-id')} onChange={(e) => {
+                    setFormData({ type: 'setStripeId', data: e.target.value });
+                }}
+                value = {state?.extStripeAccountId}
+                />
+                {errorState === 'extStripeAccountId' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter stripe Id</span>}
+                <br/>
+                <DropDownCustom
+                    type='inline'
+                    id='storeCurrency'
+                    items={[
+                        { text: 'USD ($)', value: 'usd' },
+                        { text: 'Euro (€)', value: 'euro' },
+                        { text: 'AED', value: 'aed' }
+                    ]}
+                    value={state?.currencyType}
+                    onChange = {(e) => {
+                        setFormData({ type: 'setCurrencyType', data: e.selectedItem.value });
+                    }}
+                    label={t('currency-type')}
+                    titleText={t('currency-type')}
+                />
+                <br/>
+                {errorState === 'currencyType' &&
+                                <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                    Please enter store currency type</span>}
+                <br></br>
             </Column>
             <Column className='em-card right-container' lg={11} md={4} sm={4} xs={4}>
                 <div className='fiscal-2'>

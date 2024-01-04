@@ -4,7 +4,9 @@ import { model } from 'mongoose';
 import LogType from '../../const/logType';
 import { Logger } from '../../log/logger';
 import { IExternalSystem, IExternalSystemDTO } from '../../type/IExternalSystem';
-import { CreateExternalSystemFunc, PatchExternalSystemsBySystemIdFunc } from '../../type/orderServiceType';
+import { CreateExternalSystemFunc, DeleteExternalSystemsBySystemIdFunc, 
+    GetAllExternalSystemsFunc, 
+    PatchExternalSystemsBySystemIdFunc } from '../../type/orderServiceType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import ExternalSystemSchema from '../schema/ExternalSystemSchema';
 import ServiceError from '../../type/error/ServiceError';
@@ -34,13 +36,27 @@ export const saveExternalSystem: CreateExternalSystemFunc = async (externalSyste
             extSysAddress: result.extSysAddress,
             extLogo: result?.extLogo,
             extLogoContentType: result.extLogoContentType,
-            fiscalInfo: result.fiscalInfo,
-            extStripeAccountId: result?.extStripeAccountId
+            fiscalInfo: result.fiscalInfo
         };
         return data;
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, 'Save Order Details'), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Get all external systems
+ * @returns {Array<IExternalSystemDTO>} Returns IExternalSystemDTO array
+ */
+export const getAllExternalSystems : GetAllExternalSystemsFunc = async () => {
+    try {
+        const result = await ExternalSystemModel.find();
+        return result;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, 'Get all external systems'), LogType.ERROR);
         throw error;
     }
 };
@@ -74,6 +90,22 @@ export const findOneAndUpdateIfExist: PatchExternalSystemsBySystemIdFunc = async
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, `Patch external system by system id ${extSysId}`), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Delete external system by id
+ * @param {string} extSysId external
+ * @returns {IExternalSystemDTO} Returns IExternalSystemDTO object
+ */
+export const deleteExternalSystemById: DeleteExternalSystemsBySystemIdFunc = async (extSysId) => {
+    try {
+        const result = await ExternalSystemModel.findByIdAndDelete({ _id: extSysId }) as IExternalSystemDTO;
+        return result;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, `Delete external system by Id: ${extSysId}`), LogType.ERROR);
         throw error;
     }
 };

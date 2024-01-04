@@ -15,7 +15,7 @@ import ServiceError from '../type/error/ServiceError';
 import ErrorType from '../const/errorType';
 import { HTTPUserError } from '../const/httpCode';
 import { NOT_AUTHORIZED_TO_ACCESS_EMAYS_ERROR_MESSAGE } from '../const/errorMessage';
-import { AppRequest } from '../type/appRequestType';
+import { AppRequest, AppRequestStoreCurrency } from '../type/appRequestType';
 
 const Logging = Logger(__filename);
 
@@ -51,15 +51,15 @@ export const buildAppLaunchPath = async (file: string): Promise<string> => {
  * @param res: express.Response
  * @param next: express.NextFunction
  */
-export const authorizeLaunchRoute = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+export const authorizeLaunchRoute = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         Logging.log(buildInfoMessageMethodCall(
             'Authorize launch', ''), LogType.INFO);
         const claims = (req as AppRequest).claims as unknown as IJWTClaims;
         if (claims.roles.includes(Roles.EXTERNAL_SYSTEM)) {
-            (async () => {
-                await getExternalSystemById(claims.id);
-            })().catch(error => { throw error; });
+
+            const storeData = await getExternalSystemById(claims.id);
+            (req as AppRequestStoreCurrency).currencyType = storeData?.fiscalInfo?.currencyType as string;
         } else {
             throw new 
             ServiceError(ErrorType.ORDER_SERVICE_ERROR, NOT_AUTHORIZED_TO_ACCESS_EMAYS_ERROR_MESSAGE, '', HTTPUserError.

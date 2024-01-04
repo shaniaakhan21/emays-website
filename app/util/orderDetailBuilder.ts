@@ -38,6 +38,8 @@ export const prepareUserDetailsToSend: PrepareDetailsToSendFunc = (order) => {
         isPrepared: order?.isPrepared,
         isCanceled: order?.isCanceled,
         serviceFee: order?.serviceFee,
+        currencyType: order?.currencyType,
+        serviceArea: order?.serviceArea,
         branchId: order?.branchId,
         driverSelectedItems: order?.driverSelectedItems
     };

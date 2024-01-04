@@ -21,7 +21,8 @@ import { CreateOrderFunc, DeleteOrderByOrderIdFunc,
     GetRevenueOverviewByDurationAndStoreIdFunc, 
     GetOverviewAllOrderCountByDurationAndStoreIdFunc, 
     GetOrdersCountDeliveryOrder, 
-    GetOrdersCountHistory } from '../../type/orderServiceType';
+    GetOrdersCountHistory, 
+    DeleteOrdersBySystemIdFunc } from '../../type/orderServiceType';
 import { IOrder, IOrderDTO } from '../../type/orderType';
 import { buildErrorMessage } from '../../util/logMessageBuilder';
 import { prepareUserDetailsToSend } from '../../util/orderDetailBuilder';
@@ -63,6 +64,22 @@ export const deleteOrderById: DeleteOrderByOrderIdFunc = async (orderId) => {
     } catch (error) {
         const err = error as Error;
         Logging.log(buildErrorMessage(err, `Delete Order by Id: ${orderId}`), LogType.ERROR);
+        throw error;
+    }
+};
+
+/**
+ * Delete orders by system id
+ * @param {string} order order id
+ * @returns {IOrder} Returns IOrder object
+ */
+export const deleteOrdersBySystemId: DeleteOrdersBySystemIdFunc = async (extSysId) => {
+    try {
+        const result = await OrderECommerceModel.deleteMany({ branchId: extSysId });
+        return result;
+    } catch (error) {
+        const err = error as Error;
+        Logging.log(buildErrorMessage(err, `Deleted Orders by system id: ${extSysId}`), LogType.ERROR);
         throw error;
     }
 };

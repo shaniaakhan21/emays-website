@@ -48,6 +48,8 @@ const OrderSchema = new Schema<IOrder>({
     }],
     paymentRef: { type: String, required: false, default: '' },
     serviceFee: { type: Number, require: false, default: 0 },
+    currencyType: { type: String, required: true },
+    serviceArea: { type: String, required: true },
     payedDate: { type: Date, default: null },
     driverSelectedItems: { type: Array, required: false, default: [] }
 });

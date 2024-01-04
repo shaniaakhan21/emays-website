@@ -1,6 +1,7 @@
 'use strict';
 
 import { ObjectId } from 'mongoose';
+import { CurrencyType } from '../const/currencyType';
 
 export interface IOrder {
     _id?: ObjectId,
@@ -49,6 +50,8 @@ export interface IOrder {
     paymentRef?: string,
     serviceFee: number,
     payedDate?: Date,
+    currencyType: CurrencyType,
+    serviceArea: string,
     driverSelectedItems?: Array<Order>
 }
 export interface IOrderDTO {
@@ -95,6 +98,8 @@ export interface IOrderDTO {
     paymentRef?: string,
     terminalPaymentRef?: string,
     serviceFee: number,
+    currencyType: CurrencyType,
+    serviceArea: string,
     branchId?: string,
     driverSelectedItems?: Array<Order>,
     payedDate?: Date

@@ -16,7 +16,6 @@ export const prepareUserDetailsToSend: PrepareDetailsToSendFunc = (externalSyste
         extSysName: externalSystem?.extSysName,
         extLogo: externalSystem?.extLogo,
         extLogoContentType: externalSystem?.extLogoContentType,
-        extStripeAccountId: externalSystem?.extStripeAccountId,
         fiscalInfo: externalSystem?.fiscalInfo
     };
     return filteredData;
