@@ -8,6 +8,7 @@ import Table from '../../../common/table';
 import { getOrderStatus } from '../../../../js/util/stateBuilderUtil';
 import { storeSelectedOrder } from '../../redux/thunk/driverSelectedOrderThunk';
 import { loginSelectorMemoized } from '../../redux/selector/loginSelector';
+import { getCurrencySign } from '../../../../js/util/currencyUtil';
 
 const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
 
@@ -86,11 +87,12 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
             const date = new Date(data?.createdAt);
             const hours = date.getHours();
             const minutes = date.getMinutes();
+            const currencyType = getCurrencySign(data?.currencyType);
             return {
                 id: data?._id || '',
                 isGreenHighlighted: data?.driverId === loginInfoSelector?.userInfo?.id,
                 client: `${data?.firstName} ${data?.lastName}` || '',
-                amount: `€ ${amount}`,
+                amount: `${currencyType} ${amount}`,
                 date: data?.date?.split('T')[0] || '',
                 time: `${hours}:${minutes}` || '',
                 orderItems: data?.orderItems,

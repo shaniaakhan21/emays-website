@@ -26,7 +26,8 @@ export interface IDriver {
     },
     driverUsername: string,
     driverPassword: string,
-    driverEmail: string
+    driverEmail: string,
+    dutyAreas?: Array<string>
 }
 
 export interface IDriverDTO {
@@ -53,5 +54,6 @@ export interface IDriverDTO {
     },
     driverUsername?: string,
     driverPassword?: string,
-    driverEmail?: string
+    driverEmail?: string,
+    dutyAreas?: Array<string>
 }

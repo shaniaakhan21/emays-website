@@ -8,6 +8,7 @@ import '../../scss/component/checkout/shoppingBag.scss';
 import FallBack from '../../icons/fallback.png';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getCurrencySign } from '../../js/util/currencyUtil';
 
 const getPriceList = (productList = []) => {
     return productList?.map((item) => (item.productCost));
@@ -18,7 +19,7 @@ const getFinalCost = (serviceCharge = 0.00, itemsPrices = []) => {
     return +serviceCharge + +itemsTotal;
 };
 
-const ShoppingBag = ({ productList = [], onDelete, serviceFee }) => {
+const ShoppingBag = ({ productList = [], onDelete, serviceFee, currencyType }) => {
 
     const [t] = useTranslation();
 
@@ -53,7 +54,7 @@ const ShoppingBag = ({ productList = [], onDelete, serviceFee }) => {
                         color={item.productColor}
                         size={item.productSize}
                         quantity={item.productQuantity}
-                        price={`€ ${item.productCost}`} />)
+                        price={`${getCurrencySign(currencyType)} ${item.productCost}`} />)
                 }
             </div>
             <div className='service-fee'>
