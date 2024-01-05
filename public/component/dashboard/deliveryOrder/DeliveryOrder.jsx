@@ -11,6 +11,7 @@ import { storeSelectedOrder } from '../redux/thunk/selectedOrderThunk';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { getOrderStatus } from '../../../js/util/stateBuilderUtil';
 import moment from 'moment';
+import { getCurrencySign } from '../../../js/util/currencyUtil';
 
 const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     const [translate] = useTranslation();
@@ -103,10 +104,11 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
             const date = new Date(data?.createdAt);
             const hours = date.getHours();
             const minutes = date.getMinutes();
+            const currencyType = getCurrencySign(data?.currencyType);
             return {
                 id: data?._id || '',
                 client: `${data?.firstName} ${data?.lastName}` || '',
-                amount: `€ ${amountWithComma}`,
+                amount: `${currencyType} ${amountWithComma}`,
                 date: moment(data?.date?.split('T')[0]).format('DD-MM-YYYY') || '',
                 time: `${hours}:${minutes}` || '',
                 orderItems: data?.orderItems,

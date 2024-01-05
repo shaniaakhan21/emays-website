@@ -17,6 +17,7 @@ import { useMessage } from '../../common/messageCtx';
 // SCSS
 import '../../../scss/component/dashboard/selectedItem.scss';
 import moment from 'moment';
+import { getCurrencySign } from '../../../js/util/currencyUtil';
 
 const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
@@ -31,6 +32,14 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
     const dispatch = useDispatch();
 
     useEffect(() => {
+        if (+(selectedOrderSelector?.data?.basicInfo?.serviceFee) === 0 &&
+             loginStatusSelector?.role === 'external_system') {
+            pushAlert({
+                kind: 'warning',
+                title: m('statusMessage.warning'),
+                subtitle: m('statusMessage.message.service-fee-not-payed')
+            });
+        }
     }, [selectedOrderSelector?.isLoading]);
 
     const headers = useMemo(
@@ -53,7 +62,9 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
         } else if (loginStatusSelector?.role === 'driver' ||
             loginStatusSelector?.role === 'client' || loginStatusSelector?.role === 'super') {
             return true;
-        } 
+        } else if (+(selectedOrderSelector?.data?.basicInfo?.serviceFee) === 0 ) {
+            return true;
+        }
         return false;
     };
 
@@ -110,10 +121,11 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
         const date = new Date(payload?.createdAt);
         const hours = date.getHours();
         const minutes = date.getMinutes();
+        const currencyType = getCurrencySign(data?.currencyType);
         return {
             id: payload?._id || '',
             client: `${payload?.firstName} ${payload?.lastName}` || '',
-            amount: `€ ${amountWithComma}`,
+            amount: `${currencyType} ${amountWithComma}`,
             date: moment(payload?.date?.split('T')[0]).format('DD-MM-YYYY') || '',
             time: `${hours}:${minutes}` || '',
             orderItems: payload?.orderItems,
@@ -125,6 +137,7 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
     };
 
     const changeStatus = useCallback(() => {
+        console.log();
         return dispatch(changeStatusSelectedOrder({ orderId: selectedOrderSelector?.data?.basicInfo?._id,
             patchData: {
                 isPrepared: true 
@@ -172,14 +185,19 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
                         disabled = {getReadyToPickUpButtonDisabledStatus()
                         }
                         action={async () => {
-                            const result = await changeStatus();
-                            if (result?.payload?.patchedStatus) {
-                                pushAlert({
-                                    kind: 'success',
-                                    title: m('statusMessage.success'),
-                                    subtitle: m('statusMessage.message.success-update')
-                                });
+                            if (selectedOrderSelector?.data?.basicInfo?.paymentRef) {
+                                const result = await changeStatus();
+                                if (result?.payload?.patchedStatus) {
+                                    pushAlert({
+                                        kind: 'success',
+                                        title: m('statusMessage.success'),
+                                        subtitle: m('statusMessage.message.success-update')
+                                    });
+                                }
+                            } else {
+                                return;
                             }
+                            
                         }}
                         customStyle={{
                             width: '500px',
