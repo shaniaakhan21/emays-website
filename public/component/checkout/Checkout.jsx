@@ -24,7 +24,7 @@ import Emays from '../../logo/emays-logo-white.png';
 import CorrectSign from '../../icons/correct-sign.png';
 
 // Util
-import { getProductList } from '../../js/util/SessionStorageUtil';
+import { getProductList, getRetailerData } from '../../js/util/SessionStorageUtil';
 import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
@@ -36,6 +36,7 @@ import ShoppingItem from './ShoppingItem';
 import { useMessage } from '../common/messageCtx';
 import { cancelOrder, updateOrder } from '../../services/order';
 import styled from 'styled-components';
+import { getCurrencySign } from '../../js/util/currencyUtil';
 
 const Checkout = () => {
 
@@ -397,7 +398,7 @@ const Checkout = () => {
                 </Column>}
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
                 <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData}
-                    serviceFee={state.serviceFee} />
+                    serviceFee={state.serviceFee} currencyType = {getRetailerData().currency}/>
             </Column>
             {/* Appointment cancellation dialogue */}
             <DialogueModal

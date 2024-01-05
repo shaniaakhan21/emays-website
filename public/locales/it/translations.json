@@ -156,6 +156,7 @@
     "warning": "Warning",
     "message": {
       "change-location-warning": "You have changed the area that you provided before. But still you can change it.",
+      "service-fee-not-payed": "Service fee for this order hasn't payed. Please check with customer.",
       "change-location-error": "Address is out of reach. We're located in Lombardy area, Italy. Please change delivery address.",
       "success-update": "Update completed successfully.",
       "accounts-creation-success": "Store, Admin and Manager accounts created successfully.",

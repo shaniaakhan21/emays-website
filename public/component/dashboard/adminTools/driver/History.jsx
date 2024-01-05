@@ -8,6 +8,7 @@ import { getOrderStatus } from '../../../../js/util/stateBuilderUtil';
 import { storeSelectedOrder } from '../../redux/thunk/selectedOrderThunk';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import moment from 'moment';
+import { getCurrencySign } from '../../../../js/util/currencyUtil';
 
 export const DriverHistory = () => {
 
@@ -39,10 +40,11 @@ export const DriverHistory = () => {
             const date = new Date(data?.createdAt);
             const hours = date.getHours();
             const minutes = date.getMinutes();
+            const currencyType = getCurrencySign(data?.currencyType);
             return {
                 id: data?._id || '',
                 client: `${data?.firstName} ${data?.lastName}` || '',
-                amount: `€ ${amount}`,
+                amount: `${currencyType} ${amount}`,
                 date: moment(data?.date?.split('T')[0]).format('DD-MM-YYYY') || '',
                 time: `${hours}:${minutes}` || '',
                 orderItems: data?.orderItems,
