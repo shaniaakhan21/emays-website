@@ -10,6 +10,8 @@ import { getReaderExe, collectPaymentExe, cardPresentExe, serverWebhookExe } fro
 import { useDispatch, useSelector } from 'react-redux';
 import { setTerminal } from '../../redux/slice/stripeSlice';
 import { useHistory } from 'react-router-dom';
+import { driverSelectedOrderSelectorMemoized } from '../../redux/selector/driverSelectedOrderSelector';
+import { getCurrencySign } from '../../../../js/util/currencyUtil';
 export const Payment = () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -25,6 +27,9 @@ export const Payment = () => {
         count: state?.driverFinalSelectionState?.finalSelection?.length || 0,
         paymentStatus: state?.stripePaymentState?.paymentStatus ? state?.stripePaymentState?.paymentStatus.status : null
     } ) );
+
+    const selectedOrderSelector = useSelector(driverSelectedOrderSelectorMemoized);
+    const currencySign = getCurrencySign(selectedOrderSelector?.orderInfo?.basicInfo?.currencyType);
 
     useEffect(() => {
         
@@ -75,7 +80,7 @@ export const Payment = () => {
                         <br></br>
                         <div>
                             <TextBoxCustom
-                                placeholderText={`€ ${ calculatePrice(total) }`} className='font-cst'/>
+                                placeholderText={`${currencySign} ${ calculatePrice(total) }`} className='font-cst'/>
                         </div>
                         <div className='columns top-b'>
                             <div><p>{count}</p></div>
@@ -88,17 +93,17 @@ export const Payment = () => {
                             </div>
                             <div className='columns grey-it'>
                                 <div><p>Tax</p></div>
-                                <div><p>€ 00.00</p></div>
+                                <div><p>{currencySign} 00.00</p></div>
                             </div>
                         </div>
                         <br></br>
                         <div className='columns border-b'>
                             <div><p>Subtotal</p></div>
-                            <div><p>{`€ ${calculatePrice(total)}`}</p></div>
+                            <div><p>{`${currencySign} ${calculatePrice(total)}`}</p></div>
                         </div>
                         <div className='columns top-b'>
                             <div><p>Total due</p></div>
-                            <div><p>{`€ ${calculatePrice(total)}`}</p></div>
+                            <div><p>{`${currencySign} ${calculatePrice(total)}`}</p></div>
                         </div>
                     </div>
                     <div className='w-here equi-dist'>

@@ -168,7 +168,8 @@ const Checkout = () => {
                         color={productData[showDelete]?.productColor}
                         size={productData[showDelete]?.productSize}
                         quantity={productData[showDelete]?.productQuantity}
-                        price={`€ ${productData[showDelete]?.productCost}`} />
+                        price={`${productData[showDelete]?.productCost}`}
+                        currencySign={getCurrencySign(getRetailerData()?.currency || '')} />
                 }
                 confirmAction={removeItem}
             />

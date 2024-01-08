@@ -4,11 +4,15 @@ import { useSelector } from 'react-redux';
 import { Tile } from '@carbon/react';
 import moment from 'moment';
 import { selectedOrderSelectorMemoized } from '../../redux/selector/selectedOrderSelector';
+import { appInfoSelectorMemoized } from '../../redux/selector/appInfoSelector';
+import { getCurrencySign } from '../../../../js/util/currencyUtil';
 
 const DOSelectedOrderHeader = ({ data }) => {
 
     const [dateTime, setDateTime] = useState('');
     const [amountState, setAmount] = useState('');
+    const appInfoSelector = useSelector(appInfoSelectorMemoized);
+    const currencySign = getCurrencySign(appInfoSelector?.systemInfoState?.data?.fiscalInfo?.currencyType);
 
     useEffect(() => {
         const dateArray = data[0]?.date?.split('-');
@@ -45,7 +49,7 @@ const DOSelectedOrderHeader = ({ data }) => {
                                 <h5 className='main-header'>Total Order</h5>
                             </div>
                             <div>
-                                <h3 className='value'>€ {amountState}</h3>
+                                <h3 className='value'>{currencySign} {amountState}</h3>
                             </div>
                         </Tile>
 

@@ -6,11 +6,16 @@ import moment from 'moment';
 
 // SCSS
 import '../../../scss/component/retailer/orderReviewVertical.scss';
+import { useSelector } from 'react-redux';
+import { appInfoSelectorMemoized } from '../redux/selector/appInfoSelector';
+import { getCurrencySign } from '../../../js/util/currencyUtil';
 
 const OrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
     const [translate] = useTranslation();
     const t = useCallback((key) => translate(`dashboard.orderCreated.${key}`), [translate]);
+    const appInfoSelector = useSelector(appInfoSelectorMemoized);
+    const currencySign = getCurrencySign(appInfoSelector?.systemInfoState?.data?.fiscalInfo?.currencyType);
 
     return (
         <div className='content-vertical'>
@@ -53,7 +58,7 @@ const OrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) =>
                 </div>
                 <div className='field'>
                     <label>{t('appointmentInfo.total')}</label>
-                    <p>€ {itemsInfo?.total}</p>
+                    <p>{currencySign} {itemsInfo?.total}</p>
                 </div>
             </div>
             <div className='items-to-deliver'>
@@ -69,8 +74,8 @@ const OrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) =>
                   image={item?.image}
                   color={item?.color}
                   size={item?.size}
-                  quantity={item?.quantity}
-                  price={item?.productCost}/>)}
+                  quantity={item?.quantity || 1}
+                  price={`${item?.price}`}/>)}
                 </div>
             </div>
         </div>

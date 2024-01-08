@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { TrashCan } from '@carbon/icons-react';
 
 import '../../scss/component/checkout/shoppingItemDashboard.scss';
+import { appInfoSelectorMemoized } from '../dashboard/redux/selector/appInfoSelector';
+import { useSelector } from 'react-redux';
+import { getCurrencySign } from '../../js/util/currencyUtil';
+import { selectedOrderSelectorMemoized } from '../dashboard/redux/selector/selectedOrderSelector';
 
 const ShoppingItem = ({
     index,
@@ -17,6 +21,11 @@ const ShoppingItem = ({
 }) => {
 
     const [t] = useTranslation();
+    const appInfoSelector = useSelector(appInfoSelectorMemoized);
+    const selectedOrderSelector = useSelector(selectedOrderSelectorMemoized);
+    const currencySign = getCurrencySign(appInfoSelector?.systemInfoState?.data?.fiscalInfo?.currencyType || 
+        // When driver login should use this
+        selectedOrderSelector?.data?.basicInfo?.currencyType);
 
     return (
         <>
@@ -52,7 +61,7 @@ const ShoppingItem = ({
                         {
                             price &&
                             <div className='price'>
-                                <p>Price: {price}</p>
+                                <p>Price: {currencySign} {price}</p>
                             </div>
                         }
                     </div>

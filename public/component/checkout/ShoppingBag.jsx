@@ -9,6 +9,7 @@ import FallBack from '../../icons/fallback.png';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getCurrencySign } from '../../js/util/currencyUtil';
+import { getRetailerData } from '../../js/util/SessionStorageUtil';
 
 const getPriceList = (productList = []) => {
     return productList?.map((item) => (item.productCost));
@@ -54,19 +55,21 @@ const ShoppingBag = ({ productList = [], onDelete, serviceFee, currencyType }) =
                         color={item.productColor}
                         size={item.productSize}
                         quantity={item.productQuantity}
-                        price={`${getCurrencySign(currencyType)} ${item.productCost}`} />)
+                        price={`${item.productCost}`}
+                        currencySign={getCurrencySign(getRetailerData()?.currency || '')} />)
                 }
             </div>
             <div className='service-fee'>
                 <div className='text'><p>{t('shopping-bag-container.service-fee')}</p></div>
-                <div className='cost'> { serviceFee ? <p>{`€ ${serviceFee}`}</p> : <p>Calculating...</p> }</div>
+                <div className='cost'> { serviceFee ? 
+                    <p>{`${getCurrencySign(currencyType)} ${serviceFee}`}</p> : <p>Calculating...</p> }</div>
             </div>
             <div className='instruction'>
                 <ListBoxCustom style={{ fontSize: '15px', fontFamily: 'Montserrat' }} items={instruction}/>
             </div>
             <div className='book'>
                 <ButtonCustom
-                    text={`${t('shopping-bag-container.button')}: € ${finalCost}`}
+                    text={`${t('shopping-bag-container.button')}: ${getCurrencySign(currencyType)} ${finalCost}`}
                     action={() => {}}
                     type={'secondary'}
                     customStyle={
