@@ -13,7 +13,8 @@ const ShoppingItem = ({
     price,
     size,
     image,
-    imageAlt = 'product picture'
+    imageAlt = 'product picture',
+    currencySign
 }) => {
 
     const [t] = useTranslation();
@@ -50,7 +51,7 @@ const ShoppingItem = ({
                         {
                             quantity && price &&
                             <div className='price'>
-                                <p><strong>{price}</strong></p>
+                                <p><strong>{currencySign} {price}</strong></p>
                             </div>
                         }
                     </div>

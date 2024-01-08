@@ -5,10 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { statsSelectorMemoized } from '../../redux/selector/statsSelector';
 import DropDownCustom from '../../../common/DropdownCustom';
 import { getOverviewStatsData } from '../../redux/thunk/overviewStatsThunk';
+import { appInfoSelectorMemoized } from '../../redux/selector/appInfoSelector';
+import { getCurrencySign } from '../../../../js/util/currencyUtil';
 
 const OverviewHeader = ({ searchFunction }) => {
 
     const selector = useSelector(statsSelectorMemoized);
+    const appInfoSelector = useSelector(appInfoSelectorMemoized);
+    const currencySign = getCurrencySign(appInfoSelector?.systemInfoState?.data?.fiscalInfo?.currencyType);
     const [state, setState] = useState(null);
     const [type, setType] = useState(1);
     const dispatch = useDispatch();
@@ -59,9 +63,9 @@ const OverviewHeader = ({ searchFunction }) => {
                     state &&
                     <div className='grid-2'>
                         <Counts heading='No. orders' value={state?.noOfOrders} />
-                        <Counts heading='Average ticket' value={`€ ${(state?.average).toFixed(2)}`} />
+                        <Counts heading='Average ticket' value={`${currencySign} ${(state?.average).toFixed(2)}`} />
                         <Counts heading={`Total revenue ${getRevSuffix(type)}`} 
-                            value={`€ ${(state?.totalRevenue).toFixed(2)}`} />
+                            value={`${currencySign} ${(state?.totalRevenue).toFixed(2)}`} />
                     </div>
                 }
             </div>
