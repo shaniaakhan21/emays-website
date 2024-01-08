@@ -11,6 +11,7 @@ import { loginSelectorMemoized } from '../redux/selector/loginSelector';
 
 // SCSS
 import '../../../scss/component/retailer/driverOrderReviewVertical.scss';
+import { getCurrencySign } from '../../../js/util/currencyUtil';
 
 const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
@@ -21,6 +22,7 @@ const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle
     const [m] = useTranslation();
     const t = useCallback((key) => translate(`dashboard.orderCreated.${key}`), [translate]);
     const selectedOrderSelector = useSelector(driverSelectedOrderSelectorMemoized);
+    const currencySign = getCurrencySign(selectedOrderSelector?.orderInfo?.basicInfo?.currencyType);
     const loggedInUser = useSelector(loginSelectorMemoized);
     const systemInfo = selectedOrderSelector?.storeInfo;
     const orderInfo = selectedOrderSelector?.orderInfo;
@@ -73,7 +75,7 @@ const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle
                 </div>
                 <div className='field'>
                     <label>{t('appointmentInfo.total')}</label>
-                    <p>€ {itemsInfo?.total}</p>
+                    <p>{currencySign} {itemsInfo?.total}</p>
                 </div>
             </div>
             <div className='store-info'>

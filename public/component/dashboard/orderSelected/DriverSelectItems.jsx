@@ -8,6 +8,7 @@ import { driverSelectFinal } from '../redux/thunk/driverFinalSelectThunk';
 import '../../../scss/component/dashboard/driverSelectItems.scss';
 import ButtonCustom from '../../common/ButtonCustom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { getCurrencySign } from '../../../js/util/currencyUtil';
 
 const DriverSelectItems = () => {
 
@@ -48,6 +49,7 @@ const DriverSelectItems = () => {
 
     const selectedOrderSelector = useSelector(driverSelectedOrderSelectorMemoized);
     const orderInfo = selectedOrderSelector?.orderInfo?.itemsInfo?.items;
+    const currencySign = getCurrencySign(selectedOrderSelector?.orderInfo?.basicInfo?.currencyType);
     return (
         orderInfo ?
             <div className='driver-history-box'>
@@ -63,7 +65,7 @@ const DriverSelectItems = () => {
                             colorText={product?.color}
                             quantityText={product?.quantity}
                             size={product?.size}
-                            cost={product?.productCost}
+                            cost={`${currencySign} ${product?.productCost}`}
                             manageItems={selectItems}
                         />
                     ))}
@@ -75,7 +77,7 @@ const DriverSelectItems = () => {
                     </div>
 
                     <div className='pay-h2-amount'>
-                        <h2>€ {selectedProducts.reduce((acc, next) => {
+                        <h2>{currencySign} {selectedProducts.reduce((acc, next) => {
                             return +acc + ((+next?.productCost) * next?.quantity); }, 0.00)} </h2>
                     </div>
                 </div>

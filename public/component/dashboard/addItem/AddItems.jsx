@@ -12,6 +12,8 @@ import FallBack from '../../../icons/fallback.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { newOrderPhaseOneSelectorMemoized } from '../redux/selector/newOrderSelector';
 import { setNewOrderPhaseTwoData } from '../redux/thunk/newOrderThunk';
+import { appInfoSelectorMemoized } from '../redux/selector/appInfoSelector';
+import { getCurrencySign } from '../../../js/util/currencyUtil';
 
 const AddItems = () => {
     const [translate] = useTranslation();
@@ -19,6 +21,8 @@ const AddItems = () => {
     const [showScanModal, setShowScanModal] = useState(true);
 
     const newOrderPhaseOneData = useSelector(newOrderPhaseOneSelectorMemoized);
+    const appInfoSelector = useSelector(appInfoSelectorMemoized);
+    const currencySign = getCurrencySign(appInfoSelector?.systemInfoState?.data?.fiscalInfo?.currencyType);
 
     const t = useCallback((key) => translate(`dashboard.deliveryOrders.${key}`), [translate]);
 
@@ -92,7 +96,7 @@ const AddItems = () => {
                 <div className='header-right'>
                     <Tile>
                         <h5>{t('header-left.title')}</h5>
-                        <h2>{`€ ${orderInfo?.total}`}</h2>
+                        <h2>{`${currencySign} ${orderInfo?.total}`}</h2>
                     </Tile>
                 </div>
                 <div className='header-right'>
@@ -117,7 +121,8 @@ const AddItems = () => {
                     onDelete={() => {
                     }}
                     quantity={1}
-                    price={item?.price}
+                    price={`${item?.price}`}
+                    currencySign={currencySign}
                 />)}
             </div>
             <div className='buttons'>

@@ -6,12 +6,21 @@ import moment from 'moment';
 
 // SCSS
 import '../../../scss/component/retailer/orderReviewHorizontal.scss';
+import { appInfoSelectorMemoized } from '../redux/selector/appInfoSelector';
+import { useSelector } from 'react-redux';
+import { getCurrencySign } from '../../../js/util/currencyUtil';
+import { selectedOrderSelectorMemoized } from '../redux/selector/selectedOrderSelector';
 
 const OrderReviewHorizontal = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
     const [translate] = useTranslation();
     const t = useCallback((key) => translate(`dashboard.orderCreated.${key}`), [translate]);
     const [total, setTotal] = useState('0,00');
+    const appInfoSelector = useSelector(appInfoSelectorMemoized);
+    const selectedOrderSelector = useSelector(selectedOrderSelectorMemoized);
+    const currencySign = getCurrencySign(appInfoSelector?.systemInfoState?.data?.fiscalInfo?.currencyType || 
+        // When driver login should use this
+        selectedOrderSelector?.data?.basicInfo?.currencyType);
 
     useEffect(() => {
         const amount =  
@@ -41,7 +50,7 @@ const OrderReviewHorizontal = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) 
                   color={item?.color}
                   size={item?.size}
                   quantity={item?.quantity}
-                  price={item?.productCost} />)}
+                  price={`${item?.productCost}`} />)}
                 </div>
             </div>
             <div className='appointment-info'>
@@ -82,7 +91,7 @@ const OrderReviewHorizontal = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) 
                 </div>
                 <div className='field'>
                     <label>{t('appointmentInfo.total')}</label>
-                    <p>€ {total}</p>
+                    <p>{currencySign} {total}</p>
                 </div>
             </div>
         </div>
