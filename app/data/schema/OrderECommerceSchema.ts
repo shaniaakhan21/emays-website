@@ -47,6 +47,7 @@ const OrderSchema = new Schema<IOrder>({
         date: { type: Date, default: Date.now }
     }],
     paymentRef: { type: String, required: false, default: '' },
+    paymentRefEndPayment: { type: String, required: false, default: '' },
     serviceFee: { type: Number, require: false, default: 0 },
     currencyType: { type: String, required: true },
     serviceArea: { type: String, required: true },
