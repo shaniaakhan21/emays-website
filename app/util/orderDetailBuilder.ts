@@ -28,6 +28,7 @@ export const prepareUserDetailsToSend: PrepareDetailsToSendFunc = (order) => {
         createdAt: order?.createdAt,
         history: order?.history,
         paymentRef: order?.paymentRef,
+        paymentRefEndPayment: order?.paymentRefEndPayment,
         deliveryInfo: order?.deliveryInfo,
         isDelivered: order?.isDelivered,
         isDriverPicked: order?.isDriverPicked,

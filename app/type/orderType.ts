@@ -48,6 +48,7 @@ export interface IOrder {
     isCanceled?: boolean,
     history?: Array<Date>,
     paymentRef?: string,
+    paymentRefEndPayment?: string,
     serviceFee: number,
     payedDate?: Date,
     currencyType: CurrencyType,
@@ -96,6 +97,7 @@ export interface IOrderDTO {
     isPrepared?: boolean,
     isCanceled?: boolean,
     paymentRef?: string,
+    paymentRefEndPayment?: string,
     terminalPaymentRef?: string,
     serviceFee: number,
     currencyType: CurrencyType,
@@ -154,6 +156,7 @@ export interface IPatchOrder {
     isCanceled?: boolean,
     history?: Array<Date>,
     paymentRef?: string,
+    paymentRefEndPayment?: string,
     serviceFee?: number,
     payedDate?: Date,
     driverSelectedItems?: Array<Order>
