@@ -124,7 +124,8 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
                 productColor: Joi.string().required(),
                 productSize: Joi.string().required(),
                 productQuantity: Joi.number().required(),
-                productCost: Joi.string().required(),
+                // Important: check currency value contains comma
+                productCost: Joi.string().disallow(',').required(),
                 productImage: Joi.string().required(),
                 productDeliveryInformation: Joi.string().required()
             }).error((error) => {

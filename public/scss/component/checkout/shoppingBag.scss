@@ -15,23 +15,91 @@
             padding-top: 15px;
         }
 
-        .service-fee {
+        .total-fee, .service-fee, .today-fee, .about-shopping {
             display: flex;
             padding-top: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
             justify-content: space-between;
+            border-top: 1px solid;
+            margin-top: 17px;
+            padding-top: 27px;
+            width: 100%;
             .text {
                 p {
-                    font-size: 15px;
-                    font-weight: bold;
-                    font-family: 'Montserrat';
+                    font-size: 14px;
                 }
             }
 
             .cost {
                 p {
-                    font-size: 15px;
-                    font-weight: bold;
-                    font-family: 'Montserrat';
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .total-fee {
+            .text {
+                p {
+                    display: inline;
+                    padding-right: 12px;
+                }
+                svg {
+                    position: absolute;
+                    margin-top: -15px;
+                }
+               }
+        }
+
+        .service-fee {
+            border-top: 0px;
+            padding-bottom: 5px;
+        }
+
+        .today-fee {
+           p {
+            font-size: 16px !important;
+            font-weight: bold;
+           }
+        }
+
+        .about-shopping {
+            p {
+                font-size: 16px !important;
+                font-weight: bold;
+               }
+        }
+
+        .info-payment {
+            padding-top: 17px;
+            p {
+                font-size: 12px;
+            }
+            svg {
+                height: 20px;
+                width: 20px;
+                padding-top: 10px;
+            }
+        }
+
+        .info-shopping {
+            display: flex;
+            flex-direction: column;
+            padding-top: 17px;
+            .inner {
+                display: flex;
+                flex-direction: row;
+                padding-top: 10px;
+                p {
+                    font-size: 16px;
+                    padding-top: 5px;
+                    padding-left: 10px;
+                    color: #6f6f6f;
+
+                }
+                svg {
+                    height: 30px;
+                    width: 30px;
                 }
             }
         }

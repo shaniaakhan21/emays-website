@@ -5,10 +5,23 @@ import TextBoxCustom from './TextBoxCustom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useMessage } from './messageCtx';
+import { Search } from '@carbon/icons-react';
+// SCSS
+import '../../scss/component/common/geoContainer.scss';
 
 const GeoSearchContainer = styled.div`
     padding-top: 20px;
     padding-bottom: 20px;
+    .geo_search {
+        display: flex;
+        .search-icon {
+            height: 40px;
+            width: 30px;
+            padding-right: 10px;
+            background-color: #f4f4f4;
+            border-bottom: 1px solid #8d8d8d;
+        }
+    }
 `;
 
 const List = styled.ul`
@@ -134,11 +147,13 @@ const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
 
     return (
         <GeoSearchContainer>
-            <TextBoxCustom 
-                placeholderText={t('checkout.book-appointment.searchAddress')}
-                customStyle={{ width: '100%' }}
-                value={address} onChange={autoCompleteHandler}
-            />
+            <div className='geo_search'>
+                <TextBoxCustom 
+                    placeholderText={t('checkout.book-appointment.searchAddress')}
+                    customStyle={{ width: '100%' }}
+                    value={address} onChange={autoCompleteHandler}
+                /><Search className={'search-icon'}/>
+            </div>
             { predictions && predictions?.length > 0 && (
                 <List>
                     {predictions?.map((prediction) => (

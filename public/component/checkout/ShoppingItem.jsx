@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { TrashCan } from '@carbon/icons-react';
 
 import '../../scss/component/checkout/shoppingItem.scss';
+import { useEffect, useState } from 'react';
+import { getRetailerData } from '../../js/util/SessionStorageUtil';
 
 const ShoppingItem = ({
     index,
@@ -18,6 +20,32 @@ const ShoppingItem = ({
 }) => {
 
     const [t] = useTranslation();
+    const [processedAmount, setProcessedAmount] = useState('');
+    const [processedFinalAmount, setProcessedFinalAmount] = useState('');
+
+    useEffect(() => {
+        const currency = getRetailerData()?.currency;
+        let amountWithComma = '';
+        let finalItemCost = '';
+        // Here check the currency type and apply the currency display formatting
+        if (currency === 'euro') {
+            if (price && price.toString().includes('.')) {
+                amountWithComma = `${price.split('.')[0]},${price.split('.')[1]}`;
+            } else {
+                amountWithComma = `${price},00`;
+            }
+            setProcessedAmount(amountWithComma);
+
+            finalItemCost = quantity * +price;
+            finalItemCost = finalItemCost.toFixed(2);
+            if (finalItemCost && finalItemCost.toString().includes('.')) {
+                finalItemCost = `${finalItemCost.split('.')[0]},${finalItemCost.split('.')[1]}`;
+            } else {
+                finalItemCost = `${finalItemCost},00`;
+            }
+            setProcessedFinalAmount(finalItemCost);
+        }
+    });
 
     return (
         <>
@@ -41,6 +69,12 @@ const ShoppingItem = ({
                             color && <p>{`${t('shopping-bag-container.item.color')}: ${color}`}</p>
                         }
                     </div>
+                    <div className='unit-price'>
+                        {
+                            // eslint-disable-next-line max-len
+                            price && <p>{`${t('shopping-bag-container.item.unit-price')}: ${currencySign} ${processedAmount}`}</p>
+                        }
+                    </div>
                     <div className='quantity'>
                         {
                             quantity && price &&
@@ -51,7 +85,7 @@ const ShoppingItem = ({
                         {
                             quantity && price &&
                             <div className='price'>
-                                <p><strong>{currencySign} {price}</strong></p>
+                                <p><strong>{currencySign} {processedFinalAmount}</strong></p>
                             </div>
                         }
                     </div>

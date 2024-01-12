@@ -89,6 +89,14 @@ const Checkout = () => {
     };
 
     const submit = () => {
+        if (productData?.length < 1) {
+            pushAlert({
+                kind: 'error',
+                title: t('statusMessage.error'),
+                subtitle: t('statusMessage.message.no-products')
+            });
+            return;
+        }
         const errors = ['addOne', 'addTwo', 'addThree', 'addFour', 'addFive', 'addSix'].reduce(
             (acc, k) => (
                 state?.address?.[k] && state?.address?.[k] !== '' ? acc : { ...acc, [k]: true }
@@ -117,7 +125,7 @@ const Checkout = () => {
     const removeItem = useCallback(async () => {
         try {
             setLoading(true);
-            await updateOrder(state.uid, { orderItems: productData?.filter((o, i) => i !== showDelete) });
+            // Await updateOrder(state.uid, { orderItems: productData?.filter((o, i) => i !== showDelete) });
             setShowDelete(false);
             setProductData(productData?.filter((o, i) => i !== showDelete));
         } catch (e) {
@@ -174,7 +182,10 @@ const Checkout = () => {
                 confirmAction={removeItem}
             />
             <Column lg={16} md={16} sm={16} xs={16} className='logo'>
-                <img src={Emays} alt='The Emays logo' />
+                <div className='store-logo'></div>
+                <div className='emays-logo'>
+                    <p>Powered by</p><img src={Emays} alt='The Emays logo' />
+                </div>
             </Column>
             {loading ? <Column lg={8} md={8} sm={4} xs={4} className='loading-indicator'>
                 <LoadingIndicator description='Saving changes' />
@@ -259,16 +270,23 @@ const Checkout = () => {
                             <p>{t('checkout.delivery-address.header')}</p>
                         </div>
                         <div className='address'>
-                            <p>{t('checkout.delivery-address.address')}</p>
+                            <div>
+                                <p>{t('checkout.delivery-address.address')}</p>
+                            </div>
+                            <div className='learn_more'>
+                                <a target='blank' href='https://emaysstyle.com/#/'>Learn more about this</a>
+                            </div>
                         </div>
-                        <div>
-                            <GeoContainer updateAddress={updateAddress} updateServiceFee={updateServiceFee} />
+                        <div className={'address_search'}>
+                            <GeoContainer
+                                updateAddress={updateAddress} updateServiceFee={updateServiceFee} />
                             { state?.isNotInServiceArea && 
                             <p className='no-service-info'>{t('checkout.not-in-service-area')}</p> }
                         </div>
                         <div className='address-info'>
                             <div>
                                 <TextBoxCustom
+                                    cols={'100'}
                                     onKeyDown={preventTyping}
                                     id={'addressStreet'}
                                     placeholderText={t('checkout.book-appointment.addOnePlaceHolder')}
@@ -398,8 +416,10 @@ const Checkout = () => {
                     </div>
                 </Column>}
             <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                <ShoppingBag onDelete={(i) => setShowDelete(i)} productList={productData}
-                    serviceFee={state.serviceFee} currencyType = {getRetailerData().currency}/>
+                <ShoppingBag onDelete={(index) => {
+                    setShowDelete(index);
+                }} productList={productData}
+                serviceFee={state.serviceFee} currencyType = {getRetailerData().currency}/>
             </Column>
             {/* Appointment cancellation dialogue */}
             <DialogueModal

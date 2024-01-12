@@ -120,7 +120,10 @@ const Confirm = () => {
             <StripeProvider open={open} setOpen={setOpen} serviceFee={getServiceCost()} />
             <Grid className='landing-page'>
                 <Column lg={16} md={16} sm={16} xs={16} className='logo'>
-                    <img src={Emays} alt='The Emays logo' />
+                    <div className='store-logo'></div>
+                    <div className='emays-logo'>
+                        <p>Powered by</p><img src={Emays} alt='The Emays logo' />
+                    </div>
                 </Column>
                 {!loading ? (<Column lg={8} md={8} sm={4} xs={4} className='your-appointment'>
                     <div className='edit-appointment'>
