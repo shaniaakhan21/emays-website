@@ -160,7 +160,8 @@
       "change-location-error": "Address is out of reach. We're located in Lombardy area, Italy. Please change delivery address.",
       "success-update": "Update completed successfully.",
       "accounts-creation-success": "Store, Admin and Manager accounts created successfully.",
-      "data-copied": "Information copied successfully."
+      "data-copied": "Information copied successfully.",
+      "no-products": "No items found. Please go back to the shopping cart and proceed."
     }
   },
   "common": {
@@ -249,11 +250,11 @@
     },
     "delivery-address": {
       "header": "INDIRIZZO DI CONSEGNA",
-      "address": "Indirizzo"
+      "address": "Attualmente i nostri servizi sono solo nella regione Lombardia"
     },
     "not-in-service-area": "Non serviamo la tua zona",
     "delivery-info": "COMMENTO UTENTE",
-    "submit-button": "CONTINUA",
+    "submit-button": "PASSAGGIO SUCCESSIVO",
     "save-changes": "SALVA NUOVE MODIFICHE",
     "cancel-order": "CANCELLA APPUNTAMENTO",
     "delete-item-title": "ELIMINARE QUESTO ARTICOLO?",
@@ -330,6 +331,22 @@
     "loading-description": "Prenotazione appuntamento, ricerca assistente personale"
   },
   "shopping-bag-container": {
+    "seamless": {
+      "des": "Seamless Shopping",
+      "one": "Paga solo per cio’ che decidi di tenere",
+      "two": "Nessuna spesa nascosta",
+      "three": "Abbina i nuovi pezzi al tuo guardaroba",
+      "four": "Shopping sostenibile"
+    },
+    "explain": {
+      "des-one": "Questa tariffa ci aiuta a gestire le operazioni di consegna, includendo tutti i servizi di styling.",
+      "des-two": "L'importo verrà bloccato sulla tua carta fino al giorno della consegna.",
+      "des-three": "Cancellazioni disponibili prima di 24 ore dall'appuntamento."
+    },
+    "today-fee": "Totale ordine da provare",
+    "tot-try-on": "Spese di consegna",
+    "tot-try-on-message": "This is the value of the pieces you will try on. You will only be charged with pieces you keep.",
+    "delivery-fee": "Totale da pagare oggi",
     "header": "CARRELLO",
     "service-fee": "COMMISSIONI DI SERVIZIO",
     "instruction-1": "Questa commissione ci aiuta a gestire le nostre operazioni, tutti i servizi inclusi.",
@@ -340,7 +357,8 @@
     "item": {
       "size": "Dimensione",
       "quantity": "Quantità",
-      "color": "Colore"
+      "color": "Colore",
+      "unit-price": "Prezzo unitario"
     }
   },
   "nav": {

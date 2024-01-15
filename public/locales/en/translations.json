@@ -160,7 +160,8 @@
       "change-location-error": "Address is out of reach. We're located in Lombardy area, Italy. Please change delivery address.",
       "success-update": "Update completed successfully.",
       "accounts-creation-success": "Store, Admin and Manager accounts created successfully.",
-      "data-copied": "Information copied successfully."
+      "data-copied": "Information copied successfully.",
+      "no-products": "No items found. Please go back to the shopping cart and proceed."
     }
   },
   "common": {
@@ -249,7 +250,7 @@
     },
     "delivery-address": {
       "header": "DELIVERY ADDRESS",
-      "address": "Address"
+      "address": "Currently our services are only in the Lombardia region"
     },
     "not-in-service-area": "We are not serving your area",
     "delivery-info": "USER COMMENT",
@@ -330,6 +331,22 @@
     "loading-description": "Booking appointment Searching Personal Assistant"
   },
   "shopping-bag-container": {
+    "seamless": {
+      "des": "Seamless Shopping",
+      "one": "Only pay for what you keep",
+      "two": "Credit-free and no hidden fees",
+      "three": "Style with your wardrobe",
+      "four": "Sustainable shopping"
+    },
+    "explain": {
+      "des-one": "This fee help us runs delivery operation, all styling services included.",
+      "des-two": "Amount will be blocked on your card until the day of the delivery.",
+      "des-three": "Cancelation available before 24h appointment."
+    },
+    "today-fee": "Today you pay",
+    "tot-try-on": "Total Try on Value",
+    "tot-try-on-message": "This is the value of the pieces you will try on. You will only be charged with pieces you keep.",
+    "delivery-fee": "Delivery Fee",
     "header": "SHOPPING BAG",
     "service-fee": "SERVICE FEE",
     "instruction-1": "This fee helps us run our operations, all services included.",
@@ -340,7 +357,8 @@
     "item": {
       "size": "Size",
       "quantity": "Quantity",
-      "color": "Color"
+      "color": "Color",
+      "unit-price": "Unit Price"
     }
   },
   "nav": {

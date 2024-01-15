@@ -11,6 +11,23 @@
     }
 
     .logo {
+        display: flex;
+        .store-logo {
+            flex: 1;
+        }
+        .emays-logo {
+            display: flex;
+            p {
+                display: inline;
+                font-size: 14px;
+                color: #585959;
+                padding-right: 10px;
+            }
+            img {
+                height: 19px;
+                width: 45px;
+            }
+        }
         img {
             height: 78px;
             width: 130px;
@@ -86,6 +103,39 @@
     }
 
     .delivery-address {
+        .address {
+            display: flex;
+            a {
+                color: #000;
+                font-size: 12px;
+            }
+            .learn_more {
+                margin-left: auto;
+            }
+        }
+        .address_search {
+            .geo_search {
+                display: flex;
+                .search-icon {
+                    background-color: #393939;
+                    color: #FFF;
+                    height: 40px;
+                    width: 30px;
+                    padding-right: 10px;
+                }
+                .cds--text-input {
+                    background-color: #393939;
+                    color: #FFF;
+                    border-bottom: none;
+                }
+                .cds--text-input::placeholder {
+                    color: #FFF;
+                }
+                .cds--text-input:focus {
+                    outline: none;
+                }
+            }
+        }
         p.no-service-info {
             color: red;
             font-size: 12px;
