@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import { TextInput } from '@carbon/react';
 
-const TextBoxCustom = ({ labelText, helperText,
+const TextBoxCustom = ({ cols, labelText, helperText,
     placeholderText, warnText,
     size, invalidText, id, className, type, playgroundWidth, onChange, onClick, customStyle, invalid, ...props }) => {
     return (
         <TextInput
+            cols={'100'}
             className={className}
             helperText={helperText}
             id={id}

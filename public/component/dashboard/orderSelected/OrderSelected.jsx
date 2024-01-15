@@ -114,7 +114,7 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
         
         let amountWithComma;
         if (amount && amount.toString().includes('.')) {
-            amountWithComma = `${amount.split('.')[0]},${amount.split('.')[1]}`;
+            amountWithComma = `${amount?.toString()?.split('.')[0]},${amount?.toString()?.split('.')[1]}`;
         } else {
             amountWithComma = `${amount},00`;
         }

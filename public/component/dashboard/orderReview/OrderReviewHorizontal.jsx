@@ -27,7 +27,7 @@ const OrderReviewHorizontal = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) 
             itemsInfo?.items?.reduce((acc, current) => acc + (current?.quantity * current?.productCost), 0) || '';
         let amountWithComma;
         if (amount && amount.toString().includes('.')) {
-            amountWithComma = `${amount.split('.')[0]},${amount.split('.')[1]}`;
+            amountWithComma = `${amount?.toString()?.split('.')[0]},${amount?.toString()?.split('.')[1]}`;
         } else {
             amountWithComma = `${amount},00`;
         }

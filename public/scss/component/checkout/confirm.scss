@@ -5,6 +5,30 @@
     padding-top: 40px;
     font-family: 'Montserrat';
 
+    .logo {
+        display: flex;
+        .store-logo {
+            flex: 1;
+        }
+        .emays-logo {
+            display: flex;
+            p {
+                display: inline;
+                font-size: 14px;
+                color: #585959;
+                padding-right: 10px;
+            }
+            img {
+                height: 19px;
+                width: 45px;
+            }
+        }
+        img {
+            height: 78px;
+            width: 130px;
+        }
+    }
+
     p {
         font-family: 'Montserrat';
     }

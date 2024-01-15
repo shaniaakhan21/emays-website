@@ -130,7 +130,11 @@ export const Payment = () => {
                             />
                         </div>
                         <div className='green'>
-                            <Button onClick={() => { dispatch(collectPaymentExe()); }}>Collect Payment</Button>
+                            <Button onClick={() => { 
+                                dispatch(collectPaymentExe(
+                                    { finalAmountToPay: calculatePrice(total) }
+                                ));
+                            }}>Collect Payment</Button>
                         </div>
                         <div>
                             <button disabled={cardFlag ? false : true} onClick={() => { dispatch(cardPresentExe()); }}>Present Card</button>

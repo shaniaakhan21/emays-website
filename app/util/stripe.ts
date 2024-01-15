@@ -60,15 +60,25 @@ export const initiateOrderTerminalPayment = async (orderId: string, storeId: str
     }
     const amount = orderAmount;
     const store = await getExternalSystemById(storeId);
+    // Derive the application percentage amount, ask EM
+    const amountProcessed = +amount;
+    const appFeeAmount = +(0.1 * amount).toFixed(2);
+    const convertedAppFeeAmount = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }).format(appFeeAmount).substring(1);
     const paymentIntent = await stripe.paymentIntents.create({
-        amount: amount * 100,
+        amount: amountProcessed,
+        // TODO: pass currency type from FE
         currency: 'eur',
         // automatic_payment_methods: {
         //     enabled: true
         // },
         payment_method_types: ['card_present'],
         capture_method: 'automatic',
-        application_fee_amount: (0.1 * amount) * 100,
+        application_fee_amount: Math.round(+convertedAppFeeAmount),
         metadata: {
             orderId
         },

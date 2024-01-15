@@ -90,6 +90,21 @@ const Confirm = () => {
                     kind: 'success'
                 });
             } else {
+                // Clean currency format to decimal if comma include
+                for (let i = 0; i <= commonData?.orderItems?.length; i++) {
+                    const itemPrice = commonData?.orderItems[i]?.productCost;
+                    if (itemPrice && itemPrice?.includes(',')) {
+                        const [wholeNumber, decimal] = itemPrice?.split(',');
+                        const formattedAmount = `${wholeNumber}.${(decimal)}`;
+                        commonData.orderItems[i].productCost = (+formattedAmount).toFixed(2);
+                    } else if (itemPrice && itemPrice?.includes('.')) {
+                        const [wholeNumber, decimal] = itemPrice?.split('.');
+                        const formattedAmount = `${wholeNumber}.${(decimal)}`;
+                        commonData.orderItems[i].productCost = (+formattedAmount).toFixed(2);
+                    } else if (itemPrice) {
+                        commonData.orderItems[i].productCost = `${itemPrice}.00`;
+                    }
+                }
                 await saveOrder({ ...rest, ...commonData, experience: `${[
                     options?.assist ? 'Assist Me' : undefined,
                     options?.tailoring ? 'Tailoring' : undefined,
@@ -120,7 +135,10 @@ const Confirm = () => {
             <StripeProvider open={open} setOpen={setOpen} serviceFee={getServiceCost()} />
             <Grid className='landing-page'>
                 <Column lg={16} md={16} sm={16} xs={16} className='logo'>
-                    <img src={Emays} alt='The Emays logo' />
+                    <div className='store-logo'></div>
+                    <div className='emays-logo'>
+                        <p>Powered by</p><img src={Emays} alt='The Emays logo' />
+                    </div>
                 </Column>
                 {!loading ? (<Column lg={8} md={8} sm={4} xs={4} className='your-appointment'>
                     <div className='edit-appointment'>
