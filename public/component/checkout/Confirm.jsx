@@ -90,6 +90,21 @@ const Confirm = () => {
                     kind: 'success'
                 });
             } else {
+                // Clean currency format to decimal if comma include
+                for (let i = 0; i <= commonData?.orderItems?.length; i++) {
+                    const itemPrice = commonData?.orderItems[i]?.productCost;
+                    if (itemPrice && itemPrice?.includes(',')) {
+                        const [wholeNumber, decimal] = itemPrice?.split(',');
+                        const formattedAmount = `${wholeNumber}.${(decimal)}`;
+                        commonData.orderItems[i].productCost = (+formattedAmount).toFixed(2);
+                    } else if (itemPrice && itemPrice?.includes('.')) {
+                        const [wholeNumber, decimal] = itemPrice?.split('.');
+                        const formattedAmount = `${wholeNumber}.${(decimal)}`;
+                        commonData.orderItems[i].productCost = (+formattedAmount).toFixed(2);
+                    } else if (itemPrice) {
+                        commonData.orderItems[i].productCost = `${itemPrice}.00`;
+                    }
+                }
                 await saveOrder({ ...rest, ...commonData, experience: `${[
                     options?.assist ? 'Assist Me' : undefined,
                     options?.tailoring ? 'Tailoring' : undefined,

@@ -82,7 +82,7 @@ const Checkout = () => {
     useEffect(() => {
         const productData = getProductList();
         setProductData(productData);
-    }, []);
+    }, [state]);
 
     const preventTyping = (event) => {
         event.preventDefault();

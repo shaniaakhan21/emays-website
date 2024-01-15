@@ -27,17 +27,24 @@ const ShoppingItem = ({
         const currency = getRetailerData()?.currency;
         let amountWithComma = '';
         let finalItemCost = '';
+        let amountForCal = 0.00;
         // Here check the currency type and apply the currency display formatting
         if (currency === 'euro') {
             if (price && price.toString().includes('.')) {
-                amountWithComma = `${price.split('.')[0]},${price.split('.')[1]}`;
+                const [wholeNumber, decimal] = price.split('.');
+                amountWithComma = `${wholeNumber},${decimal}`;
+                amountForCal = `${wholeNumber}.${decimal}`;
+            } else if (price && price.toString().includes(',')) {
+                const [wholeNumber, decimal] = price.split(',');
+                amountWithComma = `${wholeNumber},${decimal}`;
+                amountForCal = +`${wholeNumber}.${decimal}`;
             } else {
                 amountWithComma = `${price},00`;
+                amountForCal = `${price}.00`;
             }
             setProcessedAmount(amountWithComma);
-
-            finalItemCost = quantity * +price;
-            finalItemCost = finalItemCost.toFixed(2);
+            finalItemCost = quantity * +amountForCal;
+            finalItemCost = (+finalItemCost).toFixed(2);
             if (finalItemCost && finalItemCost.toString().includes('.')) {
                 finalItemCost = `${finalItemCost.split('.')[0]},${finalItemCost.split('.')[1]}`;
             } else {

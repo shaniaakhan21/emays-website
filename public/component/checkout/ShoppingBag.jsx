@@ -31,17 +31,29 @@ const ShoppingBag = ({ productList = [], onDelete, serviceFee, currencyType }) =
 
     useEffect(() => {
         const priceList = getPriceList(productList);
+        for (let i = 0; i <= priceList?.length; i++) {
+            const itemPrice = priceList[i]?.cost;
+            if (itemPrice && itemPrice?.includes(',')) {
+                const [wholeNumber, decimal] = itemPrice?.split(',');
+                const formattedAmount = `${wholeNumber}.${(decimal)}`;
+                priceList[i].cost = +formattedAmount;
+            }
+        }
         const finalCost = getFinalCost(0, priceList);
         let processedFinalCost = '';
         let processedServiceCost = '';
-
         if (currencyType === 'euro' && finalCost) {
             if (finalCost && finalCost.toString().includes('.')) {
-                processedFinalCost = `${finalCost.split('.')[0]},${finalCost.split('.')[1]}`;
+                const [wholeNumber, decimal] = (+finalCost).toFixed(2).toString().split('.');
+                processedFinalCost = `${wholeNumber},${(decimal)}`;
+            } else if (finalCost && finalCost.toString().includes(',')) {
+                const [wholeNumber, decimal] = (+finalCost).toFixed(2).toString().split(',');
+                processedFinalCost = `${wholeNumber},${(decimal)}`;
             } else {
                 processedFinalCost = `${finalCost},00`;
             }
         }
+        processedFinalCost = processedFinalCost;
         setFinalCost(processedFinalCost);
 
         if (currencyType === 'euro' && serviceFee) {

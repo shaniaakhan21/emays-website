@@ -97,7 +97,7 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
             const amount =  data?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
             let amountWithComma;
             if (amount && amount.toString().includes('.')) {
-                amountWithComma = `${amount.split('.')[0]},${amount.split('.')[1]}`;
+                amountWithComma = `${amount?.toString()?.split('.')[0]},${amount?.toString()?.split('.')[1]}`;
             } else {
                 amountWithComma = `${amount},00`;
             }
