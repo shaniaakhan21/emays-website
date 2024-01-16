@@ -58,17 +58,18 @@ export const initiateOrderTerminalPayment = async (orderId: string, storeId: str
     if (!order) {
         throw new Error('Order not found');
     }
-    const amount = orderAmount;
+    // Convert the order amount to cents as Stripe required
+    const amount = +orderAmount * 100;
     const store = await getExternalSystemById(storeId);
     // Derive the application percentage amount, ask EM
-    const amountProcessed = +amount;
+    const amountProcessed = amount;
     const appFeeAmount = +(0.1 * amount).toFixed(2);
-    const convertedAppFeeAmount = new Intl.NumberFormat('en-US', {
+    const convertedAppFeeAmount = (Math.round(+(new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'EUR',
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-    }).format(appFeeAmount).substring(1);
+    }).format(appFeeAmount).substring(1))));
     const paymentIntent = await stripe.paymentIntents.create({
         amount: amountProcessed,
         // TODO: pass currency type from FE
@@ -78,7 +79,7 @@ export const initiateOrderTerminalPayment = async (orderId: string, storeId: str
         // },
         payment_method_types: ['card_present'],
         capture_method: 'automatic',
-        application_fee_amount: Math.round(+convertedAppFeeAmount),
+        application_fee_amount: +convertedAppFeeAmount,
         metadata: {
             orderId
         },

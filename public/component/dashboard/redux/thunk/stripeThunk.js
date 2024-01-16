@@ -15,7 +15,7 @@ export const collectPaymentExe = createAsyncThunk('stripe/collectPayment', async
     const terminalId = getState().stripePaymentState.terminalForPayment.id;
     const orderId = getState().driverSelectedOrderState.orderInfo.basicInfo._id;
     const storeId = getState().driverSelectedOrderState.orderInfo.basicInfo.branchId;
-    const orderAmount = +(data?.finalAmountToPay * 100).toFixed(2);
+    const orderAmount = +(data?.finalAmountToPay).toFixed(2);
     const payment = await collectTerminalPayment(terminalId, orderId, storeId, orderAmount);
     if (payment) {
         return payment;
