@@ -10,6 +10,8 @@ import { config } from '../config/config';
 import * as orderService from '../service/orderService';
 import { getExternalSystemById } from '../service/administration/externalSystemService';
 import { calculateServiceFee } from '../service/orderService';
+import { CreatePayment } from '../type/stripeServiceType';
+import { CurrencyType } from '../const/currencyType';
 
 // eslint-disable-next-line max-len
 const stripe = new Stripe('sk_test_51MyGFvB7uMaHzfLgYAJMVDmQrAV6KkgMe3vV2UMq2w0MppsugqMg8uPodMwx89gpuOSDOqhXjVBAHEAYAwq5hAvi00M4DD8qRu', {
@@ -53,8 +55,9 @@ export const initiateAccountLink = async () => {
     return accountLink.url;
 };
 
-export const initiateOrderTerminalPayment = async (orderId: string, storeId: string, orderAmount: number) => {
-    const order = await orderService.retrieveOrderDetailsByOrderId(storeId, orderId);
+export const initiateOrderTerminalPayment: CreatePayment = async (payment) => {
+    const { storeId, currencyType, orderAmount, orderId } = payment;
+    const order = await orderService.retrieveOrderDetailsByOrderId(payment.storeId, payment.orderId);
     if (!order) {
         throw new Error('Order not found');
     }
@@ -64,16 +67,11 @@ export const initiateOrderTerminalPayment = async (orderId: string, storeId: str
     // Derive the application percentage amount, ask EM
     const amountProcessed = amount;
     const appFeeAmount = +(0.1 * amount).toFixed(2);
-    const convertedAppFeeAmount = (Math.round(+(new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'EUR',
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }).format(appFeeAmount).substring(1))));
+    const convertedAppFeeAmount = Math.floor(appFeeAmount);
     const paymentIntent = await stripe.paymentIntents.create({
         amount: amountProcessed,
-        // TODO: pass currency type from FE
-        currency: 'eur',
+        // Just convert the euro to eur
+        currency: currencyType === CurrencyType.EURO ? 'eur' : currencyType,
         // automatic_payment_methods: {
         //     enabled: true
         // },

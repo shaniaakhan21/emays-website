@@ -132,7 +132,8 @@ export const Payment = () => {
                         <div className='green'>
                             <Button onClick={() => { 
                                 dispatch(collectPaymentExe(
-                                    { finalAmountToPay: calculatePrice(total) }
+                                    { finalAmountToPay: calculatePrice(total),
+                                        currencyType: selectedOrderSelector?.orderInfo?.basicInfo?.currencyType }
                                 ));
                             }}>Collect Payment</Button>
                         </div>
