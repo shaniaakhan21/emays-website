@@ -1,7 +1,5 @@
 /* eslint-disable max-lines */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 'use strict';
-/* eslint camelcase: 0 */
 
 import * as express from 'express';
 const router = express.Router();
@@ -19,7 +17,8 @@ import {
     handleStripeWebhookEvent, listStripeLocations, listStripeReaders,
     discoverReader,
     checkPaymentIntentStatus,
-    terminalPaymentComplete
+    terminalPaymentComplete,
+    createTerminalPaymentIntent
 } from '../api/stripeAPI';
 import Stripe from 'stripe';
 import {
@@ -32,6 +31,8 @@ import { allowedForDriverAndClientRoleOnly, allowedForDriverRoleOnly,
     validateCheckoutCompleteParams, validateCheckoutParams,
     validateCreatePaymentParams,
     validateHeader } from '../middleware/paramValidationMiddleware';
+import { ICreateOrderRequestBody } from '../type/paymentRequestTypes';
+import { CurrencyType } from '../const/currencyType';
 
 const Logging = Logger(__filename);
 
@@ -97,9 +98,12 @@ router.get(`${RoutePath.STRIPE}/checkout`, [...validationsCheckout], (
 const validateCheckoutComplete = [validateHeader, allowedForDriverAndClientRoleOnly, validateCheckoutCompleteParams];
 router.get(`${RoutePath.STRIPE}/checkout/complete`, [...validateCheckoutComplete], (
     req: express.Request<core.ParamsDictionary, any, any, {
+        // eslint-disable-next-line camelcase
         payment_intent_client_secret: string,
         userId: string,
+        // eslint-disable-next-line camelcase
         payment_intent: string,
+        // eslint-disable-next-line camelcase
         redirect_status: string,
         serviceFee: number
     }>,
@@ -181,12 +185,14 @@ router.get(`${RoutePath.STRIPE}/terminal/reader`, (
  */
 const validateCreateOrderPayment = [validateHeader, allowedForDriverRoleOnly, validateCreatePaymentParams];
 router.post(`${RoutePath.STRIPE}/terminal/createOrderPayment`, [...validateCreateOrderPayment], (
-    req: express.Request<core.ParamsDictionary, any, { orderId: string, storeId: string, orderAmount: number }, any>,
+    req: express.Request<core.ParamsDictionary, any, { orderId: string, storeId: string,
+        orderAmount: number, currencyType: CurrencyType }, any>,
     res: express.Response,
     next: express.NextFunction
 ) => {
     (async () => {
-        const data = await initiateOrderTerminalPayment(req.body.orderId, req.body.storeId, req.body.orderAmount);
+        const requestBody = req.body as ICreateOrderRequestBody;
+        const data = await createTerminalPaymentIntent(requestBody);
         res.json({ data });
     })().catch((error) => {
         const errorObject: Error = error as Error;

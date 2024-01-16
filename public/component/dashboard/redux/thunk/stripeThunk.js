@@ -11,12 +11,12 @@ export const getReaderExe = createAsyncThunk('stripe/getReader', async () => {
 });
 
 export const collectPaymentExe = createAsyncThunk('stripe/collectPayment', async (data, { getState }) => {
-    console.log('coming to collect payment exe');
     const terminalId = getState().stripePaymentState.terminalForPayment.id;
     const orderId = getState().driverSelectedOrderState.orderInfo.basicInfo._id;
     const storeId = getState().driverSelectedOrderState.orderInfo.basicInfo.branchId;
     const orderAmount = +(data?.finalAmountToPay).toFixed(2);
-    const payment = await collectTerminalPayment(terminalId, orderId, storeId, orderAmount);
+    const currencyType = data?.currencyType;
+    const payment = await collectTerminalPayment(terminalId, orderId, storeId, orderAmount, currencyType);
     if (payment) {
         return payment;
     }
