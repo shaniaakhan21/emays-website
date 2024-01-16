@@ -592,7 +592,11 @@ export const validateCreatePaymentParams = (req: Request, res: Response, next: N
                 return validatorErrorBuilder(err as Error, CREATE_PAYMENT_STORE_ID_REQUIRED); }),
             orderAmount: Joi.number().required().error((error) => { 
                 const err = error as Error | unknown;
-                return validatorErrorBuilder(err as Error, CREATE_PAYMENT_ORDER_AMOUNT_REQUIRED); })
+                return validatorErrorBuilder(err as Error, CREATE_PAYMENT_ORDER_AMOUNT_REQUIRED); }),
+            currencyType: Joi.string().valid(CurrencyType.AED, CurrencyType.EURO, CurrencyType.USD).
+                required().error((error) => {
+                    const err = error as Error | unknown;
+                    return validatorErrorBuilder(err as Error, CURRENCY_TYPE_REQUIRED); })
         }
     });
     validateRequest(req, next, validationCriteria);

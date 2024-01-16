@@ -20,6 +20,7 @@ import {
 import Stripe from 'stripe';
 import { IOrderDTO } from '../type/orderType';
 import { APIList } from 'googleapis/build/src/apis';
+import { CreatePayment } from '../type/stripeServiceType';
 
 const Logging = Logger(__filename);
 
@@ -204,10 +205,10 @@ export const handleStripeWebhookEvent = async (event: Stripe.Event) => {
  * @returns Promise<Stripe.PaymentIntent> Stripe payment intent
  */
 
-export const createTerminalPaymentIntent = async (orderId: string, storeId: string, orderAmount?: number ) => {
+export const createTerminalPaymentIntent: CreatePayment = async (payment) => {
     try {
-        Logging.log(buildInfoMessageMethodCall('Create payment intent for terminal order payment', orderId), LogType.INFO);
-        const paymentIntent = await initiateOrderTerminalPayment(storeId, orderId, orderAmount ?? 0 );
+        Logging.log(buildInfoMessageMethodCall('Create payment intent for terminal order payment', payment.orderId), LogType.INFO);
+        const paymentIntent = await initiateOrderTerminalPayment(payment);
         return paymentIntent;
     } catch (error) {
         const errorObject: Error = error as Error;
