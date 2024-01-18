@@ -10,6 +10,7 @@ import { appInfoSelectorMemoized } from '../redux/selector/appInfoSelector';
 import { useSelector } from 'react-redux';
 import { getCurrencySign } from '../../../js/util/currencyUtil';
 import { selectedOrderSelectorMemoized } from '../redux/selector/selectedOrderSelector';
+import Decimal from 'decimal.js';
 
 const OrderReviewHorizontal = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
@@ -23,8 +24,14 @@ const OrderReviewHorizontal = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) 
         selectedOrderSelector?.data?.basicInfo?.currencyType);
 
     useEffect(() => {
-        const amount =  
-            itemsInfo?.items?.reduce((acc, current) => acc + (current?.quantity * current?.productCost), 0) || '';
+        const amount = itemsInfo?.items?.reduce((acc, current) => {
+            const { productCost, quantity } = current;
+            const productCostDecimal = new Decimal(productCost);
+            const productQuantityDecimal = new Decimal(quantity);
+            const accumulatorDecimal = new Decimal(acc);
+            const total = productCostDecimal.times(productQuantityDecimal).plus(accumulatorDecimal);
+            return total.toString(total);    
+        }, 0.00);
         let amountWithComma;
         if (amount && amount.toString().includes('.')) {
             amountWithComma = `${amount?.toString()?.split('.')[0]},${amount?.toString()?.split('.')[1]}`;

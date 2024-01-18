@@ -14,7 +14,7 @@ export const collectPaymentExe = createAsyncThunk('stripe/collectPayment', async
     const terminalId = getState().stripePaymentState.terminalForPayment.id;
     const orderId = getState().driverSelectedOrderState.orderInfo.basicInfo._id;
     const storeId = getState().driverSelectedOrderState.orderInfo.basicInfo.branchId;
-    const orderAmount = +(data?.finalAmountToPay).toFixed(2);
+    const orderAmount = +data?.finalAmountToPay;
     const currencyType = data?.currencyType;
     const payment = await collectTerminalPayment(terminalId, orderId, storeId, orderAmount, currencyType);
     if (payment) {
@@ -46,5 +46,12 @@ export const serverWebhookExe = createAsyncThunk('stripe/serverWebhook', async (
             clearInterval(data.intervalId);
         }
         return serverStatus;
+    }
+});
+
+export const resetPayment = createAsyncThunk('stripe/resetPayment', async (data, { getState }) => {
+    const authToken = getState().loginState.token;
+    if (authToken) {
+        return true;
     }
 });
