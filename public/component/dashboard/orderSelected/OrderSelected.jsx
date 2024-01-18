@@ -110,8 +110,14 @@ const OrderSelected = ({ gridData, basicInfo, itemsInfo, infoTitle, itemsTitle }
 
     const prepareTableRows = (payload) => {
         // eslint-disable-next-line max-len
-        const amount = payload?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
-        
+        const amount = payload?.orderItems?.reduce(( acc, current) => {
+            const { productCost, productQuantity } = current;
+            const productCostDecimal = new Decimal(productCost);
+            const productQuantityDecimal = new Decimal(productQuantity);
+            const accumulatorDecimal = new Decimal(acc);
+            const total = productCostDecimal.times(productQuantityDecimal).plus(accumulatorDecimal);
+            return total.toString(total);
+        }, 0);
         let amountWithComma;
         if (amount && amount.toString().includes('.')) {
             amountWithComma = `${amount?.toString()?.split('.')[0]},${amount?.toString()?.split('.')[1]}`;

@@ -1,7 +1,7 @@
 'use strict';
 
 import { createSlice } from '@reduxjs/toolkit';
-import { getReaderExe, collectPaymentExe, cardPresentExe, serverWebhookExe } from '../thunk/stripeThunk';
+import { getReaderExe, collectPaymentExe, cardPresentExe, serverWebhookExe, resetPayment } from '../thunk/stripeThunk';
     
 const initialState = {
     reader: [],
@@ -52,6 +52,14 @@ const stripeSlice = createSlice({
             {
                 state.paymentStatus = { status: 'Payment Pending' };
             }
+        });
+        builder.addCase(resetPayment.fulfilled, (state, action) => {
+            state.reader = [];
+            state.terminalForPayment = null;
+            state.terminalPaymentIntent = null;
+            state.cardFlag = false;
+            state.paymentStatus = null;
+            state.error = null;
         });
     }
 });

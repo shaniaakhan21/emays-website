@@ -9,6 +9,7 @@ import { getOrderStatus } from '../../../../js/util/stateBuilderUtil';
 import { storeSelectedOrder } from '../../redux/thunk/driverSelectedOrderThunk';
 import { loginSelectorMemoized } from '../../redux/selector/loginSelector';
 import { getCurrencySign } from '../../../../js/util/currencyUtil';
+import Decimal from 'decimal.js';
 
 const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
 
@@ -35,16 +36,22 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
     }]);
 
     const getFinalCost = (itemsInfo, serviceCharge) => {
-        const itemsTotal = itemsInfo?.reduce((acc, next) => {
-            return +acc + +next?.productCost; }, 0.00);
-        return (+serviceCharge + +itemsTotal).toFixed(2);
+        const amount = itemsInfo?.reduce((acc, current) => {
+            const { productCost, productQuantity } = current;
+            const productCostDecimal = new Decimal(productCost);
+            const productQuantityDecimal = new Decimal(productQuantity);
+            const accumulatorDecimal = new Decimal(acc);
+            const total = productCostDecimal.times(productQuantityDecimal).plus(accumulatorDecimal);
+            return total.toString(total);    
+        }, 0.00);
+        return (+serviceCharge + +amount).toFixed(2);
     };
 
     const prepareSelectedRowData = (item) => {
         const itemSelected = inCompletedOrderSelector?.data?.pages?.
             find((order) => order?._id === item?.id);
         if (itemSelected) {
-            const cost = getFinalCost(itemSelected?.orderItems, itemSelected?.serviceFee);
+            const cost = getFinalCost(itemSelected?.orderItems, 0.00);
             const preparedObject = { ...itemSelected };
             const preparedItemsData = itemSelected?.orderItems?.map((item) => ({
                 itemName: item?.productName,
@@ -83,7 +90,14 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
     const prepareTableRows = (orderArray) => {
         const tableData = orderArray?.map((data) => {
             // eslint-disable-next-line no-multi-spaces, max-len
-            const amount =  data?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
+            const amount = data?.orderItems?.reduce((acc, current) => {
+                const { productCost, productQuantity } = current;
+                const productCostDecimal = new Decimal(productCost);
+                const productQuantityDecimal = new Decimal(productQuantity);
+                const accumulatorDecimal = new Decimal(acc);
+                const total = productCostDecimal.times(productQuantityDecimal).plus(accumulatorDecimal);
+                return total.toString(total);    
+            }, 0.00);
             const date = new Date(data?.createdAt);
             const hours = date.getHours();
             const minutes = date.getMinutes();

@@ -12,6 +12,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { getOrderStatus } from '../../../js/util/stateBuilderUtil';
 import moment from 'moment';
 import { getCurrencySign } from '../../../js/util/currencyUtil';
+import Decimal from 'decimal.js';
 
 const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     const [translate] = useTranslation();
@@ -36,8 +37,14 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     }]);
 
     const getFinalCost = (itemsInfo, serviceCharge) => {
-        const itemsTotal = itemsInfo?.reduce((acc, next) => {
-            return +acc + (+next?.productCost * next?.productQuantity); }, 0.00);
+        const itemsTotal = itemsInfo?.reduce((acc, current) => {
+            const { productCost, productQuantity } = current;
+            const productCostDecimal = new Decimal(productCost);
+            const productQuantityDecimal = new Decimal(productQuantity);
+            const accumulatorDecimal = new Decimal(acc);
+            const total = productCostDecimal.times(productQuantityDecimal).plus(accumulatorDecimal);
+            return total.toString(total);    
+        }, 0.00);
         return (+itemsTotal).toFixed(2);
     };
 
@@ -94,7 +101,15 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
     const prepareTableRows = (orderArray) => {
         const tableData = orderArray?.map((data) => {
             // eslint-disable-next-line no-multi-spaces, max-len
-            const amount =  data?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
+            const amount =  data?.orderItems?.reduce(( acc, current) => {
+                const prev = new Decimal(acc);
+                const { productCost, productQuantity } = current;
+                const productCostDecimal = new Decimal(productCost);
+                const productQuantityDecimal = new Decimal(productQuantity);
+                const accumulatorDecimal = new Decimal(acc);
+                const total = productCostDecimal.times(productQuantityDecimal).plus(accumulatorDecimal);
+                return total.toString(total);
+            }, 0) || '';
             let amountWithComma;
             if (amount && amount.toString().includes('.')) {
                 amountWithComma = `${amount?.toString()?.split('.')[0]},${amount?.toString()?.split('.')[1]}`;
