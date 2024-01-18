@@ -130,6 +130,9 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                     {errorState === 'Some error occurred' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Some error occurred</span>}
+                    {errorState === 'adminUsernameReserved' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                You can't use the same username for both admin and manager</span>}
                     <TextBoxPassword
                         onChange={(e) => {
                             setFormData({ type: 'setManagerPassword', data: e.target.value });
@@ -195,6 +198,9 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                     {errorState === 'Username already reserved' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 This username already reserved</span>}
+                    {errorState === 'adminUsernameReserved' &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                You can't use the same username for both admin and manager</span>}
                     {errorState === 'Some error occurred' &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Some error occurred</span>}
