@@ -9,6 +9,7 @@ import '../../../scss/component/dashboard/driverSelectItems.scss';
 import ButtonCustom from '../../common/ButtonCustom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { getCurrencySign } from '../../../js/util/currencyUtil';
+import Decimal from 'decimal.js';
 
 const DriverSelectItems = () => {
 
@@ -78,7 +79,13 @@ const DriverSelectItems = () => {
 
                     <div className='pay-h2-amount'>
                         <h2>{currencySign} {selectedProducts.reduce((acc, next) => {
-                            return +acc + ((+next?.productCost) * next?.quantity); }, 0.00)} </h2>
+                            const { productCost, quantity } = next;
+                            const productCostDecimal = new Decimal(productCost);
+                            const productQuantityDecimal = new Decimal(quantity);
+                            const accumulatorDecimal = new Decimal(acc);
+                            const total = productCostDecimal.times(productQuantityDecimal).plus(accumulatorDecimal);
+                            return total.toString(total);    
+                        }, 0.00)} </h2>
                     </div>
                 </div>
                 <div className='action-button'>

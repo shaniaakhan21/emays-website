@@ -8,12 +8,6 @@ import { loadStripe } from '@stripe/stripe-js';
 import { useTranslation } from 'react-i18next';
 import { useCallback, useEffect, useState } from 'react';
 
-// Images
-import Emays from '../../logo/emays-logo-white.png';
-import Amazon from '../../images/pg-amazon.svg';
-import Master from '../../images/pg-master.svg';
-import Visa from '../../images/pg-visa.svg';
-
 // SCSS
 import '../../scss/component/checkout/payment.scss';
 

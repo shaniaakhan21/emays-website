@@ -9,6 +9,7 @@ import { storeSelectedOrder } from '../../redux/thunk/selectedOrderThunk';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import moment from 'moment';
 import { getCurrencySign } from '../../../../js/util/currencyUtil';
+import Decimal from 'decimal.js';
 
 export const DriverHistory = () => {
 
@@ -36,7 +37,14 @@ export const DriverHistory = () => {
     const prepareTableRows = (orderArray) => {
         const tableData = orderArray?.map((data) => {
             // eslint-disable-next-line no-multi-spaces, max-len
-            const amount =  data?.orderItems?.reduce((acc, current) => acc + (current?.productQuantity * current?.productCost), 0) || '';
+            const amount =  data?.orderItems?.reduce((acc, current) =>  { 
+                const { productCost, productQuantity } = current;
+                const productCostDecimal = new Decimal(productCost);
+                const productQuantityDecimal = new Decimal(productQuantity);
+                const accumulatorDecimal = new Decimal(acc);
+                const total = productCostDecimal.times(productQuantityDecimal).plus(accumulatorDecimal);
+                return total.toString(total);
+            }, 0.00) || '';
             const date = new Date(data?.createdAt);
             const hours = date.getHours();
             const minutes = date.getMinutes();

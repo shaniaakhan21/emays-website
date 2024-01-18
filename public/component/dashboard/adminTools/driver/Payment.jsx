@@ -6,12 +6,13 @@ import TextBoxCustom from '../../../common/TextBoxCustom';
 import DropDownCustom from '../../../common/DropdownCustom';
 import { Button } from '@carbon/react';
 import { useEffect } from 'react';
-import { getReaderExe, collectPaymentExe, cardPresentExe, serverWebhookExe } from '../../redux/thunk/stripeThunk';
+import { getReaderExe, collectPaymentExe, cardPresentExe, serverWebhookExe, resetPayment } from '../../redux/thunk/stripeThunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTerminal } from '../../redux/slice/stripeSlice';
 import { useHistory } from 'react-router-dom';
 import { driverSelectedOrderSelectorMemoized } from '../../redux/selector/driverSelectedOrderSelector';
 import { getCurrencySign } from '../../../../js/util/currencyUtil';
+import Decimal from 'decimal.js';
 export const Payment = () => {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -43,8 +44,10 @@ export const Payment = () => {
 
         if (paymentStatus === 'Payment Successful')
         {
-            console.log('payment success attr');
-            history.push('/dashboard/driver/history');
+            (async () => {
+                await dispatch(resetPayment());
+                history.push('/dashboard/driver/history');
+            })();
         }
     
         return () => {
@@ -56,7 +59,13 @@ export const Payment = () => {
     const calculatePrice = (selectedProducts) => {
         if (selectedProducts.length > 0) {
             return selectedProducts.reduce((acc, next) => {
-                return +acc + ((+next?.productCost) * next?.quantity); }, 0.00);
+                const { productCost, quantity } = next;
+                const productCostDecimal = new Decimal(productCost);
+                const productQuantityDecimal = new Decimal(quantity);
+                const accumulatorDecimal = new Decimal(acc);
+                const total = productCostDecimal.times(productQuantityDecimal).plus(accumulatorDecimal);
+                return total.toString(total); 
+            }, 0.00);
         }
         return 0;
     };
