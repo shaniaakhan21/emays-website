@@ -99,9 +99,12 @@ export const getUserData = () => {
 
 export const getRetailerData = () => {
     const retailerDataString = sessionStorage.getItem(RETAILER_DATA);
-    const cleaned = retailerDataString.replace(/&#34;/g, '"');
-    const json = JSON.parse(cleaned);
-    return json;
+    if (retailerDataString) {
+        const cleaned = retailerDataString.replace(/&#34;/g, '"');
+        const json = JSON.parse(cleaned);
+        return json;
+    };
+    return {};
 };
 
 export const setServiceCost = (serviceCost) => {

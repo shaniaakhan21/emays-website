@@ -24,7 +24,7 @@ const ShoppingItem = ({
     const [processedFinalAmount, setProcessedFinalAmount] = useState('');
 
     useEffect(() => {
-        const currency = getRetailerData()?.currency;
+        const currency = getRetailerData()?.currency || currencySign;
         let amountWithComma = '';
         let finalItemCost = '';
         let amountForCal = 0.00;

@@ -148,7 +148,7 @@ content-type: application/json
 {
     "adminFirstName": "Thathsara",
     "adminLastName": "Raviraj",
-    "adminUsername": "thasfsf5",
+    "adminUsername": "emmanuel",
     "adminPassword": "abCq2&!Ms",
     "adminPhone": "1233533452345",
     "adminEmail": "admadasdin4@gmail.com",
