@@ -44,7 +44,7 @@ const AddItems = () => {
         if (newOrderPhaseOneData.isLoading) {
             console.log('Found');
         }
-        const getFinalCost = (serviceCharge = newOrderPhaseOneData.serviceFee) => {
+        const getFinalCost = (serviceCharge = newOrderPhaseOneData.serviceFee || 0) => {
             const itemsTotal = orderInfo?.items?.reduce((acc, next) => {
                 return +acc + +next?.price; }, 0.00);
             return (+serviceCharge + +itemsTotal).toFixed(2);

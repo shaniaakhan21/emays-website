@@ -88,7 +88,7 @@ export const createOrder: CreateOrderFunc = async (order) => {
                 editOrderURL: emailOrderEditURL }, config.EMAIL_TEMPLATE.CUSTOMER_EMAIL_TEMPLATE);
 
         // Send retailer email
-        const finalCost = getFinalCost(config.SERVICE_CHARGE as number, orderExtracted.orderItems);
+        const finalCost = getFinalCost(config.SERVICE_CHARGE, orderExtracted.orderItems);
         await sendEmailForOrderingItems(
             { email: orderExtracted.retailerEmail,
                 urlLogo: config.EMAIL_TEMPLATE.URLS.URL_LOGO,
@@ -358,7 +358,7 @@ const sendOrderCancellationMail = async (order: IOrder) => {
             currencyType: order.currencyType,
             serviceArea: order.serviceArea
         };
-        const finalCost = getFinalCost(config.SERVICE_CHARGE as number, orderExtracted.orderItems);
+        const finalCost = getFinalCost(config.SERVICE_CHARGE, orderExtracted.orderItems);
         await sendEmailForOrderCancellation(
             { email: orderExtracted.retailerEmail,
                 trustpilotImage: config.EMAIL_TEMPLATE.URLS.TRUSTPILOT_REVIEW,
