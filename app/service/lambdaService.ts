@@ -106,7 +106,7 @@ export const dailyReminder: DailyReminder = async () => {
                         serviceArea: order.serviceArea
                     };
                     // Send to retailer
-                    const finalCost = getFinalCost(config.SERVICE_CHARGE as number, orderExtracted.orderItems);
+                    const finalCost = getFinalCost(config.SERVICE_CHARGE, orderExtracted.orderItems);
                     (async () => {
                         await sendEmailReminderToRetailerBeforeDriverPick(
                             { retailerEmail: orderExtracted.retailerEmail,
