@@ -85,7 +85,7 @@ export const initiateOrderTerminalPayment: CreatePayment = async (payment) => {
             destination: store.fiscalInfo.extStripeAccountId
         }
     });
-    order.paymentRef = paymentIntent.id;
+    order.paymentRefEndPayment = paymentIntent.id;
     await orderService.patchOrderDetailsByOrderId(orderId, order);
     return paymentIntent;
 };
