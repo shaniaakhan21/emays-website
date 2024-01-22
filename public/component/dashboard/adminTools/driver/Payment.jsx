@@ -146,10 +146,10 @@ export const Payment = () => {
                                 ));
                             }}>Collect Payment</Button>
                         </div>
-                        <div>
+                        {/* <div>
                             <button disabled={cardFlag ? false : true} onClick={() => { dispatch(cardPresentExe()); }}>Present Card</button>
 
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
