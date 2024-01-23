@@ -40,7 +40,8 @@ const {
     LETS_TALK_EMAIL,
     RECAPTCHA_SECRET,
     RECAPTCHA_PROJECT_ID,
-    RECAPTCHA_SITE_KEY
+    RECAPTCHA_SITE_KEY,
+    EMAIL_REDIRECTION_PATH
 } = process.env;
 
 export const config = {
@@ -99,7 +100,7 @@ export const config = {
             TWITTER_LINK: 'https://twitter.com',
             INSTAGRAM_LINK: 'https://instagram.com',
             EMAYS_CONTACT_US: 'mailto:thathsararaviraj@gmail.com?subject=Contact%20Emays',
-            EMAIL_REDIRECTION_PATH: 'http://localhost:8080/api-dev/launchMail'
+            EMAIL_REDIRECTION_PATH: EMAIL_REDIRECTION_PATH || 'http://localhost:8080/api-dev/launchMail'
         }
     },
     GOOGLE: {

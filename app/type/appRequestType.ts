@@ -8,3 +8,8 @@ export interface AppRequest extends Request {
 export interface AppRequestStoreCurrency extends AppRequest {
   currencyType: string
 }
+
+export interface AppRequestStoreCurrencyAndEmail extends AppRequest {
+  currencyType: string,
+  extSysEmail: string
+}
