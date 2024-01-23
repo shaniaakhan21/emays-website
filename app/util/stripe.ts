@@ -123,7 +123,7 @@ export const processTerminalOrder = async (terminalId: string, orderId: string, 
         throw new Error('Order terminal payment intent not found');
     }
     const reader = await stripe.terminal.readers.processPaymentIntent(
-        terminalId, { payment_intent: order.paymentRefEndPayment as string }
+        terminalId, { payment_intent: order.paymentRef }
     );
     return reader;
 };
