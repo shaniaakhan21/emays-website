@@ -27,7 +27,7 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     , LATITUDE_REQUIRED, LONGITUDE_REQUIRED, MANAGER_EXT_PHONE_REQUIRED, ORDER_DATE_REQUIRED
     , ORDER_ID_REQUIRED_IN_PATH, ORDER_LIST_REQUIRED, ORDER_TIME_END_REQUIRED,
     ORDER_TIME_START_REQUIRED, PAGE_LIMIT_REQUIRED, PAGE_REQUIRED, PAYMENT_REFERENCE_REQUIRED
-    , PAYMENT_STRIPE_AMOUNT_REQUIRED, PAYMENT_STRIPE_UUID_REQUIRED, SERVICE_AREA_REQUIRED,
+    , PAYMENT_STRIPE_AMOUNT_REQUIRED, PAYMENT_STRIPE_UUID_REQUIRED, RETAILER_EMAIL_REQUIRED, SERVICE_AREA_REQUIRED,
     SERVICE_FEE_REQUIRED, SUPER_USER_EMAIL_REQUIRED,
     SUPER_USER_FIRST_NAME_REQUIRED, SUPER_USER_LAST_NAME_REQUIRED,
     SUPER_USER_PASSWORD_REQUIRED, SUPER_USER_USERNAME_REQUIRED
@@ -69,7 +69,7 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
                 return validatorErrorBuilder(err as Error, USER_PHONE_NUMBER_REQUIRED); }),
             retailerEmail: Joi.string().email().max(50).required().error((error) => {
                 const err = error as Error | unknown;
-                return validatorErrorBuilder(err as Error, EMAIL_REQUIRED); }),
+                return validatorErrorBuilder(err as Error, RETAILER_EMAIL_REQUIRED); }),
             uid: Joi.string().max(36).required().error((error) => {
                 const err = error as Error | unknown;
                 return validatorErrorBuilder(err as Error, USER_ID_REQUIRED); }),

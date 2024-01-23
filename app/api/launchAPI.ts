@@ -15,7 +15,7 @@ import ServiceError from '../type/error/ServiceError';
 import ErrorType from '../const/errorType';
 import { HTTPUserError } from '../const/httpCode';
 import { NOT_AUTHORIZED_TO_ACCESS_EMAYS_ERROR_MESSAGE } from '../const/errorMessage';
-import { AppRequest, AppRequestStoreCurrency } from '../type/appRequestType';
+import { AppRequest, AppRequestStoreCurrencyAndEmail } from '../type/appRequestType';
 
 const Logging = Logger(__filename);
 
@@ -59,7 +59,8 @@ export const authorizeLaunchRoute = async (req: express.Request, res: express.Re
         if (claims.roles.includes(Roles.EXTERNAL_SYSTEM)) {
 
             const storeData = await getExternalSystemById(claims.id);
-            (req as AppRequestStoreCurrency).currencyType = storeData?.fiscalInfo?.currencyType as string;
+            (req as AppRequestStoreCurrencyAndEmail).currencyType = storeData?.fiscalInfo?.currencyType as string;
+            (req as AppRequestStoreCurrencyAndEmail).extSysEmail = storeData?.extSysEmail;
         } else {
             throw new 
             ServiceError(ErrorType.ORDER_SERVICE_ERROR, NOT_AUTHORIZED_TO_ACCESS_EMAYS_ERROR_MESSAGE, '', HTTPUserError.

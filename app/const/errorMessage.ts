@@ -45,6 +45,8 @@ export const RESOURCE_FOUND_AT_THIS_URL_MESSAGE = 'Resource found at the URL';
 
 export const EMAIL_REQUIRED = 'Email required';
 
+export const RETAILER_EMAIL_REQUIRED = 'Retailer email required';
+
 export const DRIVER_FIRST_NAME_REQUIRED = 'Driver first name required';
 
 export const DRIVER_LAST_NAME_REQUIRED = 'Driver last name required';

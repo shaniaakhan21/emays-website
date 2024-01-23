@@ -61,8 +61,9 @@ const Checkout = () => {
     };
 
     // State address update function from GeoContainer
-    const updateAddress = ({ addOne }) => {
-        setState(cs => ({ ...cs, address: { ...cs.address, addOne: addOne } }));
+    const updateAddress = ({ addOne, addTwo, addThree, addFour }) => {
+        setState(cs => ({ ...cs, address: { ...cs.address,
+            addOne: addOne, addTwo: addTwo, addThree: addThree, addFour: addFour } }));
     };
 
     // State service fee update from GeoContainer
@@ -85,7 +86,7 @@ const Checkout = () => {
     }, [state]);
 
     const preventTyping = (event) => {
-        event.preventDefault();
+        // Event.preventDefault();
     };
 
     const submit = () => {
