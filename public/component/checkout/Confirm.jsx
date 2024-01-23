@@ -195,7 +195,7 @@ const Confirm = () => {
                             <br/>
                             <p><strong>{t('confirm.user-appointment-info.delivery-info')}</strong></p>
                             <div className='value'>
-                                <p>{ state?.deliveryInfo }</p>
+                                <p>{ state?.deliveryInfo ? state?.deliveryInfo : 'No comment added'}</p>
                             </div>
                         </div>
                     </div>

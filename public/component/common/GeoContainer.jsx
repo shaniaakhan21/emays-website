@@ -103,8 +103,12 @@ const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
     const selectPredictionHandler = (prediction) => {
         setAddress(prediction?.description);
         placeService.getDetails({ placeId: prediction['place_id'] }, function (result, status) {
-            const [addOne] = prediction?.description?.split(', ');
-            updateAddress({ addOne: addOne ? addOne : '' });
+            const [addOne, addTwo, addThree, addFour] = prediction?.description?.split(', ');
+            updateAddress({ addOne: addOne ? addOne : '',
+                addTwo: addTwo ? addTwo : '',
+                addThree: addThree ? addThree : '',
+                addFour: addFour ? addFour : ''
+            });
             if (status === google?.maps?.places?.PlacesServiceStatus?.OK) {
                 const latLng = result?.geometry?.location;
                 // If appData available, it means this is being called from Store app.

@@ -8,9 +8,12 @@ import OrderReviewVertical from '../orderReview/OrderReviewVertical';
 
 // SCSS
 import '../../../scss/component/retailer/orderCreated.scss';
+import ButtonCustom from '../../common/ButtonCustom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const OrderCreated = () => {
     const [translate] = useTranslation();
+    const history = useHistory();
     const t = useCallback((key) => translate(`dashboard.orderCreated.${key}`), [translate]);
 
     const newOrderPhaseOneSelector = useSelector(newOrderPhaseOneSelectorMemoized);
@@ -20,13 +23,28 @@ const OrderCreated = () => {
         <div className='orderCreated'>
             <div className='header'>
                 <Heading className='title'>{t('title')}</Heading>
-                <Heading className='sub-title'>{t('sub-title')}</Heading>
+                {/* <Heading className='sub-title'>{t('sub-title')}</Heading> */}
             </div>
             {
                 <OrderReviewVertical basicInfo = {newOrderPhaseOneSelector} itemsInfo = {newOrderPhaseTwoSelector}
                     infoTitle = {'Appointment'}
                     itemsTitle = {'Items to be delivered'}/>
             }
+            <div className='changeDirection'>
+                <ButtonCustom
+                    text={'Continue to Overview'}
+                    action={() => { history.push('/dashboard/overview'); }}
+                    type={'secondary'}
+                    customStyle={{
+                        minWidth: '24vw',
+                        marginTop: '25px',
+                        marginBottom: '15px',
+                        alignContent: 'center',
+                        justifyContent: 'center',
+                        padding: '1%'
+                    }}
+                />
+            </div>
         </div>
     );
 };

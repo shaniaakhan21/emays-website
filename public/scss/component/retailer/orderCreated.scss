@@ -1,6 +1,10 @@
 @import '../../fonts';
 
 .orderCreated {
+  .changeDirection {
+    display: flex;
+    flex-direction: row-reverse;
+  }
   margin-top: 32px;
   button {
     margin-top: 4px;
