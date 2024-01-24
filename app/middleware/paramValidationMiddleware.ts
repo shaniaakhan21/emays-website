@@ -121,7 +121,7 @@ export const validateCreateOrder = (req: Request, res: Response, next: NextFunct
                 return validatorErrorBuilder(err as Error, ADDRESS_REQUIRED); }),
             orderItems: Joi.array().items({
                 productName: Joi.string().required(),
-                productColor: Joi.string().required(),
+                // ProductColor: Joi.string().required(),
                 productSize: Joi.string().required(),
                 productQuantity: Joi.number().required(),
                 // Important: check currency value contains comma
