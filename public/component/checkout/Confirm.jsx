@@ -42,7 +42,13 @@ const Confirm = () => {
 
     // Fetch product data from session storage
     useEffect(() => {
-        const productData = getProductList();
+        const productData = getProductList()?.map((item) => {
+            console.log(item);
+            if (!item?.productColor) {
+                item.productColor = 'Not available';
+            }
+            return item;
+        });
         setProductData(productData);
     }, []);
     
