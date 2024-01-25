@@ -47,6 +47,9 @@ const Confirm = () => {
             if (!item?.productColor) {
                 item.productColor = 'Not available';
             }
+            if (!item?.productSize) {
+                item.productSize = 'Not available';
+            }
             return item;
         });
         setProductData(productData);
