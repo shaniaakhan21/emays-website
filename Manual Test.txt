@@ -94,13 +94,13 @@ content-type: application/json
     }
 }
 
-DELETE http://localhost:8080/api-dev/externalSystems/65969158716563816067254e
+DELETE https://emaysstyle.com/api/externalSystems/65a1236eb27ca4580a46707f
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyNC0wMS0wNFQxMzozNzowNy4zNDdaIiwiZXhwIjoxNzA0Mzc5MDI3LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1N2M0NTE5YmU1N2FjN2JjYmQ1MjNlYSIsImlhdCI6MTcwNDM3NTQyN30.e1pD14wVsSyveEtTNtKcscyY1DGI26SDMF6RtDJdl3A
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyNC0wMS0yM1QxMzo0MjoyMC40NzRaIiwiZXhwIjoxNzA2MDIwOTQwLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTcwNjAxNzM0MH0.g_C93VrrLoVWQOJBhH0aYhp0VbsOJ0LH0oC8BQs2iiA
 
-GET http://localhost:8080/api-dev/externalSystems/all
+GET https://emaysstyle.com/api/externalSystems/all
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyNC0wMS0wNVQwNjo0MTo1Ny4yNDlaIiwiZXhwIjoxNzA0NDQwNTE3LCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1N2M0NTE5YmU1N2FjN2JjYmQ1MjNlYSIsImlhdCI6MTcwNDQzNjkxN30.RJ0qeOTkcSwencbfxoroH3zFpvftLIsi-maPRhwytcU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyNC0wMS0yM1QxNTo0ODozMC42NzBaIiwiZXhwIjoxNzA2MDI4NTEwLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1MTQ5MWZjNmQyMTdhN2EyMWE0MTI2YiIsImlhdCI6MTcwNjAyNDkxMH0.Z09JprxmWSwd1c8SppR4U7F9ndK5m3gOvawguiPQBZM
 
 
 PATCH http://localhost:8080/api-dev/externalSystems/656967c44bc3eeb7747d7f34
@@ -151,7 +151,7 @@ content-type: application/json
     "adminUsername": "emmanuel",
     "adminPassword": "abCq2&!Ms",
     "adminPhone": "1233533452345",
-    "adminEmail": "admadasdin4@gmail.com",
+    "adminEmail": "admadasdin5@gmail.com",
     "externalSystemId": "654cb79ea2ed5a08d5cbde8b"
 }
 
@@ -413,6 +413,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xM
 GET http://localhost:8080/api-dev/drivers/driverHistory/654cb7f8a2ed5a08d5cbdea7?page=1&pageLimit=5
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyMy0xMS0xMFQxMzozNTo1Mi41ODBaIiwiZXhwIjoxNjk5NjI2OTUyLCJyb2xlcyI6WyJkcml2ZXIiXSwiaWQiOiI2NTRjYjdmOGEyZWQ1YTA4ZDVjYmRlYTciLCJpYXQiOjE2OTk2MjMzNTJ9.dZ80J4SP45mOYJClvczPn35xeRGW4knAU2tPrvkfH-4
+
+
+-------- ORDER EDIT VIA MAIL ------------
+http://localhost:8080/api-dev/launchMail?launchType=emailEdit&uuid=8de807b5-4d4b-4603-af70-80b8kout
+20a14986&authToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyNC0wMS0yNlQxNDoyODozNi4yNzlaIiwiZXhwIjoxNzA3MTQzMzE2LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiI0MWFjYWM4MS02ZjBmLTRmNTctODJmZS1lOWI1YWY0YWZjOWYiLCJpYXQiOjE3MDYyNzkzMTZ9.UyDQEZCRhfXU50or0oBxx1qy2_M31C8nVgft6a9jsdE
+
 
 
 
