@@ -214,3 +214,5 @@ export const INVALID_RECAPTCHA_ERROR_MESSAGE = 'Recaptcha validation failed';
 export const ERROR_DOCUMENT_NOT_FOUND = 'Document not found';
 
 export const ZIP_CODE_REQUIRED = 'Zip code required';
+
+export const CANT_UPDATE_NOW_READY_TO_DELIVER = 'You can not make any changes to the order now because it has been prepared to deliver';

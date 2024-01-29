@@ -21,7 +21,7 @@ import { IJWTBuildData, JWT_TYPE } from '../type/IJWTClaims';
 import { EMAIL_BOOKED, EMAIL_EDIT } from '../../public/js/const/SessionStorageConst';
 import ServiceError from '../type/error/ServiceError';
 import ErrorType from '../const/errorType';
-import { ERROR_DOCUMENT_NOT_FOUND, ORDER_NOT_FOUND_ERROR_MESSAGE } from '../const/errorMessage';
+import { CANT_UPDATE_NOW_READY_TO_DELIVER, ERROR_DOCUMENT_NOT_FOUND, ORDER_NOT_FOUND_ERROR_MESSAGE } from '../const/errorMessage';
 import { HTTPUserError } from '../const/httpCode';
 
 const Logging = Logger(__filename);
@@ -237,6 +237,17 @@ export const patchOrderDetailsByUserId: PatchOrderDetailsByUserIdFunc = async (u
         if (patchOrder?.deliveredDate) {
             patchOrder.deliveredDate = new Date(patchOrder.deliveredDate as unknown as string);
         }
+
+        // Do not allow to update / cancel the order items if store has prepared the order
+        if (patchOrder.isCanceled) {
+            if (patchOrder.isPrepared) {
+                throw new ServiceError(
+                    ErrorType.ORDER_UPDATE_ERROR, CANT_UPDATE_NOW_READY_TO_DELIVER, '', HTTPUserError.CONFLICT_ERROR_CODE);
+            }
+        }
+
+        // Do not allow to update the order items if store has prepared the order
+
         const result = await findOneAndUpdateIfExist(userId, patchOrder);
         if (patchOrder.isCanceled) {
             // Send cancellation email

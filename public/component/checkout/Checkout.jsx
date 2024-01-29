@@ -24,7 +24,7 @@ import Emays from '../../logo/emays-logo-white.png';
 import CorrectSign from '../../icons/correct-sign.png';
 
 // Util
-import { getProductList, getRetailerData } from '../../js/util/SessionStorageUtil';
+import { getLaunchType, getProductList, getRetailerData } from '../../js/util/SessionStorageUtil';
 import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
@@ -280,6 +280,7 @@ const Checkout = () => {
                         </div>
                         <div className={'address_search'}>
                             <GeoContainer
+                                isDisabled = {state.launchType === 'emailEdit'}
                                 updateAddress={updateAddress} updateServiceFee={updateServiceFee} />
                             { state?.isNotInServiceArea && 
                             <p className='no-service-info'>{t('checkout.not-in-service-area')}</p> }
@@ -288,7 +289,7 @@ const Checkout = () => {
                             <div>
                                 <TextBoxCustom
                                     cols={'100'}
-                                    onKeyDown={preventTyping}
+                                    disabled = {state.launchType === 'emailEdit'}
                                     id={'addressStreet'}
                                     placeholderText={t('checkout.book-appointment.addOnePlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
@@ -302,6 +303,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    disabled = {state.launchType === 'emailEdit'}
                                     placeholderText={t('checkout.book-appointment.addTwoPlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addTwo}
@@ -314,6 +316,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    disabled = {state.launchType === 'emailEdit'}
                                     placeholderText={t('checkout.book-appointment.addThreePlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addThree}
@@ -326,6 +329,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    disabled = {state.launchType === 'emailEdit'}
                                     placeholderText={t('checkout.book-appointment.addFourPlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addFour}
@@ -339,6 +343,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    disabled = {state.launchType === 'emailEdit'}
                                     placeholderText={t('checkout.book-appointment.addFivePlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addFive}
@@ -351,6 +356,7 @@ const Checkout = () => {
                             </div>
                             <div>
                                 <TextBoxCustom
+                                    disabled = {state.launchType === 'emailEdit'}
                                     placeholderText={t('checkout.book-appointment.addSixPlaceHolder')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     value={state?.address?.addSix}

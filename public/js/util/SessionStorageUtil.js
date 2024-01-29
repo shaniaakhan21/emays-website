@@ -112,7 +112,10 @@ export const setServiceCost = (serviceCost) => {
 };
 
 export const getServiceCost = () => {
-    return sessionStorage.getItem(SERVICE_COST);
+    const serviceCost = sessionStorage.getItem(SERVICE_COST);
+    const cleaned = serviceCost.replace(/&#34;/g, '"');
+    const json = JSON.parse(cleaned);
+    return json;
 };
 
 export const setStoreLogo = (file) => {

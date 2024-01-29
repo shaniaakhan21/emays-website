@@ -36,6 +36,9 @@
         const retailerData = "<%= retailerData %>";
         sessionStorage.setItem('retailerData', retailerData);
 
+        const serviceCostData = "<%= serviceCostData %>";
+        sessionStorage.setItem('serviceCost', serviceCostData);
+
         // Consume product list
         const jsonData = sessionStorage.getItem('productList');
         const removed = result.replace(/&#34;/g, '"');

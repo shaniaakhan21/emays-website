@@ -32,7 +32,7 @@ const List = styled.ul`
     }
 `;
 
-const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
+const GeoContainer = ({ updateAddress, updateServiceFee, appData, isDisabled = false }) => {
 
     const [t] = useTranslation();
     const [address, setAddress] = useState('');
@@ -153,6 +153,7 @@ const GeoContainer = ({ updateAddress, updateServiceFee, appData }) => {
         <GeoSearchContainer>
             <div className='geo_search'>
                 <TextBoxCustom 
+                    disabled = {isDisabled}
                     placeholderText={t('checkout.book-appointment.searchAddress')}
                     customStyle={{ width: '100%' }}
                     value={address} onChange={autoCompleteHandler}

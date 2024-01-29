@@ -61,6 +61,14 @@ router.get(RoutePath.LAUNCH_MAIL, allowedForExternalSystemRoleOnly, (
                     .UNPROCESSABLE_ENTITY_CODE);
         }
 
+        // Prepare order service cost
+        const serviceCostData = {
+            currencyType: order?.currencyType,
+            serviceFee: order?.serviceFee 
+        };
+        const stringifyServiceCostData = JSON.stringify(serviceCostData);
+        const cleanedServiceCost = stringifyServiceCostData.replace(/\\/g, '');
+
         // Prepare product data
         const launchTemplateDataOrder: Array<Order> = order.orderItems;
         const stringifyOrder = JSON.stringify(launchTemplateDataOrder);
@@ -81,17 +89,21 @@ router.get(RoutePath.LAUNCH_MAIL, allowedForExternalSystemRoleOnly, (
         const retailerData = {
             // eslint-disable-next-line max-len
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-            retailerEmail: order?.retailerEmail
+            retailerEmail: order?.retailerEmail,
+            currency: order?.currencyType
         };
         const stringifyRetailerData = JSON.stringify(retailerData);
         const cleanedRetailerData = stringifyRetailerData.replace(/\\/g, '');
+
+        const launchDataPrepared = paramBuilder
+            .makeAuthentic(sessionToken)
+            .makeRetailerPayload(cleanedRetailerData)
+            .makeProductPayload(cleanedOrder)
+            .makeUserPayload(cleanedUser)
+            .makeServiceCostPayload(cleanedServiceCost)
+            .build();
         return res.render(
-            applicationPath, paramBuilder
-                .makeAuthentic(sessionToken)
-                .makeRetailerPayload(cleanedRetailerData)
-                .makeProductPayload(cleanedOrder)
-                .makeUserPayload(cleanedUser)
-                .build()
+            applicationPath, launchDataPrepared
         );
 
     })().catch((error) => {

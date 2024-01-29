@@ -16,6 +16,8 @@ class LaunchParamBuilder {
 
     selectedLaunchArea: string;
 
+    serviceCostData: string;
+
     constructor (launchType: LaunchType) { 
         this.launchType = launchType;
         this.token = '';
@@ -23,6 +25,7 @@ class LaunchParamBuilder {
         this.userData = '';
         this.retailerData = '';
         this.selectedLaunchArea = '';
+        this.serviceCostData = '';
 
     }
 
@@ -51,6 +54,11 @@ class LaunchParamBuilder {
         return this;
     }
 
+    makeServiceCostPayload (serviceCostData: string) {
+        this.serviceCostData = serviceCostData;
+        return this;
+    }
+
     build () {
         return {
             token: this.token,
@@ -58,7 +66,8 @@ class LaunchParamBuilder {
             launchType: this.launchType,
             userData: this.userData,
             retailerData: this.retailerData,
-            selectedLaunchArea: this.selectedLaunchArea
+            selectedLaunchArea: this.selectedLaunchArea,
+            serviceCostData: this.serviceCostData
         };
     }
 
