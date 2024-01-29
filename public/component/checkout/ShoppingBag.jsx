@@ -64,7 +64,7 @@ const ShoppingBag = ({ productList = [], onDelete, serviceFee, currencyType }) =
             }
         }
         setProcessedServiceCost(processedServiceCost);
-    }, [productList]);
+    }, [productList, serviceFee]);
 
     return (
         <div className='shopping-bag-container'>

@@ -26,7 +26,6 @@ import { saveOrder, updateOrder } from '../../services/order';
 import { useMessage } from '../common/messageCtx';
 import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
 import LoadingIndicator from '../LoadingIndicator';
-import { getCurrencySign } from '../../js/util/currencyUtil';
 
 const Confirm = () => {
 
@@ -303,7 +302,7 @@ const Confirm = () => {
                     <LoadingIndicator description={t('confirm.loading-description')} />
                 </Column>)}
                 <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                    <ShoppingBag productList={productData} serviceFee={getServiceCost()}
+                    <ShoppingBag productList={productData} serviceFee={getServiceCost() || getServiceCost().serviceFee}
                         currencyType = {getRetailerData().currency}/>
                 </Column>
             </Grid>
