@@ -18,7 +18,7 @@ import { makeCheckout, submitCheckout } from '../../services/stripe';
 import { useMessage } from '../common/messageCtx';
 import { publishableKey } from '../../js/const/stripe';
 import { apiBase } from '../../js/util/httpUtil';
-import { getAuthToken } from '../../js/util/SessionStorageUtil';
+import { getAuthToken, getServiceCost } from '../../js/util/SessionStorageUtil';
 
 const stripePromise = loadStripe(publishableKey);
 
@@ -64,12 +64,13 @@ const Payment = ({ open, setOpen }) => {
                 return;
             }
             const token = getAuthToken();
+            const serviceFee = getServiceCost();
             const result = await stripe.confirmPayment({
                 elements,
                 confirmParams: {
                     // return_url: `${apiBase}/stripe/checkout/complete?userId=${open.uid}`
                     // eslint-disable-next-line max-len
-                    return_url: `${window.location.protocol}//${window.location.host}/#/paymentSuccess/${open.uid}/${token}`
+                    return_url: `${window.location.protocol}//${window.location.host}/#/paymentSuccess/${open.uid}/${token}/${serviceFee}`
                 }
             });
             if (result.error) {
@@ -91,7 +92,7 @@ const Payment = ({ open, setOpen }) => {
                 <ModalHeader />
                 <ModalBody>
                     <Grid className='payment-model'>
-                        <Column lg={8} md={8} sm={4} xs={4} className='title'>
+                        <Column lg={12} md={12} sm={12} xs={12} className='title'>
                             <h1>{t('title')}</h1>
                         </Column>
                         {/* <Column lg={16} md={16} sm={8} xs={8} className='input'> */}

@@ -74,6 +74,12 @@
                 }
             }
         }
+
+        .user-message {
+            .cds--text-area {
+                min-width: 100%;
+            }
+        }
     }
 
     .customize-experience {

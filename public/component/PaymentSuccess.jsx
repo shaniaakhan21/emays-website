@@ -3,14 +3,13 @@ import { FaCheckCircle } from 'react-icons/fa';
 import './paymentSuccess.css';
 import { useLocation, useParams } from 'react-router-dom';
 import { submitCheckout } from '../services/stripe';
-import { getServiceCost } from '../js/util/SessionStorageUtil';
 
 const PaymentSuccessPage = () => {
     const location = useLocation();
-    const { id, token } = useParams();
+    const { id, token, serviceFee } = useParams();
     useEffect(() => {
         (async () => {
-            await submitCheckout(id, token, getServiceCost());
+            await submitCheckout(id, token, serviceFee);
         })();
     }, []);
     return (
