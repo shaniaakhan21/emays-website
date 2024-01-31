@@ -2,7 +2,10 @@
 
 import { AUTH_TOKEN, PRODUCT_LIST, ADDRESS, LAUNCH_TYPE, USER_DATA,
     RETAILER_DATA, SERVICE_COST, STORE_IMAGE, SELECTED_LAUNCH_AREA,
-    LICENSE_DOCUMENT } from '../const/SessionStorageConst';
+    LICENSE_DOCUMENT, 
+    START_TIME,
+    END_TIME, 
+    CHECKOUT_INFO } from '../const/SessionStorageConst';
 
 const getItem = (key) => {
     const itemsAsString = sessionStorage.getItem(key);
@@ -113,9 +116,22 @@ export const setServiceCost = (serviceCost) => {
 
 export const getServiceCost = () => {
     const serviceCost = sessionStorage.getItem(SERVICE_COST);
-    const cleaned = serviceCost.replace(/&#34;/g, '"');
-    const json = JSON.parse(cleaned);
-    return json;
+    if (serviceCost) {
+        const cleaned = serviceCost.replace(/&#34;/g, '"');
+        const json = JSON.parse(cleaned);
+        return json;
+    }
+    return {};
+};
+
+export const getStartTime = () => {
+    const startTime = JSON.parse(sessionStorage.getItem(CHECKOUT_INFO))?.startTime || '';
+    return startTime;
+};
+
+export const getEndTime = () => {
+    const endTime = JSON.parse(sessionStorage.getItem(CHECKOUT_INFO))?.endTime || '' ;
+    return endTime;
 };
 
 export const setStoreLogo = (file) => {

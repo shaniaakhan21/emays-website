@@ -162,7 +162,7 @@ const GeoContainer = ({ updateAddress, updateServiceFee, appData, isDisabled = f
             { predictions && predictions?.length > 0 && (
                 <List>
                     {predictions?.map((prediction) => (
-                        <li
+                        prediction && <li
                             key={prediction?.place_id} onClick={() => selectPredictionHandler(prediction)}>
                             {prediction?.description}
                         </li>
