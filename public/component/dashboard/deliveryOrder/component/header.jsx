@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Counts from '../../components/counts';
 import '../../../../scss/component/dashboard/deliveryOrderHeader.scss';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useNavigate } from 'react-router-dom';
 import ButtonCustom from '../../../common/ButtonCustom';
 import { useSelector } from 'react-redux';
 import { statsSelectorMemoized } from '../../redux/selector/statsSelector';
 
 const DOHeader = ({ searchFunction }) => {
-    const history = useHistory();
+    const history = useNavigate();
 
     const selector = useSelector(statsSelectorMemoized);
     const [state, setState] = useState(null);

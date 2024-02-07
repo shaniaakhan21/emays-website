@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Button, Heading, Tile } from '@carbon/react';
 import { Add, Close } from '@carbon/icons-react';
 import TextBoxCustom from '../../common/TextBoxCustom';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // SCSS
 import '../../../scss/component/retailer/addItems.scss';
@@ -17,7 +17,7 @@ import { getCurrencySign } from '../../../js/util/currencyUtil';
 
 const AddItems = () => {
     const [translate] = useTranslation();
-    const history = useHistory();
+    const history = useNavigate();
     const [showScanModal, setShowScanModal] = useState(true);
 
     const newOrderPhaseOneData = useSelector(newOrderPhaseOneSelectorMemoized);

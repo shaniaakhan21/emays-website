@@ -6,7 +6,7 @@ import StatusBox from '../../../common/statusBox';
 import { useTranslation } from 'react-i18next';
 import { getOrderStatus } from '../../../../js/util/stateBuilderUtil';
 import { storeSelectedOrder } from '../../redux/thunk/selectedOrderThunk';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import { getCurrencySign } from '../../../../js/util/currencyUtil';
 import Decimal from 'decimal.js';
@@ -33,7 +33,7 @@ export const DriverHistory = () => {
         }
     }, [completedOrderSelector]);
 
-    const history = useHistory();
+    const history = useNavigate();
     const prepareTableRows = (orderArray) => {
         const tableData = orderArray?.map((data) => {
             // eslint-disable-next-line no-multi-spaces, max-len

@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import { Grid, Column } from '@carbon/react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { PropTypes } from 'prop-types';
 
@@ -28,7 +28,7 @@ import { getLaunchType, getProductList, getRetailerData } from '../../js/util/Se
 import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
-import timeframes from '../../../app/const/timeframes';
+import timeframes from '../../js/const/timeframes';
 import LoadingIndicator from '../LoadingIndicator';
 import GeoContainer from '../common/GeoContainer';
 import FallBack from '../../icons/fallback.png';
@@ -41,7 +41,7 @@ import { getCurrencySign } from '../../js/util/currencyUtil';
 const Checkout = () => {
 
     const [t] = useTranslation();
-    const history = useHistory();
+    const history = useNavigate();
     const pushAlert = useMessage();
 
     const [state, setState] = useSessionState(CHECKOUT_INFO, {

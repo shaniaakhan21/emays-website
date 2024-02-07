@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
     EMAIL_BOOKED,
     EMAIL_INVOICE,
@@ -16,7 +16,7 @@ import { getLaunchType, setLaunchType } from '../js/util/SessionStorageUtil';
 const Relocate = () => {
 
     const launchType = getLaunchType();
-    const history = useHistory();
+    const history = useNavigate();
     useEffect(() => {
         // IMPORTANT: make sure you set the launch type to empty within each launch.
         switch (launchType) {

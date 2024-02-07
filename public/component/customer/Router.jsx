@@ -1,4 +1,4 @@
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Environment from './Environment';
 import ShopWithUs from './ShopWithUs';
 // Components
@@ -27,7 +27,7 @@ import Cookie from './Cookie';
 const CustomerRouter = () => {
 
     const launchType = getLaunchType();
-    const history = useHistory();
+    const history = useNavigate();
     const [_, setState] = useSessionState(CHECKOUT_INFO);
 
     useEffect(() => {
@@ -72,7 +72,7 @@ const CustomerRouter = () => {
 
     return (
         <>
-            <Switch>
+            <Routes>
                 <Route path='/' exact component={() => <CustomerHome />} />
                 <Route path='/environment' component={() => <Environment />} />
                 <Route path='/services' component={() => <Services />} />
@@ -84,7 +84,7 @@ const CustomerRouter = () => {
                 <Route path='/privacy' component={() => <Privacy />} />
                 <Route path='/terms' component={() => <Terms />} />
                 <Route path='/cookie' component={() => <Cookie />} />
-            </Switch>
+            </Routes>
         </>
     );
 };

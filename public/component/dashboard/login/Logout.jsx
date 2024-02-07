@@ -2,12 +2,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginSelectorMemoized } from '../redux/selector/loginSelector';
 import { useCallback, useEffect } from 'react';
 import { logoutExe } from '../redux/thunk/loginThunk';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useNavigate } from 'react-router-dom';
 
 export const LogoutFunc = () => {
 
     const dispatch = useDispatch();
-    const history = useHistory();
+    const history = useNavigate();
     const loginStatusStore = useSelector(loginSelectorMemoized);
 
     const resetLoginStatus = useCallback(() => {

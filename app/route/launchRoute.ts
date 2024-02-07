@@ -188,6 +188,7 @@ router.post(RoutePath.LAUNCH, allowedForExternalSystemRoleOnly, (req: express.Re
             ${JSON.stringify(productData)}` ), LogType.INFO);
 
         const applicationPath: string = await buildAppLaunchPath(config.UI_APP_ENTRY_POINT);
+        console.log('--------1');
         return res.render(applicationPath, paramBuilder
             .makeAuthentic(sessionToken).makeProductPayload(cleanedProduct)
             .makeSelectedLaunchArea(selectedArea)

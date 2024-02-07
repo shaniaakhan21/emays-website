@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useMessage } from '../../../common/messageCtx';
 import { Column } from '@carbon/react';
@@ -18,7 +18,7 @@ const CompletedMessage = ({ setState }) => {
     const [saved, setSaved] = useState(false);
     const [m] = useTranslation();
     const pushAlert = useMessage();
-    const history = useHistory();
+    const history = useNavigate();
 
     useEffect(() => {
         if (!(selector?.saveStatus?.isLoading) && (selector?.saveStatus?.result)) {

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { inCompleteOrderSelectorMemoized } from '../../redux/selector/inCompleteOrderSelector';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useNavigate } from 'react-router-dom';
 import StatusBox from '../../../common/statusBox';
 import Table from '../../../common/table';
 import { getOrderStatus } from '../../../../js/util/stateBuilderUtil';
@@ -23,7 +23,7 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
 
     const dispatch = useDispatch();
 
-    const history = useHistory();
+    const history = useNavigate();
 
     const [tableRow, setTableRow] = useState([{
         id: '',

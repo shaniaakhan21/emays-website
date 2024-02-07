@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import React, { useCallback, useEffect } from 'react';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Customer from './customer/Customer';
 import Overview from './overview/Overview';
 import NewOrder from './newOrder/NewOrder';
@@ -214,7 +214,7 @@ const DashboardLayout = () => {
                         )}
                     />
                     <div className='content-section'>
-                        <Switch>
+                        <Routes>
                             {
                                 <Route path='/dashboard/logout'
                                     component={() => <LogoutFunc />}></Route>
@@ -446,7 +446,7 @@ const DashboardLayout = () => {
 
                             <Route path='/dashboard'
                                 component={() => <UnAuthorized />}></Route>
-                        </Switch>
+                        </Routes>
                     </div>
                 </div>
             </Router>

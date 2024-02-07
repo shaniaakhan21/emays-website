@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { inCompleteOrderSelectorMemoized } from '../redux/selector/inCompleteOrderSelector';
 import { getOrderDaDataById } from '../redux/thunk/inCompleteOrderThunk';
 import { storeSelectedOrder } from '../redux/thunk/selectedOrderThunk';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useNavigate } from 'react-router-dom';
 import { getOrderStatus } from '../../../js/util/stateBuilderUtil';
 import moment from 'moment';
 import { getCurrencySign } from '../../../js/util/currencyUtil';
@@ -24,7 +24,7 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
 
     const dispatch = useDispatch();
 
-    const history = useHistory();
+    const history = useNavigate();
 
     const [tableRow, setTableRow] = useState([{
         id: '',

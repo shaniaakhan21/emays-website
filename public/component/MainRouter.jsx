@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 // SCSS
 import '../scss/main.scss';
@@ -21,25 +21,12 @@ import ConnectStripeAccount from './ConnectStripeAccount';
 
 const MainRouter = () => {
 
+    const TEST = () => {
+        return (<p>mail</p>);
+    };
+
     return (<main className='main-container' role='main'>
-        <ErrorBoundary>
-            <MessageProvider>
-                <Router>
-                    <Switch>
-                        <Route path='/confirm' component={() => <Confirm />}></Route>
-                        <Route path='/paymentSuccess/:id/:token/:serviceFee' component={
-                            () => <PaymentSuccessPage />}></Route>
-                        <Route path='/connectStripe/:accountId/:type' component={() => <ConnectStripeAccount/>}></Route>
-                        <Route path='/checkout' component={() => <Checkout />}></Route>
-                        <Route path='/appointment' component={() => <Appointment/>}></Route>
-                        <Route path='/retailer' component={() => <RetailerRouter />} />
-                        <Route path='/dashboard' component={() => <DashboardContainer />} />
-                        {/* This component will act as a relocate router based on the initial launch type */}
-                        <Route path='/' component={() => <CustomerRouter />} />
-                    </Switch>
-                </Router>
-            </MessageProvider>
-        </ErrorBoundary>
+        <p>Add test</p>
     </main>);
 };
 

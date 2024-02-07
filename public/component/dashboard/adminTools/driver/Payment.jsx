@@ -9,13 +9,13 @@ import { useEffect } from 'react';
 import { getReaderExe, collectPaymentExe, cardPresentExe, serverWebhookExe, resetPayment } from '../../redux/thunk/stripeThunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTerminal } from '../../redux/slice/stripeSlice';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { driverSelectedOrderSelectorMemoized } from '../../redux/selector/driverSelectedOrderSelector';
 import { getCurrencySign } from '../../../../js/util/currencyUtil';
 import Decimal from 'decimal.js';
 export const Payment = () => {
     const dispatch = useDispatch();
-    const history = useHistory();
+    const history = useNavigate();
     // TODO: Lets have separate selectors and remove this....
     const { reader, myPaymentIntent, cardFlag, myError, total, count, paymentStatus } = useSelector((state) => ( { reader: state.stripePaymentState.reader,
         myTerminalForPayment: state.stripePaymentState.terminalForPayment,

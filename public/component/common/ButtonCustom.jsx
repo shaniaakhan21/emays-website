@@ -8,12 +8,4 @@ const ButtonCustom = ({ type, text, action, customStyle, ...props }) => {
     );
 };
 
-ButtonCustom.propTypes = {
-    ...Button2.propTypes,
-    type: PropTypes.oneOf(['primary', 'secondary', 'danger', 'ghost', 'tertiary']),
-    text: PropTypes.oneOf([PropTypes.string, PropTypes.element]).isRequired,
-    action: PropTypes.func.isRequired,
-    customStyle: PropTypes.object
-};
-
 export default ButtonCustom;

@@ -14,5 +14,6 @@ export enum LaunchType {
     RETAILER_UI = 'uiRetailer',
     EMAIL_BOOKED = 'emailBooked',
     EMAIL_EDIT = 'emailEdit',
-    PRODUCT_LAUNCH = 'productLaunch'
+    PRODUCT_LAUNCH = 'productLaunch',
+    DASHBOARD = 'dashboard'
 }

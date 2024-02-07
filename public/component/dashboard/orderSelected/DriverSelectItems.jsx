@@ -7,7 +7,7 @@ import { driverSelectFinal } from '../redux/thunk/driverFinalSelectThunk';
 // SCSS
 import '../../../scss/component/dashboard/driverSelectItems.scss';
 import ButtonCustom from '../../common/ButtonCustom';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useNavigate } from 'react-router-dom';
 import { getCurrencySign } from '../../../js/util/currencyUtil';
 import Decimal from 'decimal.js';
 
@@ -15,7 +15,7 @@ const DriverSelectItems = () => {
 
     const [selectedProducts, setSelectedProducts] = useState([]);
     const dispatch = useDispatch();
-    const history = useHistory();
+    const history = useNavigate();
 
     useEffect(() => {
     }, [driverSelectedOrderSelectorMemoized]);
