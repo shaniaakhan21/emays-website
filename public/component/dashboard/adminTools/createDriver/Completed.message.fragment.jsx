@@ -30,7 +30,7 @@ const CompletedMessage = ({ setState }) => {
             copyAndPushAlert();
             setTimeout(async () => {
                 await dispatch(resetAllDriverCreationData());
-                history.push('/dashboard/adminTools');
+                history('/dashboard/adminTools');
             }, 3000);
         }
     }, [selector]);

@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import {
     CHECKOUT_INFO,
     CUSTOMER_UI,
+    DASHBOARD,
     EMAIL_BOOKED, EMAIL_EDIT,
     EMAIL_INVOICE,
     EMAIL_REMINDER,
@@ -36,7 +37,7 @@ const CustomerRouter = () => {
             case PRODUCT_LAUNCH:
                 setLaunchType('');
                 document.body.classList.remove('bg');
-                history.push('/checkout');
+                history('/checkout');
                 break;
             case EMAIL_EDIT:
                 setLaunchType('');
@@ -46,7 +47,7 @@ const CustomerRouter = () => {
                     tailoring: getUserData().experience.includes('Tailoring') ? true : false,
                     inspire: getUserData().experience.includes('Inspire Me') ? true : false
                 } });
-                history.push('/checkout');
+                history('/checkout');
                 break;
             case EMAIL_BOOKED:
             case EMAIL_REMINDER:
@@ -56,12 +57,16 @@ const CustomerRouter = () => {
                 const params = new URLSearchParams({
                     launchType: launchType
                 });
-                history.push(`/appointment?${params.toString()}`);
+                history(`/appointment?${params.toString()}`);
+                break;
+            case DASHBOARD:
+                setLaunchType('');
+                history('/dashboard');
                 break;
             case UI_RETAILER:
                 setLaunchType('');
                 document.body.classList.add('bg');
-                history.push('/retailer');
+                history('/retailer');
                 break;
             default:
                 setLaunchType('');

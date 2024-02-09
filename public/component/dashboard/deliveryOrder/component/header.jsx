@@ -25,7 +25,7 @@ const DOHeader = ({ searchFunction }) => {
                     <div className='button'>
                         <ButtonCustom
                             text={'Create New delivery Order +'}
-                            action={() => { history.push('/dashboard/newOrders'); }}
+                            action={() => { history('/newOrders'); }}
                             type={'secondary'}
                             customStyle={{
                                 minWidth: '250px',

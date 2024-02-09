@@ -20,7 +20,6 @@ import dashboard from './app/route/dashboardRoute';
 import calenderRoute from './app/route/calendarRoute';
 import driverRoute from './app/route/administration/driverRoute';
 import orderRoute from './app/route/userOrderRoute';
-import customerRoutes from './app/route/customerRoute';
 import externalSystemRoute from './app/route/administration/systemRoute';
 import adminExternalSystemRoute from './app/route/administration/adminExternalSystemRoute';
 import managerExternalSystemRoute from './app/route/administration/managerExternalSystemRoute';
@@ -31,13 +30,20 @@ import superUserRoute from './app/route/administration/superUserRoute';
 import stripeRoute from './app/route/stripeRoute';
 import sendErrorResponse from './app/middleware/errorResponseBuilderMiddleware';
 import { AppConfigKey } from './app/const/appConfigKey';
-import { WEBSITE_UI_PATHS, validateJWT } from './app/middleware/jwtTokenValidationMiddleware';
+import { validateJWT } from './app/middleware/jwtTokenValidationMiddleware';
 import ServiceError from './app/type/error/ServiceError';
 import letsTalkRoute from './app/route/letsTalkRoute';
 import faqRoute from './app/route/faqRoute';
 import { emailScheduler } from './app/service/schedulerEmailService';
+import { Logger } from './app/log/logger';
+import LogType from './app/const/logType';
+import { buildErrorMessage } from './app/util/logMessageBuilder';
+import { buildAppLaunchPath } from './app/api/launchAPI';
+import { ErrorTemplateMessage } from './app/const/errorTemplateMessage';
+import { WEBSITE_UI_PATHS } from './app/const/routePath';
 
 const UI_PATHS: Array<string> = WEBSITE_UI_PATHS;
+const Logging = Logger(__filename);
 
 const createServer = async () => {
 
@@ -93,9 +99,7 @@ const createServer = async () => {
 
     app.use(UI_PATHS, (req, res, next) => {
         try {
-
             (async () => {
-                console.log('--------2');
                 const url = req.originalUrl;
                 // 1. Read index.html
                 let template = fs.readFileSync(
@@ -124,7 +128,12 @@ const createServer = async () => {
                 res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
 
             })().catch((error) => {
-                throw error;
+                const errorObject: Error = error as Error;
+                Logging.log(buildErrorMessage(errorObject, 'server side rendering'), LogType.ERROR);
+                buildAppLaunchPath(config.ERROR_TEMPLATE).then((path) => {
+                    return res.render(path, { errorTitle: ErrorTemplateMessage.WEBSITE_UNDER_ENHANCEMENTS_HEADER,
+                        errorDescription: ErrorTemplateMessage.WEBSITE_UNDER_ENHANCEMENTS_MESSAGE });
+                }).catch(err => next(error));
             });
   
         } catch (error) {

@@ -75,7 +75,7 @@ const DeliveryOrder = ({ deliveryOrderData, updateData }) => {
                 selectedTableRow: [item] };
             setSelectedRow((state) => (finalData));
             dispatch(storeSelectedOrder(finalData));
-            history.push('/dashboard/selectedOrder');
+            history('/selectedOrder');
         }
     };
 

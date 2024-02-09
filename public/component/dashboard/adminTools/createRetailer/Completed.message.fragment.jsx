@@ -31,7 +31,7 @@ const CompletedMessage = ({ setState }) => {
             copyAndPushAlert();
             setTimeout(async () => {
                 await dispatch(resetAllStoreCreationData());
-                history.push('/dashboard/adminTools');
+                history('/dashboard/adminTools');
             }, 3000);
         }
     }, [selector]);

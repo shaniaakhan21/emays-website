@@ -1,6 +1,6 @@
 
-import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 
 // SCSS
 import '../scss/main.scss';
@@ -21,12 +21,32 @@ import ConnectStripeAccount from './ConnectStripeAccount';
 
 const MainRouter = () => {
 
-    const TEST = () => {
-        return (<p>mail</p>);
+    const [key, setKey] = useState(0);
+
+    useEffect(() => {
+        window.addEventListener('hashchange', handleHashchange);
+        return () => {
+            window.removeEventListener('hashchange', handleHashchange);
+        };  
+    }, []);
+
+    // This method is to rerender this component when hash change
+    const handleHashchange = () => {
+        setKey((prevKey) => prevKey + 1);
     };
 
     return (<main className='main-container' role='main'>
-        <p>Add test</p>
+        <HashRouter>
+            <Routes>
+                <Route path='/confirm' element={<Confirm />}></Route>
+                <Route path='/paymentSuccess/:id/:token/:serviceFee' element={<PaymentSuccessPage />}></Route>
+                <Route path='/connectStripe/:accountId/:type' element={<ConnectStripeAccount/>}></Route>
+                <Route path='/checkout' element={<Checkout />}></Route>
+                <Route path='/appointment' element={<Appointment/>}></Route>
+                <Route path='/retailer' element={<RetailerRouter />} />
+                <Route path='/*' element={<DashboardContainer key={key} />} />
+            </Routes>
+        </HashRouter>
     </main>);
 };
 

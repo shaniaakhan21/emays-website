@@ -12,7 +12,7 @@ import { getCurrencySign } from '../../../../js/util/currencyUtil';
 import Decimal from 'decimal.js';
 
 export const DriverHistory = () => {
-
+    console.log('---->> Drive history');
     const dispatch = useDispatch();
     const completedOrderSelector = useSelector(driverHistorySelectorMemoized);
     const [selectedRow, setSelectedRow] = useState({ basicInfo: null, itemsInfo: null });
@@ -99,7 +99,7 @@ export const DriverHistory = () => {
                 selectedTableRow: [item] };
             setSelectedRow((state) => (finalData));
             dispatch(storeSelectedOrder(finalData));
-            history.push('/dashboard/selectedOrder');
+            history('/dashboard/selectedOrder');
         }
     };
 
