@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Header, HeaderName, HeaderNavigation, HeaderMenuItem, Toggle } from '@carbon/react';
 import '../../scss/component/customer/navbar.scss';
 import LOGO from '../../logo/EMAYS.svg';
@@ -7,6 +7,7 @@ import ICON from '../../images/burger-menu.svg';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import ButtonCustom from './ButtonCustom';
+import { Languages, getWebLanguage, setWebsiteLanguage } from '../../js/util/LocalStorageUtil';
 
 const Nav = () => {
     const { t, i18n } = useTranslation();
@@ -22,10 +23,21 @@ const Nav = () => {
         }
     }, [isRetailer]);
 
+    useEffect(() => {
+        i18n.changeLanguage(getWebLanguage());
+    }, []);
+
     const getLanguage = () => i18n.language;
 
     const handleToggleLanguage = useCallback(() => {
-        i18n.changeLanguage(getLanguage() === 'it' ? 'en' : 'it');
+        const persistedWebLanguage = getWebLanguage();
+        if (persistedWebLanguage === Languages.ENGLISH) {
+            setWebsiteLanguage(Languages.ITALY);
+            i18n.changeLanguage(Languages.ITALY);
+        } else {
+            setWebsiteLanguage(Languages.ENGLISH);
+            i18n.changeLanguage(Languages.ENGLISH);
+        }
     }, []);
 
     const handleMenuClick = () => {

@@ -119,7 +119,7 @@ const Checkout = () => {
         setTimeout(() => {
             setState(cs => ({ ...cs, locked: true }));
             setLoading(false);
-            history.push('/confirm');
+            history('/confirm');
         }, 1000);
     };
 

@@ -111,7 +111,7 @@ const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle
                                 title: m('statusMessage.success'),
                                 subtitle: m('statusMessage.message.success-update')
                             });
-                            history.push('/dashboard');
+                            history('/');
                         }
                     }}
                     customStyle={{

@@ -123,7 +123,7 @@ const NewOrder = ({ newOrderData }) => {
             state, ['addFive', 'addSix', 'experience', 'deliveryInfo', 'serviceFee']);
         if (isDataValid[0]) {
             dispatch(setNewOrderPhaseOneData(state));
-            history.push('/dashboard/addItems');
+            history('/addItems');
         }
     };
 

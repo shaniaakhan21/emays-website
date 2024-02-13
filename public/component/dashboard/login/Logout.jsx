@@ -18,7 +18,7 @@ export const LogoutFunc = () => {
         if (loginStatusStore?.isSuccess) {
             (async () => {
                 await resetLoginStatus();
-                history.push('/dashboard');
+                history('/');
             })();
         }
     }, []);

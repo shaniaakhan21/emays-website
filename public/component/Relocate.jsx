@@ -22,7 +22,7 @@ const Relocate = () => {
         switch (launchType) {
             case PRODUCT_LAUNCH:
                 setLaunchType('');
-                history.push('/checkout');
+                history('/checkout');
                 break;
             case EMAIL_BOOKED:
             case EMAIL_REMINDER:
@@ -32,15 +32,15 @@ const Relocate = () => {
                 const params = new URLSearchParams({
                     launchType: launchType
                 });
-                history.push(`/appointment?${params.toString()}`);
+                history(`/appointment?${params.toString()}`);
                 break;
             case CUSTOMER_UI:
                 setLaunchType('');
-                history.push('/customer');
+                history('/customer');
                 break;
             case UI_RETAILER:
                 setLaunchType('');
-                history.push('/retailer');
+                history('/retailer');
                 break;
             default:
                 break;

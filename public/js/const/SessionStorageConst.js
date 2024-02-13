@@ -4,6 +4,7 @@ export const PRODUCT_LIST = 'productList';
 export const LAUNCH_TYPE = 'launchType';
 
 export const PRODUCT_LAUNCH = 'productLaunch';
+export const DASHBOARD = 'dashboard';
 // Email Launch Types
 export const EMAIL_BOOKED = 'emailBooked';
 // Email Launch Types

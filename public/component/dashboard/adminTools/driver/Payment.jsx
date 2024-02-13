@@ -46,7 +46,7 @@ export const Payment = () => {
         {
             (async () => {
                 await dispatch(resetPayment());
-                history.push('/dashboard/driver/history');
+                history('/driver/history');
             })();
         }
     

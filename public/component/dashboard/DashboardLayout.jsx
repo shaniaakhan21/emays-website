@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import React, { useCallback, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Customer from './customer/Customer';
 import Overview from './overview/Overview';
 import NewOrder from './newOrder/NewOrder';
@@ -35,6 +35,7 @@ import { MessageProvider } from '../common/messageCtx';
 import EmaysLogo from '../../images/Dashboard/EMAYSLOGO.svg';
 import { DashboardIconCustom, LogOutIconCustom, OrderDetailsIconCustom,
     TaskAddIconCustom, TimeIconCustom, ToolBoxCustom } from '../icons/CustomIcons';
+import { appInfoSelectorMemoized } from './redux/selector/appInfoSelector';
 
 const DashboardLayout = () => {
 
@@ -43,6 +44,8 @@ const DashboardLayout = () => {
     const dispatch = useDispatch();
 
     const loginStatusStore = useSelector(loginSelectorMemoized);
+    const appInfoSelector = useSelector(appInfoSelectorMemoized);
+    const loggedInUser = useSelector(loginSelectorMemoized);
 
     const getActiveLinkStyle = (event) => {
         const anchorElements = document.querySelectorAll('nav ul li a');
@@ -51,9 +54,12 @@ const DashboardLayout = () => {
     };
 
     useEffect(() => {
+
         const UL = document.querySelector('nav ul');
         UL.addEventListener('click', getActiveLinkStyle);
-        dispatch(getSystemInfoExe());
+        if (loggedInUser?.isSuccess && appInfoSelector?.systemInfoState?.isLoading) {
+            dispatch(getSystemInfoExe());
+        }
         return () => UL.removeEventListener('click', getActiveLinkStyle);
     }, []);
 
@@ -94,49 +100,48 @@ const DashboardLayout = () => {
          * IMPORTANT: Wrap all the components which directly loads inside the menu.
          */
         <MessageProvider>
-            <Router>
-                <div className='dashboard-template'>
-                    <HeaderContainer
-                        render={({ isSideNavExpanded, onClickSideNavExpand }) => (
-                            <>
-                                <SideNav
-                                    className='dash-side-nav'
-                                    aria-label='Side navigation'
-                                    isRail
-                                    expanded={isSideNavExpanded}
-                                    onOverlayClick={onClickSideNavExpand}
-                                    href='#main-content'
-                                    onSideNavBlur={onClickSideNavExpand}>
-                                    <div className='nav-image'>
-                                        <img src={EmaysLogo}/>
-                                    </div>
-                                    <SideNavItems>
+            <div className='dashboard-template'>
+                <HeaderContainer
+                    render={({ isSideNavExpanded, onClickSideNavExpand }) => (
+                        <>
+                            <SideNav
+                                className='dash-side-nav'
+                                aria-label='Side navigation'
+                                isRail
+                                expanded={isSideNavExpanded}
+                                onOverlayClick={onClickSideNavExpand}
+                                href='#main-content'
+                                onSideNavBlur={onClickSideNavExpand}>
+                                <div className='nav-image'>
+                                    <img src={EmaysLogo}/>
+                                </div>
+                                <SideNavItems>
 
-                                        {/* OVERVIEW */}
-                                        {
-                                            (loginStatusStore?.role === 'super' || 
+                                    {/* OVERVIEW */}
+                                    {
+                                        (loginStatusStore?.role === 'super' || 
                                         loginStatusStore?.role === 'admin' || 
                                         loginStatusStore?.role === 'manager' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
-                                                renderIcon={DashboardIconCustom}
-                                                href='/#/dashboard/overview'>
+                                            renderIcon={DashboardIconCustom}
+                                            href='/dashboard#/overview'>
                                         Overview
-                                            </SideNavLink>
-                                        }
+                                        </SideNavLink>
+                                    }
 
-                                        {/* DELIVERY ORDER */}
-                                        {
-                                            (loginStatusStore?.role === 'super' ||
+                                    {/* DELIVERY ORDER */}
+                                    {
+                                        (loginStatusStore?.role === 'super' ||
                                         loginStatusStore?.role === 'admin' || 
                                         loginStatusStore?.role === 'manager' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
-                                                renderIcon={OrderDetailsIconCustom}
-                                                href='/#/dashboard/deliveryOrders'>
+                                            renderIcon={OrderDetailsIconCustom}
+                                            href='/dashboard#/deliveryOrders'>
                                         Delivery Orders
-                                            </SideNavLink>
-                                        }
+                                        </SideNavLink>
+                                    }
                                     
-                                        {/* <SideNavLink
+                                    {/* <SideNavLink
                                         renderIcon={ListDropdown}
                                         href='/#/dashboard/deliveryOrders'>
                                         Delivery Order
@@ -147,85 +152,86 @@ const DashboardLayout = () => {
                                         Customers
                                     </SideNavLink> */}
 
-                                        {/* NEW ORDER */}
-                                        {
-                                            (loginStatusStore?.role === 'super' || 
+                                    {/* NEW ORDER */}
+                                    {
+                                        (loginStatusStore?.role === 'super' || 
                                         loginStatusStore?.role === 'admin' || 
                                         loginStatusStore?.role === 'manager' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
-                                                renderIcon={TaskAddIconCustom}
-                                                href='/#/dashboard/newOrders'>
+                                            renderIcon={TaskAddIconCustom}
+                                            href='/dashboard#/newOrders'>
                                         Add New Order
-                                            </SideNavLink>
-                                        }
+                                        </SideNavLink>
+                                    }
 
-                                        {/* HISTORY */}
-                                        {
-                                            (loginStatusStore?.role === 'super' || 
+                                    {/* HISTORY */}
+                                    {
+                                        (loginStatusStore?.role === 'super' || 
                                         loginStatusStore?.role === 'admin' || 
                                         loginStatusStore?.role === 'manager' || 
                                         loginStatusStore?.role === 'external_system') && <SideNavLink
-                                                renderIcon={TimeIconCustom}
-                                                href='/#/dashboard/history'>
+                                            renderIcon={TimeIconCustom}
+                                            href='/dashboard#/history'>
                                         Order History
-                                            </SideNavLink>
-                                        }
+                                        </SideNavLink>
+                                    }
 
-                                        {/* ADMIN TOOLS */}
-                                        {
-                                            (loginStatusStore?.role === 'super') && <SideNavLink
-                                                renderIcon={ToolBoxCustom}
-                                                href='/#/dashboard/adminTools'>
+                                    {/* ADMIN TOOLS */}
+                                    {
+                                        (loginStatusStore?.role === 'super') && <SideNavLink
+                                            renderIcon={ToolBoxCustom}
+                                            href='/dashboard#/adminTools'>
                                         Admin Tools
-                                            </SideNavLink>
-                                        }
+                                        </SideNavLink>
+                                    }
 
-                                        {/* ----------- DRIVER ROUTES ----------- */}
+                                    {/* ----------- DRIVER ROUTES ----------- */}
 
-                                        {
-                                            loginStatusStore?.role === 'driver' && <SideNavLink
-                                                renderIcon={OrderDetailsIconCustom}
-                                                href='/#/dashboard/driver/deliveryOrders'>
+                                    {
+                                        loginStatusStore?.role === 'driver' && <SideNavLink
+                                            renderIcon={OrderDetailsIconCustom}
+                                            href='/dashboard#/driver/deliveryOrders'>
                                         Delivery Order
-                                            </SideNavLink>
-                                        }
+                                        </SideNavLink>
+                                    }
 
-                                        {
-                                            loginStatusStore?.role === 'driver' && <SideNavLink
-                                                renderIcon={TimeIconCustom}
-                                                href='/#/dashboard/driver/history'>
+                                    {
+                                        loginStatusStore?.role === 'driver' && <SideNavLink
+                                            renderIcon={TimeIconCustom}
+                                            href='/dashboard#/driver/history'>
                                        Order History
-                                            </SideNavLink>
-                                        }
+                                        </SideNavLink>
+                                    }
 
-                                        {/* LOGOUT FOR ALL*/}
-                                        {
-                                            <SideNavLink
-                                                className={'log-out'}
-                                                renderIcon={LogOutIconCustom}
-                                                href='/#/dashboard/logout'>
+                                    {/* LOGOUT FOR ALL*/}
+                                    {
+                                        <SideNavLink
+                                            className={'log-out'}
+                                            renderIcon={LogOutIconCustom}
+                                            href='/dashboard#/logout'>
                                         Logout
-                                            </SideNavLink>
-                                        }
+                                        </SideNavLink>
+                                    }
 
-                                    </SideNavItems>
-                                </SideNav>
-                            </>
-                        )}
-                    />
-                    <div className='content-section'>
-                        <Routes>
-                            {
-                                <Route path='/dashboard/logout'
-                                    component={() => <LogoutFunc />}></Route>
-                            }
+                                </SideNavItems>
+                            </SideNav>
+                        </>
+                    )}
+                />
+                <div className='content-section'>
+                    <Routes>
+                        {
+                            <Route path='logout'
+                                element={<LogoutFunc />}></Route>
+                        }
 
-                            {
-                                (loginStatusStore?.role === 'super' || 
+                        {
+                            (loginStatusStore?.role === 'super' || 
                             loginStatusStore?.role === 'admin' || 
                             loginStatusStore?.role === 'manager' || 
-                                loginStatusStore?.role === 'external_system') && <Route exact path='/dashboard/overview'
-                                    component={() => <PaginationContainer
+                                loginStatusStore?.role === 'external_system') && 
+                                <Route exact path='overview'
+                                    element={<PaginationContainer
                                         wrapperStyle={{ display: 'flex', alignItems: 'center',
                                             justifyContent: 'center', paddingTop: '50px' }}
                                         // The property name of the overview component
@@ -235,50 +241,51 @@ const DashboardLayout = () => {
                                         getInitialData={getInitialDataOverview}
                                     ><Overview /></PaginationContainer>
                                     }></Route>
-                            }
+                        }
 
-                            {
-                                (loginStatusStore?.role === 'super' || 
+                        {
+                            (loginStatusStore?.role === 'super' || 
                             loginStatusStore?.role === 'admin' || 
                             loginStatusStore?.role === 'manager' || 
                                 loginStatusStore?.role === 'external_system') &&  
-                                <Route exact path='/dashboard/orders/created'
-                                    component={() => <OrderCreated />}></Route>
-                            }
+                                <Route exact path='orders/created'
+                                    element={<OrderCreated />}></Route>
+                        }
 
-                            {
-                                (loginStatusStore?.role === 'super' || 
+                        {
+                            (loginStatusStore?.role === 'super' || 
                             loginStatusStore?.role === 'admin' || 
                             loginStatusStore?.role === 'manager' || 
                                 loginStatusStore?.role === 'external_system') && 
-                                <Route exact path='/dashboard/customers'
-                                    component={() => <Customer />}></Route>
-                            }
+                                <Route exact path='customers'
+                                    element={<Customer />}></Route>
+                        }
                         
-                            {
-                                (loginStatusStore?.role === 'super' || 
+                        {
+                            (loginStatusStore?.role === 'super' || 
                             loginStatusStore?.role === 'admin' || 
                             loginStatusStore?.role === 'manager' || 
                                 loginStatusStore?.role === 'external_system') &&
-                                <Route exact path='/dashboard/selectedOrder'
-                                    component={() => <OrderSelected />}></Route>
-                            }
+                                <Route exact path='selectedOrder'
+                                    element={<OrderSelected />}></Route>
+                        }
 
-                            {
-                                (loginStatusStore?.role === 'super' || 
+                        {
+                            (loginStatusStore?.role === 'super' || 
                             loginStatusStore?.role === 'admin' || 
                             loginStatusStore?.role === 'manager' || 
-                                loginStatusStore?.role === 'external_system') && <Route exact path='/dashboard/addItems'
-                                    component={() => <AddItems />}></Route>
-                            }
+                                loginStatusStore?.role === 'external_system') && 
+                                    <Route exact path='addItems'
+                                        element={<AddItems />}></Route>
+                        }
                         
-                            {
-                                (loginStatusStore?.role === 'super' || 
+                        {
+                            (loginStatusStore?.role === 'super' || 
                              loginStatusStore?.role === 'admin' || 
                              loginStatusStore?.role === 'manager' || 
                              loginStatusStore?.role === 'external_system') && 
-                                 <Route exact path='/dashboard/deliveryOrders'
-                                     component={() => <PaginationContainer
+                                 <Route exact path='deliveryOrders'
+                                     element={<PaginationContainer
                                          wrapperStyle={{ display: 'flex',
                                              alignItems: 'center', justifyContent: 'center', paddingTop: '50px' }}
                                          // The method used for fetch pagination data
@@ -293,37 +300,37 @@ const DashboardLayout = () => {
                                      >
                                          <DeliveryOrder />
                                      </PaginationContainer>}></Route>
-                            }
+                        }
                         
-                            {
-                                (loginStatusStore?.role === 'super' || 
+                        {
+                            (loginStatusStore?.role === 'super' || 
                             loginStatusStore?.role === 'admin' || 
                             loginStatusStore?.role === 'manager' || 
-                                loginStatusStore?.role === 'external_system') && <Route exact path='/dashboard/history'
-                                    component={() => <PaginationContainer
-                                        wrapperStyle={{ display: 'flex', alignItems: 'center',
-                                            justifyContent: 'center', paddingTop: '50px' }}
-                                        // The method used for fetch pagination data
-                                        getPaginationData={getCompletedOrderDataWrapper}
-                                        // The property name of the overview component
-                                        resourceName={'historyData'}
-                                        // Enable pagination
-                                        isPaginationEnabled={true}
-                                        pageLength={7}
-                                        noOfVisibleButtons={5}
-                                        getInitialData={getInitialDataHistory}
-                                    >
-                                        <History />
-                                    </PaginationContainer>}></Route>
-                            }
+                                loginStatusStore?.role === 'external_system') && <Route path='history'
+                                element={<PaginationContainer
+                                    wrapperStyle={{ display: 'flex', alignItems: 'center',
+                                        justifyContent: 'center', paddingTop: '50px' }}
+                                    // The method used for fetch pagination data
+                                    getPaginationData={getCompletedOrderDataWrapper}
+                                    // The property name of the overview component
+                                    resourceName={'historyData'}
+                                    // Enable pagination
+                                    isPaginationEnabled={true}
+                                    pageLength={7}
+                                    noOfVisibleButtons={5}
+                                    getInitialData={getInitialDataHistory}
+                                >
+                                    <History />
+                                </PaginationContainer>}></Route>
+                        }
                     
-                            {
-                                (loginStatusStore?.role === 'super' || 
+                        {
+                            (loginStatusStore?.role === 'super' || 
                             loginStatusStore?.role === 'admin' || 
                             loginStatusStore?.role === 'manager' || 
                                 loginStatusStore?.role === 'external_system') && 
-                                <Route exact path='/dashboard/newOrders'
-                                    component={() => <PaginationContainer
+                                <Route path='newOrders'
+                                    element={<PaginationContainer
                                         wrapperStyle={{ display: 'flex',
                                             alignItems: 'center', justifyContent: 'center', paddingTop: '50px' }}
                                         // The method used for fetch data
@@ -334,22 +341,22 @@ const DashboardLayout = () => {
                                         <NewOrder />
                                     </PaginationContainer>
                                     }></Route>
-                            }
+                        }
                         
-                            {
-                                loginStatusStore?.role === 'super' &&
-                                    <Route path='/dashboard/adminTools'
-                                        component={() => <AdminToolsRouter />
+                        {
+                            loginStatusStore?.role === 'super' &&
+                                    <Route path='adminTools'
+                                        element={<AdminToolsRouter />
                                         }></Route> 
-                            }
+                        }
                         
-                            {
-                                (loginStatusStore?.role === 'super' || 
+                        {
+                            (loginStatusStore?.role === 'super' || 
                             loginStatusStore?.role === 'admin' || 
                             loginStatusStore?.role === 'manager' || 
                                 loginStatusStore?.role === 'external_system') && 
-                                <Route path='/dashboard'
-                                    component={() => <PaginationContainer
+                                <Route path='/' index
+                                    element={<PaginationContainer
                                         wrapperStyle={{ display: 'flex', alignItems: 'center',
                                             justifyContent: 'center', paddingTop: '50px' }}
                                         // The property name of the overview component
@@ -359,14 +366,14 @@ const DashboardLayout = () => {
                                         getInitialData={getInitialDataOverview}
                                     ><Overview /></PaginationContainer>
                                     }></Route>
-                            }
+                        }
 
-                            {/* ----------- DRIVER ROUTES ----------- */}
+                        {/* ----------- DRIVER ROUTES ----------- */}
 
-                            {
-                                (loginStatusStore?.role === 'driver') && 
-                            <Route exact path='/dashboard/driver/deliveryOrders'
-                                component={() => <PaginationContainer
+                        {
+                            (loginStatusStore?.role === 'driver') && 
+                            <Route exact path='driver/deliveryOrders'
+                                element={<PaginationContainer
                                     wrapperStyle={{ display: 'flex',
                                         alignItems: 'center', justifyContent: 'center', paddingTop: '50px' }}
                                     // The method used for fetch pagination data
@@ -380,12 +387,12 @@ const DashboardLayout = () => {
                                 >
                                     <DriverDeliveryOrder />
                                 </PaginationContainer>}></Route>
-                            }
+                        }
                         
-                            {
-                                (loginStatusStore?.role === 'driver') && 
-                            <Route exact path='/dashboard/driver/history'
-                                component={() => <PaginationContainer
+                        {
+                            (loginStatusStore?.role === 'driver') && 
+                            <Route exact path='driver/history'
+                                element={<PaginationContainer
                                     wrapperStyle={{ display: 'flex', alignItems: 'center',
                                         justifyContent: 'center', paddingTop: '50px' }}
                                     // The method used for fetch pagination data
@@ -399,36 +406,36 @@ const DashboardLayout = () => {
                                 >
                                     <DriverHistory />
                                 </PaginationContainer>}></Route>
-                            }
+                        }
 
-                            {
-                                (loginStatusStore?.role === 'driver') &&
-                                <Route exact path='/dashboard/driverSelectedOrder'
-                                    component={() => <DriverOrderSelected />}></Route>
-                            }
+                        {
+                            (loginStatusStore?.role === 'driver') &&
+                                <Route exact path='driverSelectedOrder'
+                                    element={<DriverOrderSelected />}></Route>
+                        }
                         
-                            {
-                                (loginStatusStore?.role === 'driver') &&
-                                <Route exact path='/dashboard/driverSelectItems'
-                                    component={() => <DriverSelectItems />}></Route>
-                            }
+                        {
+                            (loginStatusStore?.role === 'driver') &&
+                                <Route exact path='driverSelectItems'
+                                    element={<DriverSelectItems />}></Route>
+                        }
 
-                            {
-                                (loginStatusStore?.role === 'driver') &&
-                                <Route exact path='/dashboard/selectedOrder'
-                                    component={() => <OrderSelected />}></Route>
-                            }
+                        {
+                            (loginStatusStore?.role === 'driver') &&
+                                <Route exact path='selectedOrder'
+                                    element={<OrderSelected />}></Route>
+                        }
 
-                            {
-                                (loginStatusStore?.role === 'driver') && 
-                                <Route path='/dashboard/driver/payment'
-                                    component={() => <Payment />}></Route>
-                            }
+                        {
+                            (loginStatusStore?.role === 'driver') && 
+                                <Route path='driver/payment'
+                                    element={<Payment />}></Route>
+                        }
                 
-                            {
-                                (loginStatusStore?.role === 'driver') && 
-                                <Route path='/dashboard'
-                                    component={() => <PaginationContainer
+                        {
+                            (loginStatusStore?.role === 'driver') && 
+                                <Route index path='/'
+                                    element={<PaginationContainer
                                         wrapperStyle={{ display: 'flex',
                                             alignItems: 'center', justifyContent: 'center', paddingTop: '50px' }}
                                         // The method used for fetch pagination data
@@ -442,14 +449,13 @@ const DashboardLayout = () => {
                                     >
                                         <DriverDeliveryOrder />
                                     </PaginationContainer>}></Route>
-                            }
+                        }
 
-                            <Route path='/dashboard'
-                                component={() => <UnAuthorized />}></Route>
-                        </Routes>
-                    </div>
+                        <Route path='/' index
+                            element={<UnAuthorized />}></Route>
+                    </Routes>
                 </div>
-            </Router>
+            </div>
         </MessageProvider>
     );
 };

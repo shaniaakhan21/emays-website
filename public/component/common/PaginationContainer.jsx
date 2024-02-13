@@ -1,7 +1,9 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
+import Circles from 'react-loading-icons/dist/esm/components/circles';
+import ThreeDots from 'react-loading-icons/dist/esm/components/three-dots';
 
 const PaginationLayout = styled.div`
     ${(props) => props.styles && css`
@@ -42,6 +44,8 @@ const PaginationContainer = ({ pageLength = 5, noOfVisibleButtons = 5, wrapperSt
         isSystemLoading: state?.appInfoState?.systemInfoState?.isLoading
     }));
 
+    const [isInitialDataLoaded, setInitialDataLoadState] = useState(false);
+
     const [state, setState] = useReducer((state, action) => {
         switch (action.type) {
             case 'update-current-index':
@@ -76,6 +80,7 @@ const PaginationContainer = ({ pageLength = 5, noOfVisibleButtons = 5, wrapperSt
             if (getInitialData) {
                 (async () => {
                     await getInitialData();
+                    setInitialDataLoadState(true);
                 })();
             }
 
@@ -110,65 +115,77 @@ const PaginationContainer = ({ pageLength = 5, noOfVisibleButtons = 5, wrapperSt
             event.target.closest('button').classList.add('active');
         }
     };
+
+    const getInitialDataLoadedState = () => {
+        if (getInitialData) {
+            if (isInitialDataLoaded) {
+                return true;
+            } 
+            return false;
+        }
+        return true;
+    };
     
     return (
-        <div className='pagination'>
-            {
-                !isSystemLoading && React.Children.map(children, child => {
-                    if (React.isValidElement(child)) {
-                        return React.cloneElement(child, { [resourceName]: state, updateData: updateInitialData });
-                    }
-                    return child;
-                })
-            }
+        <>
+            { getInitialDataLoadedState() && <div className='pagination'>
+                {
+                    !isSystemLoading && React.Children.map(children, child => {
+                        if (React.isValidElement(child)) {
+                            return React.cloneElement(child, { [resourceName]: state, updateData: updateInitialData });
+                        }
+                        return child;
+                    })
+                }
 
-            {
-                !isSystemLoading && isPaginationEnabled && <PaginationLayout styles={wrapperStyle}>
-                    <div className='button-outer'>
-                        {/* Prev button logic. */}
-                        { state.startDisplayIndex > 0 && <Button
-                            onClick = {() => {
-                                const prevIndex = state.currentIndex - 1;
-                                const buttons = document.querySelectorAll('.pagination button');
-                                buttons.forEach(button => button.classList.remove('active'));
-                                buttons.forEach(button => {
-                                    if (+button.getAttribute('data-index') === +prevIndex) {
-                                        button.classList.add('active');
+                {
+                    !isSystemLoading &&
+                 isPaginationEnabled && <PaginationLayout styles={wrapperStyle}>
+                        <div className='button-outer'>
+                            {/* Prev button logic. */}
+                            { state.startDisplayIndex > 0 && <Button
+                                onClick = {() => {
+                                    const prevIndex = state.currentIndex - 1;
+                                    const buttons = document.querySelectorAll('.pagination button');
+                                    buttons.forEach(button => button.classList.remove('active'));
+                                    buttons.forEach(button => {
+                                        if (+button.getAttribute('data-index') === +prevIndex) {
+                                            button.classList.add('active');
+                                        }
+                                    });
+                                    changeIndex(prevIndex);
+                                    setState({ type: 'update-start-display-index', data: state.startDisplayIndex - 1 });
+                                    setState({ type: 'update-end-display-index', data: state.endDisplayIndex - 1 });
+                                }}>{'<'}</Button>
+                            }
+
+                            {/* Visible buttons logic. */}
+                            {
+                                (() => {
+                                    const totalPages = state.initialData?.allPagesAvailable || 0;
+                                    const buttons = [];
+                                    const maxLength = totalPages > state.endDisplayIndex ?
+                                        state.endDisplayIndex : totalPages - 1;
+                                    for (let index = state.startDisplayIndex; index <= maxLength; index++) {
+                                        buttons.push(
+                                            <Button
+                                                key={index}
+                                                className={index === state.currentIndex ? 'active' : ''}
+                                                data-index={index}
+                                                onClick={() => { changeIndex(index); }}
+                                            >
+                                                {index + 1}
+                                            </Button>
+                                        );
                                     }
-                                });
-                                changeIndex(prevIndex);
-                                setState({ type: 'update-start-display-index', data: state.startDisplayIndex - 1 });
-                                setState({ type: 'update-end-display-index', data: state.endDisplayIndex - 1 });
-                            }}>{'<'}</Button>
-                        }
 
-                        {/* Visible buttons logic. */}
-                        {
-                            (() => {
-                                const totalPages = state.initialData?.allPagesAvailable || 0;
-                                const buttons = [];
-                                const maxLength = totalPages > state.endDisplayIndex ?
-                                    state.endDisplayIndex : totalPages - 1;
-                                for (let index = state.startDisplayIndex; index <= maxLength; index++) {
-                                    buttons.push(
-                                        <Button
-                                            key={index}
-                                            className={index === state.currentIndex ? 'active' : ''}
-                                            data-index={index}
-                                            onClick={() => { changeIndex(index); }}
-                                        >
-                                            {index + 1}
-                                        </Button>
-                                    );
-                                }
+                                    return buttons;
+                                })()
+                            }
 
-                                return buttons;
-                            })()
-                        }
-
-                        {/* Next button logic. */}
-                        {
-                            state.endDisplayIndex < (state.initialData?.allPagesAvailable - 1) && 
+                            {/* Next button logic. */}
+                            {
+                                state.endDisplayIndex < (state.initialData?.allPagesAvailable - 1) && 
                         <Button 
                             onClick = {() => {
                                 const nextIndex = state.currentIndex + 1;
@@ -183,11 +200,20 @@ const PaginationContainer = ({ pageLength = 5, noOfVisibleButtons = 5, wrapperSt
                                 setState({ type: 'update-start-display-index', data: state.startDisplayIndex + 1 });
                                 setState({ type: 'update-end-display-index', data: state.endDisplayIndex + 1 });
                             }}>{'>'}</Button>
-                        }
-                    </div>
-                </PaginationLayout>
+                            }
+                        </div>
+                    </PaginationLayout>
+                }
+            </div>
             }
-        </div>
+            {
+                !getInitialDataLoadedState() && <div 
+                    // eslint-disable-next-line max-len
+                    style={{ minHeight: '100vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <ThreeDots stroke='black' strokeWidth={2} fontSize={1}/>
+                </div>
+            }
+        </>
     );
 };
 

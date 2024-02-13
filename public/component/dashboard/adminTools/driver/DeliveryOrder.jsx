@@ -71,7 +71,7 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
                 infoTitle: 'Appointment',
                 itemTitle: 'Items to be delivered',
                 headerType: 'DeliveryOrder',
-                selectedTableRow: [item] };
+                selectedTableRow: [JSON.stringify(item)] };
             setSelectedRow((state) => (finalData));
             dispatch(storeSelectedOrder(finalData));
         }
@@ -133,11 +133,11 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
                         <Table rows={tableRow} headers={headers} onRowClick={(item) => {
                             prepareSelectedRowData(item);
                             if (item?.status?.props?.status === 'pending-pick-up') {
-                                history.push('/dashboard/driverSelectedOrder');
+                                history('dashboard#/driverSelectedOrder');
                             }
                             if (item?.status?.props?.status === 'items-to-be-return' && 
                             loginInfoSelector.userInfo.id === item?.driverId) {
-                                history.push('/dashboard/driverSelectItems');
+                                history('/driverSelectItems');
                             }
                         }} />
                     </div>
