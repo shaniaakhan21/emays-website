@@ -3,11 +3,10 @@
 /* eslint-disable max-lines */
 import { useCallback, useEffect, useState } from 'react';
 import { Grid, Column } from '@carbon/react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
-import Payment from './Payment';
 import StripeProvider from './Payment';
 
 // SCSS
@@ -18,7 +17,7 @@ import Emays from '../../logo/emays-logo-white.png';
 import EditIcon from '../../icons/edit.svg';
 
 // Util
-import { getProductList, getSelectedLaunchArea, getServiceCost } from '../../js/util/SessionStorageUtil';
+import { getEndTime, getProductList, getSelectedLaunchArea, getServiceCost, getStartTime } from '../../js/util/SessionStorageUtil';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
@@ -26,12 +25,14 @@ import { saveOrder, updateOrder } from '../../services/order';
 import { useMessage } from '../common/messageCtx';
 import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
 import LoadingIndicator from '../LoadingIndicator';
+import ContactNumberInput from '../common/ContactNumberInput';
+import { getCurrencySign } from '../../js/util/currencyUtil';
 
 const Confirm = () => {
 
     const [t] = useTranslation();
     const pushAlert = useMessage();
-    const history = useHistory();
+    const history = useNavigate();
 
     const [productData, setProductData] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -52,7 +53,7 @@ const Confirm = () => {
             return item;
         });
         setProductData(productData);
-    }, []);
+    }, [state]);
     
     const submit = useCallback(async () => {
         try {
@@ -64,7 +65,7 @@ const Confirm = () => {
                 branchId: getRetailerData().branchId,
                 timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
                 orderItems: productData,
-                serviceFee: 0,
+                serviceFee: state.serviceFee || 0,
                 serviceArea: getSelectedLaunchArea(),
                 currencyType: getRetailerData().currency
             };
@@ -140,7 +141,7 @@ const Confirm = () => {
     return (
         <>
             {/* <Payment open={open} setOpen={setOpen} /> */}
-            <StripeProvider open={open} setOpen={setOpen} serviceFee={getServiceCost()} />
+            <StripeProvider open={open} setOpen={setOpen} serviceFee={state?.serviceFee} />
             <Grid className='landing-page'>
                 <Column lg={16} md={16} sm={16} xs={16} className='logo'>
                     <div className='store-logo'></div>
@@ -173,7 +174,7 @@ const Confirm = () => {
                             <div className='hour'>
                                 <p><strong>{t('confirm.user-appointment-info.hour')}</strong></p>
                                 <div className='value'>
-                                    <p>14:00 to 15:00</p>
+                                    <p>{ `${state?.startTime} to ${state?.endTime}`}</p>
                                 </div>
                             </div>
                         </div>
@@ -218,9 +219,9 @@ const Confirm = () => {
                             </p>
                         </div>
                         <div className='user-contact-name'>
-                            <div>
-                                <p>{t('confirm.contact-details.first-name')}</p>
+                            <div className='text-fields-contact'>
                                 <TextBoxCustom
+                                    placeholderText={t('confirm.contact-details.first-name')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     onChange={(e) => {
                                         setState(cs => ({
@@ -233,9 +234,9 @@ const Confirm = () => {
                                     invalidText={errors?.firstName}
                                 />
                             </div>
-                            <div>
-                                <p>{t('confirm.contact-details.last-name')}</p>
+                            <div className='text-fields-contact'>
                                 <TextBoxCustom
+                                    placeholderText={t('confirm.contact-details.last-name')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     onChange={(e) => {
                                         setState(cs => ({
@@ -250,24 +251,19 @@ const Confirm = () => {
                             </div>
                         </div>
                         <div className='user-contact-email-number'>
-                            <div>
-                                <p>{t('confirm.contact-details.phone-number')}</p>
-                                <TextBoxCustom
-                                    customStyle={{ backgroundColor: 'white' }}
-                                    onChange={(e) => {
-                                        setState(cs => ({
-                                            ...cs,
-                                            phoneNumber: e.target.value
-                                        }));
-                                    }}
-                                    value={state?.phoneNumber}
-                                    autoComplete='tel'
-                                    invalidText={errors?.phoneNumber}
+                            <div className='text-fields-contact'>
+                                <ContactNumberInput
+                                    actionFunc= {(value) => { setState(cs => ({
+                                        ...cs,
+                                        phoneNumber: value
+                                    })); }}
+                                    data = {state?.phoneNumber || ''}
                                 />
                             </div>
-                            <div>
-                                <p>{t('confirm.contact-details.email')}</p>
+                            <div className='text-fields-contact'>
                                 <TextBoxCustom
+                                    className='email'
+                                    placeholderText={t('confirm.contact-details.email')}
                                     customStyle={{ backgroundColor: 'white' }}
                                     onChange={(e) => {
                                         setState(cs => ({
@@ -302,7 +298,7 @@ const Confirm = () => {
                     <LoadingIndicator description={t('confirm.loading-description')} />
                 </Column>)}
                 <Column lg={8} md={8} sm={16} className='shopping-bag'>
-                    <ShoppingBag productList={productData} serviceFee={getServiceCost() || getServiceCost().serviceFee}
+                    <ShoppingBag productList={productData} serviceFee={state?.serviceFee}
                         currencyType = {getRetailerData().currency}/>
                 </Column>
             </Grid>

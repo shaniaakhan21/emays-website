@@ -5,6 +5,7 @@ export enum RoutePath {
     CALENDER_ACCESS = '/googleCalender',
     CALENDER_REDIRECTION = '/redirectGoogleAccess',
     LAUNCH = '/launch',
+    DASHBOARD = '/dashboard',
     LAUNCH_ADD = '/launchAdd',
     LAUNCH_UPDATE = '/launchUpdate',
     LAUNCH_MAIL = '/launchMail',
@@ -53,3 +54,18 @@ export enum PathParam {
     AREA_LONGITUDE = '/:long',
     EXTERNAL_SYSTEM_ID = '/:externalSystemId'
 }
+
+export const WEBSITE_UI_PATHS: Array<string> = [
+    '/',
+    '/retailer',
+    '/environment',
+    '/services',
+    '/shop-with-us',
+    '/letsTalk',
+    '/faq',
+    '/integration',
+    '/partnership',
+    '/privacy',
+    '/terms',
+    '/entry-client.jsx'
+];

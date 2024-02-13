@@ -1,6 +1,6 @@
 
-import React, { useEffect } from 'react';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { HashRouter, Routes, Route, useNavigate } from 'react-router-dom';
 
 // SCSS
 import '../scss/main.scss';
@@ -21,24 +21,34 @@ import ConnectStripeAccount from './ConnectStripeAccount';
 
 const MainRouter = () => {
 
+    const [key, setKey] = useState(0);
+
+    useEffect(() => {
+        window.addEventListener('hashchange', handleHashchange);
+        return () => {
+            window.removeEventListener('hashchange', handleHashchange);
+        };  
+    }, []);
+
+    // This method is to rerender this component when hash change
+    const handleHashchange = () => {
+        setKey((prevKey) => prevKey + 1);
+    };
+
     return (<main className='main-container' role='main'>
-        <ErrorBoundary>
-            <MessageProvider>
-                <Router>
-                    <Switch>
-                        <Route path='/confirm' component={() => <Confirm />}></Route>
-                        <Route path='/paymentSuccess/:id/:token' component={() => <PaymentSuccessPage />}></Route>
-                        <Route path='/connectStripe/:accountId/:type' component={() => <ConnectStripeAccount/>}></Route>
-                        <Route path='/checkout' component={() => <Checkout />}></Route>
-                        <Route path='/appointment' component={() => <Appointment/>}></Route>
-                        <Route path='/retailer' component={() => <RetailerRouter />} />
-                        <Route path='/dashboard' component={() => <DashboardContainer />} />
-                        {/* This component will act as a relocate router based on the initial launch type */}
-                        <Route path='/' component={() => <CustomerRouter />} />
-                    </Switch>
-                </Router>
-            </MessageProvider>
-        </ErrorBoundary>
+        <MessageProvider>
+            <HashRouter>
+                <Routes>
+                    <Route path='/confirm' element={<Confirm />}></Route>
+                    <Route path='/paymentSuccess/:id/:token/:serviceFee' element={<PaymentSuccessPage />}></Route>
+                    <Route path='/connectStripe/:accountId/:type' element={<ConnectStripeAccount/>}></Route>
+                    <Route path='/checkout' element={<Checkout />}></Route>
+                    <Route path='/appointment' element={<Appointment/>}></Route>
+                    <Route path='/retailer' element={<RetailerRouter />} />
+                    <Route path='/*' element={<DashboardContainer key={key} />} />
+                </Routes>
+            </HashRouter>
+        </MessageProvider>
     </main>);
 };
 

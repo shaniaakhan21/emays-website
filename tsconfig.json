@@ -11,8 +11,10 @@
     },
     "include": ["./app/**/*",
         "app.ts",
+        "appSSR.ts",
         "server.ts",
         "dev-server.ts",
+        "dev-server-ssr.ts",
         "./test/backend/**/*"
     ]
 }

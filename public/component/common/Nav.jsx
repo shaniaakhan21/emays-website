@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Header, HeaderName, HeaderNavigation, HeaderMenuItem, Toggle } from '@carbon/react';
 import '../../scss/component/customer/navbar.scss';
 import LOGO from '../../logo/EMAYS.svg';
@@ -7,6 +7,7 @@ import ICON from '../../images/burger-menu.svg';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import ButtonCustom from './ButtonCustom';
+import { Languages, getWebLanguage, setWebsiteLanguage } from '../../js/util/LocalStorageUtil';
 
 const Nav = () => {
     const { t, i18n } = useTranslation();
@@ -16,16 +17,27 @@ const Nav = () => {
     const handleToggleChange = useCallback(() => {
         setIsRetailer((prevIsRetailer) => !prevIsRetailer);
         if (isRetailer) {
-            window.location.href = '#/';
+            window.location.href = '/';
         } else {
-            window.location.href = '#/retailer';
+            window.location.href = '/retailer';
         }
     }, [isRetailer]);
 
-    const getLanguage = () => i18n.language || window.localStorage.i18nextLng;
+    useEffect(() => {
+        i18n.changeLanguage(getWebLanguage());
+    }, []);
+
+    const getLanguage = () => i18n.language;
 
     const handleToggleLanguage = useCallback(() => {
-        i18n.changeLanguage(getLanguage() === 'it' ? 'en' : 'it');
+        const persistedWebLanguage = getWebLanguage();
+        if (persistedWebLanguage === Languages.ENGLISH) {
+            setWebsiteLanguage(Languages.ITALY);
+            i18n.changeLanguage(Languages.ITALY);
+        } else {
+            setWebsiteLanguage(Languages.ENGLISH);
+            i18n.changeLanguage(Languages.ENGLISH);
+        }
     }, []);
 
     const handleMenuClick = () => {
@@ -35,7 +47,7 @@ const Nav = () => {
     return (
         <div className='cds--wrapper'>
             <Header aria-label='EMAY'>
-                <HeaderName href={isRetailer ? '/#/retailer' : '/#/'} prefix='' className='header-name'>
+                <HeaderName href={isRetailer ? '/retailer' : '/'} prefix='' className='header-name'>
                     <img src={LOGO} alt={t('img-alt-t-loading.common.header.emays-img-alt')} 
                         loading='eager' title={t('img-alt-t-loading.common.header.emays-img-title')}  
                         width='100%' height='auto'
@@ -59,28 +71,28 @@ const Nav = () => {
                 </div>
                 <HeaderNavigation aria-label='Your Company' className={showMenu ? 'show-menu' : ''}>
                     {isRetailer ? <>
-                        <HeaderMenuItem href='/#/integration' style={{ marginLeft: '1rem' }}>
+                        <HeaderMenuItem href='/integration' style={{ marginLeft: '1rem' }}>
                             {t('nav.menu.integration')}
                         </HeaderMenuItem>
-                        <HeaderMenuItem href='/#/environment'>{t('nav.menu.sustainability')}</HeaderMenuItem>
-                        <HeaderMenuItem href='/#/letsTalk'>{t('nav.menu.lets-talk')}</HeaderMenuItem>
+                        <HeaderMenuItem href='/environment'>{t('nav.menu.sustainability')}</HeaderMenuItem>
+                        <HeaderMenuItem href='/letsTalk'>{t('nav.menu.lets-talk')}</HeaderMenuItem>
                     </> : <>
                         <HeaderMenuItem
-                            href='/#/environment'
+                            href='/environment'
                         >{t('nav.menu.sustainability')}
                         </HeaderMenuItem>
                         <HeaderMenuItem
-                            href='/#/'
+                            href='/'
                             onClick={() => {
                                 const elem = document.querySelector( '#shop-with-us-start' );
                                 elem?.scrollIntoView?.({ behavior: 'smooth' });
                             }}
                         >{t('nav.menu.shop-with-us')}</HeaderMenuItem>
                         <HeaderMenuItem
-                            href='/#/letsTalk'
+                            href='/letsTalk'
                         >{t('nav.menu.lets-talk')}</HeaderMenuItem>
                         <HeaderMenuItem
-                            href='/#/faq'
+                            href='/faq'
                         >{t('nav.menu.faqs')}</HeaderMenuItem>
 
                     </>}

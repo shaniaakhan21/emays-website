@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { inCompleteOrderSelectorMemoized } from '../../redux/selector/inCompleteOrderSelector';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useNavigate } from 'react-router-dom';
 import StatusBox from '../../../common/statusBox';
 import Table from '../../../common/table';
 import { getOrderStatus } from '../../../../js/util/stateBuilderUtil';
@@ -23,7 +23,7 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
 
     const dispatch = useDispatch();
 
-    const history = useHistory();
+    const history = useNavigate();
 
     const [tableRow, setTableRow] = useState([{
         id: '',
@@ -71,7 +71,7 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
                 infoTitle: 'Appointment',
                 itemTitle: 'Items to be delivered',
                 headerType: 'DeliveryOrder',
-                selectedTableRow: [item] };
+                selectedTableRow: [JSON.stringify(item)] };
             setSelectedRow((state) => (finalData));
             dispatch(storeSelectedOrder(finalData));
         }
@@ -133,11 +133,11 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
                         <Table rows={tableRow} headers={headers} onRowClick={(item) => {
                             prepareSelectedRowData(item);
                             if (item?.status?.props?.status === 'pending-pick-up') {
-                                history.push('/dashboard/driverSelectedOrder');
+                                history('dashboard#/driverSelectedOrder');
                             }
                             if (item?.status?.props?.status === 'items-to-be-return' && 
                             loginInfoSelector.userInfo.id === item?.driverId) {
-                                history.push('/dashboard/driverSelectItems');
+                                history('/driverSelectItems');
                             }
                         }} />
                     </div>

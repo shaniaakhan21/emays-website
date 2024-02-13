@@ -4,6 +4,7 @@ export const PRODUCT_LIST = 'productList';
 export const LAUNCH_TYPE = 'launchType';
 
 export const PRODUCT_LAUNCH = 'productLaunch';
+export const DASHBOARD = 'dashboard';
 // Email Launch Types
 export const EMAIL_BOOKED = 'emailBooked';
 // Email Launch Types
@@ -26,5 +27,7 @@ export const CUSTOMER_UI = 'customerUI';
 export const SERVICE_COST = 'serviceCost';
 export const STORE_IMAGE = 'storeImage';
 export const LICENSE_DOCUMENT = 'licenseDocument';
+export const START_TIME = 'starttime';
+export const END_TIME = 'endTime';
 
 export const SELECTED_LAUNCH_AREA = 'selectedLaunchArea';
