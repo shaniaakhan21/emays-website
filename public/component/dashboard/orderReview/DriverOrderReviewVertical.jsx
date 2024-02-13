@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { driverSelectedOrderSelectorMemoized } from '../redux/selector/driverSelectedOrderSelector';
 import ButtonCustom from '../../common/ButtonCustom';
 import { changeStatusSelectedOrder } from '../redux/thunk/driverSelectedOrderThunk';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useNavigate } from 'react-router-dom';
 import { useMessage } from '../../common/messageCtx';
 import { loginSelectorMemoized } from '../redux/selector/loginSelector';
 
@@ -15,7 +15,7 @@ import { getCurrencySign } from '../../../js/util/currencyUtil';
 
 const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle }) => {
 
-    const history = useHistory();
+    const history = useNavigate();
     const pushAlert = useMessage();
     const [translate] = useTranslation();
     const dispatch = useDispatch();
@@ -111,7 +111,7 @@ const DriverOrderReviewVertical = ({ basicInfo, itemsInfo, infoTitle, itemsTitle
                                 title: m('statusMessage.success'),
                                 subtitle: m('statusMessage.message.success-update')
                             });
-                            history.push('/dashboard');
+                            history('/');
                         }
                     }}
                     customStyle={{

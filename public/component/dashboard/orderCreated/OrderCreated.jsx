@@ -9,11 +9,11 @@ import OrderReviewVertical from '../orderReview/OrderReviewVertical';
 // SCSS
 import '../../../scss/component/retailer/orderCreated.scss';
 import ButtonCustom from '../../common/ButtonCustom';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useNavigate } from 'react-router-dom';
 
 const OrderCreated = () => {
     const [translate] = useTranslation();
-    const history = useHistory();
+    const history = useNavigate();
     const t = useCallback((key) => translate(`dashboard.orderCreated.${key}`), [translate]);
 
     const newOrderPhaseOneSelector = useSelector(newOrderPhaseOneSelectorMemoized);
@@ -33,7 +33,7 @@ const OrderCreated = () => {
             <div className='changeDirection'>
                 <ButtonCustom
                     text={'Continue to Overview'}
-                    action={() => { history.push('/dashboard/overview'); }}
+                    action={() => { history('/overview'); }}
                     type={'secondary'}
                     customStyle={{
                         minWidth: '24vw',

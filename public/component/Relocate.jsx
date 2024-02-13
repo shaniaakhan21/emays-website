@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
     EMAIL_BOOKED,
     EMAIL_INVOICE,
@@ -16,13 +16,13 @@ import { getLaunchType, setLaunchType } from '../js/util/SessionStorageUtil';
 const Relocate = () => {
 
     const launchType = getLaunchType();
-    const history = useHistory();
+    const history = useNavigate();
     useEffect(() => {
         // IMPORTANT: make sure you set the launch type to empty within each launch.
         switch (launchType) {
             case PRODUCT_LAUNCH:
                 setLaunchType('');
-                history.push('/checkout');
+                history('/checkout');
                 break;
             case EMAIL_BOOKED:
             case EMAIL_REMINDER:
@@ -32,15 +32,15 @@ const Relocate = () => {
                 const params = new URLSearchParams({
                     launchType: launchType
                 });
-                history.push(`/appointment?${params.toString()}`);
+                history(`/appointment?${params.toString()}`);
                 break;
             case CUSTOMER_UI:
                 setLaunchType('');
-                history.push('/customer');
+                history('/customer');
                 break;
             case UI_RETAILER:
                 setLaunchType('');
-                history.push('/retailer');
+                history('/retailer');
                 break;
             default:
                 break;

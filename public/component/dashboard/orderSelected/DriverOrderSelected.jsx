@@ -9,7 +9,7 @@ import { getAdminByStoreId, getStoreInformationByStoreId } from '../redux/thunk/
 import '../../../scss/component/dashboard/selectedItem.scss';
 
 const DriverOrderSelected = () => {
-
+    console.log('Driver selected order');
     const [translate] = useTranslation();
     const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
     const selectedOrderSelector = useSelector(driverSelectedOrderSelectorMemoized);

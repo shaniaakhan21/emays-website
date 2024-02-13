@@ -2,7 +2,7 @@ import Nav from '../common/Nav';
 import Footer from '../common/Footer';
 import { useCallback, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // SCSS
 import '../../scss/component/customer/privacy.scss';
@@ -20,7 +20,7 @@ const Cookie = ({
 
     const t = useCallback((str) => translate(`cookie.${str}`), [translate]);
 
-    const history = useHistory();
+    const history = useNavigate();
 
     useEffect(() => {
         window.scrollTo(0, 0);

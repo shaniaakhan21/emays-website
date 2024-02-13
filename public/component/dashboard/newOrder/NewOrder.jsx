@@ -1,12 +1,12 @@
 
 /* eslint-disable max-lines */
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Heading, Button } from '@carbon/react';
 import DatePickerCustom from '../../common/DatePickerCustom';
 import DropDownCustom from '../../common/DropdownCustom';
-import timeframes from '../../../../app/const/timeframes';
+import timeframes from '../../../js/const/timeframes';
 import TextBoxCustom from '../../common/TextBoxCustom';
 import TextAreaCustom from '../../common/TextAreaCustom';
 // Scss
@@ -20,7 +20,7 @@ import ContactNumberInput from '../../common/ContactNumberInput';
 
 const NewOrder = ({ newOrderData }) => {
     const [translate] = useTranslation();
-    const history = useHistory();
+    const history = useNavigate();
     const t = useCallback((key) => translate(`dashboard.newOrders.${key}`), [translate]);
 
     const [googleMapAPIKey, setGoogleMapInfo] = useState('');
@@ -123,7 +123,7 @@ const NewOrder = ({ newOrderData }) => {
             state, ['addFive', 'addSix', 'experience', 'deliveryInfo', 'serviceFee']);
         if (isDataValid[0]) {
             dispatch(setNewOrderPhaseOneData(state));
-            history.push('/dashboard/addItems');
+            history('/addItems');
         }
     };
 

@@ -4,7 +4,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { config } from '../config/config';
 import * as jwt from 'jsonwebtoken';
-import { RoutePath } from '../const/routePath';
+import { RoutePath, WEBSITE_UI_PATHS } from '../const/routePath';
 import { IJWTClaims } from '../type/IJWTClaims';
 import LogType from '../const/logType';
 import { Logger } from '../log/logger';
@@ -19,6 +19,8 @@ const Logging = Logger(__filename);
 export const validateJWT = (req: Request, res: Response, next: NextFunction) => {
     // TODO: add service-worker implementation to add the token with the UI files requests.
     if (req.path !== `${config.ROUTE_PATH}${RoutePath.HEALTH}` &&
+        (!WEBSITE_UI_PATHS.includes(req.path)) &&
+        (req.path !== `${RoutePath.DASHBOARD}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LETS_TALK}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.FAQ}`) &&

@@ -49,6 +49,10 @@ export default defineConfig({
                 {
                     src: normalizePath(resolve(__dirname, 'public/js/sw.js')),
                     dest: normalizePath(resolve(__dirname, 'app-dist/dist/'))
+                },
+                {
+                    src: normalizePath(resolve(__dirname, 'public/')),
+                    dest: normalizePath(resolve(__dirname, 'app-dist/dist/'))
                 }
             ]
         }),

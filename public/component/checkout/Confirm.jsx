@@ -3,7 +3,7 @@
 /* eslint-disable max-lines */
 import { useCallback, useEffect, useState } from 'react';
 import { Grid, Column } from '@carbon/react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import TextBoxCustom from '../common/TextBoxCustom';
 import ShoppingBag from './ShoppingBag';
 import ButtonCustom from '../common/ButtonCustom';
@@ -32,7 +32,7 @@ const Confirm = () => {
 
     const [t] = useTranslation();
     const pushAlert = useMessage();
-    const history = useHistory();
+    const history = useNavigate();
 
     const [productData, setProductData] = useState([]);
     const [loading, setLoading] = useState(false);
