@@ -63,7 +63,7 @@ const AddItems = () => {
         dispatch(setNewOrderPhaseTwoData(orderInfo));
         if (orderInfo?.items?.length > 0) {
             dispatch(setNewOrderPhaseTwoData(orderInfo));
-            history('/dashboard/orders/created');
+            history('/orders/created');
         }
     };
 

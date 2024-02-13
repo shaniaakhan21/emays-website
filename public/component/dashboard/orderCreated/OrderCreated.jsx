@@ -33,7 +33,7 @@ const OrderCreated = () => {
             <div className='changeDirection'>
                 <ButtonCustom
                     text={'Continue to Overview'}
-                    action={() => { history('/dashboard/overview'); }}
+                    action={() => { history('/overview'); }}
                     type={'secondary'}
                     customStyle={{
                         minWidth: '24vw',

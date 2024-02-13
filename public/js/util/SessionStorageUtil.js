@@ -63,7 +63,7 @@ export const setLaunchType = (launchType) => {
 };
 
 export const setAuthToken = (data) => {
-    return sessionStorage.setItem(LAUNCH_TYPE, data);
+    return sessionStorage.setItem(AUTH_TOKEN, data);
 };
 
 export const getSelectedLaunchArea = () => {

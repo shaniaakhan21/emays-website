@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 import React, { useCallback, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Customer from './customer/Customer';
 import Overview from './overview/Overview';
 import NewOrder from './newOrder/NewOrder';
@@ -35,6 +35,7 @@ import { MessageProvider } from '../common/messageCtx';
 import EmaysLogo from '../../images/Dashboard/EMAYSLOGO.svg';
 import { DashboardIconCustom, LogOutIconCustom, OrderDetailsIconCustom,
     TaskAddIconCustom, TimeIconCustom, ToolBoxCustom } from '../icons/CustomIcons';
+import { appInfoSelectorMemoized } from './redux/selector/appInfoSelector';
 
 const DashboardLayout = () => {
 
@@ -43,6 +44,8 @@ const DashboardLayout = () => {
     const dispatch = useDispatch();
 
     const loginStatusStore = useSelector(loginSelectorMemoized);
+    const appInfoSelector = useSelector(appInfoSelectorMemoized);
+    const loggedInUser = useSelector(loginSelectorMemoized);
 
     const getActiveLinkStyle = (event) => {
         const anchorElements = document.querySelectorAll('nav ul li a');
@@ -51,9 +54,12 @@ const DashboardLayout = () => {
     };
 
     useEffect(() => {
+
         const UL = document.querySelector('nav ul');
         UL.addEventListener('click', getActiveLinkStyle);
-        dispatch(getSystemInfoExe());
+        if (loggedInUser?.isSuccess && appInfoSelector?.systemInfoState?.isLoading) {
+            dispatch(getSystemInfoExe());
+        }
         return () => UL.removeEventListener('click', getActiveLinkStyle);
     }, []);
 

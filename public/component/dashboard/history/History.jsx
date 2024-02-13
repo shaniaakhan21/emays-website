@@ -14,7 +14,6 @@ import moment from 'moment';
 import { getCurrencySign } from '../../../js/util/currencyUtil';
 
 const History = ({ historyData, updateData }) => {
-    console.log('----- Admin History');
     const [translate] = useTranslation();
     const t = useCallback((str) => translate(`dashboard.overview.${str}`), [translate]);
 

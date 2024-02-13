@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route, useNavigate } from 'react-router-dom';
 
 // SCSS
 import '../scss/main.scss';
@@ -36,17 +36,19 @@ const MainRouter = () => {
     };
 
     return (<main className='main-container' role='main'>
-        <HashRouter>
-            <Routes>
-                <Route path='/confirm' element={<Confirm />}></Route>
-                <Route path='/paymentSuccess/:id/:token/:serviceFee' element={<PaymentSuccessPage />}></Route>
-                <Route path='/connectStripe/:accountId/:type' element={<ConnectStripeAccount/>}></Route>
-                <Route path='/checkout' element={<Checkout />}></Route>
-                <Route path='/appointment' element={<Appointment/>}></Route>
-                <Route path='/retailer' element={<RetailerRouter />} />
-                <Route path='/*' element={<DashboardContainer key={key} />} />
-            </Routes>
-        </HashRouter>
+        <MessageProvider>
+            <HashRouter>
+                <Routes>
+                    <Route path='/confirm' element={<Confirm />}></Route>
+                    <Route path='/paymentSuccess/:id/:token/:serviceFee' element={<PaymentSuccessPage />}></Route>
+                    <Route path='/connectStripe/:accountId/:type' element={<ConnectStripeAccount/>}></Route>
+                    <Route path='/checkout' element={<Checkout />}></Route>
+                    <Route path='/appointment' element={<Appointment/>}></Route>
+                    <Route path='/retailer' element={<RetailerRouter />} />
+                    <Route path='/*' element={<DashboardContainer key={key} />} />
+                </Routes>
+            </HashRouter>
+        </MessageProvider>
     </main>);
 };
 

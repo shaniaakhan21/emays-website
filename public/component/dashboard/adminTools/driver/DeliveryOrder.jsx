@@ -137,7 +137,7 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
                             }
                             if (item?.status?.props?.status === 'items-to-be-return' && 
                             loginInfoSelector.userInfo.id === item?.driverId) {
-                                history('dashboard#/driverSelectItems');
+                                history('/driverSelectItems');
                             }
                         }} />
                     </div>

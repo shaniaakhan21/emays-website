@@ -92,7 +92,7 @@ const DriverSelectItems = () => {
                     <ButtonCustom
                         text={'Go to payment >'}
                         action={() => {
-                            history('/dashboard/driver/payment');
+                            history('/driver/payment');
                         }}
                         customStyle={{
                             width: '180px',
