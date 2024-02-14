@@ -49,10 +49,6 @@ export default defineConfig({
                 {
                     src: normalizePath(resolve(__dirname, 'public/js/sw.js')),
                     dest: normalizePath(resolve(__dirname, 'app-dist/dist/'))
-                },
-                {
-                    src: normalizePath(resolve(__dirname, 'public/')),
-                    dest: normalizePath(resolve(__dirname, 'app-dist/dist/'))
                 }
             ]
         }),
@@ -73,7 +69,8 @@ export default defineConfig({
         rollupOptions: {
             input: {
                 index: resolve(__dirname, 'public/index.html'),
-                test: resolve(__dirname, 'public/testharness.html')
+                test: resolve(__dirname, 'public/testharness.html'),
+                website: resolve(__dirname, 'public/website.html')
             }
         },
         outDir: resolve(__dirname, 'app-dist/dist'),
