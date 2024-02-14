@@ -18,7 +18,7 @@ const AdminTools = () => {
                 <Store />
                 <Heading className='title'>{t('add-store-title')}</Heading>
                 <Heading className='sub-title'>{t('add-store-subtitle')}</Heading>
-                <Link to='/dashboard/adminTools/createRetailer'>
+                <Link to='createRetailer'>
                     <Button renderIcon={() => <Add />} className='button'>{t('add-store-button')}</Button>
                 </Link>
             </div>
@@ -26,7 +26,7 @@ const AdminTools = () => {
                 <Taxi />
                 <Heading className='title'>{t('add-driver-title')}</Heading>
                 <Heading className='sub-title'>{t('add-driver-subtitle')}</Heading>
-                <Link to='/dashboard/adminTools/createDriver'>
+                <Link to='createDriver'>
                     <Button renderIcon={() => <Add />} className='button'>{t('add-driver-button')}</Button>
                 </Link>
             </div>

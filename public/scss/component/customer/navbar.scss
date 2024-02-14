@@ -38,6 +38,12 @@ $carbon-md-max: 64em;   // 1024px
   right: auto;
   width: 100%;
 
+  .cds--header__menu-item {
+    a {
+      color: white;
+      text-decoration: none;
+    }
+  }
   .cds--header__menu-button {
     color: white;
   }

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import ButtonCustom from './ButtonCustom';
 import { Languages, getWebLanguage, setWebsiteLanguage } from '../../js/util/LocalStorageUtil';
+import { Link } from 'react-router-dom';
 
 const Nav = () => {
     const { t, i18n } = useTranslation();
@@ -78,22 +79,19 @@ const Nav = () => {
                         <HeaderMenuItem href='/letsTalk'>{t('nav.menu.lets-talk')}</HeaderMenuItem>
                     </> : <>
                         <HeaderMenuItem
-                            href='/environment'
-                        >{t('nav.menu.sustainability')}
+                        >
+                            <Link to='/environment'>{t('nav.menu.sustainability')}</Link>
                         </HeaderMenuItem>
                         <HeaderMenuItem
-                            href='/'
                             onClick={() => {
                                 const elem = document.querySelector( '#shop-with-us-start' );
                                 elem?.scrollIntoView?.({ behavior: 'smooth' });
                             }}
-                        >{t('nav.menu.shop-with-us')}</HeaderMenuItem>
+                        ><Link to='/'>{t('nav.menu.shop-with-us')}</Link></HeaderMenuItem>
                         <HeaderMenuItem
-                            href='/letsTalk'
-                        >{t('nav.menu.lets-talk')}</HeaderMenuItem>
+                        ><Link to='/letsTalk'>{t('nav.menu.shop-with-us')}</Link></HeaderMenuItem>
                         <HeaderMenuItem
-                            href='/faq'
-                        >{t('nav.menu.faqs')}</HeaderMenuItem>
+                        ><Link to='/faq'>{t('nav.menu.faqs')}</Link></HeaderMenuItem>
 
                     </>}
                 </HeaderNavigation>

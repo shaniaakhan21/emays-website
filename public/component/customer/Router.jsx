@@ -32,6 +32,7 @@ const CustomerRouter = () => {
     const [_, setState] = useSessionState(CHECKOUT_INFO);
 
     useEffect(() => {
+        console.log('Here---->>', launchType);
         // IMPORTANT: make sure you set the launch type to empty within each launch.
         switch (launchType) {
             case PRODUCT_LAUNCH:
@@ -78,17 +79,17 @@ const CustomerRouter = () => {
     return (
         <>
             <Routes>
-                <Route path='/' exact component={() => <CustomerHome />} />
-                <Route path='/environment' component={() => <Environment />} />
-                <Route path='/services' component={() => <Services />} />
-                <Route path='/shop-with-us' component={() => <ShopWithUs />}/>
-                <Route path='/letsTalk' component={() => <RetailerLetsTalk />} />
-                <Route path='/faq' component={() => <RetailerFAQs />} />
-                <Route path='/integration' component={() => <RetailerIntegration />} />
-                <Route path='/partnership' component={() => <RetailerPartnership />} />
-                <Route path='/privacy' component={() => <Privacy />} />
-                <Route path='/terms' component={() => <Terms />} />
-                <Route path='/cookie' component={() => <Cookie />} />
+                <Route path='/' exact element={<CustomerHome />} />
+                <Route path='/environment' element={<Environment />} />
+                <Route path='/services' element={<Services />} />
+                <Route path='/shop-with-us' element={<ShopWithUs />}/>
+                <Route path='/letsTalk' element={<RetailerLetsTalk />} />
+                <Route path='/faq' element={<RetailerFAQs />} />
+                <Route path='/integration' element={<RetailerIntegration />} />
+                <Route path='/partnership' element={<RetailerPartnership />} />
+                <Route path='/privacy' element={<Privacy />} />
+                <Route path='/terms' element={<Terms />} />
+                <Route path='/cookie' element={<Cookie />} />
             </Routes>
         </>
     );

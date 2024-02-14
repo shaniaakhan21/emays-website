@@ -2,8 +2,6 @@ import React, { useEffect, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { useSelector } from 'react-redux';
-import Circles from 'react-loading-icons/dist/esm/components/circles';
-import ThreeDots from 'react-loading-icons/dist/esm/components/three-dots';
 
 const PaginationLayout = styled.div`
     ${(props) => props.styles && css`
@@ -210,7 +208,7 @@ const PaginationContainer = ({ pageLength = 5, noOfVisibleButtons = 5, wrapperSt
                 !getInitialDataLoadedState() && <div 
                     // eslint-disable-next-line max-len
                     style={{ minHeight: '100vh', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <ThreeDots stroke='black' strokeWidth={2} fontSize={1}/>
+                    <p>Loading...</p>
                 </div>
             }
         </>

@@ -1,12 +1,11 @@
 
 import React, { useEffect, useState } from 'react';
-import { HashRouter, Routes, Route, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useNavigate, HashRouter } from 'react-router-dom';
 
 // SCSS
 import '../scss/main.scss';
 
 // Components
-import ErrorBoundary from './ErrorBoundary';
 import Checkout from './checkout/Checkout';
 import Confirm from './checkout/Confirm';
 import Appointment from './appointment/AppointmentDetails';

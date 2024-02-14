@@ -33,6 +33,11 @@ import { connectToMongoDB } from './app/data/db/connector';
 import letsTalkRoute from './app/route/letsTalkRoute';
 import faqRoute from './app/route/faqRoute';
 import { emailScheduler } from './app/service/schedulerEmailService';
+import dashboard from './app/route/dashboardRoute';
+import website from './app/route/websiteRoute';
+import { WEBSITE_UI_PATHS } from './app/const/routePath';
+
+const UI_PATHS: Array<string> = WEBSITE_UI_PATHS;
 
 // Parses incoming requests with JSON payloads (body-parser)
 app.use(express.json());
@@ -77,8 +82,8 @@ app.use(config.ROUTE_PATH, faqRoute);
 app.use(config.ROUTE_PATH, adminExternalSystemRoute);
 app.use(config.ROUTE_PATH, managerExternalSystemRoute);
 app.use(config.ROUTE_PATH, driverRoute);
-app.use(customerRoutes);
-
+app.use(dashboard);
+app.use(website);
 /*
  * Error handling middleware
  */
