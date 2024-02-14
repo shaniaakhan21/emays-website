@@ -22,12 +22,13 @@ const Logging = Logger(__filename);
 /**
  * To accept the launch request and render the UI
  */
-router.get(RoutePath.DASHBOARD, (req: express.Request,
+router.get(RoutePath.WEBSITE, (req: express.Request,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
+        console.log('Path----', req.path);
         Logging.log(buildInfoMessageUserProcessCompleted('Launch UI app', 'Dashboard' ), LogType.INFO);
-        const paramBuilder = new LaunchParamBuilder(LaunchType.DASHBOARD);
-        const applicationPath: string = await buildAppLaunchPath(config.UI_APP_ENTRY_POINT);
+        const paramBuilder = new LaunchParamBuilder(LaunchType.WEBSITE);
+        const applicationPath: string = await buildAppLaunchPath(config.WEBSITE_ENTRY_POINT);
         return res.render(applicationPath, paramBuilder.build());
 
     })().catch((error) => {

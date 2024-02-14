@@ -51,6 +51,7 @@ export const config = {
     ROUTE_PATH: ROUTE_PATH || '/api',
     STATIC_FILES_LOCATION: '/app-dist/dist',
     UI_APP_ENTRY_POINT: 'index.html',
+    WEBSITE_ENTRY_POINT: 'website.html',
     PORT: {
         NODE_DOCKER_PORT: NODE_DOCKER_PORT ?? 8080,
         NODE_LOCAL_PORT: NODE_LOCAL_PORT ?? 8080

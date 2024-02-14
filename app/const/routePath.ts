@@ -16,6 +16,7 @@ export enum RoutePath {
     ORDER_BY_ORDER_ID = '/byOrderId',
     ORDER_BY_PAGINATION = '/pagination',
     CUSTOMER_UI = '/',
+    WEBSITE = '*',
     USERS = '/users',
     RETAILER_UI = '/retailer',
     EXTERNAL_SYSTEMS = '/externalSystems',
