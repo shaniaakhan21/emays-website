@@ -8,7 +8,6 @@ import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
 import ButtonCustom from './ButtonCustom';
 import { Languages, getWebLanguage, setWebsiteLanguage } from '../../js/util/LocalStorageUtil';
-import { Link } from 'react-router-dom';
 
 const Nav = () => {
     const { t, i18n } = useTranslation();
@@ -26,7 +25,7 @@ const Nav = () => {
 
     useEffect(() => {
         i18n.changeLanguage(getWebLanguage());
-    }, []);
+    }, [isRetailer]);
 
     const getLanguage = () => i18n.language;
 
@@ -78,20 +77,17 @@ const Nav = () => {
                         <HeaderMenuItem href='/environment'>{t('nav.menu.sustainability')}</HeaderMenuItem>
                         <HeaderMenuItem href='/letsTalk'>{t('nav.menu.lets-talk')}</HeaderMenuItem>
                     </> : <>
-                        <HeaderMenuItem
-                        >
-                            <Link to='/environment'>{t('nav.menu.sustainability')}</Link>
+                        <HeaderMenuItem href='/environment'
+                        >{t('nav.menu.sustainability')}
                         </HeaderMenuItem>
-                        <HeaderMenuItem
+                        <HeaderMenuItem href='/'
                             onClick={() => {
                                 const elem = document.querySelector( '#shop-with-us-start' );
                                 elem?.scrollIntoView?.({ behavior: 'smooth' });
                             }}
-                        ><Link to='/'>{t('nav.menu.shop-with-us')}</Link></HeaderMenuItem>
-                        <HeaderMenuItem
-                        ><Link to='/letsTalk'>{t('nav.menu.shop-with-us')}</Link></HeaderMenuItem>
-                        <HeaderMenuItem
-                        ><Link to='/faq'>{t('nav.menu.faqs')}</Link></HeaderMenuItem>
+                        >{t('nav.menu.shop-with-us')}</HeaderMenuItem>
+                        <HeaderMenuItem href='/letsTalk'>{t('nav.menu.lets-talk')}</HeaderMenuItem>
+                        <HeaderMenuItem href='/faq'>{t('nav.menu.faqs')}</HeaderMenuItem>
 
                     </>}
                 </HeaderNavigation>

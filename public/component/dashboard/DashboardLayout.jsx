@@ -345,7 +345,7 @@ const DashboardLayout = () => {
                         
                         {
                             loginStatusStore?.role === 'super' &&
-                                    <Route path='adminTools'
+                                    <Route path='adminTools/*'
                                         element={<AdminToolsRouter />
                                         }></Route> 
                         }

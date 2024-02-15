@@ -10,7 +10,7 @@ import { getLaunchType, setLaunchType } from '../../../js/util/SessionStorageUti
 import { useNavigate } from 'react-router-dom';
 import { EMAIL_BOOKED, EMAIL_INVOICE, EMAIL_REMINDER,
     EMAIL_TODAY, PRODUCT_LAUNCH } from '../../../js/const/SessionStorageConst';
-
+    
 const RetailerLogin = ({ exeLogin = () => {} }) => {
 
     const [formData, updateFormData] = useState( { username: '', password: '' } );
@@ -20,6 +20,7 @@ const RetailerLogin = ({ exeLogin = () => {} }) => {
 
     const launchType = getLaunchType();
     const history = useNavigate();
+
     useEffect(() => {
         // IMPORTANT: make sure you set the launch type to empty within each launch.
         switch (launchType) {

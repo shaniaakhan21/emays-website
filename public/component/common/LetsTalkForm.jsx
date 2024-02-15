@@ -16,9 +16,10 @@ import PhoneIcon from '../../images/phone.svg';
 import InstagramIcon from '../../images/logo--instagram.svg';
 import FacebookIcon from '../../images/fb.svg';
 import LinkedInIcon from '../../images/linkedin.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { recaptchaKey } from '../../js/const/recaptcha';
-import Checkbox from '@carbon/react/lib/components/Checkbox/Checkbox';
+import FormLabel from '@carbon/react/lib/components/FormLabel/FormLabel';
+import ContactNumberInput from './ContactNumberInput';
 
 const LetsTalkForm = ({ onSubmit }) => {
     const [translate] = useTranslation();
@@ -34,6 +35,29 @@ const LetsTalkForm = ({ onSubmit }) => {
     };
 
     const t = (key) => translate(`common.lets-talk-form.${key}`);
+
+    const [state, setFormData] = useReducer((state, action) => {
+        switch (action?.type) {
+            case 'setName':
+                return { ...state, name: action?.data };
+            case 'setEmail':
+                return { ...state, email: action?.data };
+            case 'setPhone':
+                return { ...state, phoneNumber: action?.data };
+            case 'setMessage':
+                return { ...state, message: action?.data };
+            case 'setSubmitted':
+                return { ...state, submitted: action?.data };
+            default:
+                return { ...state };
+        }
+    }, {
+        name: '',
+        email: '',
+        phoneNumber: '',
+        message: '',
+        submitted: false
+    });
 
     useEffect(() => {
         grecaptcha.enterprise.ready(function () {
@@ -53,41 +77,71 @@ const LetsTalkForm = ({ onSubmit }) => {
                         <h1 className='title'>{t('header')}</h1>
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
+                        <FormLabel style={{ paddingBottom: '8px' }} htmlFor='name'>
+                            {t('name')}
+                            <span style={{ color: 'red', fontSize: '18px', paddingLeft: '5px' }}>*</span> 
+                        </FormLabel>
                         <TextBoxCustom
-                            labelText={t('name')}
                             placeholderText={t('name-placeholder')}
+                            onChange={(e) => {
+                                setValue(e);
+                                setFormData({ type: 'setName', data: e.target.value }); }}
                             autocomplete='given-name'
                             name='name'
-                            onChange={setValue}
+                            id='name'
                         />
+                        {!state?.name && state?.submitted && 
+                        <span style={{ 'color': '#ff5050', 'font-size': '14px', lineHeight: '28px' }}>
+                                Please enter name</span>}
+                        <br/>
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
+                        <FormLabel style={{ paddingBottom: '8px' }} htmlFor='email'>
+                            {t('email')}
+                            <span style={{ color: 'red', fontSize: '18px', paddingLeft: '5px' }}>*</span> 
+                        </FormLabel>
                         <TextBoxCustom
-                            labelText={t('email')}
+                            id='email'
                             autocomplete='email'
                             name='email'
-                            onChange={setValue}
-                        />
+                            onChange={(e) => {
+                                setValue(e);
+                                setFormData({ type: 'setEmail', data: e.target.value }); }}
+                        /> {!state?.email && state?.submitted && 
+                        <span style={{ 'color': '#ff5050', 'font-size': '14px', lineHeight: '28px' }}>
+                        Please enter email</span>}
+                        <br/>
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
-                        <TextBoxCustom
-                            labelText={t('phone')}
-                            placeholderText={t('phone-placeholder')}
-                            autocomplete='tel'
-                            name='phone'
-                            onChange={setValue}
+                        <ContactNumberInput
+                            id='phone'
+                            actionFunc= {(value) => { setFormData({ type: 'setPhone', data: value }); }}
                         />
+                        {!state?.phoneNumber && state?.submitted
+                         && <span style={{ 'color': '#ff5050', 'font-size': '14px', lineHeight: '28px' }}>
+                        Please enter phone</span>}
+                        <br/>
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
+                        <FormLabel htmlFor='message' style={{ paddingBottom: '8px' }}>
+                            {t('message')}
+                            <span style={{ color: 'red', fontSize: '18px', paddingLeft: '5px' }}>*</span> 
+                        </FormLabel>
                         <TextAreaCustom
                             className='message'
-                            labelText={t('message')}
                             placeholder={t('message-placeholder')}
                             enableCounter
                             maxCount={100}
                             name='message'
-                            onChange={setValue}
+                            id='message'
+                            onChange={(e) => {
+                                setValue(e);
+                                setFormData({ type: 'setMessage', data: e.target.value }); }}
                         />
+                        {!state?.message && state?.submitted && 
+                        <span style={{ 'color': '#ff5050', 'font-size': '14px', lineHeight: '28px' }}>
+                        Please enter message</span>}
+                        <br/>
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
                         <CheckBoxCustom
@@ -99,7 +153,12 @@ const LetsTalkForm = ({ onSubmit }) => {
                         />
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
-                        <ButtonCustom action={() => onSubmit(data)} className='submit' text={t('submit')}/>
+                        <ButtonCustom action={() => {
+                            setFormData({ type: 'setSubmitted', data: true });
+                            if (state?.name && state?.email && state?.phoneNumber && state?.message) {
+                                onSubmit(data);
+                            }
+                        }} className='submit' text={t('submit')}/>
                     </Col>
                 </Grid>
             </Col>
