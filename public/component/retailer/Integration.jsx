@@ -55,7 +55,7 @@ const RetailerIntegration = () => {
                         </div>
                         <div className='see-more'
                             data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000'>
-                            <a href='/#/letsTalk' className='btn'>
+                            <a href='/letsTalk' className='btn'>
                                 <ButtonCustom action={() => {}} text={t('button')} />
                             </a>
                         </div>
@@ -93,7 +93,7 @@ const RetailerIntegration = () => {
                         </Column>))}
                     <Column lg={16} md={8} sm={4} xs={4} className='req-demo'
                         data-aos-duration='1000' data-aos='fade-in'>
-                        <a href='/#/letsTalk' className='btn'>
+                        <a href='/letsTalk' className='btn'>
                             <ButtonCustom action={() => {}} text={t('button')} />
                         </a>
                     </Column>

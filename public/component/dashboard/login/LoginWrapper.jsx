@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useMessage } from '../../common/messageCtx';
 import { useTranslation } from 'react-i18next';
 import { getAuthToken } from '../../../js/util/SessionStorageUtil';
+import { getAuthTokenLocalStorage, getLoginResponseLocalStorage } from '../../../js/util/LocalStorageUtil';
 
 const LoginWrapperLayout = styled.div`
     ${(props) => props.styles && css`
@@ -28,6 +29,16 @@ const LoginWrapper = ({ loginComponent: LoginComponent, uri, wrapperStyle }) => 
         const data = { dispatch: dispatch, username: username, password: password };
         return dispatch(loginExe(data));
     }, [dispatch]);
+
+    /*
+     * UseEffect(() => {
+     *     const auth = getAuthTokenLocalStorage();
+     *     const login = getLoginResponseLocalStorage();
+     *     if (auth && login && exeLogin) {
+     *         // exeLogin({});
+     *     } 
+     * }, [localStorage, sessionStorage]);
+     */
 
     const exeLogin = async ({
         username,
