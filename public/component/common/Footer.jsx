@@ -17,21 +17,23 @@ const Footer = () => {
         <Column lg={16} md={8} sm={4} xs={4} as='footer'>
             <Grid className='footer'>
                 <Column sm={4} md={3} lg={2}>
-                    <img src={LOGO} className='footer__logo' 
-                        alt={translate('img-alt-t-loading.common.footer.emays-img-alt')} 
-                        loading='eager' title={translate('img-alt-t-loading.common.footer.emays-img-title')} />
+                    <a href='/'>
+                        <img src={LOGO} className='footer__logo' 
+                            alt={translate('img-alt-t-loading.common.footer.emays-img-alt')} 
+                            loading='eager' title={translate('img-alt-t-loading.common.footer.emays-img-title')} />
+                    </a>
                 </Column>
                 <Column sm={8} md={6} lg={2}>
                     <div className='footer__links contact'>
-                        <Link href='/#/terms'>{t('terms')}</Link>
+                        <Link href='/terms'>{t('terms')}</Link>
                     </div>
                     <div className='footer__links'>
-                        <Link href='/#/privacy'>{t('privacy')}</Link>
+                        <Link href='/privacy'>{t('privacy')}</Link>
                     </div>
                 </Column>
                 <Column sm={8} md={6} lg={2}>
                     <div className='footer__links contact'>
-                        <Link href='/#/letsTalk'>{t('contact')}</Link>
+                        <Link href='/letsTalk'>{t('contact')}</Link>
                     </div>
                     <div className='footer__links'>
                         <span>{t('copy')}</span>

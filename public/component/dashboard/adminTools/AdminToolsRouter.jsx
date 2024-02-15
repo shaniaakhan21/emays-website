@@ -9,9 +9,9 @@ const AdminToolsRouter = () => {
         <Routes>
             <Route exact path='/'
                 element={<AdminTools />}></Route>
-            <Route exact path='createRetailer'
+            <Route exact path='/createRetailer'
                 element={<CreateRetailer />}></Route>
-            <Route exact path='createDriver'
+            <Route exact path='/createDriver'
                 element={<CreateDriver />}></Route>
         </Routes>
     );

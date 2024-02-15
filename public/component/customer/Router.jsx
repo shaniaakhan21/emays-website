@@ -32,7 +32,6 @@ const CustomerRouter = () => {
     const [_, setState] = useSessionState(CHECKOUT_INFO);
 
     useEffect(() => {
-        console.log('Here---->>', launchType);
         // IMPORTANT: make sure you set the launch type to empty within each launch.
         switch (launchType) {
             case PRODUCT_LAUNCH:

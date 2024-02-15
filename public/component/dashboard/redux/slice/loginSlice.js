@@ -3,6 +3,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loginExe, logoutExe } from '../thunk/loginThunk';
 import { AUTH_TOKEN } from '../../../../js/const/SessionStorageConst';
+import { setAuthTokenLocalStorage } from '../../../../js/util/LocalStorageUtil';
+import { setAuthToken } from '../../../../js/util/SessionStorageUtil';
     
 const initialState = {
     token: '',
@@ -35,7 +37,8 @@ const loginSlice = createSlice({
             state.isSuccess = false;
         });
         builder.addCase(logoutExe.fulfilled, (state, action) => {
-            sessionStorage.setItem(AUTH_TOKEN, '');
+            setAuthToken('');
+            setAuthTokenLocalStorage('');
             state.token = '';
             state.role = '';
             state.userInfo = {};
