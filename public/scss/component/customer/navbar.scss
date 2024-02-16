@@ -58,15 +58,16 @@ $carbon-md-max: 64em;   // 1024px
     > .logo-xs {
       display: none;
 
-      @media screen and (max-width: $carbon-xs-max) {
+      @media screen and (max-width: $carbon-md-max) {
           display: block;
+          min-width: 13px;
       }
     }
 
     > .logo {
         display: block;
 
-        @media screen and (max-width: $carbon-xs-max) {
+        @media screen and (max-width: $carbon-md-max) {
             display: none;
         }
     }
@@ -87,6 +88,7 @@ $carbon-md-max: 64em;   // 1024px
 
   .retailer-toggle {
     padding-right: 1rem;
+    margin-left: 15px;
   }
 
   .cds--header__navigation {
@@ -172,7 +174,9 @@ $carbon-md-max: 64em;   // 1024px
 }
 
 .nav-icon{
-  padding: 1rem;
+  min-width: 30px;
+  margin: 0 10px 0 0;
+  width: 30px;
 
   @media (min-width: $carbon-sm-max) {
     display: none;
@@ -220,6 +224,10 @@ $carbon-md-max: 64em;   // 1024px
       &:not(.active) {
         display: none;
       }
+    }
+    @media screen and (max-width: $carbon-xs-max) {
+      padding: 8px 15px;
+      font-size: 13px;
     }
   }
 }

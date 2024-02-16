@@ -2,7 +2,7 @@
 
 .section-box {
     background-color: #ffffff;
-    padding:0;
+    padding:0 15px;
     font-family: 'Montserrat';
     z-index: 100;
     position: relative;
@@ -137,14 +137,14 @@
         width: 100%;
 
         @media screen and (max-width: 890px) {
-            margin: 10% 16%;
+            margin: 10% 0;
         }
 
         @media screen and (max-width: 768px) {
-            margin: 17% 6% 6% 6%;
+            margin:0;
         }
         @media screen and (max-width: 480px) {
-            margin: 0% 3% 3%;
+            margin:0;
         }
 
         h1 {
@@ -153,11 +153,19 @@
             font-weight: 700;
             line-height: 66px;
             letter-spacing: 0em;
-            text-align: center;
+            text-align: center; margin-bottom:20px;
 
+            @media screen and (max-width:1024px) {
+                font-size: 45px;
+                line-height: 55px;
+            }
+            @media screen and (max-width:768px) {
+                font-size: 36px;
+                line-height: 46px;
+            }
             @media screen and (max-width: 480px) {
-                font-size: 40px;
-                line-height: 50px;
+                font-size: 30px;
+                line-height: 40px;
             }
         }
     }
