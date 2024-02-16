@@ -63,6 +63,17 @@
     display: none !important;
 }
 
+.phone > label::after {
+    content: '*';
+    color: red;
+    margin-left: 4px;
+    font-size: 18px;
+}
+
+.message div.cds--label {
+    color: #a0a0a0;
+}
+
 @media screen and (max-width: 767px) {
     #cookie-consent {
         padding: 5%;

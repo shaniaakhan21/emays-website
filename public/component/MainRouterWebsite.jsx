@@ -9,9 +9,7 @@ import '../scss/main.scss';
 import CustomerRouter from './customer/Router';
 import RetailerRouter from './retailer/Router';
 import { MessageProvider } from './common/messageCtx';
-import { useTranslation } from 'react-i18next';
-import { getWebLanguage } from '../js/util/LocalStorageUtil';
-
+import PaymentSuccessPage from './PaymentSuccess';
 // Util
 
 const MainRouter = () => {
@@ -21,6 +19,7 @@ const MainRouter = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path='/retailer' element={<RetailerRouter />} />
+                    <Route path='/paymentSuccess/:id/:token/:serviceFee' element={<PaymentSuccessPage />}></Route>
                     <Route path='/*' element={<CustomerRouter />} />
                 </Routes>
             </BrowserRouter>

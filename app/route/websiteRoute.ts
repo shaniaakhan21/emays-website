@@ -25,7 +25,6 @@ const Logging = Logger(__filename);
 router.get(RoutePath.WEBSITE, (req: express.Request,
     res: express.Response, next: express.NextFunction): void => {
     (async () => {
-        console.log('Path----', req.path);
         Logging.log(buildInfoMessageUserProcessCompleted('Launch UI app', 'Dashboard' ), LogType.INFO);
         const paramBuilder = new LaunchParamBuilder(LaunchType.WEBSITE);
         const applicationPath: string = await buildAppLaunchPath(config.WEBSITE_ENTRY_POINT);

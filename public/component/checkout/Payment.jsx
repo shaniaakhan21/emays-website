@@ -70,7 +70,7 @@ const Payment = ({ open, setOpen }) => {
                 confirmParams: {
                     // return_url: `${apiBase}/stripe/checkout/complete?userId=${open.uid}`
                     // eslint-disable-next-line max-len
-                    return_url: `${window.location.protocol}//${window.location.host}/#/paymentSuccess/${open.uid}/${token}/${serviceFee}`
+                    return_url: `${window.location.protocol}//${window.location.host}/paymentSuccess/${open.uid}/${token}/${serviceFee}`
                 }
             });
             if (result.error) {

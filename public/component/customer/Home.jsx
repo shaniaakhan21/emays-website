@@ -18,6 +18,15 @@ const CustomerHome = ({
         window.scrollTo(0, 0);
     }, []);
 
+    useEffect(() => {
+        const isShopWithUs = localStorage.getItem('shopWithUs');
+        if (isShopWithUs === 'true') {
+            localStorage.setItem('shopWithUs', false);
+            const elem = document.querySelector( '#shop-with-us-start' );
+            elem?.scrollIntoView?.({ behavior: 'smooth' });
+        }
+    }, [localStorage]);
+
     return (
         <>
             <HelmetProvider>

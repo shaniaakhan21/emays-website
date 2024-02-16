@@ -7,7 +7,7 @@ import { AUTH_TOKEN, PRODUCT_LIST, ADDRESS, LAUNCH_TYPE, USER_DATA,
     END_TIME, 
     CHECKOUT_INFO } from '../const/SessionStorageConst';
 
-const getItem = (key) => {
+export const getItem = (key) => {
     const itemsAsString = sessionStorage.getItem(key);
     const cleaned = itemsAsString.replace(/&#34;/g, '"');
     const json = JSON.parse(cleaned);

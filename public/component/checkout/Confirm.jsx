@@ -159,7 +159,7 @@ const Confirm = () => {
                                 <img src={EditIcon} alt='edit icon' />
                             </div>
                             <div>
-                                <a onClick={() => history.go(-1)}>{t('confirm.edit-appointment.edit-button')}</a>
+                                <a onClick={() => history(-1)}>{t('confirm.edit-appointment.edit-button')}</a>
                             </div>
                         </div>
                     </div>
@@ -259,6 +259,8 @@ const Confirm = () => {
                                     })); }}
                                     data = {state?.phoneNumber || ''}
                                 />
+                                { errors?.phoneNumber && 
+                                <span style={{ color: '#da1e28', fontSize: '12px', fontWeight: '400px' }}>Phone Number Required</span> }
                             </div>
                             <div className='text-fields-contact'>
                                 <TextBoxCustom
