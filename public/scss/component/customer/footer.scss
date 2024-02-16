@@ -12,19 +12,26 @@ footer {
     margin: 0 auto;
     color: #f3f3f3;
     flex-direction: row;
-    padding: 4% 6% 2%;
+    padding:5% 6% 3%;
     background: #231f20;
     max-width: 1280px;
+    
 
     a:hover {
       color: #f3f3f3 !important;
     }
     .footer__links {
       text-align: center;
+      @media screen and (max-width: $carbon-xs-max) {
+        span{
+          margin: 20px 0 0 0;
+          display: inline-block;
+        }
+      }
     }
 
     > div {
-      margin: 20px 0;
+      margin: 0 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -32,10 +39,9 @@ footer {
     }
 
     @media screen and (max-width: $carbon-md-max) {
-      padding: 1rem 0px;
+      padding:4rem 30px;
     }
-
-    @media screen and (max-width: $carbon-xs-max) {
+    @media screen and (max-width: $carbon-sm-max) {
       flex-direction: column;
       align-items: center;
       width: 100vw;
@@ -43,6 +49,9 @@ footer {
 
     .footer__logo{
       width: 85px;
+      @media screen and (max-width: $carbon-sm-max) {
+        margin-bottom: 30px;
+      }
     }
 
     .cds--link{
@@ -61,15 +70,22 @@ footer {
     .footer__social{
       display: flex !important;
 
-      @media screen and (max-width: $carbon-md-max) {
-        flex-direction: column;
-      }
+        @media screen and (max-width: $carbon-md-max) {
+          flex-direction: column;
+        }
+        @media screen and (max-width: $carbon-xs-max) {
+          margin-top: 35px;
+        }
+
 
       .cds--link{
         padding: 5px 10px;
 
         @media screen and (max-width: $carbon-md-max) {
           padding: 15px 10px;
+        }
+        @media screen and (max-width: $carbon-xs-max) {
+          padding: 5px 10px;
         }
 
         img{

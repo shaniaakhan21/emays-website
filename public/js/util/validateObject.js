@@ -51,9 +51,9 @@ export const validatePassword = (password) => {
  * @param {string} password 
  * @returns 
  */
-export const validateEmail = (password) => {
+export const validateEmail = (email) => {
     const pattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     // Test the password against the pattern
-    const isValid = pattern.test(password);
+    const isValid = pattern.test(email);
     return isValid;
 };

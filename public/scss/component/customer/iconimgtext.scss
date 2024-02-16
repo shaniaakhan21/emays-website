@@ -7,11 +7,12 @@
     margin: 8rem 1rem 0;
     display: flex;
     flex-direction: row;
-    padding: 0;
+    padding: 0 15px;
 
     @media (max-width: 768px) {
         flex-direction: column;
         margin: 1rem 0;
+        padding:0 15px;
     }
 
     .CO2-neutral-img{
@@ -38,13 +39,12 @@
         flex-direction: column;
 
         @media screen and (max-width: 768px) {
-            margin: 14px;
+            margin:15px 0;
         }
 
-        @media screen and (max-width: 640px) {
-            margin: 7%;
-        }
-
+        // @media screen and (max-width: 640px) {
+        //     margin: 7%;
+        // }
 
         h1 {
             color: #fff;
@@ -55,12 +55,18 @@
             font-size: 52px;
             margin-bottom: 1rem;
 
+            @media screen and (max-width: 1024px) {
+                font-size:35px;
+            }
+
             @media screen and (max-width: 768px) {
                 text-align: end;
+                font-size:32px;
             }
 
             @media screen and (max-width: 640px) {
                 text-align: end;
+                font-size: 22px;
             }
         }
         h5{
@@ -70,10 +76,15 @@
             font-style: normal;
             font-weight: 400;
             font-size: 20px;
+            
+            @media screen and (max-width: 1024px) {
+                font-size: 18px;
+            }
 
             @media screen and (max-width: 768px) {
                 text-align: end;
                 margin-top: 3%;
+                font-size: 16px;
             }
 
             @media screen and (max-width: 640px) {
