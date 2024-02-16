@@ -24,7 +24,8 @@ import Emays from '../../logo/emays-logo-white.png';
 import CorrectSign from '../../icons/correct-sign.png';
 
 // Util
-import { getLaunchType, getProductList, getRetailerData } from '../../js/util/SessionStorageUtil';
+import { getItem, getLaunchType, getProductList, getRetailerData,
+    setServiceCost } from '../../js/util/SessionStorageUtil';
 import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
@@ -115,6 +116,7 @@ const Checkout = () => {
             });
             return;
         }
+        setServiceCost(getItem('checkoutInfo')?.serviceFee);
         setLoading(true);
         setTimeout(() => {
             setState(cs => ({ ...cs, locked: true }));

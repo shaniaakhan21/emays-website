@@ -95,11 +95,11 @@ const RetailerLanding = () => {
                             </Column>
                             <Column lg={16} md={8} sm={4} xs={4} className='see-more'>
                                 <div className='shipping-section__right buttons'>
-                                    <a href='/#/integration'>
+                                    <a href='/integration'>
                                         <ButtonCustom action={() => {
                                         }} text={t('button')}/>
                                     </a>
-                                    <a href='/#/letsTalk'>
+                                    <a href='/letsTalk'>
                                         <ButtonCustom
                                             action={() => {
                                             }}
