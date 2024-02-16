@@ -82,8 +82,7 @@ const Nav = () => {
                         </HeaderMenuItem>
                         <HeaderMenuItem href='/'
                             onClick={() => {
-                                const elem = document.querySelector( '#shop-with-us-start' );
-                                elem?.scrollIntoView?.({ behavior: 'smooth' });
+                                localStorage.setItem('shopWithUs', true);
                             }}
                         >{t('nav.menu.shop-with-us')}</HeaderMenuItem>
                         <HeaderMenuItem href='/letsTalk'>{t('nav.menu.lets-talk')}</HeaderMenuItem>

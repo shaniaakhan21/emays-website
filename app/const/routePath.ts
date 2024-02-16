@@ -68,5 +68,6 @@ export const WEBSITE_UI_PATHS: Array<string> = [
     '/partnership',
     '/privacy',
     '/terms',
+    '/paymentSuccess',
     '/entry-client.jsx'
 ];

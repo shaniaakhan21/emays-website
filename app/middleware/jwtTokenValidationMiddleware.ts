@@ -20,6 +20,7 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
     // TODO: add service-worker implementation to add the token with the UI files requests.
     if (req.path !== `${config.ROUTE_PATH}${RoutePath.HEALTH}` &&
         (!WEBSITE_UI_PATHS.includes(req.path)) &&
+        (!req.path.includes('paymentSuccess')) &&
         (req.path !== `${RoutePath.DASHBOARD}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LETS_TALK}`) &&

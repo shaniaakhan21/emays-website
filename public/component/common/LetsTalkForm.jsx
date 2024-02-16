@@ -112,7 +112,7 @@ const LetsTalkForm = ({ onSubmit }) => {
                         Please enter email</span>}
                         <br/>
                     </Col>
-                    <Col lg={16} md={8} sm={4} xs={4}>
+                    <Col lg={16} md={8} sm={4} xs={4} className = 'phone'>
                         <ContactNumberInput
                             id='phone'
                             actionFunc= {(value) => { setFormData({ type: 'setPhone', data: value }); }}
@@ -122,7 +122,7 @@ const LetsTalkForm = ({ onSubmit }) => {
                         Please enter phone</span>}
                         <br/>
                     </Col>
-                    <Col lg={16} md={8} sm={4} xs={4}>
+                    <Col lg={16} md={8} sm={4} xs={4} className={'message'}>
                         <FormLabel htmlFor='message' style={{ paddingBottom: '8px' }}>
                             {t('message')}
                             <span style={{ color: 'red', fontSize: '18px', paddingLeft: '5px' }}>*</span> 
