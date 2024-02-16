@@ -41,17 +41,17 @@ const Footer = () => {
                 </Column>
                 <Column sm={12} md={3} lg={8} className='footer__right'>
                     <div className='footer__social'>
-                        <Link href='https://www.trustpilot.com/review/emaysstyle.com'>
+                        <Link href='https://www.trustpilot.com/review/emaysstyle.com' target='_blank'>
                             <img src={TrustPilot} alt={t('trustpilot')} loading='eager' 
                                 title={translate('img-alt-t-loading.common.footer.trustpilot-title')} />
                             {t('trustpilot')}
                         </Link>
-                        <Link href='https://www.instagram.com/emaysstyle'>
+                        <Link href='https://www.instagram.com/emaysstyle' target='_blank'>
                             <img src={Instagram} alt={t('instagram')} loading='eager' 
                                 title={translate('img-alt-t-loading.common.footer.instagram-title')}/>
                             {t('instagram')}
                         </Link>
-                        <Link href='https://www.facebook.com/Emaysstyle'>
+                        <Link href='https://www.facebook.com/Emaysstyle' target='_blank'>
                             <img src={Facebook} alt={t('facebook')} loading='eager' 
                                 title={translate('img-alt-t-loading.common.footer.facebook-title')}/>
                             {t('facebook')}

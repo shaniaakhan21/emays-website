@@ -20,6 +20,7 @@ import { useEffect, useReducer, useState } from 'react';
 import { recaptchaKey } from '../../js/const/recaptcha';
 import FormLabel from '@carbon/react/lib/components/FormLabel/FormLabel';
 import ContactNumberInput from './ContactNumberInput';
+import { validateEmail } from '../../js/util/validateObject';
 
 const LetsTalkForm = ({ onSubmit }) => {
     const [translate] = useTranslation();
@@ -48,6 +49,8 @@ const LetsTalkForm = ({ onSubmit }) => {
                 return { ...state, message: action?.data };
             case 'setSubmitted':
                 return { ...state, submitted: action?.data };
+            case 'setInEmailInvalid':
+                return { ...state, emailInValid: action?.data };
             default:
                 return { ...state };
         }
@@ -56,7 +59,8 @@ const LetsTalkForm = ({ onSubmit }) => {
         email: '',
         phoneNumber: '',
         message: '',
-        submitted: false
+        submitted: false,
+        emailInValid: false
     });
 
     useEffect(() => {
@@ -110,6 +114,9 @@ const LetsTalkForm = ({ onSubmit }) => {
                         /> {!state?.email && state?.submitted && 
                         <span style={{ 'color': '#ff5050', 'font-size': '14px', lineHeight: '28px' }}>
                         Please enter email</span>}
+                        {state?.emailInValid && state?.submitted && 
+                        <span style={{ 'color': '#ff5050', 'font-size': '14px', lineHeight: '28px' }}>
+                        Please enter a valid email</span>}
                         <br/>
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4} className = 'phone'>
@@ -154,8 +161,15 @@ const LetsTalkForm = ({ onSubmit }) => {
                     </Col>
                     <Col lg={16} md={8} sm={4} xs={4}>
                         <ButtonCustom action={() => {
+                            const isValidEmail = validateEmail(state?.email);
+                            if (isValidEmail) {
+                                setFormData({ type: 'setInEmailInvalid', data: false });
+                            } else {
+                                setFormData({ type: 'setInEmailInvalid', data: true });
+                            }
                             setFormData({ type: 'setSubmitted', data: true });
-                            if (state?.name && state?.email && state?.phoneNumber && state?.message) {
+                            if (state?.name && state?.email && state?.phoneNumber &&
+                                 state?.message && !state?.emailInValid) {
                                 onSubmit(data);
                             }
                         }} className='submit' text={t('submit')}/>
@@ -188,7 +202,8 @@ const LetsTalkForm = ({ onSubmit }) => {
                     <a href=''>
                         <img src={InstagramIcon} loading='eager' 
                             alt={translate('img-alt-t-loading.common.lets-talk.instagram-alt')} 
-                            title={translate('img-alt-t-loading.common.lets-talk.instagram-title')}/>
+                            title={translate('img-alt-t-loading.common.lets-talk.instagram-title')} 
+                            className='letstalk-insta'/>
                     </a>
                     <a href=''>
                         <img src={LinkedInIcon} loading='eager' 

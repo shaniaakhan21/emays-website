@@ -101,7 +101,16 @@ $carbon-md-max: 64em;   // 1024px
 
   .shipping-section__button_parent {
     display: flex;
-
+    
+    .mail-icon-outer{
+      @media screen and (max-width: $carbon-sm-max) {
+        width: 100%;
+        button{
+          width: 100%;
+          margin:15px 0 0 0;
+        }
+      }
+    }
     &.mobile {
       display: none;
 
@@ -114,6 +123,15 @@ $carbon-md-max: 64em;   // 1024px
 
       .btn2 {
         margin-top: 20px;
+      }
+      .mail-icon-outer{
+        @media screen and (max-width: $carbon-xs-max) {
+          width: 100%;
+          button{
+            width: 100%;
+            margin-left: 0;
+          }
+        }
       }
     }
 
@@ -138,9 +156,8 @@ $carbon-md-max: 64em;   // 1024px
     min-width: 300px;
     border: none !important;
     box-shadow: none !important;
-
-    @media (max-width: $carbon-sm-max) {
-      width: 100%;
+    white-space: nowrap;
+    @media (max-width: $carbon-xs-max) {
       min-width: 100%;
     }
 
@@ -150,7 +167,7 @@ $carbon-md-max: 64em;   // 1024px
       width: 80px;
 
       @media (max-width: 1024px) {
-        width: 180px;
+        // width: 180px;
         z-index: 20;
       }
 
@@ -356,5 +373,12 @@ $carbon-md-max: 64em;   // 1024px
   @media (max-width: 370px) {
     width: 85%;
     margin-left: 10%;
+  }
+}
+
+
+.assist-me{
+  @media (max-width: 991px) {
+    justify-content: start!important;
   }
 }

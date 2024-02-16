@@ -40,9 +40,9 @@ const HomeSection = () => {
                         }} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='1100' className='shipping-section__button'>
                             {t('home-section.col-1.btn-text')}
                         </Button>
-                        <a href='/letsTalk'>
-                            <Button renderIcon={() => <img src={MailIcon} alt={t('img-alt-t-loading.customer.home.mail-icon-alt')} loading='eager' title={t('img-alt-t-loading.customer.home.mail-icon-title')} width='100%' height='auto' />} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='1100' className='shipping-section__button btn2'>
-                                <p>{t('home-section.col-1.btn-text')}</p>
+                        <a href='/letsTalk' >
+                            <Button renderIcon={() => <img src={MailIcon} alt={t('img-alt-t-loading.customer.home.mail-icon-alt')} loading='eager' title={t('img-alt-t-loading.customer.home.mail-icon-title')} width='20' height='auto' />} data-aos='fade-in' data-aos-easing='linear' data-aos-duration='1000' data-aos-delay='1100' className='shipping-section__button btn2'>
+                                {/* <p>{t('home-section.col-1.btn-text')}</p> */}
                             </Button>
                         </a>
                     </div>
@@ -59,7 +59,7 @@ const HomeSection = () => {
                 }} className='shipping-section__button alignment'>
                     {t('home-section.col-1.btn-text')}
                 </Button>
-                <a href='/letsTalk'>
+                <a href='/letsTalk' className='mail-icon-outer'>
                     <Button renderIcon={() => <img src={MailIcon} alt={t('img-alt-t-loading.customer.home.mail-icon-alt')} loading='eager' title={t('img-alt-t-loading.customer.home.mail-icon-title')} />} className='shipping-section__button btn2 alignment'>
                         <p>{t('home-section.col-1.btn2-text')}</p>
                     </Button>

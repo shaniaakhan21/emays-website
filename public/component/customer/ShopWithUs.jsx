@@ -123,7 +123,7 @@ const ShopWithUs = () => {
                         </Column>
                     </Grid>
                     <Grid className='section-box item-set black reverse'>
-                        <Column lg={8} md={4} sm={4} className='center-text'>
+                        <Column lg={8} md={4} sm={4} className='center-text assist-me'>
                             <div className='info-box'>
                                 <div className='icon' data-aos='fade-in' data-aos-easing='linear' 
                                     data-aos-duration='800'>
