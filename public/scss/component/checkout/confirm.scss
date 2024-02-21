@@ -5,6 +5,10 @@
     padding-top: 40px;
     font-family: 'Montserrat';
 
+    input {
+        padding-left: 3px !important;
+    }
+
     .logo {
         display: flex;
         .store-logo {

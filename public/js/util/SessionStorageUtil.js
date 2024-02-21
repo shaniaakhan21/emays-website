@@ -152,3 +152,12 @@ export const getStoreImage = () => {
 export const getLicenseDocument = () => {
     return sessionStorage.getItem(LICENSE_DOCUMENT);
 };
+
+export const setPaymentSuccess = () => {
+    return sessionStorage.setItem(SERVICE_PAYMENT_SUCCESS_STATUS, SERVICE_FEE_PAYED);
+};
+
+export const getPaymentSuccess = () => {
+    return sessionStorage.getItem(SERVICE_PAYMENT_SUCCESS_STATUS);
+};
+

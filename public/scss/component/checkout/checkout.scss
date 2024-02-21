@@ -1,6 +1,10 @@
 @import '../../fonts';
 
 .landing-page {
+
+    input {
+        padding-left: 3px !important;
+    }
     background-color: white;
     padding-top: 40px;
     font-family: 'Montserrat';
@@ -180,8 +184,9 @@
 }
 
 @media only screen and (max-width: 1056px) {
-    .shopping-bag {
-        justify-content: left !important;
+    .shopping-bag-container {
+        // justify-content: left !important;
+        width: 100%;
     }
 }
 

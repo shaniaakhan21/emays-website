@@ -26,7 +26,6 @@ import { useMessage } from '../common/messageCtx';
 import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
 import LoadingIndicator from '../LoadingIndicator';
 import ContactNumberInput from '../common/ContactNumberInput';
-import { getCurrencySign } from '../../js/util/currencyUtil';
 
 const Confirm = () => {
 
@@ -39,6 +38,10 @@ const Confirm = () => {
     const [errors, setErrors] = useState({});
     const [state, setState] = useSessionState(CHECKOUT_INFO);
     const [open, setOpen] = useState();
+    const [isPaymentOpen, setPaymentOpen] = useState(false);
+    const closeModal = () => {
+        setPaymentOpen(false);
+    };
 
     // Fetch product data from session storage
     useEffect(() => {
@@ -138,6 +141,7 @@ const Confirm = () => {
                 } else {
                     // CHECK PAYMENT DONE HERE
                     setOpen(getUserData());
+                    setPaymentOpen(true);
                 }
             }
         } catch (e) {
@@ -150,7 +154,8 @@ const Confirm = () => {
     return (
         <>
             {/* <Payment open={open} setOpen={setOpen} /> */}
-            <StripeProvider open={open} setOpen={setOpen} serviceFee={state?.serviceFee} />
+            <StripeProvider open={open}
+                serviceFee={state?.serviceFee} isPaymentOpen = {isPaymentOpen} setPaymentOpen = {closeModal} />
             <Grid className='landing-page'>
                 <Column lg={16} md={16} sm={16} xs={16} className='logo'>
                     <div className='store-logo'></div>
@@ -308,7 +313,7 @@ const Confirm = () => {
                 </Column>) : (<Column lg={8} md={8} sm={4} xs={4} className='loading-indicator'>
                     <LoadingIndicator description={t('confirm.loading-description')} />
                 </Column>)}
-                <Column lg={8} md={8} sm={16} className='shopping-bag'>
+                <Column lg={8} md={8} sm={4} xs={4} className='shopping-bag'>
                     <ShoppingBag productList={productData} serviceFee={state?.serviceFee}
                         currencyType = {getRetailerData().currency}/>
                 </Column>
