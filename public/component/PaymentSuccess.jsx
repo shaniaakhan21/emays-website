@@ -3,6 +3,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 import './paymentSuccess.css';
 import { useLocation, useParams } from 'react-router-dom';
 import { submitCheckout } from '../services/stripe';
+import { setPaymentSuccessStatus } from '../js/util/SessionStorageUtil';
 
 const PaymentSuccessPage = () => {
     const location = useLocation();
@@ -22,6 +23,8 @@ const PaymentSuccessPage = () => {
             </div>
             <div className='payment-success-button'>
                 <button onClick={() => {
+                    sessionStorage.clear();
+                    localStorage.clear();
                     window.location.href = `${window.location.protocol}//${window.location.host}`;
                 }}>Continue Shopping</button>
             </div>

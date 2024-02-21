@@ -5,7 +5,10 @@ import { AUTH_TOKEN, PRODUCT_LIST, ADDRESS, LAUNCH_TYPE, USER_DATA,
     LICENSE_DOCUMENT, 
     START_TIME,
     END_TIME, 
-    CHECKOUT_INFO } from '../const/SessionStorageConst';
+    CHECKOUT_INFO, 
+    PAYMENT_SUCCESS_STATUS, 
+    SERVICE_PAYMENT_SUCCESS_STATUS,
+    SERVICE_FEE_PAYED } from '../const/SessionStorageConst';
 
 export const getItem = (key) => {
     const itemsAsString = sessionStorage.getItem(key);
@@ -149,4 +152,3 @@ export const getStoreImage = () => {
 export const getLicenseDocument = () => {
     return sessionStorage.getItem(LICENSE_DOCUMENT);
 };
-

@@ -133,7 +133,7 @@ const DriverDeliveryOrder = ({ driverDeliveryOrderData }) => {
                         <Table rows={tableRow} headers={headers} onRowClick={(item) => {
                             prepareSelectedRowData(item);
                             if (item?.status?.props?.status === 'pending-pick-up') {
-                                history('dashboard#/driverSelectedOrder');
+                                history('driverSelectedOrder');
                             }
                             if (item?.status?.props?.status === 'items-to-be-return' && 
                             loginInfoSelector.userInfo.id === item?.driverId) {
