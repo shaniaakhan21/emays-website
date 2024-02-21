@@ -21,22 +21,35 @@
 
         // Store in the session storage
         const result = "<%= productList %>";
-        sessionStorage.setItem('productList', result);
+        if (result) {
+            sessionStorage.setItem('productList', result);
+        } 
+        localStorage.setItem('productList', result);
 
         const selectedArea= "<%= selectedLaunchArea %>";
-        sessionStorage.setItem('selectedLaunchArea', selectedArea);
-
+        if (selectedArea) {
+            sessionStorage.setItem('selectedLaunchArea', selectedArea);
+        }
+        
         const launchType = "<%= launchType %>";
-        sessionStorage.setItem('launchType', launchType);
-
+        if (launchType) {
+            sessionStorage.setItem('launchType', launchType);
+        }
+        
         const userData = "<%= userData %>";
-        sessionStorage.setItem('userData', userData);
+        if(userData) {
+            sessionStorage.setItem('userData', userData);
+        }
 
         const retailerData = "<%= retailerData %>";
-        sessionStorage.setItem('retailerData', retailerData);
+        if (retailerData) {
+            sessionStorage.setItem('retailerData', retailerData);
+        }
 
         const serviceCostData = "<%= serviceCostData %>";
-        sessionStorage.setItem('serviceCost', serviceCostData);
+        if (serviceCostData) {
+            sessionStorage.setItem('serviceCost', serviceCostData);
+        }
 
         // Consume product list
         const jsonData = sessionStorage.getItem('productList');
@@ -47,7 +60,9 @@
 
         // Store session token
         const token = "<%= token %>";
-        sessionStorage.setItem('authToken', token);
+        if (token) {
+            sessionStorage.setItem('authToken', token);
+        }
 
     </script>
 </head>
