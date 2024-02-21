@@ -30,4 +30,7 @@ export const LICENSE_DOCUMENT = 'licenseDocument';
 export const START_TIME = 'starttime';
 export const END_TIME = 'endTime';
 
+export const SERVICE_PAYMENT_SUCCESS_STATUS = 'servicePaymentSuccessStatus';
+export const SERVICE_FEE_PAYED = 'service_fee_done';
+
 export const SELECTED_LAUNCH_AREA = 'selectedLaunchArea';

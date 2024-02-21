@@ -14,9 +14,9 @@ import { config } from './app/config/config';
 import healthRoute from './app/route/healthRoute';
 import launchRoute from './app/route/launchRoute';
 import calenderRoute from './app/route/calendarRoute';
+import eCommerceRoute from './app/route/eCommerceRoute';
 import driverRoute from './app/route/administration/driverRoute';
 import orderRoute from './app/route/userOrderRoute';
-import customerRoutes from './app/route/customerRoute';
 import externalSystemRoute from './app/route/administration/systemRoute';
 import adminExternalSystemRoute from './app/route/administration/adminExternalSystemRoute';
 import managerExternalSystemRoute from './app/route/administration/managerExternalSystemRoute';
@@ -82,6 +82,8 @@ app.use(config.ROUTE_PATH, faqRoute);
 app.use(config.ROUTE_PATH, adminExternalSystemRoute);
 app.use(config.ROUTE_PATH, managerExternalSystemRoute);
 app.use(config.ROUTE_PATH, driverRoute);
+// This allows to refresh the e-commerce pages
+app.use(config.ROUTE_PATH, eCommerceRoute);
 app.use(dashboard);
 app.use(website);
 /*

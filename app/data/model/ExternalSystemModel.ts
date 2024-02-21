@@ -41,7 +41,7 @@ export const saveExternalSystem: CreateExternalSystemFunc = async (externalSyste
         return data;
     } catch (error) {
         const err = error as Error;
-        Logging.log(buildErrorMessage(err, 'Save Order Details'), LogType.ERROR);
+        Logging.log(buildErrorMessage(err, 'Save Store Details'), LogType.ERROR);
         throw error;
     }
 };

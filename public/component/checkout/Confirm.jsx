@@ -17,10 +17,10 @@ import Emays from '../../logo/emays-logo-white.png';
 import EditIcon from '../../icons/edit.svg';
 
 // Util
-import { getEndTime, getProductList, getSelectedLaunchArea, getServiceCost, getStartTime } from '../../js/util/SessionStorageUtil';
+import { getProductList, getSelectedLaunchArea } from '../../js/util/SessionStorageUtil';
 import { useTranslation } from 'react-i18next';
 import useSessionState from '../../js/util/useSessionState';
-import { CHECKOUT_INFO, EMAIL_EDIT } from '../../js/const/SessionStorageConst';
+import { CHECKOUT_INFO, EMAIL_EDIT, SERVICE_FEE_PAYED } from '../../js/const/SessionStorageConst';
 import { saveOrder, updateOrder } from '../../services/order';
 import { useMessage } from '../common/messageCtx';
 import { getUserData, getRetailerData } from '../../js/util/SessionStorageUtil';
@@ -114,12 +114,20 @@ const Confirm = () => {
                         commonData.orderItems[i].productCost = `${itemPrice}.00`;
                     }
                 }
-                await saveOrder({ ...rest, ...commonData, experience: `${[
-                    options?.assist ? 'Assist Me' : undefined,
-                    options?.tailoring ? 'Tailoring' : undefined,
-                    options?.wait ? 'Contactless Delivery' : undefined,
-                    options?.inspire ? 'Inspire Me' : undefined
-                ]?.filter(i => i).join(', ')}.` });
+                // Taking this try-catch if order is already saved, let it go to payment
+                try {
+                    await saveOrder({ ...rest, ...commonData, experience: `${[
+                        options?.assist ? 'Assist Me' : undefined,
+                        options?.tailoring ? 'Tailoring' : undefined,
+                        options?.wait ? 'Contactless Delivery' : undefined,
+                        options?.inspire ? 'Inspire Me' : undefined
+                    ]?.filter(i => i).join(', ')}.` });
+                } catch (error) {
+                    if (error?.code !== 409) {
+                        pushAlert({ statusIconDescription: t('common.error'), title: t('common.error'), subtitle: error.message });
+                        return;
+                    }
+                }
                 const paymentMethod = getRetailerData().paymentMethod;
                 if (paymentMethod === 'CLIENT_HOUSE') {
                     pushAlert({
@@ -128,6 +136,7 @@ const Confirm = () => {
                         subtitle: t('common.success-message')
                     });
                 } else {
+                    // CHECK PAYMENT DONE HERE
                     setOpen(getUserData());
                 }
             }

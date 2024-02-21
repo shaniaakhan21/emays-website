@@ -17,11 +17,12 @@ import { AppRequest } from '../type/appRequestType';
 const Logging = Logger(__filename);
 
 export const validateJWT = (req: Request, res: Response, next: NextFunction) => {
-    // TODO: add service-worker implementation to add the token with the UI files requests.
     if (req.path !== `${config.ROUTE_PATH}${RoutePath.HEALTH}` &&
         (!WEBSITE_UI_PATHS.includes(req.path)) &&
         (!req.path.includes('paymentSuccess')) &&
         (req.path !== `${RoutePath.DASHBOARD}`) &&
+        // Allow e-commerce page reloads
+        (!(req.path === `${config?.ROUTE_PATH}/launch` && req.method === 'GET' )) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.DEV_LAUNCH}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.LETS_TALK}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.FAQ}`) &&
@@ -29,7 +30,6 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
         (req.path !== `${config.ROUTE_PATH}${RoutePath.CALENDER_REDIRECTION}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.EXTERNAL_SYSTEMS}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.ADMIN_EXTERNAL_SYSTEM_USERS}`) &&
-        (req.path !== `${config.ROUTE_PATH}${RoutePath.DRIVERS}`) &&
         (req.path !== `${config.ROUTE_PATH}${RoutePath.MANAGER_EXTERNAL_SYSTEM_USERS}`) &&
         // eslint-disable-next-line max-len
         (req.path !== `${config.ROUTE_PATH}${RoutePath.ADMIN_EXTERNAL_SYSTEM_USERS}${RoutePath.ADMIN_EXTERNAL_SYSTEM_USER_TOKEN}`) &&
@@ -60,6 +60,9 @@ export const validateJWT = (req: Request, res: Response, next: NextFunction) => 
             throw new ServiceError(ErrorType.ORDER_SERVICE_ERROR, 'Not a valid token', '', HTTPUserError.
                 UNAUTHORIZED_CODE);
         }
+    } else {
+        Logging.log(buildInfoMessageUserProcessCompleted(
+            'JWT validation has been skipped for', `PATH: ${req.path}`), LogType.INFO);
     }
     next();
 };
