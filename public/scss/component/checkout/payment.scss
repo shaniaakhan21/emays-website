@@ -1,4 +1,9 @@
 
+.payment-model {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
 .payment-form {
   .cds--modal-container--xs {
     max-height: 90%;

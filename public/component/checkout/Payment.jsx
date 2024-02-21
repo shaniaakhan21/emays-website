@@ -22,10 +22,9 @@ import { getAuthToken, getServiceCost } from '../../js/util/SessionStorageUtil';
 
 const stripePromise = loadStripe(publishableKey);
 
-const StripeProvider = ({ open, setOpen, serviceFee }) => {
+const StripeProvider = ({ open, isPaymentOpen, setPaymentOpen, serviceFee }) => {
 
     const [data, setData] = useState(undefined);
-
     const initialRender = useCallback(async () => {
         if (open) {
             const res = await makeCheckout(open.uid, serviceFee);
@@ -43,12 +42,13 @@ const StripeProvider = ({ open, setOpen, serviceFee }) => {
         <Elements stripe={stripePromise} options={{
             clientSecret: data?.client_secret
         }}>
-            <Payment open={open} setOpen={setOpen} />
+            <Payment open={open} isPaymentOpen={isPaymentOpen} 
+                setPaymentOpen={setPaymentOpen} />
         </Elements>);
 
 };
 
-const Payment = ({ open, setOpen }) => {
+const Payment = ({ open, isPaymentOpen, setPaymentOpen }) => {
     const stripe = useStripe();
     const elements = useElements();
     const [translate] = useTranslation();
@@ -57,6 +57,15 @@ const Payment = ({ open, setOpen }) => {
     const { state: checkoutData, loading, callAPI } = useAPI(makeCheckout);
 
     const t = (key) => translate(`common.payment-form.${key}`);
+
+    const close = () => {
+        setPaymentOpen();
+    };
+    useEffect(() => {
+        const item = document.querySelector('.cds--modal-close');
+        item.addEventListener('click', close);
+        return () => item.removeEventListener('click', close);
+    }, []);
 
     const submit = useCallback(async () => {
         try {
@@ -73,6 +82,7 @@ const Payment = ({ open, setOpen }) => {
                     return_url: `${window.location.protocol}//${window.location.host}/paymentSuccess/${open.uid}/${token}/${serviceFee}`
                 }
             });
+            close();
             if (result.error) {
                 pushAlert({
                     statusIconDescription: t('common.error'),
@@ -88,7 +98,8 @@ const Payment = ({ open, setOpen }) => {
 
     return <>
         {createPortal(
-            <ComposedModal className='payment-form' size='xs' open={!!open} onClose={() => setOpen(undefined)}>
+            <ComposedModal className='payment-form'
+                size='xs' open={isPaymentOpen} onClose={setPaymentOpen}>
                 <ModalHeader />
                 <ModalBody>
                     <Grid className='payment-model'>
@@ -161,7 +172,8 @@ const Payment = ({ open, setOpen }) => {
 
 Payment.prototype = {
     open: PropTypes.any,
-    setOpen: PropTypes.func
+    isPaymentOpen: PropTypes.any,
+    setPaymentOpen: PropTypes.func
 };
 
 export default StripeProvider;

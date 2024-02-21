@@ -424,7 +424,7 @@ const Checkout = () => {
                         }
                     </div>
                 </Column>}
-            <Column lg={8} md={8} sm={16} className='shopping-bag'>
+            <Column lg={8} md={8} sm={4} xs={4} className='shopping-bag'>
                 <ShoppingBag onDelete={(index) => {
                     setShowDelete(index);
                 }} productList={productData}
