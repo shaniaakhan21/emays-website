@@ -29,7 +29,9 @@ const AddItems = () => {
     const [orderInfo, setOrderInfo] = useReducer((state, action) => {
         switch (action?.type) {
             case 'setItems':    
-                return { ...state, items: [...state?.items, action?.data] }; 
+                return { ...state, items: [...state?.items, action?.data] };
+            case 'removeItem':
+                return { ...state, items: [...action?.data] };
             case 'setTotal':
                 return { ...state, total: action?.data };
         }
@@ -65,6 +67,15 @@ const AddItems = () => {
             dispatch(setNewOrderPhaseTwoData(orderInfo));
             history('/orders/created');
         }
+    };
+
+    const deleteItem = (indexRemoval) => {
+        const removedList = orderInfo?.items?.filter((item, index) => {
+            if (index !== indexRemoval) {
+                return item;
+            }
+        });
+        setOrderInfo({ type: 'removeItem', data: removedList });
     };
 
     return (
@@ -119,6 +130,8 @@ const AddItems = () => {
                     color={item?.color}
                     size={item?.size}
                     onDelete={() => {
+                        // Remove the item from the list
+                        deleteItem(index);
                     }}
                     quantity={1}
                     price={`${item?.price}`}

@@ -3,7 +3,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 import './paymentSuccess.css';
 import { useLocation, useParams } from 'react-router-dom';
 import { submitCheckout } from '../services/stripe';
-import { setPaymentSuccessStatus } from '../js/util/SessionStorageUtil';
+import { setPaymentSuccess } from '../js/util/SessionStorageUtil';
 
 const PaymentSuccessPage = () => {
     const location = useLocation();
@@ -12,6 +12,7 @@ const PaymentSuccessPage = () => {
         (async () => {
             await submitCheckout(id, token, serviceFee);
         })();
+        setPaymentSuccess();
     }, []);
     return (
         <div className='payment-success-container'>
