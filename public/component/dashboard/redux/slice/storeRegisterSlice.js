@@ -1,7 +1,8 @@
 'use strict';
 
 import { createSlice } from '@reduxjs/toolkit';
-import { registerExternalSystem, resetAllStoreCreationData, resetIsLoadingPhaseOne, resetIsLoadingPhaseThree,
+import { registerExternalSystem, resetAllStoreCreationData, 
+    resetIsLoadingPhaseFour, resetIsLoadingPhaseOne, resetIsLoadingPhaseThree,
     resetIsLoadingPhaseTwo, resetIsLoadingPhaseTwoFiscal, setStageOneCreateStore,
     setStageThreeCreateStore, setStageTwoCreateStore, setStageTwoFiscalCreateStore } from '../thunk/newStoreThunk';
     
@@ -72,6 +73,9 @@ const newStoreSlice = createSlice({
         });
         builder.addCase(resetIsLoadingPhaseThree.fulfilled, (state, action) => {
             state.phaseThreeData.isLoading = true;
+        });
+        builder.addCase(resetIsLoadingPhaseFour.fulfilled, (state, action) => {
+            state.saveStatus.isLoading = true;
         });
         builder.addCase(resetIsLoadingPhaseTwoFiscal.fulfilled, (state, action) => {
             state.phaseTwoFiscalData.isLoading = true;
