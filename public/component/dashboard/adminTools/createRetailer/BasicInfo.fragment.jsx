@@ -3,7 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useMessage } from '../../../common/messageCtx'; 
 import { Column, FileUploaderDropContainer, Grid, Heading, TextInput } from '@carbon/react';
-import { setStoreLogo } from '../../../../js/util/SessionStorageUtil';
+import { getStoreImage, 
+    getStoreImageURL, setBufferStoreImage, setStoreImageURL, 
+    setStoreLogo } from '../../../../js/util/SessionStorageUtil';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import { getAppInfo } from '../../../../services/geo';
 import GoogleMapWithSearchBar from '../../../common/googleMapWithSearchComponent';
@@ -59,6 +61,9 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
         setFormData({ type: 'setAddressLineThree', data: selector?.phaseTwoData?.address?.addThree });
         setFormData({ type: 'setAddressLineFour', data: selector?.phaseTwoData?.address?.addFour });
         setFormData({ type: 'setAddressLineFive', data: selector?.phaseTwoData?.address?.addFive });
+        // SetFormData({ type: 'setLogo', data: selector?.phaseTwoData?.storeLogo });
+        setSelectedImageURL(selector?.phaseTwoData?.storeLogo);
+        setFormData({ type: 'setLogo', data: selector?.phaseTwoData?.storeLogo });
     }, []);
 
     // When changing the state, update the parent state 
@@ -87,11 +92,20 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                 return;
             }
             const imageUrl = URL.createObjectURL(file);
-            setSelectedFile(file);
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                const base64String = event.target.result;
+                setSelectedFile(base64String);
+                // For blob conversion if need
+                setStoreLogo(base64String);
+
+            };
+            reader.readAsDataURL(file);
+            setBufferStoreImage(file);
             setSelectedImageURL(imageUrl);
             setFormData({ type: 'setLogo', data: imageUrl });
-            setStoreLogo(file);
-
+            setStoreImageURL(imageUrl);
         }         
     };
 

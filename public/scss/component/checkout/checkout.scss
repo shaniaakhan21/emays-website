@@ -236,6 +236,14 @@
         }
     }
 
+    .address {
+        display: flex;
+        flex-direction: column;
+        .learn_more {
+            margin-left: 0px !important;
+        }
+    }
+
     .landing-page { 
         .book-appointment { 
             .date-time-pick{

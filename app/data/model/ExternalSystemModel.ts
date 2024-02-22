@@ -34,10 +34,13 @@ export const saveExternalSystem: CreateExternalSystemFunc = async (externalSyste
             extSysName: result.extSysName,
             id: result._id as unknown as string,
             extSysAddress: result.extSysAddress,
-            extLogo: result?.extLogo,
+            extLogo: undefined,
             extLogoContentType: result.extLogoContentType,
             fiscalInfo: result.fiscalInfo
         };
+        if (result?.extLogo) {
+            data.extLogo = Buffer.from(result?.extLogo as unknown as string, 'base64');
+        }
         return data;
     } catch (error) {
         const err = error as Error;

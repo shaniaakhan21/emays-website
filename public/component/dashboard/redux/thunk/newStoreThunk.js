@@ -4,7 +4,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { checkUsernameValidityForAccountCreation,
     saveAdminExternalSystem, saveExternalSystem,
     saveManagerExternalSystem } from '../../../../services/dashboard/systemInfo';
-import { getAuthToken, getStoreImage } from '../../../../js/util/SessionStorageUtil';
+import { getAuthToken, getBufferStoreImage, getStoreImage } from '../../../../js/util/SessionStorageUtil';
 
 // -----------------CREATE STORE-------------------
 
@@ -64,16 +64,24 @@ export const resetIsLoadingPhaseThree = createAsyncThunk('newStore/resetPhaseThr
     }
 });
 
+export const resetIsLoadingPhaseFour = createAsyncThunk('newStore/resetPhaseFour', async (data, { getState }) => {
+    const authToken = getState().loginState.token;
+    if (authToken) {
+        return true;
+    }
+});
+
 // Register manager and Admin
 export const registerExternalSystem = createAsyncThunk('newStore/saveExternalSystem', async (data, { getState }) => {
     const authToken = getState().loginState.token;
+    const storeImg = getStoreImage();
     const appDataPreparedForStore = {
         extSysName: data?.phaseTwo?.storeName,
         extSysUsername: data?.phaseOne?.username,
         extSysPassword: data?.phaseOne?.password,
         extSysEmail: data?.phaseOne?.email,
         extSysAddress: data?.phaseTwo?.address,
-        extLogo: getStoreImage(),
+        extLogo: storeImg,
         fiscalInfo: data?.phaseTwoFiscal
 
     };
