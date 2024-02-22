@@ -6,7 +6,8 @@ import CreateRetailerBasicInfo from './BasicInfo.fragment';
 import CreateRetailerFiscalInfo from './FiscalInfo.fragment';
 import CreateRetailerEmployeeInfo from './EmployeeInfo.fragment';
 import CreateRetailerAccountInfo from './AccountInfo.fragment';
-import { checkUsernameValidity, registerExternalSystem, resetIsLoadingPhaseOne, resetIsLoadingPhaseThree,
+import { checkUsernameValidity, registerExternalSystem, resetIsLoadingPhaseFour,
+    resetIsLoadingPhaseOne, resetIsLoadingPhaseThree,
     resetIsLoadingPhaseTwo, resetIsLoadingPhaseTwoFiscal, setStageOneCreateStore,
     setStageThreeCreateStore, setStageTwoCreateStore,
     setStageTwoFiscalCreateStore } from '../../redux/thunk/newStoreThunk';
@@ -144,7 +145,7 @@ const CreateRetailer = () => {
 
     const goBack = async () => {
         if (step === 4) {
-            await dispatch(resetIsLoadingPhaseThree());
+            await dispatch(resetIsLoadingPhaseFour());
             setState({});
             setStep((s) => s - 1);
         } else if (step === 3) {

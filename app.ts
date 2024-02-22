@@ -40,7 +40,7 @@ import { WEBSITE_UI_PATHS } from './app/const/routePath';
 const UI_PATHS: Array<string> = WEBSITE_UI_PATHS;
 
 // Parses incoming requests with JSON payloads (body-parser)
-app.use(express.json());
+app.use(express.json({ limit: '2mb' }));
 // Parses incoming requests with HTML Form (body-parser)
 app.use(express.urlencoded({ extended: true }));
 

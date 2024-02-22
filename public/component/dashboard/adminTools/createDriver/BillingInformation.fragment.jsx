@@ -7,6 +7,7 @@ import { Column, Dropdown, FileUploaderDropContainer, Heading, TextInput } from 
 import DropDownCustom from '../../../common/DropdownCustom';
 import { newDriverSelectorMemoized } from '../../redux/selector/newDriverSelector';
 import { useSelector } from 'react-redux';
+import currencyTypes from '../../../../js/const/currencyTypes';
 
 const CreateDriverBillingInformation = ({ setState, errorState }) => {
     const [translate] = useTranslation();
@@ -146,11 +147,10 @@ const CreateDriverBillingInformation = ({ setState, errorState }) => {
                         <DropDownCustom
                             type='inline'
                             id='paymentCurrency'
-                            items={[
-                                { text: 'Dollar', value: 'dollar' },
-                                { text: 'Euro', value: 'euro' }
-                            ]}
-                            value={state?.paymentCurrency}
+                            items={[...currencyTypes]}
+                            selectedItem={state?.paymentCurrency ? 
+                                [...currencyTypes].find((itm) => itm?.value === state?.paymentCurrency) 
+                                : undefined}
                             onChange = {(e) => {
                                 setFormData({ type: 'setPaymentCurrency', data: e.selectedItem.value });
                             }}

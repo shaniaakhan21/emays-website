@@ -11,6 +11,7 @@ import '../../../../scss/component/dashboard/adminTools/fiscalInfo.scss';
 import { getAppInfo } from '../../../../services/geo';
 import GoogleMapWithSearchBar from '../../../common/googleMapWithSearchComponent';
 import DropDownCustom from '../../../common/DropdownCustom';
+import currencyTypes from '../../../../js/const/currencyTypes';
 
 const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
     const [translate] = useTranslation();
@@ -126,12 +127,10 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 <DropDownCustom
                     type='inline'
                     id='storeCurrency'
-                    items={[
-                        { text: 'USD ($)', value: 'usd' },
-                        { text: 'Euro (€)', value: 'euro' },
-                        { text: 'AED', value: 'aed' }
-                    ]}
-                    value={state?.currencyType}
+                    items={[...currencyTypes]}
+                    selectedItem={state?.currencyType ? 
+                        [...currencyTypes].find((itm) => itm?.value === state?.currencyType) 
+                        : undefined}
                     onChange = {(e) => {
                         setFormData({ type: 'setCurrencyType', data: e.selectedItem.value });
                     }}

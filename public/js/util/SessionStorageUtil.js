@@ -8,7 +8,9 @@ import { AUTH_TOKEN, PRODUCT_LIST, ADDRESS, LAUNCH_TYPE, USER_DATA,
     CHECKOUT_INFO, 
     PAYMENT_SUCCESS_STATUS, 
     SERVICE_PAYMENT_SUCCESS_STATUS,
-    SERVICE_FEE_PAYED } from '../const/SessionStorageConst';
+    SERVICE_FEE_PAYED, 
+    STORE_IMAGE_URL, 
+    BUFFER_STORE_IMAGE } from '../const/SessionStorageConst';
 
 export const getItem = (key) => {
     const itemsAsString = sessionStorage.getItem(key);
@@ -141,12 +143,28 @@ export const setStoreLogo = (file) => {
     sessionStorage.setItem(STORE_IMAGE, file);
 };
 
+export const setBufferStoreImage = (file) => {
+    sessionStorage.setItem(BUFFER_STORE_IMAGE, file);
+};
+
+export const getBufferStoreImage = () => {
+    sessionStorage.getItem(BUFFER_STORE_IMAGE);
+};
+
 export const setLicenseDocument = (file) => {
     sessionStorage.setItem(LICENSE_DOCUMENT, file);
 };
 
 export const getStoreImage = () => {
     return sessionStorage.getItem(STORE_IMAGE);
+};
+
+export const setStoreImageURL = (url) => {
+    sessionStorage.setItem(STORE_IMAGE_URL, url);
+};
+
+export const getStoreImageURL = () => {
+    sessionStorage.getItem(STORE_IMAGE_URL);
 };
 
 export const getLicenseDocument = () => {
