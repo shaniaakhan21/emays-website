@@ -68,7 +68,7 @@ const History = ({ historyData, updateData }) => {
                 selectedTableRow: [item] };
             setSelectedRow((state) => (finalData));
             dispatch(storeSelectedOrder(finalData));
-            history('selectedOrder');
+            history('/selectedOrder');
         }
     };
 
