@@ -87,6 +87,14 @@ export const DRIVER_PASSWORD_REQUIRED = 'Driver password required';
 
 export const DRIVER_NOT_FOUND_ERROR_MESSAGE = 'Driver not found';
 
+export const EXTERNAL_API_MAP_STORE_ID_REQUIRED = 'Store id required';
+
+export const EXTERNAL_API_MAP_WORDPRESS_URI_REQUIRED = 'Wordpress API URI required';
+
+export const EXTERNAL_API_WORDPRESS_API_KEY_REQUIRED = 'Wordpress API Key required';
+
+export const EXTERNAL_API_WORDPRESS_API_SECRET_REQUIRED = 'Wordpress API Secret required';
+
 export const USER_FIRST_NAME_REQUIRED = 'User first name required';
 
 export const USER_LAST_NAME_REQUIRED = 'User last name required';

@@ -28,6 +28,7 @@ export enum RoutePath {
     EXTERNAL_SYSTEM_TOKEN = '/systemToken',
     EXTERNAL_SYSTEM_INFO = '/systemInfo',
     DRIVERS = '/drivers',
+    EXTERNAL_API_MAPPER = '/apiMapper',
     USERNAME_VALIDITY= '/usernameValidity',
     SUPER_USERS = '/superUsers',
     ADMIN_EXTERNAL_SYSTEM_USERS = '/adminExternalSystem',

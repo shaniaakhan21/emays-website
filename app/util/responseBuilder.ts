@@ -6,6 +6,7 @@ import { IExternalSystemDTO } from '../type/IExternalSystem';
 import { IExternalSystemHistoryStatsDTO, IExternalSystemOverviewStatsDTO } from '../type/IExternalSystemStats';
 import { ServiceAreasDTO } from '../type/IServiceAreas';
 import { ISystemInfoResponse } from '../type/customResponseType';
+import { IWordpressProductData } from '../type/externalAPIMapperType';
 import { IGeoTypeDTO } from '../type/geoType';
 import { IOrderPaginationDTO } from '../type/orderType';
 import { IOrderDTO } from '../type/orderType';
@@ -38,6 +39,7 @@ export const successResponseBuilder: SuccessResponseBuilderFunc<IOrderDTO |
     IExternalSystemOverviewStatsDTO |
     IAdminExternalSystemDTO |
     IDriverDTO |
+    Array<IWordpressProductData> |
      IGeoTypeDTO > = (data) => {
          return { data: data };
      };

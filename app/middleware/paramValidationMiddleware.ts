@@ -20,8 +20,11 @@ import { ADDRESS_REQUIRED, ADMIN_EXT_EMAIL_REQUIRED, ADMIN_EXT_FIRST_NAME_REQUIR
     DRIVER_FIRST_NAME_REQUIRED, DRIVER_LAST_NAME_REQUIRED,
     DRIVER_LICENSE_NUMBER_REQUIRED, DRIVER_PASSWORD_REQUIRED, DRIVER_PAYMENT_CURRENCY_REQUIRED,
     DRIVER_USERNAME_REQUIRED, DRIVER_ZIP_CODE_REQUIRED,
-    DURATION_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED
-    , EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED, EXTERNAL_SYSTEM_FISCAL_INFO_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
+    DURATION_REQUIRED, EMAIL_REQUIRED, EXPERIENCE_REQUIRED,
+    EXTERNAL_API_MAP_STORE_ID_REQUIRED, EXTERNAL_API_MAP_WORDPRESS_URI_REQUIRED,
+    EXTERNAL_API_WORDPRESS_API_KEY_REQUIRED,
+    EXTERNAL_API_WORDPRESS_API_SECRET_REQUIRED, EXTERNAL_SYSTEM_CONTACT_EMAIL_REQUIRED,
+    EXTERNAL_SYSTEM_FISCAL_INFO_REQUIRED, EXTERNAL_SYSTEM_NAME_REQUIRED,
     EXTERNAL_SYSTEM_PASSWORD_REQUIRED, EXTERNAL_SYSTEM_USERNAME_REQUIRED,
     EXT_SYSTEM_PASSWORD_REQUIRED, EXT_SYSTEM_USERNAME_REQUIRED, HISTORY_CAN_NOT_MODIFY
     , LATITUDE_REQUIRED, LONGITUDE_REQUIRED, MANAGER_EXT_PHONE_REQUIRED, ORDER_DATE_REQUIRED
@@ -224,6 +227,32 @@ export const validateCreateDriver = (req: Request, res: Response, next: NextFunc
         }
     });
     validateRequest(req, next, checkOrderParams);
+};
+
+/**
+ * Check create api mapper
+ * @param req Request 
+ * @param res Response
+ * @param next NextFunction
+ */
+export const validateAPIMapper = (req: Request, res: Response, next: NextFunction) => {
+    const checkAPIMapperParams = Joi.object({
+        body: {
+            storeId: Joi.string().max(30).required().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EXTERNAL_API_MAP_STORE_ID_REQUIRED); }),
+            wordpressURI: Joi.string().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EXTERNAL_API_MAP_WORDPRESS_URI_REQUIRED); }),
+            wordpressAPIKey: Joi.string().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EXTERNAL_API_WORDPRESS_API_KEY_REQUIRED); }),
+            wordpressAPISecret: Joi.string().error((error) => {
+                const err = error as Error | unknown;
+                return validatorErrorBuilder(err as Error, EXTERNAL_API_WORDPRESS_API_SECRET_REQUIRED); })
+        }
+    });
+    validateRequest(req, next, checkAPIMapperParams);
 };
 
 /**
