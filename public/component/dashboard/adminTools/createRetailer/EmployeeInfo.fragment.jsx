@@ -11,7 +11,7 @@ import TextBoxPassword from '../../../common/TextBoxPassword';
 // SCSS
 import '../../../../scss/component/dashboard/adminTools/employeeInfo.scss';
 
-const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
+const CreateRetailerEmployeeInfo = ({ setState, errorState = [] }) => {
 
     const [translate] = useTranslation();
     const selector = useSelector(newStoreSelectorMemoized);
@@ -89,7 +89,7 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                     }} 
                     value = {state?.manager?.managerName}
                     />
-                    {errorState === 'managerName' &&
+                    {errorState?.includes('manager.managerName') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter name</span>}
                     <TextInput labelText={t('email')} onChange={(e) => {
@@ -97,10 +97,10 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                     }} 
                     value = {state?.manager?.managerEmail}
                     />
-                    {errorState === 'managerEmail' &&
+                    {errorState?.includes('manager.managerEmail') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter email</span>}
-                    {errorState === 'emailInvalidManager' &&
+                    {errorState?.includes('manager.emailInvalidManager') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter a valid email</span>}
                     <br></br>
@@ -113,7 +113,7 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         }} 
                         value = {state?.manager?.managerPhone}
                         /> */}
-                    {errorState === 'managerPhone' &&
+                    {errorState?.includes('manager.managerPhone') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
                     <TextInput labelText={t('username')} onChange={(e) => {
@@ -121,16 +121,16 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                     }} 
                     value = {state?.manager?.managerUsername}
                     />
-                    {errorState === 'managerUsername' &&
+                    {errorState?.includes('manager.managerUsername') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter username</span>}
-                    {errorState === 'Username already reserved' &&
+                    {errorState?.includes('Username already reserved') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 This username already reserved</span>}
-                    {errorState === 'Some error occurred' &&
+                    {errorState?.includes('Some error occurred') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Some error occurred</span>}
-                    {errorState === 'adminUsernameReserved' &&
+                    {errorState?.includes('adminUsernameReserved') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 You can't use the same username for both admin and manager</span>}
                     <TextBoxPassword
@@ -141,10 +141,10 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         hidePasswordLabel='Hide password'
                         customStyle={{ width: '100%' }}
                     />
-                    {errorState === 'managerPassword' &&
+                    {errorState?.includes('manager.managerPassword') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter password</span>}
-                    {errorState === 'passwordInvalidManager' && 
+                    {errorState?.includes('passwordInvalidManager') && 
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             The password must consist of only uppercase letters, lowercase letters, digits,
                              the specified special characters (@, $, !, %, *, ?) and must be at least 8 
@@ -159,7 +159,7 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                     }} 
                     value = {state?.businessAdmin?.adminName}
                     />
-                    {errorState === 'adminName' &&
+                    {errorState?.includes('businessAdmin.adminName') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter name</span>}
                     <TextInput labelText={t('email')} onChange={(e) => {
@@ -167,10 +167,10 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                     }} 
                     value = {state?.businessAdmin?.adminEmail}
                     />
-                    {errorState === 'adminEmail' &&
+                    {errorState?.includes('businessAdmin.adminEmail') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter email</span>}
-                    {errorState === 'emailInvalidAdmin' &&
+                    {errorState?.includes('businessAdmin.emailInvalidAdmin') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter a valid email</span>}       
                     {/* <TextInput labelText={t('phone')} onChange={(e) => {
@@ -184,7 +184,7 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         actionFunc= {(value) => { setFormData({ type: 'setBusinessAdminPhone', data: value }); }}
                         data = {state?.businessAdmin?.adminPhone || ''}
                     />
-                    {errorState === 'adminPhone' &&
+                    {errorState?.includes('businessAdmin.adminPhone') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
                     <TextInput labelText={t('username')} onChange={(e) => {
@@ -192,16 +192,16 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                     }} 
                     value = {state?.businessAdmin?.adminUsername}
                     />
-                    {errorState === 'adminUsername' &&
+                    {errorState?.includes('businessAdmin.adminUsername') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter username</span>}
-                    {errorState === 'Username already reserved' &&
+                    {errorState?.includes('Username already reserved') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 This username already reserved</span>}
-                    {errorState === 'adminUsernameReserved' &&
+                    {errorState?.includes('adminUsernameReserved') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 You can't use the same username for both admin and manager</span>}
-                    {errorState === 'Some error occurred' &&
+                    {errorState?.includes('Some error occurred') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Some error occurred</span>}
                     <TextBoxPassword
@@ -212,10 +212,11 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState }) => {
                         hidePasswordLabel='Hide password'
                         customStyle={{ width: '100%' }}
                     />
-                    {errorState === 'adminPassword' &&
+                    {errorState?.includes('businessAdmin.adminPassword') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter password</span>}
-                    {errorState === 'passwordInvalidAdmin' && <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                    {errorState?.includes('passwordInvalidAdmin') && 
+                    <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             The password must consist of only uppercase letters, lowercase letters, digits,
                              the specified special characters (@, $, !, %, *, ?) and must be at least 8 
                              characters in length </span>}

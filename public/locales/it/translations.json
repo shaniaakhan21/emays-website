@@ -624,7 +624,7 @@
         },
         "fiscal": {
           "subtitle-fiscal": "Fiscal Information",
-          "subtitle-company-address": "Company Address",
+          "subtitle-company-address": "Fiscal Address",
           "company-name": "Company Name",
           "fiscal-number": "VAT / Fiscal Number",
           "stripe-id": "Stripe Id",

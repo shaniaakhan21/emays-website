@@ -13,7 +13,7 @@ import GoogleMapWithSearchBar from '../../../common/googleMapWithSearchComponent
 import DropDownCustom from '../../../common/DropdownCustom';
 import currencyTypes from '../../../../js/const/currencyTypes';
 
-const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
+const CreateRetailerFiscalInfo = ({ setState, errorState = [] }) => {
     const [translate] = useTranslation();
     const [mapAPIKey, setMapAPIKey] = useState('');
     
@@ -93,7 +93,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 }}
                 value = {state?.companyName}
                 />
-                {errorState === 'companyName' &&
+                {errorState?.includes('companyName') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter company name</span>}
                 <br />
@@ -103,7 +103,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 }}
                 value = {state?.fiscalNumber}
                 />
-                {errorState === 'fiscalNumber' &&
+                {errorState?.includes('fiscalNumber') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter fiscal number</span>}
                 <br></br>
@@ -111,7 +111,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                     actionFunc= {(value) => { setFormData({ type: 'setCompanyPhone', data: value }); }}
                     data = {state?.companyPhone || ''}
                 />
-                {errorState === 'companyPhone' &&
+                {errorState?.includes('companyPhone') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
                 <br/>
@@ -120,13 +120,14 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 }}
                 value = {state?.extStripeAccountId}
                 />
-                {errorState === 'extStripeAccountId' &&
+                {errorState?.includes('extStripeAccountId') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter stripe Id</span>}
                 <br/>
                 <DropDownCustom
                     type='inline'
                     id='storeCurrency'
+                    className='storeCurrency'
                     items={[...currencyTypes]}
                     selectedItem={state?.currencyType ? 
                         [...currencyTypes].find((itm) => itm?.value === state?.currencyType) 
@@ -138,7 +139,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                     titleText={t('currency-type')}
                 />
                 <br/>
-                {errorState === 'currencyType' &&
+                {errorState?.includes('currencyType') &&
                                 <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                     Please enter store currency type</span>}
                 <br></br>
@@ -152,7 +153,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         }}
                         value = {state?.street}
                         />
-                        {errorState === 'street' &&
+                        {errorState?.includes('street') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter street</span>}
                         <br />
@@ -161,7 +162,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         }}
                         value = {state?.zip}
                         />
-                        {errorState === 'zip' &&
+                        {errorState?.includes('zip') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter zip</span>}
                         <br />
@@ -173,7 +174,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         }}
                         value = {state?.city}
                         />
-                        {errorState === 'city' &&
+                        {errorState?.includes('city') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter city</span>}
                         <br />
@@ -182,7 +183,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         }}
                         value = {state?.country}
                         />
-                        {errorState === 'country' &&
+                        {errorState?.includes('country') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter country</span>}
                     </div>

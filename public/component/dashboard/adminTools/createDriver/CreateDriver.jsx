@@ -9,7 +9,7 @@ import CreateDriverBasicInfo from './BasicInfo.fragment';
 import CreateDriverDocuments from './Documents.fragment';
 import CreateDriverBillingInformation from './BillingInformation.fragment';
 import CreateDriverAccountInfo from './AccountInfo.fragment';
-import { validateEmail, validateObjectNullEmptyCheck, validatePassword } from '../../../../js/util/validateObject';
+import { validateEmail, validateObjectNullEmptyCheckArray, validatePassword } from '../../../../js/util/validateObject';
 import { checkUsernameValidity, registerDriver, resetIsLoadingPhaseFour,
     resetIsLoadingPhaseOne, resetIsLoadingPhaseThree,
     resetIsLoadingPhaseTwo, setStageFourCreateDriver, setStageOneCreateDriver, setStageThreeCreateDriver,
@@ -34,7 +34,7 @@ const CreateDriver = () => {
         console.log('Step', step);
         if (step < 5) {
             if (step === 0) {
-                const result = validateObjectNullEmptyCheck(state, ['']);
+                const result = validateObjectNullEmptyCheckArray(state, ['']);
                 if (result[0]) {
                     setErrorState(null);
                     dispatch(setStageOneCreateDriver(state));
@@ -42,7 +42,7 @@ const CreateDriver = () => {
                     setErrorState(result[1]);
                 }
             } else if (step === 1) {
-                const result = validateObjectNullEmptyCheck(state, ['']);
+                const result = validateObjectNullEmptyCheckArray(state, ['']);
                 if (result[0]) {
                     setErrorState(null);
                     dispatch(setStageTwoCreateDriver(state));
@@ -50,7 +50,7 @@ const CreateDriver = () => {
                     setErrorState(result[1]);
                 }
             } else if (step === 2) {
-                const result = validateObjectNullEmptyCheck(state, ['']);
+                const result = validateObjectNullEmptyCheckArray(state, ['']);
                 if (result[0]) {
                     setErrorState(null);
                     const isValidAccountEmail = validateEmail(state?.billingEmail);
@@ -64,7 +64,7 @@ const CreateDriver = () => {
                     setErrorState(result[1]);
                 }
             } else if (step === 3) {
-                const result = validateObjectNullEmptyCheck(state, ['']);
+                const result = validateObjectNullEmptyCheckArray(state, ['']);
                 if (result[0]) {
                     const usernameDriverAvailability = 
                         await checkUsernameValidity({ username: state?.username });

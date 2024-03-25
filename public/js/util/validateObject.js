@@ -1,7 +1,9 @@
+/* eslint-disable func-style */
 'use strict';
 
 /**
  * Null and empty check of object values except given shippable keys
+ * Give one error at a time
  * @param {*} object 
  * @param {Array<KeyNames>} string
  * @returns 
@@ -32,6 +34,38 @@ export const validateObjectNullEmptyCheck = (object, skipItems) => {
 
     // Return the main object validation status
     return [mainObjectValid];
+};
+
+/**
+ * Null and empty check of object values except given shippable keys
+ * Give all errors
+ * @param {*} object 
+ * @param {Array<KeyNames>} string
+ * @returns 
+ */
+export const validateObjectNullEmptyCheckArray = (object, skipItems) => {
+    const errorArr = [];
+  
+    function traverseObject (obj, parentKey = '') {
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                const value = obj[key];
+                const fullKey = parentKey ? `${parentKey}.${key}` : key; 
+  
+                if (typeof value === 'object' && value !== null) {
+                    traverseObject(value, fullKey);
+                } else if (value === undefined || value === null || value === '') {
+                    if (!(skipItems?.includes(fullKey))) {
+                        errorArr.push(fullKey);
+                    }
+                }
+            }
+        }
+    }
+  
+    traverseObject(object);
+  
+    return [errorArr.length === 0, errorArr];
 };
 
 /**

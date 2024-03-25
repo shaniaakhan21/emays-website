@@ -9,14 +9,22 @@ import { getStoreImage,
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import { getAppInfo } from '../../../../services/geo';
 import GoogleMapWithSearchBar from '../../../common/googleMapWithSearchComponent';
+import { addressSearchSelectorMemoized } from '../../redux/selector/addressSearchSelector';
 
-const CreateRetailerBasicInfo = ({ setState, errorState }) => {
+const CreateRetailerBasicInfo = ({ setState, errorState = [] }) => {
     const [translate] = useTranslation();
     
     const [selectedImageURL, setSelectedImageURL] = useState(null);
     const [selectedFile, setSelectedFile] = useState(null);
     const selector = useSelector(newStoreSelectorMemoized);
+    const addressSearchState = useSelector(addressSearchSelectorMemoized)?.data;
     const pushAlert = useMessage();
+
+    useEffect(() => {
+        setFormData({ type: 'setAddressLineOne', data: addressSearchState?.street });
+        setFormData({ type: 'setAddressLineThree', data: addressSearchState?.city });
+        setFormData({ type: 'setAddressLineFour', data: addressSearchState?.country });
+    }, [addressSearchState]);
 
     const [mapAPIKey, setMapAPIKey] = useState('');
     const [state, setFormData] = useReducer((state, action) => {
@@ -129,7 +137,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                     }} id='name' 
                     value = {state?.storeName}
                     />
-                    {errorState === 'storeName' &&
+                    {errorState?.includes('storeName') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter store name</span>}
                     <br />
@@ -139,7 +147,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                     }} 
                     value = {state?.address?.addOne}
                     />
-                    {errorState === 'addOne' &&
+                    {errorState?.includes('address.addOne') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter street</span>}
                     <br />
@@ -148,7 +156,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                     }} 
                     value = {state?.address?.addTwo}
                     />
-                    {errorState === 'addTwo' &&
+                    {errorState?.includes('address.addTwo') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter number</span>}
                     <br />
@@ -157,7 +165,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                     }} 
                     value = {state?.address?.addThree}
                     />
-                    {errorState === 'addThree' &&
+                    {errorState?.includes('address.addThree') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter city</span>}
                     <br />
@@ -166,7 +174,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                     }} 
                     value = {state?.address?.addFour}
                     />
-                    {errorState === 'addFour' &&
+                    {errorState?.includes('address.addFour') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter country</span>}
                     <br />
@@ -175,7 +183,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                     }} 
                     value = {state?.address?.addFive}
                     />
-                    {errorState === 'addFive' &&
+                    {errorState?.includes('address.addFive') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter zip code</span>}
                 </div>
@@ -205,7 +213,7 @@ const CreateRetailerBasicInfo = ({ setState, errorState }) => {
                         <div className='preview'>
                             <Heading className='sub-title'>{t('sub-title4')}</Heading>
                             <img src={selectedImageURL}/>
-                            {errorState === 'storeLogo' &&
+                            {errorState?.includes('storeLogo') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please add your logo</span>}
                             <br />

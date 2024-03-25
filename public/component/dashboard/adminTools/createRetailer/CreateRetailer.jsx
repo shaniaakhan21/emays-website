@@ -14,7 +14,8 @@ import { checkUsernameValidity, registerExternalSystem, resetIsLoadingPhaseFour,
 import { useDispatch, useSelector } from 'react-redux';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import CompletedMessageFragment from './Completed.message.fragment';
-import { validateEmail, validateObjectNullEmptyCheck, validatePassword } from '../../../../js/util/validateObject';
+import { validateEmail,
+    validateObjectNullEmptyCheckArray, validatePassword } from '../../../../js/util/validateObject';
 
 // SCSS
 import '../../../../scss/component/dashboard/adminTools/createRetailer.scss';
@@ -31,8 +32,8 @@ const CreateRetailer = () => {
     const handleNext = async () => {
         if (step < 5) {
             if (step === 0) {
-                const result = validateObjectNullEmptyCheck(state, []);
-                if (result[0]) {
+                const resultError = validateObjectNullEmptyCheckArray(state, []);
+                if (resultError[0]) {
                     const usernameSystemAvailability = 
                 await checkUsernameValidity({ username: state?.username });
                     if (usernameSystemAvailability.status) {
@@ -54,11 +55,11 @@ const CreateRetailer = () => {
                         setErrorState(usernameSystemAvailability?.error);
                     }
                 } else {
-                    setErrorState(result[1]);
+                    setErrorState(resultError[1]);
                 }
 
             } else if (step === 1) {
-                const result = validateObjectNullEmptyCheck(state, ['addSix']);
+                const result = validateObjectNullEmptyCheckArray(state, ['address.addSix']);
                 if (result[0]) {
                     setErrorState(null);
                     dispatch(setStageTwoCreateStore(state));
@@ -66,7 +67,7 @@ const CreateRetailer = () => {
                     setErrorState(result[1]);
                 }
             } else if (step === 2) {
-                const result = validateObjectNullEmptyCheck(state, []);
+                const result = validateObjectNullEmptyCheckArray(state, []);
                 if (result[0]) {
                     setErrorState(null);
                     dispatch(setStageTwoFiscalCreateStore(state));
@@ -75,7 +76,8 @@ const CreateRetailer = () => {
                 }
             } else if (step === 3) {
 
-                const result = validateObjectNullEmptyCheck(state, []);
+                const result = validateObjectNullEmptyCheckArray(state, []);
+                console.log('---->>', result);
                 if (result[0]) {
                     if (state?.businessAdmin?.adminUsername === state?.manager?.managerUsername) {
                         setErrorState('adminUsernameReserved');

@@ -90,6 +90,24 @@
       }
     }
 
+    .em-card {
+      label:after {
+        content: "*";  /* Content to be displayed */
+        color: red;     /* Color of the asterisk */
+        font-size: 12px; /* Adjust font size as needed */
+        margin-left: 5px;  /* Adjust spacing between field and asterisk */
+      }
+    }
+
+    .cds--form-item {
+      .cds--label:after {
+        content: "*";  /* Content to be displayed */
+        color: red;     /* Color of the asterisk */
+        font-size: 12px; /* Adjust font size as needed */
+        margin-left: 5px;  /* Adjust spacing between field and asterisk */
+      }
+    }
+
     .cds--form-item,
     .cds--file,
     .cds--dropdown__wrapper {
