@@ -19,6 +19,7 @@ import { validateEmail,
 
 // SCSS
 import '../../../../scss/component/dashboard/adminTools/createRetailer.scss';
+import { validateFiscal } from '../../../../services/validate';
 
 const CreateRetailer = () => {
     const [translate] = useTranslation();
@@ -70,6 +71,12 @@ const CreateRetailer = () => {
                 const result = validateObjectNullEmptyCheckArray(state, []);
                 if (result[0]) {
                     setErrorState(null);
+                    // Validate fiscal number
+                    const fiscalValidation = await validateFiscal(state?.fiscalNumber);
+                    if (!fiscalValidation?.valid) {
+                        setErrorState('fiscalValidationFailed');
+                        return;
+                    }
                     dispatch(setStageTwoFiscalCreateStore(state));
                 } else {
                     setErrorState(result[1]);
@@ -77,7 +84,6 @@ const CreateRetailer = () => {
             } else if (step === 3) {
 
                 const result = validateObjectNullEmptyCheckArray(state, []);
-                console.log('---->>', result);
                 if (result[0]) {
                     if (state?.businessAdmin?.adminUsername === state?.manager?.managerUsername) {
                         setErrorState('adminUsernameReserved');

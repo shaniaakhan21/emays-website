@@ -106,6 +106,9 @@ const CreateRetailerFiscalInfo = ({ setState, errorState = [] }) => {
                 {errorState?.includes('fiscalNumber') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter fiscal number</span>}
+                {errorState?.includes('fiscalValidationFailed') &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Not a valid fiscal number</span>}
                 <br></br>
                 <ContactNumberInput
                     actionFunc= {(value) => { setFormData({ type: 'setCompanyPhone', data: value }); }}
