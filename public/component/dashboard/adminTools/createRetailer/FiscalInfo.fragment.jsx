@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Heading, TextInput, Column } from '@carbon/react';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import ContactNumberInput from '../../../common/ContactNumberInput';
-import GoogleMap from '../../../common/googleMap';
+import { isValidPhoneNumber } from 'react-phone-number-input';
 
 // SCSS
 import '../../../../scss/component/dashboard/adminTools/fiscalInfo.scss';
@@ -16,9 +16,6 @@ import currencyTypes from '../../../../js/const/currencyTypes';
 const CreateRetailerFiscalInfo = ({ setState, errorState = [] }) => {
     const [translate] = useTranslation();
     const [mapAPIKey, setMapAPIKey] = useState('');
-    
-    const [selectedImageURL, setSelectedImageURL] = useState(null);
-    const [selectedFile, setSelectedFile] = useState(null);
     const selector = useSelector(newStoreSelectorMemoized);
 
     const [state, setFormData] = useReducer((state, action) => {
@@ -41,6 +38,8 @@ const CreateRetailerFiscalInfo = ({ setState, errorState = [] }) => {
                 return { ...state, city: action?.data };
             case 'setCountry':
                 return { ...state, country: action?.data };
+            case 'setPhoneInvalid':
+                return { ...state, isPhoneInvalid: action?.data };
             default:
                 return { ...state };
         }
@@ -53,7 +52,8 @@ const CreateRetailerFiscalInfo = ({ setState, errorState = [] }) => {
         city: '',
         country: '',
         extStripeAccountId: '',
-        currencyType: ''
+        currencyType: '',
+        isPhoneInvalid: '' 
     });
 
     // Load the state from Redux
@@ -111,12 +111,24 @@ const CreateRetailerFiscalInfo = ({ setState, errorState = [] }) => {
                                 Not a valid fiscal number</span>}
                 <br></br>
                 <ContactNumberInput
-                    actionFunc= {(value) => { setFormData({ type: 'setCompanyPhone', data: value }); }}
+                    actionFunc= {(value) => {
+                        setFormData({ type: 'setCompanyPhone', data: value });
+                        // Set phone invalid with the value
+                        setFormData({ type: 'setPhoneInvalid', data: value });
+                    }}
+                    errorFunc = {(value) => {
+                        // Set phone invalid with no value
+                        console.log('Error in phone number');
+                        setFormData({ type: 'setPhoneInvalid', data: '' });
+                    }}
                     data = {state?.companyPhone || ''}
                 />
                 {errorState?.includes('companyPhone') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
+                {errorState?.includes('isPhoneInvalid') &&
+                    <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                        Please enter a valid phone number</span>}
                 <br/>
                 <TextInput labelText={t('stripe-id')} onChange={(e) => {
                     setFormData({ type: 'setStripeId', data: e.target.value });

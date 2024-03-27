@@ -28,6 +28,8 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState = [] }) => {
                 return { ...state, manager: { ...state?.manager, managerUsername: action?.data } };
             case 'setManagerPassword':
                 return { ...state, manager: { ...state?.manager, managerPassword: action?.data } };
+            case 'setManagerPhoneInvalid':
+                return { ...state, manager: { ...state?.manager, isPhoneInvalid: action?.data } };
             case 'setBusinessAdminName':
                 return { ...state, businessAdmin: { ...state?.businessAdmin, adminName: action?.data } };
             case 'setBusinessAdminEmail':
@@ -38,6 +40,8 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState = [] }) => {
                 return { ...state, businessAdmin: { ...state?.businessAdmin, adminUsername: action?.data } };
             case 'setBusinessAdminPassword':
                 return { ...state, businessAdmin: { ...state?.businessAdmin, adminPassword: action?.data } };
+            case 'setAdminPhoneInvalid':
+                return { ...state, businessAdmin: { ...state?.businessAdmin, isPhoneInvalid: action?.data } };
             default:
                 return { ...state };
         }
@@ -47,14 +51,16 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState = [] }) => {
             managerEmail: '',
             managerPhone: '',
             managerUsername: '',
-            managerPassword: ''
+            managerPassword: '',
+            isPhoneInvalid: '' 
         },
         businessAdmin: {
             adminName: '',
             adminEmail: '',
             adminPhone: '',
             adminUsername: '',
-            adminPassword: ''
+            adminPassword: '',
+            isPhoneInvalid: '' 
         }
     });
 
@@ -105,17 +111,22 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState = [] }) => {
                                 Please enter a valid email</span>}
                     <br></br>
                     <ContactNumberInput 
-                        actionFunc= {(value) => { setFormData({ type: 'setManagerPhone', data: value }); }}
+                        actionFunc= {(value) => { setFormData({ type: 'setManagerPhone', data: value });
+                            setFormData({ type: 'setManagerPhoneInvalid', data: value });
+                        }}
                         data = {state?.manager?.managerPhone || ''}
+                        errorFunc = {(value) => {
+                            // Set phone invalid with no value
+                            console.log('Error in phone number');
+                            setFormData({ type: 'setManagerPhoneInvalid', data: '' });
+                        }}
                     />
-                    {/* <TextInput labelText={t('phone')} onChange={(e) => {
-                            setFormData({ type: 'setManagerPhone', data: e.target.value });
-                        }} 
-                        value = {state?.manager?.managerPhone}
-                        /> */}
                     {errorState?.includes('manager.managerPhone') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
+                    {errorState?.includes('manager.isPhoneInvalid') &&
+                    <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                        Please enter a valid phone number</span>}
                     <TextInput labelText={t('username')} onChange={(e) => {
                         setFormData({ type: 'setManagerUsername', data: e.target.value });
                     }} 
@@ -181,12 +192,22 @@ const CreateRetailerEmployeeInfo = ({ setState, errorState = [] }) => {
                         /> */}
                     <br></br>
                     <ContactNumberInput 
-                        actionFunc= {(value) => { setFormData({ type: 'setBusinessAdminPhone', data: value }); }}
+                        actionFunc= {(value) => { setFormData({ type: 'setBusinessAdminPhone', data: value });
+                            setFormData({ type: 'setAdminPhoneInvalid', data: value });
+                        }}
                         data = {state?.businessAdmin?.adminPhone || ''}
+                        errorFunc = {(value) => {
+                            // Set phone invalid with no value
+                            console.log('Error in phone number');
+                            setFormData({ type: 'setAdminPhoneInvalid', data: '' });
+                        }}
                     />
                     {errorState?.includes('businessAdmin.adminPhone') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
+                    {errorState?.includes('businessAdmin.isPhoneInvalid') &&
+                    <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                        Please enter a valid phone number</span>}
                     <TextInput labelText={t('username')} onChange={(e) => {
                         setFormData({ type: 'setBusinessAdminUsername', data: e.target.value });
                     }} 

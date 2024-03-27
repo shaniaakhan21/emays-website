@@ -26,6 +26,8 @@ const CreateDriverBasicInfo = ({ setState, errorState = [] }) => {
                 return { ...state, country: action?.data };
             case 'setZipCode':
                 return { ...state, zipCode: action?.data };
+            case 'setPhoneInvalid':
+                return { ...state, isPhoneInvalid: action?.data };
             default:
                 return { ...state };
         }
@@ -35,7 +37,8 @@ const CreateDriverBasicInfo = ({ setState, errorState = [] }) => {
         phoneNumber: '',
         city: '',
         country: '',
-        zipCode: ''
+        zipCode: '',
+        isPhoneInvalid: '' 
     });
 
     useEffect(() => {
@@ -79,8 +82,15 @@ const CreateDriverBasicInfo = ({ setState, errorState = [] }) => {
                             Please enter last name</span>}
                     <br />
                     <ContactNumberInput
-                        actionFunc= {(value) => { setFormData({ type: 'setPhoneNumber', data: value }); }}
+                        actionFunc= {(value) => { setFormData({ type: 'setPhoneNumber', data: value });
+                            setFormData({ type: 'setPhoneInvalid', data: value });
+                        }}
                         data = {state?.phoneNumber || ''}
+                        errorFunc = {(value) => {
+                            // Set phone invalid with no value
+                            console.log('Error in phone number');
+                            setFormData({ type: 'setPhoneInvalid', data: '' });
+                        }}
                     />
                     {errorState?.includes('phoneNumber') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
