@@ -15,7 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import CompletedMessageFragment from './Completed.message.fragment';
 import { validateEmail,
-    validateObjectNullEmptyCheckArray, validatePassword } from '../../../../js/util/validateObject';
+    validateObjectNullEmptyCheckArray, validatePassword,
+    validateStripeAccountId } from '../../../../js/util/validateObject';
 
 // SCSS
 import '../../../../scss/component/dashboard/adminTools/createRetailer.scss';
@@ -75,6 +76,13 @@ const CreateRetailer = () => {
                     const fiscalValidation = await validateFiscal(state?.fiscalNumber);
                     if (!fiscalValidation?.valid) {
                         setErrorState('fiscalValidationFailed');
+                        return;
+                    }
+                    // Stripe Id
+                    const stripeAccountValidity = validateStripeAccountId(state?.extStripeAccountId);
+                    console.log('-----<>>>', stripeAccountValidity);
+                    if (!stripeAccountValidity) {
+                        setErrorState('stripeAccountIdInvalid');
                         return;
                     }
                     dispatch(setStageTwoFiscalCreateStore(state));

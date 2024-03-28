@@ -10,13 +10,36 @@ import { config } from '../config/config';
 import * as orderService from '../service/orderService';
 import { getExternalSystemById } from '../service/administration/externalSystemService';
 import { calculateServiceFee } from '../service/orderService';
-import { CreatePayment } from '../type/stripeServiceType';
+import { CreatePayment, GetAccount } from '../type/stripeServiceType';
 import { CurrencyType } from '../const/currencyType';
+import { Logger } from '../log/logger';
+import { buildErrorMessage, buildInfoMessageMethodCall, buildInfoMessageUserProcessCompleted } from './logMessageBuilder';
+import LogType from '../const/logType';
+
+const Logging = Logger(__filename);
 
 // eslint-disable-next-line max-len
 const stripe = new Stripe('sk_test_51MyGFvB7uMaHzfLgYAJMVDmQrAV6KkgMe3vV2UMq2w0MppsugqMg8uPodMwx89gpuOSDOqhXjVBAHEAYAwq5hAvi00M4DD8qRu', {
     apiVersion: '2022-11-15'
 });
+
+/**
+ * Get stripe account info
+ */
+export const getStripeAccountInfo: GetAccount = async (stripeId) => {
+    try {
+        Logging.log(buildInfoMessageMethodCall(
+            'Get stripe account', `stripe id: ${stripeId}`), LogType.INFO);
+        const info = await stripe.accounts.retrieve(stripeId);
+        Logging.log(buildInfoMessageUserProcessCompleted('Stripe account found', `Account:
+            ${JSON.stringify(JSON.stringify(info))}` ), LogType.INFO);
+        return info;
+    } catch (error) {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'Get stripe account info'), LogType.ERROR);
+        throw error;
+    }
+};
 
 export const initiateOrderServiceFeePayment = async (userId: string, serviceFee: number) => {
     const order = await orderService.retrieveOrderDetailsByUserId(userId);

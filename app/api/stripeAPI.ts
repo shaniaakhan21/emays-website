@@ -20,7 +20,7 @@ import {
 import Stripe from 'stripe';
 import { IOrderDTO } from '../type/orderType';
 import { APIList } from 'googleapis/build/src/apis';
-import { CreatePayment } from '../type/stripeServiceType';
+import { CreatePayment, GetAccount } from '../type/stripeServiceType';
 
 const Logging = Logger(__filename);
 

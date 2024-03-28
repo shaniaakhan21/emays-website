@@ -95,6 +95,9 @@ const CreateDriverBasicInfo = ({ setState, errorState = [] }) => {
                     {errorState?.includes('phoneNumber') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone number</span>}
+                    {errorState?.includes('isPhoneInvalid') &&
+                    <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                        Please enter a valid phone number</span>}
                     <br />
                     <TextInput labelText={t('city')} onChange={(e) => {
                         setFormData({ type: 'setCity', data: e.target.value });

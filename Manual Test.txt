@@ -420,5 +420,8 @@ http://localhost:8080/api-dev/launchMail?launchType=emailEdit&uuid=8de807b5-4d4b
 20a14986&authToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyNC0wMS0yNlQxNDoyODozNi4yNzlaIiwiZXhwIjoxNzA3MTQzMzE2LCJyb2xlcyI6WyJjbGllbnQiXSwiaWQiOiI0MWFjYWM4MS02ZjBmLTRmNTctODJmZS1lOWI1YWY0YWZjOWYiLCJpYXQiOjE3MDYyNzkzMTZ9.UyDQEZCRhfXU50or0oBxx1qy2_M31C8nVgft6a9jsdE
 
 
+-------- GET STRIPE  Own Stripe Account------------
 
-
+GET http://localhost:8080/api-dev/stripe/accounts/acct_1O8IwqLLKNgX8Xew
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0aW1lIjoiMjAyNC0wMy0yOFQxMTo1MzowMy42MDVaIiwiZXhwIjoxNzExNjMwMzgzLCJyb2xlcyI6WyJzdXBlciJdLCJpZCI6IjY1ZmRjYzE1NGIxYjRhY2E4ZTBmZTQ0MSIsImlhdCI6MTcxMTYyNjc4M30.s6tgRhbMvUtcdmhAhaCxpEYXilXg5dCcArPLDHDVjrQ

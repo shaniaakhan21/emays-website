@@ -138,6 +138,9 @@ const CreateRetailerFiscalInfo = ({ setState, errorState = [] }) => {
                 {errorState?.includes('extStripeAccountId') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter stripe Id</span>}
+                {errorState?.includes('stripeAccountIdInvalid') &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter valid stripe Id</span>}
                 <br/>
                 <DropDownCustom
                     type='inline'

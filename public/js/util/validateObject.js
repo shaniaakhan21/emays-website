@@ -81,6 +81,17 @@ export const validatePassword = (password) => {
 };
 
 /**
+ * Validate stripe account id
+ * @param {string} stripeAccountId 
+ * @returns 
+ */
+export const validateStripeAccountId = (stripeAccountId) => {
+    const accountIDPattern = /^acct_[a-zA-Z0-9]{14,26}$/;
+    return accountIDPattern.test(stripeAccountId);
+
+};
+
+/**
  * Email validation
  * @param {string} password 
  * @returns 
