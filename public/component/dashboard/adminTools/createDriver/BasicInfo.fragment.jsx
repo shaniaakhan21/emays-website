@@ -8,7 +8,7 @@ import ContactNumberInput from '../../../common/ContactNumberInput';
 import { newDriverSelectorMemoized } from '../../redux/selector/newDriverSelector';
 import { useSelector } from 'react-redux';
 
-const CreateDriverBasicInfo = ({ setState, errorState }) => {
+const CreateDriverBasicInfo = ({ setState, errorState = [] }) => {
 
     const [translate] = useTranslation();
 
@@ -26,6 +26,8 @@ const CreateDriverBasicInfo = ({ setState, errorState }) => {
                 return { ...state, country: action?.data };
             case 'setZipCode':
                 return { ...state, zipCode: action?.data };
+            case 'setPhoneInvalid':
+                return { ...state, isPhoneInvalid: action?.data };
             default:
                 return { ...state };
         }
@@ -35,7 +37,8 @@ const CreateDriverBasicInfo = ({ setState, errorState }) => {
         phoneNumber: '',
         city: '',
         country: '',
-        zipCode: ''
+        zipCode: '',
+        isPhoneInvalid: '' 
     });
 
     useEffect(() => {
@@ -65,7 +68,7 @@ const CreateDriverBasicInfo = ({ setState, errorState }) => {
                     }} id='firstName' 
                     value = {state?.firstName}
                     />
-                    {errorState === 'firstName' &&
+                    {errorState?.includes('firstName') &&
                     <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter first name</span>}
                     <br />
@@ -74,24 +77,34 @@ const CreateDriverBasicInfo = ({ setState, errorState }) => {
                     }} id='lastName' 
                     value = {state?.lastName}
                     />
-                    {errorState === 'lastName' &&
+                    {errorState?.includes('lastName') &&
                     <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter last name</span>}
                     <br />
                     <ContactNumberInput
-                        actionFunc= {(value) => { setFormData({ type: 'setPhoneNumber', data: value }); }}
+                        actionFunc= {(value) => { setFormData({ type: 'setPhoneNumber', data: value });
+                            setFormData({ type: 'setPhoneInvalid', data: value });
+                        }}
                         data = {state?.phoneNumber || ''}
+                        errorFunc = {(value) => {
+                            // Set phone invalid with no value
+                            console.log('Error in phone number');
+                            setFormData({ type: 'setPhoneInvalid', data: '' });
+                        }}
                     />
-                    {errorState === 'phoneNumber' &&
+                    {errorState?.includes('phoneNumber') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone number</span>}
+                    {errorState?.includes('isPhoneInvalid') &&
+                    <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                        Please enter a valid phone number</span>}
                     <br />
                     <TextInput labelText={t('city')} onChange={(e) => {
                         setFormData({ type: 'setCity', data: e.target.value });
                     }} id='city' 
                     value = {state?.city}
                     />
-                    {errorState === 'city' &&
+                    {errorState?.includes('city') &&
                     <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter city</span>}
                     <br />
@@ -100,7 +113,7 @@ const CreateDriverBasicInfo = ({ setState, errorState }) => {
                     }} id='country' 
                     value = {state?.country}
                     />
-                    {errorState === 'country' &&
+                    {errorState?.includes('country') &&
                     <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter country</span>}
                     <br />
@@ -109,7 +122,7 @@ const CreateDriverBasicInfo = ({ setState, errorState }) => {
                     }} id='zip' 
                     value = {state?.zipCode}
                     />
-                    {errorState === 'zipCode' &&
+                    {errorState?.includes('zipCode') &&
                     <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter zip code</span>}
                 </div>

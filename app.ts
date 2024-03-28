@@ -34,6 +34,7 @@ import letsTalkRoute from './app/route/letsTalkRoute';
 import faqRoute from './app/route/faqRoute';
 import { emailScheduler } from './app/service/schedulerEmailService';
 import dashboard from './app/route/dashboardRoute';
+import validation from './app/route/validationRoute';
 import website from './app/route/websiteRoute';
 import { WEBSITE_UI_PATHS } from './app/const/routePath';
 
@@ -82,6 +83,7 @@ app.use(config.ROUTE_PATH, faqRoute);
 app.use(config.ROUTE_PATH, adminExternalSystemRoute);
 app.use(config.ROUTE_PATH, managerExternalSystemRoute);
 app.use(config.ROUTE_PATH, driverRoute);
+app.use(config.ROUTE_PATH, validation);
 // This allows to refresh the e-commerce pages
 app.use(config.ROUTE_PATH, eCommerceRoute);
 app.use(dashboard);

@@ -9,7 +9,7 @@ import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import { useSelector } from 'react-redux';
 import TextBoxPassword from '../../../common/TextBoxPassword';
 
-const CreateRetailerAccountInfo = ({ setState, errorState }) => {
+const CreateRetailerAccountInfo = ({ setState, errorState = [] }) => {
 
     const [translate] = useTranslation();
     const selector = useSelector(newStoreSelectorMemoized);
@@ -36,10 +36,25 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
 
     // Load the state from Redux
     useState(() => {
-        setFormData({ type: 'setUsername', data: selector?.phaseOneData?.username });
-        setFormData({ type: 'setEmail', data: selector?.phaseOneData?.email });
-        setFormData({ type: 'setPassword', data: selector?.phaseOneData?.password });
-        setFormData({ type: 'setGeneratedPassword', data: selector?.phaseTwoData?.generatedPassword });
+        setFormData({ type: 'setUsername', data: selector?.phaseOneData?.username || '' });
+        setFormData({ type: 'setEmail', data: selector?.phaseOneData?.email || '' });
+        setFormData({ type: 'setPassword', data: selector?.phaseOneData?.password || '' });
+        setFormData({ type: 'setGeneratedPassword', data: selector?.phaseTwoData?.generatedPassword || '' });
+    }, []);
+
+    useEffect(() => {
+        if (selector?.phaseOneData?.isLoading && !selector?.phaseOneData?.email) {
+            setTimeout(() => {
+                document.querySelector('.emailInput input').value = '';
+            }, 1000);
+            
+        }
+        if (selector?.phaseOneData?.isLoading && !selector?.phaseOneData?.password) {
+            setTimeout(() => {
+                document.querySelector('.passwordInput').value = '';
+            }, 1000);
+            
+        }
     }, []);
 
     // When changing the state, update the parent state 
@@ -63,25 +78,26 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
                     }}
                     value = {state?.username}
                     />
-                    {errorState === 'username' &&
+                    {errorState?.includes('username') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter username</span>}
-                    {errorState === 'Username already reserved' &&
+                    {errorState?.includes('Username already reserved') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 This username already reserved</span>}
-                    {errorState === 'Some error occurred' &&
+                    {errorState?.includes('Some error occurred') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Some error occurred</span>}
                     <br />
                     <TextInput labelText={t('email')} onChange={(e) => {
                         setFormData({ type: 'setEmail', data: e.target.value });
                     }} 
+                    className = {'emailInput'}
                     value = {state?.email}
                     />
-                    {errorState === 'email' &&
+                    {errorState?.includes('email') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter email</span>}
-                    {errorState === 'emailInvalid' &&
+                    {errorState?.includes('emailInvalid') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter a valid email</span>}            
                     {/* <TextInput labelText={t('password')} onChange={(e) => {
@@ -98,11 +114,12 @@ const CreateRetailerAccountInfo = ({ setState, errorState }) => {
                         hidePasswordLabel='Hide password'
                         customStyle={{ width: '100%' }}
                         value = {state?.password}
+                        className={'passwordInput'}
                     />
-                    {errorState === 'password' &&
+                    {errorState?.includes('password') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter password</span>}
-                    {errorState === 'passwordInvalid' &&
+                    {errorState?.includes('passwordInvalid') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             The password must consist of only uppercase letters, lowercase letters, digits,
                              the specified special characters (@, $, !, %, *, ?) and must be at least 8 

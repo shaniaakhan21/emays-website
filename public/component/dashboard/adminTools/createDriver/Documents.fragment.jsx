@@ -9,7 +9,7 @@ import { setLicenseDocument } from '../../../../js/util/SessionStorageUtil';
 import { newDriverSelectorMemoized } from '../../redux/selector/newDriverSelector';
 import { useSelector } from 'react-redux';
 
-const CreateDriverDocuments = ({ setState, errorState }) => {
+const CreateDriverDocuments = ({ setState, errorState = [] }) => {
     const [translate] = useTranslation();
     const pushAlert = useMessage();
     const [selectedImageURL, setSelectedImageURL] = useState(null);
@@ -82,7 +82,7 @@ const CreateDriverDocuments = ({ setState, errorState }) => {
                     }} id='licenseNumber'
                     value={state?.licenseNumber}
                     />
-                    {errorState === 'licenseNumber' &&
+                    {errorState?.includes('licenseNumber') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter number</span>}
                     <br />
@@ -91,7 +91,7 @@ const CreateDriverDocuments = ({ setState, errorState }) => {
                     }} id='carModel'
                     value={state?.carModel}
                     />
-                    {errorState === 'carModel' &&
+                    {errorState?.includes('carModel') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter car model</span>}
                     <br />
@@ -100,7 +100,7 @@ const CreateDriverDocuments = ({ setState, errorState }) => {
                     }} id='carPlate'
                     value={state?.carPlate}
                     />
-                    {errorState === 'carPlate' &&
+                    {errorState?.includes('carPlate') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter car plate</span>}
                 </div>
@@ -134,7 +134,7 @@ const CreateDriverDocuments = ({ setState, errorState }) => {
                         <Heading className='sub-title'>{t('sub-title3')}</Heading><br />
                         <img height={'350px'} width={'300px'} src={state?.licenseDoc} alt='preview' />
                         <br />
-                        {errorState === 'licenseDoc' &&
+                        {errorState?.includes('licenseDoc') &&
                             <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please add license document</span>}
                     </div>

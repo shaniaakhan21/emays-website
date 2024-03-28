@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Heading, TextInput, Column } from '@carbon/react';
 import { newStoreSelectorMemoized } from '../../redux/selector/newStorSelector';
 import ContactNumberInput from '../../../common/ContactNumberInput';
-import GoogleMap from '../../../common/googleMap';
+import { isValidPhoneNumber } from 'react-phone-number-input';
 
 // SCSS
 import '../../../../scss/component/dashboard/adminTools/fiscalInfo.scss';
@@ -13,12 +13,9 @@ import GoogleMapWithSearchBar from '../../../common/googleMapWithSearchComponent
 import DropDownCustom from '../../../common/DropdownCustom';
 import currencyTypes from '../../../../js/const/currencyTypes';
 
-const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
+const CreateRetailerFiscalInfo = ({ setState, errorState = [] }) => {
     const [translate] = useTranslation();
     const [mapAPIKey, setMapAPIKey] = useState('');
-    
-    const [selectedImageURL, setSelectedImageURL] = useState(null);
-    const [selectedFile, setSelectedFile] = useState(null);
     const selector = useSelector(newStoreSelectorMemoized);
 
     const [state, setFormData] = useReducer((state, action) => {
@@ -41,6 +38,8 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 return { ...state, city: action?.data };
             case 'setCountry':
                 return { ...state, country: action?.data };
+            case 'setPhoneInvalid':
+                return { ...state, isPhoneInvalid: action?.data };
             default:
                 return { ...state };
         }
@@ -53,7 +52,8 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
         city: '',
         country: '',
         extStripeAccountId: '',
-        currencyType: ''
+        currencyType: '',
+        isPhoneInvalid: '' 
     });
 
     // Load the state from Redux
@@ -93,7 +93,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 }}
                 value = {state?.companyName}
                 />
-                {errorState === 'companyName' &&
+                {errorState?.includes('companyName') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter company name</span>}
                 <br />
@@ -103,30 +103,49 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                 }}
                 value = {state?.fiscalNumber}
                 />
-                {errorState === 'fiscalNumber' &&
+                {errorState?.includes('fiscalNumber') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter fiscal number</span>}
+                {errorState?.includes('fiscalValidationFailed') &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Not a valid fiscal number</span>}
                 <br></br>
                 <ContactNumberInput
-                    actionFunc= {(value) => { setFormData({ type: 'setCompanyPhone', data: value }); }}
+                    actionFunc= {(value) => {
+                        setFormData({ type: 'setCompanyPhone', data: value });
+                        // Set phone invalid with the value
+                        setFormData({ type: 'setPhoneInvalid', data: value });
+                    }}
+                    errorFunc = {(value) => {
+                        // Set phone invalid with no value
+                        console.log('Error in phone number');
+                        setFormData({ type: 'setPhoneInvalid', data: '' });
+                    }}
                     data = {state?.companyPhone || ''}
                 />
-                {errorState === 'companyPhone' &&
+                {errorState?.includes('companyPhone') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter phone</span>}
+                {errorState?.includes('isPhoneInvalid') &&
+                    <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                        Please enter a valid phone number</span>}
                 <br/>
                 <TextInput labelText={t('stripe-id')} onChange={(e) => {
                     setFormData({ type: 'setStripeId', data: e.target.value });
                 }}
                 value = {state?.extStripeAccountId}
                 />
-                {errorState === 'extStripeAccountId' &&
+                {errorState?.includes('extStripeAccountId') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter stripe Id</span>}
+                {errorState?.includes('stripeAccountIdInvalid') &&
+                        <span style={{ 'color': 'red', 'font-size': '12px' }}>
+                                Please enter valid stripe Id</span>}
                 <br/>
                 <DropDownCustom
                     type='inline'
                     id='storeCurrency'
+                    className='storeCurrency'
                     items={[...currencyTypes]}
                     selectedItem={state?.currencyType ? 
                         [...currencyTypes].find((itm) => itm?.value === state?.currencyType) 
@@ -138,7 +157,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                     titleText={t('currency-type')}
                 />
                 <br/>
-                {errorState === 'currencyType' &&
+                {errorState?.includes('currencyType') &&
                                 <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                     Please enter store currency type</span>}
                 <br></br>
@@ -152,7 +171,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         }}
                         value = {state?.street}
                         />
-                        {errorState === 'street' &&
+                        {errorState?.includes('street') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter street</span>}
                         <br />
@@ -161,7 +180,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         }}
                         value = {state?.zip}
                         />
-                        {errorState === 'zip' &&
+                        {errorState?.includes('zip') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter zip</span>}
                         <br />
@@ -173,7 +192,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         }}
                         value = {state?.city}
                         />
-                        {errorState === 'city' &&
+                        {errorState?.includes('city') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter city</span>}
                         <br />
@@ -182,7 +201,7 @@ const CreateRetailerFiscalInfo = ({ setState, errorState }) => {
                         }}
                         value = {state?.country}
                         />
-                        {errorState === 'country' &&
+                        {errorState?.includes('country') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                 Please enter country</span>}
                     </div>

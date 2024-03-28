@@ -12,6 +12,7 @@ import newDriverReducer from './slice/driverRegisterSlice';
 import driverHistoryReducer from './slice/driverHistorySlice';
 import driverFinalSelectionReducer from './slice/driverFinalSelectionSlice';
 import stripeSliceReducer from './slice/stripeSlice';
+import addressSearchReducer from './slice/addressSearchSlice';
 
 const store = configureStore({
     reducer: {
@@ -27,7 +28,8 @@ const store = configureStore({
         selectedOrderState: selectedOrderReducer,
         driverSelectedOrderState: driverSelectedOrderReducer,
         statsState: statsReducer,
-        stripePaymentState: stripeSliceReducer
+        stripePaymentState: stripeSliceReducer,
+        addressSearchState: addressSearchReducer
     }
 });
 
