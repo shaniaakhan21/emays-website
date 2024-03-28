@@ -9,6 +9,7 @@ const TextBoxPassword = ({ labelText, helperText,
             className={className}
             helperText={helperText}
             id={id}
+            autoComplete='off'
             invalidText={invalidText}
             showPasswordLabel={showPasswordLabel}
             labelText={labelText}

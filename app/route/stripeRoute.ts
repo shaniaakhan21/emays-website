@@ -4,7 +4,7 @@
 import * as express from 'express';
 const router = express.Router();
 
-import { RoutePath } from '../const/routePath';
+import { PathParam, RoutePath } from '../const/routePath';
 import { buildErrorMessage } from '../util/logMessageBuilder';
 import LogType from '../const/logType';
 import { Logger } from '../log/logger';
@@ -23,6 +23,7 @@ import {
 import Stripe from 'stripe';
 import {
     createReader,
+    getStripeAccountInfo,
     initiateOrderTerminalPayment,
     processTerminalOrder,
     showTerminalOrderInfo, simulateTerminalOrderPaymentFailure, simulateTerminalOrderPaymentSuccess
@@ -35,6 +36,21 @@ import { ICreateOrderRequestBody } from '../type/paymentRequestTypes';
 import { CurrencyType } from '../const/currencyType';
 
 const Logging = Logger(__filename);
+
+router.get(`${RoutePath.STRIPE}/accounts${PathParam.STRIPE_ID}`, (
+    req: express.Request, res: express.Response,
+    next: express.NextFunction
+) => {
+    (async () => {
+        const stripeId = req.params.stripeId;
+        const data = await getStripeAccountInfo(stripeId);
+        res.json({ data });
+    })().catch((error) => {
+        const errorObject: Error = error as Error;
+        Logging.log(buildErrorMessage(errorObject, 'stripe Checkout'), LogType.ERROR);
+        next(error);
+    });
+});
 
 router.get(`${RoutePath.STRIPE}/linkAccount`, (
     req: express.Request<core.ParamsDictionary, any, any, { uuid: string }>,

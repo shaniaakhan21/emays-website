@@ -1,6 +1,6 @@
 const currencyTypes = [
     { text: 'USD ($)', value: 'usd' },
-    { text: 'Euro (€)', value: 'euro' },
+    { text: 'EUR (€)', value: 'euro' },
     { text: 'AED', value: 'aed' }
 ];
 

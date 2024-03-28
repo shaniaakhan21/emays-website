@@ -8,7 +8,7 @@ import TextBoxPassword from '../../../common/TextBoxPassword';
 import { newDriverSelectorMemoized } from '../../redux/selector/newDriverSelector';
 import { useSelector } from 'react-redux';
 
-const CreateDriverAccountInfo = ({ setState, errorState }) => {
+const CreateDriverAccountInfo = ({ setState, errorState = [] }) => {
 
     const [state, setFormData] = useReducer((state, action) => {
         switch (action?.type) {
@@ -55,13 +55,13 @@ const CreateDriverAccountInfo = ({ setState, errorState }) => {
                         setFormData({ type: 'setUsername', data: e.target.value });
                     }}
                     value={state?.username} />
-                    {errorState === 'username' &&
+                    {errorState.includes('username') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter username</span>}
-                    {errorState === 'Username already reserved' &&
+                    {errorState.includes('Username already reserved') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             This username already reserved</span>}
-                    {errorState === 'Some error occurred' &&
+                    {errorState.includes('Some error occurred') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Some error occurred</span>}
                     <br />
@@ -69,10 +69,10 @@ const CreateDriverAccountInfo = ({ setState, errorState }) => {
                         setFormData({ type: 'setEmail', data: e.target.value });
                     }}
                     value={state?.email} />
-                    {errorState === 'email' &&
+                    {errorState.includes('email') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter email</span>}
-                    {errorState === 'emailInvalid' &&
+                    {errorState.includes('emailInvalid') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter a valid email</span>}
                     {/* <TextInput labelText={t('password')} onChange={(e) => {
@@ -89,10 +89,10 @@ const CreateDriverAccountInfo = ({ setState, errorState }) => {
                         hidePasswordLabel='Hide password'
                         customStyle={{ width: '100%' }}
                         value={state?.password} />
-                    {errorState === 'password' &&
+                    {errorState.includes('password') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter password</span>}
-                    {errorState === 'passwordInvalid' &&
+                    {errorState.includes('passwordInvalid') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             The password must consist of only uppercase letters, lowercase letters, digits,
                             the specified special characters (@, $, !, %, *, ?) and must be at least 8

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import TextBoxCustom from './TextBoxCustom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { getAddressSearch } from '../dashboard/redux/thunk/addressSearchThunk';
 
 const GeoSearchContainer = styled.div`
     padding-top: 20px;
@@ -23,6 +25,7 @@ const GoogleMapLatLan = ({ setLatLan, mapAPIKey }) => {
     const [predictions, setPredictions] = useState([]);
     const [autocompleteService, setAutocompleteService] = useState(null);
     const [placeService, setPlaceService] = useState(null);
+    const dispatch = useDispatch();
     // Initialize google map API. App Data will be passed by Store App.
     useEffect(() => {
         loadServices();
@@ -78,6 +81,10 @@ const GoogleMapLatLan = ({ setLatLan, mapAPIKey }) => {
     };
 
     const selectPredictionHandler = (prediction) => {
+        const addressLines = prediction.description.split(',');
+        const reversedAddressLines = addressLines.reverse();
+        const [country, city, number, street] = reversedAddressLines;
+        dispatch(getAddressSearch({ country, city, number, street }));
         setAddress(prediction?.description);
         placeService.getDetails({ placeId: prediction['place_id'] }, function (result, status) {
             const [addOne] = prediction?.description?.split(', ');

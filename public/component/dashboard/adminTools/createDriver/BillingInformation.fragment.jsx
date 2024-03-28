@@ -9,7 +9,7 @@ import { newDriverSelectorMemoized } from '../../redux/selector/newDriverSelecto
 import { useSelector } from 'react-redux';
 import currencyTypes from '../../../../js/const/currencyTypes';
 
-const CreateDriverBillingInformation = ({ setState, errorState }) => {
+const CreateDriverBillingInformation = ({ setState, errorState = [] }) => {
     const [translate] = useTranslation();
 
     const onChange = useCallback((e) => {
@@ -81,7 +81,7 @@ const CreateDriverBillingInformation = ({ setState, errorState }) => {
                     }} id='address'
                     value={state?.billingAddress}
                     />
-                    {errorState === 'billingAddress' &&
+                    {errorState?.includes('billingAddress') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter billing address</span>}
                     <br />
@@ -90,10 +90,10 @@ const CreateDriverBillingInformation = ({ setState, errorState }) => {
                     }} id='email'
                     value={state?.billingEmail}
                     />
-                    {errorState === 'billingEmail' &&
+                    {errorState?.includes('billingEmail') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter email address</span>}
-                    {errorState === 'billingEmailInvalid' &&
+                    {errorState?.includes('billingEmailInvalid') &&
                         <span style={{ 'color': 'red', 'font-size': '12px' }}>
                             Please enter an email address</span>}
                 </div>
@@ -110,7 +110,7 @@ const CreateDriverBillingInformation = ({ setState, errorState }) => {
                             }} id='bankName'
                             value={state?.bankName}
                             />
-                            {errorState === 'bankName' &&
+                            {errorState?.includes('bankName') &&
                                 <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                     Please enter bank name</span>}
                             <br />
@@ -119,7 +119,7 @@ const CreateDriverBillingInformation = ({ setState, errorState }) => {
                             }} id='accountNumber'
                             value={state?.accountNumber}
                             />
-                            {errorState === 'accountNumber' &&
+                            {errorState?.includes('accountNumber') &&
                                 <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                     Please enter account number</span>}
                         </div>
@@ -129,7 +129,7 @@ const CreateDriverBillingInformation = ({ setState, errorState }) => {
                             }} id='swiftNumber'
                             value={state?.swiftNumber}
                             />
-                            {errorState === 'swiftNumber' &&
+                            {errorState?.includes('swiftNumber') &&
                                 <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                     Please enter swift number</span>}
                             <br />
@@ -138,7 +138,7 @@ const CreateDriverBillingInformation = ({ setState, errorState }) => {
                             }} id='country'
                             value={state?.country}
                             />
-                            {errorState === 'country' &&
+                            {errorState?.includes('country') &&
                                 <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                     Please enter country</span>}
                         </div>
@@ -157,7 +157,7 @@ const CreateDriverBillingInformation = ({ setState, errorState }) => {
                             label={t('paymentCurrency-label')}
                             titleText={t('paymentCurrency')}
                         />
-                        {errorState === 'paymentCurrency' &&
+                        {errorState?.includes('paymentCurrency') &&
                                 <span style={{ 'color': 'red', 'font-size': '12px' }}>
                                     Please enter payment currency</span>}
                     </div>

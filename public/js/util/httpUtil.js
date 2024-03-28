@@ -4,7 +4,7 @@
 import { getAuthToken } from './SessionStorageUtil';
 import ResponseValidator from './responseValidator';
 
-export const apiBase = '/api';
+export const apiBase = '/api-dev';
 
 export class HTTPHelper {
     static async get (uri, headers, token) {

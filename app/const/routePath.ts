@@ -6,6 +6,7 @@ export enum RoutePath {
     CALENDER_REDIRECTION = '/redirectGoogleAccess',
     LAUNCH = '/launch',
     DASHBOARD = '/dashboard',
+    VALIDATE = '/validate',
     LAUNCH_ADD = '/launchAdd',
     LAUNCH_UPDATE = '/launchUpdate',
     LAUNCH_MAIL = '/launchMail',
@@ -53,7 +54,8 @@ export enum PathParam {
     AREA_NAME = '/:area',
     AREA_LATITUDE = '/:lat',
     AREA_LONGITUDE = '/:long',
-    EXTERNAL_SYSTEM_ID = '/:externalSystemId'
+    EXTERNAL_SYSTEM_ID = '/:externalSystemId',
+    STRIPE_ID = '/:stripeId'
 }
 
 export const WEBSITE_UI_PATHS: Array<string> = [

@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
-import PhoneInput from 'react-phone-number-input';
+import PhoneInput, { isPossiblePhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import '../../scss/component/common/contactNumber.scss';
 
-const ContactNumberInput = ({ actionFunc, data }) => {
+const ContactNumberInput = ({ actionFunc, data, errorFunc }) => {
+
     return (
         <>
             <label>Contact</label>
@@ -12,6 +13,9 @@ const ContactNumberInput = ({ actionFunc, data }) => {
                 defaultCountry='IT'
                 onChange={(value) => {
                     actionFunc(value);
+                    if (!isPossiblePhoneNumber(value || '')) {
+                        errorFunc('phoneLengthInvalid');
+                    }
                 } } 
                 value = {data}
             ></PhoneInput>
