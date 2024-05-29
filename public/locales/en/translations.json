@@ -6,8 +6,8 @@
         "description": "IN STORE SHOPPING EXPERIENCE NOW AT HOME Brought to you, by Emays"
       },
       "shopwithus": {
-        "title": "Shop with us",
-        "description": "Emays Shop - IN STORE SHOPPING EXPERIENCE NOW AT HOME."
+        "title": "Shop High-End Fashion at Home with EMAYS | Exclusive Customer Services",
+        "description": "Discover EMAYS's personalized home shopping and delivery for luxury fashion. Try premium clothes at home, buy only what you love. Shop now for an unmatched in-home boutique experience."
       },
       "faqs": {
         "title": "Frequently Asked Questions",
@@ -30,8 +30,8 @@
         "description": "Ecommerce and In-store software - Seamless integrations with any API enabled platform"
       },
       "home": {
-        "title": "WE SHIP THE SHOP - Convert, grow and retain customers with Emays",
-        "description": "Emays - Bring the Luxury shopping experience to your clients - Convert, grow and retain customers with Emays"
+        "title": "EMAYS: Premier Luxury Fashion Retail Platform | Exclusive In-Home Delivery",
+        "description": "Explore EMAYS, the leading software for luxury fashion retailers offering seamless integration of e-commerce and in-store experiences with premium home delivery services. Elevate your shopping experience today."
       }
     }
   },
@@ -575,7 +575,6 @@
       "Place-holder-06": "City",
       "Place-holder-07": "Apt Number",
       "Place-holder-08": "Zip code"
-      
     },
     "orderCreated": {
       "title": "Order Created",
